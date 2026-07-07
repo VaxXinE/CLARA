@@ -1,0 +1,190 @@
+---
+book: "Book VII — Operations, Observability & Reliability"
+part: "PART-01 — Operations Foundation"
+chapter: "03"
+title: "Production Operating Model"
+version: "1.0.0"
+status: "official"
+owner: "CLARA Operations Team"
+last_updated: "2026-07-07"
+classification: "operations-foundation"
+previous: "02-Operations-Principles.md"
+next: "04-Service-Ownership-and-On-Call-Readiness.md"
+project: "CLARA"
+---
+
+# Production Operating Model
+
+> *"Defines how CLARA production operations are organized across people, process, systems, environments, monitoring, escalation, and improvement loops."*
+
+---
+
+# Purpose
+
+Defines how CLARA production operations are organized across people, process, systems, environments, monitoring, escalation, and improvement loops.
+
+---
+
+# Operational Problem
+
+Production issues often cross team boundaries, so operations need a model that makes responsibilities explicit.
+
+---
+
+# Operational Decision
+
+## Decision
+
+CLARA should operate production through a clear model that connects engineering, support, security, product, and business ownership.
+
+## Status
+
+Accepted.
+
+---
+
+# Operations Rule
+
+Every production capability in CLARA must be operated as:
+
+```text
+Capability -> Owner -> Health Signal -> Alert/Review Path -> Runbook -> Evidence -> Improvement Loop
+```
+
+A feature is not production-ready if the team cannot answer:
+
+```text
+who owns it
+how to observe it
+how to detect failure
+how to recover it
+how to support users
+how to prove what happened
+how to improve after failure
+```
+
+---
+
+# Recommended Operations Flow
+
+```mermaid
+sequenceDiagram
+    participant Feature as Feature/Service Owner
+    participant Ops as Operations
+    participant Obs as Observability
+    participant Support as Support
+    participant Incident as Incident Response
+    participant Evidence as Evidence/Reports
+
+    Feature->>Ops: Defines operational ownership and readiness
+    Ops->>Obs: Defines metrics, logs, alerts, dashboards
+    Support->>Ops: Reports user/customer pain
+    Obs->>Incident: Signals abnormal behavior
+    Incident->>Evidence: Records timeline, actions, outcome
+    Evidence-->>Feature: Drives improvements and runbook updates
+```
+
+---
+
+# Production-Ready Checklist
+
+- [ ] Owner is assigned.
+- [ ] Backup/escalation owner is defined where critical.
+- [ ] Health signal is defined.
+- [ ] Logs/metrics/traces are defined where relevant.
+- [ ] Alerts or review signals are defined.
+- [ ] Runbook exists.
+- [ ] Fallback/recovery path exists.
+- [ ] Support impact is understood.
+- [ ] Evidence/reporting source is defined.
+- [ ] Security and data boundaries are respected.
+
+---
+
+# Acceptance Criteria
+
+- [ ] Operational responsibility is clear.
+- [ ] Monitoring/observability expectations are clear.
+- [ ] Failure handling is clear.
+- [ ] Support escalation is clear.
+- [ ] Evidence expectations are clear.
+- [ ] Continuous improvement loop is clear.
+- [ ] AI coding assistants can follow this safely.
+
+---
+
+# Anti-patterns
+
+Avoid:
+
+- Shipping production features without owners.
+- Alerts with no responder.
+- Dashboards nobody uses.
+- Logs that expose secrets/customer data.
+- Runbooks that only one engineer understands.
+- No rollback or disable path.
+- No support escalation process.
+- Measuring uptime without user-impact context.
+- Treating AI/integrations as normal low-risk services.
+- Fixing incidents without improving docs/tests/alerts.
+
+---
+
+# Related Documents
+
+- ../../BOOK-06-Security-Governance-and-Compliance/BOOK-06-Master-Index/README.md
+- ../../BOOK-06-Security-Governance-and-Compliance/PART-08-Incident-Response-and-Business-Continuity-Governance/README.md
+- ../../BOOK-06-Security-Governance-and-Compliance/PART-09-Secure-SDLC-Governance/README.md
+- ../../BOOK-05-Engineering-Execution-Plan/PART-10-DevOps-and-Release-Execution/README.md
+- ../../BOOK-05-Engineering-Execution-Plan/PART-12-Production-Readiness-and-Handover/README.md
+
+---
+
+# Navigation
+
+**Previous:** `02-Operations-Principles.md`
+
+**Next:** `04-Service-Ownership-and-On-Call-Readiness.md`
+
+---
+
+# Operating Model Components
+
+CLARA production operating model includes:
+
+```text
+service ownership
+environment ownership
+deployment ownership
+observability ownership
+incident ownership
+support escalation ownership
+security operations ownership
+data recovery ownership
+third-party/provider ownership
+AI operations ownership
+```
+
+---
+
+# Operating Layers
+
+```mermaid
+flowchart TD
+    Product[Product Workflows] --> Services[Application Services]
+    Services --> Infra[Infrastructure and Runtime]
+    Services --> Data[Database/Storage]
+    Services --> AI[AI Providers and Gateway]
+    Services --> Integration[Integration Gateway/Providers]
+    Infra --> Observability[Observability]
+    Data --> Observability
+    AI --> Observability
+    Integration --> Observability
+    Observability --> Operations[Operations Response]
+```
+
+---
+
+# Model Rule
+
+Every layer must have ownership and observability.
