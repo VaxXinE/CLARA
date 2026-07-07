@@ -34,7 +34,7 @@ jobs:
             exit 1
           fi
 
-        api-bootstrap:
+  api-bootstrap:
     name: API Bootstrap Validation
     runs-on: ubuntu-latest
 
