@@ -1,0 +1,206 @@
+---
+book: "Book VIII — Implementation, Delivery & Production Launch"
+part: "PART-09 — CI/CD and Environment Implementation"
+chapter: "106"
+title: "Rollback and Hotfix Workflow"
+version: "1.0.0"
+status: "official"
+owner: "CLARA Platform Engineering Team"
+last_updated: "2026-07-07"
+classification: "ci-cd-environment-implementation"
+previous: "105-Deployment-Strategies.md"
+next: "107-Pipeline-Security-and-Audit-Evidence.md"
+project: "CLARA"
+---
+
+# Rollback and Hotfix Workflow
+
+> *"Defines rollback, roll-forward, hotfix, emergency patch, incident-linked deployment, validation, and communication workflow."*
+
+---
+
+# Purpose
+
+Defines rollback, roll-forward, hotfix, emergency patch, incident-linked deployment, validation, and communication workflow.
+
+---
+
+# Delivery Problem
+
+A team that can deploy but cannot rollback safely is not production-ready.
+
+---
+
+# Delivery Decision
+
+## Decision
+
+CLARA should support fast rollback or forward-fix with clear ownership, evidence, and post-deployment validation.
+
+## Status
+
+Accepted.
+
+---
+
+# CI/CD Implementation Rule
+
+Every CLARA production change should move through:
+
+```text
+Commit -> Pull Request -> Review -> CI Quality Gates -> Build Artifact -> Environment Promotion -> Deployment -> Smoke Validation -> Observability Check -> Evidence Capture
+```
+
+A delivery workflow is not production-ready if it cannot answer:
+
+```text
+who approved the change
+what tests and scans passed
+what artifact was built
+what environment received it
+what config/secrets were used
+what migration ran
+what feature flags changed
+how deployment was validated
+how rollback/forward-fix works
+where audit evidence is stored
+```
+
+---
+
+# Recommended Delivery Flow
+
+```mermaid
+sequenceDiagram
+    participant Dev as Developer/AI Assistant
+    participant PR as Pull Request
+    participant CI as CI Pipeline
+    participant Artifact as Artifact Registry
+    participant Staging as Staging
+    participant Prod as Production
+    participant Obs as Observability/Evidence
+
+    Dev->>PR: Opens scoped change
+    PR->>CI: Runs quality/security gates
+    CI->>Artifact: Builds immutable artifact
+    Artifact->>Staging: Promotes artifact
+    Staging->>Obs: Smoke test + evidence
+    Obs->>Prod: Approve production promotion
+    Prod->>Obs: Deploy + validate + monitor
+```
+
+---
+
+# Production-Ready Checklist
+
+- [ ] Branch protection exists.
+- [ ] Required reviews exist.
+- [ ] Quality gates block unsafe changes.
+- [ ] Security scans run.
+- [ ] Artifact is immutable and traceable.
+- [ ] Environment promotion is explicit.
+- [ ] Secrets are injected securely.
+- [ ] Migrations are controlled.
+- [ ] Feature flags are documented.
+- [ ] Deployment strategy is selected.
+- [ ] Rollback/hotfix path exists.
+- [ ] Evidence is captured.
+
+---
+
+# Acceptance Criteria
+
+- [ ] Delivery path is repeatable.
+- [ ] Production changes are traceable.
+- [ ] Pipeline blocks risky changes.
+- [ ] Secrets are protected.
+- [ ] Deployment and rollback are clear.
+- [ ] Audit evidence is available.
+- [ ] AI coding assistants can apply this safely.
+
+---
+
+# Anti-patterns
+
+Avoid:
+
+- Direct commits to protected branches.
+- Manual production deploys with no evidence.
+- Rebuilding artifacts separately per environment.
+- CI logs that expose secrets.
+- Migration execution without review.
+- Feature flags with no owner or cleanup date.
+- Rollbacks that do not consider database compatibility.
+- Long-lived release branches with unmerged fixes.
+- Pipeline credentials with broad production access.
+- Non-blocking critical security gates.
+
+---
+
+# Related Documents
+
+- ../PART-08-Testing-and-Quality-Implementation/README.md
+- ../PART-05-Database-and-Migration-Implementation/README.md
+- ../PART-06-AI-Gateway-and-Automation-Implementation/README.md
+- ../../BOOK-06-Security-Governance-and-Compliance/BOOK-06-Master-Index/README.md
+- ../../BOOK-07-Operations-Observability-and-Reliability/BOOK-07-Master-Index/README.md
+
+---
+
+# Navigation
+
+**Previous:** `105-Deployment-Strategies.md`
+
+**Next:** `107-Pipeline-Security-and-Audit-Evidence.md`
+
+---
+
+# Rollback Types
+
+Use:
+
+```text
+application artifact rollback
+feature flag disablement
+configuration rollback
+traffic rollback
+database forward-fix
+worker pause/restart
+provider/integration disablement
+```
+
+---
+
+# Hotfix Workflow
+
+Hotfix should include:
+
+```text
+incident/issue reference
+minimal change
+owner approval
+required tests
+security review if sensitive
+fast deployment path
+post-hotfix follow-up PR if needed
+evidence capture
+```
+
+---
+
+# Rollback Checklist
+
+- [ ] Known good artifact identified.
+- [ ] Database compatibility confirmed.
+- [ ] Feature flags considered.
+- [ ] Queue/worker state considered.
+- [ ] Integration side effects considered.
+- [ ] Smoke tests defined.
+- [ ] Communication owner assigned.
+- [ ] Evidence captured.
+
+---
+
+# Rollback Rule
+
+Rollback must be practiced or at least documented before it is needed during an incident.
