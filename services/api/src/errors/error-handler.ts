@@ -6,6 +6,7 @@ import type {
 } from 'fastify';
 import type { Env } from '../config/env';
 import { isProduction } from '../config/env';
+import { AppError } from './app-error';
 
 type ErrorPayload = {
   error: {
@@ -17,6 +18,10 @@ type ErrorPayload = {
 };
 
 function getStatusCode(error: FastifyError): number {
+  if (error instanceof AppError) {
+    return error.statusCode;
+  }
+
   if (typeof error.statusCode === 'number') {
     return error.statusCode;
   }
@@ -34,7 +39,7 @@ function getErrorCode(statusCode: number): string {
   }
 
   if (statusCode === 401) {
-    return 'UNAUTHORIZED';
+    return 'UNAUTHENTICATED';
   }
 
   if (statusCode === 403) {
@@ -50,6 +55,18 @@ function getErrorCode(statusCode: number): string {
   }
 
   return 'INTERNAL_SERVER_ERROR';
+}
+
+function getErrorDetails(error: FastifyError, statusCode: number, env: Env) {
+  if (error instanceof AppError) {
+    return error.details;
+  }
+
+  if (!isProduction(env) && statusCode < 500 && error.validation) {
+    return error.validation;
+  }
+
+  return undefined;
 }
 
 function getSafeMessage(
@@ -88,14 +105,17 @@ export function registerErrorHandlers(app: FastifyInstance, env: Env): void {
       const statusCode = getStatusCode(error);
       const payload: ErrorPayload = {
         error: {
-          code: getErrorCode(statusCode),
+          code:
+            error instanceof AppError ? error.appCode : getErrorCode(statusCode),
           message: getSafeMessage(error, statusCode, env),
           correlation_id: request.id
         }
       };
 
-      if (!isProduction(env) && statusCode < 500 && error.validation) {
-        payload.error.details = error.validation;
+      const details = getErrorDetails(error, statusCode, env);
+
+      if (details !== undefined) {
+        payload.error.details = details;
       }
 
       if (statusCode >= 500) {
