@@ -1,0 +1,173 @@
+---
+book: "Book VI — Security, Governance & Compliance"
+part: "PART-01 — Security Governance Foundation"
+chapter: "02"
+title: "Security Governance Principles"
+version: "1.0.0"
+status: "official"
+owner: "CLARA Security Governance Team"
+last_updated: "2026-07-07"
+classification: "security-governance"
+previous: "01-Book-VI-Overview.md"
+next: "03-Security-Ownership-and-Accountability.md"
+project: "CLARA"
+---
+
+# Security Governance Principles
+
+> *"Defines the core security governance principles that guide CLARA engineering, product, operations, AI, integrations, and data decisions."*
+
+---
+
+# Purpose
+
+Defines the core security governance principles that guide CLARA engineering, product, operations, AI, integrations, and data decisions.
+
+---
+
+# Governance Problem
+
+A system can have security features but still be poorly governed if teams do not share the same decision principles.
+
+---
+
+# Governance Decision
+
+## Decision
+
+CLARA security governance should be built on least privilege, accountability, defense-in-depth, auditability, privacy-by-design, secure defaults, and continuous improvement.
+
+## Status
+
+Accepted.
+
+---
+
+# Governance Rule
+
+Every security governance area must be managed as:
+
+```text
+Principle -> Owner -> Control -> Evidence -> Review Cadence -> Risk Decision
+```
+
+A control is not mature unless there is:
+
+```text
+clear owner
+clear implementation path
+clear evidence
+clear review rhythm
+clear exception process
+```
+
+---
+
+# Recommended Governance Flow
+
+```mermaid
+sequenceDiagram
+    participant Team as Product/Engineering Team
+    participant Sec as Security Owner
+    participant Risk as Risk Register
+    participant Evidence as Evidence Repository
+    participant Review as Governance Review
+
+    Team->>Sec: Raises security-sensitive decision or risk
+    Sec->>Risk: Records risk/control/owner
+    Sec->>Evidence: Links PRs, tests, logs, audit evidence
+    Review->>Risk: Reviews status and acceptance
+    Review-->>Team: Approve, mitigate, defer, or escalate
+```
+
+---
+
+# Secure-by-Design Checklist
+
+- [ ] Owner is defined.
+- [ ] Backup owner is defined where needed.
+- [ ] Risk is documented.
+- [ ] Control is mapped to implementation.
+- [ ] Evidence source is defined.
+- [ ] Review cadence is defined.
+- [ ] Exception path is defined.
+- [ ] Escalation path is defined.
+- [ ] Impact on AI/integrations/data is considered where relevant.
+
+---
+
+# Acceptance Criteria
+
+- [ ] Governance responsibility is clear.
+- [ ] Risk/control relationship is clear.
+- [ ] Evidence expectations are clear.
+- [ ] Review rhythm is clear.
+- [ ] Security exceptions are handled explicitly.
+- [ ] AI coding assistants can follow this safely.
+
+---
+
+# Anti-patterns
+
+Avoid:
+
+- Security ownership by assumption.
+- Risk acceptance without named approver.
+- Policies with no implementation controls.
+- Controls with no evidence.
+- Reviews with no follow-up owner.
+- Audit readiness only after an audit request.
+- Treating AI and integrations as normal low-risk features.
+- Hiding known risks inside informal chat.
+
+---
+
+# Related Documents
+
+- ../../BOOK-05-Engineering-Execution-Plan/PART-08-Security-Implementation-Plan/README.md
+- ../../BOOK-05-Engineering-Execution-Plan/PART-10-DevOps-and-Release-Execution/README.md
+- ../../BOOK-05-Engineering-Execution-Plan/PART-12-Production-Readiness-and-Handover/README.md
+- ../../BOOK-04-Product-Domain-Specification/BOOK-04-Master-Index/BOOK-04-AI-GOVERNANCE-MAP.md
+- ../../BOOK-04-Product-Domain-Specification/BOOK-04-Master-Index/BOOK-04-PERMISSION-MAP.md
+
+---
+
+# Navigation
+
+**Previous:** `01-Book-VI-Overview.md`
+
+**Next:** `03-Security-Ownership-and-Accountability.md`
+
+---
+
+# Core Principles
+
+CLARA security governance follows:
+
+```text
+least privilege
+secure by default
+defense in depth
+privacy by design
+auditability
+accountability
+separation of duties
+risk-based decision making
+human review for sensitive AI
+trust but verify external providers
+continuous improvement
+```
+
+---
+
+# Practical Meaning
+
+For CLARA, this means:
+
+```text
+AI cannot bypass RBAC
+integrations cannot bypass validation
+admins cannot make sensitive changes without audit
+customer data cannot be casually exported
+security exceptions must be documented
+```
