@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - chore/repository-skeleton
 
 jobs:
   repository-structure:
