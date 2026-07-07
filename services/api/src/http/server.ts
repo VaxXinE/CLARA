@@ -8,6 +8,7 @@ import {
 } from './middleware/correlation-id';
 import { registerErrorHandlers } from '../errors/error-handler';
 import { registerHealthRoutes } from './routes/health';
+import { registerMeRoutes } from './routes/me';
 
 export type CreateServerOptions = {
   env: Env;
@@ -30,6 +31,7 @@ export async function createServer(
   registerErrorHandlers(app, options.env);
 
   await registerHealthRoutes(app, options.env);
+  await registerMeRoutes(app, options.env);
 
   return app;
 }

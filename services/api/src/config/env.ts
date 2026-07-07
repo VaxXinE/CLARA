@@ -29,13 +29,21 @@ const envSchema = z.object({
     .enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent'])
     .default('info'),
 
+  MOCK_AUTH_ENABLED: z
+    .enum(['true', 'false'])
+    .optional(),
+
   CORS_ORIGIN: z
     .string()
     .trim()
     .default('')
 });
 
-export type Env = z.infer<typeof envSchema>;
+type RawEnv = z.infer<typeof envSchema>;
+
+export type Env = Omit<RawEnv, 'MOCK_AUTH_ENABLED'> & {
+  MOCK_AUTH_ENABLED: boolean;
+};
 
 export function loadEnv(input: NodeJS.ProcessEnv = process.env): Env {
   const parsed = envSchema.safeParse(input);
@@ -51,7 +59,21 @@ export function loadEnv(input: NodeJS.ProcessEnv = process.env): Env {
     );
   }
 
-  return parsed.data;
+  const env = {
+    ...parsed.data,
+    MOCK_AUTH_ENABLED:
+      parsed.data.MOCK_AUTH_ENABLED === undefined
+        ? parsed.data.NODE_ENV !== 'production'
+        : parsed.data.MOCK_AUTH_ENABLED === 'true'
+  };
+
+  if (env.NODE_ENV === 'production' && env.MOCK_AUTH_ENABLED) {
+    throw new Error(
+      'Invalid environment configuration: mock auth must be disabled in production.'
+    );
+  }
+
+  return env;
 }
 
 export function isProduction(env: Pick<Env, 'NODE_ENV'>): boolean {
