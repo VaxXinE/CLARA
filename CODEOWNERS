@@ -1,0 +1,31 @@
+# CODEOWNERS — Clara
+
+# Default owner
+* @VaxXinE
+
+# Root governance
+/README.md @VaxXinE
+/AGENTS.md @VaxXinE
+/SECURITY.md @VaxXinE
+/CONTRIBUTING.md @VaxXinE
+/CODEOWNERS @VaxXinE
+
+# GitHub workflows
+/.github/ @VaxXinE
+
+# Documentation root
+/docs/ @VaxXinE
+
+# Security-sensitive docs
+/docs/security/ @VaxXinE
+/docs/BOOK-06-Security-Governance-and-Compliance/ @VaxXinE
+/docs/BOOK-08-Implementation-Delivery-and-Production-Launch/ @VaxXinE
+/docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/PART-08-Continuous-Security-and-Compliance-Operations/ @VaxXinE
+
+# AI-sensitive docs
+/docs/ai/ @VaxXinE
+/docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/PART-10-AI-Quality-and-Automation-Improvement/ @VaxXinE
+
+# Architecture docs
+/docs/adr/ @VaxXinE
+/docs/BOOK-03-Implementation-Architecture/ @VaxXinE

@@ -6,9 +6,7 @@
 
 # Supported Scope
 
-This repository currently contains Clara documentation and will later contain implementation code.
-
-Security policy applies to:
+This policy applies to:
 
 - Documentation.
 - Examples.
@@ -18,6 +16,7 @@ Security policy applies to:
 - CI/CD configuration.
 - Infrastructure configuration.
 - AI prompts and tool definitions.
+- Product operations processes.
 
 ---
 
@@ -28,12 +27,25 @@ Never commit:
 - API keys.
 - Passwords.
 - OAuth tokens.
+- JWT secrets.
 - Private keys.
 - Production credentials.
 - Customer data.
 - Internal secrets.
 - Sensitive screenshots.
 - `.env` files with real values.
+- Unredacted personal data.
+- Provider tokens.
+- Webhook secrets.
+
+Use placeholders such as:
+
+```text
+example-token
+example-api-key
+example.com
+customer@example.test
+```
 
 ---
 
@@ -66,10 +78,15 @@ Security review is required for changes involving:
 - Production access.
 - Audit logs.
 - Sensitive data handling.
+- Billing/entitlements.
+- Admin/superadmin workflows.
+- Data export/import.
+- Analytics collection.
+- Prompt/RAG behavior.
 
 ---
 
-# Documentation Security
+# Secure Documentation Rules
 
 Documentation must not include:
 
@@ -79,14 +96,45 @@ Documentation must not include:
 - Unredacted PII.
 - Production infrastructure secrets.
 - Private internal URLs if sensitive.
+- Sensitive screenshots.
+- Raw customer transcripts.
 
-Use placeholders:
+---
+
+# Future Implementation Rules
+
+Production code must enforce:
 
 ```text
-example-token
-example-api-key
-example.com
-customer@example.test
+server-side authorization
+tenant/workspace scoping
+input validation
+output encoding
+CSRF/session protections where applicable
+rate limiting for risky endpoints
+safe webhook verification
+audit logging for privileged actions
+privacy-safe logging
+secrets through environment/secret manager
+```
+
+---
+
+# AI Safety Rules
+
+AI must be treated as untrusted.
+
+AI-related features require:
+
+```text
+human oversight for high-impact actions
+prompt/RAG versioning
+evaluation strategy
+guardrails
+privacy review
+observability
+fallback/rollback
+kill switch for risky automation
 ```
 
 ---
@@ -94,7 +142,8 @@ customer@example.test
 # References
 
 ```text
-docs/BOOK-03-Implementation-Architecture/PART-07-Security-Implementation/
-docs/BOOK-03-Implementation-Architecture/APPENDIX/APPENDIX-C-Security-Checklist.md
+docs/BOOK-06-Security-Governance-and-Compliance/
+docs/BOOK-08-Implementation-Delivery-and-Production-Launch/
+docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/PART-08-Continuous-Security-and-Compliance-Operations/
 docs/security/README.md
 ```
