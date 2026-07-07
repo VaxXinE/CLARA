@@ -1,0 +1,34 @@
+{
+  "name": "@clara/api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CLARA API service bootstrap",
+  "type": "module",
+  "engines": {
+    "node": ">=20.11.0",
+    "npm": ">=10.0.0"
+  },
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "start": "node dist/main.js",
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint:placeholder": "echo \"lint not configured yet\""
+  },
+  "dependencies": {
+    "@fastify/helmet": "^13.0.0",
+    "dotenv": "^16.4.7",
+    "fastify": "^5.0.0",
+    "pino": "^9.0.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}
