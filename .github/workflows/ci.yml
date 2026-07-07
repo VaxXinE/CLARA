@@ -1,0 +1,35 @@
+name: CLARA CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - chore/repository-skeleton
+
+jobs:
+  repository-structure:
+    name: Repository Structure Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate repository structure
+        run: |
+          bash scripts/validate-repo-structure.sh
+
+      - name: Check for committed env files
+        run: |
+          if find . -path "./.git" -prune -o \( -name ".env" -o -name ".env.local" -o -name ".env.production" \) -print | grep -q .; then
+            echo "Do not commit environment files."
+            exit 1
+          fi
+
+      - name: Check for obvious private key files
+        run: |
+          if find . -path "./.git" -prune -o \( -name "*.pem" -o -name "*.key" -o -name "id_rsa" -o -name "id_ed25519" \) -print | grep -q .; then
+            echo "Possible private key file committed."
+            exit 1
+          fi
