@@ -1,12 +1,21 @@
+---
+title: "Athena Engineering Library"
+version: "1.1.0"
+status: "official"
+owner: "Athena Architecture Team"
+last_updated: "2026-07-07"
+classification: "documentation-index"
+---
+
 # Athena Engineering Library
 
-> *"A great platform is built not only with code, but with shared understanding."*
+> "A great platform is built not only with code, but with shared understanding."
 
 ---
 
-## Purpose
+# Purpose
 
-The **Athena Engineering Library** is the central documentation system for the Athena Project.
+The Athena Engineering Library is the central documentation system for the Athena Project.
 
 It defines the principles, standards, templates, architecture, product blueprint, engineering process, security model, AI foundation, operations, and ecosystem strategy used to design, build, operate, and evolve Athena.
 
@@ -14,7 +23,7 @@ This directory is the single source of truth for Athena documentation.
 
 ---
 
-## What is Athena?
+# What is Athena?
 
 Athena is an AI-native Business Operating System designed to unify:
 
@@ -35,7 +44,7 @@ Athena is a long-term platform for building intelligent, secure, and maintainabl
 
 ---
 
-## Documentation Structure
+# Documentation Structure
 
 ```text
 docs/
@@ -47,276 +56,167 @@ docs/
 ├── diagrams/
 ├── assets/
 ├── references/
+├── onboarding/
+├── playbooks/
+├── examples/
+├── operations/
+├── security/
+├── ai/
+├── product/
+├── engineering/
 ├── BOOK-01-The-Foundation/
-└── BOOK-02-Master-Blueprint/
+├── BOOK-02-Master-Blueprint/
+└── BOOK-03-Implementation-Architecture/
 ```
 
 ---
 
-## Directory Guide
+# Directory Guide
 
-### `standards/`
+## standards/
 
 Contains official documentation and engineering documentation standards.
 
-This includes:
-
-- Documentation structure.
-- Style guide.
-- Naming convention.
-- Diagram standard.
-- Review checklist.
-- Security documentation standard.
-- AI documentation standard.
-- Versioning.
-- Lifecycle.
-- Contribution standard.
-
-Read this before creating or modifying official documentation.
-
----
-
-### `templates/`
+## templates/
 
 Contains reusable templates for common Athena documents.
 
-Examples:
-
-- Book template.
-- Part template.
-- Chapter template.
-- PRD template.
-- TDD template.
-- ADR template.
-- API specification template.
-- Security specification template.
-- AI specification template.
-- Runbook template.
-- Test plan template.
-
-Use templates to keep documentation consistent.
-
----
-
-### `glossary/`
+## glossary/
 
 Contains canonical definitions of important Athena terms.
 
-Examples:
-
-- Organization.
-- Workspace.
-- User.
-- Role.
-- Permission.
-- Domain.
-- Service.
-- Event.
-- Workflow.
-- Context.
-- Knowledge.
-- Memory.
-- AI Agent.
-- Model.
-- Customer.
-- Lead.
-- Ticket.
-- Plugin.
-
-Use the glossary as the source of truth for terminology.
-
----
-
-### `adr/`
+## adr/
 
 Contains Architecture Decision Records.
 
-ADRs explain why significant technical and architectural decisions were made.
+## diagrams/
 
-Examples:
+Contains reusable Mermaid and architecture diagrams.
 
-- Event-driven architecture.
-- Identity model.
-- Multi-tenancy strategy.
-- AI model gateway.
-- Plugin architecture.
-- Database strategy.
+## assets/
 
----
+Contains non-sensitive documentation assets.
 
-### `diagrams/`
+## references/
 
-Contains reusable diagrams used across books and specifications.
+Contains references, notes, and links that support Athena documentation.
 
-Recommended categories:
+## onboarding/
 
-```text
-diagrams/
-├── architecture/
-├── business/
-├── ai/
-├── security/
-├── data/
-├── integration/
-└── deployment/
-```
+Contains onboarding paths for contributors, engineers, reviewers, and AI-assisted development.
 
-Prefer Mermaid diagrams where possible.
+## playbooks/
 
----
+Contains repeatable operational and documentation playbooks.
 
-### `assets/`
+## examples/
 
-Contains visual assets used by documentation.
+Contains example documentation and implementation patterns.
 
-Examples:
+## operations/
 
-- Logos.
-- Icons.
-- Covers.
-- Images.
-- Exported diagrams.
-- Screenshots.
+Contains documentation for operational readiness, runbooks, release support, and maintenance.
 
-Do not store secrets or sensitive information in assets.
+## security/
 
----
+Contains security documentation, review guidance, and security checklists.
 
-### `references/`
+## ai/
 
-Contains references, notes, and links to external materials used to support Athena documentation.
+Contains AI-specific documentation guardrails, workflows, and context rules.
 
-Examples:
+## product/
 
-- Books.
-- Standards.
-- Papers.
-- Whitepapers.
-- Specifications.
-- Security references.
-- AI references.
+Contains product documentation index and product-module writing guidance.
 
-Do not copy copyrighted content into the repository unless licensing allows it.
+## engineering/
 
----
+Contains engineering documentation index and implementation workflow guidance.
 
-### `BOOK-01-The-Foundation/`
+## BOOK-01-The-Foundation/
 
-Defines the constitutional foundation of Athena.
+Defines why Athena exists.
 
-This book explains:
-
-- Why Athena exists.
-- Vision.
-- Mission.
-- Core values.
-- Engineering philosophy.
-- AI philosophy.
-- Data philosophy.
-- Security philosophy.
-- Architecture principles.
-- Product principles.
-- Developer principles.
-- Decision principles.
-- Athena Manifesto.
-- Declaration.
-
-Read Book I first.
-
----
-
-### `BOOK-02-Master-Blueprint/`
+## BOOK-02-Master-Blueprint/
 
 Defines what Athena will build.
 
-This book explains:
+## BOOK-03-Implementation-Architecture/
 
-- Platform vision.
-- Organization layer.
-- Business domains.
-- AI platform.
-- Platform services.
-- Data platform.
-- Security platform.
-- Integration platform.
-- Infrastructure.
-- Roadmap.
-
-Book II is the master blueprint for Athena.
+Defines how Athena should be implemented.
 
 ---
 
-## Recommended Reading Path
+# Recommended Reading Path
 
-For new contributors:
+## New Contributors
 
 ```text
 1. docs/README.md
 2. docs/BOOK-01-The-Foundation/README.md
-3. docs/standards/ADS.md
-4. docs/standards/STYLE-GUIDE.md
-5. docs/standards/NAMING-CONVENTION.md
-6. docs/glossary/README.md
-7. docs/templates/chapter-template.md
-8. docs/BOOK-02-Master-Blueprint/README.md
+3. docs/standards/README.md
+4. docs/templates/README.md
+5. docs/glossary/README.md
+6. docs/BOOK-02-Master-Blueprint/README.md
+7. docs/BOOK-03-Implementation-Architecture/README.md
 ```
 
-For engineers:
+## Engineers
 
 ```text
 1. Book I — The Foundation
-2. ADS
-3. Naming Convention
-4. Security Documentation Standard
-5. ADR Standard
-6. Template Library
-7. Book II — Master Blueprint
+2. Book II — Master Blueprint
+3. Book III — Implementation Architecture
+4. Relevant Book III Part
+5. Relevant Appendix checklist
 ```
 
-For AI-related contributors:
+## AI Contributors
 
 ```text
-1. Book I — AI Philosophy
-2. AI Documentation Standard
-3. AI Template
-4. Glossary: Context, Knowledge, Memory, AI Agent, Model
-5. Book V — AI Bible
+1. AGENTS.md
+2. docs/AGENTS.md
+3. Book III Implementation Guide
+4. Relevant Book III Part
+5. Relevant module README
 ```
 
-For security reviewers:
+## Security Reviewers
 
 ```text
-1. Book I — Security Philosophy
-2. Security Documentation Standard
-3. Review Checklist
-4. Security Template
-5. ADR Standard
+1. Book I Security Philosophy
+2. Book II Security Platform
+3. Book III Security Implementation
+4. Book III Appendix C Security Checklist
+5. SECURITY.md
 ```
 
 ---
 
-## Documentation Governance
+# Documentation Governance
 
 All official Athena documentation should follow:
 
-- `standards/ADS.md`
-- `standards/STYLE-GUIDE.md`
-- `standards/NAMING-CONVENTION.md`
-- `standards/REVIEW-CHECKLIST.md`
-- `standards/DOCUMENT-LIFECYCLE.md`
-- `standards/VERSIONING-STANDARD.md`
+- `standards/`
+- `templates/`
+- `glossary/`
+- `adr/`
 
 Security-sensitive documents should also follow:
 
-- `standards/SECURITY-DOCS-STANDARD.md`
+- `security/`
+- `BOOK-03-Implementation-Architecture/PART-07-Security-Implementation/`
+- `BOOK-03-Implementation-Architecture/APPENDIX/APPENDIX-C-Security-Checklist.md`
 
 AI-related documents should also follow:
 
-- `standards/AI-DOCUMENTATION-STANDARD.md`
+- `ai/`
+- `BOOK-03-Implementation-Architecture/PART-03-AI-Architecture/`
+- `BOOK-03-Implementation-Architecture/APPENDIX/APPENDIX-H-AGENTS-Codex-Instructions.md`
 
 ---
 
-## Documentation Lifecycle
+# Documentation Lifecycle
 
 Official documents follow this lifecycle:
 
@@ -346,45 +246,24 @@ Every official document should define:
 
 ---
 
-## Status Values
+# Current Milestones
 
-| Status | Meaning |
-|---|---|
-| draft | Work in progress |
-| review | Ready for review |
-| official | Approved official version |
-| deprecated | No longer recommended |
-| archived | Historical reference |
-
----
-
-## Contribution Rules
-
-Before contributing documentation:
-
-1. Read `standards/ADS.md`.
-2. Use the correct template from `templates/`.
-3. Follow `standards/STYLE-GUIDE.md`.
-4. Follow `standards/NAMING-CONVENTION.md`.
-5. Update related links and navigation.
-6. Update changelog when required.
-7. Request review before merging.
+```text
+✅ Book I — The Foundation
+✅ Documentation Standards
+✅ Official Template Library
+✅ Global Glossary
+✅ Book II — Master Blueprint
+✅ Book III — Implementation Architecture
+✅ Book III Appendix Pack
+⏳ ADR Library Expansion
+⏳ Diagram Library Expansion
+⏳ Repository Implementation Foundation
+```
 
 ---
 
-## Source of Truth Rules
-
-- Use `glossary/` for terminology.
-- Use `standards/` for documentation rules.
-- Use `templates/` for new documents.
-- Use `adr/` for architectural decisions.
-- Use books for long-form official documentation.
-
-Avoid duplicating canonical definitions across multiple files.
-
----
-
-## Security Principles
+# Security Principles
 
 Documentation must never include:
 
@@ -397,18 +276,9 @@ Documentation must never include:
 - Unredacted personal data.
 - Internal infrastructure secrets.
 
-Security-related documents must define:
-
-- Authentication.
-- Authorization.
-- Data protection.
-- Auditability.
-- Abuse cases.
-- Failure modes.
-
 ---
 
-## AI Documentation Principles
+# AI Documentation Principles
 
 AI-related documentation must define:
 
@@ -426,44 +296,8 @@ AI must never be documented as having unrestricted access to Athena data.
 
 ---
 
-## Current Milestones
-
-```text
-✅ Book I — The Foundation
-✅ Documentation Standards
-✅ Official Template Library
-✅ Global Glossary Batch 1
-⏳ ADR Library
-⏳ Diagram Library
-⏳ Book II — Master Blueprint
-```
-
----
-
-## Future Documentation Areas
-
-Planned documentation areas include:
-
-```text
-docs/
-├── onboarding/
-├── playbooks/
-├── examples/
-├── operations/
-├── security/
-├── ai/
-├── product/
-└── engineering/
-```
-
-These directories will be introduced as Athena grows.
-
----
-
-## Final Principle
+# Final Principle
 
 Documentation is part of Athena's architecture.
 
 If it is not documented, it cannot be consistently understood, reviewed, secured, operated, or improved.
-
-The Athena Engineering Library exists to preserve that understanding.
