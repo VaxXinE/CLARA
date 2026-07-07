@@ -5,7 +5,7 @@ chapter: "169"
 title: "Developer Onboarding"
 version: "1.0.0"
 status: "official"
-owner: "Athena Developer Experience Team"
+owner: "Clara Developer Experience Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./168-Local-Development-Environment.md"
@@ -14,13 +14,13 @@ next: "./170-Coding-Standards-Implementation.md"
 
 # Developer Onboarding
 
-> *"Defines the onboarding path for new Athena contributors, including setup, architecture reading order, first task, and review expectations."*
+> *"Defines the onboarding path for new Clara contributors, including setup, architecture reading order, first task, and review expectations."*
 
 ---
 
 # Purpose
 
-Defines the onboarding path for new Athena contributors, including setup, architecture reading order, first task, and review expectations.
+Defines the onboarding path for new Clara contributors, including setup, architecture reading order, first task, and review expectations.
 
 ---
 
@@ -30,7 +30,7 @@ Developer experience directly affects production quality.
 
 If the right workflow is hard, developers and AI coding assistants will drift toward shortcuts: inconsistent structure, missing tests, unsafe secrets handling, weak authorization checks, poor documentation, and fragile releases.
 
-Athena must design developer experience so secure and production-ready engineering becomes the default path.
+Clara must design developer experience so secure and production-ready engineering becomes the default path.
 
 This chapter defines how **Developer Onboarding** should be implemented consistently.
 
@@ -40,7 +40,7 @@ This chapter defines how **Developer Onboarding** should be implemented consiste
 
 ## Decision
 
-Athena onboarding should be guided, checklist-driven, and architecture-aware before contributors modify production-sensitive code.
+Clara onboarding should be guided, checklist-driven, and architecture-aware before contributors modify production-sensitive code.
 
 ## Status
 
@@ -123,7 +123,7 @@ repo/
 ├── apps/
 ├── packages/
 ├── docs/
-│   ├── BOOK-01-Athena-Foundation/
+│   ├── BOOK-01-Clara-Foundation/
 │   ├── BOOK-02-Master-Blueprint/
 │   └── BOOK-03-Implementation-Architecture/
 │
@@ -283,7 +283,7 @@ When using Codex, Cursor, Claude Code, Gemini CLI, or another AI coding assistan
 - ../PART-02-Frontend-Architecture/README.md
 - ../PART-07-Security-Implementation/README.md
 - ../PART-08-Testing-Quality-Architecture/README.md
-- ../../BOOK-01-Athena-Foundation/README.md
+- ../../BOOK-01-Clara-Foundation/README.md
 - ../../BOOK-02-Master-Blueprint/README.md
 
 ---

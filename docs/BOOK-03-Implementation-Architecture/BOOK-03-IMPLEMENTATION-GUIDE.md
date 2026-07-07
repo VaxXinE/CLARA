@@ -3,7 +3,7 @@ book: "Book III — Implementation Architecture"
 title: "Book III Implementation Guide"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 ---
@@ -16,7 +16,7 @@ classification: "implementation-architecture"
 
 # Standard Development Flow
 
-For any new Athena feature:
+For any new Clara feature:
 
 ```text
 1. Identify product module.
@@ -96,7 +96,7 @@ Every production feature should include:
 # AI Assistant Prompt Template
 
 ```text
-You are working on Athena.
+You are working on Clara.
 
 Before coding, use these references:
 - docs/BOOK-03-Implementation-Architecture/README.md

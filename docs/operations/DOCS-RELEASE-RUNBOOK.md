@@ -2,7 +2,7 @@
 title: "Documentation Release Runbook"
 version: "1.0.0"
 status: "official"
-owner: "Athena Operations Architecture Team"
+owner: "Clara Operations Architecture Team"
 last_updated: "2026-07-07"
 classification: "runbook"
 ---

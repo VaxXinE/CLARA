@@ -5,7 +5,7 @@ chapter: "66"
 title: "Data Architecture Overview"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./README.md"
@@ -14,19 +14,19 @@ next: "./67-Database-Design.md"
 
 # Data Architecture Overview
 
-> *"Defines Athena data architecture implementation principles, ownership boundaries, storage responsibilities, and production data quality expectations."*
+> *"Defines Clara data architecture implementation principles, ownership boundaries, storage responsibilities, and production data quality expectations."*
 
 ---
 
 # Purpose
 
-Defines Athena data architecture implementation principles, ownership boundaries, storage responsibilities, and production data quality expectations.
+Defines Clara data architecture implementation principles, ownership boundaries, storage responsibilities, and production data quality expectations.
 
 ---
 
 # Motivation
 
-Data is one of the highest-risk parts of Athena.
+Data is one of the highest-risk parts of Clara.
 
 Bad data architecture can cause privacy leaks, tenant isolation failures, broken AI context, slow queries, unrecoverable incidents, inconsistent reporting, and dangerous production migrations.
 
@@ -38,7 +38,7 @@ This chapter defines how **Data Architecture Overview** should be implemented sa
 
 ## Decision
 
-Athena data architecture should be domain-owned, explicitly classified, auditable, secure by default, and optimized through purpose-specific storage layers.
+Clara data architecture should be domain-owned, explicitly classified, auditable, secure by default, and optimized through purpose-specific storage layers.
 
 ## Status
 

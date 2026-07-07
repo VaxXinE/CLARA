@@ -1,4 +1,4 @@
-# Athena AI Documentation Standard
+# Clara AI Documentation Standard
 
 > *"AI capabilities must be documented with the same rigor as security and architecture."*
 
@@ -8,18 +8,18 @@
 
 | Field | Value |
 |---|---|
-| Document | Athena AI Documentation Standard |
+| Document | Clara AI Documentation Standard |
 | Version | 1.0.0 |
 | Status | Official |
-| Owner | Athena AI Team |
-| Scope | AI-related documentation across Athena |
+| Owner | Clara AI Team |
+| Scope | AI-related documentation across Clara |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Purpose
 
-This standard defines how Artificial Intelligence capabilities are documented throughout the Athena Engineering Library.
+This standard defines how Artificial Intelligence capabilities are documented throughout the Clara Engineering Library.
 
 Its goals are to ensure AI systems are:
 

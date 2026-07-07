@@ -1,3 +1,3 @@
 # Contributors
 
-- Athena Core Team
+- Clara Core Team

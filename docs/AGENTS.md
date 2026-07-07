@@ -1,6 +1,6 @@
-# docs/AGENTS.md — Athena Documentation Instructions
+# docs/AGENTS.md — Clara Documentation Instructions
 
-You are editing Athena documentation.
+You are editing Clara documentation.
 
 ---
 

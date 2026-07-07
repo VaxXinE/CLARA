@@ -5,7 +5,7 @@ chapter: "95"
 title: "Extension SDK Implementation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./94-Plugin-SDK-Implementation.md"
@@ -28,9 +28,9 @@ Defines browser/client extension SDK boundaries, message passing, permissions, c
 
 Integrations are powerful but risky.
 
-They connect Athena to external systems, external data, external identities, external failures, and external attack surfaces.
+They connect Clara to external systems, external data, external identities, external failures, and external attack surfaces.
 
-If integration code is scattered, Athena can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
+If integration code is scattered, Clara can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
 
 This chapter defines how **Extension SDK Implementation** should be implemented safely and consistently.
 
@@ -40,7 +40,7 @@ This chapter defines how **Extension SDK Implementation** should be implemented 
 
 ## Decision
 
-Athena extension SDK should communicate through typed message contracts and avoid exposing privileged tokens to content scripts.
+Clara extension SDK should communicate through typed message contracts and avoid exposing privileged tokens to content scripts.
 
 ## Status
 
@@ -155,8 +155,8 @@ backend/
 ```ts
 // extension/messages/contracts.ts
 export type ExtensionMessage =
-  | { type: "ATHENA_CAPTURE_CONTEXT"; payload: CaptureContextPayload }
-  | { type: "ATHENA_OPEN_PANEL"; payload: OpenPanelPayload };
+  | { type: "Clara_CAPTURE_CONTEXT"; payload: CaptureContextPayload }
+  | { type: "Clara_OPEN_PANEL"; payload: OpenPanelPayload };
 
 export function isValidExtensionMessage(input: unknown): input is ExtensionMessage {
   return extensionMessageSchema.safeParse(input).success;
@@ -169,7 +169,7 @@ export function isValidExtensionMessage(input: unknown): input is ExtensionMessa
 # Implementation Guidelines
 
 - Never call external providers directly from controllers or domain models.
-- Keep provider schemas isolated from Athena domain models.
+- Keep provider schemas isolated from Clara domain models.
 - Validate every inbound payload.
 - Verify webhook signatures before processing.
 - Store external credentials in vault/secret storage.

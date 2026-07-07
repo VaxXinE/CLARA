@@ -5,7 +5,7 @@ chapter: "67"
 title: "Reporting"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./66-Cache.md"
@@ -22,7 +22,7 @@ next: "./68-Export.md"
 
 Defines reusable reporting capabilities for dashboards, exports, metrics, summaries, and business visibility.
 
-This chapter explains the blueprint-level role of **Reporting** as a shared Platform Service in Athena.
+This chapter explains the blueprint-level role of **Reporting** as a shared Platform Service in Clara.
 
 ---
 

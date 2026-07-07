@@ -12,17 +12,17 @@
 | Chapter | 07                      |
 | Version | 1.0                     |
 | Status  | Official                |
-| Owner   | Athena Core Team        |
+| Owner   | Clara Core Team        |
 
 ---
 
 # Purpose
 
-This chapter defines the design philosophy of the Athena Project.
+This chapter defines the design philosophy of the Clara Project.
 
 Design is not limited to visual appearance.
 
-Within Athena, design encompasses the complete experience of interacting with the platform, including user interfaces, workflows, APIs, artificial intelligence, automation, security, documentation, and developer experience.
+Within Clara, design encompasses the complete experience of interacting with the platform, including user interfaces, workflows, APIs, artificial intelligence, automation, security, documentation, and developer experience.
 
 Every component should contribute to a coherent, intuitive, and trustworthy system.
 
@@ -101,7 +101,7 @@ Adding new features should never reduce consistency.
 
 Not every user requires every capability immediately.
 
-Athena should reveal complexity gradually.
+Clara should reveal complexity gradually.
 
 Beginners should encounter simple experiences.
 
@@ -187,13 +187,13 @@ Relevant context should remain available throughout the workflow.
 
 Context switching represents hidden operational cost.
 
-Athena seeks to minimize it.
+Clara seeks to minimize it.
 
 ---
 
 # Principle 8 — One Platform, One Experience
 
-Although Athena consists of multiple modules, it should feel like a single product.
+Although Clara consists of multiple modules, it should feel like a single product.
 
 Users should never experience disconnected systems.
 
@@ -263,7 +263,7 @@ Evolution should become an expected characteristic rather than an exceptional ev
 
 # Experience Principles
 
-Every Athena experience should strive to be:
+Every Clara experience should strive to be:
 
 Simple.
 
@@ -335,7 +335,7 @@ Good design emerges through collaboration across disciplines.
 
 # Conclusion
 
-Athena views design as a system-wide responsibility.
+Clara views design as a system-wide responsibility.
 
 The objective is not to create visually attractive software alone.
 

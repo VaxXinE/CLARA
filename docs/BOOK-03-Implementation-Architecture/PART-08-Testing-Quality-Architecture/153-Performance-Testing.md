@@ -5,7 +5,7 @@ chapter: "153"
 title: "Performance Testing"
 version: "1.0.0"
 status: "official"
-owner: "Athena Quality Architecture Team"
+owner: "Clara Quality Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./152-Security-Testing.md"
@@ -28,7 +28,7 @@ Defines performance testing for APIs, database queries, frontend rendering, AI l
 
 Production quality cannot rely on manual confidence or optimistic assumptions.
 
-Athena has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
+Clara has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
 
 This chapter defines how **Performance Testing** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Performance Testing** should be implemented consisten
 
 ## Decision
 
-Athena performance tests should focus on critical paths, SLO risks, bottleneck discovery, and regression prevention.
+Clara performance tests should focus on critical paths, SLO risks, bottleneck discovery, and regression prevention.
 
 ## Status
 

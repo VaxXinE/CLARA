@@ -5,7 +5,7 @@ chapter: "88"
 title: "GraphQL Implementation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./87-REST-API-Implementation.md"
@@ -28,9 +28,9 @@ Defines GraphQL usage, schema boundaries, resolver safety, authorization, batchi
 
 Integrations are powerful but risky.
 
-They connect Athena to external systems, external data, external identities, external failures, and external attack surfaces.
+They connect Clara to external systems, external data, external identities, external failures, and external attack surfaces.
 
-If integration code is scattered, Athena can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
+If integration code is scattered, Clara can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
 
 This chapter defines how **GraphQL Implementation** should be implemented safely and consistently.
 
@@ -40,7 +40,7 @@ This chapter defines how **GraphQL Implementation** should be implemented safely
 
 ## Decision
 
-Athena may use GraphQL for complex product views, but resolvers must remain thin and delegate to application use cases or query services.
+Clara may use GraphQL for complex product views, but resolvers must remain thin and delegate to application use cases or query services.
 
 ## Status
 
@@ -174,7 +174,7 @@ export const customerResolver = {
 # Implementation Guidelines
 
 - Never call external providers directly from controllers or domain models.
-- Keep provider schemas isolated from Athena domain models.
+- Keep provider schemas isolated from Clara domain models.
 - Validate every inbound payload.
 - Verify webhook signatures before processing.
 - Store external credentials in vault/secret storage.

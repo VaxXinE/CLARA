@@ -5,7 +5,7 @@ chapter: "08"
 title: "Product Map"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./07-Domain-Map.md"
@@ -20,7 +20,7 @@ next: "./09-System-Landscape.md"
 
 # Purpose
 
-This chapter explains the major user-facing product surfaces Athena may provide.
+This chapter explains the major user-facing product surfaces Clara may provide.
 
 A Product Map helps distinguish product experience from underlying domains and services.
 
@@ -28,7 +28,7 @@ A Product Map helps distinguish product experience from underlying domains and s
 
 # Product Surfaces
 
-Athena may include these major product surfaces:
+Clara may include these major product surfaces:
 
 - Admin Console.
 - Workspace Dashboard.
@@ -51,7 +51,7 @@ Athena may include these major product surfaces:
 
 ```mermaid
 flowchart TD
-    Platform[Athena Platform] --> Admin[Admin Console]
+    Platform[Clara Platform] --> Admin[Admin Console]
     Platform --> Dashboard[Workspace Dashboard]
     Platform --> CRM[CRM]
     Platform --> Inbox[Omnichannel Inbox]
@@ -106,7 +106,7 @@ Products should be:
 
 - Product surfaces are not the same as domains.
 - A product may compose multiple domains and services.
-- Athena should feel like one platform even with many product surfaces.
+- Clara should feel like one platform even with many product surfaces.
 - Product design should preserve shared context.
 
 ---

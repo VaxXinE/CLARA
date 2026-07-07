@@ -4,7 +4,7 @@ appendix: "G"
 title: "ADR Template"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "architecture-decision-record"
 ---
@@ -17,7 +17,7 @@ classification: "architecture-decision-record"
 
 # Purpose
 
-Use this template for Architecture Decision Records in Athena.
+Use this template for Architecture Decision Records in Clara.
 
 Create an ADR when a decision:
 

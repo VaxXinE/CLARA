@@ -5,7 +5,7 @@ chapter: "69"
 title: "Data Ownership"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./68-Schema-Design.md"
@@ -26,7 +26,7 @@ Defines domain ownership of tables, read models, events, documents, vector index
 
 # Motivation
 
-Data is one of the highest-risk parts of Athena.
+Data is one of the highest-risk parts of Clara.
 
 Bad data architecture can cause privacy leaks, tenant isolation failures, broken AI context, slow queries, unrecoverable incidents, inconsistent reporting, and dangerous production migrations.
 
@@ -38,7 +38,7 @@ This chapter defines how **Data Ownership** should be implemented safely and con
 
 ## Decision
 
-Athena data should be owned by the domain that creates and governs its business meaning.
+Clara data should be owned by the domain that creates and governs its business meaning.
 
 ## Status
 

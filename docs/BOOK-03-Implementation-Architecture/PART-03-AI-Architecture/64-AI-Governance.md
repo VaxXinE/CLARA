@@ -5,7 +5,7 @@ chapter: "64"
 title: "AI Governance"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./63-AI-Security.md"
@@ -28,7 +28,7 @@ Defines governance controls for model usage, auditability, policy compliance, da
 
 AI capabilities can create major product leverage, but they also introduce new risks: hallucination, prompt injection, data leakage, uncontrolled cost, unsafe tool execution, inconsistent output, and difficult debugging.
 
-Athena must treat AI as a production platform capability, not as scattered SDK calls.
+Clara must treat AI as a production platform capability, not as scattered SDK calls.
 
 This chapter defines how **AI Governance** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **AI Governance** should be implemented safely and cons
 
 ## Decision
 
-Athena AI features should be governed through policies, approvals, audit logs, evaluation reports, and controlled release gates.
+Clara AI features should be governed through policies, approvals, audit logs, evaluation reports, and controlled release gates.
 
 ## Status
 

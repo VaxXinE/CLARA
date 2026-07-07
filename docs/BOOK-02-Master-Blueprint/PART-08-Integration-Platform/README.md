@@ -4,35 +4,35 @@ part: "PART-08 — Integration Platform"
 title: "Integration Platform"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "part"
 ---
 
 # PART-08 — Integration Platform
 
-> *"Athena becomes more valuable when it can connect safely with the systems organizations already use."*
+> *"Clara becomes more valuable when it can connect safely with the systems organizations already use."*
 
 ---
 
 # Purpose
 
-Part VIII defines Athena's Integration Platform.
+Part VIII defines Clara's Integration Platform.
 
 The Integration Platform provides the shared foundation for REST APIs, GraphQL, Webhooks, WebSocket, OAuth, Plugin SDK, Extension SDK, Marketplace, and External Connectors.
 
-It allows Athena to integrate with third-party systems, communication channels, AI providers, business tools, developer tools, and custom organizational systems while preserving security, governance, auditability, and maintainability.
+It allows Clara to integrate with third-party systems, communication channels, AI providers, business tools, developer tools, and custom organizational systems while preserving security, governance, auditability, and maintainability.
 
 ---
 
 # Goals
 
-- Define Athena's integration surface.
+- Define Clara's integration surface.
 - Establish safe external access patterns.
 - Support APIs, webhooks, real-time communication, OAuth, plugins, extensions, marketplace, and connectors.
 - Protect Organization and Workspace boundaries.
 - Ensure integrations are observable, auditable, and governed.
-- Prevent external systems from bypassing core Athena security controls.
+- Prevent external systems from bypassing core Clara security controls.
 
 ---
 
@@ -80,15 +80,15 @@ It allows Athena to integrate with third-party systems, communication channels, 
 
 ```mermaid
 flowchart TD
-    Athena[Athena Platform] --> REST[REST API]
-    Athena --> GraphQL[GraphQL]
-    Athena --> Webhook[Webhook]
-    Athena --> WebSocket[WebSocket]
-    Athena --> OAuth[OAuth]
-    Athena --> PluginSDK[Plugin SDK]
-    Athena --> ExtensionSDK[Extension SDK]
-    Athena --> Marketplace[Marketplace]
-    Athena --> Connectors[External Connectors]
+    Clara[Clara Platform] --> REST[REST API]
+    Clara --> GraphQL[GraphQL]
+    Clara --> Webhook[Webhook]
+    Clara --> WebSocket[WebSocket]
+    Clara --> OAuth[OAuth]
+    Clara --> PluginSDK[Plugin SDK]
+    Clara --> ExtensionSDK[Extension SDK]
+    Clara --> Marketplace[Marketplace]
+    Clara --> Connectors[External Connectors]
 
     OAuth --> ExternalApps[External Apps]
     Webhook --> ThirdParty[Third-Party Systems]

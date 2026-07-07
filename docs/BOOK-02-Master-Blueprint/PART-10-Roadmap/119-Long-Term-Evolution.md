@@ -5,7 +5,7 @@ chapter: "119"
 title: "Long Term Evolution"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./118-Ecosystem.md"
@@ -14,21 +14,21 @@ next: "./120-Endgame.md"
 
 # Long Term Evolution
 
-> *"Defines Athena's multi-year evolution toward an AI-native Business Operating System."*
+> *"Defines Clara's multi-year evolution toward an AI-native Business Operating System."*
 
 ---
 
 # Purpose
 
-Defines Athena's multi-year evolution toward an AI-native Business Operating System.
+Defines Clara's multi-year evolution toward an AI-native Business Operating System.
 
-This chapter defines the blueprint-level role of **Long Term Evolution** in Athena's roadmap.
+This chapter defines the blueprint-level role of **Long Term Evolution** in Clara's roadmap.
 
 ---
 
 # Overview
 
-The **Long Term Evolution** stage describes a specific maturity point in Athena's evolution.
+The **Long Term Evolution** stage describes a specific maturity point in Clara's evolution.
 
 It helps the project decide what should be built now, what should wait, and which foundations must exist before moving forward.
 
@@ -78,7 +78,7 @@ flowchart LR
 
 # Readiness Criteria
 
-Before this stage is considered complete, Athena should have:
+Before this stage is considered complete, Clara should have:
 
 - Clear ownership.
 - Documented scope.
@@ -139,14 +139,14 @@ Success may be indicated by:
 
 The **Long Term Evolution** stage should create a stronger foundation for later stages.
 
-Each roadmap phase should make Athena more reliable, understandable, secure, and extensible.
+Each roadmap phase should make Clara more reliable, understandable, secure, and extensible.
 
 ---
 
 # Key Takeaways
 
-- Defines Athena's multi-year evolution toward an AI-native Business Operating System.
-- It represents a maturity stage in Athena's roadmap.
+- Defines Clara's multi-year evolution toward an AI-native Business Operating System.
+- It represents a maturity stage in Clara's roadmap.
 - It should reduce uncertainty and prepare the next stage.
 - Roadmap stages should be sequenced, not rushed.
 

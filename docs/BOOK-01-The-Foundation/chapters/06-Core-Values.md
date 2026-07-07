@@ -12,13 +12,13 @@
 | Chapter | 06                      |
 | Version | 1.0                     |
 | Status  | Official                |
-| Owner   | Athena Core Team        |
+| Owner   | Clara Core Team        |
 
 ---
 
 # Purpose
 
-This chapter defines the fundamental values that guide the Athena Project.
+This chapter defines the fundamental values that guide the Clara Project.
 
 Unlike technical standards, values do not prescribe specific implementations.
 
@@ -44,7 +44,7 @@ Values provide stability amid constant technological change.
 
 When implementation details become uncertain, values provide a reliable framework for making consistent decisions.
 
-Athena's values are therefore considered long-term commitments rather than temporary preferences.
+Clara's values are therefore considered long-term commitments rather than temporary preferences.
 
 ---
 
@@ -54,7 +54,7 @@ Technology exists to serve people.
 
 People should never become operators of unnecessarily complex software.
 
-Athena is designed to reduce cognitive load, automate repetitive work, and provide meaningful assistance without removing human judgment.
+Clara is designed to reduce cognitive load, automate repetitive work, and provide meaningful assistance without removing human judgment.
 
 Artificial intelligence should augment human capability rather than replace human responsibility.
 
@@ -68,7 +68,7 @@ Complexity is unavoidable.
 
 Unnecessary complexity is a design failure.
 
-Athena favors solutions that are understandable, maintainable, and predictable.
+Clara favors solutions that are understandable, maintainable, and predictable.
 
 When multiple valid approaches exist, preference should be given to the solution that minimizes long-term operational complexity.
 
@@ -106,7 +106,7 @@ Trust is earned through engineering discipline.
 
 Organizations continuously create valuable knowledge.
 
-Athena treats knowledge as a strategic asset rather than temporary information.
+Clara treats knowledge as a strategic asset rather than temporary information.
 
 Every conversation.
 
@@ -144,7 +144,7 @@ Accountability builds trust.
 
 Trust enables adoption.
 
-Athena prioritizes explainability over unnecessary complexity.
+Clara prioritizes explainability over unnecessary complexity.
 
 ---
 
@@ -152,7 +152,7 @@ Athena prioritizes explainability over unnecessary complexity.
 
 Organizations depend on diverse technologies.
 
-Athena embraces interoperability rather than isolation.
+Clara embraces interoperability rather than isolation.
 
 Open APIs.
 
@@ -176,7 +176,7 @@ Every engineering decision carries future consequences.
 
 Short-term optimization should never compromise long-term sustainability.
 
-Athena favors maintainability over unnecessary optimization.
+Clara favors maintainability over unnecessary optimization.
 
 Architecture over shortcuts.
 
@@ -237,7 +237,7 @@ Ownership means leaving the system better than it was found.
 
 Engineering excellence is measured by outcomes rather than complexity.
 
-Athena values:
+Clara values:
 
 Correctness.
 
@@ -265,7 +265,7 @@ Quality is achieved through disciplined engineering practices applied consistent
 
 # Living the Values
 
-These values should influence every aspect of the Athena Project.
+These values should influence every aspect of the Clara Project.
 
 Examples include:
 
@@ -304,13 +304,13 @@ When facing uncertainty, contributors should ask:
 * Does it encourage interoperability?
 * Does it uphold engineering excellence?
 
-If the answer to most of these questions is "yes," the decision is likely aligned with Athena's values.
+If the answer to most of these questions is "yes," the decision is likely aligned with Clara's values.
 
 ---
 
 # Conclusion
 
-Athena's values define how the project should evolve.
+Clara's values define how the project should evolve.
 
 They provide consistency across changing technologies, expanding teams, and growing organizational complexity.
 
@@ -320,7 +320,7 @@ Architectures may evolve.
 
 Infrastructure may be replaced.
 
-The values described in this chapter should remain the foundation upon which every future version of Athena is built.
+The values described in this chapter should remain the foundation upon which every future version of Clara is built.
 
 ---
 

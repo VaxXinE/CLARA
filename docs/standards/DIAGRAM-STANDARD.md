@@ -1,4 +1,4 @@
-# Athena Diagram Standard
+# Clara Diagram Standard
 
 > *"A good diagram reduces the amount of explanation required to understand a system."*
 
@@ -8,22 +8,22 @@
 
 | Field | Value |
 |------|-------|
-| Document | Athena Diagram Standard |
+| Document | Clara Diagram Standard |
 | Version | 1.0.0 |
 | Status | Official |
-| Owner | Athena Core Team |
-| Scope | Athena Engineering Library |
+| Owner | Clara Core Team |
+| Scope | Clara Engineering Library |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Purpose
 
-This document defines the official diagram standards for the Athena Engineering Library.
+This document defines the official diagram standards for the Clara Engineering Library.
 
 Diagrams help contributors understand systems, domains, workflows, dependencies, trust boundaries, and architectural decisions faster than text alone.
 
-Athena diagrams should be:
+Clara diagrams should be:
 
 - Clear.
 - Consistent.
@@ -47,7 +47,7 @@ A diagram should clarify thinking, not decorate a document.
 
 # Default Diagram Format
 
-Athena uses **Mermaid** as the default diagram format.
+Clara uses **Mermaid** as the default diagram format.
 
 Mermaid diagrams are preferred because they are:
 
@@ -161,15 +161,15 @@ Use for interactions between users, services, APIs, agents, and external systems
 ```mermaid
 sequenceDiagram
     participant User
-    participant Athena
+    participant Clara
     participant AI
     participant Audit
 
-    User->>Athena: Request recommendation
-    Athena->>AI: Send authorized context
-    AI-->>Athena: Return recommendation
-    Athena->>Audit: Record recommendation generated
-    Athena-->>User: Show explainable response
+    User->>Clara: Request recommendation
+    Clara->>AI: Send authorized context
+    AI-->>Clara: Return recommendation
+    Clara->>Audit: Record recommendation generated
+    Clara-->>User: Show explainable response
 ```
 
 ---
@@ -209,7 +209,7 @@ Use for roadmap or phase progression.
 
 ```mermaid
 timeline
-    title Athena Roadmap
+    title Clara Roadmap
     Phase 0 : Documentation Foundation
     MVP : Core Platform
     Alpha : Internal Usage

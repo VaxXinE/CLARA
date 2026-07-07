@@ -5,7 +5,7 @@ chapter: "05"
 title: "Layer Architecture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-06"
 classification: "implementation-architecture"
 previous: "./04-Project-Structure.md"
@@ -20,7 +20,7 @@ next: "../STAGE-02/06-Dependency-Injection.md"
 
 # Purpose
 
-This chapter defines the backend layer architecture for Athena.
+This chapter defines the backend layer architecture for Clara.
 
 It explains how Presentation, Application, Domain, Infrastructure, Platform, and Shared layers should interact.
 
@@ -46,7 +46,7 @@ Layer Architecture prevents this by assigning clear responsibilities.
 
 ## Decision
 
-Athena backend should use explicit layers with strict dependency rules.
+Clara backend should use explicit layers with strict dependency rules.
 
 ## Status
 

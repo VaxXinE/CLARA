@@ -5,7 +5,7 @@ chapter: "145"
 title: "Security Implementation Summary"
 version: "1.0.0"
 status: "official"
-owner: "Athena Security Architecture Team"
+owner: "Clara Security Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./144-Security-Incident-Response.md"
@@ -14,13 +14,13 @@ next: "../PART-08-Testing-Quality-Architecture/README.md"
 
 # Security Implementation Summary
 
-> *"Summarizes Athena security implementation principles, secure-by-design expectations, and production readiness criteria."*
+> *"Summarizes Clara security implementation principles, secure-by-design expectations, and production readiness criteria."*
 
 ---
 
 # Purpose
 
-Summarizes Athena security implementation principles, secure-by-design expectations, and production readiness criteria.
+Summarizes Clara security implementation principles, secure-by-design expectations, and production readiness criteria.
 
 ---
 
@@ -28,7 +28,7 @@ Summarizes Athena security implementation principles, secure-by-design expectati
 
 Security bugs in production are expensive, damaging, and often caused by unclear ownership or inconsistent implementation.
 
-Athena handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
+Clara handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
 
 This chapter defines how **Security Implementation Summary** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Security Implementation Summary** should be implement
 
 ## Decision
 
-Athena security implementation should remain layered, explicit, auditable, least-privilege, tenant-safe, and continuously improved.
+Clara security implementation should remain layered, explicit, auditable, least-privilege, tenant-safe, and continuously improved.
 
 ## Status
 

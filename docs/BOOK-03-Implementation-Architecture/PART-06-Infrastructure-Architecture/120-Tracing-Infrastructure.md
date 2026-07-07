@@ -5,7 +5,7 @@ chapter: "120"
 title: "Tracing Infrastructure"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./119-Metrics-Infrastructure.md"
@@ -30,7 +30,7 @@ Infrastructure is where architecture meets production reality.
 
 Good application code can still fail if deployment is unsafe, secrets are leaked, logs are missing, scaling is uncontrolled, or incidents have no runbooks.
 
-This chapter defines how **Tracing Infrastructure** should be implemented safely and consistently for Athena.
+This chapter defines how **Tracing Infrastructure** should be implemented safely and consistently for Clara.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Tracing Infrastructure** should be implemented safely
 
 ## Decision
 
-Athena services should propagate trace context and correlation IDs across HTTP, queues, jobs, events, and integration calls.
+Clara services should propagate trace context and correlation IDs across HTTP, queues, jobs, events, and integration calls.
 
 ## Status
 

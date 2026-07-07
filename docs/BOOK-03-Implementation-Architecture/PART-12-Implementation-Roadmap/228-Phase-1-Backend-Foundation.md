@@ -5,7 +5,7 @@ chapter: "228"
 title: "Phase 1 Backend Foundation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./227-Phase-0-Repository-Foundation.md"
@@ -28,7 +28,7 @@ Defines backend foundation implementation including app bootstrap, Clean Archite
 
 A strong architecture still fails if implementation happens in the wrong order.
 
-Athena has backend, frontend, data, security, AI, integration, infrastructure, testing, operations, and product modules. If teams build product capabilities before foundations are ready, technical debt becomes structural debt.
+Clara has backend, frontend, data, security, AI, integration, infrastructure, testing, operations, and product modules. If teams build product capabilities before foundations are ready, technical debt becomes structural debt.
 
 This chapter defines how **Phase 1 Backend Foundation** should guide implementation safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Phase 1 Backend Foundation** should guide implementat
 
 ## Decision
 
-Athena backend foundation should be implemented before product modules to ensure every module follows the same production pattern.
+Clara backend foundation should be implemented before product modules to ensure every module follows the same production pattern.
 
 ## Status
 

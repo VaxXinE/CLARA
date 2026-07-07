@@ -1,4 +1,4 @@
-# Athena Documentation Standard (ADS)
+# Clara Documentation Standard (ADS)
 
 > *"Documentation is architecture made visible."*
 
@@ -8,21 +8,21 @@
 
 | Field | Value |
 |------|-------|
-| Standard | Athena Documentation Standard |
+| Standard | Clara Documentation Standard |
 | Short Name | ADS |
 | Version | 1.0.0 |
 | Status | Official |
-| Owner | Athena Core Team |
-| Scope | Athena Engineering Library |
+| Owner | Clara Core Team |
+| Scope | Clara Engineering Library |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Purpose
 
-The Athena Documentation Standard defines the official structure, style, metadata, naming convention, and quality expectations for all documentation within the Athena Engineering Library.
+The Clara Documentation Standard defines the official structure, style, metadata, naming convention, and quality expectations for all documentation within the Clara Engineering Library.
 
-This standard exists to ensure that every document in Athena is:
+This standard exists to ensure that every document in Clara is:
 
 - Consistent.
 - Maintainable.
@@ -33,7 +33,7 @@ This standard exists to ensure that every document in Athena is:
 - Easy to navigate.
 - Easy to evolve.
 
-Athena documentation is not treated as an afterthought.
+Clara documentation is not treated as an afterthought.
 
 Documentation is a first-class engineering artifact.
 
@@ -41,7 +41,7 @@ Documentation is a first-class engineering artifact.
 
 # Scope
 
-ADS applies to all official Athena documentation, including:
+ADS applies to all official Clara documentation, including:
 
 - Books.
 - Chapters.
@@ -60,7 +60,7 @@ ADS applies to all official Athena documentation, including:
 - Contributor guides.
 - Operational guides.
 
-If a document explains how Athena is designed, built, operated, secured, or evolved, it should follow ADS unless explicitly exempted.
+If a document explains how Clara is designed, built, operated, secured, or evolved, it should follow ADS unless explicitly exempted.
 
 ---
 
@@ -94,7 +94,7 @@ A document is successful when future contributors can understand the reasoning w
 
 ## 3. Consistency Before Personal Style
 
-Athena documentation should feel like one unified library.
+Clara documentation should feel like one unified library.
 
 Individual writing preferences should not override the shared documentation structure.
 
@@ -114,7 +114,7 @@ Documentation should behave like a connected system, not isolated files.
 
 ADS does not depend on a specific documentation platform.
 
-Athena documentation should work in:
+Clara documentation should work in:
 
 - GitHub.
 - GitLab.
@@ -130,7 +130,7 @@ Markdown is the default source format.
 
 # Required Document Structure
 
-Every major Athena document should follow this structure unless the document type has a specialized template.
+Every major Clara document should follow this structure unless the document type has a specialized template.
 
 ```md
 ---
@@ -140,7 +140,7 @@ chapter: ""
 title: ""
 version: "1.0.0"
 status: "draft"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "YYYY-MM-DD"
 classification: ""
 previous: ""
@@ -216,11 +216,11 @@ chapter: "01"
 title: "Executive Overview"
 version: "1.0.0"
 status: "draft"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./README.md"
-next: "./02-Athena-Big-Picture.md"
+next: "./02-Clara-Big-Picture.md"
 ---
 ```
 
@@ -286,7 +286,7 @@ Files must use numbered, descriptive, kebab-case names.
 
 ```text
 01-Executive-Overview.md
-02-Athena-Big-Picture.md
+02-Clara-Big-Picture.md
 12-Architecture-Principles.md
 ```
 
@@ -362,7 +362,7 @@ Keep headings clear and searchable.
 
 # Writing Style
 
-Athena documentation should use professional English.
+Clara documentation should use professional English.
 
 Prefer:
 
@@ -405,7 +405,7 @@ Example:
 ## Goals
 
 - Define the platform capability.
-- Explain its role in Athena.
+- Explain its role in Clara.
 - Identify dependencies.
 - Establish future evolution direction.
 ```
@@ -458,7 +458,7 @@ Example:
 
 Every major document should include future direction.
 
-Athena is designed for long-term evolution.
+Clara is designed for long-term evolution.
 
 Documentation should preserve that intent.
 
@@ -473,7 +473,7 @@ Example:
 ```md
 ## Key Takeaways
 
-- Athena is designed as one platform, not isolated products.
+- Clara is designed as one platform, not isolated products.
 - The Organization Layer is foundational.
 - All modules depend on Identity and Authorization.
 ```
@@ -507,7 +507,7 @@ Example:
 
 **Previous:** [README](./README.md)
 
-**Next:** [02-Athena-Big-Picture](./02-Athena-Big-Picture.md)
+**Next:** [02-Clara-Big-Picture](./02-Clara-Big-Picture.md)
 ```
 
 ---
@@ -549,7 +549,7 @@ flowchart TD
 
 # Blueprint Document Rules
 
-Blueprint documents define what Athena will build.
+Blueprint documents define what Clara will build.
 
 They should not go too deep into implementation.
 
@@ -717,7 +717,7 @@ They should preserve why a decision was made.
 
 # Versioning Standard
 
-Athena documents follow semantic versioning.
+Clara documents follow semantic versioning.
 
 ```text
 MAJOR.MINOR.PATCH
@@ -778,7 +778,7 @@ Before a document is merged, verify:
 
 # Documentation Philosophy
 
-Athena documentation follows these beliefs:
+Clara documentation follows these beliefs:
 
 ```text
 Documentation > Implementation Notes
@@ -800,14 +800,14 @@ Consistency > Personal Style
 
 # Final Standard
 
-All Athena documentation should be written as if it will be read by:
+All Clara documentation should be written as if it will be read by:
 
 - A future engineer maintaining the system.
 - A security reviewer evaluating risk.
 - A product manager defining scope.
 - An AI coding assistant grounding implementation.
 - A new contributor joining the project.
-- An organization depending on Athena.
+- An organization depending on Clara.
 
 Documentation is not complete when it is written.
 

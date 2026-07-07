@@ -5,7 +5,7 @@ chapter: "34"
 title: "Forms Validation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./33-Component-Architecture.md"
@@ -26,11 +26,11 @@ Defines frontend form handling, client-side validation, server validation mappin
 
 # Motivation
 
-Athena frontend must support many users, workflows, modules, and AI-assisted experiences.
+Clara frontend must support many users, workflows, modules, and AI-assisted experiences.
 
 Without clear frontend architecture, UI code can become tightly coupled, difficult to test, inconsistent, inaccessible, and insecure.
 
-This chapter defines how **Forms Validation** should be implemented consistently across Athena client applications.
+This chapter defines how **Forms Validation** should be implemented consistently across Clara client applications.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Forms Validation** should be implemented consistently
 
 ## Decision
 
-Athena frontend should validate forms client-side for usability while treating backend validation as the source of truth.
+Clara frontend should validate forms client-side for usability while treating backend validation as the source of truth.
 
 ## Status
 

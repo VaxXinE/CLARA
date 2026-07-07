@@ -5,7 +5,7 @@ chapter: "207"
 title: "Organization Module"
 version: "1.0.0"
 status: "official"
-owner: "Athena Product Architecture Team"
+owner: "Clara Product Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./206-Product-Implementation-Overview.md"
@@ -14,21 +14,21 @@ next: "./208-Workspace-Module.md"
 
 # Organization Module
 
-> *"Defines implementation architecture for Organization as the highest tenant boundary in Athena."*
+> *"Defines implementation architecture for Organization as the highest tenant boundary in Clara."*
 
 ---
 
 # Purpose
 
-Defines implementation architecture for Organization as the highest tenant boundary in Athena.
+Defines implementation architecture for Organization as the highest tenant boundary in Clara.
 
 ---
 
 # Motivation
 
-Product modules are where users experience Athena.
+Product modules are where users experience Clara.
 
-If product modules are implemented inconsistently, Athena will become difficult to maintain, insecure, hard to test, and confusing to extend. Product implementation must preserve architecture boundaries while still delivering usable product capabilities.
+If product modules are implemented inconsistently, Clara will become difficult to maintain, insecure, hard to test, and confusing to extend. Product implementation must preserve architecture boundaries while still delivering usable product capabilities.
 
 This chapter defines how **Organization Module** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Organization Module** should be implemented consisten
 
 ## Decision
 
-Athena Organization should be implemented as the root tenant boundary for users, workspaces, data, billing, permissions, integrations, and audit.
+Clara Organization should be implemented as the root tenant boundary for users, workspaces, data, billing, permissions, integrations, and audit.
 
 ## Status
 

@@ -5,7 +5,7 @@ chapter: "66"
 title: "Cache"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./65-Storage.md"
@@ -22,7 +22,7 @@ next: "./67-Reporting.md"
 
 Defines temporary data acceleration, rate optimization, session support, and expensive computation reuse.
 
-This chapter explains the blueprint-level role of **Cache** as a shared Platform Service in Athena.
+This chapter explains the blueprint-level role of **Cache** as a shared Platform Service in Clara.
 
 ---
 

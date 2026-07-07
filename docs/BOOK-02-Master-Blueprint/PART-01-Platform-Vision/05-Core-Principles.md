@@ -5,7 +5,7 @@ chapter: "05"
 title: "Core Principles"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./04-Platform-Vision.md"
@@ -28,7 +28,7 @@ These principles translate Book I's foundation into practical blueprint-level gu
 
 # Principle 1 — Organization First
 
-Every Athena capability should be traceable to an Organization and Workspace.
+Every Clara capability should be traceable to an Organization and Workspace.
 
 This ensures ownership, governance, data isolation, and accountability remain clear.
 
@@ -56,7 +56,7 @@ AI capabilities must operate with authorized, relevant, and traceable context.
 
 AI without context is generic.
 
-Athena AI should be organization-aware.
+Clara AI should be organization-aware.
 
 ---
 
@@ -94,7 +94,7 @@ They should remain observable, auditable, and recoverable.
 
 # Principle 9 — Integrations Must Be Governed
 
-Athena should integrate with external systems through secure, observable, and versioned contracts.
+Clara should integrate with external systems through secure, observable, and versioned contracts.
 
 ---
 

@@ -5,7 +5,7 @@ chapter: "59"
 title: "AI Observability"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./58-AI-Evaluation.md"
@@ -28,7 +28,7 @@ Defines AI traces, latency metrics, token usage, model routing logs, tool execut
 
 AI capabilities can create major product leverage, but they also introduce new risks: hallucination, prompt injection, data leakage, uncontrolled cost, unsafe tool execution, inconsistent output, and difficult debugging.
 
-Athena must treat AI as a production platform capability, not as scattered SDK calls.
+Clara must treat AI as a production platform capability, not as scattered SDK calls.
 
 This chapter defines how **AI Observability** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **AI Observability** should be implemented safely and c
 
 ## Decision
 
-Athena AI operations should emit structured telemetry without leaking prompts, secrets, or sensitive customer data.
+Clara AI operations should emit structured telemetry without leaking prompts, secrets, or sensitive customer data.
 
 ## Status
 

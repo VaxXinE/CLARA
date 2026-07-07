@@ -1,4 +1,4 @@
-# Athena Technical Design Document (TDD) Template
+# Clara Technical Design Document (TDD) Template
 
 > Use this template to describe **how** a product or feature will be implemented after the PRD is approved.
 

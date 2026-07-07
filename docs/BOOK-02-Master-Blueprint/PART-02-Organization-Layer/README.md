@@ -4,22 +4,22 @@ part: "PART-02 — Organization Layer"
 title: "Organization Layer"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "part"
 ---
 
 # PART-02 — Organization Layer
 
-> *"Everything in Athena begins with the Organization."*
+> *"Everything in Clara begins with the Organization."*
 
 ---
 
 # Purpose
 
-Part II defines the organizational foundation of Athena.
+Part II defines the organizational foundation of Clara.
 
-Before Athena can manage customers, workflows, AI agents, knowledge, integrations, billing, or analytics, it must define who owns the platform environment and how access is organized.
+Before Clara can manage customers, workflows, AI agents, knowledge, integrations, billing, or analytics, it must define who owns the platform environment and how access is organized.
 
 The Organization Layer establishes the foundation for ownership, identity, workspace structure, access control, governance, and multi-tenancy.
 
@@ -71,7 +71,7 @@ Those topics belong in later architecture and implementation documents.
 | 12 | Workspace | Defines Workspace as the operational environment |
 | 13 | Departments | Defines departments as business grouping units |
 | 14 | Teams | Defines teams as collaboration and ownership units |
-| 15 | Users | Defines human identities in Athena |
+| 15 | Users | Defines human identities in Clara |
 | 16 | Identity | Defines identity as the basis of platform access |
 | 17 | Authentication | Defines how identities prove who they are |
 | 18 | Authorization | Defines how access decisions are made |

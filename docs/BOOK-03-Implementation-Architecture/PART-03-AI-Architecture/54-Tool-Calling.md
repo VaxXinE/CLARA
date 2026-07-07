@@ -5,7 +5,7 @@ chapter: "54"
 title: "Tool Calling"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./53-Memory-Architecture.md"
@@ -28,7 +28,7 @@ Defines AI tool execution, tool schemas, authorization, sandboxing, confirmation
 
 AI capabilities can create major product leverage, but they also introduce new risks: hallucination, prompt injection, data leakage, uncontrolled cost, unsafe tool execution, inconsistent output, and difficult debugging.
 
-Athena must treat AI as a production platform capability, not as scattered SDK calls.
+Clara must treat AI as a production platform capability, not as scattered SDK calls.
 
 This chapter defines how **Tool Calling** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Tool Calling** should be implemented safely and consi
 
 ## Decision
 
-Athena AI tools should be executed through controlled tool adapters with authorization, validation, and audit.
+Clara AI tools should be executed through controlled tool adapters with authorization, validation, and audit.
 
 ## Status
 

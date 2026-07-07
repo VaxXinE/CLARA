@@ -5,7 +5,7 @@ chapter: "76"
 title: "Vector Database"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./75-Search-Index.md"
@@ -22,13 +22,13 @@ next: "./77-Object-Storage.md"
 
 Defines vector storage and similarity search for embeddings, semantic retrieval, and RAG.
 
-This chapter defines the blueprint-level responsibility of **Vector Database** inside Athena's Data Platform.
+This chapter defines the blueprint-level responsibility of **Vector Database** inside Clara's Data Platform.
 
 ---
 
 # Overview
 
-The **Vector Database** capability is part of Athena's shared Data Platform.
+The **Vector Database** capability is part of Clara's shared Data Platform.
 
 It supports business domains, AI capabilities, platform services, integrations, analytics, and operations by ensuring data is stored, accessed, transformed, protected, and recovered consistently.
 
@@ -172,7 +172,7 @@ The **Vector Database** capability may evolve with:
 # Key Takeaways
 
 - Defines vector storage and similarity search for embeddings, semantic retrieval, and RAG.
-- It is part of Athena's shared Data Platform.
+- It is part of Clara's shared Data Platform.
 - It must preserve ownership, security, privacy, and recoverability.
 - It supports business domains, platform services, AI, analytics, and operations.
 

@@ -5,7 +5,7 @@ chapter: "110"
 title: "CI CD Architecture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./109-Kubernetes-Architecture.md"
@@ -30,7 +30,7 @@ Infrastructure is where architecture meets production reality.
 
 Good application code can still fail if deployment is unsafe, secrets are leaked, logs are missing, scaling is uncontrolled, or incidents have no runbooks.
 
-This chapter defines how **CI CD Architecture** should be implemented safely and consistently for Athena.
+This chapter defines how **CI CD Architecture** should be implemented safely and consistently for Clara.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **CI CD Architecture** should be implemented safely and
 
 ## Decision
 
-Athena CI/CD should block unsafe releases through automated tests, static analysis, dependency scanning, container scanning, and approval gates.
+Clara CI/CD should block unsafe releases through automated tests, static analysis, dependency scanning, container scanning, and approval gates.
 
 ## Status
 
@@ -148,7 +148,7 @@ infra/
 # Code Skeleton
 
 ```yaml
-name: athena-ci
+name: Clara-ci
 
 on:
   pull_request:

@@ -5,7 +5,7 @@ chapter: "47"
 title: "AI Gateway"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./46-AI-Architecture-Overview.md"
@@ -28,7 +28,7 @@ Defines the central AI gateway for request normalization, policy enforcement, ro
 
 AI capabilities can create major product leverage, but they also introduce new risks: hallucination, prompt injection, data leakage, uncontrolled cost, unsafe tool execution, inconsistent output, and difficult debugging.
 
-Athena must treat AI as a production platform capability, not as scattered SDK calls.
+Clara must treat AI as a production platform capability, not as scattered SDK calls.
 
 This chapter defines how **AI Gateway** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **AI Gateway** should be implemented safely and consist
 
 ## Decision
 
-Athena backend should route all model requests through a centralized AI Gateway.
+Clara backend should route all model requests through a centralized AI Gateway.
 
 ## Status
 

@@ -1,6 +1,6 @@
-# Athena Chapter Template
+# Clara Chapter Template
 
-> Copy this template when creating a new official Athena chapter.
+> Copy this template when creating a new official Clara chapter.
 
 ---
 

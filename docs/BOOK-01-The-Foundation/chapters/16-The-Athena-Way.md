@@ -1,4 +1,4 @@
-# The Athena Way
+# The Clara Way
 
 > *"Culture is not defined by what an organization says. It is defined by what its people consistently do."*
 
@@ -12,19 +12,19 @@
 | Chapter | 16                      |
 | Version | 1.0                     |
 | Status  | Official                |
-| Owner   | Athena Core Team        |
+| Owner   | Clara Core Team        |
 
 ---
 
 # Purpose
 
-This chapter defines the culture that guides the Athena Project.
+This chapter defines the culture that guides the Clara Project.
 
-The preceding chapters describe what Athena believes.
+The preceding chapters describe what Clara believes.
 
 This chapter describes how those beliefs become everyday actions.
 
-The Athena Way is not a process.
+The Clara Way is not a process.
 
 It is not a checklist.
 
@@ -36,7 +36,7 @@ Every contributor is expected to uphold this culture regardless of role, experie
 
 # We Build for the Long Term
 
-Athena is not designed around quarterly trends.
+Clara is not designed around quarterly trends.
 
 It is designed to remain valuable for decades.
 
@@ -62,7 +62,7 @@ Engineering effort should address root causes rather than temporary fixes.
 
 Short-term workarounds increase long-term complexity.
 
-Athena encourages contributors to understand why problems exist before deciding how they should be solved.
+Clara encourages contributors to understand why problems exist before deciding how they should be solved.
 
 Correct diagnosis is considered part of engineering excellence.
 
@@ -80,7 +80,7 @@ Trade-offs deserve transparency.
 
 Lessons deserve preservation.
 
-Documentation is how Athena shares knowledge across generations of contributors.
+Documentation is how Clara shares knowledge across generations of contributors.
 
 We document our reasoning because future engineers deserve context.
 
@@ -98,7 +98,7 @@ Complexity hidden through thoughtful architecture becomes usability.
 
 Complexity ignored becomes technical debt.
 
-Athena seeks clarity rather than oversimplification.
+Clara seeks clarity rather than oversimplification.
 
 ---
 
@@ -134,7 +134,7 @@ Every contribution represents an opportunity to strengthen the platform.
 
 # We Build Together
 
-Athena values collaboration above individual heroics.
+Clara values collaboration above individual heroics.
 
 Large systems cannot be sustained through isolated effort.
 
@@ -204,7 +204,7 @@ It continues throughout the lifetime of the platform.
 
 Technology evolves continuously.
 
-Athena welcomes innovation without abandoning its principles.
+Clara welcomes innovation without abandoning its principles.
 
 We improve because we learn.
 
@@ -218,9 +218,9 @@ Change becomes valuable only when guided by enduring principles.
 
 # We Protect Trust
 
-Trust is Athena's most valuable asset.
+Trust is Clara's most valuable asset.
 
-Organizations trust Athena with:
+Organizations trust Clara with:
 
 Knowledge.
 
@@ -244,7 +244,7 @@ Protecting trust is everyone's responsibility.
 
 # We Build Platforms, Not Features
 
-Athena is greater than the sum of its modules.
+Clara is greater than the sum of its modules.
 
 Every improvement should strengthen the entire platform.
 
@@ -266,13 +266,13 @@ Technology is only a means.
 
 Organizations exist to serve people.
 
-Athena exists to help organizations make better decisions, preserve knowledge, improve collaboration, and reduce operational complexity.
+Clara exists to help organizations make better decisions, preserve knowledge, improve collaboration, and reduce operational complexity.
 
 Our success is measured by organizational outcomes rather than technological sophistication.
 
 ---
 
-# The Athena Mindset
+# The Clara Mindset
 
 Every contributor should strive to be:
 
@@ -298,11 +298,11 @@ Knowledge-driven.
 
 Long-term oriented.
 
-These characteristics define the Athena mindset more than any specific technical skill.
+These characteristics define the Clara mindset more than any specific technical skill.
 
 ---
 
-# The Athena Way in Practice
+# The Clara Way in Practice
 
 When uncertainty arises, contributors should ask:
 
@@ -312,15 +312,15 @@ When uncertainty arises, contributors should ask:
 * Does this strengthen trust?
 * Does this respect future maintainers?
 * Does this benefit organizations?
-* Does this align with Athena's principles?
+* Does this align with Clara's principles?
 
-If the answer is consistently yes, the decision is likely aligned with The Athena Way.
+If the answer is consistently yes, the decision is likely aligned with The Clara Way.
 
 ---
 
 # Our Commitment
 
-As contributors to Athena, we commit to:
+As contributors to Clara, we commit to:
 
 Build with purpose.
 
@@ -344,13 +344,13 @@ Think beyond ourselves.
 
 Leave the platform stronger than we found it.
 
-These commitments represent the living culture of the Athena Project.
+These commitments represent the living culture of the Clara Project.
 
 ---
 
 # Conclusion
 
-The Athena Way is the practical expression of every principle defined throughout Book I.
+The Clara Way is the practical expression of every principle defined throughout Book I.
 
 Vision inspires direction.
 
@@ -372,7 +372,7 @@ Culture brings them together.
 
 Technology will continue changing.
 
-The Athena Way should endure.
+The Clara Way should endure.
 
 ---
 
@@ -384,4 +384,4 @@ The Athena Way should endure.
 
 **Next**
 
-* 17-Athena-Manifesto.md
+* 17-Clara-Manifesto.md

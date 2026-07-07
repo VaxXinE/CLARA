@@ -5,7 +5,7 @@ chapter: "70"
 title: "Database Strategy"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./README.md"
@@ -14,21 +14,21 @@ next: "./71-Data-Ownership.md"
 
 # Database Strategy
 
-> *"Defines Athena's database strategy for transactional, analytical, operational, and platform data."*
+> *"Defines Clara's database strategy for transactional, analytical, operational, and platform data."*
 
 ---
 
 # Purpose
 
-Defines Athena's database strategy for transactional, analytical, operational, and platform data.
+Defines Clara's database strategy for transactional, analytical, operational, and platform data.
 
-This chapter defines the blueprint-level responsibility of **Database Strategy** inside Athena's Data Platform.
+This chapter defines the blueprint-level responsibility of **Database Strategy** inside Clara's Data Platform.
 
 ---
 
 # Overview
 
-The **Database Strategy** capability is part of Athena's shared Data Platform.
+The **Database Strategy** capability is part of Clara's shared Data Platform.
 
 It supports business domains, AI capabilities, platform services, integrations, analytics, and operations by ensuring data is stored, accessed, transformed, protected, and recovered consistently.
 
@@ -171,8 +171,8 @@ The **Database Strategy** capability may evolve with:
 
 # Key Takeaways
 
-- Defines Athena's database strategy for transactional, analytical, operational, and platform data.
-- It is part of Athena's shared Data Platform.
+- Defines Clara's database strategy for transactional, analytical, operational, and platform data.
+- It is part of Clara's shared Data Platform.
 - It must preserve ownership, security, privacy, and recoverability.
 - It supports business domains, platform services, AI, analytics, and operations.
 

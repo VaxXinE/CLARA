@@ -1,6 +1,6 @@
 # Declaration
 
-> *"Principles are meaningful only when they guide action. This declaration establishes those principles as the enduring foundation of the Athena Project."*
+> *"Principles are meaningful only when they guide action. This declaration establishes those principles as the enduring foundation of the Clara Project."*
 
 ---
 
@@ -12,18 +12,18 @@
 | Chapter        | 18                         |
 | Version        | 1.0                        |
 | Status         | Official                   |
-| Owner          | Athena Core Team           |
+| Owner          | Clara Core Team           |
 | Classification | Constitutional Declaration |
 
 ---
 
 # Declaration of Foundation
 
-The Athena Project is founded upon the principles established throughout **Book I — The Foundation**.
+The Clara Project is founded upon the principles established throughout **Book I — The Foundation**.
 
 These principles represent the constitutional foundation of the platform.
 
-They define the purpose, direction, philosophy, values, engineering culture, architectural thinking, and long-term commitments that guide every aspect of Athena.
+They define the purpose, direction, philosophy, values, engineering culture, architectural thinking, and long-term commitments that guide every aspect of Clara.
 
 Technology may evolve.
 
@@ -37,7 +37,7 @@ The principles contained within this book are intended to provide continuity thr
 
 # Constitutional Authority
 
-Book I is recognized as the highest-level engineering and philosophical document within the Athena Engineering Library.
+Book I is recognized as the highest-level engineering and philosophical document within the Clara Engineering Library.
 
 Every subsequent book, specification, proposal, implementation, architectural decision, operational procedure, and engineering practice should remain consistent with the principles established in this document.
 
@@ -68,7 +68,7 @@ Every future document should reinforce rather than contradict these principles.
 
 # Living Constitution
 
-Athena recognizes that no engineering organization remains static.
+Clara recognizes that no engineering organization remains static.
 
 Learning is expected.
 
@@ -104,7 +104,7 @@ Every amendment should be documented, versioned, and accompanied by clear archit
 
 # Responsibility of Contributors
 
-Every contributor shares responsibility for protecting the integrity of Athena.
+Every contributor shares responsibility for protecting the integrity of Clara.
 
 Contributors are expected to:
 
@@ -132,7 +132,7 @@ Book I establishes the foundation.
 
 Future books expand upon it.
 
-The Athena Engineering Library is intended to develop as a coherent body of knowledge.
+The Clara Engineering Library is intended to develop as a coherent body of knowledge.
 
 Each volume serves a distinct purpose.
 
@@ -189,7 +189,7 @@ Principles should endure.
 
 # Our Commitment
 
-As custodians of the Athena Project, we commit ourselves to the following responsibilities:
+As custodians of the Clara Project, we commit ourselves to the following responsibilities:
 
 We will place principles above trends.
 
@@ -207,13 +207,13 @@ We will document our reasoning.
 
 We will improve continuously without abandoning our foundations.
 
-We will ensure that Athena remains worthy of the organizations that depend upon it.
+We will ensure that Clara remains worthy of the organizations that depend upon it.
 
 ---
 
 # Final Declaration
 
-With the publication of **Book I — The Foundation**, the Athena Project establishes its constitutional principles.
+With the publication of **Book I — The Foundation**, the Clara Project establishes its constitutional principles.
 
 Every subsequent contribution becomes part of a shared engineering legacy.
 
@@ -223,17 +223,17 @@ Every feature contributes to a larger platform.
 
 Every contributor becomes a steward of that platform.
 
-Athena is not defined solely by its software.
+Clara is not defined solely by its software.
 
-Athena is defined by the principles that guide its creation.
+Clara is defined by the principles that guide its creation.
 
-These principles shall remain the enduring foundation upon which Athena is designed, developed, operated, and continuously improved.
+These principles shall remain the enduring foundation upon which Clara is designed, developed, operated, and continuously improved.
 
 ---
 
 # Closing Statement
 
-The future of Athena will be written through architecture.
+The future of Clara will be written through architecture.
 
 Through engineering.
 
@@ -257,7 +257,7 @@ The journey continues with **Book II — Master Blueprint**.
 
 **Previous**
 
-* 17-Athena-Manifesto.md
+* 17-Clara-Manifesto.md
 
 **Next**
 

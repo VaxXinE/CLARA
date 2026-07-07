@@ -12,15 +12,15 @@
 | Chapter | 13                      |
 | Version | 1.0                     |
 | Status  | Official                |
-| Owner   | Athena Core Team        |
+| Owner   | Clara Core Team        |
 
 ---
 
 # Purpose
 
-This chapter defines the product principles that guide the evolution of the Athena platform.
+This chapter defines the product principles that guide the evolution of the Clara platform.
 
-These principles establish how product decisions should be made, how new capabilities should be evaluated, and how Athena should evolve over time.
+These principles establish how product decisions should be made, how new capabilities should be evaluated, and how Clara should evolve over time.
 
 Every feature, workflow, module, and product initiative should align with these principles before implementation begins.
 
@@ -28,7 +28,7 @@ Every feature, workflow, module, and product initiative should align with these 
 
 # Products Exist to Solve Problems
 
-Athena does not build features for the sake of completeness.
+Clara does not build features for the sake of completeness.
 
 Every capability should solve a real organizational problem.
 
@@ -46,13 +46,13 @@ A feature without a meaningful problem is unnecessary complexity.
 
 # Principle 1 — Organization Before Application
 
-Athena is not a collection of independent products.
+Clara is not a collection of independent products.
 
 It is one Business Operating System.
 
 Every new capability should strengthen the platform rather than become an isolated application.
 
-Users should experience Athena as one cohesive system regardless of the number of available modules.
+Users should experience Clara as one cohesive system regardless of the number of available modules.
 
 ---
 
@@ -250,7 +250,7 @@ Before approving significant product work, teams should ask:
 * Does it preserve consistency?
 * Can it be reused elsewhere?
 * Does it improve organizational intelligence?
-* Does it align with Athena's mission?
+* Does it align with Clara's mission?
 * Is long-term maintenance understood?
 * Can success be measured?
 
@@ -258,9 +258,9 @@ If the answers are unclear, additional discovery should occur before implementat
 
 ---
 
-# Characteristics of Athena Products
+# Characteristics of Clara Products
 
-Every Athena capability should strive to be:
+Every Clara capability should strive to be:
 
 Useful.
 
@@ -286,13 +286,13 @@ Scalable.
 
 Future-ready.
 
-These characteristics define product quality throughout the Athena ecosystem.
+These characteristics define product quality throughout the Clara ecosystem.
 
 ---
 
 # Product Lifecycle
 
-Every Athena capability follows a deliberate lifecycle.
+Every Clara capability follows a deliberate lifecycle.
 
 1. Discover
 
@@ -320,7 +320,7 @@ Confirm assumptions with evidence.
 
 5. Build
 
-Implement according to Athena's engineering principles.
+Implement according to Clara's engineering principles.
 
 ↓
 
@@ -340,7 +340,7 @@ The lifecycle repeats throughout the life of the platform.
 
 # Long-Term Product Vision
 
-Athena is designed to become the operating environment through which organizations perform their daily work.
+Clara is designed to become the operating environment through which organizations perform their daily work.
 
 Every new capability should contribute toward that objective.
 
@@ -354,7 +354,7 @@ As the platform grows, users should experience increasing simplicity rather than
 
 # Conclusion
 
-Athena products are built with one purpose:
+Clara products are built with one purpose:
 
 To help organizations operate more effectively.
 

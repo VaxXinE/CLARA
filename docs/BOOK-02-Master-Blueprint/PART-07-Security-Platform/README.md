@@ -4,24 +4,24 @@ part: "PART-07 — Security Platform"
 title: "Security Platform"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "part"
 ---
 
 # PART-07 — Security Platform
 
-> *"Security is not a feature in Athena. Security is a platform foundation."*
+> *"Security is not a feature in Clara. Security is a platform foundation."*
 
 ---
 
 # Purpose
 
-Part VII defines Athena's Security Platform.
+Part VII defines Clara's Security Platform.
 
 The Security Platform provides the shared foundation for identity, access management, zero trust, encryption, key management, secrets, privacy, compliance, audit strategy, and threat modeling.
 
-Security must protect every layer of Athena:
+Security must protect every layer of Clara:
 
 - Organization.
 - Workspace.
@@ -41,7 +41,7 @@ Security must protect every layer of Athena:
 # Goals
 
 - Establish security as a shared platform capability.
-- Define Athena's high-level security model.
+- Define Clara's high-level security model.
 - Protect Organization and Workspace boundaries.
 - Support secure identity and access management.
 - Ensure sensitive data is encrypted and governed.
@@ -82,7 +82,7 @@ Those topics belong in later security architecture, runbooks, and implementation
 
 | Chapter | Title | Purpose |
 |---|---|---|
-| 82 | Security Overview | Defines Athena's security platform foundation |
+| 82 | Security Overview | Defines Clara's security platform foundation |
 | 83 | IAM | Defines identity and access management |
 | 84 | Zero Trust | Defines no-trust-by-default posture |
 | 85 | Encryption | Defines data protection through encryption |
@@ -99,7 +99,7 @@ Those topics belong in later security architecture, runbooks, and implementation
 
 ```mermaid
 flowchart TD
-    Platform[Athena Platform] --> IAM[IAM]
+    Platform[Clara Platform] --> IAM[IAM]
     Platform --> ZeroTrust[Zero Trust]
     Platform --> Encryption[Encryption]
     Platform --> Keys[Key Management]

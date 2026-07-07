@@ -5,7 +5,7 @@ chapter: "194"
 title: "Release Operations"
 version: "1.0.0"
 status: "official"
-owner: "Athena Operations Architecture Team"
+owner: "Clara Operations Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./193-Change-Management.md"
@@ -28,7 +28,7 @@ Defines operational release process, release windows, canary analysis, rollback 
 
 Production systems do not stay reliable by accident.
 
-Athena needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
+Clara needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
 
 This chapter defines how **Release Operations** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Release Operations** should be implemented consistent
 
 ## Decision
 
-Athena releases should use automated deployment, staged rollout, production verification, and explicit rollback thresholds.
+Clara releases should use automated deployment, staged rollout, production verification, and explicit rollback thresholds.
 
 ## Status
 

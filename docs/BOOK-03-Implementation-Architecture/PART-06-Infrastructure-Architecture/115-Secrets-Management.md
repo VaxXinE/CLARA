@@ -5,7 +5,7 @@ chapter: "115"
 title: "Secrets Management"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./114-Service-Discovery.md"
@@ -30,7 +30,7 @@ Infrastructure is where architecture meets production reality.
 
 Good application code can still fail if deployment is unsafe, secrets are leaked, logs are missing, scaling is uncontrolled, or incidents have no runbooks.
 
-This chapter defines how **Secrets Management** should be implemented safely and consistently for Athena.
+This chapter defines how **Secrets Management** should be implemented safely and consistently for Clara.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Secrets Management** should be implemented safely and
 
 ## Decision
 
-Athena secrets should be stored in a managed secret vault and injected into runtime environments without committing secrets to source code.
+Clara secrets should be stored in a managed secret vault and injected into runtime environments without committing secrets to source code.
 
 ## Status
 
@@ -155,8 +155,8 @@ export interface SecretProvider {
 
 export class VaultSecretProvider implements SecretProvider {
   async getSecret(name: string): Promise<string> {
-    if (!name.startsWith("athena/")) {
-      throw new Error("Secret path is outside Athena namespace");
+    if (!name.startsWith("Clara/")) {
+      throw new Error("Secret path is outside Clara namespace");
     }
 
     return vault.readSecret(name);

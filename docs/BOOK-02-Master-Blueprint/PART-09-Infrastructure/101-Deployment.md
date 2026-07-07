@@ -5,7 +5,7 @@ chapter: "101"
 title: "Deployment"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./README.md"
@@ -14,21 +14,21 @@ next: "./102-Kubernetes.md"
 
 # Deployment
 
-> *"Defines Athena's deployment strategy across environments, services, releases, and operational boundaries."*
+> *"Defines Clara's deployment strategy across environments, services, releases, and operational boundaries."*
 
 ---
 
 # Purpose
 
-Defines Athena's deployment strategy across environments, services, releases, and operational boundaries.
+Defines Clara's deployment strategy across environments, services, releases, and operational boundaries.
 
-This chapter defines the blueprint-level role of **Deployment** inside Athena's Infrastructure layer.
+This chapter defines the blueprint-level role of **Deployment** inside Clara's Infrastructure layer.
 
 ---
 
 # Overview
 
-The **Deployment** capability supports Athena's ability to run services reliably, securely, and consistently across environments.
+The **Deployment** capability supports Clara's ability to run services reliably, securely, and consistently across environments.
 
 It provides operational foundations for business domains, AI platform components, platform services, integration systems, and data services.
 
@@ -55,7 +55,7 @@ The **Deployment** capability is responsible for:
 
 The **Deployment** capability should be treated as part of the shared infrastructure foundation.
 
-Athena services should not depend on ad-hoc deployment or runtime patterns when a shared infrastructure model exists.
+Clara services should not depend on ad-hoc deployment or runtime patterns when a shared infrastructure model exists.
 
 ---
 
@@ -65,7 +65,7 @@ Athena services should not depend on ad-hoc deployment or runtime patterns when 
 flowchart LR
     Code[Code / Config] --> Infra[Deployment]
     Infra --> Runtime[Runtime Environment]
-    Runtime --> Services[Athena Services]
+    Runtime --> Services[Clara Services]
     Services --> Observability[Observability]
     Services --> Security[Security Platform]
 ```
@@ -156,10 +156,10 @@ The **Deployment** capability may evolve with:
 
 # Key Takeaways
 
-- Defines Athena's deployment strategy across environments, services, releases, and operational boundaries.
-- It is part of Athena's shared Infrastructure layer.
+- Defines Clara's deployment strategy across environments, services, releases, and operational boundaries.
+- It is part of Clara's shared Infrastructure layer.
 - It should support secure, reliable, observable, and scalable operation.
-- It should provide a foundation for production-grade Athena deployment.
+- It should provide a foundation for production-grade Clara deployment.
 
 ---
 

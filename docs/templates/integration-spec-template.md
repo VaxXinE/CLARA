@@ -1,6 +1,6 @@
-# Athena Integration Specification Template
+# Clara Integration Specification Template
 
-> Use this template to document integrations between Athena and external systems, providers, plugins, channels, or third-party APIs.
+> Use this template to document integrations between Clara and external systems, providers, plugins, channels, or third-party APIs.
 
 ```yaml
 ---
@@ -122,16 +122,16 @@ Apply least privilege.
 ```mermaid
 flowchart LR
     External[External System] --> Adapter[Integration Adapter]
-    Adapter --> Athena[Athena Platform]
-    Athena --> Audit[Audit Log]
-    Athena --> EventBus[Event Bus]
+    Adapter --> Clara[Clara Platform]
+    Clara --> Audit[Audit Log]
+    Clara --> EventBus[Event Bus]
 ```
 
 ---
 
 # Inbound Data
 
-| Source Field | Athena Field | Required | Transformation |
+| Source Field | Clara Field | Required | Transformation |
 |---|---|---|---|
 | | | | |
 
@@ -139,7 +139,7 @@ flowchart LR
 
 # Outbound Data
 
-| Athena Field | External Field | Required | Transformation |
+| Clara Field | External Field | Required | Transformation |
 |---|---|---|---|
 | | | | |
 
@@ -232,7 +232,7 @@ Document:
 Document:
 
 - Provider limits
-- Athena limits
+- Clara limits
 - Throttling strategy
 - User-facing behavior
 

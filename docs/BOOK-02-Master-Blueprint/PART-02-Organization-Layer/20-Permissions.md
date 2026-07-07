@@ -5,7 +5,7 @@ chapter: "20"
 title: "Permissions"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./19-Roles.md"
@@ -20,7 +20,7 @@ next: "../PART-03-Business-Domains/21-CRM.md"
 
 # Purpose
 
-This chapter defines Permissions in Athena.
+This chapter defines Permissions in Clara.
 
 Permissions are the granular access controls used during authorization.
 
@@ -30,7 +30,7 @@ Permissions are the granular access controls used during authorization.
 
 A Permission represents an allowed action on a protected resource.
 
-Athena recommends the format:
+Clara recommends the format:
 
 ```text
 <resource>:<action>
@@ -106,7 +106,7 @@ Authorization should evaluate:
 
 Permissions are security-critical.
 
-Athena should:
+Clara should:
 
 - Deny by default.
 - Validate permissions server-side.

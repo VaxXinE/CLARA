@@ -5,7 +5,7 @@ chapter: "127"
 title: "Identity Access Management"
 version: "1.0.0"
 status: "official"
-owner: "Athena Security Architecture Team"
+owner: "Clara Security Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./126-Security-Implementation-Overview.md"
@@ -28,7 +28,7 @@ Defines identity lifecycle, user identity, service identity, roles, permissions,
 
 Security bugs in production are expensive, damaging, and often caused by unclear ownership or inconsistent implementation.
 
-Athena handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
+Clara handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
 
 This chapter defines how **Identity Access Management** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Identity Access Management** should be implemented sa
 
 ## Decision
 
-Athena IAM should centralize identity and access decisions while allowing domain modules to declare resource-specific permissions.
+Clara IAM should centralize identity and access decisions while allowing domain modules to declare resource-specific permissions.
 
 ## Status
 

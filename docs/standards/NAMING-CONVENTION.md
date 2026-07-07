@@ -1,4 +1,4 @@
-# Athena Naming Convention
+# Clara Naming Convention
 
 > *"Names are architecture. A clear name reduces confusion before documentation is even opened."*
 
@@ -8,20 +8,20 @@
 
 | Field | Value |
 |------|-------|
-| Document | Athena Naming Convention |
+| Document | Clara Naming Convention |
 | Version | 1.0.0 |
 | Status | Official |
-| Owner | Athena Core Team |
-| Scope | Athena Engineering Library and Repository |
+| Owner | Clara Core Team |
+| Scope | Clara Engineering Library and Repository |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Purpose
 
-This document defines naming conventions for the Athena Project.
+This document defines naming conventions for the Clara Project.
 
-Consistent naming helps Athena remain:
+Consistent naming helps Clara remain:
 
 - Readable.
 - Searchable.
@@ -219,7 +219,7 @@ Chapter files should begin with a numeric prefix.
 
 ```text
 01-Executive-Overview.md
-02-Athena-Big-Picture.md
+02-Clara-Big-Picture.md
 03-Platform-Philosophy.md
 ```
 
@@ -269,7 +269,7 @@ Use two-digit numbers for chapter ordering.
 
 ```text
 01-Preface.md
-02-Why-Athena-Exists.md
+02-Why-Clara-Exists.md
 10-Data-Philosophy.md
 ```
 
@@ -277,7 +277,7 @@ Use two-digit numbers for chapter ordering.
 
 ```text
 1-Preface.md
-2-Why-Athena-Exists.md
+2-Why-Clara-Exists.md
 ```
 
 For books or large collections that may exceed 99 files, three-digit numbers may be used.
@@ -555,7 +555,7 @@ Use camelCase for JSON fields unless a specific external standard requires other
 }
 ```
 
-If Athena later adopts a different API style, this must be documented in an ADR.
+If Clara later adopts a different API style, this must be documented in an ADR.
 
 ---
 
@@ -709,17 +709,17 @@ Do not hide core business fields inside metadata.
 
 Use uppercase snake_case.
 
-Prefix Athena-specific variables with `ATHENA_`.
+Prefix Clara-specific variables with `Clara_`.
 
 ## Examples
 
 ```text
-ATHENA_ENV
-ATHENA_DATABASE_URL
-ATHENA_REDIS_URL
-ATHENA_JWT_SECRET
-ATHENA_LOG_LEVEL
-ATHENA_STORAGE_BUCKET
+Clara_ENV
+Clara_DATABASE_URL
+Clara_REDIS_URL
+Clara_JWT_SECRET
+Clara_LOG_LEVEL
+Clara_STORAGE_BUCKET
 ```
 
 Secrets must not be committed to the repository.
@@ -878,7 +878,7 @@ Include purpose in the name.
 ## Examples
 
 ```text
-athena-logo.svg
+Clara-logo.svg
 book-02-cover.png
 platform-overview-banner.svg
 identity-domain-icon.svg

@@ -5,7 +5,7 @@ chapter: "38"
 title: "Billing"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./37-Finance.md"
@@ -14,7 +14,7 @@ next: "./39-Inventory.md"
 
 # Billing
 
-> *"Billing manages the commercial relationship between Athena and paying organizations."*
+> *"Billing manages the commercial relationship between Clara and paying organizations."*
 
 ---
 
@@ -79,7 +79,7 @@ AI may assist by:
 
 Billing data is sensitive.
 
-Athena should avoid storing payment credentials directly unless absolutely required and compliant.
+Clara should avoid storing payment credentials directly unless absolutely required and compliant.
 
 Payment provider integrations must follow strong security requirements.
 

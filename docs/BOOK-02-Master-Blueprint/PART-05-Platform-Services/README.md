@@ -4,7 +4,7 @@ part: "PART-05 — Platform Services"
 title: "Platform Services"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "part"
 ---
@@ -17,17 +17,17 @@ classification: "part"
 
 # Purpose
 
-Part V defines Athena's shared Platform Services.
+Part V defines Clara's shared Platform Services.
 
 Platform Services provide reusable capabilities used across business domains, AI capabilities, integrations, workflows, and operational systems.
 
-These services reduce duplication, improve consistency, and make Athena easier to secure, observe, scale, and maintain.
+These services reduce duplication, improve consistency, and make Clara easier to secure, observe, scale, and maintain.
 
 ---
 
 # Goals
 
-- Define the reusable services that support Athena domains.
+- Define the reusable services that support Clara domains.
 - Establish shared responsibility boundaries.
 - Prevent duplicated local implementations.
 - Create a blueprint for cross-domain platform capabilities.
@@ -69,7 +69,7 @@ These services reduce duplication, improve consistency, and make Athena easier t
 | Chapter | Title | Purpose |
 |---|---|---|
 | 56 | Notification | Shared delivery of alerts, reminders, and messages |
-| 57 | Search | Shared search across Athena data and knowledge |
+| 57 | Search | Shared search across Clara data and knowledge |
 | 58 | Audit | Shared audit trail for critical actions |
 | 59 | Event Bus | Shared event backbone |
 | 60 | Queue | Shared asynchronous job processing |

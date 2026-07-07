@@ -5,7 +5,7 @@ chapter: "15"
 title: "Users"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./14-Teams.md"
@@ -14,13 +14,13 @@ next: "./16-Identity.md"
 
 # Users
 
-> *"A User is an accountable human identity in Athena."*
+> *"A User is an accountable human identity in Clara."*
 
 ---
 
 # Purpose
 
-This chapter defines Users as human identities that interact with Athena.
+This chapter defines Users as human identities that interact with Clara.
 
 Users perform work, manage resources, approve actions, collaborate with AI, and remain accountable for their actions.
 

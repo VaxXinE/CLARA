@@ -5,7 +5,7 @@ chapter: "39"
 title: "Inventory"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./38-Billing.md"
@@ -28,7 +28,7 @@ Inventory supports organizations that manage products, assets, stock, equipment,
 
 # Overview
 
-Inventory may be optional depending on the Athena deployment.
+Inventory may be optional depending on the Clara deployment.
 
 For businesses that need it, Inventory connects to Sales, Support, Finance, Workflow, Analytics, and Integrations.
 

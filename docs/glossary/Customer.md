@@ -1,6 +1,6 @@
 # Customer
 
-> *"A customer is the business relationship Athena exists to understand, support, and strengthen."*
+> *"A customer is the business relationship Clara exists to understand, support, and strengthen."*
 
 ---
 
@@ -11,14 +11,14 @@
 | Term | Customer |
 | Category | CRM / Business |
 | Status | Official |
-| Owner | Athena Core Team |
+| Owner | Clara Core Team |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Definition
 
-A **Customer** is a person, company, organization, or external entity that has a business relationship with an Organization using Athena.
+A **Customer** is a person, company, organization, or external entity that has a business relationship with an Organization using Clara.
 
 A Customer may represent:
 
@@ -32,13 +32,13 @@ A Customer may represent:
 - A citizen.
 - A service recipient.
 
-The exact business meaning may vary by industry, but within Athena, Customer represents the primary external relationship managed by the platform.
+The exact business meaning may vary by industry, but within Clara, Customer represents the primary external relationship managed by the platform.
 
 ---
 
 # Purpose
 
-Customers exist in Athena to provide a central business entity for:
+Customers exist in Clara to provide a central business entity for:
 
 - CRM.
 - Sales.
@@ -213,7 +213,7 @@ AI access to Customer data must follow authorization and privacy rules.
 
 Customer data is business-sensitive.
 
-Athena must enforce:
+Clara must enforce:
 
 - Authentication.
 - Authorization.
@@ -321,7 +321,7 @@ User
 Lead
 ```
 
-These may be valid in specific domains, but official Athena CRM documentation should use `Customer` for the central external business relationship.
+These may be valid in specific domains, but official Clara CRM documentation should use `Customer` for the central external business relationship.
 
 ---
 

@@ -5,7 +5,7 @@ chapter: "108"
 title: "Tracing"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./107-Logging.md"
@@ -14,21 +14,21 @@ next: "./109-Multi-Region.md"
 
 # Tracing
 
-> *"Defines distributed tracing for understanding requests across Athena services and integrations."*
+> *"Defines distributed tracing for understanding requests across Clara services and integrations."*
 
 ---
 
 # Purpose
 
-Defines distributed tracing for understanding requests across Athena services and integrations.
+Defines distributed tracing for understanding requests across Clara services and integrations.
 
-This chapter defines the blueprint-level role of **Tracing** inside Athena's Infrastructure layer.
+This chapter defines the blueprint-level role of **Tracing** inside Clara's Infrastructure layer.
 
 ---
 
 # Overview
 
-The **Tracing** capability supports Athena's ability to run services reliably, securely, and consistently across environments.
+The **Tracing** capability supports Clara's ability to run services reliably, securely, and consistently across environments.
 
 It provides operational foundations for business domains, AI platform components, platform services, integration systems, and data services.
 
@@ -55,7 +55,7 @@ The **Tracing** capability is responsible for:
 
 The **Tracing** capability should be treated as part of the shared infrastructure foundation.
 
-Athena services should not depend on ad-hoc deployment or runtime patterns when a shared infrastructure model exists.
+Clara services should not depend on ad-hoc deployment or runtime patterns when a shared infrastructure model exists.
 
 ---
 
@@ -65,7 +65,7 @@ Athena services should not depend on ad-hoc deployment or runtime patterns when 
 flowchart LR
     Code[Code / Config] --> Infra[Tracing]
     Infra --> Runtime[Runtime Environment]
-    Runtime --> Services[Athena Services]
+    Runtime --> Services[Clara Services]
     Services --> Observability[Observability]
     Services --> Security[Security Platform]
 ```
@@ -156,10 +156,10 @@ The **Tracing** capability may evolve with:
 
 # Key Takeaways
 
-- Defines distributed tracing for understanding requests across Athena services and integrations.
-- It is part of Athena's shared Infrastructure layer.
+- Defines distributed tracing for understanding requests across Clara services and integrations.
+- It is part of Clara's shared Infrastructure layer.
 - It should support secure, reliable, observable, and scalable operation.
-- It should provide a foundation for production-grade Athena deployment.
+- It should provide a foundation for production-grade Clara deployment.
 
 ---
 

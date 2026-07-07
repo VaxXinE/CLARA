@@ -1,4 +1,4 @@
-# Athena UX Specification Template
+# Clara UX Specification Template
 
 > Use this template to define the user experience, interaction flows, and interface behavior before UI implementation begins.
 

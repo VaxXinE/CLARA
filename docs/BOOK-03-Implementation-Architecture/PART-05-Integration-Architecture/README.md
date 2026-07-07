@@ -4,20 +4,20 @@ part: "PART-05 — Integration Architecture"
 title: "Integration Architecture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 ---
 
 # PART-05 — Integration Architecture
 
-> *"Integration architecture is how Athena safely connects to the outside world without losing control of trust, data, or reliability."*
+> *"Integration architecture is how Clara safely connects to the outside world without losing control of trust, data, or reliability."*
 
 ---
 
 # Purpose
 
-Part V defines Athena's implementation architecture for integrations.
+Part V defines Clara's implementation architecture for integrations.
 
 It turns Book II Integration Platform concepts into production-grade implementation standards for REST API, GraphQL, webhooks, realtime messaging, OAuth, API gateway integration, external connectors, plugin SDK, extension SDK, marketplace, third-party API clients, authentication, authorization, rate limits, idempotency, event-driven integration, data mapping, observability, and security.
 
@@ -26,7 +26,7 @@ It turns Book II Integration Platform concepts into production-grade implementat
 # Goals
 
 - Standardize internal and external integration patterns.
-- Keep external provider schemas out of Athena domain models.
+- Keep external provider schemas out of Clara domain models.
 - Secure inbound and outbound integration flows.
 - Make webhook and external API processing idempotent.
 - Protect tenant and workspace boundaries.

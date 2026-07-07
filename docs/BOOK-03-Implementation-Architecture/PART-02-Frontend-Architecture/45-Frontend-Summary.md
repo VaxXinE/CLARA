@@ -5,7 +5,7 @@ chapter: "45"
 title: "Frontend Summary"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./44-Performance.md"
@@ -14,23 +14,23 @@ next: "../PART-03-AI-Architecture/README.md"
 
 # Frontend Summary
 
-> *"Summarizes Athena frontend architecture principles, patterns, boundaries, and production-readiness expectations."*
+> *"Summarizes Clara frontend architecture principles, patterns, boundaries, and production-readiness expectations."*
 
 ---
 
 # Purpose
 
-Summarizes Athena frontend architecture principles, patterns, boundaries, and production-readiness expectations.
+Summarizes Clara frontend architecture principles, patterns, boundaries, and production-readiness expectations.
 
 ---
 
 # Motivation
 
-Athena frontend must support many users, workflows, modules, and AI-assisted experiences.
+Clara frontend must support many users, workflows, modules, and AI-assisted experiences.
 
 Without clear frontend architecture, UI code can become tightly coupled, difficult to test, inconsistent, inaccessible, and insecure.
 
-This chapter defines how **Frontend Summary** should be implemented consistently across Athena client applications.
+This chapter defines how **Frontend Summary** should be implemented consistently across Clara client applications.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Frontend Summary** should be implemented consistently
 
 ## Decision
 
-Athena frontend should remain modular, secure, accessible, observable, and consistent with Book I, Book II, and Book III backend architecture.
+Clara frontend should remain modular, secure, accessible, observable, and consistent with Book I, Book II, and Book III backend architecture.
 
 ## Status
 

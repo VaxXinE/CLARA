@@ -5,7 +5,7 @@ chapter: "01"
 title: "System Architecture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-06"
 classification: "implementation-architecture"
 previous: "./README.md"
@@ -20,7 +20,7 @@ next: "./02-Clean-Architecture.md"
 
 # Purpose
 
-This chapter defines Athena's backend system architecture at implementation level.
+This chapter defines Clara's backend system architecture at implementation level.
 
 It explains how backend components should be arranged conceptually before discussing folder structure, frameworks, or coding patterns.
 
@@ -28,9 +28,9 @@ It explains how backend components should be arranged conceptually before discus
 
 # Motivation
 
-Athena is not a small single-purpose application.
+Clara is not a small single-purpose application.
 
-Athena includes business domains, platform services, AI capabilities, integrations, data systems, security controls, and infrastructure concerns.
+Clara includes business domains, platform services, AI capabilities, integrations, data systems, security controls, and infrastructure concerns.
 
 Without a clear backend system architecture, code can quickly become tightly coupled, hard to secure, difficult to test, and painful to evolve.
 
@@ -40,7 +40,7 @@ Without a clear backend system architecture, code can quickly become tightly cou
 
 ## Decision
 
-Athena backend should use a modular, domain-oriented architecture with clear boundaries between:
+Clara backend should use a modular, domain-oriented architecture with clear boundaries between:
 
 - Presentation.
 - Application.
@@ -100,7 +100,7 @@ flowchart TD
 
 # Backend Responsibilities
 
-Athena backend is responsible for:
+Clara backend is responsible for:
 
 - Serving APIs.
 - Executing use cases.
@@ -193,7 +193,7 @@ When implementing a backend feature:
 
 # Key Takeaways
 
-- Athena backend should be modular and domain-oriented.
+- Clara backend should be modular and domain-oriented.
 - Business logic belongs in the Domain and Application layers.
 - Infrastructure details should not leak into domain logic.
 - Security and observability are part of system architecture.

@@ -2,20 +2,20 @@
 title: "Reference Library"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "documentation-index"
 ---
 
 # Reference Library
 
-> "External and internal references used by Athena documentation."
+> "External and internal references used by Clara documentation."
 
 ---
 
 # Purpose
 
-External and internal references used by Athena documentation.
+External and internal references used by Clara documentation.
 
 ---
 

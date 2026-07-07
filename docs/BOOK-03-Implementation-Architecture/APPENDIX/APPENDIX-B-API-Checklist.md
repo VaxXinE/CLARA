@@ -4,7 +4,7 @@ appendix: "B"
 title: "API Checklist"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-checklist"
 ---
@@ -17,7 +17,7 @@ classification: "implementation-checklist"
 
 # Purpose
 
-This checklist helps engineers design, implement, and review Athena APIs safely.
+This checklist helps engineers design, implement, and review Clara APIs safely.
 
 Use it for:
 
@@ -152,7 +152,7 @@ Ask during review:
 # AI Assistant Prompt
 
 ```text
-Implement this Athena API using the API Checklist.
+Implement this Clara API using the API Checklist.
 
 Rules:
 - Use explicit DTO validation.

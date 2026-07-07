@@ -1,4 +1,4 @@
-# ATHENA Documentation Patch Manifest
+# Clara Documentation Patch Manifest
 
 ## Root Files
 

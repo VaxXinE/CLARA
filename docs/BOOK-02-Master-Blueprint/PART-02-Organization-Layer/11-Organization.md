@@ -5,7 +5,7 @@ chapter: "11"
 title: "Organization"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./README.md"
@@ -14,13 +14,13 @@ next: "./12-Workspace.md"
 
 # Organization
 
-> *"The Organization is the highest ownership boundary in Athena."*
+> *"The Organization is the highest ownership boundary in Clara."*
 
 ---
 
 # Purpose
 
-This chapter defines the Organization concept within Athena.
+This chapter defines the Organization concept within Clara.
 
 An Organization represents the business entity that owns users, workspaces, data, workflows, configuration, integrations, billing, governance, and security policies.
 
@@ -28,9 +28,9 @@ An Organization represents the business entity that owns users, workspaces, data
 
 # Overview
 
-Every Athena deployment begins with an Organization.
+Every Clara deployment begins with an Organization.
 
-An Organization may represent a company, institution, agency, community, or operational entity using Athena to run business processes.
+An Organization may represent a company, institution, agency, community, or operational entity using Clara to run business processes.
 
 Most platform resources should be traceable to an Organization directly or indirectly.
 
@@ -89,7 +89,7 @@ No user, AI agent, integration, workflow, plugin, or service should access Organ
 
 Organization boundaries are security-sensitive.
 
-Athena must enforce:
+Clara must enforce:
 
 - Authentication.
 - Authorization.
@@ -106,7 +106,7 @@ Client-provided Organization identifiers must never be trusted without server-si
 # Key Takeaways
 
 - Organization is the highest business ownership boundary.
-- Most Athena resources belong to an Organization.
+- Most Clara resources belong to an Organization.
 - Organization boundaries influence security, billing, governance, and data ownership.
 - Every cross-Organization access must be explicitly authorized.
 

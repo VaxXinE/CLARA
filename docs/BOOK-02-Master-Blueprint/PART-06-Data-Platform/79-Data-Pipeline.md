@@ -5,7 +5,7 @@ chapter: "79"
 title: "Data Pipeline"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./78-Cache-Layer.md"
@@ -22,13 +22,13 @@ next: "./80-Backup.md"
 
 Defines data movement, transformation, analytics preparation, and AI data processing.
 
-This chapter defines the blueprint-level responsibility of **Data Pipeline** inside Athena's Data Platform.
+This chapter defines the blueprint-level responsibility of **Data Pipeline** inside Clara's Data Platform.
 
 ---
 
 # Overview
 
-The **Data Pipeline** capability is part of Athena's shared Data Platform.
+The **Data Pipeline** capability is part of Clara's shared Data Platform.
 
 It supports business domains, AI capabilities, platform services, integrations, analytics, and operations by ensuring data is stored, accessed, transformed, protected, and recovered consistently.
 
@@ -172,7 +172,7 @@ The **Data Pipeline** capability may evolve with:
 # Key Takeaways
 
 - Defines data movement, transformation, analytics preparation, and AI data processing.
-- It is part of Athena's shared Data Platform.
+- It is part of Clara's shared Data Platform.
 - It must preserve ownership, security, privacy, and recoverability.
 - It supports business domains, platform services, AI, analytics, and operations.
 

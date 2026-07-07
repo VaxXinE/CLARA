@@ -5,7 +5,7 @@ chapter: "114"
 title: "Service Discovery"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./113-Load-Balancing.md"
@@ -30,7 +30,7 @@ Infrastructure is where architecture meets production reality.
 
 Good application code can still fail if deployment is unsafe, secrets are leaked, logs are missing, scaling is uncontrolled, or incidents have no runbooks.
 
-This chapter defines how **Service Discovery** should be implemented safely and consistently for Athena.
+This chapter defines how **Service Discovery** should be implemented safely and consistently for Clara.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Service Discovery** should be implemented safely and 
 
 ## Decision
 
-Athena services should use platform-native service discovery and avoid hard-coded internal service addresses.
+Clara services should use platform-native service discovery and avoid hard-coded internal service addresses.
 
 ## Status
 

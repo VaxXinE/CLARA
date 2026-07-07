@@ -5,10 +5,10 @@ chapter: "03"
 title: "Platform Philosophy"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
-previous: "./02-Athena-Big-Picture.md"
+previous: "./02-Clara-Big-Picture.md"
 next: "./04-Platform-Vision.md"
 ---
 
@@ -20,15 +20,15 @@ next: "./04-Platform-Vision.md"
 
 # Purpose
 
-This chapter defines the philosophy behind Athena as a platform.
+This chapter defines the philosophy behind Clara as a platform.
 
-It explains how Athena should grow without becoming fragmented.
+It explains how Clara should grow without becoming fragmented.
 
 ---
 
 # Platform Before Features
 
-Athena should not be built as a pile of isolated features.
+Clara should not be built as a pile of isolated features.
 
 Every new capability should strengthen the shared platform.
 
@@ -38,7 +38,7 @@ A feature that solves one problem but weakens platform consistency creates long-
 
 # Reusable Capabilities
 
-Athena should prefer reusable platform capabilities over repeated local implementations.
+Clara should prefer reusable platform capabilities over repeated local implementations.
 
 Examples:
 
@@ -60,7 +60,7 @@ When a capability is useful across domains, it should become part of the platfor
 
 # Context Continuity
 
-Athena should preserve context across modules.
+Clara should preserve context across modules.
 
 A Customer should remain understandable across CRM, Support, Conversation, Ticket, Billing, and Analytics.
 
@@ -80,7 +80,7 @@ The platform should provide secure primitives for authentication, authorization,
 
 # Composable Architecture
 
-Athena should support composition.
+Clara should support composition.
 
 Domains, services, workflows, AI agents, plugins, and integrations should work together through defined contracts.
 
@@ -103,7 +103,7 @@ flowchart TD
 
 # Key Takeaways
 
-- Athena prioritizes platform strength over isolated features.
+- Clara prioritizes platform strength over isolated features.
 - Shared services reduce duplication.
 - Context continuity is essential.
 - Secure defaults belong in the platform foundation.
@@ -122,6 +122,6 @@ flowchart TD
 
 # Navigation
 
-**Previous:** 02-Athena-Big-Picture.md
+**Previous:** 02-Clara-Big-Picture.md
 
 **Next:** 04-Platform-Vision.md

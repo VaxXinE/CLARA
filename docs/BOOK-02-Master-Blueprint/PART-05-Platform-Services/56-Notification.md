@@ -5,7 +5,7 @@ chapter: "56"
 title: "Notification"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./README.md"
@@ -14,15 +14,15 @@ next: "./57-Search.md"
 
 # Notification
 
-> *"Defines the shared notification capability for delivering messages, alerts, reminders, and system updates across Athena."*
+> *"Defines the shared notification capability for delivering messages, alerts, reminders, and system updates across Clara."*
 
 ---
 
 # Purpose
 
-Defines the shared notification capability for delivering messages, alerts, reminders, and system updates across Athena.
+Defines the shared notification capability for delivering messages, alerts, reminders, and system updates across Clara.
 
-This chapter explains the blueprint-level role of **Notification** as a shared Platform Service in Athena.
+This chapter explains the blueprint-level role of **Notification** as a shared Platform Service in Clara.
 
 ---
 
@@ -148,7 +148,7 @@ The **Notification** service may evolve with:
 
 # Key Takeaways
 
-- Defines the shared notification capability for delivering messages, alerts, reminders, and system updates across Athena.
+- Defines the shared notification capability for delivering messages, alerts, reminders, and system updates across Clara.
 - It is a shared Platform Service.
 - Domains should consume it through stable contracts.
 - Security, observability, and governance must be built in.

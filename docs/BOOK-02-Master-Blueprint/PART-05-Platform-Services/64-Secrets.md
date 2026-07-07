@@ -5,7 +5,7 @@ chapter: "64"
 title: "Secrets"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./63-Feature-Flags.md"
@@ -22,7 +22,7 @@ next: "./65-Storage.md"
 
 Defines secure handling of credentials, API keys, tokens, signing keys, and sensitive runtime configuration.
 
-This chapter explains the blueprint-level role of **Secrets** as a shared Platform Service in Athena.
+This chapter explains the blueprint-level role of **Secrets** as a shared Platform Service in Clara.
 
 ---
 

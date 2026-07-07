@@ -5,7 +5,7 @@ chapter: "195"
 title: "Production Access Operations"
 version: "1.0.0"
 status: "official"
-owner: "Athena Operations Architecture Team"
+owner: "Clara Operations Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./194-Release-Operations.md"
@@ -28,7 +28,7 @@ Defines production access rules, break-glass procedure, approval, session record
 
 Production systems do not stay reliable by accident.
 
-Athena needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
+Clara needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
 
 This chapter defines how **Production Access Operations** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Production Access Operations** should be implemented 
 
 ## Decision
 
-Athena production access should be restricted, temporary, approved, auditable, and reviewed regularly.
+Clara production access should be restricted, temporary, approved, auditable, and reviewed regularly.
 
 ## Status
 

@@ -5,7 +5,7 @@ chapter: "37"
 title: "Finance"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./36-Analytics.md"
@@ -30,7 +30,7 @@ Finance supports financial context, payment-related records, cost awareness, rev
 
 Finance may connect with Billing, Customer, Sales, Analytics, Workflow, and Integrations.
 
-In Athena, Finance should be treated carefully because it may involve sensitive and regulated data.
+In Clara, Finance should be treated carefully because it may involve sensitive and regulated data.
 
 ---
 

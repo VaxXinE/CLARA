@@ -1,6 +1,6 @@
 # Plugin
 
-> *"A plugin extends Athena through governed contracts without changing the core platform."*
+> *"A plugin extends Clara through governed contracts without changing the core platform."*
 
 ---
 
@@ -11,16 +11,16 @@
 | Term | Plugin |
 | Category | Platform / Ecosystem / Integration |
 | Status | Official |
-| Owner | Athena Core Team |
+| Owner | Clara Core Team |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Definition
 
-A **Plugin** is an installable extension that adds, modifies, or integrates platform capabilities through approved Athena extension points.
+A **Plugin** is an installable extension that adds, modifies, or integrates platform capabilities through approved Clara extension points.
 
-Plugins allow Athena to grow as an ecosystem while preserving core platform stability, security, and governance.
+Plugins allow Clara to grow as an ecosystem while preserving core platform stability, security, and governance.
 
 A Plugin should operate through documented contracts rather than direct access to internal implementation details.
 
@@ -30,13 +30,13 @@ A Plugin should operate through documented contracts rather than direct access t
 
 Plugins exist to:
 
-- Extend Athena capabilities.
+- Extend Clara capabilities.
 - Integrate external systems.
 - Add domain-specific features.
 - Support ecosystem development.
 - Enable third-party innovation.
 - Preserve core platform stability.
-- Avoid modifying Athena core for every new capability.
+- Avoid modifying Clara core for every new capability.
 
 ---
 
@@ -61,7 +61,7 @@ Extension Points define what a Plugin is allowed to do.
 
 # Relationship to Integration
 
-An Integration connects Athena to an external system.
+An Integration connects Clara to an external system.
 
 A Plugin may provide one or more Integrations.
 
@@ -88,7 +88,7 @@ Plugin
   ↓
 Plugin SDK / API Contract
   ↓
-Athena Service
+Clara Service
 ```
 
 Direct database access should not be allowed.
@@ -133,7 +133,7 @@ stateDiagram-v2
 
 Plugins are security-sensitive because they may access platform data or execute actions.
 
-Athena must enforce:
+Clara must enforce:
 
 - Plugin authentication.
 - Plugin authorization.
@@ -202,7 +202,7 @@ Examples:
 
 # Version Compatibility
 
-Plugins should declare compatibility with Athena versions.
+Plugins should declare compatibility with Clara versions.
 
 Example:
 
@@ -266,7 +266,7 @@ Examples of Plugins:
 Avoid:
 
 - Plugins with unrestricted access.
-- Plugins that bypass Athena APIs.
+- Plugins that bypass Clara APIs.
 - Plugins that store secrets insecurely.
 - Plugins that execute destructive actions without approval.
 - Plugins that depend on undocumented internals.

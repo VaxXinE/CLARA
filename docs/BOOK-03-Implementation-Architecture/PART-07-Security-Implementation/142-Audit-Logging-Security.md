@@ -5,7 +5,7 @@ chapter: "142"
 title: "Audit Logging Security"
 version: "1.0.0"
 status: "official"
-owner: "Athena Security Architecture Team"
+owner: "Clara Security Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./141-Security-Testing.md"
@@ -28,7 +28,7 @@ Defines audit logging for sensitive actions, actor tracking, tamper resistance, 
 
 Security bugs in production are expensive, damaging, and often caused by unclear ownership or inconsistent implementation.
 
-Athena handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
+Clara handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
 
 This chapter defines how **Audit Logging Security** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Audit Logging Security** should be implemented safely
 
 ## Decision
 
-Athena security-sensitive actions should produce structured, tenant-scoped, tamper-resistant audit records.
+Clara security-sensitive actions should produce structured, tenant-scoped, tamper-resistant audit records.
 
 ## Status
 

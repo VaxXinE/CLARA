@@ -5,7 +5,7 @@ chapter: "51"
 title: "Agent Collaboration"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./50-AI-Agents.md"
@@ -22,13 +22,13 @@ next: "./52-Tool-Calling.md"
 
 Defines how multiple AI agents coordinate safely.
 
-This chapter explains the blueprint-level role of **Agent Collaboration** inside Athena's AI Platform.
+This chapter explains the blueprint-level role of **Agent Collaboration** inside Clara's AI Platform.
 
 ---
 
 # Overview
 
-The **Agent Collaboration** is part of Athena's governed AI architecture.
+The **Agent Collaboration** is part of Clara's governed AI architecture.
 
 It should work together with the AI Gateway, Model Gateway, Prompt Engine, Context Engine, Memory Engine, Knowledge Engine, AI Skills, AI Agents, Tool Calling, AI Workflow, Governance, and Evaluation.
 
@@ -44,7 +44,7 @@ The **Agent Collaboration** is responsible for:
 - Preserving Organization and Workspace boundaries.
 - Integrating with the rest of the AI Platform.
 - Supporting observability and auditability.
-- Enabling reusable AI capabilities across Athena domains.
+- Enabling reusable AI capabilities across Clara domains.
 - Avoiding provider-specific lock-in unless explicitly documented.
 
 ---
@@ -83,7 +83,7 @@ The **Agent Collaboration** must enforce:
 - Prompt and output safety where relevant.
 - Human review for sensitive or destructive actions.
 
-AI must never receive unrestricted access to Athena data.
+AI must never receive unrestricted access to Clara data.
 
 ---
 
@@ -119,7 +119,7 @@ The system should fail safely and preserve auditability.
 # Key Takeaways
 
 - Defines how multiple AI agents coordinate safely.
-- It is part of Athena's shared AI Platform.
+- It is part of Clara's shared AI Platform.
 - It should be secure, observable, and governed.
 - It should not bypass Organization, Workspace, Role, or Permission boundaries.
 

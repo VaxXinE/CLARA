@@ -4,7 +4,7 @@ part: "PART-08 — Testing & Quality Architecture"
 title: "Testing & Quality Architecture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Quality Architecture Team"
+owner: "Clara Quality Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 ---
@@ -17,7 +17,7 @@ classification: "implementation-architecture"
 
 # Purpose
 
-Part VIII defines Athena's implementation architecture for testing and quality.
+Part VIII defines Clara's implementation architecture for testing and quality.
 
 It covers test strategy, unit tests, integration tests, contract tests, end-to-end tests, security testing, performance testing, reliability testing, AI evaluation, data testing, frontend testing, backend testing, test data management, CI quality gates, code review, static analysis, release readiness, and production verification.
 
@@ -124,7 +124,7 @@ flowchart TD
 
 # Critical Rule
 
-Athena quality must protect the highest-risk areas first:
+Clara quality must protect the highest-risk areas first:
 
 ```text
 Authentication

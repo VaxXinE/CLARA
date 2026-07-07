@@ -5,7 +5,7 @@ chapter: "68"
 title: "Schema Design"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./67-Database-Design.md"
@@ -26,7 +26,7 @@ Defines schema design standards, naming conventions, constraints, enum strategy,
 
 # Motivation
 
-Data is one of the highest-risk parts of Athena.
+Data is one of the highest-risk parts of Clara.
 
 Bad data architecture can cause privacy leaks, tenant isolation failures, broken AI context, slow queries, unrecoverable incidents, inconsistent reporting, and dangerous production migrations.
 
@@ -38,7 +38,7 @@ This chapter defines how **Schema Design** should be implemented safely and cons
 
 ## Decision
 
-Athena schemas should be explicit, constraint-driven, migration-friendly, and designed for backward-compatible evolution.
+Clara schemas should be explicit, constraint-driven, migration-friendly, and designed for backward-compatible evolution.
 
 ## Status
 

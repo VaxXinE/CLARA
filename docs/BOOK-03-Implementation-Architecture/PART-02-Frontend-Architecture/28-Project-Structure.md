@@ -5,7 +5,7 @@ chapter: "28"
 title: "Project Structure"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./27-Flutter-Architecture.md"
@@ -14,23 +14,23 @@ next: "./29-Navigation-Routing.md"
 
 # Project Structure
 
-> *"Defines the recommended frontend folder structure for Athena applications."*
+> *"Defines the recommended frontend folder structure for Clara applications."*
 
 ---
 
 # Purpose
 
-Defines the recommended frontend folder structure for Athena applications.
+Defines the recommended frontend folder structure for Clara applications.
 
 ---
 
 # Motivation
 
-Athena frontend must support many users, workflows, modules, and AI-assisted experiences.
+Clara frontend must support many users, workflows, modules, and AI-assisted experiences.
 
 Without clear frontend architecture, UI code can become tightly coupled, difficult to test, inconsistent, inaccessible, and insecure.
 
-This chapter defines how **Project Structure** should be implemented consistently across Athena client applications.
+This chapter defines how **Project Structure** should be implemented consistently across Clara client applications.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Project Structure** should be implemented consistentl
 
 ## Decision
 
-Athena frontend should use a feature-first folder structure supported by shared platform, design system, routing, networking, and core utilities.
+Clara frontend should use a feature-first folder structure supported by shared platform, design system, routing, networking, and core utilities.
 
 ## Status
 

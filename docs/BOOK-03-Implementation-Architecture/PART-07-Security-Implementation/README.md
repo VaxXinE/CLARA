@@ -4,20 +4,20 @@ part: "PART-07 — Security Implementation"
 title: "Security Implementation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Security Architecture Team"
+owner: "Clara Security Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 ---
 
 # PART-07 — Security Implementation
 
-> *"Security implementation is not a checklist at the end; it is the control system that keeps Athena trustworthy in production."*
+> *"Security implementation is not a checklist at the end; it is the control system that keeps Clara trustworthy in production."*
 
 ---
 
 # Purpose
 
-Part VII defines Athena's implementation architecture for production security.
+Part VII defines Clara's implementation architecture for production security.
 
 It covers IAM, authentication, authorization, RBAC/ABAC, tenant isolation, zero trust, encryption, key management, secrets, input validation, secure coding, threat modeling, vulnerability management, security testing, audit logging, compliance evidence, and incident response.
 
@@ -32,7 +32,7 @@ It covers IAM, authentication, authorization, RBAC/ABAC, tenant isolation, zero 
 - Standardize secure coding rules.
 - Integrate security testing into CI/CD.
 - Support auditability and compliance readiness.
-- Prepare Athena for security incidents before they happen.
+- Prepare Clara for security incidents before they happen.
 
 ---
 
@@ -121,7 +121,7 @@ flowchart TD
 
 # Critical Rule
 
-Every sensitive Athena operation must answer:
+Every sensitive Clara operation must answer:
 
 ```text
 Who is acting?

@@ -1,6 +1,6 @@
-# Athena Test Plan Template
+# Clara Test Plan Template
 
-> Use this template to define the testing strategy, scope, execution plan, and acceptance criteria for an Athena feature, service, or platform component.
+> Use this template to define the testing strategy, scope, execution plan, and acceptance criteria for an Clara feature, service, or platform component.
 
 ```yaml
 ---

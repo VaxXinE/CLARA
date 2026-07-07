@@ -4,7 +4,7 @@ part: "PART-09 — Developer Experience Architecture"
 title: "Developer Experience Architecture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Developer Experience Team"
+owner: "Clara Developer Experience Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 ---
@@ -17,7 +17,7 @@ classification: "implementation-architecture"
 
 # Purpose
 
-Part IX defines Athena's implementation architecture for developer experience.
+Part IX defines Clara's implementation architecture for developer experience.
 
 It covers monorepo strategy, local development, onboarding, coding standards, Git workflow, pull requests, documentation workflow, AI coding assistants, code generation, dependency management, API mocking, debugging, CLI tooling, feature flags, ADRs, engineering metrics, DevSecOps, contribution governance, and DX summary.
 
@@ -25,7 +25,7 @@ It covers monorepo strategy, local development, onboarding, coding standards, Gi
 
 # Goals
 
-- Make Athena easy to develop locally.
+- Make Clara easy to develop locally.
 - Keep engineering workflows secure and consistent.
 - Reduce onboarding friction.
 - Make architecture visible during development.
@@ -122,7 +122,7 @@ flowchart TD
 
 # Critical Rule
 
-Athena developer experience must optimize for:
+Clara developer experience must optimize for:
 
 ```text
 Secure defaults
@@ -141,7 +141,7 @@ Low onboarding friction
 - ../PART-02-Frontend-Architecture/README.md
 - ../PART-07-Security-Implementation/README.md
 - ../PART-08-Testing-Quality-Architecture/README.md
-- ../../BOOK-01-Athena-Foundation/README.md
+- ../../BOOK-01-Clara-Foundation/README.md
 - ../../BOOK-02-Master-Blueprint/README.md
 
 ---

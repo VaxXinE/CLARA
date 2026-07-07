@@ -5,7 +5,7 @@ chapter: "109"
 title: "Kubernetes Architecture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./108-Container-Architecture.md"
@@ -30,7 +30,7 @@ Infrastructure is where architecture meets production reality.
 
 Good application code can still fail if deployment is unsafe, secrets are leaked, logs are missing, scaling is uncontrolled, or incidents have no runbooks.
 
-This chapter defines how **Kubernetes Architecture** should be implemented safely and consistently for Athena.
+This chapter defines how **Kubernetes Architecture** should be implemented safely and consistently for Clara.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Kubernetes Architecture** should be implemented safel
 
 ## Decision
 
-Athena Kubernetes workloads should use namespace isolation, health probes, resource requests/limits, network policy, and controlled service accounts.
+Clara Kubernetes workloads should use namespace isolation, health probes, resource requests/limits, network policy, and controlled service accounts.
 
 ## Status
 
@@ -151,21 +151,21 @@ infra/
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: athena-api
+  name: Clara-api
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: athena-api
+      app: Clara-api
   template:
     metadata:
       labels:
-        app: athena-api
+        app: Clara-api
     spec:
-      serviceAccountName: athena-api
+      serviceAccountName: Clara-api
       containers:
         - name: api
-          image: registry.example.com/athena-api:1.0.0
+          image: registry.example.com/Clara-api:1.0.0
           ports:
             - containerPort: 3000
           readinessProbe:

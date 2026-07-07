@@ -5,7 +5,7 @@ chapter: "80"
 title: "Backup"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./79-Data-Pipeline.md"
@@ -14,21 +14,21 @@ next: "./81-Disaster-Recovery.md"
 
 # Backup
 
-> *"Defines backup strategy for protecting Athena data against accidental or operational loss."*
+> *"Defines backup strategy for protecting Clara data against accidental or operational loss."*
 
 ---
 
 # Purpose
 
-Defines backup strategy for protecting Athena data against accidental or operational loss.
+Defines backup strategy for protecting Clara data against accidental or operational loss.
 
-This chapter defines the blueprint-level responsibility of **Backup** inside Athena's Data Platform.
+This chapter defines the blueprint-level responsibility of **Backup** inside Clara's Data Platform.
 
 ---
 
 # Overview
 
-The **Backup** capability is part of Athena's shared Data Platform.
+The **Backup** capability is part of Clara's shared Data Platform.
 
 It supports business domains, AI capabilities, platform services, integrations, analytics, and operations by ensuring data is stored, accessed, transformed, protected, and recovered consistently.
 
@@ -171,8 +171,8 @@ The **Backup** capability may evolve with:
 
 # Key Takeaways
 
-- Defines backup strategy for protecting Athena data against accidental or operational loss.
-- It is part of Athena's shared Data Platform.
+- Defines backup strategy for protecting Clara data against accidental or operational loss.
+- It is part of Clara's shared Data Platform.
 - It must preserve ownership, security, privacy, and recoverability.
 - It supports business domains, platform services, AI, analytics, and operations.
 

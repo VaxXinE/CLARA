@@ -5,7 +5,7 @@ chapter: "128"
 title: "Authentication Implementation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Security Architecture Team"
+owner: "Clara Security Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./127-Identity-Access-Management.md"
@@ -28,7 +28,7 @@ Defines authentication flows, session handling, MFA readiness, token validation,
 
 Security bugs in production are expensive, damaging, and often caused by unclear ownership or inconsistent implementation.
 
-Athena handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
+Clara handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
 
 This chapter defines how **Authentication Implementation** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Authentication Implementation** should be implemented
 
 ## Decision
 
-Athena authentication should use centralized session issuance, strong token validation, secure cookie/token handling, and MFA-ready design.
+Clara authentication should use centralized session issuance, strong token validation, secure cookie/token handling, and MFA-ready design.
 
 ## Status
 

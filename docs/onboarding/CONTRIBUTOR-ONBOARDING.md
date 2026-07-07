@@ -2,7 +2,7 @@
 title: "Contributor Onboarding"
 version: "1.0.0"
 status: "official"
-owner: "Athena Developer Experience Team"
+owner: "Clara Developer Experience Team"
 last_updated: "2026-07-07"
 classification: "onboarding"
 ---

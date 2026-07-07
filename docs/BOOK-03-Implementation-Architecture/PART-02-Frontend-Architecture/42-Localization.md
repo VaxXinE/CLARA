@@ -5,7 +5,7 @@ chapter: "42"
 title: "Localization"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./41-Offline-Strategy.md"
@@ -26,11 +26,11 @@ Defines localization, formatting, language support, and user-facing text managem
 
 # Motivation
 
-Athena frontend must support many users, workflows, modules, and AI-assisted experiences.
+Clara frontend must support many users, workflows, modules, and AI-assisted experiences.
 
 Without clear frontend architecture, UI code can become tightly coupled, difficult to test, inconsistent, inaccessible, and insecure.
 
-This chapter defines how **Localization** should be implemented consistently across Athena client applications.
+This chapter defines how **Localization** should be implemented consistently across Clara client applications.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Localization** should be implemented consistently acr
 
 ## Decision
 
-Athena frontend should centralize user-facing text and avoid hard-coded business copy inside feature widgets.
+Clara frontend should centralize user-facing text and avoid hard-coded business copy inside feature widgets.
 
 ## Status
 

@@ -6,7 +6,7 @@ chapter: "09"
 title: "Use Cases"
 version: "1.1.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-06"
 classification: "implementation-architecture"
 previous: "./08-Domain-Models.md"
@@ -15,19 +15,19 @@ next: "./10-Repositories.md"
 
 # Use Cases
 
-> *"Defines application use case orchestration, authorization, DTO flow, transactions, domain coordination, and result handling in Athena backend."*
+> *"Defines application use case orchestration, authorization, DTO flow, transactions, domain coordination, and result handling in Clara backend."*
 
 ---
 
 # Purpose
 
-Defines application use case orchestration, authorization, DTO flow, transactions, domain coordination, and result handling in Athena backend.
+Defines application use case orchestration, authorization, DTO flow, transactions, domain coordination, and result handling in Clara backend.
 
 ---
 
 # Motivation
 
-Athena backend will contain many modules and many contributors, including human engineers and AI coding assistants.
+Clara backend will contain many modules and many contributors, including human engineers and AI coding assistants.
 
 Without a consistent pattern for **Use Cases**, implementation can become inconsistent, insecure, hard to test, and difficult to refactor.
 
@@ -39,7 +39,7 @@ This chapter defines the production-grade pattern that every backend module shou
 
 ## Decision
 
-Athena backend expresses application behavior through explicit use case classes.
+Clara backend expresses application behavior through explicit use case classes.
 
 ## Status
 

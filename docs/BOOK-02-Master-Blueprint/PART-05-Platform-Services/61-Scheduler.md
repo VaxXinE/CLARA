@@ -5,7 +5,7 @@ chapter: "61"
 title: "Scheduler"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./60-Queue.md"
@@ -22,7 +22,7 @@ next: "./62-Config.md"
 
 Defines time-based execution for recurring jobs, delayed workflows, reminders, and automation triggers.
 
-This chapter explains the blueprint-level role of **Scheduler** as a shared Platform Service in Athena.
+This chapter explains the blueprint-level role of **Scheduler** as a shared Platform Service in Clara.
 
 ---
 

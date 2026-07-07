@@ -5,7 +5,7 @@ chapter: "88"
 title: "Privacy"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./87-Secrets.md"
@@ -14,23 +14,23 @@ next: "./89-Compliance.md"
 
 # Privacy
 
-> *"Defines how Athena protects personal, customer, organizational, and sensitive business data."*
+> *"Defines how Clara protects personal, customer, organizational, and sensitive business data."*
 
 ---
 
 # Purpose
 
-Defines how Athena protects personal, customer, organizational, and sensitive business data.
+Defines how Clara protects personal, customer, organizational, and sensitive business data.
 
-This chapter defines the blueprint-level responsibility of **Privacy** inside Athena's Security Platform.
+This chapter defines the blueprint-level responsibility of **Privacy** inside Clara's Security Platform.
 
 ---
 
 # Overview
 
-The **Privacy** capability is part of Athena's shared Security Platform.
+The **Privacy** capability is part of Clara's shared Security Platform.
 
-It protects Athena across Organizations, Workspaces, business domains, platform services, AI capabilities, integrations, plugins, and infrastructure.
+It protects Clara across Organizations, Workspaces, business domains, platform services, AI capabilities, integrations, plugins, and infrastructure.
 
 This document defines the security role and boundary at blueprint level. Implementation details should be defined later in security architecture, runbooks, and technical specifications.
 
@@ -40,7 +40,7 @@ This document defines the security role and boundary at blueprint level. Impleme
 
 The **Privacy** capability is responsible for:
 
-- Protecting Athena resources.
+- Protecting Clara resources.
 - Supporting secure access patterns.
 - Preserving Organization and Workspace boundaries.
 - Reducing security risk.
@@ -169,8 +169,8 @@ The **Privacy** capability may evolve with:
 
 # Key Takeaways
 
-- Defines how Athena protects personal, customer, organizational, and sensitive business data.
-- It is part of Athena's shared Security Platform.
+- Defines how Clara protects personal, customer, organizational, and sensitive business data.
+- It is part of Clara's shared Security Platform.
 - It must protect Organization, Workspace, data, AI, services, plugins, and integrations.
 - It should be observable, auditable, and governed.
 

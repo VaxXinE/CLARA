@@ -5,7 +5,7 @@ chapter: "168"
 title: "Local Development Environment"
 version: "1.0.0"
 status: "official"
-owner: "Athena Developer Experience Team"
+owner: "Clara Developer Experience Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./167-Monorepo-Strategy.md"
@@ -30,7 +30,7 @@ Developer experience directly affects production quality.
 
 If the right workflow is hard, developers and AI coding assistants will drift toward shortcuts: inconsistent structure, missing tests, unsafe secrets handling, weak authorization checks, poor documentation, and fragile releases.
 
-Athena must design developer experience so secure and production-ready engineering becomes the default path.
+Clara must design developer experience so secure and production-ready engineering becomes the default path.
 
 This chapter defines how **Local Development Environment** should be implemented consistently.
 
@@ -40,7 +40,7 @@ This chapter defines how **Local Development Environment** should be implemented
 
 ## Decision
 
-Athena local development should be reproducible through scripted setup, containerized dependencies, validated configuration, and safe seed data.
+Clara local development should be reproducible through scripted setup, containerized dependencies, validated configuration, and safe seed data.
 
 ## Status
 
@@ -123,7 +123,7 @@ repo/
 ├── apps/
 ├── packages/
 ├── docs/
-│   ├── BOOK-01-Athena-Foundation/
+│   ├── BOOK-01-Clara-Foundation/
 │   ├── BOOK-02-Master-Blueprint/
 │   └── BOOK-03-Implementation-Architecture/
 │
@@ -158,9 +158,9 @@ services:
   postgres:
     image: postgres:16
     environment:
-      POSTGRES_DB: athena_dev
-      POSTGRES_USER: athena
-      POSTGRES_PASSWORD: athena_dev_only
+      POSTGRES_DB: Clara_dev
+      POSTGRES_USER: Clara
+      POSTGRES_PASSWORD: Clara_dev_only
     ports:
       - "5432:5432"
 
@@ -292,7 +292,7 @@ When using Codex, Cursor, Claude Code, Gemini CLI, or another AI coding assistan
 - ../PART-02-Frontend-Architecture/README.md
 - ../PART-07-Security-Implementation/README.md
 - ../PART-08-Testing-Quality-Architecture/README.md
-- ../../BOOK-01-Athena-Foundation/README.md
+- ../../BOOK-01-Clara-Foundation/README.md
 - ../../BOOK-02-Master-Blueprint/README.md
 
 ---

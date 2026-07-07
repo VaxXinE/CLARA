@@ -5,7 +5,7 @@ chapter: "152"
 title: "Security Testing"
 version: "1.0.0"
 status: "official"
-owner: "Athena Quality Architecture Team"
+owner: "Clara Quality Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./151-End-to-End-Testing.md"
@@ -28,7 +28,7 @@ Defines security test implementation for authorization, tenant isolation, inject
 
 Production quality cannot rely on manual confidence or optimistic assumptions.
 
-Athena has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
+Clara has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
 
 This chapter defines how **Security Testing** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Security Testing** should be implemented consistently
 
 ## Decision
 
-Athena security testing should be automated in CI/CD and explicitly cover permission-denied, tenant isolation, and abuse-case scenarios.
+Clara security testing should be automated in CI/CD and explicitly cover permission-denied, tenant isolation, and abuse-case scenarios.
 
 ## Status
 

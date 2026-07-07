@@ -11,7 +11,7 @@
 | Term | Knowledge |
 | Category | AI / Data / Business |
 | Status | Official |
-| Owner | Athena Core Team |
+| Owner | Clara Core Team |
 | Last Updated | 2026-07-06 |
 
 ---
@@ -30,7 +30,7 @@ Knowledge explains meaning, relationships, and usage.
 
 # Purpose
 
-Knowledge exists to help Athena:
+Knowledge exists to help Clara:
 
 - Preserve organizational memory.
 - Improve AI responses.
@@ -97,7 +97,7 @@ Context applies.
 
 # Forms of Knowledge
 
-Athena Knowledge may include:
+Clara Knowledge may include:
 
 - Documentation.
 - Policies.
@@ -236,7 +236,7 @@ Avoid:
 
 # Common Examples
 
-Examples of Knowledge in Athena:
+Examples of Knowledge in Clara:
 
 - A support solution for a recurring issue.
 - A company refund policy.

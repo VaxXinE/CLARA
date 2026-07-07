@@ -5,7 +5,7 @@ chapter: "22"
 title: "Customer"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./21-CRM.md"
@@ -14,7 +14,7 @@ next: "./23-Leads.md"
 
 # Customer
 
-> *"The Customer is the central external relationship managed by Athena."*
+> *"The Customer is the central external relationship managed by Clara."*
 
 ---
 
@@ -22,13 +22,13 @@ next: "./23-Leads.md"
 
 This chapter defines the Customer domain blueprint.
 
-The Customer domain represents external people, companies, clients, subscribers, patients, students, citizens, or service recipients that an Organization manages through Athena.
+The Customer domain represents external people, companies, clients, subscribers, patients, students, citizens, or service recipients that an Organization manages through Clara.
 
 ---
 
 # Overview
 
-Customer is one of Athena's most important business entities.
+Customer is one of Clara's most important business entities.
 
 Many domains connect back to Customer:
 
@@ -109,7 +109,7 @@ AI may assist by:
 
 Customer data may include personal and sensitive business information.
 
-Athena must enforce access control, auditability, tenant isolation, workspace isolation, and secure export rules.
+Clara must enforce access control, auditability, tenant isolation, workspace isolation, and secure export rules.
 
 ---
 

@@ -5,7 +5,7 @@ chapter: "148"
 title: "Unit Testing"
 version: "1.0.0"
 status: "official"
-owner: "Athena Quality Architecture Team"
+owner: "Clara Quality Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./147-Test-Strategy.md"
@@ -28,7 +28,7 @@ Defines unit testing standards for domain logic, use cases, validators, mappers,
 
 Production quality cannot rely on manual confidence or optimistic assumptions.
 
-Athena has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
+Clara has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
 
 This chapter defines how **Unit Testing** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Unit Testing** should be implemented consistently.
 
 ## Decision
 
-Athena unit tests should be fast, isolated, deterministic, and focused on business behavior and edge cases.
+Clara unit tests should be fast, isolated, deterministic, and focused on business behavior and edge cases.
 
 ## Status
 

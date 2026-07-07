@@ -5,7 +5,7 @@ chapter: "118"
 title: "Logging Infrastructure"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./117-Observability-Infrastructure.md"
@@ -30,7 +30,7 @@ Infrastructure is where architecture meets production reality.
 
 Good application code can still fail if deployment is unsafe, secrets are leaked, logs are missing, scaling is uncontrolled, or incidents have no runbooks.
 
-This chapter defines how **Logging Infrastructure** should be implemented safely and consistently for Athena.
+This chapter defines how **Logging Infrastructure** should be implemented safely and consistently for Clara.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Logging Infrastructure** should be implemented safely
 
 ## Decision
 
-Athena logs should be structured, centralized, searchable, retained according to policy, and protected from sensitive data leakage.
+Clara logs should be structured, centralized, searchable, retained according to policy, and protected from sensitive data leakage.
 
 ## Status
 
@@ -152,7 +152,7 @@ infra/
 {
   "timestamp": "2026-07-07T00:00:00Z",
   "level": "info",
-  "service": "athena-api",
+  "service": "Clara-api",
   "environment": "production",
   "correlationId": "req_123",
   "message": "Request completed",

@@ -12,7 +12,7 @@
 | Chapter | 03                      |
 | Version | 1.0                     |
 | Status  | Official                |
-| Owner   | Athena Core Team        |
+| Owner   | Clara Core Team        |
 
 ---
 
@@ -26,7 +26,7 @@ The challenge lies elsewhere.
 
 Organizations increasingly rely on dozens of specialized systems that operate independently, resulting in fragmented processes, duplicated information, inconsistent decision-making, and growing operational complexity.
 
-Understanding these challenges is essential to understanding the architectural direction of Athena.
+Understanding these challenges is essential to understanding the architectural direction of Clara.
 
 ---
 
@@ -334,9 +334,9 @@ Organizations become responsible for connecting technologies that were never des
 
 ---
 
-# Athena's Perspective
+# Clara's Perspective
 
-Athena does not view these challenges as isolated technical issues.
+Clara does not view these challenges as isolated technical issues.
 
 They are symptoms of a broader architectural problem.
 
@@ -344,9 +344,9 @@ The objective is not to eliminate specialized software.
 
 The objective is to provide a unifying intelligence layer that enables specialized systems to operate as parts of a coherent business operating system.
 
-Athena embraces existing tools while reducing the complexity required to connect them.
+Clara embraces existing tools while reducing the complexity required to connect them.
 
-Rather than replacing every application, Athena coordinates information, workflows, knowledge, and intelligence across the organization's digital ecosystem.
+Rather than replacing every application, Clara coordinates information, workflows, knowledge, and intelligence across the organization's digital ecosystem.
 
 ---
 
@@ -360,7 +360,7 @@ The limiting factor is the organization's ability to coordinate software effecti
 
 Future competitive advantage will belong to organizations that can unify data, workflows, knowledge, artificial intelligence, and governance into a cohesive operational platform.
 
-Athena is designed to become that platform.
+Clara is designed to become that platform.
 
 ---
 
@@ -368,8 +368,8 @@ Athena is designed to become that platform.
 
 **Previous**
 
-* 02-Why-Athena-Exists.md
+* 02-Why-Clara-Exists.md
 
 **Next**
 
-* 04-The-Athena-Vision.md
+* 04-The-Clara-Vision.md

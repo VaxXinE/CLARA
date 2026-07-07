@@ -5,7 +5,7 @@ chapter: "125"
 title: "Infrastructure Summary"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./124-Reliability-Resilience.md"
@@ -14,13 +14,13 @@ next: "../PART-07-Security-Implementation/README.md"
 
 # Infrastructure Summary
 
-> *"Summarizes Athena infrastructure architecture principles, production readiness, operational safety, and platform evolution rules."*
+> *"Summarizes Clara infrastructure architecture principles, production readiness, operational safety, and platform evolution rules."*
 
 ---
 
 # Purpose
 
-Summarizes Athena infrastructure architecture principles, production readiness, operational safety, and platform evolution rules.
+Summarizes Clara infrastructure architecture principles, production readiness, operational safety, and platform evolution rules.
 
 ---
 
@@ -30,7 +30,7 @@ Infrastructure is where architecture meets production reality.
 
 Good application code can still fail if deployment is unsafe, secrets are leaked, logs are missing, scaling is uncontrolled, or incidents have no runbooks.
 
-This chapter defines how **Infrastructure Summary** should be implemented safely and consistently for Athena.
+This chapter defines how **Infrastructure Summary** should be implemented safely and consistently for Clara.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Infrastructure Summary** should be implemented safely
 
 ## Decision
 
-Athena infrastructure should remain automated, secure, observable, reliable, scalable, and recoverable as the platform grows.
+Clara infrastructure should remain automated, secure, observable, reliable, scalable, and recoverable as the platform grows.
 
 ## Status
 

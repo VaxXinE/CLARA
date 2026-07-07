@@ -5,7 +5,7 @@ chapter: "16"
 title: "Validation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-06"
 classification: "implementation-architecture"
 previous: "./15-Transactions.md"
@@ -14,13 +14,13 @@ next: "./17-Error-Handling.md"
 
 # Validation
 
-> *"Defines input validation, domain invariants, schema validation, and defensive validation across Athena backend."*
+> *"Defines input validation, domain invariants, schema validation, and defensive validation across Clara backend."*
 
 ---
 
 # Purpose
 
-Defines input validation, domain invariants, schema validation, and defensive validation across Athena backend.
+Defines input validation, domain invariants, schema validation, and defensive validation across Clara backend.
 
 ---
 
@@ -28,7 +28,7 @@ Defines input validation, domain invariants, schema validation, and defensive va
 
 Production backend systems fail when runtime quality concerns are treated as afterthoughts.
 
-Athena must handle validation, errors, logging, caching, and background jobs consistently across every module, service, API, workflow, and integration.
+Clara must handle validation, errors, logging, caching, and background jobs consistently across every module, service, API, workflow, and integration.
 
 This chapter defines how **Validation** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Validation** should be implemented safely and consist
 
 ## Decision
 
-Athena backend validates external input at system boundaries and protects business invariants inside domain models.
+Clara backend validates external input at system boundaries and protects business invariants inside domain models.
 
 ## Status
 

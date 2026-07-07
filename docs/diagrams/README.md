@@ -2,20 +2,20 @@
 title: "Diagram Library"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "documentation-index"
 ---
 
 # Diagram Library
 
-> "Reusable Mermaid and architecture diagrams for Athena."
+> "Reusable Mermaid and architecture diagrams for Clara."
 
 ---
 
 # Purpose
 
-Reusable Mermaid and architecture diagrams for Athena.
+Reusable Mermaid and architecture diagrams for Clara.
 
 ---
 

@@ -5,7 +5,7 @@ chapter: "200"
 title: "Backup Restore Operations"
 version: "1.0.0"
 status: "official"
-owner: "Athena Operations Architecture Team"
+owner: "Clara Operations Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./199-Cost-Management-FinOps.md"
@@ -28,7 +28,7 @@ Defines operational backup validation, restore procedures, backup ownership, rec
 
 Production systems do not stay reliable by accident.
 
-Athena needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
+Clara needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
 
 This chapter defines how **Backup Restore Operations** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Backup Restore Operations** should be implemented con
 
 ## Decision
 
-Athena backups should be operationally verified through scheduled restore tests, documented RPO/RTO, and encrypted backup storage.
+Clara backups should be operationally verified through scheduled restore tests, documented RPO/RTO, and encrypted backup storage.
 
 ## Status
 

@@ -5,7 +5,7 @@ chapter: "52"
 title: "Tool Calling"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./51-Agent-Collaboration.md"
@@ -22,13 +22,13 @@ next: "./53-AI-Workflow.md"
 
 Defines secure AI tool execution and permission boundaries.
 
-This chapter explains the blueprint-level role of **Tool Calling** inside Athena's AI Platform.
+This chapter explains the blueprint-level role of **Tool Calling** inside Clara's AI Platform.
 
 ---
 
 # Overview
 
-The **Tool Calling** is part of Athena's governed AI architecture.
+The **Tool Calling** is part of Clara's governed AI architecture.
 
 It should work together with the AI Gateway, Model Gateway, Prompt Engine, Context Engine, Memory Engine, Knowledge Engine, AI Skills, AI Agents, Tool Calling, AI Workflow, Governance, and Evaluation.
 
@@ -44,7 +44,7 @@ The **Tool Calling** is responsible for:
 - Preserving Organization and Workspace boundaries.
 - Integrating with the rest of the AI Platform.
 - Supporting observability and auditability.
-- Enabling reusable AI capabilities across Athena domains.
+- Enabling reusable AI capabilities across Clara domains.
 - Avoiding provider-specific lock-in unless explicitly documented.
 
 ---
@@ -83,7 +83,7 @@ The **Tool Calling** must enforce:
 - Prompt and output safety where relevant.
 - Human review for sensitive or destructive actions.
 
-AI must never receive unrestricted access to Athena data.
+AI must never receive unrestricted access to Clara data.
 
 ---
 
@@ -119,7 +119,7 @@ The system should fail safely and preserve auditability.
 # Key Takeaways
 
 - Defines secure AI tool execution and permission boundaries.
-- It is part of Athena's shared AI Platform.
+- It is part of Clara's shared AI Platform.
 - It should be secure, observable, and governed.
 - It should not bypass Organization, Workspace, Role, or Permission boundaries.
 

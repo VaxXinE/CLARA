@@ -1,6 +1,6 @@
-# Athena Roadmap Template
+# Clara Roadmap Template
 
-> Use this template to define strategic direction, milestones, release phases, dependencies, and success metrics for Athena initiatives.
+> Use this template to define strategic direction, milestones, release phases, dependencies, and success metrics for Clara initiatives.
 
 ```yaml
 ---
@@ -36,7 +36,7 @@ Explain why this roadmap exists and what strategic direction it defines.
 
 # Strategic Context
 
-Describe the background and connection to Athena's vision, mission, and blueprint.
+Describe the background and connection to Clara's vision, mission, and blueprint.
 
 ---
 

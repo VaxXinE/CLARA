@@ -5,7 +5,7 @@ chapter: "72"
 title: "Consistency Model"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./71-Database-Migrations.md"
@@ -26,7 +26,7 @@ Defines consistency boundaries, transactional guarantees, eventual consistency, 
 
 # Motivation
 
-Data is one of the highest-risk parts of Athena.
+Data is one of the highest-risk parts of Clara.
 
 Bad data architecture can cause privacy leaks, tenant isolation failures, broken AI context, slow queries, unrecoverable incidents, inconsistent reporting, and dangerous production migrations.
 
@@ -38,7 +38,7 @@ This chapter defines how **Consistency Model** should be implemented safely and 
 
 ## Decision
 
-Athena should use strong consistency inside aggregate transaction boundaries and explicit eventual consistency for projections, search, analytics, and external integrations.
+Clara should use strong consistency inside aggregate transaction boundaries and explicit eventual consistency for projections, search, analytics, and external integrations.
 
 ## Status
 

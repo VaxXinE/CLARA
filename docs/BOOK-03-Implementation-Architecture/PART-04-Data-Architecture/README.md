@@ -4,20 +4,20 @@ part: "PART-04 — Data Architecture"
 title: "Data Architecture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 ---
 
 # PART-04 — Data Architecture
 
-> *"Data architecture protects Athena from becoming fast, clever, and wrong."*
+> *"Data architecture protects Clara from becoming fast, clever, and wrong."*
 
 ---
 
 # Purpose
 
-Part IV defines Athena's implementation architecture for data.
+Part IV defines Clara's implementation architecture for data.
 
 It turns the Book II Data Platform concepts into production-grade implementation standards for database design, schema evolution, data ownership, access patterns, event store, search, vector retrieval, object storage, cache, pipelines, backup, disaster recovery, privacy, audit, and analytics.
 

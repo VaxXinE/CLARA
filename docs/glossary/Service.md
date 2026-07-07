@@ -11,7 +11,7 @@
 | Term | Service |
 | Category | Architecture / Platform |
 | Status | Official |
-| Owner | Athena Core Team |
+| Owner | Clara Core Team |
 | Last Updated | 2026-07-06 |
 
 ---

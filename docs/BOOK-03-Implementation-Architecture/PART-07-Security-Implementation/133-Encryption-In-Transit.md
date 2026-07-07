@@ -5,7 +5,7 @@ chapter: "133"
 title: "Encryption In Transit"
 version: "1.0.0"
 status: "official"
-owner: "Athena Security Architecture Team"
+owner: "Clara Security Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./132-Zero-Trust-Implementation.md"
@@ -28,7 +28,7 @@ Defines TLS usage, service-to-service encryption, certificate handling, and secu
 
 Security bugs in production are expensive, damaging, and often caused by unclear ownership or inconsistent implementation.
 
-Athena handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
+Clara handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
 
 This chapter defines how **Encryption In Transit** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Encryption In Transit** should be implemented safely 
 
 ## Decision
 
-Athena should require encrypted transport for public traffic and sensitive internal service communication.
+Clara should require encrypted transport for public traffic and sensitive internal service communication.
 
 ## Status
 

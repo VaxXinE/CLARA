@@ -5,7 +5,7 @@ chapter: "77"
 title: "Cache Store Implementation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./76-Object-Storage-Implementation.md"
@@ -26,7 +26,7 @@ Defines Redis/cache store patterns, TTL, invalidation, tenant-aware cache keys, 
 
 # Motivation
 
-Data is one of the highest-risk parts of Athena.
+Data is one of the highest-risk parts of Clara.
 
 Bad data architecture can cause privacy leaks, tenant isolation failures, broken AI context, slow queries, unrecoverable incidents, inconsistent reporting, and dangerous production migrations.
 
@@ -38,7 +38,7 @@ This chapter defines how **Cache Store Implementation** should be implemented sa
 
 ## Decision
 
-Athena cache storage should be explicit, scoped, short-lived by default, and never used as the only source of critical truth.
+Clara cache storage should be explicit, scoped, short-lived by default, and never used as the only source of critical truth.
 
 ## Status
 

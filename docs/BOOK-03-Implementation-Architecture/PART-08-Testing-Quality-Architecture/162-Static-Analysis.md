@@ -5,7 +5,7 @@ chapter: "162"
 title: "Static Analysis"
 version: "1.0.0"
 status: "official"
-owner: "Athena Quality Architecture Team"
+owner: "Clara Quality Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./161-Code-Review-Quality.md"
@@ -28,7 +28,7 @@ Defines static analysis, linting, formatting, type checking, dependency analysis
 
 Production quality cannot rely on manual confidence or optimistic assumptions.
 
-Athena has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
+Clara has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
 
 This chapter defines how **Static Analysis** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Static Analysis** should be implemented consistently.
 
 ## Decision
 
-Athena static analysis should run automatically and enforce code quality, security, and architecture constraints before merge.
+Clara static analysis should run automatically and enforce code quality, security, and architecture constraints before merge.
 
 ## Status
 

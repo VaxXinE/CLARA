@@ -11,7 +11,7 @@
 | Term | Workspace |
 | Category | Business / Platform |
 | Status | Official |
-| Owner | Athena Core Team |
+| Owner | Clara Core Team |
 | Last Updated | 2026-07-06 |
 
 ---
@@ -76,7 +76,7 @@ Typical Workspace resources include:
 
 # Security Considerations
 
-Workspace boundaries are part of Athena's authorization model.
+Workspace boundaries are part of Clara's authorization model.
 
 Every request should verify:
 

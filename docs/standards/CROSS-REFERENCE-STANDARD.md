@@ -1,4 +1,4 @@
-# Athena Cross-Reference Standard
+# Clara Cross-Reference Standard
 
 > *"Documentation becomes a library when every document knows how to find the others."*
 
@@ -8,18 +8,18 @@
 
 | Field | Value |
 |---|---|
-| Document | Athena Cross-Reference Standard |
+| Document | Clara Cross-Reference Standard |
 | Version | 1.0.0 |
 | Status | Official |
-| Owner | Athena Core Team |
-| Scope | Athena Engineering Library |
+| Owner | Clara Core Team |
+| Scope | Clara Engineering Library |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Purpose
 
-This standard defines how documents reference one another throughout the Athena Engineering Library.
+This standard defines how documents reference one another throughout the Clara Engineering Library.
 
 Cross-references improve:
 
@@ -94,7 +94,7 @@ Where appropriate, use links instead of plain text.
 
 ## Standards References
 
-When applying an Athena standard:
+When applying an Clara standard:
 
 ```md
 This document follows:

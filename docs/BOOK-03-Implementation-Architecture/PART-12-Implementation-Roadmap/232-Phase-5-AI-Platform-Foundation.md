@@ -5,7 +5,7 @@ chapter: "232"
 title: "Phase 5 AI Platform Foundation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./231-Phase-4-Security-Baseline.md"
@@ -28,7 +28,7 @@ Defines AI platform foundation including AI Gateway, provider abstraction, promp
 
 A strong architecture still fails if implementation happens in the wrong order.
 
-Athena has backend, frontend, data, security, AI, integration, infrastructure, testing, operations, and product modules. If teams build product capabilities before foundations are ready, technical debt becomes structural debt.
+Clara has backend, frontend, data, security, AI, integration, infrastructure, testing, operations, and product modules. If teams build product capabilities before foundations are ready, technical debt becomes structural debt.
 
 This chapter defines how **Phase 5 AI Platform Foundation** should guide implementation safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Phase 5 AI Platform Foundation** should guide impleme
 
 ## Decision
 
-Athena AI features should not be implemented until the AI Gateway, policy, guardrails, and evaluation baseline exist.
+Clara AI features should not be implemented until the AI Gateway, policy, guardrails, and evaluation baseline exist.
 
 ## Status
 

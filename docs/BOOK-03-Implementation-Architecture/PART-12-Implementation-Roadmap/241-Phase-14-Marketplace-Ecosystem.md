@@ -5,7 +5,7 @@ chapter: "241"
 title: "Phase 14 Marketplace Ecosystem"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./240-Phase-13-Enterprise-Readiness.md"
@@ -28,7 +28,7 @@ Defines marketplace and ecosystem readiness including plugin review, extension S
 
 A strong architecture still fails if implementation happens in the wrong order.
 
-Athena has backend, frontend, data, security, AI, integration, infrastructure, testing, operations, and product modules. If teams build product capabilities before foundations are ready, technical debt becomes structural debt.
+Clara has backend, frontend, data, security, AI, integration, infrastructure, testing, operations, and product modules. If teams build product capabilities before foundations are ready, technical debt becomes structural debt.
 
 This chapter defines how **Phase 14 Marketplace Ecosystem** should guide implementation safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Phase 14 Marketplace Ecosystem** should guide impleme
 
 ## Decision
 
-Athena marketplace ecosystem should be introduced only after plugin, extension, integration, security, and governance foundations are stable.
+Clara marketplace ecosystem should be introduced only after plugin, extension, integration, security, and governance foundations are stable.
 
 ## Status
 

@@ -4,7 +4,7 @@ part: "PART-06 — Data Platform"
 title: "Data Platform"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "part"
 ---
@@ -17,17 +17,17 @@ classification: "part"
 
 # Purpose
 
-Part VI defines Athena's Data Platform.
+Part VI defines Clara's Data Platform.
 
 The Data Platform provides the foundation for databases, ownership, lifecycle, event storage, knowledge storage, search, vector retrieval, object storage, caching, pipelines, backup, and disaster recovery.
 
-This Part ensures Athena data can remain trustworthy, secure, searchable, recoverable, and useful for humans, systems, analytics, and AI.
+This Part ensures Clara data can remain trustworthy, secure, searchable, recoverable, and useful for humans, systems, analytics, and AI.
 
 ---
 
 # Goals
 
-- Define Athena's high-level data architecture.
+- Define Clara's high-level data architecture.
 - Establish clear ownership and source-of-truth rules.
 - Support operational, analytical, search, AI, and archival data needs.
 - Protect data through lifecycle, backup, and recovery policies.
@@ -67,7 +67,7 @@ This Part ensures Athena data can remain trustworthy, secure, searchable, recove
 
 | Chapter | Title | Purpose |
 |---|---|---|
-| 70 | Database Strategy | Defines Athena's database strategy |
+| 70 | Database Strategy | Defines Clara's database strategy |
 | 71 | Data Ownership | Defines ownership and source of truth |
 | 72 | Data Lifecycle | Defines creation, retention, deletion, and recovery |
 | 73 | Event Store | Defines event persistence and replay |

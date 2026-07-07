@@ -1,6 +1,6 @@
-# Athena AI Specification Template
+# Clara AI Specification Template
 
-> Use this template to document an AI capability, agent, workflow, model integration, or intelligent automation within Athena.
+> Use this template to document an AI capability, agent, workflow, model integration, or intelligent automation within Clara.
 
 ```yaml
 ---

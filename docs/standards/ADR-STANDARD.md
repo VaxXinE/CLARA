@@ -1,4 +1,4 @@
-# Athena ADR Standard
+# Clara ADR Standard
 
 > *"Good architecture is not only built—it is explained."*
 
@@ -8,18 +8,18 @@
 
 | Field | Value |
 |---|---|
-| Document | Athena Architecture Decision Record (ADR) Standard |
+| Document | Clara Architecture Decision Record (ADR) Standard |
 | Version | 1.0.0 |
 | Status | Official |
-| Owner | Athena Core Team |
-| Scope | Athena Engineering Library |
+| Owner | Clara Core Team |
+| Scope | Clara Engineering Library |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Purpose
 
-This standard defines how Architecture Decision Records (ADRs) are written, reviewed, versioned, and maintained within the Athena project.
+This standard defines how Architecture Decision Records (ADRs) are written, reviewed, versioned, and maintained within the Clara project.
 
 An ADR captures **why** a significant technical or architectural decision was made.
 
@@ -98,7 +98,7 @@ adr: "0001"
 title: "Adopt Event-Driven Architecture"
 status: "accepted"
 date: "2026-07-06"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 related:
   - BOOK-02-Master-Blueprint
 ---

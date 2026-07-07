@@ -1,7 +1,7 @@
 # Versioning
 
 ## Purpose
-Defines Athena backend standard for Versioning.
+Defines Clara backend standard for Versioning.
 
 ## Architecture Decision
 - Standardized across all modules.

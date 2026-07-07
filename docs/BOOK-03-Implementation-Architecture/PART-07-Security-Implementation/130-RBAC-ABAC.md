@@ -5,7 +5,7 @@ chapter: "130"
 title: "RBAC ABAC"
 version: "1.0.0"
 status: "official"
-owner: "Athena Security Architecture Team"
+owner: "Clara Security Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./129-Authorization-Implementation.md"
@@ -14,13 +14,13 @@ next: "./131-Tenant-Isolation.md"
 
 # RBAC ABAC
 
-> *"Defines role-based and attribute-based access control patterns for Athena organizations, workspaces, and resources."*
+> *"Defines role-based and attribute-based access control patterns for Clara organizations, workspaces, and resources."*
 
 ---
 
 # Purpose
 
-Defines role-based and attribute-based access control patterns for Athena organizations, workspaces, and resources.
+Defines role-based and attribute-based access control patterns for Clara organizations, workspaces, and resources.
 
 ---
 
@@ -28,7 +28,7 @@ Defines role-based and attribute-based access control patterns for Athena organi
 
 Security bugs in production are expensive, damaging, and often caused by unclear ownership or inconsistent implementation.
 
-Athena handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
+Clara handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
 
 This chapter defines how **RBAC ABAC** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **RBAC ABAC** should be implemented safely and consiste
 
 ## Decision
 
-Athena should combine RBAC for simple role assignment and ABAC for contextual resource-level policy decisions.
+Clara should combine RBAC for simple role assignment and ABAC for contextual resource-level policy decisions.
 
 ## Status
 

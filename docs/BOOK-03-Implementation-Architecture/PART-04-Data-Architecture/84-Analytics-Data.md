@@ -5,7 +5,7 @@ chapter: "84"
 title: "Analytics Data"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./83-Audit-Data.md"
@@ -26,7 +26,7 @@ Defines analytics data modeling, event tracking, aggregation, privacy protection
 
 # Motivation
 
-Data is one of the highest-risk parts of Athena.
+Data is one of the highest-risk parts of Clara.
 
 Bad data architecture can cause privacy leaks, tenant isolation failures, broken AI context, slow queries, unrecoverable incidents, inconsistent reporting, and dangerous production migrations.
 
@@ -38,7 +38,7 @@ This chapter defines how **Analytics Data** should be implemented safely and con
 
 ## Decision
 
-Athena analytics data should be modeled separately from transactional data and designed for privacy-aware reporting.
+Clara analytics data should be modeled separately from transactional data and designed for privacy-aware reporting.
 
 ## Status
 

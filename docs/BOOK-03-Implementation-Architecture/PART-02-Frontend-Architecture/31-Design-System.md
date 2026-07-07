@@ -5,7 +5,7 @@ chapter: "31"
 title: "Design System"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./30-State-Management.md"
@@ -14,23 +14,23 @@ next: "./32-Theme-Tokens.md"
 
 # Design System
 
-> *"Defines Athena's reusable UI foundation for consistent product experience."*
+> *"Defines Clara's reusable UI foundation for consistent product experience."*
 
 ---
 
 # Purpose
 
-Defines Athena's reusable UI foundation for consistent product experience.
+Defines Clara's reusable UI foundation for consistent product experience.
 
 ---
 
 # Motivation
 
-Athena frontend must support many users, workflows, modules, and AI-assisted experiences.
+Clara frontend must support many users, workflows, modules, and AI-assisted experiences.
 
 Without clear frontend architecture, UI code can become tightly coupled, difficult to test, inconsistent, inaccessible, and insecure.
 
-This chapter defines how **Design System** should be implemented consistently across Athena client applications.
+This chapter defines how **Design System** should be implemented consistently across Clara client applications.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Design System** should be implemented consistently ac
 
 ## Decision
 
-Athena frontend should use a shared design system for buttons, forms, tables, dialogs, navigation, empty states, loading states, and feedback components.
+Clara frontend should use a shared design system for buttons, forms, tables, dialogs, navigation, empty states, loading states, and feedback components.
 
 ## Status
 
@@ -144,11 +144,11 @@ lib/
 # Code Skeleton
 
 ```dart
-class AthenaButton extends StatelessWidget {
+class ClaraButton extends StatelessWidget {
   final String label;
   final VoidCallback? onPressed;
 
-  const AthenaButton({
+  const ClaraButton({
     super.key,
     required this.label,
     required this.onPressed,

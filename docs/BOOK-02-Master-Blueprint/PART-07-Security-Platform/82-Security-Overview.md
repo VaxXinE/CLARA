@@ -5,7 +5,7 @@ chapter: "82"
 title: "Security Overview"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./README.md"
@@ -14,23 +14,23 @@ next: "./83-IAM.md"
 
 # Security Overview
 
-> *"Defines Athena's security platform as a shared foundation for trust, protection, governance, and operational resilience."*
+> *"Defines Clara's security platform as a shared foundation for trust, protection, governance, and operational resilience."*
 
 ---
 
 # Purpose
 
-Defines Athena's security platform as a shared foundation for trust, protection, governance, and operational resilience.
+Defines Clara's security platform as a shared foundation for trust, protection, governance, and operational resilience.
 
-This chapter defines the blueprint-level responsibility of **Security Overview** inside Athena's Security Platform.
+This chapter defines the blueprint-level responsibility of **Security Overview** inside Clara's Security Platform.
 
 ---
 
 # Overview
 
-The **Security Overview** capability is part of Athena's shared Security Platform.
+The **Security Overview** capability is part of Clara's shared Security Platform.
 
-It protects Athena across Organizations, Workspaces, business domains, platform services, AI capabilities, integrations, plugins, and infrastructure.
+It protects Clara across Organizations, Workspaces, business domains, platform services, AI capabilities, integrations, plugins, and infrastructure.
 
 This document defines the security role and boundary at blueprint level. Implementation details should be defined later in security architecture, runbooks, and technical specifications.
 
@@ -40,7 +40,7 @@ This document defines the security role and boundary at blueprint level. Impleme
 
 The **Security Overview** capability is responsible for:
 
-- Protecting Athena resources.
+- Protecting Clara resources.
 - Supporting secure access patterns.
 - Preserving Organization and Workspace boundaries.
 - Reducing security risk.
@@ -169,8 +169,8 @@ The **Security Overview** capability may evolve with:
 
 # Key Takeaways
 
-- Defines Athena's security platform as a shared foundation for trust, protection, governance, and operational resilience.
-- It is part of Athena's shared Security Platform.
+- Defines Clara's security platform as a shared foundation for trust, protection, governance, and operational resilience.
+- It is part of Clara's shared Security Platform.
 - It must protect Organization, Workspace, data, AI, services, plugins, and integrations.
 - It should be observable, auditable, and governed.
 

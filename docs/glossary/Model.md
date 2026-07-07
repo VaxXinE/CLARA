@@ -11,7 +11,7 @@
 | Term | Model |
 | Category | AI / Machine Learning |
 | Status | Official |
-| Owner | Athena Core Team |
+| Owner | Clara Core Team |
 | Last Updated | 2026-07-06 |
 
 ---
@@ -20,7 +20,7 @@
 
 A **Model** is a computational component that performs inference on input data to produce an output.
 
-Within Athena, a Model is responsible for prediction, generation, classification, ranking, embedding, or other AI capabilities.
+Within Clara, a Model is responsible for prediction, generation, classification, ranking, embedding, or other AI capabilities.
 
 A Model does not own business logic, workflows, permissions, or orchestration.
 
@@ -138,7 +138,7 @@ Examples:
 
 # Model Selection
 
-Athena should select Models based on:
+Clara should select Models based on:
 
 - Capability
 - Latency
@@ -198,7 +198,7 @@ Outputs should be validated before use in critical workflows.
 
 # Security Considerations
 
-Models should operate within Athena's security boundaries.
+Models should operate within Clara's security boundaries.
 
 Consider:
 

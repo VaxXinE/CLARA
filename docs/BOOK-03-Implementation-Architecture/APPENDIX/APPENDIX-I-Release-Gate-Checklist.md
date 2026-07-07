@@ -4,7 +4,7 @@ appendix: "I"
 title: "Release Gate Checklist"
 version: "1.0.0"
 status: "official"
-owner: "Athena Release Engineering Team"
+owner: "Clara Release Engineering Team"
 last_updated: "2026-07-07"
 classification: "release-gate-checklist"
 ---
@@ -17,7 +17,7 @@ classification: "release-gate-checklist"
 
 # Purpose
 
-Use this checklist before releasing Athena changes to staging, beta, or production.
+Use this checklist before releasing Clara changes to staging, beta, or production.
 
 ---
 

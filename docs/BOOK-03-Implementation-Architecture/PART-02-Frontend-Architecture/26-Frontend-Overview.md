@@ -5,7 +5,7 @@ chapter: "26"
 title: "Frontend Overview"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./README.md"
@@ -14,23 +14,23 @@ next: "./27-Flutter-Architecture.md"
 
 # Frontend Overview
 
-> *"Defines the frontend architecture vision, responsibility boundaries, and product experience foundation for Athena."*
+> *"Defines the frontend architecture vision, responsibility boundaries, and product experience foundation for Clara."*
 
 ---
 
 # Purpose
 
-Defines the frontend architecture vision, responsibility boundaries, and product experience foundation for Athena.
+Defines the frontend architecture vision, responsibility boundaries, and product experience foundation for Clara.
 
 ---
 
 # Motivation
 
-Athena frontend must support many users, workflows, modules, and AI-assisted experiences.
+Clara frontend must support many users, workflows, modules, and AI-assisted experiences.
 
 Without clear frontend architecture, UI code can become tightly coupled, difficult to test, inconsistent, inaccessible, and insecure.
 
-This chapter defines how **Frontend Overview** should be implemented consistently across Athena client applications.
+This chapter defines how **Frontend Overview** should be implemented consistently across Clara client applications.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Frontend Overview** should be implemented consistentl
 
 ## Decision
 
-Athena frontend should be built as a modular, feature-oriented application with clear separation between UI, state, data access, and domain-facing application logic.
+Clara frontend should be built as a modular, feature-oriented application with clear separation between UI, state, data access, and domain-facing application logic.
 
 ## Status
 
@@ -145,16 +145,16 @@ lib/
 
 ```dart
 // lib/app/app.dart
-class AthenaApp extends StatelessWidget {
-  const AthenaApp({super.key});
+class ClaraApp extends StatelessWidget {
+  const ClaraApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Athena',
+      title: 'Clara',
       routerConfig: appRouter,
-      theme: AthenaTheme.light(),
-      darkTheme: AthenaTheme.dark(),
+      theme: ClaraTheme.light(),
+      darkTheme: ClaraTheme.dark(),
     );
   }
 }

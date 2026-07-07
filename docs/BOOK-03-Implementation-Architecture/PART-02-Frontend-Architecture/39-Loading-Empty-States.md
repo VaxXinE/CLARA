@@ -5,7 +5,7 @@ chapter: "39"
 title: "Loading Empty States"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./38-Error-Handling.md"
@@ -14,23 +14,23 @@ next: "./40-Local-Storage.md"
 
 # Loading Empty States
 
-> *"Defines consistent loading, empty, skeleton, and placeholder states across Athena frontend."*
+> *"Defines consistent loading, empty, skeleton, and placeholder states across Clara frontend."*
 
 ---
 
 # Purpose
 
-Defines consistent loading, empty, skeleton, and placeholder states across Athena frontend.
+Defines consistent loading, empty, skeleton, and placeholder states across Clara frontend.
 
 ---
 
 # Motivation
 
-Athena frontend must support many users, workflows, modules, and AI-assisted experiences.
+Clara frontend must support many users, workflows, modules, and AI-assisted experiences.
 
 Without clear frontend architecture, UI code can become tightly coupled, difficult to test, inconsistent, inaccessible, and insecure.
 
-This chapter defines how **Loading Empty States** should be implemented consistently across Athena client applications.
+This chapter defines how **Loading Empty States** should be implemented consistently across Clara client applications.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Loading Empty States** should be implemented consiste
 
 ## Decision
 
-Athena frontend should use standard loading and empty-state components rather than ad-hoc per-screen implementations.
+Clara frontend should use standard loading and empty-state components rather than ad-hoc per-screen implementations.
 
 ## Status
 
@@ -144,12 +144,12 @@ lib/
 # Code Skeleton
 
 ```dart
-class AthenaEmptyState extends StatelessWidget {
+class ClaraEmptyState extends StatelessWidget {
   final String title;
   final String message;
   final Widget? action;
 
-  const AthenaEmptyState({
+  const ClaraEmptyState({
     super.key,
     required this.title,
     required this.message,

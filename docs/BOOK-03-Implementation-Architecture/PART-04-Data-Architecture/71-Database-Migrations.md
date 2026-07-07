@@ -5,7 +5,7 @@ chapter: "71"
 title: "Database Migrations"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./70-Data-Access-Patterns.md"
@@ -26,7 +26,7 @@ Defines migration standards, backward compatibility, rollback strategy, zero-dow
 
 # Motivation
 
-Data is one of the highest-risk parts of Athena.
+Data is one of the highest-risk parts of Clara.
 
 Bad data architecture can cause privacy leaks, tenant isolation failures, broken AI context, slow queries, unrecoverable incidents, inconsistent reporting, and dangerous production migrations.
 
@@ -38,7 +38,7 @@ This chapter defines how **Database Migrations** should be implemented safely an
 
 ## Decision
 
-Athena database migrations should be versioned, reviewed, reversible where practical, and safe for rolling deployments.
+Clara database migrations should be versioned, reviewed, reversible where practical, and safe for rolling deployments.
 
 ## Status
 

@@ -11,7 +11,7 @@
 | Term | Ticket |
 | Category | Customer Support / Operations |
 | Status | Official |
-| Owner | Athena Core Team |
+| Owner | Clara Core Team |
 | Last Updated | 2026-07-06 |
 
 ---
@@ -169,7 +169,7 @@ Human review should remain available for business-critical actions.
 
 Ticket data may contain sensitive business and personal information.
 
-Athena should enforce:
+Clara should enforce:
 
 - Authentication
 - Authorization

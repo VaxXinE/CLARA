@@ -5,7 +5,7 @@ chapter: "89"
 title: "Compliance"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./88-Privacy.md"
@@ -14,23 +14,23 @@ next: "./90-Audit-Strategy.md"
 
 # Compliance
 
-> *"Defines how Athena supports internal policies, legal requirements, customer commitments, and audit expectations."*
+> *"Defines how Clara supports internal policies, legal requirements, customer commitments, and audit expectations."*
 
 ---
 
 # Purpose
 
-Defines how Athena supports internal policies, legal requirements, customer commitments, and audit expectations.
+Defines how Clara supports internal policies, legal requirements, customer commitments, and audit expectations.
 
-This chapter defines the blueprint-level responsibility of **Compliance** inside Athena's Security Platform.
+This chapter defines the blueprint-level responsibility of **Compliance** inside Clara's Security Platform.
 
 ---
 
 # Overview
 
-The **Compliance** capability is part of Athena's shared Security Platform.
+The **Compliance** capability is part of Clara's shared Security Platform.
 
-It protects Athena across Organizations, Workspaces, business domains, platform services, AI capabilities, integrations, plugins, and infrastructure.
+It protects Clara across Organizations, Workspaces, business domains, platform services, AI capabilities, integrations, plugins, and infrastructure.
 
 This document defines the security role and boundary at blueprint level. Implementation details should be defined later in security architecture, runbooks, and technical specifications.
 
@@ -40,7 +40,7 @@ This document defines the security role and boundary at blueprint level. Impleme
 
 The **Compliance** capability is responsible for:
 
-- Protecting Athena resources.
+- Protecting Clara resources.
 - Supporting secure access patterns.
 - Preserving Organization and Workspace boundaries.
 - Reducing security risk.
@@ -169,8 +169,8 @@ The **Compliance** capability may evolve with:
 
 # Key Takeaways
 
-- Defines how Athena supports internal policies, legal requirements, customer commitments, and audit expectations.
-- It is part of Athena's shared Security Platform.
+- Defines how Clara supports internal policies, legal requirements, customer commitments, and audit expectations.
+- It is part of Clara's shared Security Platform.
 - It must protect Organization, Workspace, data, AI, services, plugins, and integrations.
 - It should be observable, auditable, and governed.
 

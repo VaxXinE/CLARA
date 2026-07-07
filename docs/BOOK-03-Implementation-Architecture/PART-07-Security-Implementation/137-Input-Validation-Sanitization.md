@@ -5,7 +5,7 @@ chapter: "137"
 title: "Input Validation Sanitization"
 version: "1.0.0"
 status: "official"
-owner: "Athena Security Architecture Team"
+owner: "Clara Security Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./136-Secrets-Security.md"
@@ -28,7 +28,7 @@ Defines input validation, sanitization boundaries, output encoding, file validat
 
 Security bugs in production are expensive, damaging, and often caused by unclear ownership or inconsistent implementation.
 
-Athena handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
+Clara handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
 
 This chapter defines how **Input Validation Sanitization** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Input Validation Sanitization** should be implemented
 
 ## Decision
 
-Athena should validate input at boundaries, preserve domain invariants internally, and encode output at rendering boundaries.
+Clara should validate input at boundaries, preserve domain invariants internally, and encode output at rendering boundaries.
 
 ## Status
 

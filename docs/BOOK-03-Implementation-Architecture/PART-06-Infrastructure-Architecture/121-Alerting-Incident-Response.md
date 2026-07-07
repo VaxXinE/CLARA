@@ -5,7 +5,7 @@ chapter: "121"
 title: "Alerting Incident Response"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./120-Tracing-Infrastructure.md"
@@ -30,7 +30,7 @@ Infrastructure is where architecture meets production reality.
 
 Good application code can still fail if deployment is unsafe, secrets are leaked, logs are missing, scaling is uncontrolled, or incidents have no runbooks.
 
-This chapter defines how **Alerting Incident Response** should be implemented safely and consistently for Athena.
+This chapter defines how **Alerting Incident Response** should be implemented safely and consistently for Clara.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Alerting Incident Response** should be implemented sa
 
 ## Decision
 
-Athena alerts should be actionable, SLO-aligned, routed to clear owners, and connected to runbooks.
+Clara alerts should be actionable, SLO-aligned, routed to clear owners, and connected to runbooks.
 
 ## Status
 

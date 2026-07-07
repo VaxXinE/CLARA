@@ -1,6 +1,6 @@
-# Contributing to ATHENA
+# Contributing to Clara
 
-> "Contributions should improve Athena without weakening its architecture, security, or maintainability."
+> "Contributions should improve Clara without weakening its architecture, security, or maintainability."
 
 ---
 

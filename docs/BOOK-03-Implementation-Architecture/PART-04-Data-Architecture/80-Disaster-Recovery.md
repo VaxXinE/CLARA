@@ -5,7 +5,7 @@ chapter: "80"
 title: "Disaster Recovery"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./79-Backup-Restore.md"
@@ -26,7 +26,7 @@ Defines disaster recovery strategy, failover, region recovery, dependency mappin
 
 # Motivation
 
-Data is one of the highest-risk parts of Athena.
+Data is one of the highest-risk parts of Clara.
 
 Bad data architecture can cause privacy leaks, tenant isolation failures, broken AI context, slow queries, unrecoverable incidents, inconsistent reporting, and dangerous production migrations.
 
@@ -38,7 +38,7 @@ This chapter defines how **Disaster Recovery** should be implemented safely and 
 
 ## Decision
 
-Athena disaster recovery should be tested through runbooks, dependency mapping, and recovery drills before relying on it in production.
+Clara disaster recovery should be tested through runbooks, dependency mapping, and recovery drills before relying on it in production.
 
 ## Status
 

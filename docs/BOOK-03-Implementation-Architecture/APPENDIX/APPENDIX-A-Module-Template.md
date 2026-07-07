@@ -4,7 +4,7 @@ appendix: "A"
 title: "Module Template"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-template"
 ---
@@ -17,7 +17,7 @@ classification: "implementation-template"
 
 # Purpose
 
-This template defines the minimum structure and documentation required for every Athena module.
+This template defines the minimum structure and documentation required for every Clara module.
 
 Use it for:
 
@@ -190,7 +190,7 @@ Every protected module must:
 # AI Assistant Prompt
 
 ```text
-Create or update this Athena module using the Module Template.
+Create or update this Clara module using the Module Template.
 
 Rules:
 - Follow Book III architecture.

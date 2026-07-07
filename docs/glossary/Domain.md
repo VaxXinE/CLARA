@@ -11,18 +11,18 @@
 | Term | Domain |
 | Category | Architecture / Business |
 | Status | Official |
-| Owner | Athena Core Team |
+| Owner | Clara Core Team |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Definition
 
-A **Domain** is a distinct business capability area within Athena.
+A **Domain** is a distinct business capability area within Clara.
 
 A Domain owns a specific set of business responsibilities, concepts, rules, language, data, workflows, and system behavior.
 
-Domains help Athena organize complexity around business meaning rather than technical layers.
+Domains help Clara organize complexity around business meaning rather than technical layers.
 
 ---
 
@@ -43,7 +43,7 @@ Domains exist to:
 
 # Examples
 
-Examples of Athena Domains may include:
+Examples of Clara Domains may include:
 
 - Identity
 - Organization
@@ -140,7 +140,7 @@ Domains may communicate through:
 - Workflows
 - Integration adapters
 
-Athena prefers clear contracts over direct coupling.
+Clara prefers clear contracts over direct coupling.
 
 ---
 

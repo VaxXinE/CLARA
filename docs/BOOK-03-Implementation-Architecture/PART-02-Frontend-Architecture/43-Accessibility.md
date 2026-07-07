@@ -5,7 +5,7 @@ chapter: "43"
 title: "Accessibility"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./42-Localization.md"
@@ -26,11 +26,11 @@ Defines accessibility requirements for keyboard navigation, screen readers, cont
 
 # Motivation
 
-Athena frontend must support many users, workflows, modules, and AI-assisted experiences.
+Clara frontend must support many users, workflows, modules, and AI-assisted experiences.
 
 Without clear frontend architecture, UI code can become tightly coupled, difficult to test, inconsistent, inaccessible, and insecure.
 
-This chapter defines how **Accessibility** should be implemented consistently across Athena client applications.
+This chapter defines how **Accessibility** should be implemented consistently across Clara client applications.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Accessibility** should be implemented consistently ac
 
 ## Decision
 
-Athena frontend should treat accessibility as a product requirement, not a late-stage visual improvement.
+Clara frontend should treat accessibility as a product requirement, not a late-stage visual improvement.
 
 ## Status
 
@@ -147,7 +147,7 @@ lib/
 Semantics(
   label: 'Create customer button',
   button: true,
-  child: AthenaButton(
+  child: ClaraButton(
     label: context.l10n.createCustomer,
     onPressed: onCreateCustomer,
   ),

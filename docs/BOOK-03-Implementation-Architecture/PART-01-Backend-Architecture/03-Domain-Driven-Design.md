@@ -5,7 +5,7 @@ chapter: "03"
 title: "Domain Driven Design"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-06"
 classification: "implementation-architecture"
 previous: "./02-Clean-Architecture.md"
@@ -20,15 +20,15 @@ next: "./04-Project-Structure.md"
 
 # Purpose
 
-This chapter defines how Athena applies Domain-Driven Design in backend implementation.
+This chapter defines how Clara applies Domain-Driven Design in backend implementation.
 
-Domain-Driven Design helps Athena organize software around business meaning, not technical convenience.
+Domain-Driven Design helps Clara organize software around business meaning, not technical convenience.
 
 ---
 
 # Motivation
 
-Athena contains many business areas:
+Clara contains many business areas:
 
 - Organization.
 - Workspace.
@@ -53,7 +53,7 @@ DDD keeps ownership and language clear.
 
 ## Decision
 
-Athena backend should organize business logic around Domains and bounded contexts.
+Clara backend should organize business logic around Domains and bounded contexts.
 
 ## Status
 
@@ -145,7 +145,7 @@ flowchart TD
 
 # Implementation Rules
 
-Athena domain code should:
+Clara domain code should:
 
 - Use business language.
 - Protect invariants.
@@ -225,7 +225,7 @@ For every new domain:
 
 # Key Takeaways
 
-- DDD organizes Athena around business meaning.
+- DDD organizes Clara around business meaning.
 - Domain logic should use official terminology.
 - Domain models should protect business rules.
 - Domain boundaries prevent uncontrolled coupling.

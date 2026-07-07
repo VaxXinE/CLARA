@@ -5,7 +5,7 @@ chapter: "107"
 title: "Deployment Architecture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./106-Infrastructure-Architecture-Overview.md"
@@ -30,7 +30,7 @@ Infrastructure is where architecture meets production reality.
 
 Good application code can still fail if deployment is unsafe, secrets are leaked, logs are missing, scaling is uncontrolled, or incidents have no runbooks.
 
-This chapter defines how **Deployment Architecture** should be implemented safely and consistently for Athena.
+This chapter defines how **Deployment Architecture** should be implemented safely and consistently for Clara.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Deployment Architecture** should be implemented safel
 
 ## Decision
 
-Athena services should be deployed through automated pipelines using immutable artifacts and controlled promotion across environments.
+Clara services should be deployed through automated pipelines using immutable artifacts and controlled promotion across environments.
 
 ## Status
 

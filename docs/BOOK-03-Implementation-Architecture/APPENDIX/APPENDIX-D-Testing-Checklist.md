@@ -4,7 +4,7 @@ appendix: "D"
 title: "Testing Checklist"
 version: "1.0.0"
 status: "official"
-owner: "Athena Quality Architecture Team"
+owner: "Clara Quality Architecture Team"
 last_updated: "2026-07-07"
 classification: "quality-checklist"
 ---
@@ -17,7 +17,7 @@ classification: "quality-checklist"
 
 # Purpose
 
-This checklist helps Athena teams define required tests before merging production code.
+This checklist helps Clara teams define required tests before merging production code.
 
 ---
 
@@ -138,7 +138,7 @@ Avoid tests that:
 # AI Assistant Prompt
 
 ```text
-Generate tests for this Athena feature.
+Generate tests for this Clara feature.
 
 Required:
 - Happy path

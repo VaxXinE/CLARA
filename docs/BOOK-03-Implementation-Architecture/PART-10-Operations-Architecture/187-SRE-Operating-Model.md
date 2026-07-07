@@ -5,7 +5,7 @@ chapter: "187"
 title: "SRE Operating Model"
 version: "1.0.0"
 status: "official"
-owner: "Athena Operations Architecture Team"
+owner: "Clara Operations Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./186-Operations-Architecture-Overview.md"
@@ -14,13 +14,13 @@ next: "./188-Service-Ownership.md"
 
 # SRE Operating Model
 
-> *"Defines Athena's Site Reliability Engineering operating model, responsibilities, reliability goals, and collaboration with product engineering."*
+> *"Defines Clara's Site Reliability Engineering operating model, responsibilities, reliability goals, and collaboration with product engineering."*
 
 ---
 
 # Purpose
 
-Defines Athena's Site Reliability Engineering operating model, responsibilities, reliability goals, and collaboration with product engineering.
+Defines Clara's Site Reliability Engineering operating model, responsibilities, reliability goals, and collaboration with product engineering.
 
 ---
 
@@ -28,7 +28,7 @@ Defines Athena's Site Reliability Engineering operating model, responsibilities,
 
 Production systems do not stay reliable by accident.
 
-Athena needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
+Clara needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
 
 This chapter defines how **SRE Operating Model** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **SRE Operating Model** should be implemented consisten
 
 ## Decision
 
-Athena should use an SRE-inspired operating model where product teams own service reliability with platform support and shared reliability standards.
+Clara should use an SRE-inspired operating model where product teams own service reliability with platform support and shared reliability standards.
 
 ## Status
 

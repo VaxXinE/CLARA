@@ -11,7 +11,7 @@
 | Term | Conversation |
 | Category | CRM / Communication / AI |
 | Status | Official |
-| Owner | Athena Core Team |
+| Owner | Clara Core Team |
 | Last Updated | 2026-07-06 |
 
 ---
@@ -28,7 +28,7 @@ A Conversation may include messages exchanged between:
 - Internal collaborators
 - External systems through integrations
 
-A Conversation is the primary unit of communication within Athena.
+A Conversation is the primary unit of communication within Clara.
 
 ---
 
@@ -92,7 +92,7 @@ Examples:
 - Voice
 - SMS
 
-Athena should unify these channels into a single logical Conversation when appropriate.
+Clara should unify these channels into a single logical Conversation when appropriate.
 
 ---
 
@@ -149,7 +149,7 @@ AI recommendations should remain reviewable and auditable.
 
 Conversation data may contain sensitive information.
 
-Athena must enforce:
+Clara must enforce:
 
 - Authentication
 - Authorization

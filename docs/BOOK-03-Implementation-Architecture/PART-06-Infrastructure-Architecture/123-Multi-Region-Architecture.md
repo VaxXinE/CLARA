@@ -5,7 +5,7 @@ chapter: "123"
 title: "Multi Region Architecture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./122-Scaling-Strategy.md"
@@ -30,7 +30,7 @@ Infrastructure is where architecture meets production reality.
 
 Good application code can still fail if deployment is unsafe, secrets are leaked, logs are missing, scaling is uncontrolled, or incidents have no runbooks.
 
-This chapter defines how **Multi Region Architecture** should be implemented safely and consistently for Athena.
+This chapter defines how **Multi Region Architecture** should be implemented safely and consistently for Clara.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Multi Region Architecture** should be implemented saf
 
 ## Decision
 
-Athena multi-region architecture should be introduced progressively, starting with backup/DR readiness before active-active complexity.
+Clara multi-region architecture should be introduced progressively, starting with backup/DR readiness before active-active complexity.
 
 ## Status
 

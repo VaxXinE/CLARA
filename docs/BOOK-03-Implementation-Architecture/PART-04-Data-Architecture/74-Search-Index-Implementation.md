@@ -5,7 +5,7 @@ chapter: "74"
 title: "Search Index Implementation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./73-Event-Store-Implementation.md"
@@ -26,7 +26,7 @@ Defines full-text search indexing, synchronization, reindexing, search permissio
 
 # Motivation
 
-Data is one of the highest-risk parts of Athena.
+Data is one of the highest-risk parts of Clara.
 
 Bad data architecture can cause privacy leaks, tenant isolation failures, broken AI context, slow queries, unrecoverable incidents, inconsistent reporting, and dangerous production migrations.
 
@@ -38,7 +38,7 @@ This chapter defines how **Search Index Implementation** should be implemented s
 
 ## Decision
 
-Athena search indexes should be treated as derived read models that can be rebuilt from source-of-truth data.
+Clara search indexes should be treated as derived read models that can be rebuilt from source-of-truth data.
 
 ## Status
 

@@ -2,33 +2,33 @@
 book: "Book II — Master Blueprint"
 part: "PART-01 — Platform Vision"
 chapter: "02"
-title: "Athena Big Picture"
+title: "Clara Big Picture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./01-Executive-Overview.md"
 next: "./03-Platform-Philosophy.md"
 ---
 
-# Athena Big Picture
+# Clara Big Picture
 
-> *"Athena connects the work, knowledge, people, and intelligence of an organization."*
+> *"Clara connects the work, knowledge, people, and intelligence of an organization."*
 
 ---
 
 # Purpose
 
-This chapter explains Athena from the highest possible perspective.
+This chapter explains Clara from the highest possible perspective.
 
-It provides a shared mental model for understanding how Athena's major areas fit together as one platform.
+It provides a shared mental model for understanding how Clara's major areas fit together as one platform.
 
 ---
 
 # The Big Picture
 
-Athena begins with an Organization.
+Clara begins with an Organization.
 
 Inside an Organization, people work inside Workspaces.
 
@@ -76,7 +76,7 @@ flowchart TD
 
 # One Platform, Many Capabilities
 
-Athena should feel like one system even though it contains many capabilities.
+Clara should feel like one system even though it contains many capabilities.
 
 Users should not experience disconnected modules.
 
@@ -92,7 +92,7 @@ Security should apply consistently across the platform.
 
 # Platform Mental Model
 
-Athena can be understood through five questions:
+Clara can be understood through five questions:
 
 1. Who owns the work?
 2. Where does the work happen?
@@ -104,7 +104,7 @@ Athena can be understood through five questions:
 
 # Key Takeaways
 
-- Athena is organized around Organization and Workspace.
+- Clara is organized around Organization and Workspace.
 - Business Domains represent core operational capabilities.
 - Platform Services provide reusable foundations.
 - AI works across the platform through context, knowledge, memory, agents, and models.

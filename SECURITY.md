@@ -1,12 +1,12 @@
 # Security Policy
 
-> "Athena must be secure by design, secure by default, and secure in operation."
+> "Clara must be secure by design, secure by default, and secure in operation."
 
 ---
 
 # Supported Scope
 
-This repository currently contains Athena documentation and will later contain implementation code.
+This repository currently contains Clara documentation and will later contain implementation code.
 
 Security policy applies to:
 

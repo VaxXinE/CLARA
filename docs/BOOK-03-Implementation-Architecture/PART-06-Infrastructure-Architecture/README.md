@@ -4,7 +4,7 @@ part: "PART-06 — Infrastructure Architecture"
 title: "Infrastructure Architecture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 ---
@@ -17,7 +17,7 @@ classification: "implementation-architecture"
 
 # Purpose
 
-Part VI defines Athena's implementation architecture for infrastructure.
+Part VI defines Clara's implementation architecture for infrastructure.
 
 It covers deployment, containers, Kubernetes, CI/CD, environment strategy, networking, load balancing, service discovery, secrets, runtime configuration, observability infrastructure, logging, metrics, tracing, alerting, scaling, multi-region strategy, resilience, and infrastructure summary.
 
@@ -25,7 +25,7 @@ It covers deployment, containers, Kubernetes, CI/CD, environment strategy, netwo
 
 # Goals
 
-- Make Athena deployments reproducible and safe.
+- Make Clara deployments reproducible and safe.
 - Standardize runtime environments.
 - Secure secrets and network boundaries.
 - Provide production-grade observability.
@@ -119,7 +119,7 @@ flowchart TD
 
 # Critical Rule
 
-Athena infrastructure must be:
+Clara infrastructure must be:
 
 ```text
 Automated

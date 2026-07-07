@@ -6,7 +6,7 @@ chapter: "15"
 title: "Transactions"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-06"
 classification: "implementation-architecture"
 previous: "./14-CQRS.md"
@@ -15,23 +15,23 @@ next: "../STAGE-04/16-Validation.md"
 
 # Transactions
 
-> *"Defines transaction boundaries, consistency rules, unit of work, and safe side-effect handling in Athena backend."*
+> *"Defines transaction boundaries, consistency rules, unit of work, and safe side-effect handling in Clara backend."*
 
 ---
 
 # Purpose
 
-Defines transaction boundaries, consistency rules, unit of work, and safe side-effect handling in Athena backend.
+Defines transaction boundaries, consistency rules, unit of work, and safe side-effect handling in Clara backend.
 
 ---
 
 # Motivation
 
-Athena backend must separate **business truth** from **application orchestration**.
+Clara backend must separate **business truth** from **application orchestration**.
 
 If this separation is not clear, code becomes difficult to test, business rules become scattered, and infrastructure side effects become mixed with domain behavior.
 
-This chapter defines how **Transactions** should be implemented consistently across Athena backend modules.
+This chapter defines how **Transactions** should be implemented consistently across Clara backend modules.
 
 ---
 
@@ -39,7 +39,7 @@ This chapter defines how **Transactions** should be implemented consistently acr
 
 ## Decision
 
-Athena backend uses explicit transaction boundaries inside application use cases and avoids hidden cross-layer transactions.
+Clara backend uses explicit transaction boundaries inside application use cases and avoids hidden cross-layer transactions.
 
 ## Status
 

@@ -5,7 +5,7 @@ chapter: "27"
 title: "Flutter Architecture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./26-Frontend-Overview.md"
@@ -14,23 +14,23 @@ next: "./28-Project-Structure.md"
 
 # Flutter Architecture
 
-> *"Defines how Flutter is used as Athena's frontend framework while preserving modularity, testability, and maintainability."*
+> *"Defines how Flutter is used as Clara's frontend framework while preserving modularity, testability, and maintainability."*
 
 ---
 
 # Purpose
 
-Defines how Flutter is used as Athena's frontend framework while preserving modularity, testability, and maintainability.
+Defines how Flutter is used as Clara's frontend framework while preserving modularity, testability, and maintainability.
 
 ---
 
 # Motivation
 
-Athena frontend must support many users, workflows, modules, and AI-assisted experiences.
+Clara frontend must support many users, workflows, modules, and AI-assisted experiences.
 
 Without clear frontend architecture, UI code can become tightly coupled, difficult to test, inconsistent, inaccessible, and insecure.
 
-This chapter defines how **Flutter Architecture** should be implemented consistently across Athena client applications.
+This chapter defines how **Flutter Architecture** should be implemented consistently across Clara client applications.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Flutter Architecture** should be implemented consiste
 
 ## Decision
 
-Athena Flutter frontend should use feature modules, explicit state boundaries, dependency injection, typed API clients, and reusable design system components.
+Clara Flutter frontend should use feature modules, explicit state boundaries, dependency injection, typed API clients, and reusable design system components.
 
 ## Status
 
@@ -154,8 +154,8 @@ class CustomerListPage extends ConsumerWidget {
 
     return state.when(
       data: (customers) => CustomerListView(customers: customers),
-      loading: () => const AthenaLoadingState(),
-      error: (error, stack) => AthenaErrorState.fromError(error),
+      loading: () => const ClaraLoadingState(),
+      error: (error, stack) => ClaraErrorState.fromError(error),
     );
   }
 }

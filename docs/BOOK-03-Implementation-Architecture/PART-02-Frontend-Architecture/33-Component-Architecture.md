@@ -5,7 +5,7 @@ chapter: "33"
 title: "Component Architecture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./32-Theme-Tokens.md"
@@ -26,11 +26,11 @@ Defines how frontend components should be built, composed, tested, and reused.
 
 # Motivation
 
-Athena frontend must support many users, workflows, modules, and AI-assisted experiences.
+Clara frontend must support many users, workflows, modules, and AI-assisted experiences.
 
 Without clear frontend architecture, UI code can become tightly coupled, difficult to test, inconsistent, inaccessible, and insecure.
 
-This chapter defines how **Component Architecture** should be implemented consistently across Athena client applications.
+This chapter defines how **Component Architecture** should be implemented consistently across Clara client applications.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Component Architecture** should be implemented consis
 
 ## Decision
 
-Athena frontend components should be small, composable, accessible, state-light, and separated from data-fetching concerns.
+Clara frontend components should be small, composable, accessible, state-light, and separated from data-fetching concerns.
 
 ## Status
 
@@ -156,7 +156,7 @@ class CustomerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AthenaCard(
+    return ClaraCard(
       child: ListTile(
         title: Text(customer.name),
         subtitle: Text(customer.email ?? 'No email'),

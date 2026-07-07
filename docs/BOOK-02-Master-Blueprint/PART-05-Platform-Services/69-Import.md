@@ -5,7 +5,7 @@ chapter: "69"
 title: "Import"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./68-Export.md"
@@ -22,7 +22,7 @@ next: "../PART-06-Data-Platform/70-Data-Overview.md"
 
 Defines controlled data import capabilities for migrations, integrations, bulk creation, and data onboarding.
 
-This chapter explains the blueprint-level role of **Import** as a shared Platform Service in Athena.
+This chapter explains the blueprint-level role of **Import** as a shared Platform Service in Clara.
 
 ---
 

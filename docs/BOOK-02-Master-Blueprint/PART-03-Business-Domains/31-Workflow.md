@@ -5,7 +5,7 @@ chapter: "31"
 title: "Workflow"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./30-Documents.md"
@@ -28,7 +28,7 @@ Workflow coordinates structured business processes across users, services, AI ag
 
 # Overview
 
-Workflows help Athena move work from one state to another.
+Workflows help Clara move work from one state to another.
 
 They may be manually started, event-triggered, scheduled, or initiated by AI-assisted recommendations.
 

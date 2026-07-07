@@ -5,7 +5,7 @@ chapter: "131"
 title: "Tenant Isolation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Security Architecture Team"
+owner: "Clara Security Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./130-RBAC-ABAC.md"
@@ -28,7 +28,7 @@ Defines organization/workspace isolation rules, tenant-scoped queries, resource 
 
 Security bugs in production are expensive, damaging, and often caused by unclear ownership or inconsistent implementation.
 
-Athena handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
+Clara handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
 
 This chapter defines how **Tenant Isolation** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Tenant Isolation** should be implemented safely and c
 
 ## Decision
 
-Athena must enforce tenant isolation at every layer: routing context, authorization, repositories, cache keys, search filters, vector metadata, and audit logs.
+Clara must enforce tenant isolation at every layer: routing context, authorization, repositories, cache keys, search filters, vector metadata, and audit logs.
 
 ## Status
 

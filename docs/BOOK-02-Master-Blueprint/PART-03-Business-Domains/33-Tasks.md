@@ -5,7 +5,7 @@ chapter: "33"
 title: "Tasks"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./32-Automation.md"
@@ -28,7 +28,7 @@ Tasks represent actionable work assigned to users, teams, workflows, AI agents, 
 
 # Overview
 
-Tasks help Athena coordinate operational work across CRM, Support, Sales, Projects, Workflow, and Calendar.
+Tasks help Clara coordinate operational work across CRM, Support, Sales, Projects, Workflow, and Calendar.
 
 ---
 

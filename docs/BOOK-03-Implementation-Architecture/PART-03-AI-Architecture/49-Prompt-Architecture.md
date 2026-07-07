@@ -5,7 +5,7 @@ chapter: "49"
 title: "Prompt Architecture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./48-Model-Provider-Abstraction.md"
@@ -28,7 +28,7 @@ Defines prompt templates, system instructions, prompt versioning, prompt variabl
 
 AI capabilities can create major product leverage, but they also introduce new risks: hallucination, prompt injection, data leakage, uncontrolled cost, unsafe tool execution, inconsistent output, and difficult debugging.
 
-Athena must treat AI as a production platform capability, not as scattered SDK calls.
+Clara must treat AI as a production platform capability, not as scattered SDK calls.
 
 This chapter defines how **Prompt Architecture** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Prompt Architecture** should be implemented safely an
 
 ## Decision
 
-Athena prompts should be versioned, reviewable, parameterized, and separated from business code.
+Clara prompts should be versioned, reviewable, parameterized, and separated from business code.
 
 ## Status
 

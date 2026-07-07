@@ -5,7 +5,7 @@ chapter: "85"
 title: "Data Architecture Summary"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./84-Analytics-Data.md"
@@ -14,19 +14,19 @@ next: "../PART-05-Integration-Architecture/README.md"
 
 # Data Architecture Summary
 
-> *"Summarizes Athena data architecture principles, implementation rules, data safety expectations, and production-readiness criteria."*
+> *"Summarizes Clara data architecture principles, implementation rules, data safety expectations, and production-readiness criteria."*
 
 ---
 
 # Purpose
 
-Summarizes Athena data architecture principles, implementation rules, data safety expectations, and production-readiness criteria.
+Summarizes Clara data architecture principles, implementation rules, data safety expectations, and production-readiness criteria.
 
 ---
 
 # Motivation
 
-Data is one of the highest-risk parts of Athena.
+Data is one of the highest-risk parts of Clara.
 
 Bad data architecture can cause privacy leaks, tenant isolation failures, broken AI context, slow queries, unrecoverable incidents, inconsistent reporting, and dangerous production migrations.
 
@@ -38,7 +38,7 @@ This chapter defines how **Data Architecture Summary** should be implemented saf
 
 ## Decision
 
-Athena data architecture should remain secure, domain-owned, observable, recoverable, privacy-aware, and evolvable.
+Clara data architecture should remain secure, domain-owned, observable, recoverable, privacy-aware, and evolvable.
 
 ## Status
 

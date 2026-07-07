@@ -5,7 +5,7 @@ chapter: "19"
 title: "Caching"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-06"
 classification: "implementation-architecture"
 previous: "./18-Logging.md"
@@ -14,13 +14,13 @@ next: "./20-Background-Jobs.md"
 
 # Caching
 
-> *"Defines caching strategy, cache boundaries, invalidation, TTL, and safe use of cache in Athena backend."*
+> *"Defines caching strategy, cache boundaries, invalidation, TTL, and safe use of cache in Clara backend."*
 
 ---
 
 # Purpose
 
-Defines caching strategy, cache boundaries, invalidation, TTL, and safe use of cache in Athena backend.
+Defines caching strategy, cache boundaries, invalidation, TTL, and safe use of cache in Clara backend.
 
 ---
 
@@ -28,7 +28,7 @@ Defines caching strategy, cache boundaries, invalidation, TTL, and safe use of c
 
 Production backend systems fail when runtime quality concerns are treated as afterthoughts.
 
-Athena must handle validation, errors, logging, caching, and background jobs consistently across every module, service, API, workflow, and integration.
+Clara must handle validation, errors, logging, caching, and background jobs consistently across every module, service, API, workflow, and integration.
 
 This chapter defines how **Caching** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Caching** should be implemented safely and consistent
 
 ## Decision
 
-Athena backend uses caching only for clearly defined read paths with explicit invalidation or TTL strategy.
+Clara backend uses caching only for clearly defined read paths with explicit invalidation or TTL strategy.
 
 ## Status
 

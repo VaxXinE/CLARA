@@ -4,7 +4,7 @@ part: "PART-10 — Roadmap"
 title: "Roadmap"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "part"
 ---
@@ -17,17 +17,17 @@ classification: "part"
 
 # Purpose
 
-Part X defines Athena's roadmap.
+Part X defines Clara's roadmap.
 
-The roadmap explains how Athena should evolve from foundation work into MVP, Alpha, Beta, Stable, Enterprise, Marketplace, Ecosystem, long-term evolution, and endgame.
+The roadmap explains how Clara should evolve from foundation work into MVP, Alpha, Beta, Stable, Enterprise, Marketplace, Ecosystem, long-term evolution, and endgame.
 
-This Part does not lock Athena into fixed dates. Instead, it defines the intended maturity path and strategic sequence.
+This Part does not lock Clara into fixed dates. Instead, it defines the intended maturity path and strategic sequence.
 
 ---
 
 # Goals
 
-- Define the staged evolution of Athena.
+- Define the staged evolution of Clara.
 - Connect platform vision with execution.
 - Help prioritize engineering and product work.
 - Avoid building advanced layers before foundations are ready.
@@ -73,7 +73,7 @@ This Part does not lock Athena into fixed dates. Instead, it defines the intende
 | 117 | Marketplace | Plugin and extension distribution |
 | 118 | Ecosystem | Developer and partner ecosystem |
 | 119 | Long Term Evolution | Multi-year platform growth |
-| 120 | Endgame | Athena's long-term destination |
+| 120 | Endgame | Clara's long-term destination |
 
 ---
 
@@ -81,7 +81,7 @@ This Part does not lock Athena into fixed dates. Instead, it defines the intende
 
 ```mermaid
 timeline
-    title Athena Roadmap
+    title Clara Roadmap
     Phase 0 : Foundation
     MVP : Core platform proof
     Alpha : Internal usage

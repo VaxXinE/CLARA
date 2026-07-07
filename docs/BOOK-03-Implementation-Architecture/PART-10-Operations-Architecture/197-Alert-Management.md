@@ -5,7 +5,7 @@ chapter: "197"
 title: "Alert Management"
 version: "1.0.0"
 status: "official"
-owner: "Athena Operations Architecture Team"
+owner: "Clara Operations Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./196-Operational-Monitoring.md"
@@ -28,7 +28,7 @@ Defines alert quality, routing, severity, deduplication, noise reduction, owners
 
 Production systems do not stay reliable by accident.
 
-Athena needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
+Clara needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
 
 This chapter defines how **Alert Management** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Alert Management** should be implemented consistently
 
 ## Decision
 
-Athena alerts should be actionable, owned, severity-classified, deduplicated, and tied to runbooks.
+Clara alerts should be actionable, owned, severity-classified, deduplicated, and tied to runbooks.
 
 ## Status
 

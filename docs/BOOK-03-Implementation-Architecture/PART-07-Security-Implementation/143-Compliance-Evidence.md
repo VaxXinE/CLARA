@@ -5,7 +5,7 @@ chapter: "143"
 title: "Compliance Evidence"
 version: "1.0.0"
 status: "official"
-owner: "Athena Security Architecture Team"
+owner: "Clara Security Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./142-Audit-Logging-Security.md"
@@ -28,7 +28,7 @@ Defines compliance evidence collection, control mapping, policy documentation, a
 
 Security bugs in production are expensive, damaging, and often caused by unclear ownership or inconsistent implementation.
 
-Athena handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
+Clara handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
 
 This chapter defines how **Compliance Evidence** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Compliance Evidence** should be implemented safely an
 
 ## Decision
 
-Athena should generate and retain compliance evidence as part of normal engineering and operational workflows.
+Clara should generate and retain compliance evidence as part of normal engineering and operational workflows.
 
 ## Status
 

@@ -12,15 +12,15 @@
 | Chapter | 12                      |
 | Version | 1.0                     |
 | Status  | Official                |
-| Owner   | Athena Core Team        |
+| Owner   | Clara Core Team        |
 
 ---
 
 # Purpose
 
-This chapter establishes the architectural principles that govern every system within the Athena platform.
+This chapter establishes the architectural principles that govern every system within the Clara platform.
 
-These principles define **how Athena should be structured**, **how components should interact**, and **how the platform should evolve** over time.
+These principles define **how Clara should be structured**, **how components should interact**, and **how the platform should evolve** over time.
 
 Unlike implementation guidelines, these principles are intended to remain stable regardless of programming languages, frameworks, cloud providers, databases, or deployment environments.
 
@@ -34,7 +34,7 @@ As software grows, complexity becomes inevitable.
 
 Architecture exists to organize complexity into understandable, maintainable, and evolvable systems.
 
-The objective of Athena's architecture is not merely technical excellence.
+The objective of Clara's architecture is not merely technical excellence.
 
 Its purpose is to ensure that the platform remains understandable, secure, adaptable, and sustainable throughout its lifetime.
 
@@ -46,7 +46,7 @@ Architecture is measured by the ease with which the platform can evolve—not by
 
 Technology should follow the business.
 
-Athena organizes systems around business domains rather than technical layers.
+Clara organizes systems around business domains rather than technical layers.
 
 Examples include:
 
@@ -139,7 +139,7 @@ It is a product.
 
 Organizations generate events continuously.
 
-Athena embraces event-driven architecture where it improves scalability, resilience, auditability, or responsiveness.
+Clara embraces event-driven architecture where it improves scalability, resilience, auditability, or responsiveness.
 
 Not every interaction requires asynchronous communication.
 
@@ -189,7 +189,7 @@ The architecture should outlive its dependencies.
 
 # Principle 8 — Evolutionary Architecture
 
-Athena is expected to evolve continuously.
+Clara is expected to evolve continuously.
 
 Architecture should accommodate change rather than resist it.
 
@@ -265,7 +265,7 @@ Messages arrive late.
 
 Unexpected conditions occur.
 
-Athena designs for graceful degradation rather than assuming perfect operation.
+Clara designs for graceful degradation rather than assuming perfect operation.
 
 Reliable systems anticipate failure.
 
@@ -309,7 +309,7 @@ Architecture should simplify the future rather than optimize only for the presen
 
 # Architectural Characteristics
 
-Every Athena system should strive to be:
+Every Clara system should strive to be:
 
 Modular.
 
@@ -341,7 +341,7 @@ These characteristics define architectural quality throughout the platform.
 
 # Long-Term Architectural Vision
 
-Athena does not pursue architecture for its own sake.
+Clara does not pursue architecture for its own sake.
 
 Architecture exists to support organizations as they evolve.
 
@@ -365,7 +365,7 @@ The architecture should become an enduring foundation rather than a temporary im
 
 # Conclusion
 
-Architecture is the structural expression of Athena's values.
+Architecture is the structural expression of Clara's values.
 
 Every principle described in this chapter exists to support the platform's long-term mission:
 

@@ -5,7 +5,7 @@ chapter: "164"
 title: "Production Verification"
 version: "1.0.0"
 status: "official"
-owner: "Athena Quality Architecture Team"
+owner: "Clara Quality Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./163-Release-Readiness.md"
@@ -28,7 +28,7 @@ Defines post-deployment verification, smoke tests, canary checks, dashboards, al
 
 Production quality cannot rely on manual confidence or optimistic assumptions.
 
-Athena has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
+Clara has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
 
 This chapter defines how **Production Verification** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Production Verification** should be implemented consi
 
 ## Decision
 
-Athena deployments should be verified in production using smoke tests, telemetry, canary analysis, and rollback thresholds.
+Clara deployments should be verified in production using smoke tests, telemetry, canary analysis, and rollback thresholds.
 
 ## Status
 

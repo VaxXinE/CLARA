@@ -2,20 +2,20 @@
 title: "ADR Library"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "documentation-index"
 ---
 
 # ADR Library
 
-> "Architecture Decision Records for Athena."
+> "Architecture Decision Records for Clara."
 
 ---
 
 # Purpose
 
-Architecture Decision Records for Athena.
+Architecture Decision Records for Clara.
 
 ---
 

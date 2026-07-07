@@ -3,14 +3,14 @@ book: "Book III — Implementation Architecture"
 title: "Book III Summary"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "summary"
 ---
 
 # Book III Summary
 
-Book III defines how Athena should be implemented.
+Book III defines how Clara should be implemented.
 
 It contains 12 implementation architecture parts and 245 chapters.
 
@@ -31,7 +31,7 @@ It contains 12 implementation architecture parts and 245 chapters.
 
 ## Core Principle
 
-Athena implementation must be:
+Clara implementation must be:
 
 - Secure by design.
 - Tenant-safe.

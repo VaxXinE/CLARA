@@ -5,7 +5,7 @@ chapter: "91"
 title: "OAuth Implementation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./90-WebSocket-Realtime.md"
@@ -28,9 +28,9 @@ Defines OAuth authorization code flow, token storage, refresh handling, scopes, 
 
 Integrations are powerful but risky.
 
-They connect Athena to external systems, external data, external identities, external failures, and external attack surfaces.
+They connect Clara to external systems, external data, external identities, external failures, and external attack surfaces.
 
-If integration code is scattered, Athena can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
+If integration code is scattered, Clara can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
 
 This chapter defines how **OAuth Implementation** should be implemented safely and consistently.
 
@@ -40,7 +40,7 @@ This chapter defines how **OAuth Implementation** should be implemented safely a
 
 ## Decision
 
-Athena OAuth integrations should use authorization code flow with PKCE where applicable and store tokens encrypted with strict scope boundaries.
+Clara OAuth integrations should use authorization code flow with PKCE where applicable and store tokens encrypted with strict scope boundaries.
 
 ## Status
 
@@ -184,7 +184,7 @@ export class OAuthCallbackUseCase {
 # Implementation Guidelines
 
 - Never call external providers directly from controllers or domain models.
-- Keep provider schemas isolated from Athena domain models.
+- Keep provider schemas isolated from Clara domain models.
 - Validate every inbound payload.
 - Verify webhook signatures before processing.
 - Store external credentials in vault/secret storage.

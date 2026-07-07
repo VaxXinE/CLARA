@@ -4,25 +4,25 @@
 
 ## Purpose
 
-Book I defines the constitutional foundation of the Athena Project.
+Book I defines the constitutional foundation of the Clara Project.
 
-It explains why Athena exists, what Athena believes, how Athena thinks about engineering, AI, data, security, architecture, product development, developer responsibility, and decision-making.
+It explains why Clara exists, what Clara believes, how Clara thinks about engineering, AI, data, security, architecture, product development, developer responsibility, and decision-making.
 
-Book I should be read before contributing to Athena.
+Book I should be read before contributing to Clara.
 
 ---
 
 ## Core Idea
 
-Athena is an AI-native Business Operating System designed to help organizations reduce complexity, preserve knowledge, automate intelligently, and operate through a unified platform.
+Clara is an AI-native Business Operating System designed to help organizations reduce complexity, preserve knowledge, automate intelligently, and operate through a unified platform.
 
-Athena is not merely a CRM, helpdesk, automation tool, or AI assistant.
+Clara is not merely a CRM, helpdesk, automation tool, or AI assistant.
 
-Athena is designed to become the digital operating system of modern organizations.
+Clara is designed to become the digital operating system of modern organizations.
 
 ---
 
-## Why Athena Exists
+## Why Clara Exists
 
 Modern organizations suffer from:
 
@@ -34,13 +34,13 @@ Modern organizations suffer from:
 * Increasing security and governance complexity.
 * High cognitive load for employees.
 
-Athena exists to unify systems, knowledge, workflows, and intelligence into one coherent platform.
+Clara exists to unify systems, knowledge, workflows, and intelligence into one coherent platform.
 
 ---
 
-## Athena Vision
+## Clara Vision
 
-Athena envisions a future where:
+Clara envisions a future where:
 
 * Organizations no longer lose knowledge.
 * AI understands organizational context.
@@ -52,9 +52,9 @@ Athena envisions a future where:
 
 ---
 
-## Athena Mission
+## Clara Mission
 
-Athena's mission is:
+Clara's mission is:
 
 > To build the world's most trusted AI-native Business Operating System that unifies organizational knowledge, intelligent automation, secure collaboration, and business operations into a single, scalable platform.
 
@@ -62,7 +62,7 @@ Athena's mission is:
 
 ## Foundational Values
 
-Athena is guided by:
+Clara is guided by:
 
 1. Human First
 2. Simplicity Over Complexity
@@ -85,13 +85,13 @@ Design is not only UI.
 
 Design includes UX, APIs, workflows, AI interactions, security, accessibility, documentation, and developer experience.
 
-Athena designs for invisible complexity, consistency, progressive disclosure, secure defaults, explainability, and context continuity.
+Clara designs for invisible complexity, consistency, progressive disclosure, secure defaults, explainability, and context continuity.
 
 ### Engineering Philosophy
 
 Engineering is the disciplined management of complexity.
 
-Athena prioritizes architecture before frameworks, documentation before implementation, domains before components, testing before trust, observability as a feature, and security as everyday engineering.
+Clara prioritizes architecture before frameworks, documentation before implementation, domains before components, testing before trust, observability as a feature, and security as everyday engineering.
 
 ### AI Philosophy
 
@@ -103,19 +103,19 @@ AI should be context-aware, explainable, secure, replaceable, observable, and al
 
 Data is organizational memory.
 
-Athena treats data as an asset owned by the organization, transformed into knowledge, and used to support intelligence and decisions.
+Clara treats data as an asset owned by the organization, transformed into knowledge, and used to support intelligence and decisions.
 
 ### Security Philosophy
 
 Security is architecture.
 
-Athena follows security by design, zero trust, least privilege, defense in depth, privacy by default, auditability, secure defaults, and continuous verification.
+Clara follows security by design, zero trust, least privilege, defense in depth, privacy by default, auditability, secure defaults, and continuous verification.
 
 ---
 
 ## Architecture Principles
 
-Athena architecture should be:
+Clara architecture should be:
 
 * Business-domain oriented.
 * Modular.
@@ -134,17 +134,17 @@ Architecture exists to keep the platform understandable and adaptable over decad
 
 ## Product Principles
 
-Athena builds products to solve real organizational problems.
+Clara builds products to solve real organizational problems.
 
 Every feature should strengthen the platform, reduce complexity, preserve context, reuse shared capabilities, remain consistent, and produce measurable organizational value.
 
-Athena measures outcomes, not feature count.
+Clara measures outcomes, not feature count.
 
 ---
 
 ## Developer Principles
 
-Athena engineers should:
+Clara engineers should:
 
 * Understand before building.
 * Code for humans first.
@@ -161,7 +161,7 @@ Athena engineers should:
 
 ## Decision Principles
 
-Athena decisions should be:
+Clara decisions should be:
 
 * Purpose-driven.
 * Principle-aligned.
@@ -176,17 +176,17 @@ Important architectural decisions should be recorded through ADRs.
 
 ---
 
-## The Athena Way
+## The Clara Way
 
-The Athena Way describes the culture of the project.
+The Clara Way describes the culture of the project.
 
-Athena contributors build for the long term, solve root problems, document thinking, respect complexity, improve continuously, collaborate openly, share knowledge, embrace responsibility, welcome change, and protect trust.
+Clara contributors build for the long term, solve root problems, document thinking, respect complexity, improve continuously, collaborate openly, share knowledge, embrace responsibility, welcome change, and protect trust.
 
 ---
 
 ## Manifesto
 
-The Athena Manifesto declares the core beliefs of the project:
+The Clara Manifesto declares the core beliefs of the project:
 
 * Organizations deserve better software.
 * Complexity should be managed by systems, not people.
@@ -200,7 +200,7 @@ The Athena Manifesto declares the core beliefs of the project:
 
 ## Declaration
 
-Book I is the highest-level philosophical and engineering foundation of Athena.
+Book I is the highest-level philosophical and engineering foundation of Clara.
 
 All future books, specifications, architecture decisions, implementation plans, and operational practices should align with Book I unless formally amended.
 
@@ -210,9 +210,9 @@ All future books, specifications, architecture decisions, implementation plans, 
 
 1. README.md
 2. 01-Preface.md
-3. 02-Why-Athena-Exists.md
+3. 02-Why-Clara-Exists.md
 4. 03-The-Problems-of-Modern-Business-Software.md
-5. 04-The-Athena-Vision.md
+5. 04-The-Clara-Vision.md
 6. 05-Core-Mission.md
 7. 06-Core-Values.md
 8. 07-Design-Philosophy.md
@@ -224,8 +224,8 @@ All future books, specifications, architecture decisions, implementation plans, 
 14. 13-Product-Principles.md
 15. 14-Developer-Principles.md
 16. 15-Decision-Principles.md
-17. 16-The-Athena-Way.md
-18. 17-Athena-Manifesto.md
+17. 16-The-Clara-Way.md
+18. 17-Clara-Manifesto.md
 19. 18-Declaration.md
 
 ---

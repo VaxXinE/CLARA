@@ -1,4 +1,4 @@
-# Athena Documentation Quality Standard
+# Clara Documentation Quality Standard
 
 > *"Quality is not inspected into documentation. It is designed into every document from the beginning."*
 
@@ -8,18 +8,18 @@
 
 | Field | Value |
 |---|---|
-| Document | Athena Documentation Quality Standard |
+| Document | Clara Documentation Quality Standard |
 | Version | 1.0.0 |
 | Status | Official |
-| Owner | Athena Core Team |
-| Scope | Athena Engineering Library |
+| Owner | Clara Core Team |
+| Scope | Clara Engineering Library |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Purpose
 
-This standard defines the minimum quality requirements for all official Athena documentation.
+This standard defines the minimum quality requirements for all official Clara documentation.
 
 It establishes objective quality gates before documentation is merged into the repository and becomes part of the engineering knowledge base.
 
@@ -220,7 +220,7 @@ Documentation quality is part of product quality.
 
 Poor documentation creates engineering risk, onboarding cost, and operational uncertainty.
 
-Every Athena document should help future contributors make faster, safer, and more informed decisions.
+Every Clara document should help future contributors make faster, safer, and more informed decisions.
 
 ---
 

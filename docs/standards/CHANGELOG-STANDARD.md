@@ -1,4 +1,4 @@
-# Athena Changelog Standard
+# Clara Changelog Standard
 
 > *"Every meaningful change deserves a history."*
 
@@ -8,18 +8,18 @@
 
 | Field | Value |
 |---|---|
-| Document | Athena Changelog Standard |
+| Document | Clara Changelog Standard |
 | Version | 1.0.0 |
 | Status | Official |
-| Owner | Athena Core Team |
-| Scope | Athena Engineering Library |
+| Owner | Clara Core Team |
+| Scope | Clara Engineering Library |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Purpose
 
-This standard defines how changes are recorded across Athena documentation, architecture, standards, templates, and engineering artifacts.
+This standard defines how changes are recorded across Clara documentation, architecture, standards, templates, and engineering artifacts.
 
 A changelog provides a trustworthy history of evolution.
 
@@ -106,7 +106,7 @@ See `VERSIONING-STANDARD.md`.
 
 All notable changes to this document will be recorded here.
 
-The format follows the Athena Changelog Standard.
+The format follows the Clara Changelog Standard.
 
 ## [1.2.0] - YYYY-MM-DD
 
@@ -309,7 +309,7 @@ Avoid:
 
 A changelog is a communication tool.
 
-Readers should understand the evolution of Athena without reading every commit.
+Readers should understand the evolution of Clara without reading every commit.
 
 ---
 

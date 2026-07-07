@@ -5,7 +5,7 @@ chapter: "96"
 title: "Marketplace Integration"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./95-Extension-SDK-Implementation.md"
@@ -28,9 +28,9 @@ Defines marketplace packaging, review, installation, permission approval, versio
 
 Integrations are powerful but risky.
 
-They connect Athena to external systems, external data, external identities, external failures, and external attack surfaces.
+They connect Clara to external systems, external data, external identities, external failures, and external attack surfaces.
 
-If integration code is scattered, Athena can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
+If integration code is scattered, Clara can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
 
 This chapter defines how **Marketplace Integration** should be implemented safely and consistently.
 
@@ -40,7 +40,7 @@ This chapter defines how **Marketplace Integration** should be implemented safel
 
 ## Decision
 
-Athena marketplace packages should be reviewed, signed, permission-declared, versioned, and enabled per tenant/workspace.
+Clara marketplace packages should be reviewed, signed, permission-declared, versioned, and enabled per tenant/workspace.
 
 ## Status
 
@@ -181,7 +181,7 @@ export class InstallPackageUseCase {
 # Implementation Guidelines
 
 - Never call external providers directly from controllers or domain models.
-- Keep provider schemas isolated from Athena domain models.
+- Keep provider schemas isolated from Clara domain models.
 - Validate every inbound payload.
 - Verify webhook signatures before processing.
 - Store external credentials in vault/secret storage.

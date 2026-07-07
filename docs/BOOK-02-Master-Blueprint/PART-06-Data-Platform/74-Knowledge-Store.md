@@ -5,7 +5,7 @@ chapter: "74"
 title: "Knowledge Store"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./73-Event-Store.md"
@@ -22,13 +22,13 @@ next: "./75-Search-Index.md"
 
 Defines the trusted storage layer for reusable organizational knowledge and AI retrieval.
 
-This chapter defines the blueprint-level responsibility of **Knowledge Store** inside Athena's Data Platform.
+This chapter defines the blueprint-level responsibility of **Knowledge Store** inside Clara's Data Platform.
 
 ---
 
 # Overview
 
-The **Knowledge Store** capability is part of Athena's shared Data Platform.
+The **Knowledge Store** capability is part of Clara's shared Data Platform.
 
 It supports business domains, AI capabilities, platform services, integrations, analytics, and operations by ensuring data is stored, accessed, transformed, protected, and recovered consistently.
 
@@ -172,7 +172,7 @@ The **Knowledge Store** capability may evolve with:
 # Key Takeaways
 
 - Defines the trusted storage layer for reusable organizational knowledge and AI retrieval.
-- It is part of Athena's shared Data Platform.
+- It is part of Clara's shared Data Platform.
 - It must preserve ownership, security, privacy, and recoverability.
 - It supports business domains, platform services, AI, analytics, and operations.
 

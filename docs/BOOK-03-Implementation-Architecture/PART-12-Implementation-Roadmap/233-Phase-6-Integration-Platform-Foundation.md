@@ -5,7 +5,7 @@ chapter: "233"
 title: "Phase 6 Integration Platform Foundation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./232-Phase-5-AI-Platform-Foundation.md"
@@ -28,7 +28,7 @@ Defines integration platform foundation including connector registry, webhook in
 
 A strong architecture still fails if implementation happens in the wrong order.
 
-Athena has backend, frontend, data, security, AI, integration, infrastructure, testing, operations, and product modules. If teams build product capabilities before foundations are ready, technical debt becomes structural debt.
+Clara has backend, frontend, data, security, AI, integration, infrastructure, testing, operations, and product modules. If teams build product capabilities before foundations are ready, technical debt becomes structural debt.
 
 This chapter defines how **Phase 6 Integration Platform Foundation** should guide implementation safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Phase 6 Integration Platform Foundation** should guid
 
 ## Decision
 
-Athena integrations should be implemented only through the integration platform foundation, not direct provider calls.
+Clara integrations should be implemented only through the integration platform foundation, not direct provider calls.
 
 ## Status
 

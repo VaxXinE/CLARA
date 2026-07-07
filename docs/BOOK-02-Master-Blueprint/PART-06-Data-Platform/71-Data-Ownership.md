@@ -5,7 +5,7 @@ chapter: "71"
 title: "Data Ownership"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./70-Database-Strategy.md"
@@ -14,21 +14,21 @@ next: "./72-Data-Lifecycle.md"
 
 # Data Ownership
 
-> *"Defines source of truth, ownership boundaries, and responsibility for Athena data."*
+> *"Defines source of truth, ownership boundaries, and responsibility for Clara data."*
 
 ---
 
 # Purpose
 
-Defines source of truth, ownership boundaries, and responsibility for Athena data.
+Defines source of truth, ownership boundaries, and responsibility for Clara data.
 
-This chapter defines the blueprint-level responsibility of **Data Ownership** inside Athena's Data Platform.
+This chapter defines the blueprint-level responsibility of **Data Ownership** inside Clara's Data Platform.
 
 ---
 
 # Overview
 
-The **Data Ownership** capability is part of Athena's shared Data Platform.
+The **Data Ownership** capability is part of Clara's shared Data Platform.
 
 It supports business domains, AI capabilities, platform services, integrations, analytics, and operations by ensuring data is stored, accessed, transformed, protected, and recovered consistently.
 
@@ -171,8 +171,8 @@ The **Data Ownership** capability may evolve with:
 
 # Key Takeaways
 
-- Defines source of truth, ownership boundaries, and responsibility for Athena data.
-- It is part of Athena's shared Data Platform.
+- Defines source of truth, ownership boundaries, and responsibility for Clara data.
+- It is part of Clara's shared Data Platform.
 - It must preserve ownership, security, privacy, and recoverability.
 - It supports business domains, platform services, AI, analytics, and operations.
 

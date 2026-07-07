@@ -2,20 +2,20 @@
 title: "Documentation Assets"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "documentation-index"
 ---
 
 # Documentation Assets
 
-> "Safe visual assets for Athena documentation."
+> "Safe visual assets for Clara documentation."
 
 ---
 
 # Purpose
 
-Safe visual assets for Athena documentation.
+Safe visual assets for Clara documentation.
 
 ---
 

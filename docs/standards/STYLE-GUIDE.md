@@ -1,4 +1,4 @@
-# Athena Documentation Style Guide
+# Clara Documentation Style Guide
 
 > *"Clear writing creates clear engineering."*
 
@@ -8,24 +8,24 @@
 
 | Field | Value |
 |------|-------|
-| Document | Athena Documentation Style Guide |
+| Document | Clara Documentation Style Guide |
 | Version | 1.0.0 |
 | Status | Official |
-| Owner | Athena Core Team |
-| Scope | Athena Engineering Library |
+| Owner | Clara Core Team |
+| Scope | Clara Engineering Library |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Purpose
 
-This style guide defines how Athena documentation should be written.
+This style guide defines how Clara documentation should be written.
 
-The Athena Documentation Standard (ADS) defines document structure.
+The Clara Documentation Standard (ADS) defines document structure.
 
 This style guide defines writing style.
 
-Its goal is to make Athena documentation:
+Its goal is to make Clara documentation:
 
 - Clear.
 - Consistent.
@@ -39,13 +39,13 @@ Its goal is to make Athena documentation:
 
 # Core Writing Principle
 
-Athena documentation should explain complex systems in simple language without oversimplifying important engineering decisions.
+Clara documentation should explain complex systems in simple language without oversimplifying important engineering decisions.
 
 Good documentation should help readers understand:
 
 - What the system is.
 - Why it exists.
-- How it fits into Athena.
+- How it fits into Clara.
 - What decisions were made.
 - What trade-offs exist.
 - What future contributors must know.
@@ -54,7 +54,7 @@ Good documentation should help readers understand:
 
 # Language
 
-Athena documentation should use **professional English** as the default language.
+Clara documentation should use **professional English** as the default language.
 
 Use Bahasa Indonesia only for internal notes, mentoring material, or documents explicitly intended for Indonesian readers.
 
@@ -66,7 +66,7 @@ Do not mix languages inside official documents unless necessary.
 
 Use a professional, calm, and direct tone.
 
-Athena documentation should feel like:
+Clara documentation should feel like:
 
 - AWS Well-Architected Framework.
 - Microsoft Learn.
@@ -91,13 +91,13 @@ Prefer short and clear sentences.
 ## Good
 
 ```text
-Athena treats security as architecture.
+Clara treats security as architecture.
 ```
 
 ## Avoid
 
 ```text
-Athena really strongly believes that security is something that should kind of be considered as a very important part of the system from the beginning.
+Clara really strongly believes that security is something that should kind of be considered as a very important part of the system from the beginning.
 ```
 
 ---
@@ -111,7 +111,7 @@ A paragraph should usually contain one idea.
 Prefer this:
 
 ```md
-Athena treats data as organizational memory.
+Clara treats data as organizational memory.
 
 Data should remain useful even when applications change.
 ```
@@ -119,7 +119,7 @@ Data should remain useful even when applications change.
 Avoid this:
 
 ```md
-Athena treats data as organizational memory and because applications change over time, the platform should ensure that data remains useful, portable, governed, and accessible across the entire organization while also supporting future AI capabilities and analytics use cases.
+Clara treats data as organizational memory and because applications change over time, the platform should ensure that data remains useful, portable, governed, and accessible across the entire organization while also supporting future AI capabilities and analytics use cases.
 ```
 
 ---
@@ -182,7 +182,7 @@ book: "Book II — Master Blueprint"
 title: "Executive Overview"
 version: "1.0.0"
 status: "draft"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 ---
@@ -217,13 +217,13 @@ Use active voice when possible.
 ## Good
 
 ```text
-Athena records significant system actions in the audit log.
+Clara records significant system actions in the audit log.
 ```
 
 ## Avoid
 
 ```text
-Significant system actions are recorded by Athena in the audit log.
+Significant system actions are recorded by Clara in the audit log.
 ```
 
 Passive voice is acceptable when the actor is unknown or unimportant.
@@ -269,7 +269,7 @@ Match the document type.
 
 ## Blueprint Documents
 
-Blueprint documents explain **what** Athena will build.
+Blueprint documents explain **what** Clara will build.
 
 They should avoid deep implementation details.
 
@@ -295,7 +295,7 @@ They should be procedural, concrete, and actionable.
 
 # Avoid Vendor Lock-In Language
 
-Official Athena documentation should avoid unnecessary dependency on specific vendors unless the document is intentionally about that vendor.
+Official Clara documentation should avoid unnecessary dependency on specific vendors unless the document is intentionally about that vendor.
 
 ## Prefer
 
@@ -374,7 +374,7 @@ Use numbered lists for ordered steps.
 ## Bullet List
 
 ```md
-Athena platform services include:
+Clara platform services include:
 
 - Notification.
 - Search.
@@ -434,7 +434,7 @@ Always specify the language when possible.
 
 ```yaml
 status: "draft"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 ```
 
 Use plain `text` for directory structures.
@@ -474,7 +474,7 @@ Opening quotes are allowed and encouraged for major chapters.
 
 Quotes should be short and relevant.
 
-Use original Athena-style quotes unless citing external sources.
+Use original Clara-style quotes unless citing external sources.
 
 ## Good
 
@@ -666,13 +666,13 @@ Do not make vague promises.
 ## Avoid
 
 ```text
-Athena will support everything.
+Clara will support everything.
 ```
 
 ## Prefer
 
 ```text
-Athena is designed to support extensible integrations through documented APIs, events, plugins, and external connectors.
+Clara is designed to support extensible integrations through documented APIs, events, plugins, and external connectors.
 ```
 
 ---
@@ -715,7 +715,7 @@ To improve reviewability:
 
 # AI-Readability
 
-Athena documentation should be easy for AI coding assistants to understand.
+Clara documentation should be easy for AI coding assistants to understand.
 
 To improve AI-readability:
 
@@ -822,7 +822,7 @@ Before publishing, verify:
 
 # Final Rule
 
-Write documentation for the person who will maintain Athena five years from now.
+Write documentation for the person who will maintain Clara five years from now.
 
 That person may not know the original discussion.
 

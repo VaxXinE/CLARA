@@ -5,7 +5,7 @@ chapter: "16"
 title: "Identity"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./15-Users.md"
@@ -14,13 +14,13 @@ next: "./17-Authentication.md"
 
 # Identity
 
-> *"Identity is the foundation of trust in Athena."*
+> *"Identity is the foundation of trust in Clara."*
 
 ---
 
 # Purpose
 
-This chapter defines Identity as the representation of an actor that can interact with Athena.
+This chapter defines Identity as the representation of an actor that can interact with Clara.
 
 Identity is the foundation for authentication, authorization, auditability, and accountability.
 
@@ -28,7 +28,7 @@ Identity is the foundation for authentication, authorization, auditability, and 
 
 # Overview
 
-Athena may support several identity types:
+Clara may support several identity types:
 
 - Human User.
 - Service Account.
@@ -109,7 +109,7 @@ Identity must be protected from:
 
 # Key Takeaways
 
-- Identity represents actors in Athena.
+- Identity represents actors in Clara.
 - Identity supports trust, access, and auditability.
 - Human and non-human identities should be modeled clearly.
 - AI identities must remain governed.

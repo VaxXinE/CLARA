@@ -12,13 +12,13 @@
 | Chapter | 14                      |
 | Version | 1.0                     |
 | Status  | Official                |
-| Owner   | Athena Core Team        |
+| Owner   | Clara Core Team        |
 
 ---
 
 # Purpose
 
-This chapter defines the principles expected of every engineer contributing to the Athena Project.
+This chapter defines the principles expected of every engineer contributing to the Clara Project.
 
 Developer principles are not programming rules.
 
@@ -244,7 +244,7 @@ Engineering responsibility extends beyond successful deployment.
 
 # Engineering Responsibilities
 
-Every Athena engineer contributes to:
+Every Clara engineer contributes to:
 
 Software quality.
 
@@ -274,7 +274,7 @@ Before considering work complete, contributors should ask:
 
 * Does the solution solve the intended problem?
 * Is the code understandable?
-* Is the design consistent with Athena architecture?
+* Is the design consistent with Clara architecture?
 * Is documentation updated?
 * Is security considered?
 * Are meaningful tests included?
@@ -288,7 +288,7 @@ Engineering quality emerges through disciplined repetition.
 
 # Collaboration Principles
 
-Athena engineering values collaborative excellence.
+Clara engineering values collaborative excellence.
 
 Knowledge should be shared.
 
@@ -302,9 +302,9 @@ Engineering culture grows through openness and mutual trust.
 
 ---
 
-# Definition of a Great Athena Engineer
+# Definition of a Great Clara Engineer
 
-A great Athena engineer is not defined by mastery of a specific programming language.
+A great Clara engineer is not defined by mastery of a specific programming language.
 
 Instead, they consistently demonstrate:
 
@@ -334,7 +334,7 @@ These characteristics endure beyond changing technologies.
 
 # Long-Term Engineering Culture
 
-Athena aims to cultivate an engineering culture where:
+Clara aims to cultivate an engineering culture where:
 
 Documentation precedes implementation.
 
@@ -356,7 +356,7 @@ The strongest engineering organizations are built through consistency rather tha
 
 # Conclusion
 
-Developer principles define how Athena engineers think.
+Developer principles define how Clara engineers think.
 
 Technology evolves.
 

@@ -5,7 +5,7 @@ chapter: "179"
 title: "Developer Tooling CLI"
 version: "1.0.0"
 status: "official"
-owner: "Athena Developer Experience Team"
+owner: "Clara Developer Experience Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./178-Debugging-Strategy.md"
@@ -14,13 +14,13 @@ next: "./180-Feature-Flag-Workflow.md"
 
 # Developer Tooling CLI
 
-> *"Defines Athena developer CLI responsibilities for setup, scaffolding, validation, testing, docs, and diagnostics."*
+> *"Defines Clara developer CLI responsibilities for setup, scaffolding, validation, testing, docs, and diagnostics."*
 
 ---
 
 # Purpose
 
-Defines Athena developer CLI responsibilities for setup, scaffolding, validation, testing, docs, and diagnostics.
+Defines Clara developer CLI responsibilities for setup, scaffolding, validation, testing, docs, and diagnostics.
 
 ---
 
@@ -30,7 +30,7 @@ Developer experience directly affects production quality.
 
 If the right workflow is hard, developers and AI coding assistants will drift toward shortcuts: inconsistent structure, missing tests, unsafe secrets handling, weak authorization checks, poor documentation, and fragile releases.
 
-Athena must design developer experience so secure and production-ready engineering becomes the default path.
+Clara must design developer experience so secure and production-ready engineering becomes the default path.
 
 This chapter defines how **Developer Tooling CLI** should be implemented consistently.
 
@@ -40,7 +40,7 @@ This chapter defines how **Developer Tooling CLI** should be implemented consist
 
 ## Decision
 
-Athena should provide a developer CLI that standardizes common workflows and reduces manual setup errors.
+Clara should provide a developer CLI that standardizes common workflows and reduces manual setup errors.
 
 ## Status
 
@@ -123,7 +123,7 @@ repo/
 ├── apps/
 ├── packages/
 ├── docs/
-│   ├── BOOK-01-Athena-Foundation/
+│   ├── BOOK-01-Clara-Foundation/
 │   ├── BOOK-02-Master-Blueprint/
 │   └── BOOK-03-Implementation-Architecture/
 │
@@ -155,14 +155,14 @@ repo/
 ```bash
 # Example CLI commands
 
-athena dev setup
-athena dev start
-athena dev test
-athena generate module customers
-athena validate architecture
-athena docs check-links
-athena security scan
-athena release check
+Clara dev setup
+Clara dev start
+Clara dev test
+Clara generate module customers
+Clara validate architecture
+Clara docs check-links
+Clara security scan
+Clara release check
 ```
 
 ---
@@ -282,7 +282,7 @@ When using Codex, Cursor, Claude Code, Gemini CLI, or another AI coding assistan
 - ../PART-02-Frontend-Architecture/README.md
 - ../PART-07-Security-Implementation/README.md
 - ../PART-08-Testing-Quality-Architecture/README.md
-- ../../BOOK-01-Athena-Foundation/README.md
+- ../../BOOK-01-Clara-Foundation/README.md
 - ../../BOOK-02-Master-Blueprint/README.md
 
 ---

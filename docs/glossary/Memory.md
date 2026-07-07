@@ -11,14 +11,14 @@
 | Term | Memory |
 | Category | AI / Architecture |
 | Status | Official |
-| Owner | Athena Core Team |
+| Owner | Clara Core Team |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Definition
 
-**Memory** is the capability that allows Athena to retain information across time and reuse it in future interactions, workflows, and decisions.
+**Memory** is the capability that allows Clara to retain information across time and reuse it in future interactions, workflows, and decisions.
 
 Unlike Context, Memory persists beyond a single request.
 
@@ -184,7 +184,7 @@ Avoid retrieving unrelated memories.
 
 Memory may contain sensitive information.
 
-Athena must enforce:
+Clara must enforce:
 
 - Authentication
 - Authorization

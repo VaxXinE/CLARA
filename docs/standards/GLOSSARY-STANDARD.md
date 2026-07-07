@@ -1,4 +1,4 @@
-# Athena Glossary Standard
+# Clara Glossary Standard
 
 > *"Shared language creates shared understanding."*
 
@@ -8,20 +8,20 @@
 
 | Field | Value |
 |------|-------|
-| Document | Athena Glossary Standard |
+| Document | Clara Glossary Standard |
 | Version | 1.0.0 |
 | Status | Official |
-| Owner | Athena Core Team |
-| Scope | Athena Engineering Library |
+| Owner | Clara Core Team |
+| Scope | Clara Engineering Library |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Purpose
 
-This standard defines how glossaries are created, maintained, reviewed, and used across the Athena Engineering Library.
+This standard defines how glossaries are created, maintained, reviewed, and used across the Clara Engineering Library.
 
-Athena is a large platform with many domains, services, AI concepts, data concepts, security terms, and product concepts.
+Clara is a large platform with many domains, services, AI concepts, data concepts, security terms, and product concepts.
 
 Without a shared glossary, contributors may use different words for the same idea.
 
@@ -38,7 +38,7 @@ The glossary exists to protect shared understanding.
 This standard applies to:
 
 - Book-level glossaries.
-- Global Athena glossary.
+- Global Clara glossary.
 - Domain-specific glossaries.
 - Architecture documents.
 - Product documents.
@@ -60,11 +60,11 @@ Do not introduce multiple names for the same thing unless the distinction is int
 
 # Glossary Types
 
-Athena supports three glossary levels.
+Clara supports three glossary levels.
 
 ## 1. Global Glossary
 
-The global glossary defines terms used across the entire Athena Project.
+The global glossary defines terms used across the entire Clara Project.
 
 Recommended location:
 
@@ -168,7 +168,7 @@ Use this for simple terms:
 ```md
 ## Workspace
 
-An operational environment inside Athena where users, data, workflows, settings, and modules are organized.
+An operational environment inside Clara where users, data, workflows, settings, and modules are organized.
 ```
 
 ---
@@ -180,7 +180,7 @@ Use this for important or ambiguous terms:
 ```md
 ## Tenant
 
-A logically isolated customer, organization, or environment using Athena.
+A logically isolated customer, organization, or environment using Clara.
 
 ### Context
 
@@ -219,7 +219,7 @@ Avoid definitions that depend on a specific implementation unless the term is im
 ```md
 ## Audit Log
 
-A trustworthy record of significant user, system, or automation actions within Athena.
+A trustworthy record of significant user, system, or automation actions within Clara.
 ```
 
 ---
@@ -307,7 +307,7 @@ Example:
 ```md
 ## Organization
 
-The primary business entity using Athena.
+The primary business entity using Clara.
 
 ### Aliases
 
@@ -316,7 +316,7 @@ The primary business entity using Athena.
 
 ### Notes
 
-Use `Organization` in official Athena documentation.
+Use `Organization` in official Clara documentation.
 Do not use `Company` or `Account` unless referring to external systems.
 ```
 
@@ -335,7 +335,7 @@ Example:
 >
 > Use `Organization` instead.
 
-Previously used to describe the primary business entity using Athena.
+Previously used to describe the primary business entity using Clara.
 ```
 
 Do not silently remove commonly used old terms.
@@ -344,7 +344,7 @@ Do not silently remove commonly used old terms.
 
 # Preferred Terms
 
-Use these preferred terms across Athena.
+Use these preferred terms across Clara.
 
 | Preferred Term | Avoid |
 |---------------|-------|
@@ -370,7 +370,7 @@ Use these preferred terms across Athena.
 Add a term to the glossary when:
 
 - It appears in multiple documents.
-- It has a specific Athena meaning.
+- It has a specific Clara meaning.
 - It may be misunderstood.
 - It affects architecture.
 - It affects security.
@@ -393,7 +393,7 @@ Do not add a term when:
 - It appears only once.
 - It is temporary brainstorming language.
 - It is implementation-specific and belongs in a technical document.
-- It is vendor-specific and not part of Athena vocabulary.
+- It is vendor-specific and not part of Clara vocabulary.
 
 ---
 
@@ -405,7 +405,7 @@ Recommended ownership:
 
 | Glossary | Owner |
 |---------|-------|
-| Global Glossary | Athena Core Team |
+| Global Glossary | Clara Core Team |
 | Book Glossary | Book Owner |
 | Domain Glossary | Domain Owner |
 | Security Glossary | Security Team |
@@ -430,7 +430,7 @@ Major terminology changes may require an ADR.
 
 # Glossary Versioning
 
-Glossaries follow the Athena Documentation Versioning Standard.
+Glossaries follow the Clara Documentation Versioning Standard.
 
 Examples:
 
@@ -448,7 +448,7 @@ Examples:
 Documents should link to glossary terms when:
 
 - The term is introduced for the first time.
-- The term has a specialized Athena meaning.
+- The term has a specialized Clara meaning.
 - The term is security-sensitive.
 - The term affects architecture.
 - The term affects AI behavior.
@@ -456,7 +456,7 @@ Documents should link to glossary terms when:
 Example:
 
 ```md
-Athena treats [Workspace](../GLOSSARY.md#workspace) as an operational boundary for users, data, workflows, and permissions.
+Clara treats [Workspace](../GLOSSARY.md#workspace) as an operational boundary for users, data, workflows, and permissions.
 ```
 
 ---
@@ -578,7 +578,7 @@ When terminology is unclear, architecture becomes unclear.
 
 When architecture is unclear, implementation becomes inconsistent.
 
-Athena protects clarity by protecting its vocabulary.
+Clara protects clarity by protecting its vocabulary.
 
 ---
 

@@ -5,7 +5,7 @@ chapter: "151"
 title: "End to End Testing"
 version: "1.0.0"
 status: "official"
-owner: "Athena Quality Architecture Team"
+owner: "Clara Quality Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./150-Contract-Testing.md"
@@ -28,7 +28,7 @@ Defines E2E testing standards for critical user journeys across frontend, backen
 
 Production quality cannot rely on manual confidence or optimistic assumptions.
 
-Athena has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
+Clara has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
 
 This chapter defines how **End to End Testing** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **End to End Testing** should be implemented consistent
 
 ## Decision
 
-Athena E2E tests should cover only critical user journeys and must not replace lower-level tests.
+Clara E2E tests should cover only critical user journeys and must not replace lower-level tests.
 
 ## Status
 

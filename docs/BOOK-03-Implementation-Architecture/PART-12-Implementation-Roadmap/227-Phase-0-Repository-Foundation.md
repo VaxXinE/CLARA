@@ -5,7 +5,7 @@ chapter: "227"
 title: "Phase 0 Repository Foundation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./226-Implementation-Roadmap-Overview.md"
@@ -28,7 +28,7 @@ Defines the initial repository setup, monorepo structure, documentation layout, 
 
 A strong architecture still fails if implementation happens in the wrong order.
 
-Athena has backend, frontend, data, security, AI, integration, infrastructure, testing, operations, and product modules. If teams build product capabilities before foundations are ready, technical debt becomes structural debt.
+Clara has backend, frontend, data, security, AI, integration, infrastructure, testing, operations, and product modules. If teams build product capabilities before foundations are ready, technical debt becomes structural debt.
 
 This chapter defines how **Phase 0 Repository Foundation** should guide implementation safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Phase 0 Repository Foundation** should guide implemen
 
 ## Decision
 
-Athena implementation should begin with repository foundation before product feature development.
+Clara implementation should begin with repository foundation before product feature development.
 
 ## Status
 

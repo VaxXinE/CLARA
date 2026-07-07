@@ -11,7 +11,7 @@
 | Term | Role |
 | Category | Identity / Security / Platform |
 | Status | Official |
-| Owner | Athena Core Team |
+| Owner | Clara Core Team |
 | Last Updated | 2026-07-06 |
 
 ---
@@ -20,7 +20,7 @@
 
 A **Role** is a named collection of responsibilities and permissions assigned to a User, Service Account, or AI Agent within a specific scope.
 
-Roles help Athena manage access consistently without assigning every permission manually to every identity.
+Roles help Clara manage access consistently without assigning every permission manually to every identity.
 
 A Role describes what an identity is expected to do.
 
@@ -104,7 +104,7 @@ A Role assigned in one scope should not automatically grant access in another sc
 
 # Common Role Examples
 
-Common Athena Roles may include:
+Common Clara Roles may include:
 
 - Owner
 - Admin
@@ -123,11 +123,11 @@ These examples are not final product requirements. Actual roles should be define
 
 # System Roles vs Custom Roles
 
-Athena may support two types of Roles.
+Clara may support two types of Roles.
 
 ## System Role
 
-A predefined Role created by Athena.
+A predefined Role created by Clara.
 
 Examples:
 
@@ -274,7 +274,7 @@ Access Class
 Position
 ```
 
-These may describe related concepts, but official Athena authorization documentation should use `Role`.
+These may describe related concepts, but official Clara authorization documentation should use `Role`.
 
 ---
 

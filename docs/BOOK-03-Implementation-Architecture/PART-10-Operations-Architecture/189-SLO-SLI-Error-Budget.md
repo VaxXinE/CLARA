@@ -5,7 +5,7 @@ chapter: "189"
 title: "SLO SLI Error Budget"
 version: "1.0.0"
 status: "official"
-owner: "Athena Operations Architecture Team"
+owner: "Clara Operations Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./188-Service-Ownership.md"
@@ -28,7 +28,7 @@ Defines service level indicators, service level objectives, error budgets, relia
 
 Production systems do not stay reliable by accident.
 
-Athena needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
+Clara needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
 
 This chapter defines how **SLO SLI Error Budget** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **SLO SLI Error Budget** should be implemented consiste
 
 ## Decision
 
-Athena critical services should define SLIs and SLOs that measure customer-visible reliability and guide release/risk decisions.
+Clara critical services should define SLIs and SLOs that measure customer-visible reliability and guide release/risk decisions.
 
 ## Status
 
@@ -154,7 +154,7 @@ ops/
 
 ```yaml
 slos:
-  athena_api_availability:
+  Clara_api_availability:
     sli: successful_requests / total_requests
     objective: "99.9%"
     window: "30d"

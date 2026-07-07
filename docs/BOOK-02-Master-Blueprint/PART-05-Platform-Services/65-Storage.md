@@ -5,7 +5,7 @@ chapter: "65"
 title: "Storage"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./64-Secrets.md"
@@ -22,7 +22,7 @@ next: "./66-Cache.md"
 
 Defines object and file storage capabilities for documents, attachments, media, exports, and generated artifacts.
 
-This chapter explains the blueprint-level role of **Storage** as a shared Platform Service in Athena.
+This chapter explains the blueprint-level role of **Storage** as a shared Platform Service in Clara.
 
 ---
 

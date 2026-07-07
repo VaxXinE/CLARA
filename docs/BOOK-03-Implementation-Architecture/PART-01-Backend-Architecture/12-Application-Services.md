@@ -6,7 +6,7 @@ chapter: "12"
 title: "Application Services"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-06"
 classification: "implementation-architecture"
 previous: "./11-Domain-Services.md"
@@ -27,11 +27,11 @@ Defines application services for orchestration that coordinates use cases, infra
 
 # Motivation
 
-Athena backend must separate **business truth** from **application orchestration**.
+Clara backend must separate **business truth** from **application orchestration**.
 
 If this separation is not clear, code becomes difficult to test, business rules become scattered, and infrastructure side effects become mixed with domain behavior.
 
-This chapter defines how **Application Services** should be implemented consistently across Athena backend modules.
+This chapter defines how **Application Services** should be implemented consistently across Clara backend modules.
 
 ---
 
@@ -39,7 +39,7 @@ This chapter defines how **Application Services** should be implemented consiste
 
 ## Decision
 
-Athena backend uses application services for orchestration, not domain decision-making.
+Clara backend uses application services for orchestration, not domain decision-making.
 
 ## Status
 

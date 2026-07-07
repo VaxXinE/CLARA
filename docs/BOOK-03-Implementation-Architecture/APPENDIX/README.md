@@ -4,7 +4,7 @@ section: "Appendix Pack"
 title: "Book III Appendix Pack"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture-appendix"
 ---
@@ -17,7 +17,7 @@ classification: "implementation-architecture-appendix"
 
 # Purpose
 
-This appendix pack provides practical templates, checklists, and execution guides for implementing Athena using Book III.
+This appendix pack provides practical templates, checklists, and execution guides for implementing Clara using Book III.
 
 Book III explains the architecture.
 

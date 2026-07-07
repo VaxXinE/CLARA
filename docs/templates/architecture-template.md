@@ -1,6 +1,6 @@
-# Athena Architecture Template
+# Clara Architecture Template
 
-> Use this template when documenting architecture decisions, system design, or technical structure within Athena.
+> Use this template when documenting architecture decisions, system design, or technical structure within Clara.
 
 ```yaml
 ---

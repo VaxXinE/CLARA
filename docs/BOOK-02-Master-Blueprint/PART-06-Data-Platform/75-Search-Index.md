@@ -5,7 +5,7 @@ chapter: "75"
 title: "Search Index"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./74-Knowledge-Store.md"
@@ -14,21 +14,21 @@ next: "./76-Vector-Database.md"
 
 # Search Index
 
-> *"Defines the indexed search layer for fast discovery across Athena records and knowledge."*
+> *"Defines the indexed search layer for fast discovery across Clara records and knowledge."*
 
 ---
 
 # Purpose
 
-Defines the indexed search layer for fast discovery across Athena records and knowledge.
+Defines the indexed search layer for fast discovery across Clara records and knowledge.
 
-This chapter defines the blueprint-level responsibility of **Search Index** inside Athena's Data Platform.
+This chapter defines the blueprint-level responsibility of **Search Index** inside Clara's Data Platform.
 
 ---
 
 # Overview
 
-The **Search Index** capability is part of Athena's shared Data Platform.
+The **Search Index** capability is part of Clara's shared Data Platform.
 
 It supports business domains, AI capabilities, platform services, integrations, analytics, and operations by ensuring data is stored, accessed, transformed, protected, and recovered consistently.
 
@@ -171,8 +171,8 @@ The **Search Index** capability may evolve with:
 
 # Key Takeaways
 
-- Defines the indexed search layer for fast discovery across Athena records and knowledge.
-- It is part of Athena's shared Data Platform.
+- Defines the indexed search layer for fast discovery across Clara records and knowledge.
+- It is part of Clara's shared Data Platform.
 - It must preserve ownership, security, privacy, and recoverability.
 - It supports business domains, platform services, AI, analytics, and operations.
 

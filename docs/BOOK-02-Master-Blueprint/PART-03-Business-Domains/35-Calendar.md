@@ -5,7 +5,7 @@ chapter: "35"
 title: "Calendar"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./34-Projects.md"
@@ -84,7 +84,7 @@ Access should be scoped and auditable.
 
 # Key Takeaways
 
-- Calendar represents the time layer of Athena.
+- Calendar represents the time layer of Clara.
 - Calendar connects to tasks, workflows, reminders, and meetings.
 - Calendar integrations require careful permissions.
 - AI can assist with scheduling and follow-up.

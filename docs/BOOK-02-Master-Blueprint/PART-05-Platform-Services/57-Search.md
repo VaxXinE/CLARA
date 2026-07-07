@@ -5,7 +5,7 @@ chapter: "57"
 title: "Search"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./56-Notification.md"
@@ -22,7 +22,7 @@ next: "./58-Audit.md"
 
 Defines the shared search capability for finding business data, documents, knowledge, conversations, and operational records.
 
-This chapter explains the blueprint-level role of **Search** as a shared Platform Service in Athena.
+This chapter explains the blueprint-level role of **Search** as a shared Platform Service in Clara.
 
 ---
 

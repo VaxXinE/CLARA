@@ -5,7 +5,7 @@ chapter: "72"
 title: "Data Lifecycle"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./71-Data-Ownership.md"
@@ -22,13 +22,13 @@ next: "./73-Event-Store.md"
 
 Defines how data is created, updated, archived, retained, deleted, and restored.
 
-This chapter defines the blueprint-level responsibility of **Data Lifecycle** inside Athena's Data Platform.
+This chapter defines the blueprint-level responsibility of **Data Lifecycle** inside Clara's Data Platform.
 
 ---
 
 # Overview
 
-The **Data Lifecycle** capability is part of Athena's shared Data Platform.
+The **Data Lifecycle** capability is part of Clara's shared Data Platform.
 
 It supports business domains, AI capabilities, platform services, integrations, analytics, and operations by ensuring data is stored, accessed, transformed, protected, and recovered consistently.
 
@@ -172,7 +172,7 @@ The **Data Lifecycle** capability may evolve with:
 # Key Takeaways
 
 - Defines how data is created, updated, archived, retained, deleted, and restored.
-- It is part of Athena's shared Data Platform.
+- It is part of Clara's shared Data Platform.
 - It must preserve ownership, security, privacy, and recoverability.
 - It supports business domains, platform services, AI, analytics, and operations.
 

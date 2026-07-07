@@ -11,14 +11,14 @@
 | Term | Permission |
 | Category | Identity / Security / Authorization |
 | Status | Official |
-| Owner | Athena Core Team |
+| Owner | Clara Core Team |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Definition
 
-A **Permission** is the smallest unit of authorization in Athena.
+A **Permission** is the smallest unit of authorization in Clara.
 
 It represents a specific action that an authenticated identity is allowed to perform on a protected resource.
 
@@ -57,7 +57,7 @@ A Permission authorizes an action.
 
 # Permission Model
 
-Athena recommends the format:
+Clara recommends the format:
 
 ```text
 <resource>:<action>

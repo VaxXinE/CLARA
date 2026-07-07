@@ -4,24 +4,24 @@ part: "PART-04 — AI Platform"
 title: "AI Platform"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "part"
 ---
 
 # PART-04 — AI Platform
 
-> *"AI in Athena is a governed platform capability, not an isolated chatbot feature."*
+> *"AI in Clara is a governed platform capability, not an isolated chatbot feature."*
 
 ---
 
 # Purpose
 
-Part IV defines the AI Platform layer of Athena.
+Part IV defines the AI Platform layer of Clara.
 
 The AI Platform provides the reusable foundation for AI Gateway, Model Gateway, Prompt Engine, Context Engine, Memory Engine, Knowledge Engine, AI Skills, AI Agents, Agent Collaboration, Tool Calling, AI Workflow, Governance, and Evaluation.
 
-This Part explains how Athena uses AI safely, securely, observably, and consistently across business domains.
+This Part explains how Clara uses AI safely, securely, observably, and consistently across business domains.
 
 ---
 
@@ -68,7 +68,7 @@ This Part explains how Athena uses AI safely, securely, observably, and consiste
 
 | Chapter | Title | Purpose |
 |---|---|---|
-| 42 | AI Overview | Defines the role of AI inside Athena |
+| 42 | AI Overview | Defines the role of AI inside Clara |
 | 43 | AI Gateway | Defines the unified entry point for AI requests |
 | 44 | Model Gateway | Defines model provider abstraction |
 | 45 | Prompt Engine | Defines prompt assembly and versioning |

@@ -1,7 +1,7 @@
 # Observability
 
 ## Purpose
-Defines Athena backend standard for Observability.
+Defines Clara backend standard for Observability.
 
 ## Architecture Decision
 - Standardized across all modules.

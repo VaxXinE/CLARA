@@ -1,8 +1,8 @@
-# AGENTS.md — Athena Repository Instructions
+# AGENTS.md — Clara Repository Instructions
 
-You are working inside Athena.
+You are working inside Clara.
 
-Athena is a production-oriented AI-native Business Operating System. Follow architecture, security, testing, and documentation rules strictly.
+Clara is a production-oriented AI-native Business Operating System. Follow architecture, security, testing, and documentation rules strictly.
 
 ---
 

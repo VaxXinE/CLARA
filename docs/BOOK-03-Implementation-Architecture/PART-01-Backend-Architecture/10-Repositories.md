@@ -6,7 +6,7 @@ chapter: "10"
 title: "Repositories"
 version: "1.1.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-06"
 classification: "implementation-architecture"
 previous: "./09-Use-Cases.md"
@@ -15,19 +15,19 @@ next: "../STAGE-03/11-Domain-Services.md"
 
 # Repositories
 
-> *"Defines repository contracts, persistence adapters, mapping rules, unit of work boundaries, and data access patterns in Athena backend."*
+> *"Defines repository contracts, persistence adapters, mapping rules, unit of work boundaries, and data access patterns in Clara backend."*
 
 ---
 
 # Purpose
 
-Defines repository contracts, persistence adapters, mapping rules, unit of work boundaries, and data access patterns in Athena backend.
+Defines repository contracts, persistence adapters, mapping rules, unit of work boundaries, and data access patterns in Clara backend.
 
 ---
 
 # Motivation
 
-Athena backend will contain many modules and many contributors, including human engineers and AI coding assistants.
+Clara backend will contain many modules and many contributors, including human engineers and AI coding assistants.
 
 Without a consistent pattern for **Repositories**, implementation can become inconsistent, insecure, hard to test, and difficult to refactor.
 
@@ -39,7 +39,7 @@ This chapter defines the production-grade pattern that every backend module shou
 
 ## Decision
 
-Athena backend uses repository interfaces in the application/domain boundary and concrete implementations in infrastructure.
+Clara backend uses repository interfaces in the application/domain boundary and concrete implementations in infrastructure.
 
 ## Status
 

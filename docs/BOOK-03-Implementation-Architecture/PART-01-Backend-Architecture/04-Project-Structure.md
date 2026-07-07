@@ -5,7 +5,7 @@ chapter: "04"
 title: "Project Structure"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-06"
 classification: "implementation-architecture"
 previous: "./03-Domain-Driven-Design.md"
@@ -20,7 +20,7 @@ next: "./05-Layer-Architecture.md"
 
 # Purpose
 
-This chapter defines the recommended backend project structure for Athena.
+This chapter defines the recommended backend project structure for Clara.
 
 The structure should make domains, layers, dependencies, tests, and infrastructure boundaries easy to understand.
 
@@ -34,7 +34,7 @@ When files are grouped only by technical type, business features become scattere
 
 When files are grouped without layer boundaries, dependencies become unclear.
 
-Athena needs a structure that supports both domain ownership and Clean Architecture.
+Clara needs a structure that supports both domain ownership and Clean Architecture.
 
 ---
 
@@ -42,7 +42,7 @@ Athena needs a structure that supports both domain ownership and Clean Architect
 
 ## Decision
 
-Athena backend should use a domain-first modular structure with explicit internal layers.
+Clara backend should use a domain-first modular structure with explicit internal layers.
 
 ## Status
 
@@ -229,7 +229,7 @@ When adding a new domain module:
 
 # Key Takeaways
 
-- Athena uses domain-first structure.
+- Clara uses domain-first structure.
 - Layers should be explicit inside each module.
 - Shared code must be controlled.
 - Structure should guide correct dependencies.

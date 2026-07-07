@@ -1,4 +1,4 @@
-# ATHENA
+# Clara
 
 > "A great platform is built not only with code, but with shared understanding."
 
@@ -6,11 +6,11 @@
 
 # Purpose
 
-Athena is an AI-native Business Operating System designed to unify business operations, customer relationships, communication, knowledge, workflow automation, artificial intelligence, platform services, security, integrations, and analytics.
+Clara is an AI-native Business Operating System designed to unify business operations, customer relationships, communication, knowledge, workflow automation, artificial intelligence, platform services, security, integrations, and analytics.
 
-This repository is the official engineering library and future implementation workspace for Athena.
+This repository is the official engineering library and future implementation workspace for Clara.
 
-It contains the documentation, architecture, standards, templates, governance, and implementation references used to design, build, operate, and evolve Athena.
+It contains the documentation, architecture, standards, templates, governance, and implementation references used to design, build, operate, and evolve Clara.
 
 ---
 
@@ -27,7 +27,7 @@ Next focus: implementation repository foundation
 # Repository Structure
 
 ```text
-ATHENA/
+Clara/
 ├── README.md
 ├── CONTRIBUTING.md
 ├── SECURITY.md
@@ -62,7 +62,7 @@ ATHENA/
 
 ## Book I — The Foundation
 
-Defines why Athena exists.
+Defines why Clara exists.
 
 Covers vision, mission, philosophy, principles, manifesto, declaration, and long-term foundation.
 
@@ -74,7 +74,7 @@ docs/BOOK-01-The-Foundation/
 
 ## Book II — Master Blueprint
 
-Defines what Athena will build.
+Defines what Clara will build.
 
 Covers platform vision, organization layer, business domains, AI platform, platform services, data, security, integration, infrastructure, and roadmap.
 
@@ -86,7 +86,7 @@ docs/BOOK-02-Master-Blueprint/
 
 ## Book III — Implementation Architecture
 
-Defines how Athena should be implemented.
+Defines how Clara should be implemented.
 
 Covers backend, frontend, AI, data, integration, infrastructure, security, testing, developer experience, operations, product modules, and implementation roadmap.
 
@@ -180,7 +180,7 @@ docs/BOOK-03-Implementation-Architecture/APPENDIX/APPENDIX-C-Security-Checklist.
 
 # AI Assistant Notice
 
-AI tools may assist development, but Athena architecture remains the source of truth.
+AI tools may assist development, but Clara architecture remains the source of truth.
 
 AI-generated code must:
 
@@ -211,6 +211,6 @@ AI-generated code must:
 
 # Final Principle
 
-Athena is built through shared understanding first, then production code.
+Clara is built through shared understanding first, then production code.
 
 This repository preserves that understanding.

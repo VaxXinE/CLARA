@@ -5,7 +5,7 @@ chapter: "36"
 title: "Authentication Session"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./35-API-Client.md"
@@ -26,11 +26,11 @@ Defines frontend session handling, authentication state, token storage, refresh 
 
 # Motivation
 
-Athena frontend must support many users, workflows, modules, and AI-assisted experiences.
+Clara frontend must support many users, workflows, modules, and AI-assisted experiences.
 
 Without clear frontend architecture, UI code can become tightly coupled, difficult to test, inconsistent, inaccessible, and insecure.
 
-This chapter defines how **Authentication Session** should be implemented consistently across Athena client applications.
+This chapter defines how **Authentication Session** should be implemented consistently across Clara client applications.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Authentication Session** should be implemented consis
 
 ## Decision
 
-Athena frontend should centralize session handling and avoid exposing raw tokens to feature-level UI code.
+Clara frontend should centralize session handling and avoid exposing raw tokens to feature-level UI code.
 
 ## Status
 

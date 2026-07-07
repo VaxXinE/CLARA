@@ -12,15 +12,15 @@
 | Chapter | 10                      |
 | Version | 1.0                     |
 | Status  | Official                |
-| Owner   | Athena Core Team        |
+| Owner   | Clara Core Team        |
 
 ---
 
 # Purpose
 
-This chapter defines how Athena views organizational data.
+This chapter defines how Clara views organizational data.
 
-Within Athena, data is not merely information stored in databases.
+Within Clara, data is not merely information stored in databases.
 
 It represents business activity, organizational memory, operational history, customer relationships, and decision context.
 
@@ -46,7 +46,7 @@ Every event.
 
 Together they represent one of the organization's most valuable assets.
 
-Athena treats data as a strategic asset rather than an implementation detail.
+Clara treats data as a strategic asset rather than an implementation detail.
 
 Data should outlive applications.
 
@@ -82,7 +82,7 @@ Embeddings.
 
 All represent organizational data.
 
-Athena focuses on preserving meaning rather than optimizing for a particular storage technology.
+Clara focuses on preserving meaning rather than optimizing for a particular storage technology.
 
 ---
 
@@ -90,7 +90,7 @@ Athena focuses on preserving meaning rather than optimizing for a particular sto
 
 Data belongs to the organization that creates it.
 
-Athena acts as a trusted custodian.
+Clara acts as a trusted custodian.
 
 Organizations should always retain ownership of:
 
@@ -118,7 +118,7 @@ Raw information has limited value.
 
 Meaning emerges through relationships.
 
-Athena continuously transforms data into organizational knowledge by connecting:
+Clara continuously transforms data into organizational knowledge by connecting:
 
 People.
 
@@ -148,7 +148,7 @@ Organizations rarely fail because important events never occurred.
 
 They fail because those events cannot be reconstructed.
 
-Athena considers events first-class citizens.
+Clara considers events first-class citizens.
 
 Every significant action should be capable of becoming part of organizational history.
 
@@ -182,7 +182,7 @@ A workflow without business purpose provides little guidance.
 
 A document without ownership provides little accountability.
 
-Athena continuously associates information with relevant context.
+Clara continuously associates information with relevant context.
 
 Context transforms isolated records into organizational intelligence.
 
@@ -192,7 +192,7 @@ Context transforms isolated records into organizational intelligence.
 
 Incorrect information creates greater harm than missing information.
 
-Athena prioritizes:
+Clara prioritizes:
 
 Accuracy.
 
@@ -216,7 +216,7 @@ Reliable data produces reliable decisions.
 
 Information that cannot be found provides little value.
 
-Athena promotes discoverability through:
+Clara promotes discoverability through:
 
 Unified search.
 
@@ -238,7 +238,7 @@ Search should reveal organizational understanding rather than isolated records.
 
 Organizations require control over their information.
 
-Athena integrates governance into every stage of the data lifecycle.
+Clara integrates governance into every stage of the data lifecycle.
 
 This includes:
 
@@ -262,7 +262,7 @@ Privacy should be enforced by architecture rather than user discipline.
 
 Organizations should never become prisoners of their technology.
 
-Athena supports data portability through:
+Clara supports data portability through:
 
 Open standards.
 
@@ -310,13 +310,13 @@ Reliable context.
 
 Reliable governance.
 
-Athena therefore treats data quality as a prerequisite for intelligent systems.
+Clara therefore treats data quality as a prerequisite for intelligent systems.
 
 ---
 
 # The Data Lifecycle
 
-Within Athena, organizational data follows a continuous lifecycle.
+Within Clara, organizational data follows a continuous lifecycle.
 
 1. Creation
 
@@ -370,7 +370,7 @@ The lifecycle continuously repeats as organizations evolve.
 
 # Data Quality Principles
 
-Athena evaluates data quality through several characteristics.
+Clara evaluates data quality through several characteristics.
 
 Information should be:
 
@@ -400,7 +400,7 @@ High-quality data enables high-quality organizations.
 
 # Relationship Between Data, Knowledge, and Intelligence
 
-Athena distinguishes three related concepts.
+Clara distinguishes three related concepts.
 
 **Data** represents recorded facts.
 
@@ -408,7 +408,7 @@ Athena distinguishes three related concepts.
 
 **Intelligence** represents the ability to use knowledge effectively.
 
-This progression forms one of Athena's foundational concepts.
+This progression forms one of Clara's foundational concepts.
 
 Data alone does not create intelligence.
 
@@ -424,7 +424,7 @@ Together they create organizational wisdom.
 
 # Conclusion
 
-Athena views data as the long-term memory of an organization.
+Clara views data as the long-term memory of an organization.
 
 Applications may change.
 

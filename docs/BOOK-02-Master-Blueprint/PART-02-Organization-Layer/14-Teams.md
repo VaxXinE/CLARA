@@ -5,7 +5,7 @@ chapter: "14"
 title: "Teams"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./13-Departments.md"
@@ -20,7 +20,7 @@ next: "./15-Users.md"
 
 # Purpose
 
-This chapter defines Teams within Athena.
+This chapter defines Teams within Clara.
 
 Teams represent groups of Users working together around a shared responsibility, function, workflow, customer segment, product area, or operational objective.
 

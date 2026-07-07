@@ -2,7 +2,7 @@
 title: "Engineering Documentation Index"
 version: "1.0.0"
 status: "official"
-owner: "Athena Engineering Team"
+owner: "Clara Engineering Team"
 last_updated: "2026-07-07"
 classification: "engineering-docs-index"
 ---

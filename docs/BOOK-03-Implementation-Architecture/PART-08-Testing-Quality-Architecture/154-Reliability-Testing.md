@@ -5,7 +5,7 @@ chapter: "154"
 title: "Reliability Testing"
 version: "1.0.0"
 status: "official"
-owner: "Athena Quality Architecture Team"
+owner: "Clara Quality Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./153-Performance-Testing.md"
@@ -28,7 +28,7 @@ Defines reliability testing for retries, timeouts, circuit breakers, background 
 
 Production quality cannot rely on manual confidence or optimistic assumptions.
 
-Athena has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
+Clara has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
 
 This chapter defines how **Reliability Testing** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Reliability Testing** should be implemented consisten
 
 ## Decision
 
-Athena reliability tests should verify that systems fail safely, recover predictably, and avoid duplicate side effects.
+Clara reliability tests should verify that systems fail safely, recover predictably, and avoid duplicate side effects.
 
 ## Status
 

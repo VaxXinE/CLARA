@@ -1,6 +1,6 @@
 # Organization
 
-> *"An organization is the highest business boundary within Athena."*
+> *"An organization is the highest business boundary within Clara."*
 
 ---
 
@@ -11,16 +11,16 @@
 | Term | Organization |
 | Category | Business / Platform |
 | Status | Official |
-| Owner | Athena Core Team |
+| Owner | Clara Core Team |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Definition
 
-An **Organization** is the highest-level business entity using Athena.
+An **Organization** is the highest-level business entity using Clara.
 
-It represents a company, institution, team, agency, community, or operational entity that owns users, workspaces, data, workflows, configuration, billing, integrations, and governance policies within Athena.
+It represents a company, institution, team, agency, community, or operational entity that owns users, workspaces, data, workflows, configuration, billing, integrations, and governance policies within Clara.
 
 ---
 
@@ -39,11 +39,11 @@ The Organization exists to provide a clear boundary for:
 - Integration management.
 - Platform configuration.
 
-Most Athena resources should be traceable to an Organization either directly or indirectly.
+Most Clara resources should be traceable to an Organization either directly or indirectly.
 
 ---
 
-# Usage in Athena
+# Usage in Clara
 
 An Organization may contain:
 
@@ -91,7 +91,7 @@ In larger deployments, an Organization may separate Workspaces by department, br
 
 In many SaaS systems, an Organization may map closely to a **Tenant**.
 
-However, Athena treats these terms carefully:
+However, Clara treats these terms carefully:
 
 - **Organization** is a business concept.
 - **Tenant** is a technical isolation concept.
@@ -122,7 +122,7 @@ Client-provided organization identifiers must never be trusted without server-si
 
 The Organization owns its business data.
 
-Athena acts as the custodian of that data.
+Clara acts as the custodian of that data.
 
 Organization-owned data may include:
 
@@ -141,11 +141,11 @@ Organization-owned data may include:
 
 Examples of Organizations:
 
-- A startup using Athena as its CRM and support platform.
+- A startup using Clara as its CRM and support platform.
 - A school managing admissions and student communication.
 - A clinic managing patient-facing workflows.
 - A logistics company managing customer support and operations.
-- A government agency using Athena for internal service workflows.
+- A government agency using Clara for internal service workflows.
 
 ---
 

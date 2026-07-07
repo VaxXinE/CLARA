@@ -1,6 +1,6 @@
 # User
 
-> *"A user is a human identity that interacts with Athena under defined permissions and accountability."*
+> *"A user is a human identity that interacts with Clara under defined permissions and accountability."*
 
 ---
 
@@ -11,14 +11,14 @@
 | Term | User |
 | Category | Identity / Platform |
 | Status | Official |
-| Owner | Athena Core Team |
+| Owner | Clara Core Team |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Definition
 
-A **User** is a human identity that can access Athena.
+A **User** is a human identity that can access Clara.
 
 A User belongs to one or more Organizations and may participate in one or more Workspaces depending on membership, role assignment, and permission rules.
 
@@ -30,11 +30,11 @@ Automated identities should be documented separately as **Service Accounts**, **
 
 # Purpose
 
-Users exist to provide accountable human access to Athena.
+Users exist to provide accountable human access to Clara.
 
 A User may:
 
-- Log in to Athena.
+- Log in to Clara.
 - Access Workspaces.
 - Manage business data.
 - Participate in workflows.
@@ -126,7 +126,7 @@ Authorization should evaluate the effective permissions of a User before allowin
 
 # User Types
 
-Athena may support several user categories.
+Clara may support several user categories.
 
 ## Internal User
 
@@ -142,7 +142,7 @@ Examples:
 
 ## External User
 
-A person with limited access to specific Athena capabilities.
+A person with limited access to specific Clara capabilities.
 
 Examples:
 
@@ -163,7 +163,7 @@ Platform Admin access must be tightly controlled and audited.
 
 User identity is security-sensitive.
 
-Athena should enforce:
+Clara should enforce:
 
 - Authentication.
 - Authorization.

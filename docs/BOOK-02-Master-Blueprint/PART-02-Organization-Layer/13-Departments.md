@@ -5,7 +5,7 @@ chapter: "13"
 title: "Departments"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./12-Workspace.md"
@@ -20,7 +20,7 @@ next: "./14-Teams.md"
 
 # Purpose
 
-This chapter defines Departments as high-level business groupings within Athena.
+This chapter defines Departments as high-level business groupings within Clara.
 
 Departments help organizations map business structure into platform structure.
 

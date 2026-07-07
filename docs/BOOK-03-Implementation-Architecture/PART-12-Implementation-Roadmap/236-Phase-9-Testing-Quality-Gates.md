@@ -5,7 +5,7 @@ chapter: "236"
 title: "Phase 9 Testing Quality Gates"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./235-Phase-8-Observability-Operations-Baseline.md"
@@ -28,7 +28,7 @@ Defines quality gates required before alpha, including unit, integration, contra
 
 A strong architecture still fails if implementation happens in the wrong order.
 
-Athena has backend, frontend, data, security, AI, integration, infrastructure, testing, operations, and product modules. If teams build product capabilities before foundations are ready, technical debt becomes structural debt.
+Clara has backend, frontend, data, security, AI, integration, infrastructure, testing, operations, and product modules. If teams build product capabilities before foundations are ready, technical debt becomes structural debt.
 
 This chapter defines how **Phase 9 Testing Quality Gates** should guide implementation safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Phase 9 Testing Quality Gates** should guide implemen
 
 ## Decision
 
-Athena should not enter alpha without automated quality gates protecting critical product, security, data, and AI paths.
+Clara should not enter alpha without automated quality gates protecting critical product, security, data, and AI paths.
 
 ## Status
 

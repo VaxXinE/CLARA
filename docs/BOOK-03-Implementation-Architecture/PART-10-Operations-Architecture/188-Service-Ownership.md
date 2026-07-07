@@ -5,7 +5,7 @@ chapter: "188"
 title: "Service Ownership"
 version: "1.0.0"
 status: "official"
-owner: "Athena Operations Architecture Team"
+owner: "Clara Operations Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./187-SRE-Operating-Model.md"
@@ -28,7 +28,7 @@ Defines service ownership, owner metadata, lifecycle status, operational contact
 
 Production systems do not stay reliable by accident.
 
-Athena needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
+Clara needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
 
 This chapter defines how **Service Ownership** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Service Ownership** should be implemented consistentl
 
 ## Decision
 
-Every Athena production service should have explicit ownership, escalation path, operational documentation, and lifecycle status.
+Every Clara production service should have explicit ownership, escalation path, operational documentation, and lifecycle status.
 
 ## Status
 
@@ -154,13 +154,13 @@ ops/
 
 ```yaml
 service:
-  name: athena-api
+  name: Clara-api
   owner_team: backend-platform
   lifecycle: production
   tier: tier_1
   repository: apps/backend
-  runbook: runbooks/athena-api.md
-  dashboard: dashboards/athena-api
+  runbook: runbooks/Clara-api.md
+  dashboard: dashboards/Clara-api
   escalation:
     primary: backend-oncall
     secondary: platform-oncall

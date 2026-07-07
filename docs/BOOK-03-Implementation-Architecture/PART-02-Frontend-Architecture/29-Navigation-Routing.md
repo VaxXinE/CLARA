@@ -5,7 +5,7 @@ chapter: "29"
 title: "Navigation Routing"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./28-Project-Structure.md"
@@ -26,11 +26,11 @@ Defines frontend navigation, routing, route protection, deep links, and user flo
 
 # Motivation
 
-Athena frontend must support many users, workflows, modules, and AI-assisted experiences.
+Clara frontend must support many users, workflows, modules, and AI-assisted experiences.
 
 Without clear frontend architecture, UI code can become tightly coupled, difficult to test, inconsistent, inaccessible, and insecure.
 
-This chapter defines how **Navigation Routing** should be implemented consistently across Athena client applications.
+This chapter defines how **Navigation Routing** should be implemented consistently across Clara client applications.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Navigation Routing** should be implemented consistent
 
 ## Decision
 
-Athena frontend should use centralized typed routing with route guards for authentication, authorization, workspace context, and feature availability.
+Clara frontend should use centralized typed routing with route guards for authentication, authorization, workspace context, and feature availability.
 
 ## Status
 

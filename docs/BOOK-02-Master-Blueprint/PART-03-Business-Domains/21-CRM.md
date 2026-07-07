@@ -5,7 +5,7 @@ chapter: "21"
 title: "CRM"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./README.md"
@@ -20,7 +20,7 @@ next: "./22-Customer.md"
 
 # Purpose
 
-This chapter defines the CRM domain in Athena.
+This chapter defines the CRM domain in Clara.
 
 CRM provides the foundation for managing customer relationships, leads, contacts, communication history, sales activity, customer context, and relationship-driven workflows.
 
@@ -30,7 +30,7 @@ CRM provides the foundation for managing customer relationships, leads, contacts
 
 The CRM domain is not only a contact database.
 
-In Athena, CRM is the domain that connects customer identity, conversations, sales activity, support history, workflow automation, AI context, and analytics.
+In Clara, CRM is the domain that connects customer identity, conversations, sales activity, support history, workflow automation, AI context, and analytics.
 
 CRM should become the relationship memory of an Organization.
 
@@ -110,7 +110,7 @@ Sensitive customer data exports must be auditable.
 
 # Key Takeaways
 
-- CRM is the relationship foundation of Athena.
+- CRM is the relationship foundation of Clara.
 - CRM connects customer data with communication, workflow, AI, and analytics.
 - CRM should preserve long-term relationship context.
 - CRM data must be protected by strong authorization.

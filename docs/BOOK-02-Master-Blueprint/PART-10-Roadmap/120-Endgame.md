@@ -5,7 +5,7 @@ chapter: "120"
 title: "Endgame"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./119-Long-Term-Evolution.md"
@@ -14,21 +14,21 @@ next: "../../README.md"
 
 # Endgame
 
-> *"Defines the long-term destination of Athena as an intelligent, secure, extensible operating environment for organizations."*
+> *"Defines the long-term destination of Clara as an intelligent, secure, extensible operating environment for organizations."*
 
 ---
 
 # Purpose
 
-Defines the long-term destination of Athena as an intelligent, secure, extensible operating environment for organizations.
+Defines the long-term destination of Clara as an intelligent, secure, extensible operating environment for organizations.
 
-This chapter defines the blueprint-level role of **Endgame** in Athena's roadmap.
+This chapter defines the blueprint-level role of **Endgame** in Clara's roadmap.
 
 ---
 
 # Overview
 
-The **Endgame** stage describes a specific maturity point in Athena's evolution.
+The **Endgame** stage describes a specific maturity point in Clara's evolution.
 
 It helps the project decide what should be built now, what should wait, and which foundations must exist before moving forward.
 
@@ -78,7 +78,7 @@ flowchart LR
 
 # Readiness Criteria
 
-Before this stage is considered complete, Athena should have:
+Before this stage is considered complete, Clara should have:
 
 - Clear ownership.
 - Documented scope.
@@ -139,14 +139,14 @@ Success may be indicated by:
 
 The **Endgame** stage should create a stronger foundation for later stages.
 
-Each roadmap phase should make Athena more reliable, understandable, secure, and extensible.
+Each roadmap phase should make Clara more reliable, understandable, secure, and extensible.
 
 ---
 
 # Key Takeaways
 
-- Defines the long-term destination of Athena as an intelligent, secure, extensible operating environment for organizations.
-- It represents a maturity stage in Athena's roadmap.
+- Defines the long-term destination of Clara as an intelligent, secure, extensible operating environment for organizations.
+- It represents a maturity stage in Clara's roadmap.
 - It should reduce uncertainty and prepare the next stage.
 - Roadmap stages should be sequenced, not rushed.
 

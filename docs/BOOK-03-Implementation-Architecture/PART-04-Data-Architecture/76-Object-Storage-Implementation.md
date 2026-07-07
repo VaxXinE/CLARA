@@ -5,7 +5,7 @@ chapter: "76"
 title: "Object Storage Implementation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./75-Vector-Database-Implementation.md"
@@ -26,7 +26,7 @@ Defines object storage, file metadata, signed URLs, malware scanning, access con
 
 # Motivation
 
-Data is one of the highest-risk parts of Athena.
+Data is one of the highest-risk parts of Clara.
 
 Bad data architecture can cause privacy leaks, tenant isolation failures, broken AI context, slow queries, unrecoverable incidents, inconsistent reporting, and dangerous production migrations.
 
@@ -38,7 +38,7 @@ This chapter defines how **Object Storage Implementation** should be implemented
 
 ## Decision
 
-Athena object storage should store binary files outside the database with metadata, access policy, scan status, and lifecycle control.
+Clara object storage should store binary files outside the database with metadata, access policy, scan status, and lifecycle control.
 
 ## Status
 

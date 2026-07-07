@@ -5,7 +5,7 @@ chapter: "70"
 title: "Data Access Patterns"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./69-Data-Ownership.md"
@@ -26,7 +26,7 @@ Defines repository, query model, pagination, filtering, sorting, and safe data r
 
 # Motivation
 
-Data is one of the highest-risk parts of Athena.
+Data is one of the highest-risk parts of Clara.
 
 Bad data architecture can cause privacy leaks, tenant isolation failures, broken AI context, slow queries, unrecoverable incidents, inconsistent reporting, and dangerous production migrations.
 
@@ -38,7 +38,7 @@ This chapter defines how **Data Access Patterns** should be implemented safely a
 
 ## Decision
 
-Athena data access should go through explicit repositories, query services, or read models instead of direct ad-hoc database queries from product code.
+Clara data access should go through explicit repositories, query services, or read models instead of direct ad-hoc database queries from product code.
 
 ## Status
 

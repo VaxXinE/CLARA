@@ -5,7 +5,7 @@ chapter: "83"
 title: "Audit Data"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./82-Data-Privacy.md"
@@ -26,7 +26,7 @@ Defines audit log storage, immutability, actor tracking, resource tracking, rete
 
 # Motivation
 
-Data is one of the highest-risk parts of Athena.
+Data is one of the highest-risk parts of Clara.
 
 Bad data architecture can cause privacy leaks, tenant isolation failures, broken AI context, slow queries, unrecoverable incidents, inconsistent reporting, and dangerous production migrations.
 
@@ -38,7 +38,7 @@ This chapter defines how **Audit Data** should be implemented safely and consist
 
 ## Decision
 
-Athena audit data should be append-only, searchable, tenant-scoped, tamper-resistant, and protected from normal product mutation paths.
+Clara audit data should be append-only, searchable, tenant-scoped, tamper-resistant, and protected from normal product mutation paths.
 
 ## Status
 

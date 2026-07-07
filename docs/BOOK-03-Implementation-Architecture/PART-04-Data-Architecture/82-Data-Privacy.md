@@ -5,7 +5,7 @@ chapter: "82"
 title: "Data Privacy"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./81-Data-Retention.md"
@@ -26,7 +26,7 @@ Defines privacy-safe data handling, PII classification, minimization, masking, e
 
 # Motivation
 
-Data is one of the highest-risk parts of Athena.
+Data is one of the highest-risk parts of Clara.
 
 Bad data architecture can cause privacy leaks, tenant isolation failures, broken AI context, slow queries, unrecoverable incidents, inconsistent reporting, and dangerous production migrations.
 
@@ -38,7 +38,7 @@ This chapter defines how **Data Privacy** should be implemented safely and consi
 
 ## Decision
 
-Athena privacy architecture should classify sensitive data, minimize collection, restrict access, support deletion/export, and avoid unnecessary exposure to AI or integrations.
+Clara privacy architecture should classify sensitive data, minimize collection, restrict access, support deletion/export, and avoid unnecessary exposure to AI or integrations.
 
 ## Status
 

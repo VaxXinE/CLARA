@@ -4,20 +4,20 @@ part: "PART-03 — Business Domains"
 title: "Business Domains"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "part"
 ---
 
 # PART-03 — Business Domains
 
-> *"Business domains define what Athena helps an organization actually do."*
+> *"Business domains define what Clara helps an organization actually do."*
 
 ---
 
 # Purpose
 
-Part III defines the major business domains of Athena.
+Part III defines the major business domains of Clara.
 
 A business domain represents a distinct business capability area with clear ownership, language, data, workflows, and responsibilities.
 
@@ -27,7 +27,7 @@ This Part explains the domain-level blueprint for CRM, customers, leads, sales, 
 
 # Goals
 
-- Define Athena's major business capability areas.
+- Define Clara's major business capability areas.
 - Establish domain boundaries before implementation.
 - Explain how domains relate to Organization, Workspace, Identity, and Permissions.
 - Create a foundation for future PRDs, TDDs, API specs, and architecture documents.

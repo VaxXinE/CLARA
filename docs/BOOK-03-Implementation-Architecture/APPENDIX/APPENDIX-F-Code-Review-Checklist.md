@@ -4,7 +4,7 @@ appendix: "F"
 title: "Code Review Checklist"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "code-review-checklist"
 ---
@@ -17,7 +17,7 @@ classification: "code-review-checklist"
 
 # Purpose
 
-Use this checklist when reviewing Athena pull requests, especially when code is generated with AI assistance.
+Use this checklist when reviewing Clara pull requests, especially when code is generated with AI assistance.
 
 ---
 

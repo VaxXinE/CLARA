@@ -1,30 +1,30 @@
 # GLOSSARY.md
 
-# Athena Glossary
+# Clara Glossary
 
-This glossary defines common terms used throughout the Athena Engineering Library.
+This glossary defines common terms used throughout the Clara Engineering Library.
 
 The purpose of this file is to maintain consistent language across documentation, architecture, implementation, and product discussions.
 
 ---
 
-## Athena
+## Clara
 
-The AI-native Business Operating System being built by the Athena Project.
+The AI-native Business Operating System being built by the Clara Project.
 
-Athena unifies organizational knowledge, workflows, customer interactions, automation, AI capabilities, and business operations into a single platform.
-
----
-
-## Athena Project
-
-The complete engineering initiative responsible for designing, building, documenting, operating, and evolving Athena.
+Clara unifies organizational knowledge, workflows, customer interactions, automation, AI capabilities, and business operations into a single platform.
 
 ---
 
-## Athena Engineering Library
+## Clara Project
 
-The complete documentation system of Athena.
+The complete engineering initiative responsible for designing, building, documenting, operating, and evolving Clara.
+
+---
+
+## Clara Engineering Library
+
+The complete documentation system of Clara.
 
 It includes Book I through Book VIII, ADRs, PRDs, TDDs, API specs, security checklists, runbooks, and other engineering documents.
 
@@ -32,7 +32,7 @@ It includes Book I through Book VIII, ADRs, PRDs, TDDs, API specs, security chec
 
 ## Book I — The Foundation
 
-The constitutional foundation of Athena.
+The constitutional foundation of Clara.
 
 It defines the project's vision, mission, values, philosophy, principles, manifesto, and declaration.
 
@@ -84,7 +84,7 @@ Examples include customer history, decisions, policies, workflows, conversations
 
 The long-term preserved knowledge of an organization.
 
-Athena treats organizational memory as a strategic asset that should survive personnel changes, system changes, and time.
+Clara treats organizational memory as a strategic asset that should survive personnel changes, system changes, and time.
 
 ---
 
@@ -130,7 +130,7 @@ Workflows may involve humans, systems, automation, AI agents, external services,
 
 The execution of repetitive or structured work by software.
 
-In Athena, automation should remain observable, auditable, configurable, and reversible when possible.
+In Clara, automation should remain observable, auditable, configurable, and reversible when possible.
 
 ---
 
@@ -144,7 +144,7 @@ It should support business objectives while preserving human oversight.
 
 ## Domain
 
-A business capability or area of responsibility within Athena.
+A business capability or area of responsibility within Clara.
 
 Examples include Identity, CRM, Communication, Knowledge, Automation, Billing, AI, Analytics, and Integrations.
 
@@ -158,7 +158,7 @@ A clear boundary around a domain where specific business rules, language, data o
 
 ## Module
 
-A functional part of Athena responsible for a specific capability.
+A functional part of Clara responsible for a specific capability.
 
 Modules should be cohesive, maintainable, and aligned with business domains.
 
@@ -174,7 +174,7 @@ A deployable or logical component that provides a specific capability through AP
 
 An interface that allows systems, modules, developers, or integrations to access platform capabilities.
 
-Athena treats APIs as products and user interfaces for developers.
+Clara treats APIs as products and user interfaces for developers.
 
 ---
 
@@ -190,7 +190,7 @@ Examples include customer created, invoice paid, message received, workflow comp
 
 ## Event Bus
 
-The infrastructure or mechanism used to publish, route, and consume events across Athena modules and services.
+The infrastructure or mechanism used to publish, route, and consume events across Clara modules and services.
 
 ---
 
@@ -204,7 +204,7 @@ Other systems may copy, cache, index, or consume data, but ownership should rema
 
 ## Audit Log
 
-A trustworthy record of significant actions performed within Athena.
+A trustworthy record of significant actions performed within Clara.
 
 Audit logs support accountability, security, governance, compliance, and incident investigation.
 
@@ -234,7 +234,7 @@ The principle that every user, service, integration, automation, or AI agent sho
 
 The principle that the safest configuration should be the default configuration.
 
-Users should not need deep security knowledge to operate Athena safely.
+Users should not need deep security knowledge to operate Clara safely.
 
 ---
 
@@ -246,7 +246,7 @@ The principle that sensitive data should be protected automatically through arch
 
 ## Tenant
 
-An isolated customer, organization, or workspace using Athena.
+An isolated customer, organization, or workspace using Clara.
 
 Tenant boundaries must be protected through strict access control and data isolation.
 
@@ -254,7 +254,7 @@ Tenant boundaries must be protected through strict access control and data isola
 
 ## Workspace
 
-An operational environment inside Athena where users, data, workflows, settings, and modules are organized.
+An operational environment inside Clara where users, data, workflows, settings, and modules are organized.
 
 Depending on product design, a workspace may map to a tenant, team, department, or organization.
 
@@ -262,7 +262,7 @@ Depending on product design, a workspace may map to a tenant, team, department, 
 
 ## User
 
-A human who interacts with Athena.
+A human who interacts with Clara.
 
 Users may have different roles, permissions, responsibilities, and access scopes.
 
@@ -278,7 +278,7 @@ Examples may include Owner, Admin, Manager, Agent, Analyst, Developer, or Viewer
 
 ## Permission
 
-A specific allowed action within Athena.
+A specific allowed action within Clara.
 
 Examples include reading customer records, updating workflows, approving automation, viewing analytics, or managing users.
 
@@ -292,7 +292,7 @@ A rule or set of rules that governs access, behavior, workflow execution, data r
 
 ## Governance
 
-The set of practices that ensures Athena remains accountable, secure, compliant, transparent, and aligned with organizational rules.
+The set of practices that ensures Clara remains accountable, secure, compliant, transparent, and aligned with organizational rules.
 
 ---
 
@@ -334,19 +334,19 @@ The long-term cost created by shortcuts, unclear design, missing documentation, 
 
 ## Platform
 
-The shared foundation of Athena that provides reusable capabilities such as identity, APIs, events, knowledge, AI, automation, search, security, and observability.
+The shared foundation of Clara that provides reusable capabilities such as identity, APIs, events, knowledge, AI, automation, search, security, and observability.
 
 ---
 
 ## Plugin
 
-An extension that adds capability to Athena through defined contracts, APIs, permissions, and lifecycle rules.
+An extension that adds capability to Clara through defined contracts, APIs, permissions, and lifecycle rules.
 
 ---
 
 ## Integration
 
-A connection between Athena and an external system.
+A connection between Clara and an external system.
 
 Integrations should be secure, observable, documented, and resilient.
 
@@ -354,7 +354,7 @@ Integrations should be secure, observable, documented, and resilient.
 
 ## Ecosystem
 
-The broader environment of modules, plugins, APIs, integrations, third-party services, developers, and organizations surrounding Athena.
+The broader environment of modules, plugins, APIs, integrations, third-party services, developers, and organizations surrounding Clara.
 
 ---
 
@@ -392,4 +392,4 @@ A principle where security is considered from the earliest stages of design and 
 
 ## Trust
 
-The confidence organizations have that Athena will behave securely, reliably, transparently, and responsibly.
+The confidence organizations have that Clara will behave securely, reliably, transparently, and responsibly.

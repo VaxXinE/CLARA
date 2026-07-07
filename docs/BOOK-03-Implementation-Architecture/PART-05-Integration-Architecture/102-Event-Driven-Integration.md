@@ -5,7 +5,7 @@ chapter: "102"
 title: "Event Driven Integration"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./101-Idempotency-Retry.md"
@@ -28,9 +28,9 @@ Defines event-driven integration patterns, event consumers, outbox, inbox, deliv
 
 Integrations are powerful but risky.
 
-They connect Athena to external systems, external data, external identities, external failures, and external attack surfaces.
+They connect Clara to external systems, external data, external identities, external failures, and external attack surfaces.
 
-If integration code is scattered, Athena can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
+If integration code is scattered, Clara can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
 
 This chapter defines how **Event Driven Integration** should be implemented safely and consistently.
 
@@ -40,7 +40,7 @@ This chapter defines how **Event Driven Integration** should be implemented safe
 
 ## Decision
 
-Athena event-driven integrations should use outbox/inbox patterns for reliable delivery and duplicate-safe consumption.
+Clara event-driven integrations should use outbox/inbox patterns for reliable delivery and duplicate-safe consumption.
 
 ## Status
 
@@ -179,7 +179,7 @@ export class ExternalEventConsumer {
 # Implementation Guidelines
 
 - Never call external providers directly from controllers or domain models.
-- Keep provider schemas isolated from Athena domain models.
+- Keep provider schemas isolated from Clara domain models.
 - Validate every inbound payload.
 - Verify webhook signatures before processing.
 - Store external credentials in vault/secret storage.

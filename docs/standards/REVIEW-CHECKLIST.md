@@ -1,4 +1,4 @@
-# Athena Documentation Review Checklist
+# Clara Documentation Review Checklist
 
 > *"A document is ready when it helps future contributors make better decisions."*
 
@@ -8,18 +8,18 @@
 
 | Field | Value |
 |------|-------|
-| Document | Athena Documentation Review Checklist |
+| Document | Clara Documentation Review Checklist |
 | Version | 1.0.0 |
 | Status | Official |
-| Owner | Athena Core Team |
-| Scope | Athena Engineering Library |
+| Owner | Clara Core Team |
+| Scope | Clara Engineering Library |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Purpose
 
-This checklist defines the review standard for Athena documentation.
+This checklist defines the review standard for Clara documentation.
 
 It should be used before merging any official documentation into the repository.
 
@@ -31,7 +31,7 @@ The goal is to ensure every document is:
 - Maintainable.
 - Navigable.
 - Reviewable.
-- Aligned with Athena principles.
+- Aligned with Clara principles.
 - Useful for both humans and AI coding assistants.
 
 ---
@@ -139,7 +139,7 @@ Verify that the document stays within its intended scope.
 
 # 6. Consistency Review
 
-Verify consistency with existing Athena documentation.
+Verify consistency with existing Clara documentation.
 
 - [ ] The document aligns with Book I principles.
 - [ ] The document does not contradict related documents.
@@ -293,7 +293,7 @@ A document can be approved when:
 - [ ] It is clear enough for a new contributor.
 - [ ] It is safe enough for production-oriented documentation.
 - [ ] It preserves context for future maintainers.
-- [ ] It improves the Athena Engineering Library.
+- [ ] It improves the Clara Engineering Library.
 
 ---
 
@@ -382,7 +382,7 @@ This is bad.
 
 A document should not be merged because it is finished.
 
-It should be merged because it is useful, clear, safe, and aligned with Athena's long-term principles.
+It should be merged because it is useful, clear, safe, and aligned with Clara's long-term principles.
 
 ---
 

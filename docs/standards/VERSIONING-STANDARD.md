@@ -1,4 +1,4 @@
-# Athena Documentation Versioning Standard
+# Clara Documentation Versioning Standard
 
 > *"Versioning protects trust by making change visible, intentional, and traceable."*
 
@@ -8,18 +8,18 @@
 
 | Field | Value |
 |------|-------|
-| Document | Athena Documentation Versioning Standard |
+| Document | Clara Documentation Versioning Standard |
 | Version | 1.0.0 |
 | Status | Official |
-| Owner | Athena Core Team |
-| Scope | Athena Engineering Library |
+| Owner | Clara Core Team |
+| Scope | Clara Engineering Library |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Purpose
 
-This standard defines how official Athena documents should be versioned.
+This standard defines how official Clara documents should be versioned.
 
 Versioning helps contributors understand:
 
@@ -30,7 +30,7 @@ Versioning helps contributors understand:
 - Whether an Architecture Decision Record (ADR) is needed.
 - Whether the changelog must be updated.
 
-Athena documentation is treated as an engineering artifact.
+Clara documentation is treated as an engineering artifact.
 
 Therefore, changes to official documents must be traceable.
 
@@ -38,7 +38,7 @@ Therefore, changes to official documents must be traceable.
 
 # Versioning Format
 
-Athena documentation follows semantic versioning.
+Clara documentation follows semantic versioning.
 
 ```text
 MAJOR.MINOR.PATCH
@@ -362,7 +362,7 @@ Example:
 title: "Executive Overview"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 ---

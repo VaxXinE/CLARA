@@ -5,7 +5,7 @@ chapter: "216"
 title: "Notification Module"
 version: "1.0.0"
 status: "official"
-owner: "Athena Product Architecture Team"
+owner: "Clara Product Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./215-Workflow-Automation-Module.md"
@@ -26,9 +26,9 @@ Defines implementation architecture for in-app notifications, email, push, webho
 
 # Motivation
 
-Product modules are where users experience Athena.
+Product modules are where users experience Clara.
 
-If product modules are implemented inconsistently, Athena will become difficult to maintain, insecure, hard to test, and confusing to extend. Product implementation must preserve architecture boundaries while still delivering usable product capabilities.
+If product modules are implemented inconsistently, Clara will become difficult to maintain, insecure, hard to test, and confusing to extend. Product implementation must preserve architecture boundaries while still delivering usable product capabilities.
 
 This chapter defines how **Notification Module** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Notification Module** should be implemented consisten
 
 ## Decision
 
-Athena Notification should be implemented as asynchronous delivery with user preferences, idempotency, provider abstraction, and delivery logs.
+Clara Notification should be implemented as asynchronous delivery with user preferences, idempotency, provider abstraction, and delivery logs.
 
 ## Status
 

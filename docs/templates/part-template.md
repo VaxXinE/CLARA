@@ -1,6 +1,6 @@
-# Athena Part Template
+# Clara Part Template
 
-> Use this template for every official Part in an Athena book.
+> Use this template for every official Part in an Clara book.
 
 ```yaml
 ---
@@ -36,7 +36,7 @@ chapters:
 
 # Purpose
 
-Explain why this Part exists and what area of Athena it covers.
+Explain why this Part exists and what area of Clara it covers.
 
 ---
 

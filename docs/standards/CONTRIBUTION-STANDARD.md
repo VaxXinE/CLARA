@@ -1,4 +1,4 @@
-# Athena Contribution Standard
+# Clara Contribution Standard
 
 > *"A healthy engineering culture is built on consistent contributions, respectful reviews, and shared ownership."*
 
@@ -8,18 +8,18 @@
 
 | Field | Value |
 |---|---|
-| Document | Athena Contribution Standard |
+| Document | Clara Contribution Standard |
 | Version | 1.0.0 |
 | Status | Official |
-| Owner | Athena Core Team |
-| Scope | Athena Engineering Library & Repository |
+| Owner | Clara Core Team |
+| Scope | Clara Engineering Library & Repository |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Purpose
 
-This standard defines how contributors participate in the Athena project.
+This standard defines how contributors participate in the Clara project.
 
 It establishes a consistent workflow for documentation, architecture, engineering, security, AI, and product contributions.
 
@@ -274,7 +274,7 @@ Avoid:
 
 # Final Rule
 
-Every contribution should improve Athena's long-term quality, not only its short-term functionality.
+Every contribution should improve Clara's long-term quality, not only its short-term functionality.
 
 Consistency, clarity, and collaboration are the foundation of sustainable engineering.
 

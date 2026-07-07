@@ -2,7 +2,7 @@
 title: "Product Documentation Index"
 version: "1.0.0"
 status: "official"
-owner: "Athena Product Architecture Team"
+owner: "Clara Product Architecture Team"
 last_updated: "2026-07-07"
 classification: "product-docs-index"
 ---

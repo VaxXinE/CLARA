@@ -5,7 +5,7 @@ chapter: "89"
 title: "Webhook Implementation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./88-GraphQL-Implementation.md"
@@ -28,9 +28,9 @@ Defines inbound and outbound webhook architecture, signature verification, idemp
 
 Integrations are powerful but risky.
 
-They connect Athena to external systems, external data, external identities, external failures, and external attack surfaces.
+They connect Clara to external systems, external data, external identities, external failures, and external attack surfaces.
 
-If integration code is scattered, Athena can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
+If integration code is scattered, Clara can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
 
 This chapter defines how **Webhook Implementation** should be implemented safely and consistently.
 
@@ -40,7 +40,7 @@ This chapter defines how **Webhook Implementation** should be implemented safely
 
 ## Decision
 
-Athena webhooks should verify signatures, enforce idempotency, process asynchronously where possible, and store delivery/audit records.
+Clara webhooks should verify signatures, enforce idempotency, process asynchronously where possible, and store delivery/audit records.
 
 ## Status
 
@@ -155,7 +155,7 @@ backend/
 ```ts
 // webhook/presentation/inboundWebhookHandler.ts
 export async function inboundWebhookHandler(request: HttpRequest): Promise<HttpResponse> {
-  const signature = request.headers["x-athena-signature"];
+  const signature = request.headers["x-Clara-signature"];
 
   await webhookSignatureVerifier.verify({
     signature,
@@ -179,7 +179,7 @@ export async function inboundWebhookHandler(request: HttpRequest): Promise<HttpR
 # Implementation Guidelines
 
 - Never call external providers directly from controllers or domain models.
-- Keep provider schemas isolated from Athena domain models.
+- Keep provider schemas isolated from Clara domain models.
 - Validate every inbound payload.
 - Verify webhook signatures before processing.
 - Store external credentials in vault/secret storage.

@@ -4,7 +4,7 @@ appendix: "C"
 title: "Security Checklist"
 version: "1.0.0"
 status: "official"
-owner: "Athena Security Architecture Team"
+owner: "Clara Security Architecture Team"
 last_updated: "2026-07-07"
 classification: "security-checklist"
 ---
@@ -17,7 +17,7 @@ classification: "security-checklist"
 
 # Purpose
 
-This checklist helps engineers implement Athena features securely.
+This checklist helps engineers implement Clara features securely.
 
 Use it for:
 

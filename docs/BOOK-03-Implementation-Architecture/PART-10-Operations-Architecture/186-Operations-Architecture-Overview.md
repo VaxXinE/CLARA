@@ -5,7 +5,7 @@ chapter: "186"
 title: "Operations Architecture Overview"
 version: "1.0.0"
 status: "official"
-owner: "Athena Operations Architecture Team"
+owner: "Clara Operations Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./README.md"
@@ -14,13 +14,13 @@ next: "./187-SRE-Operating-Model.md"
 
 # Operations Architecture Overview
 
-> *"Defines Athena operations architecture principles, operational ownership, production readiness, and service management expectations."*
+> *"Defines Clara operations architecture principles, operational ownership, production readiness, and service management expectations."*
 
 ---
 
 # Purpose
 
-Defines Athena operations architecture principles, operational ownership, production readiness, and service management expectations.
+Defines Clara operations architecture principles, operational ownership, production readiness, and service management expectations.
 
 ---
 
@@ -28,7 +28,7 @@ Defines Athena operations architecture principles, operational ownership, produc
 
 Production systems do not stay reliable by accident.
 
-Athena needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
+Clara needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
 
 This chapter defines how **Operations Architecture Overview** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Operations Architecture Overview** should be implemen
 
 ## Decision
 
-Athena operations should be designed as a first-class architecture layer with clear ownership, SLOs, runbooks, incident response, and continuous improvement.
+Clara operations should be designed as a first-class architecture layer with clear ownership, SLOs, runbooks, incident response, and continuous improvement.
 
 ## Status
 

@@ -4,7 +4,7 @@ part: "PART-02 — Frontend Architecture"
 title: "Frontend Architecture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 ---
@@ -17,9 +17,9 @@ classification: "implementation-architecture"
 
 # Purpose
 
-Part II defines Athena's frontend implementation architecture.
+Part II defines Clara's frontend implementation architecture.
 
-It explains how Athena's frontend should be structured, routed, styled, tested, secured, localized, optimized, and evolved.
+It explains how Clara's frontend should be structured, routed, styled, tested, secured, localized, optimized, and evolved.
 
 This Part is designed for Flutter-based frontend development, but the principles can also guide web, desktop, browser extension, and future client applications.
 

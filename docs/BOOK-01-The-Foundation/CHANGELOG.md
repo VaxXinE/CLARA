@@ -117,9 +117,9 @@ Use this format for each release:
 * Created Book I — The Foundation.
 * Added README.md as the entry point for Book I.
 * Added 01-Preface.md.
-* Added 02-Why-Athena-Exists.md.
+* Added 02-Why-Clara-Exists.md.
 * Added 03-The-Problems-of-Modern-Business-Software.md.
-* Added 04-The-Athena-Vision.md.
+* Added 04-The-Clara-Vision.md.
 * Added 05-Core-Mission.md.
 * Added 06-Core-Values.md.
 * Added 07-Design-Philosophy.md.
@@ -131,8 +131,8 @@ Use this format for each release:
 * Added 13-Product-Principles.md.
 * Added 14-Developer-Principles.md.
 * Added 15-Decision-Principles.md.
-* Added 16-The-Athena-Way.md.
-* Added 17-Athena-Manifesto.md.
+* Added 16-The-Clara-Way.md.
+* Added 17-Clara-Manifesto.md.
 * Added 18-Declaration.md.
 * Added SUMMARY.md.
 * Added GLOSSARY.md.
@@ -153,5 +153,5 @@ Use this format for each release:
 ### Notes
 
 * This is the first official version of Book I.
-* Book I establishes the constitutional foundation of the Athena Project.
+* Book I establishes the constitutional foundation of the Clara Project.
 * Future books, specifications, architecture decisions, and implementation work should align with Book I.

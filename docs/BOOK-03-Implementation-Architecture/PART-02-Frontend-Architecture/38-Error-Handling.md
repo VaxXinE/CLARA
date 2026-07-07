@@ -5,7 +5,7 @@ chapter: "38"
 title: "Error Handling"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./37-Authorization-UI.md"
@@ -26,11 +26,11 @@ Defines frontend error states, API error mapping, retry behavior, and safe user 
 
 # Motivation
 
-Athena frontend must support many users, workflows, modules, and AI-assisted experiences.
+Clara frontend must support many users, workflows, modules, and AI-assisted experiences.
 
 Without clear frontend architecture, UI code can become tightly coupled, difficult to test, inconsistent, inaccessible, and insecure.
 
-This chapter defines how **Error Handling** should be implemented consistently across Athena client applications.
+This chapter defines how **Error Handling** should be implemented consistently across Clara client applications.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Error Handling** should be implemented consistently a
 
 ## Decision
 
-Athena frontend should map technical errors into safe, user-actionable states without exposing internal details.
+Clara frontend should map technical errors into safe, user-actionable states without exposing internal details.
 
 ## Status
 
@@ -144,20 +144,20 @@ lib/
 # Code Skeleton
 
 ```dart
-class AthenaErrorState extends StatelessWidget {
+class ClaraErrorState extends StatelessWidget {
   final String title;
   final String message;
   final VoidCallback? onRetry;
 
-  const AthenaErrorState({
+  const ClaraErrorState({
     super.key,
     required this.title,
     required this.message,
     this.onRetry,
   });
 
-  factory AthenaErrorState.fromError(Object error) {
-    return AthenaErrorState(
+  factory ClaraErrorState.fromError(Object error) {
+    return ClaraErrorState(
       title: 'Something went wrong',
       message: 'Please try again or contact support.',
     );

@@ -5,7 +5,7 @@ chapter: "26"
 title: "Communication"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./25-Marketing.md"
@@ -28,7 +28,7 @@ Communication handles message exchange, channels, participants, conversation con
 
 # Overview
 
-Athena communication should support omnichannel interactions.
+Clara communication should support omnichannel interactions.
 
 Channels may include email, live chat, WhatsApp, Instagram, TikTok, Telegram, SMS, voice, and future connectors.
 

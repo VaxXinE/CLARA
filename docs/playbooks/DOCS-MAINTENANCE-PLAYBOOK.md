@@ -2,7 +2,7 @@
 title: "Documentation Maintenance Playbook"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "playbook"
 ---
@@ -11,7 +11,7 @@ classification: "playbook"
 
 ## When To Use
 
-Use this when updating official Athena documentation.
+Use this when updating official Clara documentation.
 
 ## Steps
 

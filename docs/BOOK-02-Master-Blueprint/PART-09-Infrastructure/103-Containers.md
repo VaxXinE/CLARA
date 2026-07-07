@@ -5,7 +5,7 @@ chapter: "103"
 title: "Containers"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./102-Kubernetes.md"
@@ -14,21 +14,21 @@ next: "./104-CI-CD.md"
 
 # Containers
 
-> *"Defines containerization strategy for packaging, isolating, and running Athena services consistently."*
+> *"Defines containerization strategy for packaging, isolating, and running Clara services consistently."*
 
 ---
 
 # Purpose
 
-Defines containerization strategy for packaging, isolating, and running Athena services consistently.
+Defines containerization strategy for packaging, isolating, and running Clara services consistently.
 
-This chapter defines the blueprint-level role of **Containers** inside Athena's Infrastructure layer.
+This chapter defines the blueprint-level role of **Containers** inside Clara's Infrastructure layer.
 
 ---
 
 # Overview
 
-The **Containers** capability supports Athena's ability to run services reliably, securely, and consistently across environments.
+The **Containers** capability supports Clara's ability to run services reliably, securely, and consistently across environments.
 
 It provides operational foundations for business domains, AI platform components, platform services, integration systems, and data services.
 
@@ -55,7 +55,7 @@ The **Containers** capability is responsible for:
 
 The **Containers** capability should be treated as part of the shared infrastructure foundation.
 
-Athena services should not depend on ad-hoc deployment or runtime patterns when a shared infrastructure model exists.
+Clara services should not depend on ad-hoc deployment or runtime patterns when a shared infrastructure model exists.
 
 ---
 
@@ -65,7 +65,7 @@ Athena services should not depend on ad-hoc deployment or runtime patterns when 
 flowchart LR
     Code[Code / Config] --> Infra[Containers]
     Infra --> Runtime[Runtime Environment]
-    Runtime --> Services[Athena Services]
+    Runtime --> Services[Clara Services]
     Services --> Observability[Observability]
     Services --> Security[Security Platform]
 ```
@@ -156,10 +156,10 @@ The **Containers** capability may evolve with:
 
 # Key Takeaways
 
-- Defines containerization strategy for packaging, isolating, and running Athena services consistently.
-- It is part of Athena's shared Infrastructure layer.
+- Defines containerization strategy for packaging, isolating, and running Clara services consistently.
+- It is part of Clara's shared Infrastructure layer.
 - It should support secure, reliable, observable, and scalable operation.
-- It should provide a foundation for production-grade Athena deployment.
+- It should provide a foundation for production-grade Clara deployment.
 
 ---
 

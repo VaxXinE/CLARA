@@ -2,14 +2,14 @@
 title: "AI References"
 version: "1.0.0"
 status: "official"
-owner: "Athena AI Architecture Team"
+owner: "Clara AI Architecture Team"
 last_updated: "2026-07-07"
 classification: "reference-index"
 ---
 
 # AI References
 
-> "AI references support Athena AI architecture without replacing Athena's own guardrails."
+> "AI references support Clara AI architecture without replacing Clara's own guardrails."
 
 ---
 
@@ -22,6 +22,6 @@ classification: "reference-index"
 
 # Usage Rules
 
-- Keep Athena AI behavior governed by Book III.
+- Keep Clara AI behavior governed by Book III.
 - Do not document AI as having unrestricted access to data.
 - Include privacy, security, evaluation, and human oversight.

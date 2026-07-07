@@ -5,7 +5,7 @@ chapter: "30"
 title: "State Management"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./29-Navigation-Routing.md"
@@ -26,11 +26,11 @@ Defines how frontend state is managed across pages, features, sessions, forms, a
 
 # Motivation
 
-Athena frontend must support many users, workflows, modules, and AI-assisted experiences.
+Clara frontend must support many users, workflows, modules, and AI-assisted experiences.
 
 Without clear frontend architecture, UI code can become tightly coupled, difficult to test, inconsistent, inaccessible, and insecure.
 
-This chapter defines how **State Management** should be implemented consistently across Athena client applications.
+This chapter defines how **State Management** should be implemented consistently across Clara client applications.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **State Management** should be implemented consistently
 
 ## Decision
 
-Athena frontend should use explicit state controllers per feature and avoid mixing business state directly inside widgets.
+Clara frontend should use explicit state controllers per feature and avoid mixing business state directly inside widgets.
 
 ## Status
 

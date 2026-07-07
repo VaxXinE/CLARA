@@ -5,7 +5,7 @@ chapter: "77"
 title: "Object Storage"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./76-Vector-Database.md"
@@ -22,13 +22,13 @@ next: "./78-Cache-Layer.md"
 
 Defines object storage for files, attachments, documents, exports, and generated artifacts.
 
-This chapter defines the blueprint-level responsibility of **Object Storage** inside Athena's Data Platform.
+This chapter defines the blueprint-level responsibility of **Object Storage** inside Clara's Data Platform.
 
 ---
 
 # Overview
 
-The **Object Storage** capability is part of Athena's shared Data Platform.
+The **Object Storage** capability is part of Clara's shared Data Platform.
 
 It supports business domains, AI capabilities, platform services, integrations, analytics, and operations by ensuring data is stored, accessed, transformed, protected, and recovered consistently.
 
@@ -172,7 +172,7 @@ The **Object Storage** capability may evolve with:
 # Key Takeaways
 
 - Defines object storage for files, attachments, documents, exports, and generated artifacts.
-- It is part of Athena's shared Data Platform.
+- It is part of Clara's shared Data Platform.
 - It must preserve ownership, security, privacy, and recoverability.
 - It supports business domains, platform services, AI, analytics, and operations.
 

@@ -5,7 +5,7 @@ chapter: "203"
 title: "Maintenance Windows"
 version: "1.0.0"
 status: "official"
-owner: "Athena Operations Architecture Team"
+owner: "Clara Operations Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./202-Customer-Support-Operations.md"
@@ -28,7 +28,7 @@ Defines planned maintenance, customer notification, risk review, rollback, verif
 
 Production systems do not stay reliable by accident.
 
-Athena needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
+Clara needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
 
 This chapter defines how **Maintenance Windows** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Maintenance Windows** should be implemented consisten
 
 ## Decision
 
-Athena planned maintenance should be scheduled, communicated, risk-reviewed, observable, and reversible where practical.
+Clara planned maintenance should be scheduled, communicated, risk-reviewed, observable, and reversible where practical.
 
 ## Status
 

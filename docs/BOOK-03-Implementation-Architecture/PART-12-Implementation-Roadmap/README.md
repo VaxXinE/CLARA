@@ -4,7 +4,7 @@ part: "PART-12 — Implementation Roadmap"
 title: "Implementation Roadmap"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 ---
@@ -17,7 +17,7 @@ classification: "implementation-architecture"
 
 # Purpose
 
-Part XII defines Athena's implementation roadmap.
+Part XII defines Clara's implementation roadmap.
 
 It translates Book III architecture into an executable phased delivery plan, from repository foundation to backend, frontend, data, security, AI, integration, MVP, operations, testing, alpha, beta, production readiness, enterprise readiness, marketplace ecosystem, migration, scaling, governance, and continuous improvement.
 
@@ -117,7 +117,7 @@ flowchart TD
 
 # Critical Rule
 
-Athena implementation should not advance phases by vibes.
+Clara implementation should not advance phases by vibes.
 
 Each phase must have:
 

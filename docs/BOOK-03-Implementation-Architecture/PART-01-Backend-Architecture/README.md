@@ -5,7 +5,7 @@ stage: "Stage 01 — Foundation"
 title: "Backend Architecture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-06"
 classification: "implementation-architecture"
 ---
@@ -18,13 +18,13 @@ classification: "implementation-architecture"
 
 # Purpose
 
-This Part defines the backend implementation architecture for Athena.
+This Part defines the backend implementation architecture for Clara.
 
 It explains how backend code should be structured, layered, tested, secured, observed, and evolved.
 
-Book II defines what Athena should build.
+Book II defines what Clara should build.
 
-Book III defines how Athena should build it.
+Book III defines how Clara should build it.
 
 ---
 
@@ -44,7 +44,7 @@ It includes:
 
 # Backend Architecture Principles
 
-Athena backend implementation should follow these principles:
+Clara backend implementation should follow these principles:
 
 - Domain-first.
 - Security-first.
@@ -85,7 +85,7 @@ flowchart TD
 
 # Dependency Rule
 
-Athena backend dependencies should point inward.
+Clara backend dependencies should point inward.
 
 ```text
 Presentation
@@ -140,7 +140,7 @@ stage: "Stage 02 — Core Backend Pattern"
 title: "Core Backend Pattern"
 version: "1.1.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-06"
 classification: "implementation-architecture"
 ---
@@ -153,7 +153,7 @@ classification: "implementation-architecture"
 
 # Purpose
 
-Stage 02 refines the core backend implementation patterns used across Athena modules.
+Stage 02 refines the core backend implementation patterns used across Clara modules.
 
 This stage replaces the earlier short draft and establishes the stronger format expected for Book III implementation chapters.
 
@@ -231,7 +231,7 @@ stage: "Stage 03 — Application Logic"
 title: "Application Logic"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-06"
 classification: "implementation-architecture"
 ---
@@ -244,7 +244,7 @@ classification: "implementation-architecture"
 
 # Purpose
 
-Stage 03 defines how Athena backend handles application logic.
+Stage 03 defines how Clara backend handles application logic.
 
 This stage explains the difference between domain behavior, application orchestration, domain events, CQRS, and transaction boundaries.
 

@@ -4,20 +4,20 @@ part: "PART-10 — Operations Architecture"
 title: "Operations Architecture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Operations Architecture Team"
+owner: "Clara Operations Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 ---
 
 # PART-10 — Operations Architecture
 
-> *"Operations architecture is how Athena stays reliable after the code is deployed."*
+> *"Operations architecture is how Clara stays reliable after the code is deployed."*
 
 ---
 
 # Purpose
 
-Part X defines Athena's implementation architecture for production operations.
+Part X defines Clara's implementation architecture for production operations.
 
 It covers SRE model, service ownership, SLO/SLI, incident management, on-call escalation, runbooks, change management, release operations, production access, monitoring, alert management, capacity planning, cost management, backup restore operations, disaster recovery drills, customer support operations, maintenance windows, postmortems, and continuous improvement.
 
@@ -123,7 +123,7 @@ flowchart TD
 
 # Critical Rule
 
-Athena operations must be designed around customer trust:
+Clara operations must be designed around customer trust:
 
 ```text
 Reliability

@@ -5,7 +5,7 @@ chapter: "32"
 title: "Theme Tokens"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./31-Design-System.md"
@@ -26,11 +26,11 @@ Defines frontend theme tokens, spacing, typography, colors, radius, and visual c
 
 # Motivation
 
-Athena frontend must support many users, workflows, modules, and AI-assisted experiences.
+Clara frontend must support many users, workflows, modules, and AI-assisted experiences.
 
 Without clear frontend architecture, UI code can become tightly coupled, difficult to test, inconsistent, inaccessible, and insecure.
 
-This chapter defines how **Theme Tokens** should be implemented consistently across Athena client applications.
+This chapter defines how **Theme Tokens** should be implemented consistently across Clara client applications.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Theme Tokens** should be implemented consistently acr
 
 ## Decision
 
-Athena frontend should define design tokens centrally and avoid hard-coded styling inside feature widgets.
+Clara frontend should define design tokens centrally and avoid hard-coded styling inside feature widgets.
 
 ## Status
 
@@ -144,7 +144,7 @@ lib/
 # Code Skeleton
 
 ```dart
-class AthenaSpacing {
+class ClaraSpacing {
   static const xs = 4.0;
   static const sm = 8.0;
   static const md = 16.0;
@@ -152,7 +152,7 @@ class AthenaSpacing {
   static const xl = 32.0;
 }
 
-class AthenaRadius {
+class ClaraRadius {
   static const card = 16.0;
   static const button = 12.0;
 }

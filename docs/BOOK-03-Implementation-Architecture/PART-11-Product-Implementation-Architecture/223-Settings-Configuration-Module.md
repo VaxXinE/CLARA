@@ -5,7 +5,7 @@ chapter: "223"
 title: "Settings Configuration Module"
 version: "1.0.0"
 status: "official"
-owner: "Athena Product Architecture Team"
+owner: "Clara Product Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./222-Audit-Compliance-Module.md"
@@ -26,9 +26,9 @@ Defines implementation architecture for organization settings, workspace setting
 
 # Motivation
 
-Product modules are where users experience Athena.
+Product modules are where users experience Clara.
 
-If product modules are implemented inconsistently, Athena will become difficult to maintain, insecure, hard to test, and confusing to extend. Product implementation must preserve architecture boundaries while still delivering usable product capabilities.
+If product modules are implemented inconsistently, Clara will become difficult to maintain, insecure, hard to test, and confusing to extend. Product implementation must preserve architecture boundaries while still delivering usable product capabilities.
 
 This chapter defines how **Settings Configuration Module** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Settings Configuration Module** should be implemented
 
 ## Decision
 
-Athena Settings should be implemented as typed, validated, auditable configuration objects with scoped ownership and safe defaults.
+Clara Settings should be implemented as typed, validated, auditable configuration objects with scoped ownership and safe defaults.
 
 ## Status
 

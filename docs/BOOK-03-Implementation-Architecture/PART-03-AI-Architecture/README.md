@@ -4,20 +4,20 @@ part: "PART-03 — AI Architecture"
 title: "AI Architecture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 ---
 
 # PART-03 — AI Architecture
 
-> *"AI in Athena is not a shortcut around architecture; it is a platform capability governed by architecture."*
+> *"AI in Clara is not a shortcut around architecture; it is a platform capability governed by architecture."*
 
 ---
 
 # Purpose
 
-Part III defines the implementation architecture for Athena AI capabilities.
+Part III defines the implementation architecture for Clara AI capabilities.
 
 It turns the conceptual AI platform from Book II into production-grade implementation patterns covering gateway design, model provider abstraction, prompt architecture, context engineering, RAG, memory, tool calling, agents, guardrails, evaluation, observability, cost control, governance, and AI security.
 
@@ -121,7 +121,7 @@ flowchart TD
 
 # Critical Rule
 
-No Athena module should call an AI model provider directly.
+No Clara module should call an AI model provider directly.
 
 All AI access must go through:
 

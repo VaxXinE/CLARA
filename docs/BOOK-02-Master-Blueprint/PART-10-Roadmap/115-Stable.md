@@ -5,7 +5,7 @@ chapter: "115"
 title: "Stable"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./114-Beta.md"
@@ -14,21 +14,21 @@ next: "./116-Enterprise.md"
 
 # Stable
 
-> *"Defines the stable phase where Athena becomes reliable enough for real operational usage."*
+> *"Defines the stable phase where Clara becomes reliable enough for real operational usage."*
 
 ---
 
 # Purpose
 
-Defines the stable phase where Athena becomes reliable enough for real operational usage.
+Defines the stable phase where Clara becomes reliable enough for real operational usage.
 
-This chapter defines the blueprint-level role of **Stable** in Athena's roadmap.
+This chapter defines the blueprint-level role of **Stable** in Clara's roadmap.
 
 ---
 
 # Overview
 
-The **Stable** stage describes a specific maturity point in Athena's evolution.
+The **Stable** stage describes a specific maturity point in Clara's evolution.
 
 It helps the project decide what should be built now, what should wait, and which foundations must exist before moving forward.
 
@@ -78,7 +78,7 @@ flowchart LR
 
 # Readiness Criteria
 
-Before this stage is considered complete, Athena should have:
+Before this stage is considered complete, Clara should have:
 
 - Clear ownership.
 - Documented scope.
@@ -139,14 +139,14 @@ Success may be indicated by:
 
 The **Stable** stage should create a stronger foundation for later stages.
 
-Each roadmap phase should make Athena more reliable, understandable, secure, and extensible.
+Each roadmap phase should make Clara more reliable, understandable, secure, and extensible.
 
 ---
 
 # Key Takeaways
 
-- Defines the stable phase where Athena becomes reliable enough for real operational usage.
-- It represents a maturity stage in Athena's roadmap.
+- Defines the stable phase where Clara becomes reliable enough for real operational usage.
+- It represents a maturity stage in Clara's roadmap.
 - It should reduce uncertainty and prepare the next stage.
 - Roadmap stages should be sequenced, not rushed.
 

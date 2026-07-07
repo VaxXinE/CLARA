@@ -1,6 +1,6 @@
-# Athena Service Template
+# Clara Service Template
 
-> Use this template when documenting a reusable Platform Service within Athena.
+> Use this template when documenting a reusable Platform Service within Clara.
 
 ```yaml
 ---

@@ -5,7 +5,7 @@ chapter: "136"
 title: "Secrets Security"
 version: "1.0.0"
 status: "official"
-owner: "Athena Security Architecture Team"
+owner: "Clara Security Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./135-Key-Management.md"
@@ -28,7 +28,7 @@ Defines secret storage, secret rotation, access boundaries, runtime injection, l
 
 Security bugs in production are expensive, damaging, and often caused by unclear ownership or inconsistent implementation.
 
-Athena handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
+Clara handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
 
 This chapter defines how **Secrets Security** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Secrets Security** should be implemented safely and c
 
 ## Decision
 
-Athena secrets should never be committed to source code and must be accessed through a managed secret provider with least privilege.
+Clara secrets should never be committed to source code and must be accessed through a managed secret provider with least privilege.
 
 ## Status
 
@@ -165,7 +165,7 @@ export class SecretAccessService {
       throw new AuthorizationError("Service cannot read secrets");
     }
 
-    return this.provider.getSecret(`athena/${input.environment}/${input.secretName}`);
+    return this.provider.getSecret(`Clara/${input.environment}/${input.secretName}`);
   }
 }
 

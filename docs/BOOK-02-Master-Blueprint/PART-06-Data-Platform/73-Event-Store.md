@@ -5,7 +5,7 @@ chapter: "73"
 title: "Event Store"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./72-Data-Lifecycle.md"
@@ -22,13 +22,13 @@ next: "./74-Knowledge-Store.md"
 
 Defines the platform role of storing important business events for replay, analytics, audit, and integration.
 
-This chapter defines the blueprint-level responsibility of **Event Store** inside Athena's Data Platform.
+This chapter defines the blueprint-level responsibility of **Event Store** inside Clara's Data Platform.
 
 ---
 
 # Overview
 
-The **Event Store** capability is part of Athena's shared Data Platform.
+The **Event Store** capability is part of Clara's shared Data Platform.
 
 It supports business domains, AI capabilities, platform services, integrations, analytics, and operations by ensuring data is stored, accessed, transformed, protected, and recovered consistently.
 
@@ -172,7 +172,7 @@ The **Event Store** capability may evolve with:
 # Key Takeaways
 
 - Defines the platform role of storing important business events for replay, analytics, audit, and integration.
-- It is part of Athena's shared Data Platform.
+- It is part of Clara's shared Data Platform.
 - It must preserve ownership, security, privacy, and recoverability.
 - It supports business domains, platform services, AI, analytics, and operations.
 

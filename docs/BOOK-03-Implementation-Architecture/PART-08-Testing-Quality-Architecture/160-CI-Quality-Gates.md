@@ -5,7 +5,7 @@ chapter: "160"
 title: "CI Quality Gates"
 version: "1.0.0"
 status: "official"
-owner: "Athena Quality Architecture Team"
+owner: "Clara Quality Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./159-Test-Data-Management.md"
@@ -28,7 +28,7 @@ Defines CI quality gates for tests, linting, formatting, type checking, security
 
 Production quality cannot rely on manual confidence or optimistic assumptions.
 
-Athena has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
+Clara has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
 
 This chapter defines how **CI Quality Gates** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **CI Quality Gates** should be implemented consistently
 
 ## Decision
 
-Athena CI should block merge or release when required quality gates fail.
+Clara CI should block merge or release when required quality gates fail.
 
 ## Status
 

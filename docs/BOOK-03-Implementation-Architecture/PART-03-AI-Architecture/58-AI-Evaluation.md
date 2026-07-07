@@ -5,7 +5,7 @@ chapter: "58"
 title: "AI Evaluation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./57-Guardrails.md"
@@ -28,7 +28,7 @@ Defines offline evaluation, regression testing, golden datasets, scoring, and re
 
 AI capabilities can create major product leverage, but they also introduce new risks: hallucination, prompt injection, data leakage, uncontrolled cost, unsafe tool execution, inconsistent output, and difficult debugging.
 
-Athena must treat AI as a production platform capability, not as scattered SDK calls.
+Clara must treat AI as a production platform capability, not as scattered SDK calls.
 
 This chapter defines how **AI Evaluation** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **AI Evaluation** should be implemented safely and cons
 
 ## Decision
 
-Athena AI behavior should be evaluated continuously using curated datasets and regression tests before production release.
+Clara AI behavior should be evaluated continuously using curated datasets and regression tests before production release.
 
 ## Status
 

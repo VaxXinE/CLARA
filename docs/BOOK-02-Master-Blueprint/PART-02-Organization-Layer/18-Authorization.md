@@ -5,7 +5,7 @@ chapter: "18"
 title: "Authorization"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./17-Authentication.md"
@@ -20,7 +20,7 @@ next: "./19-Roles.md"
 
 # Purpose
 
-This chapter defines Authorization in Athena.
+This chapter defines Authorization in Clara.
 
 Authorization determines whether an authenticated identity may perform an action on a resource within a scope.
 
@@ -63,7 +63,7 @@ flowchart TD
 
 # Authorization Principles
 
-Athena authorization should follow:
+Clara authorization should follow:
 
 - Deny by default.
 - Least privilege.

@@ -5,7 +5,7 @@ chapter: "68"
 title: "Export"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./67-Reporting.md"
@@ -22,7 +22,7 @@ next: "./69-Import.md"
 
 Defines controlled data export capabilities for users, admins, reports, integrations, and compliance needs.
 
-This chapter explains the blueprint-level role of **Export** as a shared Platform Service in Athena.
+This chapter explains the blueprint-level role of **Export** as a shared Platform Service in Clara.
 
 ---
 

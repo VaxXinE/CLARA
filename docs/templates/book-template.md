@@ -1,6 +1,6 @@
-# Athena Book Template
+# Clara Book Template
 
-> Use this template when creating a new official book in the Athena Engineering Library.
+> Use this template when creating a new official book in the Clara Engineering Library.
 
 ```yaml
 ---
@@ -37,14 +37,14 @@ next: "<Next Book>"
 
 # Purpose
 
-Explain why this book exists within the Athena Engineering Library.
+Explain why this book exists within the Clara Engineering Library.
 
 This section should answer:
 
 - What does this book define?
 - Who should read it?
 - What decisions or work should reference it?
-- How does it relate to other Athena books?
+- How does it relate to other Clara books?
 
 ---
 
@@ -60,17 +60,17 @@ This book is intended for:
 
 # Relationship to Other Books
 
-Explain how this book connects to the rest of the Athena Engineering Library.
+Explain how this book connects to the rest of the Clara Engineering Library.
 
 ```text
-Book I  → Why Athena exists
-Book II → What Athena will build
-Book III → How Athena is architected
-Book IV → How Athena is engineered
-Book V → How Athena AI works
-Book VI → How Athena is operated
-Book VII → How Athena product evolves
-Book VIII → How Athena ecosystem grows
+Book I  → Why Clara exists
+Book II → What Clara will build
+Book III → How Clara is architected
+Book IV → How Clara is engineered
+Book V → How Clara AI works
+Book VI → How Clara is operated
+Book VII → How Clara product evolves
+Book VIII → How Clara ecosystem grows
 ```
 
 ---

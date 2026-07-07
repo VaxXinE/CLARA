@@ -6,7 +6,7 @@ chapter: "14"
 title: "CQRS"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-06"
 classification: "implementation-architecture"
 previous: "./13-Domain-Events.md"
@@ -27,11 +27,11 @@ Defines Command Query Responsibility Segregation for separating write operations
 
 # Motivation
 
-Athena backend must separate **business truth** from **application orchestration**.
+Clara backend must separate **business truth** from **application orchestration**.
 
 If this separation is not clear, code becomes difficult to test, business rules become scattered, and infrastructure side effects become mixed with domain behavior.
 
-This chapter defines how **CQRS** should be implemented consistently across Athena backend modules.
+This chapter defines how **CQRS** should be implemented consistently across Clara backend modules.
 
 ---
 
@@ -39,7 +39,7 @@ This chapter defines how **CQRS** should be implemented consistently across Athe
 
 ## Decision
 
-Athena backend may use CQRS selectively for complex domains, high-read workloads, event-driven projections, and AI/search optimized read models.
+Clara backend may use CQRS selectively for complex domains, high-read workloads, event-driven projections, and AI/search optimized read models.
 
 ## Status
 

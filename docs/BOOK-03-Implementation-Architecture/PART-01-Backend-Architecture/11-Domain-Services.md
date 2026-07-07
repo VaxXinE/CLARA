@@ -6,7 +6,7 @@ chapter: "11"
 title: "Domain Services"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-06"
 classification: "implementation-architecture"
 previous: "./README.md"
@@ -27,11 +27,11 @@ Defines domain services for business rules that do not naturally belong inside a
 
 # Motivation
 
-Athena backend must separate **business truth** from **application orchestration**.
+Clara backend must separate **business truth** from **application orchestration**.
 
 If this separation is not clear, code becomes difficult to test, business rules become scattered, and infrastructure side effects become mixed with domain behavior.
 
-This chapter defines how **Domain Services** should be implemented consistently across Athena backend modules.
+This chapter defines how **Domain Services** should be implemented consistently across Clara backend modules.
 
 ---
 
@@ -39,7 +39,7 @@ This chapter defines how **Domain Services** should be implemented consistently 
 
 ## Decision
 
-Athena backend uses domain services only for domain-level business behavior that spans multiple entities or aggregates.
+Clara backend uses domain services only for domain-level business behavior that spans multiple entities or aggregates.
 
 ## Status
 

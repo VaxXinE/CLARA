@@ -5,7 +5,7 @@ chapter: "146"
 title: "Testing Quality Overview"
 version: "1.0.0"
 status: "official"
-owner: "Athena Quality Architecture Team"
+owner: "Clara Quality Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./README.md"
@@ -14,13 +14,13 @@ next: "./147-Test-Strategy.md"
 
 # Testing Quality Overview
 
-> *"Defines Athena testing and quality architecture principles, ownership, test layers, automation expectations, and production confidence model."*
+> *"Defines Clara testing and quality architecture principles, ownership, test layers, automation expectations, and production confidence model."*
 
 ---
 
 # Purpose
 
-Defines Athena testing and quality architecture principles, ownership, test layers, automation expectations, and production confidence model.
+Defines Clara testing and quality architecture principles, ownership, test layers, automation expectations, and production confidence model.
 
 ---
 
@@ -28,7 +28,7 @@ Defines Athena testing and quality architecture principles, ownership, test laye
 
 Production quality cannot rely on manual confidence or optimistic assumptions.
 
-Athena has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
+Clara has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
 
 This chapter defines how **Testing Quality Overview** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Testing Quality Overview** should be implemented cons
 
 ## Decision
 
-Athena quality should be built through layered automated tests, security checks, quality gates, release verification, and production feedback loops.
+Clara quality should be built through layered automated tests, security checks, quality gates, release verification, and production feedback loops.
 
 ## Status
 

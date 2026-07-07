@@ -1,4 +1,4 @@
-# Athena Template Standard
+# Clara Template Standard
 
 > *"Consistency begins with a shared template."*
 
@@ -8,18 +8,18 @@
 
 | Field | Value |
 |---|---|
-| Document | Athena Template Standard |
+| Document | Clara Template Standard |
 | Version | 1.0.0 |
 | Status | Official |
-| Owner | Athena Core Team |
-| Scope | Athena Engineering Library |
+| Owner | Clara Core Team |
+| Scope | Clara Engineering Library |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Purpose
 
-This standard defines how reusable documentation templates are designed, organized, maintained, and applied throughout the Athena Engineering Library.
+This standard defines how reusable documentation templates are designed, organized, maintained, and applied throughout the Clara Engineering Library.
 
 Templates reduce cognitive load, improve consistency, and ensure every document starts with the same engineering quality baseline.
 

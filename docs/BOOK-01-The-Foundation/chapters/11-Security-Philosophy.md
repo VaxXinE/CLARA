@@ -12,15 +12,15 @@
 | Chapter | 11                      |
 | Version | 1.0                     |
 | Status  | Official                |
-| Owner   | Athena Core Team        |
+| Owner   | Clara Core Team        |
 
 ---
 
 # Purpose
 
-This chapter defines the security philosophy of the Athena Project.
+This chapter defines the security philosophy of the Clara Project.
 
-Security within Athena is not treated as an isolated feature, a compliance requirement, or the responsibility of a single team.
+Security within Clara is not treated as an isolated feature, a compliance requirement, or the responsibility of a single team.
 
 It is considered a fundamental characteristic of the platform.
 
@@ -30,7 +30,7 @@ Every architectural decision, engineering practice, operational process, and pro
 
 # Security Enables Trust
 
-Organizations entrust Athena with critical business information.
+Organizations entrust Clara with critical business information.
 
 Customer records.
 
@@ -50,7 +50,7 @@ Without trust, intelligence has little value.
 
 Without security, trust cannot exist.
 
-Security therefore enables every other capability within Athena.
+Security therefore enables every other capability within Clara.
 
 ---
 
@@ -134,7 +134,7 @@ Reduced privilege reduces organizational risk.
 
 No individual control should become a single point of protection.
 
-Athena applies multiple independent layers of security.
+Clara applies multiple independent layers of security.
 
 Identity.
 
@@ -162,7 +162,7 @@ Security should fail safely rather than catastrophically.
 
 Organizations remain the owners of their information.
 
-Athena protects privacy through architectural decisions rather than optional configuration.
+Clara protects privacy through architectural decisions rather than optional configuration.
 
 Personal information.
 
@@ -212,7 +212,7 @@ The safest configuration should also be the easiest configuration.
 
 Users should not be required to understand complex security concepts in order to operate the platform safely.
 
-Athena favors secure defaults over optional hardening.
+Clara favors secure defaults over optional hardening.
 
 Reducing configuration complexity reduces operational risk.
 
@@ -252,7 +252,7 @@ Absolute security does not exist.
 
 Systems should therefore assume failures will occur.
 
-Athena emphasizes resilience.
+Clara emphasizes resilience.
 
 Rapid detection.
 
@@ -292,7 +292,7 @@ Every contributor strengthens or weakens the security posture of the platform.
 
 Security extends beyond software.
 
-Athena considers security across multiple dimensions.
+Clara considers security across multiple dimensions.
 
 Technical security.
 
@@ -333,7 +333,7 @@ Security decisions should be intentional rather than reactive.
 
 # Measuring Security Success
 
-Athena evaluates security through measurable outcomes.
+Clara evaluates security through measurable outcomes.
 
 Examples include:
 
@@ -352,7 +352,7 @@ Security success is measured by organizational confidence rather than the absenc
 
 ---
 
-# The Role of Security in Athena
+# The Role of Security in Clara
 
 Security exists to enable organizations.
 
@@ -360,7 +360,7 @@ It should not unnecessarily restrict productivity.
 
 Nor should productivity compromise security.
 
-Athena continuously seeks an appropriate balance between protection, usability, flexibility, and operational efficiency.
+Clara continuously seeks an appropriate balance between protection, usability, flexibility, and operational efficiency.
 
 Good security becomes almost invisible.
 
@@ -370,13 +370,13 @@ Organizations experience confidence rather than friction.
 
 # Conclusion
 
-Athena views security as a foundational property of trustworthy systems.
+Clara views security as a foundational property of trustworthy systems.
 
 Security is not implemented after software is complete.
 
 It is designed into every layer of the platform.
 
-As Athena evolves, technologies will change.
+As Clara evolves, technologies will change.
 
 Threats will change.
 

@@ -3,20 +3,20 @@ book: "Book III — Implementation Architecture"
 title: "Book III Master Index"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 ---
 
 # BOOK III — Implementation Architecture
 
-> *"Implementation Architecture turns Athena's blueprint into production-ready engineering practice."*
+> *"Implementation Architecture turns Clara's blueprint into production-ready engineering practice."*
 
 ---
 
 # Purpose
 
-Book III defines how Athena should be implemented in real code, real infrastructure, real production workflows, and real engineering processes.
+Book III defines how Clara should be implemented in real code, real infrastructure, real production workflows, and real engineering processes.
 
 Book I defines the foundation.
 
@@ -24,7 +24,7 @@ Book II defines the master blueprint.
 
 Book III defines the implementation architecture.
 
-This book exists so every engineer, AI coding assistant, architect, reviewer, and operator can build Athena consistently without reinventing the system from scratch.
+This book exists so every engineer, AI coding assistant, architect, reviewer, and operator can build Clara consistently without reinventing the system from scratch.
 
 ---
 
@@ -68,10 +68,10 @@ Book III covers:
 
 # Recommended Reading Order
 
-For new Athena engineers:
+For new Clara engineers:
 
 ```text
-1. Book I — Athena Foundation
+1. Book I — Clara Foundation
 2. Book II — Master Blueprint
 3. Book III Part 01 — Backend Architecture
 4. Book III Part 02 — Frontend Architecture
@@ -104,7 +104,7 @@ For production readiness review:
 
 # Core Engineering Rules
 
-Every Athena implementation should follow these rules:
+Every Clara implementation should follow these rules:
 
 - Keep architecture boundaries explicit.
 - Keep business logic out of controllers and UI widgets.
@@ -125,7 +125,7 @@ Every Athena implementation should follow these rules:
 
 AI coding assistants are allowed to help, but generated code must be treated as untrusted until reviewed.
 
-AI-generated Athena code must:
+AI-generated Clara code must:
 
 - Reference the relevant Book III chapter.
 - Preserve Clean Architecture boundaries.

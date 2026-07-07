@@ -5,7 +5,7 @@ chapter: "238"
 title: "Phase 11 Beta Release"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./237-Phase-10-Alpha-Release.md"
@@ -28,7 +28,7 @@ Defines Beta release readiness, expanded customer testing, reliability expectati
 
 A strong architecture still fails if implementation happens in the wrong order.
 
-Athena has backend, frontend, data, security, AI, integration, infrastructure, testing, operations, and product modules. If teams build product capabilities before foundations are ready, technical debt becomes structural debt.
+Clara has backend, frontend, data, security, AI, integration, infrastructure, testing, operations, and product modules. If teams build product capabilities before foundations are ready, technical debt becomes structural debt.
 
 This chapter defines how **Phase 11 Beta Release** should guide implementation safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Phase 11 Beta Release** should guide implementation s
 
 ## Decision
 
-Athena Beta should expand usage only after Alpha exit criteria are met and reliability/security controls are operating effectively.
+Clara Beta should expand usage only after Alpha exit criteria are met and reliability/security controls are operating effectively.
 
 ## Status
 

@@ -5,7 +5,7 @@ chapter: ""
 title: ""
 version: "0.1.0"
 status: "draft"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 ---
 

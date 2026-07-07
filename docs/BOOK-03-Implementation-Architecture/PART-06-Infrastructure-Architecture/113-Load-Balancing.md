@@ -5,7 +5,7 @@ chapter: "113"
 title: "Load Balancing"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./112-Networking-Architecture.md"
@@ -30,7 +30,7 @@ Infrastructure is where architecture meets production reality.
 
 Good application code can still fail if deployment is unsafe, secrets are leaked, logs are missing, scaling is uncontrolled, or incidents have no runbooks.
 
-This chapter defines how **Load Balancing** should be implemented safely and consistently for Athena.
+This chapter defines how **Load Balancing** should be implemented safely and consistently for Clara.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Load Balancing** should be implemented safely and con
 
 ## Decision
 
-Athena traffic should be distributed through managed load balancing with health checks, TLS termination, and safe routing policies.
+Clara traffic should be distributed through managed load balancing with health checks, TLS termination, and safe routing policies.
 
 ## Status
 

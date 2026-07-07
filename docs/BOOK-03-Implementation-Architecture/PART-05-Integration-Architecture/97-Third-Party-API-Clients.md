@@ -5,7 +5,7 @@ chapter: "97"
 title: "Third Party API Clients"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./96-Marketplace-Integration.md"
@@ -28,9 +28,9 @@ Defines third-party API client design, typed responses, retries, timeouts, error
 
 Integrations are powerful but risky.
 
-They connect Athena to external systems, external data, external identities, external failures, and external attack surfaces.
+They connect Clara to external systems, external data, external identities, external failures, and external attack surfaces.
 
-If integration code is scattered, Athena can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
+If integration code is scattered, Clara can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
 
 This chapter defines how **Third Party API Clients** should be implemented safely and consistently.
 
@@ -40,7 +40,7 @@ This chapter defines how **Third Party API Clients** should be implemented safel
 
 ## Decision
 
-Athena third-party API clients should be provider-specific infrastructure adapters with strict timeout, retry, and error handling policies.
+Clara third-party API clients should be provider-specific infrastructure adapters with strict timeout, retry, and error handling policies.
 
 ## Status
 
@@ -176,7 +176,7 @@ export class SlackApiClient {
 # Implementation Guidelines
 
 - Never call external providers directly from controllers or domain models.
-- Keep provider schemas isolated from Athena domain models.
+- Keep provider schemas isolated from Clara domain models.
 - Validate every inbound payload.
 - Verify webhook signatures before processing.
 - Store external credentials in vault/secret storage.

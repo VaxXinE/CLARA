@@ -1,6 +1,6 @@
-# Athena Domain Template
+# Clara Domain Template
 
-> Use this template when documenting a Business Domain within Athena.
+> Use this template when documenting a Business Domain within Clara.
 
 ```yaml
 ---

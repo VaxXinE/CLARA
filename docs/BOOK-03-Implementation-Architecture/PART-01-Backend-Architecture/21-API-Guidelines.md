@@ -1,7 +1,7 @@
 # API Guidelines
 
 ## Purpose
-Defines Athena backend standard for API Guidelines.
+Defines Clara backend standard for API Guidelines.
 
 ## Architecture Decision
 - Standardized across all modules.

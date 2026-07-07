@@ -5,7 +5,7 @@ chapter: "119"
 title: "Metrics Infrastructure"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./118-Logging-Infrastructure.md"
@@ -30,7 +30,7 @@ Infrastructure is where architecture meets production reality.
 
 Good application code can still fail if deployment is unsafe, secrets are leaked, logs are missing, scaling is uncontrolled, or incidents have no runbooks.
 
-This chapter defines how **Metrics Infrastructure** should be implemented safely and consistently for Athena.
+This chapter defines how **Metrics Infrastructure** should be implemented safely and consistently for Clara.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Metrics Infrastructure** should be implemented safely
 
 ## Decision
 
-Athena metrics should be standardized, low-cardinality, service-owned, and aligned with product and platform SLOs.
+Clara metrics should be standardized, low-cardinality, service-owned, and aligned with product and platform SLOs.
 
 ## Status
 
@@ -150,14 +150,14 @@ infra/
 ```yaml
 // metrics/applicationMetrics.ts
 metrics.counter("http.requests.total", 1, {
-  service: "athena-api",
+  service: "Clara-api",
   route: "/v1/customers",
   method: "GET",
   status_class: "2xx",
 });
 
 metrics.histogram("http.request.duration_ms", durationMs, {
-  service: "athena-api",
+  service: "Clara-api",
   route: "/v1/customers",
 });
 

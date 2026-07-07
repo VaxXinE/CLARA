@@ -5,7 +5,7 @@ chapter: "57"
 title: "Guardrails"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./56-AI-Workflow-Orchestration.md"
@@ -28,7 +28,7 @@ Defines input guardrails, output guardrails, policy enforcement, blocked content
 
 AI capabilities can create major product leverage, but they also introduce new risks: hallucination, prompt injection, data leakage, uncontrolled cost, unsafe tool execution, inconsistent output, and difficult debugging.
 
-Athena must treat AI as a production platform capability, not as scattered SDK calls.
+Clara must treat AI as a production platform capability, not as scattered SDK calls.
 
 This chapter defines how **Guardrails** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Guardrails** should be implemented safely and consist
 
 ## Decision
 
-Athena AI requests and responses should pass through guardrails before results are shown or executed.
+Clara AI requests and responses should pass through guardrails before results are shown or executed.
 
 ## Status
 

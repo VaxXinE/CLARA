@@ -5,7 +5,7 @@ chapter: "134"
 title: "Encryption At Rest"
 version: "1.0.0"
 status: "official"
-owner: "Athena Security Architecture Team"
+owner: "Clara Security Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./133-Encryption-In-Transit.md"
@@ -28,7 +28,7 @@ Defines data-at-rest encryption for databases, object storage, backups, logs, an
 
 Security bugs in production are expensive, damaging, and often caused by unclear ownership or inconsistent implementation.
 
-Athena handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
+Clara handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
 
 This chapter defines how **Encryption At Rest** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Encryption At Rest** should be implemented safely and
 
 ## Decision
 
-Athena should encrypt sensitive data at rest using managed encryption where possible and field-level encryption for highly sensitive values.
+Clara should encrypt sensitive data at rest using managed encryption where possible and field-level encryption for highly sensitive values.
 
 ## Status
 

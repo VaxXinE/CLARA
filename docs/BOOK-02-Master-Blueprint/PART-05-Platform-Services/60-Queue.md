@@ -5,7 +5,7 @@ chapter: "60"
 title: "Queue"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./59-Event-Bus.md"
@@ -22,7 +22,7 @@ next: "./61-Scheduler.md"
 
 Defines asynchronous job processing for background work, retries, delayed execution, and workload smoothing.
 
-This chapter explains the blueprint-level role of **Queue** as a shared Platform Service in Athena.
+This chapter explains the blueprint-level role of **Queue** as a shared Platform Service in Clara.
 
 ---
 

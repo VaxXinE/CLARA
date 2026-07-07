@@ -5,7 +5,7 @@ chapter: "52"
 title: "Vector Retrieval"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./51-RAG-Pipeline.md"
@@ -28,7 +28,7 @@ Defines embedding generation, vector search, hybrid search, ranking, and retriev
 
 AI capabilities can create major product leverage, but they also introduce new risks: hallucination, prompt injection, data leakage, uncontrolled cost, unsafe tool execution, inconsistent output, and difficult debugging.
 
-Athena must treat AI as a production platform capability, not as scattered SDK calls.
+Clara must treat AI as a production platform capability, not as scattered SDK calls.
 
 This chapter defines how **Vector Retrieval** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Vector Retrieval** should be implemented safely and c
 
 ## Decision
 
-Athena should use scoped hybrid retrieval with metadata filters before sending context to AI models.
+Clara should use scoped hybrid retrieval with metadata filters before sending context to AI models.
 
 ## Status
 

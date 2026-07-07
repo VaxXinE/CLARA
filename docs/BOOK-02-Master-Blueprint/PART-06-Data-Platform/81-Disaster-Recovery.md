@@ -5,7 +5,7 @@ chapter: "81"
 title: "Disaster Recovery"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./80-Backup.md"
@@ -22,13 +22,13 @@ next: "../PART-07-Security-Platform/82-Security-Overview.md"
 
 Defines recovery strategy for major failure scenarios and business continuity.
 
-This chapter defines the blueprint-level responsibility of **Disaster Recovery** inside Athena's Data Platform.
+This chapter defines the blueprint-level responsibility of **Disaster Recovery** inside Clara's Data Platform.
 
 ---
 
 # Overview
 
-The **Disaster Recovery** capability is part of Athena's shared Data Platform.
+The **Disaster Recovery** capability is part of Clara's shared Data Platform.
 
 It supports business domains, AI capabilities, platform services, integrations, analytics, and operations by ensuring data is stored, accessed, transformed, protected, and recovered consistently.
 
@@ -172,7 +172,7 @@ The **Disaster Recovery** capability may evolve with:
 # Key Takeaways
 
 - Defines recovery strategy for major failure scenarios and business continuity.
-- It is part of Athena's shared Data Platform.
+- It is part of Clara's shared Data Platform.
 - It must preserve ownership, security, privacy, and recoverability.
 - It supports business domains, platform services, AI, analytics, and operations.
 

@@ -5,7 +5,7 @@ chapter: "224"
 title: "Product Module Template"
 version: "1.0.0"
 status: "official"
-owner: "Athena Product Architecture Team"
+owner: "Clara Product Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./223-Settings-Configuration-Module.md"
@@ -14,21 +14,21 @@ next: "./225-Product-Implementation-Summary.md"
 
 # Product Module Template
 
-> *"Defines the standard implementation template every Athena product module should follow."*
+> *"Defines the standard implementation template every Clara product module should follow."*
 
 ---
 
 # Purpose
 
-Defines the standard implementation template every Athena product module should follow.
+Defines the standard implementation template every Clara product module should follow.
 
 ---
 
 # Motivation
 
-Product modules are where users experience Athena.
+Product modules are where users experience Clara.
 
-If product modules are implemented inconsistently, Athena will become difficult to maintain, insecure, hard to test, and confusing to extend. Product implementation must preserve architecture boundaries while still delivering usable product capabilities.
+If product modules are implemented inconsistently, Clara will become difficult to maintain, insecure, hard to test, and confusing to extend. Product implementation must preserve architecture boundaries while still delivering usable product capabilities.
 
 This chapter defines how **Product Module Template** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Product Module Template** should be implemented consi
 
 ## Decision
 
-Athena product modules should use a shared module template covering purpose, domain model, use cases, permissions, APIs, events, data, UI, tests, security, and operations.
+Clara product modules should use a shared module template covering purpose, domain model, use cases, permissions, APIs, events, data, UI, tests, security, and operations.
 
 ## Status
 

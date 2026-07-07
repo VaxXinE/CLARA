@@ -4,7 +4,7 @@ part: "PART-11 — Product Implementation Architecture"
 title: "Product Implementation Architecture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Product Architecture Team"
+owner: "Clara Product Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 ---
@@ -17,7 +17,7 @@ classification: "implementation-architecture"
 
 # Purpose
 
-Part XI defines Athena's implementation architecture for product modules.
+Part XI defines Clara's implementation architecture for product modules.
 
 It maps platform architecture into concrete product capabilities such as Organization, Workspace, User Account, Role/Permission, Customer CRM, Conversation Inbox, Ticketing, Knowledge Base, Workflow Automation, Notification, AI Assistant, Integration Connector, Billing, Admin Console, Analytics, Audit Compliance, Settings, and product module templates.
 
@@ -25,7 +25,7 @@ It maps platform architecture into concrete product capabilities such as Organiz
 
 # Goals
 
-- Standardize implementation of Athena product modules.
+- Standardize implementation of Clara product modules.
 - Keep product capabilities modular and domain-owned.
 - Preserve Organization and Workspace tenant boundaries.
 - Make product permissions explicit.
@@ -118,7 +118,7 @@ flowchart TD
 
 # Critical Rule
 
-Every Athena product module must declare:
+Every Clara product module must declare:
 
 ```text
 Domain owner

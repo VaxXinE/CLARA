@@ -4,30 +4,30 @@ part: "PART-09 — Infrastructure"
 title: "Infrastructure"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "part"
 ---
 
 # PART-09 — Infrastructure
 
-> *"Infrastructure is the operating foundation that allows Athena to run securely, reliably, and at scale."*
+> *"Infrastructure is the operating foundation that allows Clara to run securely, reliably, and at scale."*
 
 ---
 
 # Purpose
 
-Part IX defines Athena's Infrastructure layer.
+Part IX defines Clara's Infrastructure layer.
 
 Infrastructure provides the foundation for deployment, Kubernetes, containers, CI/CD, scaling, monitoring, logging, tracing, multi-region operation, and multi-tenant runtime considerations.
 
-This Part does not define vendor-specific implementation. It defines the blueprint-level infrastructure principles Athena should follow.
+This Part does not define vendor-specific implementation. It defines the blueprint-level infrastructure principles Clara should follow.
 
 ---
 
 # Goals
 
-- Define Athena's infrastructure foundation.
+- Define Clara's infrastructure foundation.
 - Establish deployment and release principles.
 - Support reliable service operation.
 - Enable horizontal scaling and platform growth.
@@ -88,7 +88,7 @@ flowchart TD
     CICD --> Images[Container Images]
     Images --> Registry[Container Registry]
     Registry --> Kubernetes[Kubernetes]
-    Kubernetes --> Services[Athena Services]
+    Kubernetes --> Services[Clara Services]
 
     Services --> Monitoring[Monitoring]
     Services --> Logging[Logging]

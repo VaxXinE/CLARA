@@ -5,7 +5,7 @@ chapter: "192"
 title: "Runbooks Playbooks"
 version: "1.0.0"
 status: "official"
-owner: "Athena Operations Architecture Team"
+owner: "Clara Operations Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./191-On-Call-Escalation.md"
@@ -28,7 +28,7 @@ Defines operational runbooks, incident playbooks, troubleshooting guides, rollba
 
 Production systems do not stay reliable by accident.
 
-Athena needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
+Clara needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
 
 This chapter defines how **Runbooks Playbooks** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Runbooks Playbooks** should be implemented consistent
 
 ## Decision
 
-Athena production services should have runbooks for common failures, alerts, operational tasks, and emergency recovery paths.
+Clara production services should have runbooks for common failures, alerts, operational tasks, and emergency recovery paths.
 
 ## Status
 

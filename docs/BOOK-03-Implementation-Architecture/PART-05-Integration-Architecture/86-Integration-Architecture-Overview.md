@@ -5,7 +5,7 @@ chapter: "86"
 title: "Integration Architecture Overview"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./README.md"
@@ -14,13 +14,13 @@ next: "./87-REST-API-Implementation.md"
 
 # Integration Architecture Overview
 
-> *"Defines Athena integration architecture, boundaries, security principles, and implementation patterns for internal and external connectivity."*
+> *"Defines Clara integration architecture, boundaries, security principles, and implementation patterns for internal and external connectivity."*
 
 ---
 
 # Purpose
 
-Defines Athena integration architecture, boundaries, security principles, and implementation patterns for internal and external connectivity.
+Defines Clara integration architecture, boundaries, security principles, and implementation patterns for internal and external connectivity.
 
 ---
 
@@ -28,9 +28,9 @@ Defines Athena integration architecture, boundaries, security principles, and im
 
 Integrations are powerful but risky.
 
-They connect Athena to external systems, external data, external identities, external failures, and external attack surfaces.
+They connect Clara to external systems, external data, external identities, external failures, and external attack surfaces.
 
-If integration code is scattered, Athena can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
+If integration code is scattered, Clara can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
 
 This chapter defines how **Integration Architecture Overview** should be implemented safely and consistently.
 
@@ -40,7 +40,7 @@ This chapter defines how **Integration Architecture Overview** should be impleme
 
 ## Decision
 
-Athena integrations should be implemented through controlled adapters, gateways, policies, and observable execution paths instead of scattered direct external calls.
+Clara integrations should be implemented through controlled adapters, gateways, policies, and observable execution paths instead of scattered direct external calls.
 
 ## Status
 
@@ -186,7 +186,7 @@ export class IntegrationOrchestrator {
 # Implementation Guidelines
 
 - Never call external providers directly from controllers or domain models.
-- Keep provider schemas isolated from Athena domain models.
+- Keep provider schemas isolated from Clara domain models.
 - Validate every inbound payload.
 - Verify webhook signatures before processing.
 - Store external credentials in vault/secret storage.

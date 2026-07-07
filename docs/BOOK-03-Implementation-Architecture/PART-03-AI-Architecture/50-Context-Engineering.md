@@ -5,7 +5,7 @@ chapter: "50"
 title: "Context Engineering"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./49-Prompt-Architecture.md"
@@ -14,13 +14,13 @@ next: "./51-RAG-Pipeline.md"
 
 # Context Engineering
 
-> *"Defines how Athena builds safe, relevant, scoped context for AI requests."*
+> *"Defines how Clara builds safe, relevant, scoped context for AI requests."*
 
 ---
 
 # Purpose
 
-Defines how Athena builds safe, relevant, scoped context for AI requests.
+Defines how Clara builds safe, relevant, scoped context for AI requests.
 
 ---
 
@@ -28,7 +28,7 @@ Defines how Athena builds safe, relevant, scoped context for AI requests.
 
 AI capabilities can create major product leverage, but they also introduce new risks: hallucination, prompt injection, data leakage, uncontrolled cost, unsafe tool execution, inconsistent output, and difficult debugging.
 
-Athena must treat AI as a production platform capability, not as scattered SDK calls.
+Clara must treat AI as a production platform capability, not as scattered SDK calls.
 
 This chapter defines how **Context Engineering** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Context Engineering** should be implemented safely an
 
 ## Decision
 
-Athena should assemble AI context through explicit context builders that enforce tenant scope, permission scope, and relevance filtering.
+Clara should assemble AI context through explicit context builders that enforce tenant scope, permission scope, and relevance filtering.
 
 ## Status
 

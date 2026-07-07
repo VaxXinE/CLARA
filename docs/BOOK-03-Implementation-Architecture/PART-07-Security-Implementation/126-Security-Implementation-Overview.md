@@ -5,7 +5,7 @@ chapter: "126"
 title: "Security Implementation Overview"
 version: "1.0.0"
 status: "official"
-owner: "Athena Security Architecture Team"
+owner: "Clara Security Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./README.md"
@@ -14,13 +14,13 @@ next: "./127-Identity-Access-Management.md"
 
 # Security Implementation Overview
 
-> *"Defines Athena security implementation principles, trust boundaries, control ownership, and production security expectations."*
+> *"Defines Clara security implementation principles, trust boundaries, control ownership, and production security expectations."*
 
 ---
 
 # Purpose
 
-Defines Athena security implementation principles, trust boundaries, control ownership, and production security expectations.
+Defines Clara security implementation principles, trust boundaries, control ownership, and production security expectations.
 
 ---
 
@@ -28,7 +28,7 @@ Defines Athena security implementation principles, trust boundaries, control own
 
 Security bugs in production are expensive, damaging, and often caused by unclear ownership or inconsistent implementation.
 
-Athena handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
+Clara handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
 
 This chapter defines how **Security Implementation Overview** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Security Implementation Overview** should be implemen
 
 ## Decision
 
-Athena security must be implemented as layered controls across identity, application, data, infrastructure, integration, AI, and operations.
+Clara security must be implemented as layered controls across identity, application, data, infrastructure, integration, AI, and operations.
 
 ## Status
 

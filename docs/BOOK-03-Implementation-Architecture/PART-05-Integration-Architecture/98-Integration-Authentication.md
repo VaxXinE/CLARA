@@ -5,7 +5,7 @@ chapter: "98"
 title: "Integration Authentication"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./97-Third-Party-API-Clients.md"
@@ -28,9 +28,9 @@ Defines authentication patterns for external integrations including API keys, OA
 
 Integrations are powerful but risky.
 
-They connect Athena to external systems, external data, external identities, external failures, and external attack surfaces.
+They connect Clara to external systems, external data, external identities, external failures, and external attack surfaces.
 
-If integration code is scattered, Athena can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
+If integration code is scattered, Clara can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
 
 This chapter defines how **Integration Authentication** should be implemented safely and consistently.
 
@@ -40,7 +40,7 @@ This chapter defines how **Integration Authentication** should be implemented sa
 
 ## Decision
 
-Athena integration credentials should be stored in a secure token vault and accessed only through credential provider interfaces.
+Clara integration credentials should be stored in a secure token vault and accessed only through credential provider interfaces.
 
 ## Status
 
@@ -173,7 +173,7 @@ export class VaultCredentialProvider implements CredentialProvider {
 # Implementation Guidelines
 
 - Never call external providers directly from controllers or domain models.
-- Keep provider schemas isolated from Athena domain models.
+- Keep provider schemas isolated from Clara domain models.
 - Validate every inbound payload.
 - Verify webhook signatures before processing.
 - Store external credentials in vault/secret storage.

@@ -5,7 +5,7 @@ chapter: "41"
 title: "Offline Strategy"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./40-Local-Storage.md"
@@ -26,11 +26,11 @@ Defines offline behavior, local queues, stale data indicators, and safe synchron
 
 # Motivation
 
-Athena frontend must support many users, workflows, modules, and AI-assisted experiences.
+Clara frontend must support many users, workflows, modules, and AI-assisted experiences.
 
 Without clear frontend architecture, UI code can become tightly coupled, difficult to test, inconsistent, inaccessible, and insecure.
 
-This chapter defines how **Offline Strategy** should be implemented consistently across Athena client applications.
+This chapter defines how **Offline Strategy** should be implemented consistently across Clara client applications.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Offline Strategy** should be implemented consistently
 
 ## Decision
 
-Athena frontend should support offline behavior only where data consistency, conflict handling, and security boundaries are clearly defined.
+Clara frontend should support offline behavior only where data consistency, conflict handling, and security boundaries are clearly defined.
 
 ## Status
 

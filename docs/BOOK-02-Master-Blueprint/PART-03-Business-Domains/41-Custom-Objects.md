@@ -5,7 +5,7 @@ chapter: "41"
 title: "Custom Objects"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./40-HR.md"
@@ -14,7 +14,7 @@ next: "../PART-04-AI-Platform/42-AI-Overview.md"
 
 # Custom Objects
 
-> *"Custom Objects allow Athena to adapt to business models that do not fit predefined domains."*
+> *"Custom Objects allow Clara to adapt to business models that do not fit predefined domains."*
 
 ---
 
@@ -22,7 +22,7 @@ next: "../PART-04-AI-Platform/42-AI-Overview.md"
 
 This chapter defines the Custom Objects domain blueprint.
 
-Custom Objects allow organizations to define structured business entities beyond Athena's default domain model.
+Custom Objects allow organizations to define structured business entities beyond Clara's default domain model.
 
 ---
 
@@ -30,7 +30,7 @@ Custom Objects allow organizations to define structured business entities beyond
 
 Every organization has unique data.
 
-Custom Objects allow Athena to support specialized business models without hardcoding every possible entity into the core platform.
+Custom Objects allow Clara to support specialized business models without hardcoding every possible entity into the core platform.
 
 ---
 
@@ -102,7 +102,7 @@ Admins should not accidentally expose sensitive custom data.
 
 # Key Takeaways
 
-- Custom Objects make Athena extensible.
+- Custom Objects make Clara extensible.
 - Custom Objects should not bypass platform governance.
 - Custom fields and relationships require clear ownership.
 - AI can help design and use custom object models.

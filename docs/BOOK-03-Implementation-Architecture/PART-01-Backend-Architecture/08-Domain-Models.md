@@ -6,7 +6,7 @@ chapter: "08"
 title: "Domain Models"
 version: "1.1.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-06"
 classification: "implementation-architecture"
 previous: "./07-Configuration.md"
@@ -15,19 +15,19 @@ next: "./09-Use-Cases.md"
 
 # Domain Models
 
-> *"Defines entities, value objects, aggregates, domain invariants, and business behavior in Athena backend."*
+> *"Defines entities, value objects, aggregates, domain invariants, and business behavior in Clara backend."*
 
 ---
 
 # Purpose
 
-Defines entities, value objects, aggregates, domain invariants, and business behavior in Athena backend.
+Defines entities, value objects, aggregates, domain invariants, and business behavior in Clara backend.
 
 ---
 
 # Motivation
 
-Athena backend will contain many modules and many contributors, including human engineers and AI coding assistants.
+Clara backend will contain many modules and many contributors, including human engineers and AI coding assistants.
 
 Without a consistent pattern for **Domain Models**, implementation can become inconsistent, insecure, hard to test, and difficult to refactor.
 
@@ -39,7 +39,7 @@ This chapter defines the production-grade pattern that every backend module shou
 
 ## Decision
 
-Athena backend uses rich domain models with explicit invariants instead of anemic database-shaped models.
+Clara backend uses rich domain models with explicit invariants instead of anemic database-shaped models.
 
 ## Status
 

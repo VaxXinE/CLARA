@@ -5,7 +5,7 @@ chapter: "37"
 title: "Authorization UI"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./36-Authentication-Session.md"
@@ -26,11 +26,11 @@ Defines permission-aware UI behavior without treating the UI as the final author
 
 # Motivation
 
-Athena frontend must support many users, workflows, modules, and AI-assisted experiences.
+Clara frontend must support many users, workflows, modules, and AI-assisted experiences.
 
 Without clear frontend architecture, UI code can become tightly coupled, difficult to test, inconsistent, inaccessible, and insecure.
 
-This chapter defines how **Authorization UI** should be implemented consistently across Athena client applications.
+This chapter defines how **Authorization UI** should be implemented consistently across Clara client applications.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Authorization UI** should be implemented consistently
 
 ## Decision
 
-Athena frontend may hide or disable unauthorized actions for usability, but backend authorization remains the source of truth.
+Clara frontend may hide or disable unauthorized actions for usability, but backend authorization remains the source of truth.
 
 ## Status
 

@@ -5,7 +5,7 @@ chapter: "113"
 title: "Alpha"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./112-MVP.md"
@@ -22,13 +22,13 @@ next: "./114-Beta.md"
 
 Defines the alpha phase for early internal validation, core workflows, and first usable product loops.
 
-This chapter defines the blueprint-level role of **Alpha** in Athena's roadmap.
+This chapter defines the blueprint-level role of **Alpha** in Clara's roadmap.
 
 ---
 
 # Overview
 
-The **Alpha** stage describes a specific maturity point in Athena's evolution.
+The **Alpha** stage describes a specific maturity point in Clara's evolution.
 
 It helps the project decide what should be built now, what should wait, and which foundations must exist before moving forward.
 
@@ -78,7 +78,7 @@ flowchart LR
 
 # Readiness Criteria
 
-Before this stage is considered complete, Athena should have:
+Before this stage is considered complete, Clara should have:
 
 - Clear ownership.
 - Documented scope.
@@ -139,14 +139,14 @@ Success may be indicated by:
 
 The **Alpha** stage should create a stronger foundation for later stages.
 
-Each roadmap phase should make Athena more reliable, understandable, secure, and extensible.
+Each roadmap phase should make Clara more reliable, understandable, secure, and extensible.
 
 ---
 
 # Key Takeaways
 
 - Defines the alpha phase for early internal validation, core workflows, and first usable product loops.
-- It represents a maturity stage in Athena's roadmap.
+- It represents a maturity stage in Clara's roadmap.
 - It should reduce uncertainty and prepare the next stage.
 - Roadmap stages should be sequenced, not rushed.
 

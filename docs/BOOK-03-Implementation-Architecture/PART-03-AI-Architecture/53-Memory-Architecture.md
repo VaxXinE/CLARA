@@ -5,7 +5,7 @@ chapter: "53"
 title: "Memory Architecture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./52-Vector-Retrieval.md"
@@ -28,7 +28,7 @@ Defines short-term memory, long-term memory, user preference memory, and safe me
 
 AI capabilities can create major product leverage, but they also introduce new risks: hallucination, prompt injection, data leakage, uncontrolled cost, unsafe tool execution, inconsistent output, and difficult debugging.
 
-Athena must treat AI as a production platform capability, not as scattered SDK calls.
+Clara must treat AI as a production platform capability, not as scattered SDK calls.
 
 This chapter defines how **Memory Architecture** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Memory Architecture** should be implemented safely an
 
 ## Decision
 
-Athena memory should be explicit, scoped, permission-aware, and deletable.
+Clara memory should be explicit, scoped, permission-aware, and deletable.
 
 ## Status
 

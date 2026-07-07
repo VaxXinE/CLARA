@@ -3,7 +3,7 @@ book: "Book III — Implementation Architecture"
 title: "Book III Cross Reference"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 ---

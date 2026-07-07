@@ -5,7 +5,7 @@ chapter: "222"
 title: "Audit Compliance Module"
 version: "1.0.0"
 status: "official"
-owner: "Athena Product Architecture Team"
+owner: "Clara Product Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./221-Analytics-Reporting-Module.md"
@@ -26,9 +26,9 @@ Defines implementation architecture for audit viewer, compliance exports, eviden
 
 # Motivation
 
-Product modules are where users experience Athena.
+Product modules are where users experience Clara.
 
-If product modules are implemented inconsistently, Athena will become difficult to maintain, insecure, hard to test, and confusing to extend. Product implementation must preserve architecture boundaries while still delivering usable product capabilities.
+If product modules are implemented inconsistently, Clara will become difficult to maintain, insecure, hard to test, and confusing to extend. Product implementation must preserve architecture boundaries while still delivering usable product capabilities.
 
 This chapter defines how **Audit Compliance Module** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Audit Compliance Module** should be implemented consi
 
 ## Decision
 
-Athena Audit Compliance should provide read-only, permission-controlled access to audit data and compliance evidence without allowing mutation of source audit records.
+Clara Audit Compliance should provide read-only, permission-controlled access to audit data and compliance evidence without allowing mutation of source audit records.
 
 ## Status
 

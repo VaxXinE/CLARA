@@ -5,7 +5,7 @@ chapter: "81"
 title: "Data Retention"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./80-Disaster-Recovery.md"
@@ -26,7 +26,7 @@ Defines retention policies, deletion windows, archival, legal hold, and lifecycl
 
 # Motivation
 
-Data is one of the highest-risk parts of Athena.
+Data is one of the highest-risk parts of Clara.
 
 Bad data architecture can cause privacy leaks, tenant isolation failures, broken AI context, slow queries, unrecoverable incidents, inconsistent reporting, and dangerous production migrations.
 
@@ -38,7 +38,7 @@ This chapter defines how **Data Retention** should be implemented safely and con
 
 ## Decision
 
-Athena data should have explicit retention policies based on classification, customer requirements, product needs, and compliance obligations.
+Clara data should have explicit retention policies based on classification, customer requirements, product needs, and compliance obligations.
 
 ## Status
 

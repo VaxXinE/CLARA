@@ -5,7 +5,7 @@ chapter: "65"
 title: "AI Architecture Summary"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./64-AI-Governance.md"
@@ -14,13 +14,13 @@ next: "../PART-04-Data-Architecture/README.md"
 
 # AI Architecture Summary
 
-> *"Summarizes Athena AI architecture principles, implementation rules, security boundaries, and production-readiness expectations."*
+> *"Summarizes Clara AI architecture principles, implementation rules, security boundaries, and production-readiness expectations."*
 
 ---
 
 # Purpose
 
-Summarizes Athena AI architecture principles, implementation rules, security boundaries, and production-readiness expectations.
+Summarizes Clara AI architecture principles, implementation rules, security boundaries, and production-readiness expectations.
 
 ---
 
@@ -28,7 +28,7 @@ Summarizes Athena AI architecture principles, implementation rules, security bou
 
 AI capabilities can create major product leverage, but they also introduce new risks: hallucination, prompt injection, data leakage, uncontrolled cost, unsafe tool execution, inconsistent output, and difficult debugging.
 
-Athena must treat AI as a production platform capability, not as scattered SDK calls.
+Clara must treat AI as a production platform capability, not as scattered SDK calls.
 
 This chapter defines how **AI Architecture Summary** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **AI Architecture Summary** should be implemented safel
 
 ## Decision
 
-Athena AI implementation should remain centralized, policy-driven, observable, evaluated, and secure by default.
+Clara AI implementation should remain centralized, policy-driven, observable, evaluated, and secure by default.
 
 ## Status
 

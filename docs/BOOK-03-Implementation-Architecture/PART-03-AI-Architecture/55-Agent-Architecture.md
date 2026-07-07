@@ -5,7 +5,7 @@ chapter: "55"
 title: "Agent Architecture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./54-Tool-Calling.md"
@@ -28,7 +28,7 @@ Defines AI agent boundaries, planning, tool usage, state handling, and safe exec
 
 AI capabilities can create major product leverage, but they also introduce new risks: hallucination, prompt injection, data leakage, uncontrolled cost, unsafe tool execution, inconsistent output, and difficult debugging.
 
-Athena must treat AI as a production platform capability, not as scattered SDK calls.
+Clara must treat AI as a production platform capability, not as scattered SDK calls.
 
 This chapter defines how **Agent Architecture** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Agent Architecture** should be implemented safely and
 
 ## Decision
 
-Athena agents should be goal-oriented orchestrators with strict capability boundaries and observable execution traces.
+Clara agents should be goal-oriented orchestrators with strict capability boundaries and observable execution traces.
 
 ## Status
 

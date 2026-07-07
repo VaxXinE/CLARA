@@ -5,7 +5,7 @@ chapter: "62"
 title: "Config"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./61-Scheduler.md"
@@ -22,7 +22,7 @@ next: "./63-Feature-Flags.md"
 
 Defines centralized configuration management for platform settings, domain behavior, and environment-specific values.
 
-This chapter explains the blueprint-level role of **Config** as a shared Platform Service in Athena.
+This chapter explains the blueprint-level role of **Config** as a shared Platform Service in Clara.
 
 ---
 

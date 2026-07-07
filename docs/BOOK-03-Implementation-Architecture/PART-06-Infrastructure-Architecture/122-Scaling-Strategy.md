@@ -5,7 +5,7 @@ chapter: "122"
 title: "Scaling Strategy"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./121-Alerting-Incident-Response.md"
@@ -30,7 +30,7 @@ Infrastructure is where architecture meets production reality.
 
 Good application code can still fail if deployment is unsafe, secrets are leaked, logs are missing, scaling is uncontrolled, or incidents have no runbooks.
 
-This chapter defines how **Scaling Strategy** should be implemented safely and consistently for Athena.
+This chapter defines how **Scaling Strategy** should be implemented safely and consistently for Clara.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Scaling Strategy** should be implemented safely and c
 
 ## Decision
 
-Athena should scale stateless services horizontally, scale workers by queue pressure, and scale stateful systems through capacity planning.
+Clara should scale stateless services horizontally, scale workers by queue pressure, and scale stateful systems through capacity planning.
 
 ## Status
 
@@ -151,12 +151,12 @@ infra/
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: athena-api-hpa
+  name: Clara-api-hpa
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: athena-api
+    name: Clara-api
   minReplicas: 3
   maxReplicas: 20
   metrics:

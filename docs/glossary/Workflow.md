@@ -11,7 +11,7 @@
 | Term | Workflow |
 | Category | Business / Automation / Architecture |
 | Status | Official |
-| Owner | Athena Core Team |
+| Owner | Clara Core Team |
 | Last Updated | 2026-07-06 |
 
 ---
@@ -20,9 +20,9 @@
 
 A **Workflow** is a structured sequence of steps that moves work from one state to another.
 
-A Workflow may involve humans, Athena services, AI agents, automation rules, external integrations, approvals, events, and scheduled tasks.
+A Workflow may involve humans, Clara services, AI agents, automation rules, external integrations, approvals, events, and scheduled tasks.
 
-Workflows represent how business processes are executed inside Athena.
+Workflows represent how business processes are executed inside Clara.
 
 ---
 
@@ -229,7 +229,7 @@ Failure handling may include:
 
 Workflow definitions may require versioning.
 
-When a Workflow changes, Athena should preserve the version used by existing executions.
+When a Workflow changes, Clara should preserve the version used by existing executions.
 
 This prevents historical execution records from becoming ambiguous.
 
@@ -284,7 +284,7 @@ Pipeline
 Task Chain
 ```
 
-These may be related concepts, but official Athena documentation should use `Workflow` for structured business execution.
+These may be related concepts, but official Clara documentation should use `Workflow` for structured business execution.
 
 ---
 

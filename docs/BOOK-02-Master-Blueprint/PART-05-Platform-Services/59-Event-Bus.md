@@ -5,7 +5,7 @@ chapter: "59"
 title: "Event Bus"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./58-Audit.md"
@@ -14,15 +14,15 @@ next: "./60-Queue.md"
 
 # Event Bus
 
-> *"Defines the shared event backbone for publishing and consuming business events across Athena domains and services."*
+> *"Defines the shared event backbone for publishing and consuming business events across Clara domains and services."*
 
 ---
 
 # Purpose
 
-Defines the shared event backbone for publishing and consuming business events across Athena domains and services.
+Defines the shared event backbone for publishing and consuming business events across Clara domains and services.
 
-This chapter explains the blueprint-level role of **Event Bus** as a shared Platform Service in Athena.
+This chapter explains the blueprint-level role of **Event Bus** as a shared Platform Service in Clara.
 
 ---
 
@@ -148,7 +148,7 @@ The **Event Bus** service may evolve with:
 
 # Key Takeaways
 
-- Defines the shared event backbone for publishing and consuming business events across Athena domains and services.
+- Defines the shared event backbone for publishing and consuming business events across Clara domains and services.
 - It is a shared Platform Service.
 - Domains should consume it through stable contracts.
 - Security, observability, and governance must be built in.

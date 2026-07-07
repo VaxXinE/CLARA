@@ -5,7 +5,7 @@ chapter: "19"
 title: "Roles"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./18-Authorization.md"
@@ -20,7 +20,7 @@ next: "./20-Permissions.md"
 
 # Purpose
 
-This chapter defines Roles in Athena.
+This chapter defines Roles in Clara.
 
 Roles group permissions into meaningful responsibility sets.
 
@@ -52,7 +52,7 @@ flowchart TD
 
 # Role Types
 
-Athena may support:
+Clara may support:
 
 - System Roles.
 - Custom Roles.
@@ -110,7 +110,7 @@ stateDiagram-v2
 
 Role assignment is security-sensitive.
 
-Athena should audit:
+Clara should audit:
 
 - Role created.
 - Role updated.

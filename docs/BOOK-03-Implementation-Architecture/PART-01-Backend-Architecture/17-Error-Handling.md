@@ -5,7 +5,7 @@ chapter: "17"
 title: "Error Handling"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-06"
 classification: "implementation-architecture"
 previous: "./16-Validation.md"
@@ -14,13 +14,13 @@ next: "./18-Logging.md"
 
 # Error Handling
 
-> *"Defines consistent error modeling, safe error responses, exception boundaries, and failure handling across Athena backend."*
+> *"Defines consistent error modeling, safe error responses, exception boundaries, and failure handling across Clara backend."*
 
 ---
 
 # Purpose
 
-Defines consistent error modeling, safe error responses, exception boundaries, and failure handling across Athena backend.
+Defines consistent error modeling, safe error responses, exception boundaries, and failure handling across Clara backend.
 
 ---
 
@@ -28,7 +28,7 @@ Defines consistent error modeling, safe error responses, exception boundaries, a
 
 Production backend systems fail when runtime quality concerns are treated as afterthoughts.
 
-Athena must handle validation, errors, logging, caching, and background jobs consistently across every module, service, API, workflow, and integration.
+Clara must handle validation, errors, logging, caching, and background jobs consistently across every module, service, API, workflow, and integration.
 
 This chapter defines how **Error Handling** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Error Handling** should be implemented safely and con
 
 ## Decision
 
-Athena backend uses typed application errors and safe response mapping at presentation boundaries.
+Clara backend uses typed application errors and safe response mapping at presentation boundaries.
 
 ## Status
 

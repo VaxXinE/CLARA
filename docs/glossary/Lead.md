@@ -11,7 +11,7 @@
 | Term | Lead |
 | Category | CRM / Sales |
 | Status | Official |
-| Owner | Athena Core Team |
+| Owner | Clara Core Team |
 | Last Updated | 2026-07-06 |
 
 ---
@@ -176,7 +176,7 @@ AI recommendations should support—not replace—business decisions.
 
 Lead information is business-sensitive.
 
-Athena should enforce:
+Clara should enforce:
 
 - Authentication
 - Authorization
@@ -239,7 +239,7 @@ Potential Customer
 Inquiry
 ```
 
-These may describe related concepts but should not replace the official term in Athena.
+These may describe related concepts but should not replace the official term in Clara.
 
 ---
 

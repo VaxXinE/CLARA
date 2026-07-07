@@ -5,7 +5,7 @@ chapter: "17"
 title: "Authentication"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./16-Identity.md"
@@ -20,7 +20,7 @@ next: "./18-Authorization.md"
 
 # Purpose
 
-This chapter defines Authentication in Athena.
+This chapter defines Authentication in Clara.
 
 Authentication verifies that an actor is who they claim to be.
 
@@ -28,7 +28,7 @@ Authentication verifies that an actor is who they claim to be.
 
 # Overview
 
-Athena may support authentication for:
+Clara may support authentication for:
 
 - Users.
 - Service accounts.

@@ -2,7 +2,7 @@
 title: "Documentation Security Checklist"
 version: "1.0.0"
 status: "official"
-owner: "Athena Security Architecture Team"
+owner: "Clara Security Architecture Team"
 last_updated: "2026-07-07"
 classification: "security-checklist"
 ---

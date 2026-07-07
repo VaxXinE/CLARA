@@ -5,7 +5,7 @@ chapter: "92"
 title: "REST API"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./README.md"
@@ -22,13 +22,13 @@ next: "./93-GraphQL.md"
 
 Defines REST API integration as a stable contract for external and internal systems.
 
-This chapter defines the blueprint-level role of **REST API** inside Athena's Integration Platform.
+This chapter defines the blueprint-level role of **REST API** inside Clara's Integration Platform.
 
 ---
 
 # Overview
 
-The **REST API** capability allows Athena to connect with external systems, internal services, client applications, plugins, extensions, and developer tools through governed integration contracts.
+The **REST API** capability allows Clara to connect with external systems, internal services, client applications, plugins, extensions, and developer tools through governed integration contracts.
 
 It should preserve security, observability, auditability, and compatibility across Organization and Workspace boundaries.
 
@@ -51,7 +51,7 @@ The **REST API** capability is responsible for:
 
 # Integration Role
 
-The **REST API** capability should be treated as part of Athena's shared Integration Platform.
+The **REST API** capability should be treated as part of Clara's shared Integration Platform.
 
 Business domains should not expose inconsistent or ungoverned integration surfaces when a shared platform pattern exists.
 
@@ -63,9 +63,9 @@ Business domains should not expose inconsistent or ungoverned integration surfac
 flowchart LR
     External[External System / Developer / Plugin] --> Integration[REST API]
     Integration --> Security[Security Platform]
-    Security --> Athena[Athena Services]
-    Athena --> Audit[Audit]
-    Athena --> Observability[Observability]
+    Security --> Clara[Clara Services]
+    Clara --> Audit[Audit]
+    Clara --> Observability[Observability]
 ```
 
 ---
@@ -109,7 +109,7 @@ External systems must never receive unrestricted access by default.
 
 Integrations may exchange personal, customer, operational, or sensitive business data.
 
-Athena must ensure:
+Clara must ensure:
 
 - Data minimization.
 - Consent where required.
@@ -173,7 +173,7 @@ The **REST API** capability may evolve with:
 # Key Takeaways
 
 - Defines REST API integration as a stable contract for external and internal systems.
-- It is part of Athena's shared Integration Platform.
+- It is part of Clara's shared Integration Platform.
 - It must preserve security, privacy, observability, and governance.
 - It should expose stable contracts instead of internal implementation details.
 

@@ -1,4 +1,4 @@
-# Athena Document Lifecycle Standard
+# Clara Document Lifecycle Standard
 
 > *"Documentation is a living asset. Every document has a beginning, an evolution, and an end."*
 
@@ -8,18 +8,18 @@
 
 | Field | Value |
 |---|---|
-| Document | Athena Document Lifecycle Standard |
+| Document | Clara Document Lifecycle Standard |
 | Version | 1.0.0 |
 | Status | Official |
-| Owner | Athena Core Team |
-| Scope | Athena Engineering Library |
+| Owner | Clara Core Team |
+| Scope | Clara Engineering Library |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Purpose
 
-This standard defines how official Athena documents are created, reviewed, approved, maintained, deprecated, and archived.
+This standard defines how official Clara documents are created, reviewed, approved, maintained, deprecated, and archived.
 
 The objective is to ensure every document has a clear ownership, status, history, and review process throughout its lifetime.
 
@@ -178,7 +178,7 @@ Every official document must define an owner.
 
 Possible owners:
 
-- Athena Core Team
+- Clara Core Team
 - Platform Team
 - AI Team
 - Security Team
@@ -305,7 +305,7 @@ Documentation should evolve with the platform.
 
 Outdated documentation is a production risk.
 
-Every official Athena document must have a clear lifecycle from creation to archival.
+Every official Clara document must have a clear lifecycle from creation to archival.
 
 ---
 

@@ -1,4 +1,4 @@
-# Athena Security Documentation Standard
+# Clara Security Documentation Standard
 
 > *"Security that is not documented cannot be consistently engineered, reviewed, or trusted."*
 
@@ -8,20 +8,20 @@
 
 | Field | Value |
 |------|-------|
-| Document | Athena Security Documentation Standard |
+| Document | Clara Security Documentation Standard |
 | Version | 1.0.0 |
 | Status | Official |
-| Owner | Athena Core Team |
-| Scope | Athena Engineering Library |
+| Owner | Clara Core Team |
+| Scope | Clara Engineering Library |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Purpose
 
-This document defines how security must be documented across the Athena Engineering Library.
+This document defines how security must be documented across the Clara Engineering Library.
 
-Athena treats security as architecture, not as an afterthought.
+Clara treats security as architecture, not as an afterthought.
 
 Every major product, architecture, API, AI, data, integration, and operations document should explain its security assumptions, risks, boundaries, and controls.
 
@@ -33,7 +33,7 @@ The goal is to make security:
 - Auditable.
 - Maintainable.
 - Production-ready.
-- Consistent across Athena.
+- Consistent across Clara.
 
 ---
 
@@ -70,7 +70,7 @@ A system is not production-ready if its trust boundaries, authorization rules, d
 
 # Required Security Sections
 
-Major Athena documents should include the following security sections when relevant.
+Major Clara documents should include the following security sections when relevant.
 
 ```md
 ## Security Considerations
@@ -139,14 +139,14 @@ Trust boundaries define where verification is required.
 
 Document all boundaries between:
 
-- Users and Athena.
+- Users and Clara.
 - Frontend and backend.
 - Services and services.
-- Athena and external systems.
-- Athena and AI providers.
-- Athena and plugins.
-- Athena and browser extensions.
-- Athena and customer-owned infrastructure.
+- Clara and external systems.
+- Clara and AI providers.
+- Clara and plugins.
+- Clara and browser extensions.
+- Clara and customer-owned infrastructure.
 
 Example:
 
@@ -220,7 +220,7 @@ AI agents may only access customer data through delegated user permissions or ex
 
 # Tenant and Workspace Isolation
 
-Athena must protect tenant and workspace boundaries.
+Clara must protect tenant and workspace boundaries.
 
 Documents involving multi-tenant data must explain:
 
@@ -701,7 +701,7 @@ If security is not documented, it cannot be reliably reviewed.
 
 If it cannot be reviewed, it should not be considered production-ready.
 
-Athena documents must make security visible before implementation begins.
+Clara documents must make security visible before implementation begins.
 
 ---
 

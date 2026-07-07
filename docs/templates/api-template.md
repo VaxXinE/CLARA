@@ -1,6 +1,6 @@
-# Athena API Specification Template
+# Clara API Specification Template
 
-> Use this template for every public, internal, or partner API exposed by Athena.
+> Use this template for every public, internal, or partner API exposed by Clara.
 
 ```yaml
 ---

@@ -5,7 +5,7 @@ chapter: "58"
 title: "Audit"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./57-Search.md"
@@ -22,7 +22,7 @@ next: "./59-Event-Bus.md"
 
 Defines the shared audit capability for recording important user, system, AI, integration, and administrative actions.
 
-This chapter explains the blueprint-level role of **Audit** as a shared Platform Service in Athena.
+This chapter explains the blueprint-level role of **Audit** as a shared Platform Service in Clara.
 
 ---
 

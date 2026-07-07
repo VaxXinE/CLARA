@@ -1,6 +1,6 @@
-# Athena Changelog Template
+# Clara Changelog Template
 
-> Use this template to record meaningful changes to an Athena document, book, service, product, or release.
+> Use this template to record meaningful changes to an Clara document, book, service, product, or release.
 
 ```yaml
 ---
@@ -18,7 +18,7 @@ related_document: ""
 
 All notable changes to this document, module, service, or release should be recorded here.
 
-This changelog follows the Athena Changelog Standard.
+This changelog follows the Clara Changelog Standard.
 
 ---
 

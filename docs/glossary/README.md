@@ -1,4 +1,4 @@
-# Athena Global Glossary
+# Clara Global Glossary
 
 > *"Shared language creates shared understanding."*
 
@@ -6,7 +6,7 @@
 
 ## Purpose
 
-The **Athena Global Glossary** is the single source of truth for terminology used across the Athena Engineering Library.
+The **Clara Global Glossary** is the single source of truth for terminology used across the Clara Engineering Library.
 
 Every official document—including Books, ADRs, PRDs, TDDs, API Specifications, Security Specifications, AI Specifications, and Runbooks—should reference these definitions instead of redefining terms.
 
@@ -120,7 +120,7 @@ Why the concept exists.
 
 ## Usage
 
-Where it is used in Athena.
+Where it is used in Clara.
 
 ## Related Terms
 
@@ -172,7 +172,7 @@ Refer to:
 
 # Future Expansion
 
-The glossary is expected to grow alongside Athena and become the canonical vocabulary for all books and engineering artifacts.
+The glossary is expected to grow alongside Clara and become the canonical vocabulary for all books and engineering artifacts.
 
 ---
 

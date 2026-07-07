@@ -6,7 +6,7 @@ chapter: "13"
 title: "Domain Events"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-06"
 classification: "implementation-architecture"
 previous: "./12-Application-Services.md"
@@ -27,11 +27,11 @@ Defines domain events as immutable business facts emitted by domain behavior and
 
 # Motivation
 
-Athena backend must separate **business truth** from **application orchestration**.
+Clara backend must separate **business truth** from **application orchestration**.
 
 If this separation is not clear, code becomes difficult to test, business rules become scattered, and infrastructure side effects become mixed with domain behavior.
 
-This chapter defines how **Domain Events** should be implemented consistently across Athena backend modules.
+This chapter defines how **Domain Events** should be implemented consistently across Clara backend modules.
 
 ---
 
@@ -39,7 +39,7 @@ This chapter defines how **Domain Events** should be implemented consistently ac
 
 ## Decision
 
-Athena backend uses domain events to represent meaningful business facts that have already happened.
+Clara backend uses domain events to represent meaningful business facts that have already happened.
 
 ## Status
 

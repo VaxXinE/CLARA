@@ -5,7 +5,7 @@ chapter: "132"
 title: "Zero Trust Implementation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Security Architecture Team"
+owner: "Clara Security Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./131-Tenant-Isolation.md"
@@ -28,7 +28,7 @@ Defines zero-trust principles for service-to-service access, user access, device
 
 Security bugs in production are expensive, damaging, and often caused by unclear ownership or inconsistent implementation.
 
-Athena handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
+Clara handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
 
 This chapter defines how **Zero Trust Implementation** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Zero Trust Implementation** should be implemented saf
 
 ## Decision
 
-Athena should trust no request by default and require explicit identity, authorization, scope, and telemetry for sensitive actions.
+Clara should trust no request by default and require explicit identity, authorization, scope, and telemetry for sensitive actions.
 
 ## Status
 

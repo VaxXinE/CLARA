@@ -6,7 +6,7 @@ chapter: "06"
 title: "Dependency Injection"
 version: "1.1.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-06"
 classification: "implementation-architecture"
 previous: "./README.md"
@@ -15,19 +15,19 @@ next: "./07-Configuration.md"
 
 # Dependency Injection
 
-> *"Defines dependency injection, composition root, service registration, lifecycle management, and inversion of control in Athena backend."*
+> *"Defines dependency injection, composition root, service registration, lifecycle management, and inversion of control in Clara backend."*
 
 ---
 
 # Purpose
 
-Defines dependency injection, composition root, service registration, lifecycle management, and inversion of control in Athena backend.
+Defines dependency injection, composition root, service registration, lifecycle management, and inversion of control in Clara backend.
 
 ---
 
 # Motivation
 
-Athena backend will contain many modules and many contributors, including human engineers and AI coding assistants.
+Clara backend will contain many modules and many contributors, including human engineers and AI coding assistants.
 
 Without a consistent pattern for **Dependency Injection**, implementation can become inconsistent, insecure, hard to test, and difficult to refactor.
 
@@ -39,7 +39,7 @@ This chapter defines the production-grade pattern that every backend module shou
 
 ## Decision
 
-Athena backend uses constructor-based dependency injection with explicit composition roots per module.
+Clara backend uses constructor-based dependency injection with explicit composition roots per module.
 
 ## Status
 

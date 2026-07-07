@@ -2,14 +2,14 @@
 title: "Security References"
 version: "1.0.0"
 status: "official"
-owner: "Athena Security Architecture Team"
+owner: "Clara Security Architecture Team"
 last_updated: "2026-07-07"
 classification: "reference-index"
 ---
 
 # Security References
 
-> "Security references support Athena security decisions without copying external copyrighted content."
+> "Security references support Clara security decisions without copying external copyrighted content."
 
 ---
 
@@ -24,6 +24,6 @@ classification: "reference-index"
 # Usage Rules
 
 - Link to external standards instead of copying large content.
-- Summarize only what Athena needs.
+- Summarize only what Clara needs.
 - Keep security decisions inside ADRs or Book III.
 - Never store exploit details that create unnecessary risk.

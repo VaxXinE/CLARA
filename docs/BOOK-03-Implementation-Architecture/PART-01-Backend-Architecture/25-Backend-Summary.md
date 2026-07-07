@@ -1,7 +1,7 @@
 # Backend Summary
 
 ## Purpose
-Defines Athena backend standard for Backend Summary.
+Defines Clara backend standard for Backend Summary.
 
 ## Architecture Decision
 - Standardized across all modules.

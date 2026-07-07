@@ -5,7 +5,7 @@ chapter: "129"
 title: "Authorization Implementation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Security Architecture Team"
+owner: "Clara Security Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./128-Authentication-Implementation.md"
@@ -28,7 +28,7 @@ Defines server-side authorization checks, permission evaluation, resource-level 
 
 Security bugs in production are expensive, damaging, and often caused by unclear ownership or inconsistent implementation.
 
-Athena handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
+Clara handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
 
 This chapter defines how **Authorization Implementation** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Authorization Implementation** should be implemented 
 
 ## Decision
 
-Athena authorization should be enforced server-side inside application use cases and sensitive infrastructure adapters.
+Clara authorization should be enforced server-side inside application use cases and sensitive infrastructure adapters.
 
 ## Status
 

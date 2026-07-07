@@ -5,7 +5,7 @@ chapter: "110"
 title: "Multi Tenant"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./109-Multi-Region.md"
@@ -14,21 +14,21 @@ next: "../PART-10-Roadmap/111-Roadmap-Overview.md"
 
 # Multi Tenant
 
-> *"Defines infrastructure-level considerations for securely operating multiple tenants on Athena."*
+> *"Defines infrastructure-level considerations for securely operating multiple tenants on Clara."*
 
 ---
 
 # Purpose
 
-Defines infrastructure-level considerations for securely operating multiple tenants on Athena.
+Defines infrastructure-level considerations for securely operating multiple tenants on Clara.
 
-This chapter defines the blueprint-level role of **Multi Tenant** inside Athena's Infrastructure layer.
+This chapter defines the blueprint-level role of **Multi Tenant** inside Clara's Infrastructure layer.
 
 ---
 
 # Overview
 
-The **Multi Tenant** capability supports Athena's ability to run services reliably, securely, and consistently across environments.
+The **Multi Tenant** capability supports Clara's ability to run services reliably, securely, and consistently across environments.
 
 It provides operational foundations for business domains, AI platform components, platform services, integration systems, and data services.
 
@@ -55,7 +55,7 @@ The **Multi Tenant** capability is responsible for:
 
 The **Multi Tenant** capability should be treated as part of the shared infrastructure foundation.
 
-Athena services should not depend on ad-hoc deployment or runtime patterns when a shared infrastructure model exists.
+Clara services should not depend on ad-hoc deployment or runtime patterns when a shared infrastructure model exists.
 
 ---
 
@@ -65,7 +65,7 @@ Athena services should not depend on ad-hoc deployment or runtime patterns when 
 flowchart LR
     Code[Code / Config] --> Infra[Multi Tenant]
     Infra --> Runtime[Runtime Environment]
-    Runtime --> Services[Athena Services]
+    Runtime --> Services[Clara Services]
     Services --> Observability[Observability]
     Services --> Security[Security Platform]
 ```
@@ -156,10 +156,10 @@ The **Multi Tenant** capability may evolve with:
 
 # Key Takeaways
 
-- Defines infrastructure-level considerations for securely operating multiple tenants on Athena.
-- It is part of Athena's shared Infrastructure layer.
+- Defines infrastructure-level considerations for securely operating multiple tenants on Clara.
+- It is part of Clara's shared Infrastructure layer.
 - It should support secure, reliable, observable, and scalable operation.
-- It should provide a foundation for production-grade Athena deployment.
+- It should provide a foundation for production-grade Clara deployment.
 
 ---
 

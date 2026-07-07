@@ -4,7 +4,7 @@ appendix: "J"
 title: "Book III Glossary"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "glossary"
 ---
@@ -19,7 +19,7 @@ classification: "glossary"
 
 ## Actor
 
-A user, service, system, or automation performing an action in Athena.
+A user, service, system, or automation performing an action in Clara.
 
 ## ADR
 
@@ -27,7 +27,7 @@ Architecture Decision Record. A document that records an important architecture 
 
 ## AI Gateway
 
-The central Athena layer responsible for AI model access, provider abstraction, policy enforcement, telemetry, cost control, and guardrails.
+The central Clara layer responsible for AI model access, provider abstraction, policy enforcement, telemetry, cost control, and guardrails.
 
 ## Audit Log
 
@@ -55,7 +55,7 @@ Temporary acceleration layer. It must not become the only source of truth for cr
 
 ## Connector
 
-An adapter that connects Athena to an external provider or service.
+An adapter that connects Clara to an external provider or service.
 
 ## Contract Test
 
@@ -159,7 +159,7 @@ Ability to understand system behavior through logs, metrics, traces, dashboards,
 
 ## Organization
 
-The root tenant boundary in Athena.
+The root tenant boundary in Clara.
 
 ---
 

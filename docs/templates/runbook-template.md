@@ -1,6 +1,6 @@
-# Athena Runbook Template
+# Clara Runbook Template
 
-> Use this template to document operational procedures for deploying, operating, monitoring, troubleshooting, and recovering Athena services.
+> Use this template to document operational procedures for deploying, operating, monitoring, troubleshooting, and recovering Clara services.
 
 ```yaml
 ---

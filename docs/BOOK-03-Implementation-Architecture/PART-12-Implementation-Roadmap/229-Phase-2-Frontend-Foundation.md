@@ -5,7 +5,7 @@ chapter: "229"
 title: "Phase 2 Frontend Foundation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./228-Phase-1-Backend-Foundation.md"
@@ -28,7 +28,7 @@ Defines frontend foundation implementation including app shell, routing, design 
 
 A strong architecture still fails if implementation happens in the wrong order.
 
-Athena has backend, frontend, data, security, AI, integration, infrastructure, testing, operations, and product modules. If teams build product capabilities before foundations are ready, technical debt becomes structural debt.
+Clara has backend, frontend, data, security, AI, integration, infrastructure, testing, operations, and product modules. If teams build product capabilities before foundations are ready, technical debt becomes structural debt.
 
 This chapter defines how **Phase 2 Frontend Foundation** should guide implementation safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Phase 2 Frontend Foundation** should guide implementa
 
 ## Decision
 
-Athena frontend foundation should be implemented before feature UI modules to preserve consistency, accessibility, and secure session behavior.
+Clara frontend foundation should be implemented before feature UI modules to preserve consistency, accessibility, and secure session behavior.
 
 ## Status
 

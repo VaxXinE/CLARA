@@ -5,7 +5,7 @@ chapter: "06"
 title: "Business Capability Map"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./05-Core-Principles.md"
@@ -20,15 +20,15 @@ next: "./07-Domain-Map.md"
 
 # Purpose
 
-This chapter maps the major business capabilities Athena should support.
+This chapter maps the major business capabilities Clara should support.
 
-A capability map helps Athena avoid designing around screens or technologies too early.
+A capability map helps Clara avoid designing around screens or technologies too early.
 
 ---
 
 # Capability Groups
 
-Athena's business capabilities can be grouped into:
+Clara's business capabilities can be grouped into:
 
 - Organization Management.
 - Identity and Access.
@@ -52,7 +52,7 @@ Athena's business capabilities can be grouped into:
 
 ```mermaid
 mindmap
-  root((Athena))
+  root((Clara))
     Organization
       Workspace
       Teams
@@ -101,7 +101,7 @@ mindmap
 
 # Why Capability Mapping Matters
 
-Capability mapping helps Athena answer:
+Capability mapping helps Clara answer:
 
 - What does the platform need to support?
 - Which business areas are core?
@@ -126,14 +126,14 @@ Feature: AI Reply Suggestion
 Feature: Conversation Assignment
 ```
 
-Athena should design capabilities before features.
+Clara should design capabilities before features.
 
 ---
 
 # Key Takeaways
 
 - Capability maps help prevent fragmented product design.
-- Athena should be organized around stable business capabilities.
+- Clara should be organized around stable business capabilities.
 - Features should be traced back to capabilities.
 - Domains and services should emerge from capability ownership.
 

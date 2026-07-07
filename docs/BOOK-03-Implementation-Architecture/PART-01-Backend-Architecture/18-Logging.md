@@ -5,7 +5,7 @@ chapter: "18"
 title: "Logging"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-06"
 classification: "implementation-architecture"
 previous: "./17-Error-Handling.md"
@@ -14,13 +14,13 @@ next: "./19-Caching.md"
 
 # Logging
 
-> *"Defines structured logging, correlation IDs, sensitive data rules, and operational logging across Athena backend."*
+> *"Defines structured logging, correlation IDs, sensitive data rules, and operational logging across Clara backend."*
 
 ---
 
 # Purpose
 
-Defines structured logging, correlation IDs, sensitive data rules, and operational logging across Athena backend.
+Defines structured logging, correlation IDs, sensitive data rules, and operational logging across Clara backend.
 
 ---
 
@@ -28,7 +28,7 @@ Defines structured logging, correlation IDs, sensitive data rules, and operation
 
 Production backend systems fail when runtime quality concerns are treated as afterthoughts.
 
-Athena must handle validation, errors, logging, caching, and background jobs consistently across every module, service, API, workflow, and integration.
+Clara must handle validation, errors, logging, caching, and background jobs consistently across every module, service, API, workflow, and integration.
 
 This chapter defines how **Logging** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Logging** should be implemented safely and consistent
 
 ## Decision
 
-Athena backend uses structured logs with correlation IDs and strict sensitive-data redaction rules.
+Clara backend uses structured logs with correlation IDs and strict sensitive-data redaction rules.
 
 ## Status
 

@@ -5,7 +5,7 @@ chapter: "103"
 title: "Data Mapping Transformation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./102-Event-Driven-Integration.md"
@@ -14,13 +14,13 @@ next: "./104-Integration-Observability.md"
 
 # Data Mapping Transformation
 
-> *"Defines integration data mapping, schema transformation, normalization, validation, and compatibility between external systems and Athena domain models."*
+> *"Defines integration data mapping, schema transformation, normalization, validation, and compatibility between external systems and Clara domain models."*
 
 ---
 
 # Purpose
 
-Defines integration data mapping, schema transformation, normalization, validation, and compatibility between external systems and Athena domain models.
+Defines integration data mapping, schema transformation, normalization, validation, and compatibility between external systems and Clara domain models.
 
 ---
 
@@ -28,9 +28,9 @@ Defines integration data mapping, schema transformation, normalization, validati
 
 Integrations are powerful but risky.
 
-They connect Athena to external systems, external data, external identities, external failures, and external attack surfaces.
+They connect Clara to external systems, external data, external identities, external failures, and external attack surfaces.
 
-If integration code is scattered, Athena can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
+If integration code is scattered, Clara can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
 
 This chapter defines how **Data Mapping Transformation** should be implemented safely and consistently.
 
@@ -40,7 +40,7 @@ This chapter defines how **Data Mapping Transformation** should be implemented s
 
 ## Decision
 
-Athena should keep external provider schemas isolated from domain models through explicit mappers and transformation layers.
+Clara should keep external provider schemas isolated from domain models through explicit mappers and transformation layers.
 
 ## Status
 
@@ -155,7 +155,7 @@ backend/
 ```ts
 // integration/mappers/ExternalCustomerMapper.ts
 export class ExternalCustomerMapper {
-  toAthenaCustomer(input: ExternalCustomerPayload): CreateCustomerInput {
+  toClaraCustomer(input: ExternalCustomerPayload): CreateCustomerInput {
     return {
       name: input.full_name,
       email: input.email_address,
@@ -174,7 +174,7 @@ export class ExternalCustomerMapper {
 # Implementation Guidelines
 
 - Never call external providers directly from controllers or domain models.
-- Keep provider schemas isolated from Athena domain models.
+- Keep provider schemas isolated from Clara domain models.
 - Validate every inbound payload.
 - Verify webhook signatures before processing.
 - Store external credentials in vault/secret storage.

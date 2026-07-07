@@ -4,14 +4,14 @@ appendix: "H"
 title: "AGENTS Codex Instructions"
 version: "1.0.0"
 status: "official"
-owner: "Athena Developer Experience Team"
+owner: "Clara Developer Experience Team"
 last_updated: "2026-07-07"
 classification: "ai-coding-instructions"
 ---
 
 # APPENDIX H — AGENTS / Codex Instructions
 
-> *"AI assistants are powerful contributors, but Athena architecture remains the source of truth."*
+> *"AI assistants are powerful contributors, but Clara architecture remains the source of truth."*
 
 ---
 
@@ -25,24 +25,24 @@ Use it for:
 - Cursor.
 - Claude Code.
 - Gemini CLI.
-- Any AI coding assistant working inside Athena repo.
+- Any AI coding assistant working inside Clara repo.
 
 ---
 
 # Root AGENTS.md Template
 
 ```markdown
-# AGENTS.md — Athena Repository Instructions
+# AGENTS.md — Clara Repository Instructions
 
-You are working inside Athena.
+You are working inside Clara.
 
-Athena is a production-oriented software platform. Follow architecture and security rules strictly.
+Clara is a production-oriented software platform. Follow architecture and security rules strictly.
 
 ## Required Reading
 
 Before editing code, read:
 
-- docs/BOOK-01-Athena-Foundation/README.md
+- docs/BOOK-01-Clara-Foundation/README.md
 - docs/BOOK-02-Master-Blueprint/README.md
 - docs/BOOK-03-Implementation-Architecture/README.md
 - The relevant Book III Part for the task
@@ -149,7 +149,7 @@ When implementing a feature, include:
 # AI Feature Prompt Template
 
 ```text
-You are implementing an Athena AI feature.
+You are implementing an Clara AI feature.
 
 Read:
 - Book III Part 03 AI Architecture
@@ -172,7 +172,7 @@ Rules:
 # Integration Feature Prompt Template
 
 ```text
-You are implementing an Athena integration.
+You are implementing an Clara integration.
 
 Read:
 - Book III Part 05 Integration Architecture

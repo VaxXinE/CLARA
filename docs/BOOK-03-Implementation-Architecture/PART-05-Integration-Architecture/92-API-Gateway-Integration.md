@@ -5,7 +5,7 @@ chapter: "92"
 title: "API Gateway Integration"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./91-OAuth-Implementation.md"
@@ -28,9 +28,9 @@ Defines API gateway responsibilities including routing, authentication enforceme
 
 Integrations are powerful but risky.
 
-They connect Athena to external systems, external data, external identities, external failures, and external attack surfaces.
+They connect Clara to external systems, external data, external identities, external failures, and external attack surfaces.
 
-If integration code is scattered, Athena can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
+If integration code is scattered, Clara can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
 
 This chapter defines how **API Gateway Integration** should be implemented safely and consistently.
 
@@ -40,7 +40,7 @@ This chapter defines how **API Gateway Integration** should be implemented safel
 
 ## Decision
 
-Athena should use an API gateway layer for edge concerns while keeping business authorization inside application services.
+Clara should use an API gateway layer for edge concerns while keeping business authorization inside application services.
 
 ## Status
 
@@ -170,7 +170,7 @@ export function buildRequestContext(request: GatewayRequest): RequestContext {
 # Implementation Guidelines
 
 - Never call external providers directly from controllers or domain models.
-- Keep provider schemas isolated from Athena domain models.
+- Keep provider schemas isolated from Clara domain models.
 - Validate every inbound payload.
 - Verify webhook signatures before processing.
 - Store external credentials in vault/secret storage.

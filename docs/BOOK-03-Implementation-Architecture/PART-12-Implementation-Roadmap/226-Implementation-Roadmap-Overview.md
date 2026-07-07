@@ -5,7 +5,7 @@ chapter: "226"
 title: "Implementation Roadmap Overview"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./README.md"
@@ -14,13 +14,13 @@ next: "./227-Phase-0-Repository-Foundation.md"
 
 # Implementation Roadmap Overview
 
-> *"Defines Athena implementation roadmap principles, phase sequencing, engineering readiness, and execution governance."*
+> *"Defines Clara implementation roadmap principles, phase sequencing, engineering readiness, and execution governance."*
 
 ---
 
 # Purpose
 
-Defines Athena implementation roadmap principles, phase sequencing, engineering readiness, and execution governance.
+Defines Clara implementation roadmap principles, phase sequencing, engineering readiness, and execution governance.
 
 ---
 
@@ -28,7 +28,7 @@ Defines Athena implementation roadmap principles, phase sequencing, engineering 
 
 A strong architecture still fails if implementation happens in the wrong order.
 
-Athena has backend, frontend, data, security, AI, integration, infrastructure, testing, operations, and product modules. If teams build product capabilities before foundations are ready, technical debt becomes structural debt.
+Clara has backend, frontend, data, security, AI, integration, infrastructure, testing, operations, and product modules. If teams build product capabilities before foundations are ready, technical debt becomes structural debt.
 
 This chapter defines how **Implementation Roadmap Overview** should guide implementation safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Implementation Roadmap Overview** should guide implem
 
 ## Decision
 
-Athena implementation should progress through controlled phases with explicit exit criteria, security gates, quality gates, and production readiness checks.
+Clara implementation should progress through controlled phases with explicit exit criteria, security gates, quality gates, and production readiness checks.
 
 ## Status
 

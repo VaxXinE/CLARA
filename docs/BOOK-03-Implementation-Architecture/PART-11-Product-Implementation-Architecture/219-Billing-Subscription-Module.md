@@ -5,7 +5,7 @@ chapter: "219"
 title: "Billing Subscription Module"
 version: "1.0.0"
 status: "official"
-owner: "Athena Product Architecture Team"
+owner: "Clara Product Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./218-Integration-Connector-Module.md"
@@ -26,9 +26,9 @@ Defines implementation architecture for plans, subscriptions, invoices, usage tr
 
 # Motivation
 
-Product modules are where users experience Athena.
+Product modules are where users experience Clara.
 
-If product modules are implemented inconsistently, Athena will become difficult to maintain, insecure, hard to test, and confusing to extend. Product implementation must preserve architecture boundaries while still delivering usable product capabilities.
+If product modules are implemented inconsistently, Clara will become difficult to maintain, insecure, hard to test, and confusing to extend. Product implementation must preserve architecture boundaries while still delivering usable product capabilities.
 
 This chapter defines how **Billing Subscription Module** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Billing Subscription Module** should be implemented c
 
 ## Decision
 
-Athena Billing should be implemented as a controlled domain with entitlements checked server-side and provider-specific billing isolated behind adapters.
+Clara Billing should be implemented as a controlled domain with entitlements checked server-side and provider-specific billing isolated behind adapters.
 
 ## Status
 

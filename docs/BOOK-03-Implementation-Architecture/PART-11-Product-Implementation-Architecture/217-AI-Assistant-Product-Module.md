@@ -5,7 +5,7 @@ chapter: "217"
 title: "AI Assistant Product Module"
 version: "1.0.0"
 status: "official"
-owner: "Athena Product Architecture Team"
+owner: "Clara Product Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./216-Notification-Module.md"
@@ -26,9 +26,9 @@ Defines implementation architecture for AI assistant product experiences, includ
 
 # Motivation
 
-Product modules are where users experience Athena.
+Product modules are where users experience Clara.
 
-If product modules are implemented inconsistently, Athena will become difficult to maintain, insecure, hard to test, and confusing to extend. Product implementation must preserve architecture boundaries while still delivering usable product capabilities.
+If product modules are implemented inconsistently, Clara will become difficult to maintain, insecure, hard to test, and confusing to extend. Product implementation must preserve architecture boundaries while still delivering usable product capabilities.
 
 This chapter defines how **AI Assistant Product Module** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **AI Assistant Product Module** should be implemented c
 
 ## Decision
 
-Athena AI Assistant product features should call the AI Gateway and never directly call model providers or execute tools without authorization.
+Clara AI Assistant product features should call the AI Gateway and never directly call model providers or execute tools without authorization.
 
 ## Status
 

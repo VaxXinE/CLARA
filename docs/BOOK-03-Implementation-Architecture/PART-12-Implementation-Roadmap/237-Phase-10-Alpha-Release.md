@@ -5,7 +5,7 @@ chapter: "237"
 title: "Phase 10 Alpha Release"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./236-Phase-9-Testing-Quality-Gates.md"
@@ -28,7 +28,7 @@ Defines Alpha release scope, constraints, risk controls, feedback loop, and exit
 
 A strong architecture still fails if implementation happens in the wrong order.
 
-Athena has backend, frontend, data, security, AI, integration, infrastructure, testing, operations, and product modules. If teams build product capabilities before foundations are ready, technical debt becomes structural debt.
+Clara has backend, frontend, data, security, AI, integration, infrastructure, testing, operations, and product modules. If teams build product capabilities before foundations are ready, technical debt becomes structural debt.
 
 This chapter defines how **Phase 10 Alpha Release** should guide implementation safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Phase 10 Alpha Release** should guide implementation 
 
 ## Decision
 
-Athena Alpha should validate core workflows with controlled users, strong observability, and fast feedback without promising full stability.
+Clara Alpha should validate core workflows with controlled users, strong observability, and fast feedback without promising full stability.
 
 ## Status
 

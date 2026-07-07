@@ -5,7 +5,7 @@ chapter: "75"
 title: "Vector Database Implementation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./74-Search-Index-Implementation.md"
@@ -26,7 +26,7 @@ Defines vector database usage, embeddings, metadata filters, tenant isolation, c
 
 # Motivation
 
-Data is one of the highest-risk parts of Athena.
+Data is one of the highest-risk parts of Clara.
 
 Bad data architecture can cause privacy leaks, tenant isolation failures, broken AI context, slow queries, unrecoverable incidents, inconsistent reporting, and dangerous production migrations.
 
@@ -38,7 +38,7 @@ This chapter defines how **Vector Database Implementation** should be implemente
 
 ## Decision
 
-Athena vector search should use strict metadata filtering and never rely on vector similarity alone for access control.
+Clara vector search should use strict metadata filtering and never rely on vector similarity alone for access control.
 
 ## Status
 

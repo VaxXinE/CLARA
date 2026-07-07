@@ -4,7 +4,7 @@ part: "PART-01 — Platform Vision"
 title: "Platform Vision"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "part"
 ---
@@ -17,16 +17,16 @@ classification: "part"
 
 # Purpose
 
-Part I defines the high-level vision of Athena as an AI-native Business Operating System.
+Part I defines the high-level vision of Clara as an AI-native Business Operating System.
 
-It explains what Athena is, what the platform intends to become, how its major capabilities relate to each other, and why Athena should be designed as one coherent platform rather than a collection of disconnected applications.
+It explains what Clara is, what the platform intends to become, how its major capabilities relate to each other, and why Clara should be designed as one coherent platform rather than a collection of disconnected applications.
 
 ---
 
 # Goals
 
 - Establish the strategic platform vision.
-- Define Athena at the highest blueprint level.
+- Define Clara at the highest blueprint level.
 - Explain the relationship between business capabilities, domains, products, and systems.
 - Provide a shared mental model before entering deeper domain and architecture chapters.
 - Prepare readers for the Organization Layer, Business Domains, AI Platform, Platform Services, and Roadmap.
@@ -38,7 +38,7 @@ It explains what Athena is, what the platform intends to become, how its major c
 ## In Scope
 
 - Executive-level platform overview.
-- Big picture of Athena.
+- Big picture of Clara.
 - Platform philosophy.
 - Capability map.
 - Domain map.
@@ -62,23 +62,23 @@ Those topics belong in later books and technical specifications.
 
 | Chapter | Title | Purpose |
 |---|---|---|
-| 01 | Executive Overview | Introduces Book II and Athena as a platform blueprint |
-| 02 | Athena Big Picture | Describes Athena as one connected Business Operating System |
-| 03 | Platform Philosophy | Defines how Athena thinks about platform design |
+| 01 | Executive Overview | Introduces Book II and Clara as a platform blueprint |
+| 02 | Clara Big Picture | Describes Clara as one connected Business Operating System |
+| 03 | Platform Philosophy | Defines how Clara thinks about platform design |
 | 04 | Platform Vision | Explains the long-term platform direction |
 | 05 | Core Principles | Defines blueprint-level principles |
-| 06 | Business Capability Map | Maps the major business capabilities Athena supports |
+| 06 | Business Capability Map | Maps the major business capabilities Clara supports |
 | 07 | Domain Map | Groups capabilities into business domains |
 | 08 | Product Map | Explains product surfaces and user-facing modules |
 | 09 | System Landscape | Describes the major technical platform areas |
-| 10 | Future Vision | Defines long-term evolution of Athena |
+| 10 | Future Vision | Defines long-term evolution of Clara |
 
 ---
 
 # Reading Order
 
 1. 01-Executive-Overview.md
-2. 02-Athena-Big-Picture.md
+2. 02-Clara-Big-Picture.md
 3. 03-Platform-Philosophy.md
 4. 04-Platform-Vision.md
 5. 05-Core-Principles.md

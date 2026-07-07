@@ -5,7 +5,7 @@ chapter: "86"
 title: "Key Management"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./85-Encryption.md"
@@ -22,15 +22,15 @@ next: "./87-Secrets.md"
 
 Defines how cryptographic keys are created, stored, rotated, accessed, and retired.
 
-This chapter defines the blueprint-level responsibility of **Key Management** inside Athena's Security Platform.
+This chapter defines the blueprint-level responsibility of **Key Management** inside Clara's Security Platform.
 
 ---
 
 # Overview
 
-The **Key Management** capability is part of Athena's shared Security Platform.
+The **Key Management** capability is part of Clara's shared Security Platform.
 
-It protects Athena across Organizations, Workspaces, business domains, platform services, AI capabilities, integrations, plugins, and infrastructure.
+It protects Clara across Organizations, Workspaces, business domains, platform services, AI capabilities, integrations, plugins, and infrastructure.
 
 This document defines the security role and boundary at blueprint level. Implementation details should be defined later in security architecture, runbooks, and technical specifications.
 
@@ -40,7 +40,7 @@ This document defines the security role and boundary at blueprint level. Impleme
 
 The **Key Management** capability is responsible for:
 
-- Protecting Athena resources.
+- Protecting Clara resources.
 - Supporting secure access patterns.
 - Preserving Organization and Workspace boundaries.
 - Reducing security risk.
@@ -170,7 +170,7 @@ The **Key Management** capability may evolve with:
 # Key Takeaways
 
 - Defines how cryptographic keys are created, stored, rotated, accessed, and retired.
-- It is part of Athena's shared Security Platform.
+- It is part of Clara's shared Security Platform.
 - It must protect Organization, Workspace, data, AI, services, plugins, and integrations.
 - It should be observable, auditable, and governed.
 

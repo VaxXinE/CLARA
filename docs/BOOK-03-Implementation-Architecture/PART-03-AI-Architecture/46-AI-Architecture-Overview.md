@@ -5,7 +5,7 @@ chapter: "46"
 title: "AI Architecture Overview"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./README.md"
@@ -14,13 +14,13 @@ next: "./47-AI-Gateway.md"
 
 # AI Architecture Overview
 
-> *"Defines Athena AI implementation architecture, responsibility boundaries, and safe integration with product workflows."*
+> *"Defines Clara AI implementation architecture, responsibility boundaries, and safe integration with product workflows."*
 
 ---
 
 # Purpose
 
-Defines Athena AI implementation architecture, responsibility boundaries, and safe integration with product workflows.
+Defines Clara AI implementation architecture, responsibility boundaries, and safe integration with product workflows.
 
 ---
 
@@ -28,7 +28,7 @@ Defines Athena AI implementation architecture, responsibility boundaries, and sa
 
 AI capabilities can create major product leverage, but they also introduce new risks: hallucination, prompt injection, data leakage, uncontrolled cost, unsafe tool execution, inconsistent output, and difficult debugging.
 
-Athena must treat AI as a production platform capability, not as scattered SDK calls.
+Clara must treat AI as a production platform capability, not as scattered SDK calls.
 
 This chapter defines how **AI Architecture Overview** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **AI Architecture Overview** should be implemented safe
 
 ## Decision
 
-Athena AI capabilities should be implemented as a controlled platform layer, not as direct model calls scattered across product modules.
+Clara AI capabilities should be implemented as a controlled platform layer, not as direct model calls scattered across product modules.
 
 ## Status
 

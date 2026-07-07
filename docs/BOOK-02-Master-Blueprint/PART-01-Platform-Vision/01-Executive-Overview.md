@@ -5,16 +5,16 @@ chapter: "01"
 title: "Executive Overview"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./README.md"
-next: "./02-Athena-Big-Picture.md"
+next: "./02-Clara-Big-Picture.md"
 ---
 
 # Executive Overview
 
-> *"Book II transforms Athena's principles into a buildable platform blueprint."*
+> *"Book II transforms Clara's principles into a buildable platform blueprint."*
 
 ---
 
@@ -22,27 +22,27 @@ next: "./02-Athena-Big-Picture.md"
 
 This chapter introduces Book II — Master Blueprint.
 
-If Book I explains why Athena exists, Book II explains what Athena will build.
+If Book I explains why Clara exists, Book II explains what Clara will build.
 
-Book II is the master planning document for Athena's platform, domains, services, AI capabilities, data platform, security model, integrations, infrastructure, and roadmap.
+Book II is the master planning document for Clara's platform, domains, services, AI capabilities, data platform, security model, integrations, infrastructure, and roadmap.
 
 It does not define final implementation details. Instead, it establishes the blueprint that later architecture, engineering, product, AI, and operations documents must follow.
 
 ---
 
-# What Athena Is
+# What Clara Is
 
-Athena is an AI-native Business Operating System.
+Clara is an AI-native Business Operating System.
 
 It is designed to unify business operations, customer relationships, communication, knowledge, workflows, automation, artificial intelligence, integrations, analytics, and governance into one coherent platform.
 
-Athena is not a CRM only.
+Clara is not a CRM only.
 
-Athena is not a helpdesk only.
+Clara is not a helpdesk only.
 
-Athena is not an AI chatbot only.
+Clara is not an AI chatbot only.
 
-Athena is a platform for operating and improving an organization.
+Clara is a platform for operating and improving an organization.
 
 ---
 
@@ -52,7 +52,7 @@ Modern business software often grows as a collection of disconnected application
 
 Each tool solves a local problem, but the organization becomes fragmented.
 
-Book II exists to prevent Athena from becoming fragmented.
+Book II exists to prevent Clara from becoming fragmented.
 
 It defines the complete platform blueprint before implementation details dominate decision-making.
 
@@ -60,7 +60,7 @@ It defines the complete platform blueprint before implementation details dominat
 
 # Blueprint Layers
 
-Athena is organized into major layers:
+Clara is organized into major layers:
 
 ```mermaid
 flowchart TD
@@ -98,8 +98,8 @@ Book II becomes the source for:
 
 # Key Takeaways
 
-- Book II defines what Athena will build.
-- Athena is designed as one platform, not disconnected apps.
+- Book II defines what Clara will build.
+- Clara is designed as one platform, not disconnected apps.
 - The blueprint is organized by layers, domains, and reusable capabilities.
 - Later books and technical documents should trace back to Book II.
 
@@ -118,4 +118,4 @@ Book II becomes the source for:
 
 **Previous:** README.md
 
-**Next:** 02-Athena-Big-Picture.md
+**Next:** 02-Clara-Big-Picture.md

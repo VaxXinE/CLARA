@@ -5,7 +5,7 @@ chapter: "214"
 title: "Knowledge Base Module"
 version: "1.0.0"
 status: "official"
-owner: "Athena Product Architecture Team"
+owner: "Clara Product Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./213-Ticket-Case-Module.md"
@@ -26,9 +26,9 @@ Defines implementation architecture for articles, document ingestion, publishing
 
 # Motivation
 
-Product modules are where users experience Athena.
+Product modules are where users experience Clara.
 
-If product modules are implemented inconsistently, Athena will become difficult to maintain, insecure, hard to test, and confusing to extend. Product implementation must preserve architecture boundaries while still delivering usable product capabilities.
+If product modules are implemented inconsistently, Clara will become difficult to maintain, insecure, hard to test, and confusing to extend. Product implementation must preserve architecture boundaries while still delivering usable product capabilities.
 
 This chapter defines how **Knowledge Base Module** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Knowledge Base Module** should be implemented consist
 
 ## Decision
 
-Athena Knowledge Base should separate authored content, published versions, search indexes, and vector chunks while preserving permission scope.
+Clara Knowledge Base should separate authored content, published versions, search indexes, and vector chunks while preserving permission scope.
 
 ## Status
 

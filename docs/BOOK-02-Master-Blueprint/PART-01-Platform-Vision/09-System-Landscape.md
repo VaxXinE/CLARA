@@ -5,7 +5,7 @@ chapter: "09"
 title: "System Landscape"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./08-Product-Map.md"
@@ -20,7 +20,7 @@ next: "./10-Future-Vision.md"
 
 # Purpose
 
-This chapter describes Athena's high-level system landscape.
+This chapter describes Clara's high-level system landscape.
 
 It is not a final architecture diagram. It identifies the major platform areas that later architecture documents will expand.
 
@@ -28,7 +28,7 @@ It is not a final architecture diagram. It identifies the major platform areas t
 
 # System Areas
 
-Athena's system landscape includes:
+Clara's system landscape includes:
 
 - Client Applications.
 - API Layer.
@@ -79,7 +79,7 @@ flowchart TD
 
 # Client Applications
 
-Athena may support:
+Clara may support:
 
 - Web application.
 - Mobile application.
@@ -93,7 +93,7 @@ Athena may support:
 
 # API Layer
 
-The API Layer exposes Athena capabilities through secure and documented interfaces.
+The API Layer exposes Clara capabilities through secure and documented interfaces.
 
 It should enforce authentication, authorization, validation, rate limits, and observability.
 
@@ -133,13 +133,13 @@ The Security Platform provides identity, authentication, authorization, secrets,
 
 # Integration Platform
 
-The Integration Platform connects Athena to external systems through REST APIs, webhooks, OAuth, plugins, connectors, SDKs, and marketplace capabilities.
+The Integration Platform connects Clara to external systems through REST APIs, webhooks, OAuth, plugins, connectors, SDKs, and marketplace capabilities.
 
 ---
 
 # Key Takeaways
 
-- Athena's system landscape is layered.
+- Clara's system landscape is layered.
 - Business Services depend on reusable Platform Services.
 - AI, Data, Security, and Integration are first-class platform areas.
 - Observability should apply across all layers.

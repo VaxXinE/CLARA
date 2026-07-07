@@ -2,7 +2,7 @@
 title: "AI Documentation Guardrails"
 version: "1.0.0"
 status: "official"
-owner: "Athena AI Architecture Team"
+owner: "Clara AI Architecture Team"
 last_updated: "2026-07-07"
 classification: "ai-guardrails"
 ---

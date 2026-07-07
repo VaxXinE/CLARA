@@ -5,7 +5,7 @@ chapter: "87"
 title: "REST API Implementation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./86-Integration-Architecture-Overview.md"
@@ -28,9 +28,9 @@ Defines REST API implementation standards, route design, DTO validation, paginat
 
 Integrations are powerful but risky.
 
-They connect Athena to external systems, external data, external identities, external failures, and external attack surfaces.
+They connect Clara to external systems, external data, external identities, external failures, and external attack surfaces.
 
-If integration code is scattered, Athena can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
+If integration code is scattered, Clara can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
 
 This chapter defines how **REST API Implementation** should be implemented safely and consistently.
 
@@ -40,7 +40,7 @@ This chapter defines how **REST API Implementation** should be implemented safel
 
 ## Decision
 
-Athena REST APIs should use resource-oriented routes, explicit DTOs, server-side authorization, consistent errors, and versioned contracts.
+Clara REST APIs should use resource-oriented routes, explicit DTOs, server-side authorization, consistent errors, and versioned contracts.
 
 ## Status
 
@@ -175,7 +175,7 @@ router.get("/v1/customers", async (request, reply) => {
 # Implementation Guidelines
 
 - Never call external providers directly from controllers or domain models.
-- Keep provider schemas isolated from Athena domain models.
+- Keep provider schemas isolated from Clara domain models.
 - Validate every inbound payload.
 - Verify webhook signatures before processing.
 - Store external credentials in vault/secret storage.

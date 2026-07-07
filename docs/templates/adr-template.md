@@ -1,6 +1,6 @@
-# Athena ADR Template
+# Clara ADR Template
 
-> Use this template to record significant architecture decisions in Athena.
+> Use this template to record significant architecture decisions in Clara.
 
 ```yaml
 ---
@@ -174,14 +174,14 @@ Explain why this option was chosen over the alternatives.
 
 # Rationale
 
-Connect the decision back to Athena principles.
+Connect the decision back to Clara principles.
 
 Examples:
 
 - Book I — Architecture Principles.
 - Book I — Security Philosophy.
 - Book II — Master Blueprint.
-- Athena Documentation Standards.
+- Clara Documentation Standards.
 
 ---
 

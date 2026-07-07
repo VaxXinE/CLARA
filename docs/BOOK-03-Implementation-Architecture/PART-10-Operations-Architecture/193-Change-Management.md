@@ -5,7 +5,7 @@ chapter: "193"
 title: "Change Management"
 version: "1.0.0"
 status: "official"
-owner: "Athena Operations Architecture Team"
+owner: "Clara Operations Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./192-Runbooks-Playbooks.md"
@@ -28,7 +28,7 @@ Defines production change control, risk assessment, approval rules, rollout safe
 
 Production systems do not stay reliable by accident.
 
-Athena needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
+Clara needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
 
 This chapter defines how **Change Management** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Change Management** should be implemented consistentl
 
 ## Decision
 
-Athena production changes should be risk-classified, reviewed, traceable, and reversible where practical.
+Clara production changes should be risk-classified, reviewed, traceable, and reversible where practical.
 
 ## Status
 

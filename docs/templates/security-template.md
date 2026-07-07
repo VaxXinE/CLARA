@@ -1,4 +1,4 @@
-# Athena Security Specification Template
+# Clara Security Specification Template
 
 > Use this template to document the security model for a service, domain, API, integration, AI capability, or infrastructure component.
 

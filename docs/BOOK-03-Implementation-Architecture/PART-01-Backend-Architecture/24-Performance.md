@@ -1,7 +1,7 @@
 # Performance
 
 ## Purpose
-Defines Athena backend standard for Performance.
+Defines Clara backend standard for Performance.
 
 ## Architecture Decision
 - Standardized across all modules.

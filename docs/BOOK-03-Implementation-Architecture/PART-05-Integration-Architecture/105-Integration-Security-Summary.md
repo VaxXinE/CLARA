@@ -5,7 +5,7 @@ chapter: "105"
 title: "Integration Security Summary"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./104-Integration-Observability.md"
@@ -28,9 +28,9 @@ Summarizes integration security principles, common threats, control requirements
 
 Integrations are powerful but risky.
 
-They connect Athena to external systems, external data, external identities, external failures, and external attack surfaces.
+They connect Clara to external systems, external data, external identities, external failures, and external attack surfaces.
 
-If integration code is scattered, Athena can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
+If integration code is scattered, Clara can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
 
 This chapter defines how **Integration Security Summary** should be implemented safely and consistently.
 
@@ -40,7 +40,7 @@ This chapter defines how **Integration Security Summary** should be implemented 
 
 ## Decision
 
-Athena integrations should be secure by default through credential vaulting, least privilege, signature verification, tenant scoping, audit, and safe retries.
+Clara integrations should be secure by default through credential vaulting, least privilege, signature verification, tenant scoping, audit, and safe retries.
 
 ## Status
 
@@ -172,7 +172,7 @@ backend/
 # Implementation Guidelines
 
 - Never call external providers directly from controllers or domain models.
-- Keep provider schemas isolated from Athena domain models.
+- Keep provider schemas isolated from Clara domain models.
 - Validate every inbound payload.
 - Verify webhook signatures before processing.
 - Store external credentials in vault/secret storage.

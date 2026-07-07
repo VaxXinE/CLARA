@@ -5,7 +5,7 @@ chapter: "44"
 title: "Performance"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./43-Accessibility.md"
@@ -26,11 +26,11 @@ Defines frontend performance practices for rendering, networking, caching, lists
 
 # Motivation
 
-Athena frontend must support many users, workflows, modules, and AI-assisted experiences.
+Clara frontend must support many users, workflows, modules, and AI-assisted experiences.
 
 Without clear frontend architecture, UI code can become tightly coupled, difficult to test, inconsistent, inaccessible, and insecure.
 
-This chapter defines how **Performance** should be implemented consistently across Athena client applications.
+This chapter defines how **Performance** should be implemented consistently across Clara client applications.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Performance** should be implemented consistently acro
 
 ## Decision
 
-Athena frontend should optimize for responsive interaction, efficient rendering, and measured performance improvements.
+Clara frontend should optimize for responsive interaction, efficient rendering, and measured performance improvements.
 
 ## Status
 

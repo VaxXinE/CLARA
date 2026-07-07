@@ -5,7 +5,7 @@ chapter: "07"
 title: "Domain Map"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./06-Business-Capability-Map.md"
@@ -20,7 +20,7 @@ next: "./08-Product-Map.md"
 
 # Purpose
 
-This chapter maps Athena's major business and platform domains.
+This chapter maps Clara's major business and platform domains.
 
 Domains organize business responsibilities and provide boundaries for future architecture.
 
@@ -28,7 +28,7 @@ Domains organize business responsibilities and provide boundaries for future arc
 
 # Domain Categories
 
-Athena domains may be grouped into:
+Clara domains may be grouped into:
 
 ## Foundation Domains
 
@@ -130,7 +130,7 @@ Each domain should define:
 # Key Takeaways
 
 - Domains are business ownership boundaries.
-- Athena should not organize around technical layers only.
+- Clara should not organize around technical layers only.
 - Every major capability should eventually map to a domain.
 - Domain ownership prevents duplicated authority.
 

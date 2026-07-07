@@ -1,4 +1,4 @@
-# Athena Manifesto
+# Clara Manifesto
 
 > *"We do not build software merely because technology advances. We build software because organizations deserve better."*
 
@@ -12,11 +12,11 @@
 | Chapter | 17                      |
 | Version | 1.0                     |
 | Status  | Official                |
-| Owner   | Athena Core Team        |
+| Owner   | Clara Core Team        |
 
 ---
 
-# The Athena Manifesto
+# The Clara Manifesto
 
 We believe organizations deserve software that works **with** them, not against them.
 
@@ -104,7 +104,7 @@ Future engineers deserve context.
 
 ---
 
-We believe every contributor strengthens Athena.
+We believe every contributor strengthens Clara.
 
 Not through the number of commits.
 
@@ -130,7 +130,7 @@ Standards create ecosystems.
 
 Healthy ecosystems outlast individual technologies.
 
-Athena should cooperate with the world rather than isolate itself from it.
+Clara should cooperate with the world rather than isolate itself from it.
 
 ---
 
@@ -212,7 +212,7 @@ Organizations that trust their information.
 
 Organizations that combine human wisdom with artificial intelligence.
 
-Athena exists to help build those organizations.
+Clara exists to help build those organizations.
 
 ---
 
@@ -242,13 +242,13 @@ We will never stop building toward a better way for organizations to work.
 
 # Closing Statement
 
-Athena is more than a software platform.
+Clara is more than a software platform.
 
 It is more than artificial intelligence.
 
 It is more than automation.
 
-Athena is a commitment.
+Clara is a commitment.
 
 A commitment to thoughtful engineering.
 
@@ -260,7 +260,7 @@ To trustworthy systems.
 
 To software that serves people.
 
-This is the Athena Manifesto.
+This is the Clara Manifesto.
 
 These are the beliefs that guide every decision we make.
 
@@ -270,7 +270,7 @@ These are the beliefs that guide every decision we make.
 
 **Previous**
 
-* 16-The-Athena-Way.md
+* 16-The-Clara-Way.md
 
 **Next**
 

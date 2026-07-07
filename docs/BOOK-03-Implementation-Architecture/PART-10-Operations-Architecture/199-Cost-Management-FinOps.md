@@ -5,7 +5,7 @@ chapter: "199"
 title: "Cost Management FinOps"
 version: "1.0.0"
 status: "official"
-owner: "Athena Operations Architecture Team"
+owner: "Clara Operations Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./198-Capacity-Planning.md"
@@ -28,7 +28,7 @@ Defines operational cost management, budget alerts, unit economics, cost allocat
 
 Production systems do not stay reliable by accident.
 
-Athena needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
+Clara needs clear service ownership, measured reliability, actionable alerts, incident response, production access controls, recovery drills, and continuous improvement. Without operations architecture, teams react late, alerts become noise, incidents repeat, and customer trust suffers.
 
 This chapter defines how **Cost Management FinOps** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Cost Management FinOps** should be implemented consis
 
 ## Decision
 
-Athena operational cost should be observable, allocated by tenant/service where practical, and optimized without weakening reliability or security.
+Clara operational cost should be observable, allocated by tenant/service where practical, and optimized without weakening reliability or security.
 
 ## Status
 

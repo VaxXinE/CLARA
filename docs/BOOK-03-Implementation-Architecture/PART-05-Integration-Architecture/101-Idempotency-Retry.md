@@ -5,7 +5,7 @@ chapter: "101"
 title: "Idempotency Retry"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./100-Rate-Limit-Quota.md"
@@ -28,9 +28,9 @@ Defines idempotency keys, safe retries, exponential backoff, duplicate preventio
 
 Integrations are powerful but risky.
 
-They connect Athena to external systems, external data, external identities, external failures, and external attack surfaces.
+They connect Clara to external systems, external data, external identities, external failures, and external attack surfaces.
 
-If integration code is scattered, Athena can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
+If integration code is scattered, Clara can suffer from credential leaks, SSRF, webhook spoofing, provider lock-in, inconsistent retries, duplicate writes, broken tenant isolation, and poor incident response.
 
 This chapter defines how **Idempotency Retry** should be implemented safely and consistently.
 
@@ -40,7 +40,7 @@ This chapter defines how **Idempotency Retry** should be implemented safely and 
 
 ## Decision
 
-Athena integration writes and webhook processing should be idempotent and retry-safe by default.
+Clara integration writes and webhook processing should be idempotent and retry-safe by default.
 
 ## Status
 
@@ -179,7 +179,7 @@ export class IdempotentExecutor {
 # Implementation Guidelines
 
 - Never call external providers directly from controllers or domain models.
-- Keep provider schemas isolated from Athena domain models.
+- Keep provider schemas isolated from Clara domain models.
 - Validate every inbound payload.
 - Verify webhook signatures before processing.
 - Store external credentials in vault/secret storage.

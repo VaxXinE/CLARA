@@ -1,6 +1,6 @@
-# Athena Database Specification Template
+# Clara Database Specification Template
 
-> Use this template to document database design, schema evolution, and data ownership for Athena services and domains.
+> Use this template to document database design, schema evolution, and data ownership for Clara services and domains.
 
 ```yaml
 ---

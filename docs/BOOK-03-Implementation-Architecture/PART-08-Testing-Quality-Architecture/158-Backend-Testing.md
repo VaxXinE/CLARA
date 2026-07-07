@@ -5,7 +5,7 @@ chapter: "158"
 title: "Backend Testing"
 version: "1.0.0"
 status: "official"
-owner: "Athena Quality Architecture Team"
+owner: "Clara Quality Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./157-Frontend-Testing.md"
@@ -28,7 +28,7 @@ Defines backend testing for domain models, use cases, repositories, controllers,
 
 Production quality cannot rely on manual confidence or optimistic assumptions.
 
-Athena has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
+Clara has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
 
 This chapter defines how **Backend Testing** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Backend Testing** should be implemented consistently.
 
 ## Decision
 
-Athena backend tests should prioritize domain correctness, application authorization, transaction safety, repository behavior, and API contract stability.
+Clara backend tests should prioritize domain correctness, application authorization, transaction safety, repository behavior, and API contract stability.
 
 ## Status
 

@@ -5,7 +5,7 @@ chapter: "159"
 title: "Test Data Management"
 version: "1.0.0"
 status: "official"
-owner: "Athena Quality Architecture Team"
+owner: "Clara Quality Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./158-Backend-Testing.md"
@@ -28,7 +28,7 @@ Defines test data strategy, fixtures, factories, anonymized data, seed data, det
 
 Production quality cannot rely on manual confidence or optimistic assumptions.
 
-Athena has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
+Clara has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
 
 This chapter defines how **Test Data Management** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Test Data Management** should be implemented consiste
 
 ## Decision
 
-Athena test data should be deterministic, isolated, synthetic by default, and never depend on production customer data.
+Clara test data should be deterministic, isolated, synthetic by default, and never depend on production customer data.
 
 ## Status
 

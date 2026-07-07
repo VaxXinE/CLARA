@@ -5,7 +5,7 @@ chapter: "02"
 title: "Clean Architecture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-06"
 classification: "implementation-architecture"
 previous: "./01-System-Architecture.md"
@@ -20,7 +20,7 @@ next: "./03-Domain-Driven-Design.md"
 
 # Purpose
 
-This chapter defines how Athena applies Clean Architecture in backend implementation.
+This chapter defines how Clara applies Clean Architecture in backend implementation.
 
 Clean Architecture protects business logic from framework, database, infrastructure, and delivery mechanism changes.
 
@@ -28,7 +28,7 @@ Clean Architecture protects business logic from framework, database, infrastruct
 
 # Motivation
 
-Athena will evolve over time.
+Clara will evolve over time.
 
 Frameworks may change.
 
@@ -46,7 +46,7 @@ Clean Architecture keeps the most important logic independent from technical too
 
 ## Decision
 
-Athena backend should use Clean Architecture dependency rules.
+Clara backend should use Clean Architecture dependency rules.
 
 Dependencies must point inward toward the Domain layer.
 

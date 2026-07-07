@@ -5,7 +5,7 @@ chapter: "73"
 title: "Event Store Implementation"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./72-Consistency-Model.md"
@@ -26,7 +26,7 @@ Defines event store implementation, event schema, ordering, idempotency, replay,
 
 # Motivation
 
-Data is one of the highest-risk parts of Athena.
+Data is one of the highest-risk parts of Clara.
 
 Bad data architecture can cause privacy leaks, tenant isolation failures, broken AI context, slow queries, unrecoverable incidents, inconsistent reporting, and dangerous production migrations.
 
@@ -38,7 +38,7 @@ This chapter defines how **Event Store Implementation** should be implemented sa
 
 ## Decision
 
-Athena should store important domain and integration events using an append-only event store or outbox-backed event log.
+Clara should store important domain and integration events using an append-only event store or outbox-backed event log.
 
 ## Status
 

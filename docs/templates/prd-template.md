@@ -1,4 +1,4 @@
-# Athena Product Requirements Document (PRD) Template
+# Clara Product Requirements Document (PRD) Template
 
 > Use this template to define **what** should be built and **why** before implementation begins.
 

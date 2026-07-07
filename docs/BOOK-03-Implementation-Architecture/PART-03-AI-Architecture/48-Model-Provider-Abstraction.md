@@ -5,7 +5,7 @@ chapter: "48"
 title: "Model Provider Abstraction"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./47-AI-Gateway.md"
@@ -28,7 +28,7 @@ Defines provider abstraction for OpenAI, Gemini, local models, and future AI mod
 
 AI capabilities can create major product leverage, but they also introduce new risks: hallucination, prompt injection, data leakage, uncontrolled cost, unsafe tool execution, inconsistent output, and difficult debugging.
 
-Athena must treat AI as a production platform capability, not as scattered SDK calls.
+Clara must treat AI as a production platform capability, not as scattered SDK calls.
 
 This chapter defines how **Model Provider Abstraction** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Model Provider Abstraction** should be implemented sa
 
 ## Decision
 
-Athena should abstract model providers behind a stable provider interface with capability-based routing.
+Clara should abstract model providers behind a stable provider interface with capability-based routing.
 
 ## Status
 

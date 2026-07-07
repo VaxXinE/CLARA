@@ -11,14 +11,14 @@
 | Term | Event |
 | Category | Architecture / Integration |
 | Status | Official |
-| Owner | Athena Core Team |
+| Owner | Clara Core Team |
 | Last Updated | 2026-07-06 |
 
 ---
 
 # Definition
 
-An **Event** is an immutable record describing something that has already occurred within Athena.
+An **Event** is an immutable record describing something that has already occurred within Clara.
 
 Events communicate business facts between Domains and Services without requiring direct runtime coupling.
 

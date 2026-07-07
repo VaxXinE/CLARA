@@ -5,7 +5,7 @@ chapter: "20"
 title: "Background Jobs"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-06"
 classification: "implementation-architecture"
 previous: "./19-Caching.md"
@@ -14,13 +14,13 @@ next: "./21-API-Guidelines.md"
 
 # Background Jobs
 
-> *"Defines asynchronous processing, job queues, retries, idempotency, dead-letter handling, and background execution in Athena backend."*
+> *"Defines asynchronous processing, job queues, retries, idempotency, dead-letter handling, and background execution in Clara backend."*
 
 ---
 
 # Purpose
 
-Defines asynchronous processing, job queues, retries, idempotency, dead-letter handling, and background execution in Athena backend.
+Defines asynchronous processing, job queues, retries, idempotency, dead-letter handling, and background execution in Clara backend.
 
 ---
 
@@ -28,7 +28,7 @@ Defines asynchronous processing, job queues, retries, idempotency, dead-letter h
 
 Production backend systems fail when runtime quality concerns are treated as afterthoughts.
 
-Athena must handle validation, errors, logging, caching, and background jobs consistently across every module, service, API, workflow, and integration.
+Clara must handle validation, errors, logging, caching, and background jobs consistently across every module, service, API, workflow, and integration.
 
 This chapter defines how **Background Jobs** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Background Jobs** should be implemented safely and co
 
 ## Decision
 
-Athena backend uses background jobs for slow, retryable, scheduled, or external side-effect-heavy operations.
+Clara backend uses background jobs for slow, retryable, scheduled, or external side-effect-heavy operations.
 
 ## Status
 

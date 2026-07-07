@@ -1,13 +1,13 @@
 ---
-title: "Athena Engineering Library"
+title: "Clara Engineering Library"
 version: "1.1.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "documentation-index"
 ---
 
-# Athena Engineering Library
+# Clara Engineering Library
 
 > "A great platform is built not only with code, but with shared understanding."
 
@@ -15,17 +15,17 @@ classification: "documentation-index"
 
 # Purpose
 
-The Athena Engineering Library is the central documentation system for the Athena Project.
+The Clara Engineering Library is the central documentation system for the Clara Project.
 
-It defines the principles, standards, templates, architecture, product blueprint, engineering process, security model, AI foundation, operations, and ecosystem strategy used to design, build, operate, and evolve Athena.
+It defines the principles, standards, templates, architecture, product blueprint, engineering process, security model, AI foundation, operations, and ecosystem strategy used to design, build, operate, and evolve Clara.
 
-This directory is the single source of truth for Athena documentation.
+This directory is the single source of truth for Clara documentation.
 
 ---
 
-# What is Athena?
+# What is Clara?
 
-Athena is an AI-native Business Operating System designed to unify:
+Clara is an AI-native Business Operating System designed to unify:
 
 - Business operations.
 - Customer relationships.
@@ -38,9 +38,9 @@ Athena is an AI-native Business Operating System designed to unify:
 - Integrations.
 - Analytics.
 
-Athena is not a single application.
+Clara is not a single application.
 
-Athena is a long-term platform for building intelligent, secure, and maintainable business systems.
+Clara is a long-term platform for building intelligent, secure, and maintainable business systems.
 
 ---
 
@@ -79,11 +79,11 @@ Contains official documentation and engineering documentation standards.
 
 ## templates/
 
-Contains reusable templates for common Athena documents.
+Contains reusable templates for common Clara documents.
 
 ## glossary/
 
-Contains canonical definitions of important Athena terms.
+Contains canonical definitions of important Clara terms.
 
 ## adr/
 
@@ -99,7 +99,7 @@ Contains non-sensitive documentation assets.
 
 ## references/
 
-Contains references, notes, and links that support Athena documentation.
+Contains references, notes, and links that support Clara documentation.
 
 ## onboarding/
 
@@ -135,15 +135,15 @@ Contains engineering documentation index and implementation workflow guidance.
 
 ## BOOK-01-The-Foundation/
 
-Defines why Athena exists.
+Defines why Clara exists.
 
 ## BOOK-02-Master-Blueprint/
 
-Defines what Athena will build.
+Defines what Clara will build.
 
 ## BOOK-03-Implementation-Architecture/
 
-Defines how Athena should be implemented.
+Defines how Clara should be implemented.
 
 ---
 
@@ -195,7 +195,7 @@ Defines how Athena should be implemented.
 
 # Documentation Governance
 
-All official Athena documentation should follow:
+All official Clara documentation should follow:
 
 - `standards/`
 - `templates/`
@@ -292,12 +292,12 @@ AI-related documentation must define:
 - Privacy considerations.
 - Observability.
 
-AI must never be documented as having unrestricted access to Athena data.
+AI must never be documented as having unrestricted access to Clara data.
 
 ---
 
 # Final Principle
 
-Documentation is part of Athena's architecture.
+Documentation is part of Clara's architecture.
 
 If it is not documented, it cannot be consistently understood, reviewed, secured, operated, or improved.

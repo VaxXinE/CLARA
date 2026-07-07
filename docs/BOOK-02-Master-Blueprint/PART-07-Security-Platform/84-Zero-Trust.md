@@ -5,7 +5,7 @@ chapter: "84"
 title: "Zero Trust"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./83-IAM.md"
@@ -14,23 +14,23 @@ next: "./85-Encryption.md"
 
 # Zero Trust
 
-> *"Defines Athena's zero trust security posture where no actor, network, service, plugin, or AI capability is trusted by default."*
+> *"Defines Clara's zero trust security posture where no actor, network, service, plugin, or AI capability is trusted by default."*
 
 ---
 
 # Purpose
 
-Defines Athena's zero trust security posture where no actor, network, service, plugin, or AI capability is trusted by default.
+Defines Clara's zero trust security posture where no actor, network, service, plugin, or AI capability is trusted by default.
 
-This chapter defines the blueprint-level responsibility of **Zero Trust** inside Athena's Security Platform.
+This chapter defines the blueprint-level responsibility of **Zero Trust** inside Clara's Security Platform.
 
 ---
 
 # Overview
 
-The **Zero Trust** capability is part of Athena's shared Security Platform.
+The **Zero Trust** capability is part of Clara's shared Security Platform.
 
-It protects Athena across Organizations, Workspaces, business domains, platform services, AI capabilities, integrations, plugins, and infrastructure.
+It protects Clara across Organizations, Workspaces, business domains, platform services, AI capabilities, integrations, plugins, and infrastructure.
 
 This document defines the security role and boundary at blueprint level. Implementation details should be defined later in security architecture, runbooks, and technical specifications.
 
@@ -40,7 +40,7 @@ This document defines the security role and boundary at blueprint level. Impleme
 
 The **Zero Trust** capability is responsible for:
 
-- Protecting Athena resources.
+- Protecting Clara resources.
 - Supporting secure access patterns.
 - Preserving Organization and Workspace boundaries.
 - Reducing security risk.
@@ -169,8 +169,8 @@ The **Zero Trust** capability may evolve with:
 
 # Key Takeaways
 
-- Defines Athena's zero trust security posture where no actor, network, service, plugin, or AI capability is trusted by default.
-- It is part of Athena's shared Security Platform.
+- Defines Clara's zero trust security posture where no actor, network, service, plugin, or AI capability is trusted by default.
+- It is part of Clara's shared Security Platform.
 - It must protect Organization, Workspace, data, AI, services, plugins, and integrations.
 - It should be observable, auditable, and governed.
 

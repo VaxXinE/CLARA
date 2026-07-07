@@ -5,7 +5,7 @@ chapter: "139"
 title: "Threat Modeling"
 version: "1.0.0"
 status: "official"
-owner: "Athena Security Architecture Team"
+owner: "Clara Security Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./138-Secure-Coding-Standards.md"
@@ -28,7 +28,7 @@ Defines threat modeling process, trust boundary mapping, abuse cases, STRIDE rev
 
 Security bugs in production are expensive, damaging, and often caused by unclear ownership or inconsistent implementation.
 
-Athena handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
+Clara handles organizations, workspaces, users, customer data, integrations, AI workflows, secrets, audit logs, and operational systems. That means security must be built into every layer, not added later.
 
 This chapter defines how **Threat Modeling** should be implemented safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Threat Modeling** should be implemented safely and co
 
 ## Decision
 
-Athena high-risk features should include lightweight threat modeling before implementation and before production release.
+Clara high-risk features should include lightweight threat modeling before implementation and before production release.
 
 ## Status
 

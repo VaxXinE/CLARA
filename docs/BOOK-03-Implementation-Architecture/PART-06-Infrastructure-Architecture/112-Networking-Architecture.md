@@ -5,7 +5,7 @@ chapter: "112"
 title: "Networking Architecture"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./111-Environment-Strategy.md"
@@ -30,7 +30,7 @@ Infrastructure is where architecture meets production reality.
 
 Good application code can still fail if deployment is unsafe, secrets are leaked, logs are missing, scaling is uncontrolled, or incidents have no runbooks.
 
-This chapter defines how **Networking Architecture** should be implemented safely and consistently for Athena.
+This chapter defines how **Networking Architecture** should be implemented safely and consistently for Clara.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter defines how **Networking Architecture** should be implemented safel
 
 ## Decision
 
-Athena networking should use private-by-default service connectivity, controlled ingress, restricted egress, and explicit network policies.
+Clara networking should use private-by-default service connectivity, controlled ingress, restricted egress, and explicit network policies.
 
 ## Status
 
@@ -151,11 +151,11 @@ infra/
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: athena-api-network-policy
+  name: Clara-api-network-policy
 spec:
   podSelector:
     matchLabels:
-      app: athena-api
+      app: Clara-api
   policyTypes:
     - Ingress
     - Egress

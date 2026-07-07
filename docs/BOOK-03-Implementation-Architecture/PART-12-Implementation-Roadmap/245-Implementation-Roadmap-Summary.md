@@ -5,7 +5,7 @@ chapter: "245"
 title: "Implementation Roadmap Summary"
 version: "1.0.0"
 status: "official"
-owner: "Athena Architecture Team"
+owner: "Clara Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./244-Governance-Continuous-Improvement.md"
@@ -14,13 +14,13 @@ next: "../../README.md"
 
 # Implementation Roadmap Summary
 
-> *"Summarizes Athena implementation roadmap principles, phase order, exit criteria, and production execution model."*
+> *"Summarizes Clara implementation roadmap principles, phase order, exit criteria, and production execution model."*
 
 ---
 
 # Purpose
 
-Summarizes Athena implementation roadmap principles, phase order, exit criteria, and production execution model.
+Summarizes Clara implementation roadmap principles, phase order, exit criteria, and production execution model.
 
 ---
 
@@ -28,7 +28,7 @@ Summarizes Athena implementation roadmap principles, phase order, exit criteria,
 
 A strong architecture still fails if implementation happens in the wrong order.
 
-Athena has backend, frontend, data, security, AI, integration, infrastructure, testing, operations, and product modules. If teams build product capabilities before foundations are ready, technical debt becomes structural debt.
+Clara has backend, frontend, data, security, AI, integration, infrastructure, testing, operations, and product modules. If teams build product capabilities before foundations are ready, technical debt becomes structural debt.
 
 This chapter defines how **Implementation Roadmap Summary** should guide implementation safely and consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Implementation Roadmap Summary** should guide impleme
 
 ## Decision
 
-Athena roadmap execution should remain phased, evidence-based, secure by design, production-aware, and continuously improved.
+Clara roadmap execution should remain phased, evidence-based, secure by design, production-aware, and continuously improved.
 
 ## Status
 

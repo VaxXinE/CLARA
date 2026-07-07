@@ -5,7 +5,7 @@ chapter: "63"
 title: "Feature Flags"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./62-Config.md"
@@ -22,7 +22,7 @@ next: "./64-Secrets.md"
 
 Defines controlled feature rollout, experimentation, kill switches, and progressive delivery.
 
-This chapter explains the blueprint-level role of **Feature Flags** as a shared Platform Service in Athena.
+This chapter explains the blueprint-level role of **Feature Flags** as a shared Platform Service in Clara.
 
 ---
 

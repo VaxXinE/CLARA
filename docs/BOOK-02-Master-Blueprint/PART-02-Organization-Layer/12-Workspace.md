@@ -5,7 +5,7 @@ chapter: "12"
 title: "Workspace"
 version: "1.0.0"
 status: "official"
-owner: "Athena Core Team"
+owner: "Clara Core Team"
 last_updated: "2026-07-06"
 classification: "blueprint"
 previous: "./11-Organization.md"
@@ -95,7 +95,7 @@ Examples:
 
 # Security Considerations
 
-Athena must enforce:
+Clara must enforce:
 
 - Workspace membership.
 - Workspace-scoped permissions.

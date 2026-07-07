@@ -5,7 +5,7 @@ chapter: "149"
 title: "Integration Testing"
 version: "1.0.0"
 status: "official"
-owner: "Athena Quality Architecture Team"
+owner: "Clara Quality Architecture Team"
 last_updated: "2026-07-07"
 classification: "implementation-architecture"
 previous: "./148-Unit-Testing.md"
@@ -28,7 +28,7 @@ Defines integration testing standards for repositories, databases, queues, cache
 
 Production quality cannot rely on manual confidence or optimistic assumptions.
 
-Athena has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
+Clara has complex backend systems, frontend workflows, data stores, integrations, AI capabilities, security controls, and infrastructure. A weak test strategy can allow regressions that break trust, leak data, create duplicate side effects, or ship unsafe AI behavior.
 
 This chapter defines how **Integration Testing** should be implemented consistently.
 
@@ -38,7 +38,7 @@ This chapter defines how **Integration Testing** should be implemented consisten
 
 ## Decision
 
-Athena integration tests should verify real boundaries using isolated test infrastructure and deterministic fixtures.
+Clara integration tests should verify real boundaries using isolated test infrastructure and deterministic fixtures.
 
 ## Status
 
