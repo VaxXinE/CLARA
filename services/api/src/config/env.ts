@@ -29,6 +29,18 @@ const envSchema = z.object({
     .enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent'])
     .default('info'),
 
+  DATABASE_URL: z
+    .string()
+    .trim()
+    .refine(
+      (value) =>
+        value.length === 0 ||
+        value.startsWith('postgres://') ||
+        value.startsWith('postgresql://'),
+      'DATABASE_URL must use postgres:// or postgresql://'
+    )
+    .optional(),
+
   MOCK_AUTH_ENABLED: z
     .enum(['true', 'false'])
     .optional(),
@@ -41,7 +53,8 @@ const envSchema = z.object({
 
 type RawEnv = z.infer<typeof envSchema>;
 
-export type Env = Omit<RawEnv, 'MOCK_AUTH_ENABLED'> & {
+export type Env = Omit<RawEnv, 'MOCK_AUTH_ENABLED' | 'DATABASE_URL'> & {
+  DATABASE_URL?: string;
   MOCK_AUTH_ENABLED: boolean;
 };
 
@@ -59,13 +72,22 @@ export function loadEnv(input: NodeJS.ProcessEnv = process.env): Env {
     );
   }
 
-  const env = {
-    ...parsed.data,
+  const env: Env = {
+    NODE_ENV: parsed.data.NODE_ENV,
+    APP_NAME: parsed.data.APP_NAME,
+    HOST: parsed.data.HOST,
+    PORT: parsed.data.PORT,
+    LOG_LEVEL: parsed.data.LOG_LEVEL,
+    CORS_ORIGIN: parsed.data.CORS_ORIGIN,
     MOCK_AUTH_ENABLED:
       parsed.data.MOCK_AUTH_ENABLED === undefined
         ? parsed.data.NODE_ENV !== 'production'
         : parsed.data.MOCK_AUTH_ENABLED === 'true'
   };
+
+  if (parsed.data.DATABASE_URL && parsed.data.DATABASE_URL.length > 0) {
+    env.DATABASE_URL = parsed.data.DATABASE_URL;
+  }
 
   if (env.NODE_ENV === 'production' && env.MOCK_AUTH_ENABLED) {
     throw new Error(
