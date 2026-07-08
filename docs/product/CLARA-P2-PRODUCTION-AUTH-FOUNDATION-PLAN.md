@@ -132,6 +132,8 @@ Deliver:
 provider token/session verification on protected API routes
 safe unauthenticated error handling
 no token leakage in logs or responses
+extract and validate bearer token before any provider verifier is called
+fail closed until real provider verification is implemented
 ```
 
 ### Step 3: Clara User Mapping
