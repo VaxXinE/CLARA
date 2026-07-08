@@ -20,10 +20,8 @@ import { createFixtureAppStore } from "../db/fixtures/fixture-store";
 import { FixtureConversationRepository } from "../conversations/conversation-repository";
 import { DrizzleConversationRepository } from "../conversations/conversation-db-repository";
 import { ConversationQueryService } from "../conversations/conversation-service";
-import {
-  DrizzleCustomerRepository,
-  FixtureCustomerRepository,
-} from "../customers/customer-repository";
+import { FixtureCustomerRepository } from "../customers/customer-repository";
+import { DrizzleCustomerRepository } from "../customers/customer-db-repository";
 import { CustomerQueryService } from "../customers/customer-service";
 import {
   DrizzleReplyRepository,
@@ -91,7 +89,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
 
   if (env.NODE_ENV === "production") {
     throw new Error(
-      "DATABASE_URL is required in production so conversation and related APIs do not fall back to fixture data.",
+      "DATABASE_URL is required in production so conversation, customer, and related APIs do not fall back to fixture data.",
     );
   }
 
