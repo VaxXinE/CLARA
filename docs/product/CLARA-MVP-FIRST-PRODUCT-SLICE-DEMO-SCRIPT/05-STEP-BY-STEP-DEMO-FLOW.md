@@ -4,7 +4,7 @@ artifact: "MVP First Product Slice Demo Script"
 version: "1.0.0"
 status: "draft-for-review"
 owner: "CLARA Product, Engineering, Security, QA, AI, and Product Operations Team"
-last_updated: "2026-07-07"
+last_updated: "2026-07-08"
 classification: "demo-script"
 repository: "https://github.com/VaxXinE/CLARA"
 based_on:
@@ -48,7 +48,7 @@ Today I’ll show the first CLARA MVP slice: a unified customer conversation wor
 Action:
 
 ```text
-Open dashboard as Agent Demo.
+Open `http://127.0.0.1:5173` and select Agent Demo in the local role switcher.
 ```
 
 Say:
@@ -152,7 +152,7 @@ Click Send Reply.
 Say:
 
 ```text
-For MVP, this can use a simulated send adapter. That lets us validate the workflow before adding real provider complexity.
+For MVP, this uses a simulated send adapter. That lets us validate the workflow before adding real provider complexity.
 ```
 
 ---
@@ -178,7 +178,7 @@ Activity gives the team traceability. We can see that an AI draft was generated 
 Action:
 
 ```text
-Switch demo user to Viewer Demo.
+Switch demo user to Viewer Demo using the dashboard role switcher.
 ```
 
 Say:
@@ -195,4 +195,12 @@ Say:
 
 ```text
 This first slice proves the core CLARA loop: conversation, customer context, AI-assisted draft, human review, manual send, and traceable activity with role-based safety.
+```
+
+What not to claim in the demo:
+
+```text
+do not imply real provider delivery exists
+do not imply production authentication exists
+do not imply AI can send autonomously
 ```

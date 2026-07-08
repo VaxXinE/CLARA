@@ -4,7 +4,7 @@ artifact: "MVP First Product Slice README / Runbook"
 version: "1.0.0"
 status: "draft-for-review"
 owner: "CLARA Engineering, DevOps, Security, QA, Product, and AI Team"
-last_updated: "2026-07-07"
+last_updated: "2026-07-08"
 classification: "readme-runbook"
 repository: "https://github.com/VaxXinE/CLARA"
 based_on:
@@ -43,16 +43,11 @@ This document defines how to run MVP demo mode safely.
 
 Recommended:
 
-```bash
-APP_ENV=development
-DEMO_MODE=true
-AUTH_MODE=mock
-MOCK_AUTH_ENABLED=true
-AI_PROVIDER=mock
-AI_MOCK_ENABLED=true
-SEND_ADAPTER=simulated
-SIMULATED_SEND_ENABLED=true
-SEED_DEMO_DATA=true
+```text
+services/api uses local mock auth only
+apps/dashboard runs with VITE_DEMO_MODE=true
+VITE_API_BASE_URL points to http://127.0.0.1:3000
+database contains fake seeded demo data
 ```
 
 ---
@@ -60,9 +55,9 @@ SEED_DEMO_DATA=true
 # Demo Users
 
 ```text
-Owner Demo
-Agent Demo
-Viewer Demo
+Owner Demo  -> can read, generate AI draft, send reply
+Agent Demo  -> can read, generate AI draft, send reply
+Viewer Demo -> read-only; cannot generate AI draft or send reply
 ```
 
 ---
@@ -119,6 +114,7 @@ Before demo:
 - [ ] AI failure fallback tested.
 - [ ] Send failure fallback tested.
 - [ ] Activity timeline updates.
+- [ ] Cross-workspace access returns 404 in automated tests.
 - [ ] No `.env` staged in git.
 - [ ] No secrets visible in UI/logs.
 

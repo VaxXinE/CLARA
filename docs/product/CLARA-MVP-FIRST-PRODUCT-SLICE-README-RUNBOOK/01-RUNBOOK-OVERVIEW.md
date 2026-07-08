@@ -4,7 +4,7 @@ artifact: "MVP First Product Slice README / Runbook"
 version: "1.0.0"
 status: "draft-for-review"
 owner: "CLARA Engineering, DevOps, Security, QA, Product, and AI Team"
-last_updated: "2026-07-07"
+last_updated: "2026-07-08"
 classification: "readme-runbook"
 repository: "https://github.com/VaxXinE/CLARA"
 based_on:
@@ -36,6 +36,18 @@ source_of_truth:
 # Purpose
 
 This runbook explains how to operate the MVP locally and during demo.
+
+Current implemented MVP:
+
+```text
+Fastify API service
+PostgreSQL schema, migration, and fake seed data
+mock auth with owner/agent/viewer roles
+conversation, customer, and activity read APIs
+mock AI draft API
+simulated reply send API
+React dashboard conversation workspace
+```
 
 ---
 
@@ -84,6 +96,8 @@ billing
 mobile app
 full incident response
 complete data retention automation
+real channel integrations
+real AI provider integration
 ```
 
 These should be added in later production runbooks.

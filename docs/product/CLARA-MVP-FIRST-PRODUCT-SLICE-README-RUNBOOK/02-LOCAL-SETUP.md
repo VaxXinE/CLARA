@@ -4,7 +4,7 @@ artifact: "MVP First Product Slice README / Runbook"
 version: "1.0.0"
 status: "draft-for-review"
 owner: "CLARA Engineering, DevOps, Security, QA, Product, and AI Team"
-last_updated: "2026-07-07"
+last_updated: "2026-07-08"
 classification: "readme-runbook"
 repository: "https://github.com/VaxXinE/CLARA"
 based_on:
@@ -35,24 +35,13 @@ source_of_truth:
 
 # Prerequisites
 
-Final tooling depends on the implementation stack.
-
-Recommended baseline:
+Required baseline:
 
 ```text
 Git
 Node.js LTS
-Package manager: npm, pnpm, or yarn
-Docker / Docker Compose
-PostgreSQL local or containerized
-```
-
-Optional depending stack:
-
-```text
-Turborepo/Nx
-Prisma/Drizzle/TypeORM
-Playwright/Vitest/Jest
+npm
+PostgreSQL local
 ```
 
 ---
@@ -85,22 +74,23 @@ docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-SECURITY-PRIVACY-CHECKLIST/
 
 # Install Dependencies
 
-Template command:
-
 ```bash
-# choose one based on final stack
+cd services/api
 npm install
-# or
-pnpm install
-# or
-yarn install
+
+cd ../../apps/dashboard
+npm install
 ```
 
 ---
 
-# Copy Environment File
+# Copy Environment Files
 
 ```bash
+cd services/api
+cp .env.example .env
+
+cd ../../apps/dashboard
 cp .env.example .env.local
 ```
 
@@ -112,27 +102,40 @@ Never commit:
 .env.production
 ```
 
----
-
-# Start Local Infrastructure
-
-Template:
+# Database Setup
 
 ```bash
-docker compose -f infra/local/docker-compose.yml up -d
+cd services/api
+npm run db:check
+npm run db:migrate
+npm run db:seed
 ```
 
-If local infra is not implemented yet, create it from the Repository Skeleton and Backend Bootstrap milestones.
+Use a safe local PostgreSQL `DATABASE_URL` only. Do not use production credentials.
 
 ---
 
-# Verify Database Connection
+# Run API and Dashboard Together
 
-Template:
+Terminal 1:
 
 ```bash
-# final command depends on selected stack
-npm run db:status
+cd services/api
+npm run dev
+```
+
+Terminal 2:
+
+```bash
+cd apps/dashboard
+npm run dev
+```
+
+Open:
+
+```text
+API: http://127.0.0.1:3000
+Dashboard: http://127.0.0.1:5173
 ```
 
 ---
@@ -141,8 +144,9 @@ npm run db:status
 
 - [ ] Repository cloned.
 - [ ] Dependencies installed.
-- [ ] `.env.local` created from `.env.example`.
-- [ ] Local database running.
+- [ ] `services/api/.env` created from `.env.example`.
+- [ ] `apps/dashboard/.env.local` created from `.env.example`.
+- [ ] Local PostgreSQL running.
 - [ ] No production secrets used.
 - [ ] Mock auth configured for local only.
 - [ ] Mock AI provider configured.

@@ -30,6 +30,8 @@ Start the backend first:
 ```bash
 cd services/api
 npm install
+npm run db:migrate
+npm run db:seed
 npm run dev
 ```
 
@@ -46,6 +48,14 @@ Open:
 
 ```text
 http://127.0.0.1:5173
+```
+
+Expected local flow:
+
+```text
+dashboard calls the local API at VITE_API_BASE_URL
+demo mode adds mock auth headers for owner/agent/viewer
+backend remains the source of truth for permissions
 ```
 
 ## Environment
@@ -65,6 +75,14 @@ Agent  -> usr_demo_agent
 Viewer -> usr_demo_viewer
 ```
 
+Role behavior:
+
+```text
+owner  -> can read, generate AI draft, and send reply
+agent  -> can read, generate AI draft, and send reply
+viewer -> read-only; AI draft and send controls are not enabled
+```
+
 ## Commands
 
 ```bash
@@ -79,6 +97,7 @@ npm audit --omit=dev --audit-level=high
 
 - Do not put API keys or secrets in frontend env.
 - Backend authorization remains the source of truth.
+- Mock auth in the dashboard is for local/demo only.
 - Customer/user-generated content is rendered as plain text only.
 - AI drafts are visibly labeled as drafts and require human review.
 - Send action always requires explicit human click.
@@ -89,7 +108,7 @@ npm audit --omit=dev --audit-level=high
 
 ```bash
 cd apps/dashboard
-npx --yes prettier "src/**/*.ts" --write
+npx --yes prettier "src/**/*.ts" "src/**/*.tsx" --write
 npm run typecheck
 npm run test
 npm run build
@@ -109,4 +128,5 @@ demo role switcher is for local/mock auth only
 mock AI draft provider only
 simulated reply send provider only
 no real WhatsApp/Instagram/TikTok/email integration yet
+no frontend secrets or provider API keys should exist in this app
 ```

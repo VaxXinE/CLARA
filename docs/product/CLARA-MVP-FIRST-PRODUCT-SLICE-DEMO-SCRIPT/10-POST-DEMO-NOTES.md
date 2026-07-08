@@ -4,7 +4,7 @@ artifact: "MVP First Product Slice Demo Script"
 version: "1.0.0"
 status: "draft-for-review"
 owner: "CLARA Product, Engineering, Security, QA, AI, and Product Operations Team"
-last_updated: "2026-07-07"
+last_updated: "2026-07-08"
 classification: "demo-script"
 repository: "https://github.com/VaxXinE/CLARA"
 based_on:
@@ -100,6 +100,17 @@ Priority:
 Due:
 Linked doc/task:
 ```
+
+---
+
+# Post-Demo Checklist
+
+- [ ] Capture whether agent workflow felt clear.
+- [ ] Capture whether viewer read-only behavior was understood.
+- [ ] Capture any concern about mock auth or simulated providers.
+- [ ] Confirm nobody interpreted AI draft as autonomous send.
+- [ ] Document any mismatch between demo claims and implemented MVP.
+- [ ] Convert approved follow-up work into backlog or doc updates.
 
 ---
 
