@@ -1,5 +1,5 @@
 import type { FastifyInstance } from "fastify";
-import type { Env } from "../../config/env";
+import type { AuthProvider } from "../../auth/auth-provider";
 import { getAuthContext } from "../../auth/auth-context";
 import { requireAuth } from "../../auth/require-auth";
 import { getWorkspaceScope } from "../../workspace/workspace-scope";
@@ -47,12 +47,12 @@ function buildMeResponse(
 
 export async function registerMeRoutes(
   app: FastifyInstance,
-  env: Env,
+  authProvider: AuthProvider,
 ): Promise<void> {
   app.get(
     "/api/v1/me",
     {
-      preHandler: requireAuth(env),
+      preHandler: requireAuth(authProvider),
     },
     async (request) => buildMeResponse(request),
   );

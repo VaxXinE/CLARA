@@ -1,7 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
+import type { AuthProvider } from "../../auth/auth-provider";
 import { getAuthContext } from "../../auth/auth-context";
-import type { Env } from "../../config/env";
 import { type ConversationListFilters } from "../../conversations/conversation-repository";
 import {
   ConversationQueryService,
@@ -91,13 +91,13 @@ function parseConversationListFilters(query: unknown): ConversationListFilters {
 
 export async function registerConversationRoutes(
   app: FastifyInstance,
-  env: Env,
+  authProvider: AuthProvider,
   service: ConversationQueryService,
 ): Promise<void> {
   app.get(
     "/api/v1/conversations",
     {
-      preHandler: requireAuth(env),
+      preHandler: requireAuth(authProvider),
     },
     async (request) => {
       const auth = getAuthContext(request);
@@ -113,7 +113,7 @@ export async function registerConversationRoutes(
   app.get(
     "/api/v1/conversations/:conversation_id",
     {
-      preHandler: requireAuth(env),
+      preHandler: requireAuth(authProvider),
     },
     async (request) => {
       const auth = getAuthContext(request);

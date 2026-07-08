@@ -1,8 +1,8 @@
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
+import type { AuthProvider } from "../../auth/auth-provider";
 import { getAuthContext } from "../../auth/auth-context";
 import { requireAuth } from "../../auth/require-auth";
-import type { Env } from "../../config/env";
 import { ValidationError } from "../../errors/app-error";
 import { AiDraftService } from "../../ai-drafts/ai-draft-service";
 
@@ -71,13 +71,13 @@ function parseAiDraftBody(body: unknown): {
 
 export async function registerAiDraftRoutes(
   app: FastifyInstance,
-  env: Env,
+  authProvider: AuthProvider,
   service: AiDraftService,
 ): Promise<void> {
   app.post(
     "/api/v1/conversations/:conversation_id/ai-draft",
     {
-      preHandler: requireAuth(env),
+      preHandler: requireAuth(authProvider),
     },
     async (request, reply) => {
       const auth = getAuthContext(request);

@@ -11,8 +11,8 @@ export type MockAuthConfig = {
 export type SupabaseProviderConfig = {
   mode: "provider";
   provider: "supabase";
-  jwksUrl?: string;
-  issuer?: string;
+  jwksUrl: string;
+  issuer: string;
 };
 
 export type BetterAuthProviderConfig = {
@@ -38,10 +38,8 @@ export function getAuthConfig(env: Env): AuthConfig {
     return {
       mode: "provider",
       provider: "supabase",
-      ...(env.SUPABASE_AUTH_JWKS_URL
-        ? { jwksUrl: env.SUPABASE_AUTH_JWKS_URL }
-        : {}),
-      ...(env.SUPABASE_AUTH_ISSUER ? { issuer: env.SUPABASE_AUTH_ISSUER } : {}),
+      jwksUrl: env.SUPABASE_AUTH_JWKS_URL as string,
+      issuer: env.SUPABASE_AUTH_ISSUER as string,
     };
   }
 

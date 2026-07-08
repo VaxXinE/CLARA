@@ -1,10 +1,8 @@
 import { describe, expect, it } from "vitest";
+import type { TrustedProviderIdentity } from "../src/auth/provider-identity";
 import { AuthorizationError } from "../src/errors/app-error";
 import { FixtureWorkspaceMembershipRepository } from "../src/auth/workspace-membership-repository";
-import {
-  WorkspaceMembershipService,
-  type TrustedProviderIdentity,
-} from "../src/auth/workspace-membership-service";
+import { WorkspaceMembershipService } from "../src/auth/workspace-membership-service";
 
 function trustedIdentity(subject: string): TrustedProviderIdentity {
   return {

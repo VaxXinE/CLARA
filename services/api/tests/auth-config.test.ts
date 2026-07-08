@@ -75,7 +75,7 @@ describe("auth configuration", () => {
         CORS_ORIGIN: "",
       }),
     ).toThrow(
-      "SUPABASE_AUTH_JWKS_URL and SUPABASE_AUTH_ISSUER are required for AUTH_PROVIDER=supabase in production",
+      "SUPABASE_AUTH_JWKS_URL and SUPABASE_AUTH_ISSUER are required when AUTH_PROVIDER=supabase",
     );
   });
 
@@ -126,6 +126,8 @@ describe("auth configuration", () => {
       LOG_LEVEL: "silent",
       AUTH_MODE: "provider",
       AUTH_PROVIDER: "supabase",
+      SUPABASE_AUTH_JWKS_URL: "http://127.0.0.1:65535/.well-known/jwks.json",
+      SUPABASE_AUTH_ISSUER: "https://example.supabase.test/auth/v1",
       CORS_ORIGIN: "",
     });
     const app = await createServer({ env });
@@ -177,5 +179,22 @@ describe("auth configuration", () => {
           "Provider authentication for better-auth is not implemented yet.",
       },
     });
+  });
+
+  it("requires Supabase JWKS and issuer config whenever AUTH_PROVIDER=supabase is selected", () => {
+    expect(() =>
+      loadEnv({
+        NODE_ENV: "test",
+        APP_NAME: "clara-api-test",
+        HOST: "127.0.0.1",
+        PORT: "3000",
+        LOG_LEVEL: "silent",
+        AUTH_MODE: "provider",
+        AUTH_PROVIDER: "supabase",
+        CORS_ORIGIN: "",
+      }),
+    ).toThrow(
+      "SUPABASE_AUTH_JWKS_URL and SUPABASE_AUTH_ISSUER are required when AUTH_PROVIDER=supabase",
+    );
   });
 });

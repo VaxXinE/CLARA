@@ -3,13 +3,10 @@ import type {
   FastifyRequest,
   preHandlerHookHandler,
 } from "fastify";
-import type { Env } from "../config/env";
-import { createAuthProvider } from "./auth-provider";
+import type { AuthProvider } from "./auth-provider";
 import { setAuthContext } from "./auth-context";
 
-export function requireAuth(env: Env): preHandlerHookHandler {
-  const authProvider = createAuthProvider(env);
-
+export function requireAuth(authProvider: AuthProvider): preHandlerHookHandler {
   return async function handleRequireAuth(
     request: FastifyRequest,
     _reply: FastifyReply,

@@ -1,8 +1,8 @@
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
+import type { AuthProvider } from "../../auth/auth-provider";
 import { getAuthContext } from "../../auth/auth-context";
 import { requireAuth } from "../../auth/require-auth";
-import type { Env } from "../../config/env";
 import { ValidationError } from "../../errors/app-error";
 import { ActivityQueryService } from "../../activity/activity-service";
 
@@ -32,13 +32,13 @@ function parseConversationId(conversationId: string, path: string): string {
 
 export async function registerActivityRoutes(
   app: FastifyInstance,
-  env: Env,
+  authProvider: AuthProvider,
   service: ActivityQueryService,
 ): Promise<void> {
   app.get(
     "/api/v1/conversations/:conversation_id/activity",
     {
-      preHandler: requireAuth(env),
+      preHandler: requireAuth(authProvider),
     },
     async (request) => {
       const auth = getAuthContext(request);

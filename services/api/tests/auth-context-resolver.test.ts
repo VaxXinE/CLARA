@@ -1,15 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { resolveAuthContextFromTrustedProviderIdentity } from "../src/auth/auth-context-resolver";
+import type { TrustedProviderIdentity } from "../src/auth/provider-identity";
 import type {
   ProviderMappedUser,
   WorkspaceMembershipRecord,
   WorkspaceMembershipRepository,
 } from "../src/auth/workspace-membership-repository";
 import { FixtureWorkspaceMembershipRepository } from "../src/auth/workspace-membership-repository";
-import {
-  WorkspaceMembershipService,
-  type TrustedProviderIdentity,
-} from "../src/auth/workspace-membership-service";
+import { WorkspaceMembershipService } from "../src/auth/workspace-membership-service";
 import { AuthorizationError } from "../src/errors/app-error";
 
 function identity(subject: string): TrustedProviderIdentity {
