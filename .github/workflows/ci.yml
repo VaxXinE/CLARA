@@ -35,8 +35,8 @@ jobs:
             exit 1
           fi
 
-  api-bootstrap:
-    name: API Bootstrap Validation
+  api:
+    name: API Validation
     runs-on: ubuntu-latest
 
     defaults:
@@ -72,11 +72,8 @@ jobs:
       - name: Production dependency audit
         run: npm audit --omit=dev --audit-level=high
 
-      - name: Production dependency audit
-        run: npm audit --omit=dev --audit-level=high
-
-  dashboard-workspace:
-    name: Dashboard Workspace Validation
+  dashboard:
+    name: Dashboard Validation
     runs-on: ubuntu-latest
 
     defaults:
@@ -105,3 +102,6 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Production dependency audit
+        run: npm audit --omit=dev --audit-level=high
