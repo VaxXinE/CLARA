@@ -1,4 +1,9 @@
 import type { Env } from "../config/env";
+import {
+  DrizzleActivityRepository,
+  FixtureActivityRepository,
+} from "../activity/activity-repository";
+import { ActivityQueryService } from "../activity/activity-service";
 import { createDatabase } from "../db/client";
 import {
   DrizzleConversationRepository,
@@ -14,6 +19,7 @@ import { CustomerQueryService } from "../customers/customer-service";
 export type AppServices = {
   conversations: ConversationQueryService;
   customers: CustomerQueryService;
+  activity: ActivityQueryService;
 };
 
 export type AppServiceContainer = {
@@ -24,13 +30,16 @@ export type AppServiceContainer = {
 export function createAppServiceContainer(env: Env): AppServiceContainer {
   if (env.DATABASE_URL) {
     const { db, pool } = createDatabase(env);
+    const conversationRepository = new DrizzleConversationRepository(db);
 
     return {
       services: {
-        conversations: new ConversationQueryService(
-          new DrizzleConversationRepository(db),
-        ),
+        conversations: new ConversationQueryService(conversationRepository),
         customers: new CustomerQueryService(new DrizzleCustomerRepository(db)),
+        activity: new ActivityQueryService(
+          new DrizzleActivityRepository(db),
+          conversationRepository,
+        ),
       },
       close: async () => {
         await pool.end();
@@ -44,12 +53,16 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
     );
   }
 
+  const conversationRepository = new FixtureConversationRepository();
+
   return {
     services: {
-      conversations: new ConversationQueryService(
-        new FixtureConversationRepository(),
-      ),
+      conversations: new ConversationQueryService(conversationRepository),
       customers: new CustomerQueryService(new FixtureCustomerRepository()),
+      activity: new ActivityQueryService(
+        new FixtureActivityRepository(),
+        conversationRepository,
+      ),
     },
   };
 }
