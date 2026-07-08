@@ -12,7 +12,7 @@ export type AuthContext = {
   workspaceId: string;
   role: Role;
   permissions: Permission[];
-  authMethod: "mock";
+  authMethod: "mock" | "provider";
 };
 
 export type AuthenticatedRequest = FastifyRequest & {
