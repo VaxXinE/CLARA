@@ -1,6 +1,8 @@
 import { and, desc, eq } from "drizzle-orm";
 import type { Database } from "../db/client";
 import { demoActivityEvents, demoUsers } from "../db/fixtures/demo-data";
+import type { FixtureAppStore } from "../db/fixtures/fixture-store";
+import { createFixtureAppStore } from "../db/fixtures/fixture-store";
 import { activityEvents, users } from "../db/schema";
 import type { WorkspaceScope } from "../workspace/workspace-scope";
 
@@ -30,6 +32,12 @@ function requireDate(value: Date | undefined, field: string): Date {
 }
 
 export class FixtureActivityRepository implements ActivityRepository {
+  private readonly store: FixtureAppStore;
+
+  constructor(store: FixtureAppStore = createFixtureAppStore()) {
+    this.store = store;
+  }
+
   async listByConversationScoped(
     scope: WorkspaceScope,
     conversationId: string,
@@ -38,7 +46,7 @@ export class FixtureActivityRepository implements ActivityRepository {
       demoUsers.map((user) => [user.id, user.displayName]),
     );
 
-    return [...demoActivityEvents]
+    return [...this.store.activityEvents]
       .filter(
         (event) =>
           event.organizationId === scope.organizationId &&
