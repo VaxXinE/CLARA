@@ -35,6 +35,7 @@ export class ApiClientError extends Error {
 export type ApiClientConfig = {
   baseUrl: string;
   demoAuthProfile?: DemoAuthProfile;
+  getAccessToken?: (() => Promise<string | null>) | (() => string | null);
 };
 
 export type ConversationListFilters = {
@@ -47,20 +48,30 @@ function joinUrl(baseUrl: string, path: string): string {
   return `${baseUrl.replace(/\/+$/, "")}${path}`;
 }
 
-function toHeaders(profile?: DemoAuthProfile): HeadersInit {
-  if (!profile) {
-    return {
-      "content-type": "application/json",
-    };
+async function toHeaders(input: {
+  profile?: DemoAuthProfile;
+  getAccessToken?: ApiClientConfig["getAccessToken"];
+}): Promise<HeadersInit> {
+  const headers: Record<string, string> = {
+    "content-type": "application/json",
+  };
+
+  if (input.profile) {
+    headers["x-mock-user-id"] = input.profile.userId;
+    headers["x-mock-organization-id"] = input.profile.organizationId;
+    headers["x-mock-workspace-id"] = input.profile.workspaceId;
+    headers["x-mock-role"] = input.profile.role;
   }
 
-  return {
-    "content-type": "application/json",
-    "x-mock-user-id": profile.userId,
-    "x-mock-organization-id": profile.organizationId,
-    "x-mock-workspace-id": profile.workspaceId,
-    "x-mock-role": profile.role,
-  };
+  const accessToken = input.getAccessToken
+    ? await input.getAccessToken()
+    : null;
+
+  if (accessToken && accessToken.trim().length > 0) {
+    headers.authorization = `Bearer ${accessToken}`;
+  }
+
+  return headers;
 }
 
 function toQueryString(filters: ConversationListFilters): string {
@@ -84,10 +95,12 @@ function toQueryString(filters: ConversationListFilters): string {
 export class ApiClient {
   private readonly baseUrl: string;
   private readonly demoAuthProfile?: DemoAuthProfile;
+  private readonly getAccessToken?: ApiClientConfig["getAccessToken"];
 
   constructor(config: ApiClientConfig) {
     this.baseUrl = config.baseUrl;
     this.demoAuthProfile = config.demoAuthProfile;
+    this.getAccessToken = config.getAccessToken;
   }
 
   async getMe(): Promise<MeResponse> {
@@ -155,10 +168,15 @@ export class ApiClient {
   }
 
   private async request<T>(path: string, init?: RequestInit): Promise<T> {
+    const authHeaders = await toHeaders({
+      profile: this.demoAuthProfile,
+      getAccessToken: this.getAccessToken,
+    });
+
     const response = await fetch(joinUrl(this.baseUrl, path), {
       ...init,
       headers: {
-        ...toHeaders(this.demoAuthProfile),
+        ...authHeaders,
         ...(init?.headers ?? {}),
       },
     });

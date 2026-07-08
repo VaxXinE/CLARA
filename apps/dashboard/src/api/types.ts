@@ -31,7 +31,7 @@ export type MeResponse = {
   };
   permissions: string[];
   auth: {
-    method: "mock";
+    method: "mock" | "provider";
   };
 };
 

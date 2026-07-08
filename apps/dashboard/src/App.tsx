@@ -1,4 +1,4 @@
-import { useDeferredValue, useEffect, useState, startTransition } from "react";
+import { startTransition, useDeferredValue, useEffect, useState } from "react";
 import { ApiClient, ApiClientError } from "./api/client";
 import type {
   ActivityResponse,
@@ -10,14 +10,21 @@ import type {
   DemoRole,
   MeResponse,
 } from "./api/types";
-import { CustomerSidebar } from "./components/CustomerSidebar";
+import { AuthProvider } from "./auth/AuthProvider";
+import {
+  readDashboardAuthConfig,
+  type DashboardAuthConfig,
+} from "./auth/auth-config";
+import type { DashboardAuthClient } from "./auth/supabase-auth-client";
+import { useAuth } from "./auth/useAuth";
 import { ConversationPane } from "./components/ConversationPane";
+import { CustomerSidebar } from "./components/CustomerSidebar";
 import { InboxPanel } from "./components/InboxPanel";
+import { LoginPanel } from "./components/LoginPanel";
 import { RoleSwitcher } from "./components/RoleSwitcher";
 
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL?.trim() || "http://127.0.0.1:3000";
-const DEMO_MODE = import.meta.env.VITE_DEMO_MODE !== "false";
 const ROLE_STORAGE_KEY = "clara-dashboard-demo-role";
 
 const demoProfiles: Record<DemoRole, DemoAuthProfile> = {
@@ -44,10 +51,15 @@ const demoProfiles: Record<DemoRole, DemoAuthProfile> = {
   },
 };
 
+export type AppProps = {
+  authConfig?: DashboardAuthConfig;
+  authClient?: DashboardAuthClient;
+};
+
 function readStoredRole(): DemoRole {
   const fallback: DemoRole = "agent";
 
-  if (!DEMO_MODE || typeof window === "undefined") {
+  if (typeof window === "undefined") {
     return fallback;
   }
 
@@ -60,10 +72,17 @@ function readStoredRole(): DemoRole {
   return fallback;
 }
 
-function buildClient(role: DemoRole): ApiClient {
+function buildClient(input: {
+  authMode: DashboardAuthConfig["mode"];
+  role: DemoRole;
+  accessToken: string | null;
+}): ApiClient {
   return new ApiClient({
     baseUrl: API_BASE_URL,
-    demoAuthProfile: DEMO_MODE ? demoProfiles[role] : undefined,
+    demoAuthProfile:
+      input.authMode === "demo" ? demoProfiles[input.role] : undefined,
+    getAccessToken:
+      input.authMode === "provider" ? async () => input.accessToken : undefined,
   });
 }
 
@@ -72,10 +91,15 @@ function toSafeMessage(error: unknown, fallback: string): string {
     return `${error.message} Reference: ${error.correlationId}`;
   }
 
+  if (error instanceof Error && error.message.trim().length > 0) {
+    return error.message;
+  }
+
   return fallback;
 }
 
-export default function App() {
+function WorkspaceAppShell() {
+  const auth = useAuth();
   const [selectedRole, setSelectedRole] = useState<DemoRole>(readStoredRole);
   const [me, setMe] = useState<MeResponse | null>(null);
   const [conversations, setConversations] = useState<
@@ -117,18 +141,37 @@ export default function App() {
   const [isSendingReply, setIsSendingReply] = useState(false);
 
   useEffect(() => {
-    if (!DEMO_MODE || typeof window === "undefined") {
+    if (auth.config.mode !== "demo" || typeof window === "undefined") {
       return;
     }
 
     window.localStorage.setItem(ROLE_STORAGE_KEY, selectedRole);
-  }, [selectedRole]);
+  }, [auth.config.mode, selectedRole]);
 
   useEffect(() => {
+    if (auth.status !== "authenticated") {
+      setMe(null);
+      setConversations([]);
+      setConversationPermissions(null);
+      setSelectedConversationId(null);
+      setConversationDetail(null);
+      setCustomer(null);
+      setActivityItems([]);
+      setComposerValue("");
+      setDraftId(null);
+      setAiDraftLabel(null);
+      setListLoading(false);
+      return;
+    }
+
     let cancelled = false;
 
     async function loadShell() {
-      const client = buildClient(selectedRole);
+      const client = buildClient({
+        authMode: auth.config.mode,
+        role: selectedRole,
+        accessToken: auth.session?.accessToken ?? null,
+      });
       setShellError(null);
       setListError(null);
       setListLoading(true);
@@ -184,10 +227,17 @@ export default function App() {
     return () => {
       cancelled = true;
     };
-  }, [deferredSearch, selectedRole, statusFilter]);
+  }, [
+    auth.config.mode,
+    auth.session?.accessToken,
+    auth.status,
+    deferredSearch,
+    selectedRole,
+    statusFilter,
+  ]);
 
   useEffect(() => {
-    if (!selectedConversationId) {
+    if (auth.status !== "authenticated" || !selectedConversationId) {
       setConversationDetail(null);
       setCustomer(null);
       setActivityItems([]);
@@ -198,7 +248,11 @@ export default function App() {
     let cancelled = false;
 
     async function loadConversationWorkspace() {
-      const client = buildClient(selectedRole);
+      const client = buildClient({
+        authMode: auth.config.mode,
+        role: selectedRole,
+        accessToken: auth.session?.accessToken ?? null,
+      });
       setDetailLoading(true);
       setDetailError(null);
       setActivityLoading(true);
@@ -259,7 +313,13 @@ export default function App() {
     return () => {
       cancelled = true;
     };
-  }, [selectedConversationId, selectedRole]);
+  }, [
+    auth.config.mode,
+    auth.session?.accessToken,
+    auth.status,
+    selectedConversationId,
+    selectedRole,
+  ]);
 
   const canGenerateDraft =
     conversationPermissions?.can_generate_ai_draft === true &&
@@ -269,7 +329,11 @@ export default function App() {
     Boolean(conversationDetail);
 
   async function refreshConversationWorkspace(conversationId: string) {
-    const client = buildClient(selectedRole);
+    const client = buildClient({
+      authMode: auth.config.mode,
+      role: selectedRole,
+      accessToken: auth.session?.accessToken ?? null,
+    });
     const [listResponse, detailResponse, activityResponse] = await Promise.all([
       client.listConversations({
         limit: 20,
@@ -295,7 +359,11 @@ export default function App() {
       return;
     }
 
-    const client = buildClient(selectedRole);
+    const client = buildClient({
+      authMode: auth.config.mode,
+      role: selectedRole,
+      accessToken: auth.session?.accessToken ?? null,
+    });
     setIsGeneratingDraft(true);
     setComposerError(null);
 
@@ -328,7 +396,11 @@ export default function App() {
       return;
     }
 
-    const client = buildClient(selectedRole);
+    const client = buildClient({
+      authMode: auth.config.mode,
+      role: selectedRole,
+      accessToken: auth.session?.accessToken ?? null,
+    });
     setIsSendingReply(true);
     setComposerError(null);
 
@@ -353,6 +425,57 @@ export default function App() {
     }
   }
 
+  async function handleProviderLogin(input: {
+    email: string;
+    password: string;
+  }) {
+    await auth.signIn(input);
+  }
+
+  if (auth.config.mode === "provider" && auth.status === "loading") {
+    return (
+      <div className="app-shell">
+        <header className="topbar">
+          <div>
+            <p className="eyebrow">CLARA Workspace</p>
+            <h1>Conversation workspace</h1>
+          </div>
+          <div className="topbar-meta">
+            <span className="environment-badge">Provider auth</span>
+          </div>
+        </header>
+
+        <main className="login-shell">
+          <div className="login-card">
+            <p>Checking your session...</p>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  if (auth.config.mode === "provider" && auth.status !== "authenticated") {
+    return (
+      <div className="app-shell">
+        <header className="topbar">
+          <div>
+            <p className="eyebrow">CLARA Workspace</p>
+            <h1>Conversation workspace</h1>
+          </div>
+          <div className="topbar-meta">
+            <span className="environment-badge">Provider auth</span>
+          </div>
+        </header>
+
+        <LoginPanel
+          loading={auth.status === "loading"}
+          error={auth.error}
+          onSubmit={handleProviderLogin}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="app-shell">
       <header className="topbar">
@@ -362,7 +485,7 @@ export default function App() {
         </div>
 
         <div className="topbar-meta">
-          {DEMO_MODE ? (
+          {auth.config.mode === "demo" ? (
             <div className="meta-cluster">
               <span className="environment-badge">Demo auth</span>
               <RoleSwitcher
@@ -371,14 +494,28 @@ export default function App() {
                 onChange={setSelectedRole}
               />
             </div>
-          ) : null}
+          ) : (
+            <div className="meta-cluster">
+              <span className="environment-badge">Provider auth</span>
+              <button
+                type="button"
+                className="secondary-button"
+                onClick={() => {
+                  void auth.signOut();
+                }}
+              >
+                Log Out
+              </button>
+            </div>
+          )}
 
           <div className="meta-cluster">
             <span className="workspace-pill">
               Workspace: {me?.workspace.id ?? "loading"}
             </span>
             <span className="workspace-pill">
-              User: {me?.user.id ?? "loading"} ({me?.user.role ?? "..."})
+              User: {me?.user.id ?? auth.session?.email ?? "loading"} (
+              {me?.user.role ?? "..."})
             </span>
           </div>
         </div>
@@ -439,5 +576,16 @@ export default function App() {
         />
       </main>
     </div>
+  );
+}
+
+export default function App(props: AppProps) {
+  return (
+    <AuthProvider
+      config={props.authConfig ?? readDashboardAuthConfig()}
+      client={props.authClient}
+    >
+      <WorkspaceAppShell />
+    </AuthProvider>
   );
 }
