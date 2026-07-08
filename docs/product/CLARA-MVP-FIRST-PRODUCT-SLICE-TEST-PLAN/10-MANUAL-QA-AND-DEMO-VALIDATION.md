@@ -23,10 +23,9 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # 10 — Manual QA and Demo Validation
 
-> *"Manual QA verifies the product feels coherent, not just that endpoints return JSON."*
+> _"Manual QA verifies the product feels coherent, not just that endpoints return JSON."_
 
 ---
 
@@ -122,6 +121,7 @@ Pass if:
 ```text
 viewer cannot draft/send
 backend blocks forbidden action
+cross-workspace access is not exposed
 ```
 
 ---
@@ -197,6 +197,8 @@ owner/agent can send reply
 cross-workspace access returns 404
 safe errors do not expose stack traces or raw provider payloads
 AI draft remains draft-only until a human clicks Send Reply
+mock auth is used for local/demo only
+frontend contains no API keys or provider secrets
 ```
 
 ---

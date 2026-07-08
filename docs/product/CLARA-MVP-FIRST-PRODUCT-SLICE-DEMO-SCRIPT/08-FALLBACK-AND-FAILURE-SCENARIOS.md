@@ -4,7 +4,7 @@ artifact: "MVP First Product Slice Demo Script"
 version: "1.0.0"
 status: "draft-for-review"
 owner: "CLARA Product, Engineering, Security, QA, AI, and Product Operations Team"
-last_updated: "2026-07-07"
+last_updated: "2026-07-08"
 classification: "demo-script"
 repository: "https://github.com/VaxXinE/CLARA"
 based_on:
@@ -26,10 +26,9 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # 08 — Fallback and Failure Scenarios
 
-> *"A reliable MVP is not one that never fails. It is one that fails safely."*
+> _"A reliable MVP is not one that never fails. It is one that fails safely."_
 
 ---
 
@@ -38,7 +37,7 @@ source_of_truth:
 Setup:
 
 ```text
-AI_MOCK_MODE=provider_error
+use a local test build or mocked failure path that makes the mock AI draft provider return a safe failure
 ```
 
 Expected:
@@ -63,7 +62,7 @@ If AI is unavailable, CLARA does not block the user. The operator can still writ
 Setup:
 
 ```text
-SIMULATED_SEND_MODE=failure
+use a local test build or mocked failure path that makes the simulated send provider return a safe failure
 ```
 
 Expected:
@@ -115,6 +114,12 @@ Expected:
 hidden prompt is not exposed
 AI does not auto-send
 draft remains human-reviewed
+```
+
+Additional presenter note:
+
+```text
+If a live failure toggle is not available in the current build, explain the tested fallback behavior and point to automated regression coverage instead of improvising a broken demo.
 ```
 
 ---

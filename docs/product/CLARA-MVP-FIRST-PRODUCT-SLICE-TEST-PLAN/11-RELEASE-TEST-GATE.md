@@ -23,10 +23,9 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # 11 — Release Test Gate
 
-> *"The test gate turns test results into a clear go/no-go decision."*
+> _"The test gate turns test results into a clear go/no-go decision."_
 
 ---
 

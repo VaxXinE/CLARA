@@ -23,10 +23,9 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # 05 — API Contract Test Plan
 
-> *"API contract tests protect the frontend/backend boundary from silent drift."*
+> _"API contract tests protect the frontend/backend boundary from silent drift."_
 
 ---
 

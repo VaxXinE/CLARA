@@ -4,7 +4,7 @@ artifact: "MVP First Product Slice Test Plan"
 version: "1.0.0"
 status: "draft-for-review"
 owner: "CLARA QA, Engineering, Security, Product, AI, and Product Operations Team"
-last_updated: "2026-07-07"
+last_updated: "2026-07-08"
 classification: "test-plan"
 repository: "https://github.com/VaxXinE/CLARA"
 based_on:
@@ -23,10 +23,9 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # 09 — Frontend UI Test Plan
 
-> *"Frontend tests should prove that the user can complete the workflow and cannot easily misuse AI."*
+> _"Frontend tests should prove that the user can complete the workflow and cannot easily misuse AI."_
 
 ---
 
@@ -52,6 +51,7 @@ Send Button/States
 Activity Timeline
 Empty/Loading/Error States
 Permission States
+safe text rendering for API errors
 ```
 
 ---
@@ -100,6 +100,7 @@ reply composer hidden/read-only
 AI draft button hidden/disabled
 send button hidden/disabled
 view-only notice visible
+role switcher only used for local/demo mode
 ```
 
 ---
@@ -126,6 +127,7 @@ safe AI error shown
 manual composer available
 try again action visible
 no sent message appears
+error rendered as text, not HTML
 ```
 
 ---
@@ -175,7 +177,9 @@ color not only indicator
 Use message body:
 
 ```html
-<script>alert("xss")</script>
+<script>
+  alert("xss");
+</script>
 ```
 
 Expected:

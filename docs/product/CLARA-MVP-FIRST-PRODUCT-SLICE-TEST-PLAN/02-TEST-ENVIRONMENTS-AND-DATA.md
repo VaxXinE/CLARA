@@ -23,10 +23,9 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # 02 — Test Environments and Data
 
-> *"Good test data proves product behavior without exposing real customer information."*
+> _"Good test data proves product behavior without exposing real customer information."_
 
 ---
 

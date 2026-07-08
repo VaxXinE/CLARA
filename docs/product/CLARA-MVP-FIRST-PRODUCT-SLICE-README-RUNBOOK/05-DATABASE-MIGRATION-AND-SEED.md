@@ -26,10 +26,9 @@ source_of_truth:
   - "docs/BOOK-08-Implementation-Delivery-and-Production-Launch/"
 ---
 
-
 # 05 — Database Migration and Seed
 
-> *"Migrations create the structure. Seeds create safe demo reality."*
+> _"Migrations create the structure. Seeds create safe demo reality."_
 
 ---
 

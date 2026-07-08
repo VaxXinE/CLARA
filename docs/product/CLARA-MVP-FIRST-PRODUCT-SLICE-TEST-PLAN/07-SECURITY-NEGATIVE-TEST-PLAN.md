@@ -4,7 +4,7 @@ artifact: "MVP First Product Slice Test Plan"
 version: "1.0.0"
 status: "draft-for-review"
 owner: "CLARA QA, Engineering, Security, Product, AI, and Product Operations Team"
-last_updated: "2026-07-07"
+last_updated: "2026-07-08"
 classification: "test-plan"
 repository: "https://github.com/VaxXinE/CLARA"
 based_on:
@@ -23,10 +23,9 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # 07 — Security Negative Test Plan
 
-> *"Negative tests prove the system fails closed instead of trusting good behavior."*
+> _"Negative tests prove the system fails closed instead of trusting good behavior."_
 
 ---
 
@@ -123,6 +122,7 @@ viewer does not see AI draft button
 send button disabled when reply body empty
 draft preserved when send fails
 AI error does not remove manual composer
+frontend does not expose API keys or hidden provider payloads
 ```
 
 ---
@@ -137,6 +137,7 @@ viewer cannot generate AI draft
 cross-workspace conversation blocked
 AI draft cannot auto-send
 safe error envelope used
+cross-workspace reads return 404 instead of leaked existence
 ```
 
 ---

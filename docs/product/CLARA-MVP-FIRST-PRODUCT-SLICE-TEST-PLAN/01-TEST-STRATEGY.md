@@ -23,10 +23,9 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # 01 — Test Strategy
 
-> *"Test the normal path, then prove the dangerous paths fail safely."*
+> _"Test the normal path, then prove the dangerous paths fail safely."_
 
 ---
 
@@ -112,17 +111,17 @@ advanced audit tests
 
 # Test Categories
 
-| Category | Purpose |
-|---|---|
-| Unit | Validate small functions/rules |
-| Integration | Validate service + DB + mock adapters |
-| API Contract | Validate request/response contract |
-| Database | Validate migrations, constraints, indexes |
-| Security Negative | Prove unauthorized paths fail |
-| AI | Validate AI draft success/failure/safety |
-| Frontend UI | Validate user flows/states |
-| Manual QA | Validate real product feel |
-| Demo Validation | Validate demo storyline |
+| Category          | Purpose                                   |
+| ----------------- | ----------------------------------------- |
+| Unit              | Validate small functions/rules            |
+| Integration       | Validate service + DB + mock adapters     |
+| API Contract      | Validate request/response contract        |
+| Database          | Validate migrations, constraints, indexes |
+| Security Negative | Prove unauthorized paths fail             |
+| AI                | Validate AI draft success/failure/safety  |
+| Frontend UI       | Validate user flows/states                |
+| Manual QA         | Validate real product feel                |
+| Demo Validation   | Validate demo storyline                   |
 
 ---
 

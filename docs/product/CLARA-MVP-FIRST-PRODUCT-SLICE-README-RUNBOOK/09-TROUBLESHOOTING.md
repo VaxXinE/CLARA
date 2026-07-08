@@ -4,7 +4,7 @@ artifact: "MVP First Product Slice README / Runbook"
 version: "1.0.0"
 status: "draft-for-review"
 owner: "CLARA Engineering, DevOps, Security, QA, Product, and AI Team"
-last_updated: "2026-07-07"
+last_updated: "2026-07-08"
 classification: "readme-runbook"
 repository: "https://github.com/VaxXinE/CLARA"
 based_on:
@@ -26,10 +26,9 @@ source_of_truth:
   - "docs/BOOK-08-Implementation-Delivery-and-Production-Launch/"
 ---
 
-
 # 09 — Troubleshooting
 
-> *"A good runbook helps junior developers recover without guessing."*
+> _"A good runbook helps junior developers recover without guessing."_
 
 ---
 
@@ -38,14 +37,13 @@ source_of_truth:
 Check:
 
 ```bash
-cat .env.local
+cat services/api/.env
 ```
 
 Common causes:
 
 ```text
 missing DATABASE_URL
-invalid APP_ENV
 mock auth disabled in local by mistake
 port already in use
 database not running
@@ -54,8 +52,10 @@ database not running
 Fix:
 
 ```bash
-docker compose -f infra/local/docker-compose.yml up -d postgres
-npm run dev --workspace services/api
+cd services/api
+npm run db:check
+npm run db:migrate
+npm run dev
 ```
 
 ---
@@ -80,12 +80,6 @@ check database dependency if readiness endpoint is used
 ---
 
 # Database Connection Fails
-
-Check:
-
-```bash
-docker compose -f infra/local/docker-compose.yml ps
-```
 
 Common causes:
 
@@ -113,9 +107,9 @@ migration order wrong
 Fix local only:
 
 ```bash
-npm run db:reset
+cd services/api
 npm run db:migrate
-npm run db:seed:demo
+npm run db:seed
 ```
 
 Never reset production-like DB casually.
@@ -173,11 +167,10 @@ add failing test before fix
 Check:
 
 ```text
-AI_PROVIDER=mock
-AI_MOCK_MODE=success
 conversation exists
 user has ai_draft:create permission
 context builder scope
+mock provider is being used in local/test
 ```
 
 Expected fallback:
@@ -194,11 +187,10 @@ safe error shown
 Check:
 
 ```text
-SEND_ADAPTER=simulated
-SIMULATED_SEND_MODE=success
 reply body not empty
 user has reply:send permission
 draft belongs to same conversation/workspace
+simulated provider is being used in local/test
 ```
 
 Expected fallback:
@@ -214,4 +206,13 @@ safe error shown
 
 ```text
 When debugging security-sensitive issues, add the failing test before applying the fix.
+```
+
+Known limitations to remember while debugging:
+
+```text
+mock auth is not production auth
+AI draft is draft-only and never auto-sends
+reply send is simulated only
+no real WhatsApp/Instagram/TikTok/email integration exists yet
 ```

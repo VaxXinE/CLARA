@@ -23,10 +23,9 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # 06 — Database Test Plan
 
-> *"Database tests prove that schema, constraints, indexes, and seed data support safe product behavior."*
+> _"Database tests prove that schema, constraints, indexes, and seed data support safe product behavior."_
 
 ---
 

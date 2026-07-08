@@ -4,7 +4,7 @@ artifact: "MVP First Product Slice Demo Script"
 version: "1.0.0"
 status: "draft-for-review"
 owner: "CLARA Product, Engineering, Security, QA, AI, and Product Operations Team"
-last_updated: "2026-07-07"
+last_updated: "2026-07-08"
 classification: "demo-script"
 repository: "https://github.com/VaxXinE/CLARA"
 based_on:
@@ -26,10 +26,9 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # 03 — Pre-Demo Checklist
 
-> *"The best demo is boring operationally and exciting product-wise."*
+> _"The best demo is boring operationally and exciting product-wise."_
 
 ---
 
@@ -62,17 +61,23 @@ source_of_truth:
 
 ---
 
-# Pre-Demo Command Template
+# Pre-Demo Commands
 
 ```bash
-npm run db:migrate
-npm run db:seed:demo
-npm run test:security
-npm run test:integration
-npm run dev
-```
+bash scripts/validate-repo-structure.sh
 
-Update commands based on final implementation stack.
+cd services/api
+npm run typecheck
+npm run test
+npm run build
+npm audit --omit=dev --audit-level=high
+
+cd ../../apps/dashboard
+npm run typecheck
+npm run test
+npm run build
+npm audit --omit=dev --audit-level=high
+```
 
 ---
 

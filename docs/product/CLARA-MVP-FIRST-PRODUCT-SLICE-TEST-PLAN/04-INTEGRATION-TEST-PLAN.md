@@ -23,10 +23,9 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # 04 — Integration Test Plan
 
-> *"Integration tests prove that services, database, auth, and adapters work together safely."*
+> _"Integration tests prove that services, database, auth, and adapters work together safely."_
 
 ---
 

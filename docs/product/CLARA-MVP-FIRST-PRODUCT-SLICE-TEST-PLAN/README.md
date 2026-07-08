@@ -23,10 +23,9 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # CLARA MVP First Product Slice Test Plan
 
-> *"The MVP is ready only when the happy path works, the unsafe paths fail closed, and every important action is observable."*
+> _"The MVP is ready only when the happy path works, the unsafe paths fail closed, and every important action is observable."_
 
 ---
 

@@ -4,7 +4,7 @@ artifact: "MVP First Product Slice README / Runbook"
 version: "1.0.0"
 status: "draft-for-review"
 owner: "CLARA Engineering, DevOps, Security, QA, Product, and AI Team"
-last_updated: "2026-07-07"
+last_updated: "2026-07-08"
 classification: "readme-runbook"
 repository: "https://github.com/VaxXinE/CLARA"
 based_on:
@@ -26,10 +26,9 @@ source_of_truth:
   - "docs/BOOK-08-Implementation-Delivery-and-Production-Launch/"
 ---
 
-
 # 04 — Running Services
 
-> *"The first operational goal is simple: API starts, UI starts, and the workflow can be exercised safely."*
+> _"The first operational goal is simple: API starts, UI starts, and the workflow can be exercised safely."_
 
 ---
 
@@ -50,31 +49,18 @@ Optional local tools
 
 ---
 
-# Start Local Database
-
-Template:
+# Prepare Database
 
 ```bash
-docker compose -f infra/local/docker-compose.yml up -d postgres
-```
-
-Verify:
-
-```bash
-docker compose -f infra/local/docker-compose.yml ps
+cd services/api
+npm run db:check
+npm run db:migrate
+npm run db:seed
 ```
 
 ---
 
 # Start API Service
-
-Template:
-
-```bash
-npm run dev --workspace services/api
-```
-
-Alternative:
 
 ```bash
 cd services/api
@@ -122,14 +108,6 @@ stack trace
 
 # Start Dashboard UI
 
-Template:
-
-```bash
-npm run dev --workspace apps/dashboard
-```
-
-Alternative:
-
 ```bash
 cd apps/dashboard
 npm run dev
@@ -150,19 +128,9 @@ Demo user can access MVP flow
 Recommended defaults:
 
 ```text
-API: http://localhost:3000
-Dashboard: http://localhost:5173 or http://localhost:3001
+API: http://127.0.0.1:3000
+Dashboard: http://127.0.0.1:5173
 Database: localhost:5432
-```
-
-Update once implementation chooses exact ports.
-
----
-
-# Stop Services
-
-```bash
-docker compose -f infra/local/docker-compose.yml down
 ```
 
 ---
@@ -171,6 +139,7 @@ docker compose -f infra/local/docker-compose.yml down
 
 - [ ] Database running.
 - [ ] API health works.
+- [ ] `GET /api/v1/me` works with mock auth headers.
 - [ ] Dashboard loads.
 - [ ] `/me` returns demo user.
 - [ ] Inbox loads demo conversations.

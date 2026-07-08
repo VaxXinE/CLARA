@@ -23,7 +23,6 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # CLARA MVP First Product Slice Test Plan
 
 ## Unified Customer Conversation Inbox Test Plan

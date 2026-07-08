@@ -23,10 +23,9 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # 08 — AI Draft Test Plan
 
-> *"AI tests should prove that the assistant helps draft text without becoming an unsafe actor."*
+> _"AI tests should prove that the assistant helps draft text without becoming an unsafe actor."_
 
 ---
 

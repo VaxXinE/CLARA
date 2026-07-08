@@ -17,9 +17,25 @@ It contains the documentation, architecture, standards, templates, governance, i
 # Repository Status
 
 ```text
-Status: documentation-system-expansion
-Current focus: Book I–IX master documentation alignment
-Next focus: repository implementation foundation
+Status: MVP slice runnable locally
+Current focus: conversation workspace MVP hardening and runbook accuracy
+Next focus: production auth and real provider integrations
+```
+
+Current MVP implementation:
+
+```text
+services/api: runnable local API with mock auth, workspace scope, seeded demo data, conversation/customer/activity read APIs, mock AI draft, and simulated reply send
+apps/dashboard: runnable local React dashboard for the conversation workspace flow
+```
+
+Start here for local usage:
+
+```text
+services/api/README.md
+apps/dashboard/README.md
+docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-README-RUNBOOK/
+docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-DEMO-SCRIPT/
 ```
 
 ---

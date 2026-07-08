@@ -10,6 +10,8 @@ PR-10 Security and QA Hardening
 
 This service currently provides runtime foundation, database schema/migrations, mock auth, read-only conversation/customer/activity APIs, AI draft creation, and simulated reply send for local/test flows.
 
+Use this together with `apps/dashboard` for the full local MVP flow.
+
 ## Current Endpoints
 
 ```text
@@ -20,10 +22,10 @@ GET /api/v1/ready
 GET /api/v1/me
 GET /api/v1/conversations
 GET /api/v1/conversations/:conversation_id
+GET /api/v1/customers/:customer_id
 GET /api/v1/conversations/:conversation_id/activity
 POST /api/v1/conversations/:conversation_id/ai-draft
 POST /api/v1/conversations/:conversation_id/reply
-GET /api/v1/customers/:customer_id
 ```
 
 ## Local Setup
@@ -32,6 +34,9 @@ GET /api/v1/customers/:customer_id
 cd services/api
 npm install
 cp .env.example .env
+npm run db:check
+npm run db:migrate
+npm run db:seed
 npm run dev
 ```
 
@@ -59,16 +64,16 @@ npm audit --omit=dev --audit-level=high
 
 ## Environment Variables
 
-| Name | Required | Default | Description |
-|---|---:|---|---|
-| `NODE_ENV` | No | `development` | Runtime environment |
-| `APP_NAME` | No | `clara-api` | Service name |
-| `HOST` | No | `127.0.0.1` | Bind host |
-| `PORT` | No | `3000` | Bind port |
-| `LOG_LEVEL` | No | `info` | Logger level |
-| `DATABASE_URL` | Required for DB scripts only | none | PostgreSQL connection string for migrate/seed/studio |
-| `MOCK_AUTH_ENABLED` | No | `true` outside production, `false` in production | Enables local/dev/test mock auth |
-| `CORS_ORIGIN` | No | empty | Reserved for future CORS setup |
+| Name                |                     Required | Default                                          | Description                                          |
+| ------------------- | ---------------------------: | ------------------------------------------------ | ---------------------------------------------------- |
+| `NODE_ENV`          |                           No | `development`                                    | Runtime environment                                  |
+| `APP_NAME`          |                           No | `clara-api`                                      | Service name                                         |
+| `HOST`              |                           No | `127.0.0.1`                                      | Bind host                                            |
+| `PORT`              |                           No | `3000`                                           | Bind port                                            |
+| `LOG_LEVEL`         |                           No | `info`                                           | Logger level                                         |
+| `DATABASE_URL`      | Required for DB scripts only | none                                             | PostgreSQL connection string for migrate/seed/studio |
+| `MOCK_AUTH_ENABLED` |                           No | `true` outside production, `false` in production | Enables local/dev/test mock auth                     |
+| `CORS_ORIGIN`       |                           No | empty                                            | Reserved for future CORS setup                       |
 
 ## Database Setup
 
@@ -107,6 +112,36 @@ x-mock-workspace-id
 x-mock-role         // owner | agent | viewer
 ```
 
+Demo roles:
+
+```text
+owner  -> full read/write in demo scope
+agent  -> read conversations/customers/activity + generate AI draft + send reply
+viewer -> read-only; cannot generate AI draft or send reply
+```
+
+Mock auth is for local/demo/test only and must not be treated as a production auth solution.
+
+## Provider Behavior
+
+Current MVP provider behavior:
+
+```text
+AI draft uses a mock provider only
+reply send uses a simulated provider only
+AI draft creates a draft row and activity but does not send any message
+reply send requires an explicit human API request
+```
+
+Not implemented yet:
+
+```text
+real WhatsApp/Instagram/TikTok/email delivery
+real AI provider integration
+production auth provider
+background delivery workers
+```
+
 ## Security Notes
 
 - Do not commit `.env`.
@@ -141,6 +176,13 @@ From repo root:
 
 ```bash
 bash scripts/validate-repo-structure.sh
+```
+
+Together with the dashboard:
+
+```bash
+cd services/api && npm run dev
+cd apps/dashboard && npm install && cp .env.example .env.local && npm run dev
 ```
 
 ## Known Limitations

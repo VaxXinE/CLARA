@@ -26,10 +26,9 @@ source_of_truth:
   - "docs/BOOK-08-Implementation-Delivery-and-Production-Launch/"
 ---
 
-
 # 11 — Release, Rollback, and Recovery
 
-> *"Even an MVP needs a plan for stopping, disabling, and recovering safely."*
+> _"Even an MVP needs a plan for stopping, disabling, and recovering safely."_
 
 ---
 

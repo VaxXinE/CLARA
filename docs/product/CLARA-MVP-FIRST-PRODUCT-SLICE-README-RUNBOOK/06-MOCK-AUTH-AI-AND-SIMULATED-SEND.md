@@ -4,7 +4,7 @@ artifact: "MVP First Product Slice README / Runbook"
 version: "1.0.0"
 status: "draft-for-review"
 owner: "CLARA Engineering, DevOps, Security, QA, Product, and AI Team"
-last_updated: "2026-07-07"
+last_updated: "2026-07-08"
 classification: "readme-runbook"
 repository: "https://github.com/VaxXinE/CLARA"
 based_on:
@@ -26,10 +26,9 @@ source_of_truth:
   - "docs/BOOK-08-Implementation-Delivery-and-Production-Launch/"
 ---
 
-
 # 06 — Mock Auth, Mock AI, and Simulated Send
 
-> *"Mock dependencies let us test product behavior without unsafe production integrations."*
+> _"Mock dependencies let us test product behavior without unsafe production integrations."_
 
 ---
 
@@ -58,28 +57,31 @@ production-like staging unless explicitly isolated
 
 ---
 
-# Demo Users
+# Demo Roles and Headers
 
-Recommended demo users:
-
-```text
-owner@example.test
-agent@example.test
-viewer@example.test
-```
-
-Switching demo user can use:
-
-```text
-DEFAULT_DEMO_USER=agent
-```
-
-Allowed values:
+Current local/demo identity model:
 
 ```text
 owner
 agent
 viewer
+```
+
+Mock auth headers:
+
+```text
+x-mock-user-id
+x-mock-organization-id
+x-mock-workspace-id
+x-mock-role
+```
+
+Demo values:
+
+```text
+owner  -> usr_demo_owner / org_demo / wks_demo_sales
+agent  -> usr_demo_agent / org_demo / wks_demo_sales
+viewer -> usr_demo_viewer / org_demo / wks_demo_sales
 ```
 
 ---
@@ -95,29 +97,12 @@ viewer
 
 # Mock AI Provider
 
-Mock AI provider should return deterministic draft text.
+Mock AI provider returns a deterministic safe draft for local/demo/test use.
 
 Example output:
 
 ```text
 Hi Budi, terima kasih sudah menghubungi kami. Produk tersebut masih tersedia dan kami bisa bantu proses pesanannya hari ini.
-```
-
-Mock AI modes:
-
-```text
-success
-timeout
-provider_error
-malformed_output
-safety_refusal
-```
-
-Suggested env:
-
-```bash
-AI_PROVIDER=mock
-AI_MOCK_MODE=success
 ```
 
 ---
@@ -134,22 +119,7 @@ AI_MOCK_MODE=success
 
 # Simulated Send Adapter
 
-Simulated send is the MVP-safe default.
-
-Suggested env:
-
-```bash
-SEND_ADAPTER=simulated
-SIMULATED_SEND_MODE=success
-```
-
-Modes:
-
-```text
-success
-failure
-timeout
-```
+Simulated send is the MVP-safe default and creates the outbound message/activity records without contacting a real channel provider.
 
 ---
 
@@ -167,4 +137,14 @@ timeout
 
 ```text
 Mock auth may identify a user, mock AI may draft a reply, but only explicit human send may create an outbound message.
+```
+
+Additional security rules:
+
+```text
+mock auth is local/demo/test only
+no real provider secrets should be committed
+frontend must not contain provider API keys
+viewer is read-only
+cross-workspace resources must resolve as 404, not leaked data
 ```
