@@ -60,6 +60,9 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
+      - name: Database static check
+        run: npm run db:check
+
       - name: Test
         run: npm run test
 
