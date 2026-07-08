@@ -250,7 +250,7 @@ describe("app service container repository selection", () => {
     });
 
     expect(() => createAppServiceContainer(env)).toThrow(
-      "DATABASE_URL is required in production so conversation, customer, and related APIs do not fall back to fixture data.",
+      "DATABASE_URL is required in production so conversation, customer, activity, and related APIs do not fall back to fixture data.",
     );
   });
 });
