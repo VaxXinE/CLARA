@@ -110,6 +110,7 @@ Current baseline behavior:
 mock mode keeps the current local/demo/test flow working
 provider mode is a fail-closed baseline and does not accept arbitrary bearer tokens
 provider verification is not implemented yet
+trusted provider identity must map to a CLARA user + exactly one active workspace membership before AuthContext is created
 ```
 
 Provider-mode middleware behavior today:
@@ -198,6 +199,15 @@ viewer -> read-only; cannot generate AI draft or send reply
 Mock auth is for local/demo/test only and must not be treated as a production auth solution.
 
 Provider mode is a safe placeholder for production auth integration work. It fails closed until real provider verification is implemented.
+
+Workspace membership lookup foundation now exists for the future provider path:
+
+```text
+trusted provider identity -> CLARA user lookup by provider_subject
+CLARA user -> active workspace membership lookup
+membership role -> server-side permissions
+missing user, inactive membership, unsupported role, or ambiguous membership fails closed
+```
 
 ## Provider Behavior
 

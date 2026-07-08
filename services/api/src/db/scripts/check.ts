@@ -103,11 +103,25 @@ function runFixtureChecks(): void {
       ),
     "owner/agent/viewer fixtures are required",
   );
+  assert(
+    demoSeedData.workspaceMemberships.some(
+      (membership) => membership.status === "inactive",
+    ),
+    "an inactive workspace membership fixture is required",
+  );
 
   for (const email of allEmails) {
     assert(
       email.endsWith(".test"),
       `fixture email must use .test domain: ${email}`,
+    );
+  }
+
+  for (const user of demoSeedData.users) {
+    assert(
+      typeof user.providerSubject === "string" &&
+        user.providerSubject.length > 0,
+      `provider_subject is required for auth lookup fixture user: ${user.id}`,
     );
   }
 

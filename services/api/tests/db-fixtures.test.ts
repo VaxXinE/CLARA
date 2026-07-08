@@ -15,11 +15,15 @@ describe("database demo fixtures", () => {
     expect(
       demoSeedData.workspaceMemberships.map((membership) => membership.role),
     ).toEqual(expect.arrayContaining(["owner", "agent", "viewer"]));
+    expect(
+      demoSeedData.workspaceMemberships.map((membership) => membership.status),
+    ).toEqual(expect.arrayContaining(["active", "inactive"]));
   });
 
   it("uses safe fake email and contact domains only", () => {
     for (const user of demoSeedData.users) {
       expect(user.email.endsWith(".test")).toBe(true);
+      expect(user.providerSubject?.startsWith("subject_demo_")).toBe(true);
     }
 
     for (const customer of demoSeedData.customers) {
