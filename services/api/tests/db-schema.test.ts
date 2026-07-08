@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import {
   activityEventTypes,
   aiDraftStatuses,
+  auditLogActions,
+  auditLogOutcomes,
   conversationStatuses,
   dbSchema,
   messageDirections,
@@ -22,6 +24,7 @@ describe("database schema", () => {
       "replyDrafts",
       "aiDraftEvents",
       "activityEvents",
+      "auditLogs",
     ]);
   });
 
@@ -33,6 +36,7 @@ describe("database schema", () => {
       "replyDrafts",
       "aiDraftEvents",
       "activityEvents",
+      "auditLogs",
     ] as const) {
       const columns = Object.keys(dbSchema[tableName]);
 
@@ -47,6 +51,13 @@ describe("database schema", () => {
     expect(conversationStatuses).toEqual(["open", "pending", "closed"]);
     expect(messageDirections).toEqual(["inbound", "outbound", "internal"]);
     expect(aiDraftStatuses).toEqual(["succeeded", "failed"]);
+    expect(auditLogActions).toEqual([
+      "ai_draft.generated",
+      "reply.send_attempted",
+      "reply.sent",
+      "reply.failed",
+    ]);
+    expect(auditLogOutcomes).toEqual(["success", "failure"]);
     expect(activityEventTypes).toEqual([
       "ai_draft_generated",
       "ai_draft_failed",

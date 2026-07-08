@@ -1,5 +1,6 @@
 import type { AuthContext } from "../auth/auth-context";
 import { assertPermission } from "../auth/permissions";
+import { AuditLogService } from "../audit/audit-log-service";
 import type { ConversationRepository } from "../conversations/conversation-repository";
 import { AppError, NotFoundError, ValidationError } from "../errors/app-error";
 import { getWorkspaceScopeFromAuth } from "../workspace/workspace-scope";
@@ -13,6 +14,7 @@ import {
 export type SendReplyRequest = {
   auth: AuthContext;
   conversationId: string;
+  correlationId: string;
   body: string;
   draftId?: string;
 };
@@ -25,6 +27,7 @@ export class ReplyService {
     >,
     private readonly repository: ReplyRepository,
     private readonly provider: ReplySendProvider,
+    private readonly auditLogs: AuditLogService,
   ) {}
 
   async sendReply(input: SendReplyRequest): Promise<ReplySendResponseDto> {
@@ -59,6 +62,25 @@ export class ReplyService {
     }
 
     try {
+      const attemptedAuditInput = {
+        auth: input.auth,
+        correlationId: input.correlationId,
+        conversationId: conversation.id,
+        channelSource: conversation.source,
+      } as {
+        auth: typeof input.auth;
+        correlationId: string;
+        conversationId: string;
+        channelSource: string;
+        draftId?: string;
+      };
+
+      if (input.draftId) {
+        attemptedAuditInput.draftId = input.draftId;
+      }
+
+      await this.auditLogs.recordReplySendAttempted(attemptedAuditInput);
+
       const sendResult = await this.provider.sendReply({
         conversationId: conversation.id,
         source: conversation.source,
@@ -90,8 +112,50 @@ export class ReplyService {
 
       const createdReply = await this.repository.createReply(repositoryInput);
 
+      const sentAuditInput = {
+        auth: input.auth,
+        correlationId: input.correlationId,
+        conversationId: conversation.id,
+        messageId: createdReply.id,
+        provider: sendResult.provider,
+        deliveryStatus: sendResult.deliveryStatus,
+      } as {
+        auth: typeof input.auth;
+        correlationId: string;
+        conversationId: string;
+        messageId: string;
+        provider: string;
+        deliveryStatus: "sent" | "simulated";
+        draftId?: string;
+      };
+
+      if (input.draftId) {
+        sentAuditInput.draftId = input.draftId;
+      }
+
+      await this.auditLogs.recordReplySent(sentAuditInput);
+
       return toReplySendResponseDto(createdReply);
     } catch (error) {
+      const failedAuditInput = {
+        auth: input.auth,
+        correlationId: input.correlationId,
+        conversationId: conversation.id,
+        error,
+      } as {
+        auth: typeof input.auth;
+        correlationId: string;
+        conversationId: string;
+        error: unknown;
+        draftId?: string;
+      };
+
+      if (input.draftId) {
+        failedAuditInput.draftId = input.draftId;
+      }
+
+      await this.auditLogs.recordReplyFailed(failedAuditInput);
+
       if (error instanceof AppError) {
         throw error;
       }

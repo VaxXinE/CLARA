@@ -225,6 +225,24 @@ DATABASE_URL present -> PostgreSQL-backed reply persistence for scoped outbound 
 production without DATABASE_URL -> startup fails closed instead of falling back to fixture reply persistence
 ```
 
+Audit log runtime selection:
+
+```text
+no DATABASE_URL in non-production -> fixture-backed audit log persistence for local/demo/test safety
+DATABASE_URL present -> PostgreSQL-backed audit log persistence for scoped audit_logs writes
+production without DATABASE_URL -> startup fails closed instead of falling back to fixture-backed business and audit persistence
+```
+
+Audit log baseline:
+
+```text
+AI draft generation records ai_draft.generated
+reply send flow records reply.send_attempted, reply.sent, and reply.failed
+audit metadata is allowlisted and does not store full customer message bodies
+bearer tokens, Authorization headers, and raw JWT payloads must never be stored in audit logs
+audit writes are best-effort so business responses do not fail open or leak internals when audit persistence has an internal problem
+```
+
 ## Mock Auth Headers
 
 For local/dev/test authenticated requests:
