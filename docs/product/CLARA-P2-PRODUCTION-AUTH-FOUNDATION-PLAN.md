@@ -194,6 +194,14 @@ workspace membership lookup path tested
 observability/logging reviewed for token safety
 ```
 
+## Smoke Test Reference
+
+Use this runbook for deterministic local validation:
+
+```text
+docs/product/CLARA-P2-AUTH-SMOKE-TEST-RUNBOOK.md
+```
+
 ## Main Risks
 
 ```text
