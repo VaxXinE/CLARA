@@ -52,8 +52,12 @@ Optional local tools
 # Prepare Database
 
 ```bash
-cd services/api
+cd infra/local
+docker compose up -d
+
+cd ../../services/api
 npm run db:check
+npm run db:ready
 npm run db:migrate
 npm run db:seed
 ```

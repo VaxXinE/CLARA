@@ -4,7 +4,7 @@ artifact: "MVP First Product Slice README / Runbook"
 version: "1.0.0"
 status: "draft-for-review"
 owner: "CLARA Engineering, DevOps, Security, QA, Product, and AI Team"
-last_updated: "2026-07-07"
+last_updated: "2026-07-08"
 classification: "readme-runbook"
 repository: "https://github.com/VaxXinE/CLARA"
 based_on:
@@ -38,22 +38,22 @@ This document defines how to run database migrations and seed demo data.
 
 ---
 
-# Migration Commands
+# Local Runtime Prerequisite
 
-Final commands depend on chosen migration tool.
-
-Template:
+Start local PostgreSQL first:
 
 ```bash
-npm run db:migrate
+cd infra/local
+docker compose up -d
 ```
 
-Alternative examples:
+Then run database commands from the API service:
 
 ```bash
-npm run prisma:migrate
-npm run drizzle:migrate
-npm run db:push
+cd ../../services/api
+npm run db:check
+npm run db:ready
+npm run db:migrate
 ```
 
 ---
@@ -75,10 +75,8 @@ Expected migration groups:
 
 # Verify Tables
 
-Template:
-
 ```bash
-npm run db:verify
+npm run db:ready
 ```
 
 Manual expected tables:
@@ -100,10 +98,8 @@ activity_events
 
 # Seed Demo Data
 
-Template:
-
 ```bash
-npm run db:seed:demo
+npm run db:seed
 ```
 
 Seed should create:
@@ -138,36 +134,11 @@ run only in local/demo
 
 ---
 
-# Reset Local Database
-
-Template:
-
-```bash
-npm run db:reset
-npm run db:migrate
-npm run db:seed:demo
-```
-
-Warning:
-
-```text
-Only reset local/dev database.
-Never run destructive reset in production-like environment.
-```
-
----
-
 # Migration Troubleshooting
 
 ## Migration fails because table exists
 
-Try:
-
-```bash
-npm run db:status
-```
-
-Then check if previous migration partially ran.
+Check whether a previous migration partially ran and whether the local database already contains the expected schema.
 
 ## Seed duplicates data
 
@@ -175,7 +146,27 @@ Seed must be idempotent. Fix seed script to upsert or skip existing IDs.
 
 ## Cross-workspace tests missing fixture
 
-Run demo seed again or verify seed includes workspace B fixture.
+Run `npm run db:seed` again or verify seed includes workspace B fixture.
+
+## Database readiness check fails
+
+Try:
+
+```bash
+cd infra/local
+docker compose ps
+
+cd ../../services/api
+npm run db:ready
+```
+
+Check:
+
+```text
+container is healthy
+DATABASE_URL matches services/api/.env.example
+port 5432 is available locally
+```
 
 ---
 
