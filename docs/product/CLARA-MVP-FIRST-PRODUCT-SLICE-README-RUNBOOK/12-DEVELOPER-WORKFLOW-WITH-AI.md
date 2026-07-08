@@ -26,10 +26,9 @@ source_of_truth:
   - "docs/BOOK-08-Implementation-Delivery-and-Production-Launch/"
 ---
 
-
 # 12 — Developer Workflow with AI
 
-> *"AI coding assistants should accelerate implementation without inventing architecture or weakening security."*
+> _"AI coding assistants should accelerate implementation without inventing architecture or weakening security."_
 
 ---
 

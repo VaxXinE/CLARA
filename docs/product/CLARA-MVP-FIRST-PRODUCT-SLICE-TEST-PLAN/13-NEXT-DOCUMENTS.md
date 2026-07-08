@@ -23,10 +23,9 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # 13 — Next Documents
 
-> *"Now the MVP requirements are testable. The next step is to turn them into executable work."*
+> _"Now the MVP requirements are testable. The next step is to turn them into executable work."_
 
 ---
 

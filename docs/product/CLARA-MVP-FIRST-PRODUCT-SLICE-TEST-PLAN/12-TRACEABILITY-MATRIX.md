@@ -23,10 +23,9 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # 12 — Traceability Matrix
 
-> *"Traceability proves that every important requirement has a test."*
+> _"Traceability proves that every important requirement has a test."_
 
 ---
 
@@ -38,26 +37,26 @@ This document maps PRD/API/DB/Security requirements to test coverage.
 
 # Requirement to Test Matrix
 
-| Requirement | Source | Test Coverage |
-|---|---|---|
-| Authenticated access required | PRD/API/Security | Auth negative tests, API contract |
-| Conversation inbox visible | PRD/UX/API | API contract, integration, UI |
-| Conversation detail visible | PRD/UX/API | API contract, integration, UI |
-| Customer profile visible | PRD/UX/API | API contract, integration, UI |
-| AI draft generation | PRD/TDD/API | Unit, integration, AI, UI |
-| Human review before send | PRD/Security/UX | AI tests, UI tests, integration |
-| Viewer cannot generate draft | Security/API | RBAC negative, UI permission |
-| Viewer cannot send reply | Security/API | RBAC negative, UI permission |
-| Workspace isolation | TDD/API/DB/Security | Tenant negative, DB tests |
-| Safe error envelope | API/Security | API contract, negative tests |
-| Activity event recorded | TDD/API/DB | Integration, DB, API contract |
-| No secrets in DB | DB/Security | DB privacy review |
-| No secrets in logs | Security | redaction/unit/log review |
-| AI context minimization | TDD/Security | AI context unit/integration |
-| Prompt injection handled | Security/AI | AI negative tests |
-| Manual reply works if AI fails | PRD/UX/Security | AI failure, UI, manual QA |
-| Send failure preserves draft | UX/Security | UI test, integration |
-| Demo seed is fake | DB/Security | seed data test/review |
+| Requirement                    | Source              | Test Coverage                     |
+| ------------------------------ | ------------------- | --------------------------------- |
+| Authenticated access required  | PRD/API/Security    | Auth negative tests, API contract |
+| Conversation inbox visible     | PRD/UX/API          | API contract, integration, UI     |
+| Conversation detail visible    | PRD/UX/API          | API contract, integration, UI     |
+| Customer profile visible       | PRD/UX/API          | API contract, integration, UI     |
+| AI draft generation            | PRD/TDD/API         | Unit, integration, AI, UI         |
+| Human review before send       | PRD/Security/UX     | AI tests, UI tests, integration   |
+| Viewer cannot generate draft   | Security/API        | RBAC negative, UI permission      |
+| Viewer cannot send reply       | Security/API        | RBAC negative, UI permission      |
+| Workspace isolation            | TDD/API/DB/Security | Tenant negative, DB tests         |
+| Safe error envelope            | API/Security        | API contract, negative tests      |
+| Activity event recorded        | TDD/API/DB          | Integration, DB, API contract     |
+| No secrets in DB               | DB/Security         | DB privacy review                 |
+| No secrets in logs             | Security            | redaction/unit/log review         |
+| AI context minimization        | TDD/Security        | AI context unit/integration       |
+| Prompt injection handled       | Security/AI         | AI negative tests                 |
+| Manual reply works if AI fails | PRD/UX/Security     | AI failure, UI, manual QA         |
+| Send failure preserves draft   | UX/Security         | UI test, integration              |
+| Demo seed is fake              | DB/Security         | seed data test/review             |
 
 ---
 

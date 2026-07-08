@@ -26,10 +26,9 @@ source_of_truth:
   - "docs/BOOK-08-Implementation-Delivery-and-Production-Launch/"
 ---
 
-
 # 01 — Runbook Overview
 
-> *"A runbook is the operational contract between the codebase and the team."*
+> _"A runbook is the operational contract between the codebase and the team."_
 
 ---
 

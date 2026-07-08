@@ -26,10 +26,9 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # 10 — Post-Demo Notes
 
-> *"A demo is not finished until feedback becomes decisions and tasks."*
+> _"A demo is not finished until feedback becomes decisions and tasks."_
 
 ---
 

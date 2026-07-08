@@ -23,10 +23,9 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # 03 — Unit Test Plan
 
-> *"Unit tests protect the smallest rules before they become expensive integration bugs."*
+> _"Unit tests protect the smallest rules before they become expensive integration bugs."_
 
 ---
 

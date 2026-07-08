@@ -26,10 +26,9 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # 08 — Fallback and Failure Scenarios
 
-> *"A reliable MVP is not one that never fails. It is one that fails safely."*
+> _"A reliable MVP is not one that never fails. It is one that fails safely."_
 
 ---
 

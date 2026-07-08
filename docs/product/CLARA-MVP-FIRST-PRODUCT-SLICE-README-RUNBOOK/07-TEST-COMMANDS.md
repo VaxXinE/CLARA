@@ -26,10 +26,9 @@ source_of_truth:
   - "docs/BOOK-08-Implementation-Delivery-and-Production-Launch/"
 ---
 
-
 # 07 — Test Commands
 
-> *"Tests are the proof that the MVP is safe enough to demo."*
+> _"Tests are the proof that the MVP is safe enough to demo."_
 
 ---
 

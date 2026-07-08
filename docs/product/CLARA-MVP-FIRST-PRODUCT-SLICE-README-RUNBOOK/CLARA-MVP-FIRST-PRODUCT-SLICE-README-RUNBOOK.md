@@ -26,7 +26,6 @@ source_of_truth:
   - "docs/BOOK-08-Implementation-Delivery-and-Production-Launch/"
 ---
 
-
 # CLARA MVP First Product Slice README / Runbook
 
 ## Unified Customer Conversation Inbox Operational Guide

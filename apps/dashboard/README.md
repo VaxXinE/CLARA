@@ -60,10 +60,10 @@ backend remains the source of truth for permissions
 
 ## Environment
 
-| Name | Required | Default | Description |
-|---|---:|---|---|
-| `VITE_API_BASE_URL` | No | `http://127.0.0.1:3000` | CLARA API base URL |
-| `VITE_DEMO_MODE` | No | `true` | Enables local role switcher and mock auth headers |
+| Name                | Required | Default                 | Description                                       |
+| ------------------- | -------: | ----------------------- | ------------------------------------------------- |
+| `VITE_API_BASE_URL` |       No | `http://127.0.0.1:3000` | CLARA API base URL                                |
+| `VITE_DEMO_MODE`    |       No | `true`                  | Enables local role switcher and mock auth headers |
 
 ## Demo Roles
 

@@ -26,10 +26,9 @@ source_of_truth:
   - "docs/BOOK-08-Implementation-Delivery-and-Production-Launch/"
 ---
 
-
 # 02 — Local Setup
 
-> *"Local setup should be boring, repeatable, and safe."*
+> _"Local setup should be boring, repeatable, and safe."_
 
 ---
 

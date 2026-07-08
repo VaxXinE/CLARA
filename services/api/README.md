@@ -64,16 +64,16 @@ npm audit --omit=dev --audit-level=high
 
 ## Environment Variables
 
-| Name | Required | Default | Description |
-|---|---:|---|---|
-| `NODE_ENV` | No | `development` | Runtime environment |
-| `APP_NAME` | No | `clara-api` | Service name |
-| `HOST` | No | `127.0.0.1` | Bind host |
-| `PORT` | No | `3000` | Bind port |
-| `LOG_LEVEL` | No | `info` | Logger level |
-| `DATABASE_URL` | Required for DB scripts only | none | PostgreSQL connection string for migrate/seed/studio |
-| `MOCK_AUTH_ENABLED` | No | `true` outside production, `false` in production | Enables local/dev/test mock auth |
-| `CORS_ORIGIN` | No | empty | Reserved for future CORS setup |
+| Name                |                     Required | Default                                          | Description                                          |
+| ------------------- | ---------------------------: | ------------------------------------------------ | ---------------------------------------------------- |
+| `NODE_ENV`          |                           No | `development`                                    | Runtime environment                                  |
+| `APP_NAME`          |                           No | `clara-api`                                      | Service name                                         |
+| `HOST`              |                           No | `127.0.0.1`                                      | Bind host                                            |
+| `PORT`              |                           No | `3000`                                           | Bind port                                            |
+| `LOG_LEVEL`         |                           No | `info`                                           | Logger level                                         |
+| `DATABASE_URL`      | Required for DB scripts only | none                                             | PostgreSQL connection string for migrate/seed/studio |
+| `MOCK_AUTH_ENABLED` |                           No | `true` outside production, `false` in production | Enables local/dev/test mock auth                     |
+| `CORS_ORIGIN`       |                           No | empty                                            | Reserved for future CORS setup                       |
 
 ## Database Setup
 

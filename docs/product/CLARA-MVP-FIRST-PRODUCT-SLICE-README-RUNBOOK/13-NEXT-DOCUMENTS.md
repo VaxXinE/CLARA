@@ -26,10 +26,9 @@ source_of_truth:
   - "docs/BOOK-08-Implementation-Delivery-and-Production-Launch/"
 ---
 
-
 # 13 — Next Documents
 
-> *"The runbook explains how to run the MVP. The demo script explains how to present it clearly."*
+> _"The runbook explains how to run the MVP. The demo script explains how to present it clearly."_
 
 ---
 

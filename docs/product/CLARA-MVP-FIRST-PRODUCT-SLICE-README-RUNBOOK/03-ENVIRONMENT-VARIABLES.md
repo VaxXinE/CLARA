@@ -26,10 +26,9 @@ source_of_truth:
   - "docs/BOOK-08-Implementation-Delivery-and-Production-Launch/"
 ---
 
-
 # 03 — Environment Variables
 
-> *"Configuration should make unsafe environments hard to start."*
+> _"Configuration should make unsafe environments hard to start."_
 
 ---
 

@@ -26,10 +26,9 @@ source_of_truth:
   - "docs/BOOK-08-Implementation-Delivery-and-Production-Launch/"
 ---
 
-
 # 06 — Mock Auth, Mock AI, and Simulated Send
 
-> *"Mock dependencies let us test product behavior without unsafe production integrations."*
+> _"Mock dependencies let us test product behavior without unsafe production integrations."_
 
 ---
 

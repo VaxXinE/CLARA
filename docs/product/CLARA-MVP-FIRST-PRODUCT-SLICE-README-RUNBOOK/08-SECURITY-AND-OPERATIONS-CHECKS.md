@@ -26,10 +26,9 @@ source_of_truth:
   - "docs/BOOK-08-Implementation-Delivery-and-Production-Launch/"
 ---
 
-
 # 08 — Security and Operations Checks
 
-> *"Security and operations checks should be quick enough to run often."*
+> _"Security and operations checks should be quick enough to run often."_
 
 ---
 

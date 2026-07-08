@@ -26,10 +26,9 @@ source_of_truth:
   - "docs/BOOK-08-Implementation-Delivery-and-Production-Launch/"
 ---
 
-
 # 09 — Troubleshooting
 
-> *"A good runbook helps junior developers recover without guessing."*
+> _"A good runbook helps junior developers recover without guessing."_
 
 ---
 

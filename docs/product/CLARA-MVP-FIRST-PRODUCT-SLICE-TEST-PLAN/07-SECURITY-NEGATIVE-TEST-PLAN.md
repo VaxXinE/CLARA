@@ -23,10 +23,9 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # 07 — Security Negative Test Plan
 
-> *"Negative tests prove the system fails closed instead of trusting good behavior."*
+> _"Negative tests prove the system fails closed instead of trusting good behavior."_
 
 ---
 

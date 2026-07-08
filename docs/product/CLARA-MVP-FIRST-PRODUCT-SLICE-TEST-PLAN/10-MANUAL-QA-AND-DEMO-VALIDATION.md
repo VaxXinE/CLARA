@@ -23,10 +23,9 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # 10 — Manual QA and Demo Validation
 
-> *"Manual QA verifies the product feels coherent, not just that endpoints return JSON."*
+> _"Manual QA verifies the product feels coherent, not just that endpoints return JSON."_
 
 ---
 

@@ -26,10 +26,9 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # 05 — Step-by-Step Demo Flow
 
-> *"A demo should move in a clean sequence: problem, workflow, trust, result."*
+> _"A demo should move in a clean sequence: problem, workflow, trust, result."_
 
 ---
 

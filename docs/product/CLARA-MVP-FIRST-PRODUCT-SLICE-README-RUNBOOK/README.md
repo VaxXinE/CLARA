@@ -26,10 +26,9 @@ source_of_truth:
   - "docs/BOOK-08-Implementation-Delivery-and-Production-Launch/"
 ---
 
-
 # CLARA MVP First Product Slice README / Runbook
 
-> *"A runbook makes the MVP repeatable: clone, configure, run, seed, test, debug, demo, and recover."*
+> _"A runbook makes the MVP repeatable: clone, configure, run, seed, test, debug, demo, and recover."_
 
 ---
 

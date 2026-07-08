@@ -26,10 +26,9 @@ source_of_truth:
   - "docs/BOOK-08-Implementation-Delivery-and-Production-Launch/"
 ---
 
-
 # 04 — Running Services
 
-> *"The first operational goal is simple: API starts, UI starts, and the workflow can be exercised safely."*
+> _"The first operational goal is simple: API starts, UI starts, and the workflow can be exercised safely."_
 
 ---
 

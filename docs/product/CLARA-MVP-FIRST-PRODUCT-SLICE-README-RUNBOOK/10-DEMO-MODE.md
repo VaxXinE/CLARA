@@ -26,10 +26,9 @@ source_of_truth:
   - "docs/BOOK-08-Implementation-Delivery-and-Production-Launch/"
 ---
 
-
 # 10 — Demo Mode
 
-> *"Demo mode should show realistic product value without using real customer data or real provider credentials."*
+> _"Demo mode should show realistic product value without using real customer data or real provider credentials."_
 
 ---
 

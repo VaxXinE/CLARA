@@ -26,10 +26,9 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # 03 — Pre-Demo Checklist
 
-> *"The best demo is boring operationally and exciting product-wise."*
+> _"The best demo is boring operationally and exciting product-wise."_
 
 ---
 

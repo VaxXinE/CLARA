@@ -23,10 +23,9 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # 09 — Frontend UI Test Plan
 
-> *"Frontend tests should prove that the user can complete the workflow and cannot easily misuse AI."*
+> _"Frontend tests should prove that the user can complete the workflow and cannot easily misuse AI."_
 
 ---
 
@@ -178,7 +177,9 @@ color not only indicator
 Use message body:
 
 ```html
-<script>alert("xss")</script>
+<script>
+  alert("xss");
+</script>
 ```
 
 Expected:
