@@ -38,3 +38,8 @@ Use this directory when documentation needs a dedicated home outside the long-fo
 # Navigation
 
 **Back:** `../README.md`
+
+## Records
+
+- `ADR-0001-athena-documentation-architecture.md`
+- `ADR-0001-production-auth-foundation.md`
