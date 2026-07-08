@@ -1,15 +1,15 @@
-import { AuthorizationError } from '../errors/app-error';
+import { AuthorizationError } from "../errors/app-error";
 
-export const roles = ['owner', 'agent', 'viewer'] as const;
+export const roles = ["owner", "agent", "viewer"] as const;
 
 export type Role = (typeof roles)[number];
 
 export const permissions = [
-  'conversation:read',
-  'customer:read',
-  'activity:read',
-  'ai_draft:create',
-  'reply:send'
+  "conversation:read",
+  "customer:read",
+  "activity:read",
+  "ai_draft:create",
+  "reply:send",
 ] as const;
 
 export type Permission = (typeof permissions)[number];
@@ -17,7 +17,7 @@ export type Permission = (typeof permissions)[number];
 const rolePermissions: Record<Role, ReadonlySet<Permission>> = {
   owner: new Set(permissions),
   agent: new Set(permissions),
-  viewer: new Set(['conversation:read', 'customer:read', 'activity:read'])
+  viewer: new Set(["conversation:read", "customer:read", "activity:read"]),
 };
 
 export function getPermissionsForRole(role: Role): Permission[] {

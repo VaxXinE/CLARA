@@ -1,13 +1,13 @@
-import { randomUUID } from 'node:crypto';
-import type { IncomingMessage } from 'node:http';
-import type { FastifyInstance } from 'fastify';
+import { randomUUID } from "node:crypto";
+import type { IncomingMessage } from "node:http";
+import type { FastifyInstance } from "fastify";
 
 const maxCorrelationIdLength = 128;
 const safeCorrelationIdPattern = /^[a-zA-Z0-9._:-]+$/;
 
 function readHeaderValue(
-  headers: IncomingMessage['headers'],
-  name: string
+  headers: IncomingMessage["headers"],
+  name: string,
 ): string | undefined {
   const value = headers[name];
 
@@ -38,14 +38,14 @@ export function normalizeCorrelationId(value: string | undefined): string {
 
 export function generateRequestId(request: IncomingMessage): string {
   const correlationId =
-    readHeaderValue(request.headers, 'x-correlation-id') ??
-    readHeaderValue(request.headers, 'x-request-id');
+    readHeaderValue(request.headers, "x-correlation-id") ??
+    readHeaderValue(request.headers, "x-request-id");
 
   return normalizeCorrelationId(correlationId);
 }
 
 export function registerCorrelationIdHook(app: FastifyInstance): void {
-  app.addHook('onRequest', async (request, reply) => {
-    reply.header('x-correlation-id', request.id);
+  app.addHook("onRequest", async (request, reply) => {
+    reply.header("x-correlation-id", request.id);
   });
 }
