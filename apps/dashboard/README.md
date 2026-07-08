@@ -55,15 +55,18 @@ Expected local flow:
 ```text
 dashboard calls the local API at VITE_API_BASE_URL
 demo mode adds mock auth headers for owner/agent/viewer
+provider mode attaches Authorization: Bearer <access_token> only when a real provider session exists
 backend remains the source of truth for permissions
 ```
 
 ## Environment
 
-| Name                | Required | Default                 | Description                                       |
-| ------------------- | -------: | ----------------------- | ------------------------------------------------- |
-| `VITE_API_BASE_URL` |       No | `http://127.0.0.1:3000` | CLARA API base URL                                |
-| `VITE_DEMO_MODE`    |       No | `true`                  | Enables local role switcher and mock auth headers |
+| Name                     |                 Required | Default                 | Description                                                 |
+| ------------------------ | -----------------------: | ----------------------- | ----------------------------------------------------------- |
+| `VITE_API_BASE_URL`      |                       No | `http://127.0.0.1:3000` | CLARA API base URL                                          |
+| `VITE_AUTH_MODE`         |                       No | `demo`                  | Dashboard auth mode: `demo` or `provider`                   |
+| `VITE_SUPABASE_URL`      | Required in provider mode | none                    | Supabase project URL for browser session handling           |
+| `VITE_SUPABASE_ANON_KEY` | Required in provider mode | none                    | Supabase anon key only. Never use a service role key here.  |
 
 ## Demo Roles
 
@@ -83,6 +86,15 @@ agent  -> can read, generate AI draft, and send reply
 viewer -> read-only; AI draft and send controls are not enabled
 ```
 
+Provider mode behavior:
+
+```text
+provider session shell renders a login form when no session exists
+dashboard does not load conversation data until a provider session exists
+frontend only sends provider access_token as a bearer token
+backend still decides role, organization, and workspace from authenticated context
+```
+
 ## Commands
 
 ```bash
@@ -96,8 +108,11 @@ npm audit --omit=dev --audit-level=high
 ## Security Notes
 
 - Do not put API keys or secrets in frontend env.
+- Never commit real Supabase URL or anon key.
+- Never use a Supabase service role key in frontend.
 - Backend authorization remains the source of truth.
 - Mock auth in the dashboard is for local/demo only.
+- Provider auth in the dashboard is a session shell only; backend still decides authorization.
 - Customer/user-generated content is rendered as plain text only.
 - AI drafts are visibly labeled as drafts and require human review.
 - Send action always requires explicit human click.
@@ -125,6 +140,7 @@ bash scripts/validate-repo-structure.sh
 
 ```text
 demo role switcher is for local/mock auth only
+provider login UI is only a shell; no OAuth callback UI or workspace switcher UI yet
 mock AI draft provider only
 simulated reply send provider only
 no real WhatsApp/Instagram/TikTok/email integration yet

@@ -166,6 +166,8 @@ Deliver:
 build production AuthContext from verified identity + Clara membership
 update protected route middleware to use production path
 retain mock auth only for local/demo/test
+dashboard provider mode only sends bearer token when provider session exists
+frontend login shell remains UX only and does not decide role or workspace
 ```
 
 ### Step 6: Security Test Expansion

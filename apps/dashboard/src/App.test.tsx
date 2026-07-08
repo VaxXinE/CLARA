@@ -1,16 +1,15 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App";
 import type {
   ActivityResponse,
-  AiDraftResponse,
   ConversationDetailResponse,
   ConversationListResponse,
   CustomerProfileResponse,
   MeResponse,
-  ReplySendResponse,
 } from "./api/types";
+import type { DashboardAuthClient } from "./auth/supabase-auth-client";
 
 const conversationListResponse: ConversationListResponse = {
   data: [
@@ -137,16 +136,19 @@ function jsonResponse(body: unknown, status = 200): Response {
   });
 }
 
-function meResponse(role: "owner" | "agent" | "viewer"): MeResponse {
+function meResponse(input: {
+  role: "owner" | "agent" | "viewer";
+  method: "mock" | "provider";
+}): MeResponse {
   return {
     user: {
       id:
-        role === "owner"
+        input.role === "owner"
           ? "usr_demo_owner"
-          : role === "agent"
+          : input.role === "agent"
             ? "usr_demo_agent"
             : "usr_demo_viewer",
-      role,
+      role: input.role,
     },
     organization: {
       id: "org_demo",
@@ -156,8 +158,23 @@ function meResponse(role: "owner" | "agent" | "viewer"): MeResponse {
     },
     permissions: [],
     auth: {
-      method: "mock",
+      method: input.method,
     },
+  };
+}
+
+function createMockAuthClient(
+  session: {
+    accessToken: string;
+    userId: string;
+    email: string | null;
+  } | null,
+): DashboardAuthClient {
+  return {
+    getSession: vi.fn(async () => session),
+    signIn: vi.fn(async () => {}),
+    signOut: vi.fn(async () => {}),
+    subscribe: vi.fn(() => () => {}),
   };
 }
 
@@ -184,18 +201,19 @@ describe("App", () => {
   });
 
   afterEach(() => {
+    cleanup();
     vi.restoreAllMocks();
     vi.unstubAllGlobals();
   });
 
-  it("hides draft and send controls for viewer role in demo mode", async () => {
+  it("keeps viewer in read-only mode during demo auth", async () => {
     window.localStorage.setItem("clara-dashboard-demo-role", "viewer");
 
     const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
       const url = String(input);
 
       if (url.includes("/api/v1/me")) {
-        return jsonResponse(meResponse("viewer"));
+        return jsonResponse(meResponse({ role: "viewer", method: "mock" }));
       }
 
       if (url.includes("/api/v1/conversations/conv_demo_budi_stock/activity")) {
@@ -233,7 +251,7 @@ describe("App", () => {
 
     vi.stubGlobal("fetch", fetchMock);
 
-    render(<App />);
+    render(<App authConfig={{ mode: "demo" }} />);
 
     expect(await screen.findByText("View-only access")).toBeInTheDocument();
     expect(
@@ -246,71 +264,40 @@ describe("App", () => {
     expect(screen.getByText(/usr_demo_viewer/)).toBeInTheDocument();
   });
 
-  it("labels AI output as a draft and only sends after explicit click", async () => {
-    window.localStorage.setItem("clara-dashboard-demo-role", "agent");
+  it("renders a login shell in provider mode when no session exists", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
 
-    const replyCalls: string[] = [];
+    render(
+      <App
+        authConfig={{
+          mode: "provider",
+          provider: "supabase",
+          supabaseUrl: "https://example.supabase.test",
+          supabaseAnonKey: "example-anon-key",
+        }}
+        authClient={createMockAuthClient(null)}
+      />,
+    );
+
+    expect(
+      await screen.findByRole("heading", { name: "Sign in to CLARA" }),
+    ).toBeInTheDocument();
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("loads workspace data in provider mode when a session exists", async () => {
     const fetchMock = vi.fn(
       async (input: RequestInfo | URL, init?: RequestInit) => {
         const url = String(input);
-        const method = init?.method ?? "GET";
+        const headers = (init?.headers ?? {}) as Record<string, string>;
+
+        expect(headers.authorization).toBe("Bearer provider-session-token");
 
         if (url.includes("/api/v1/me")) {
-          return jsonResponse(meResponse("agent"));
-        }
-
-        if (
-          method === "POST" &&
-          url.includes("/api/v1/conversations/conv_demo_budi_stock/ai-draft")
-        ) {
-          const body: AiDraftResponse = {
-            data: {
-              draft: {
-                id: "draft_demo_new",
-                conversation_id: "conv_demo_budi_stock",
-                body: "Hi Budi, thanks for reaching out.",
-                status: "draft",
-                requires_human_review: true,
-                created_at: "2026-01-01T00:00:00.000Z",
-              },
-              ai: {
-                provider: "mock",
-                model: "mock-clara-draft-v1",
-              },
-            },
-          };
-
-          return jsonResponse(body, 201);
-        }
-
-        if (
-          method === "POST" &&
-          url.includes("/api/v1/conversations/conv_demo_budi_stock/reply")
-        ) {
-          replyCalls.push(url);
-
-          const body: ReplySendResponse = {
-            data: {
-              message: {
-                id: "msg_demo_out_001",
-                conversation_id: "conv_demo_budi_stock",
-                direction: "outbound",
-                body: "Hi Budi, thanks for reaching out.",
-                sender: {
-                  type: "user",
-                  id: "usr_demo_agent",
-                  name: "Agent Demo",
-                },
-                created_at: "2026-01-01T00:01:00.000Z",
-              },
-              send: {
-                provider: "simulated",
-                status: "sent",
-              },
-            },
-          };
-
-          return jsonResponse(body, 201);
+          return jsonResponse(
+            meResponse({ role: "agent", method: "provider" }),
+          );
         }
 
         if (
@@ -331,55 +318,68 @@ describe("App", () => {
           return jsonResponse(conversationListResponse);
         }
 
-        throw new Error(`Unhandled request in test: ${method} ${url}`);
+        throw new Error(`Unhandled request in test: ${url}`);
       },
     );
 
     vi.stubGlobal("fetch", fetchMock);
 
-    const user = userEvent.setup();
-    render(<App />);
-
-    const generateButton = await screen.findByRole("button", {
-      name: "Generate AI Draft",
-    });
-    await user.click(generateButton);
+    render(
+      <App
+        authConfig={{
+          mode: "provider",
+          provider: "supabase",
+          supabaseUrl: "https://example.supabase.test",
+          supabaseAnonKey: "example-anon-key",
+        }}
+        authClient={createMockAuthClient({
+          accessToken: "provider-session-token",
+          userId: "provider-user-001",
+          email: "agent@example.test",
+        })}
+      />,
+    );
 
     expect(
-      await screen.findByText("AI-assisted draft · Review before sending"),
+      await screen.findByText(/Workspace: wks_demo_sales/),
     ).toBeInTheDocument();
-    expect(replyCalls).toHaveLength(0);
-
-    await user.click(screen.getByRole("button", { name: "Send Reply" }));
-
-    await waitFor(() => {
-      expect(replyCalls).toHaveLength(1);
-    });
+    expect(screen.getByText(/usr_demo_agent/)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Log Out" })).toBeInTheDocument();
   });
 
-  it("renders API error messages as safe text", async () => {
-    const fetchMock = vi.fn(async () =>
-      jsonResponse(
-        {
-          error: {
-            code: "AI_DRAFT_FAILED",
-            message: "<img src=x onerror=alert(1)> Unsafe provider error",
-            correlation_id: "corr_demo_001",
-          },
-        },
-        502,
-      ),
+  it("submits provider login from the login shell", async () => {
+    const signIn = vi.fn(async () => {});
+    const authClient: DashboardAuthClient = {
+      getSession: vi.fn(async () => null),
+      signIn,
+      signOut: vi.fn(async () => {}),
+      subscribe: vi.fn(() => () => {}),
+    };
+
+    render(
+      <App
+        authConfig={{
+          mode: "provider",
+          provider: "supabase",
+          supabaseUrl: "https://example.supabase.test",
+          supabaseAnonKey: "example-anon-key",
+        }}
+        authClient={authClient}
+      />,
     );
 
-    vi.stubGlobal("fetch", fetchMock);
+    await screen.findByRole("heading", { name: "Sign in to CLARA" });
 
-    const { container } = render(<App />);
+    await userEvent.clear(screen.getByLabelText("Email"));
+    await userEvent.type(screen.getByLabelText("Email"), "agent@example.test");
+    await userEvent.type(screen.getByLabelText("Password"), "secret-password");
+    await userEvent.click(screen.getByRole("button", { name: "Sign In" }));
 
-    const safeErrors = await screen.findAllByText(
-      /Unsafe provider error Reference: corr_demo_001/,
-    );
-
-    expect(safeErrors.length).toBeGreaterThan(0);
-    expect(container.querySelector("img")).toBeNull();
+    await waitFor(() => {
+      expect(signIn).toHaveBeenCalledWith({
+        email: "agent@example.test",
+        password: "secret-password",
+      });
+    });
   });
 });
