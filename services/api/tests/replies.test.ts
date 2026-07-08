@@ -13,6 +13,11 @@ import { createFixtureAppStore } from "../src/db/fixtures/fixture-store";
 import { createServer } from "../src/http/server";
 import { FixtureReplyRepository } from "../src/replies/reply-repository";
 import { ReplyService } from "../src/replies/reply-service";
+import type {
+  ReplySendProvider,
+  SendReplyProviderInput,
+  SendReplyProviderResult,
+} from "../src/replies/reply-send-provider";
 import { SimulatedReplySendProvider } from "../src/replies/simulated-reply-send-provider";
 
 const testEnv = loadEnv({
@@ -39,6 +44,10 @@ function authHeaders(input: {
 }
 
 function createTestServer() {
+  return createTestServerWithProvider(new SimulatedReplySendProvider());
+}
+
+function createTestServerWithProvider(provider: ReplySendProvider) {
   const fixtureStore = createFixtureAppStore();
   const conversationRepository = new FixtureConversationRepository(
     fixtureStore,
@@ -67,11 +76,19 @@ function createTestServer() {
         replies: new ReplyService(
           conversationRepository,
           replyRepository,
-          new SimulatedReplySendProvider(),
+          provider,
         ),
       },
     }),
   };
+}
+
+class FailingReplySendProvider implements ReplySendProvider {
+  async sendReply(
+    _input: SendReplyProviderInput,
+  ): Promise<SendReplyProviderResult> {
+    throw new Error("simulated upstream send failure secret=demo-send-secret");
+  }
 }
 
 describe("reply send API", () => {
@@ -444,5 +461,42 @@ describe("reply send API", () => {
         message: "Invalid request.",
       },
     });
+  });
+
+  it("returns a safe 502 envelope when the send provider fails", async () => {
+    const { appPromise, replyRepository } = createTestServerWithProvider(
+      new FailingReplySendProvider(),
+    );
+    const app = await appPromise;
+    const beforeState = replyRepository.getState();
+
+    const response = await app.inject({
+      method: "POST",
+      url: "/api/v1/conversations/conv_demo_budi_stock/reply?organization_id=org_demo_other",
+      headers: authHeaders({
+        userId: "usr_demo_agent",
+        organizationId: "org_demo",
+        workspaceId: "wks_demo_sales",
+        role: "agent",
+      }),
+      payload: {
+        body: "Manual send must fail safely.",
+      },
+    });
+
+    await app.close();
+
+    expect(response.statusCode).toBe(502);
+    expect(response.json()).toMatchObject({
+      error: {
+        code: "SEND_FAILED",
+        message: "Unable to send reply right now.",
+      },
+    });
+    expect(response.json().error.correlation_id).toEqual(expect.any(String));
+    expect(response.body).not.toContain("simulated upstream send failure");
+    expect(response.body).not.toContain("demo-send-secret");
+    expect(response.body).not.toContain("stack");
+    expect(replyRepository.getState()).toEqual(beforeState);
   });
 });

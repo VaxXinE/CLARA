@@ -87,9 +87,7 @@ export function InboxPanel(props: InboxPanelProps) {
               type="button"
               role="listitem"
               className={
-                selected
-                  ? "conversation-row is-selected"
-                  : "conversation-row"
+                selected ? "conversation-row is-selected" : "conversation-row"
               }
               onClick={() => props.onSelectConversation(conversation.id)}
             >
@@ -98,7 +96,8 @@ export function InboxPanel(props: InboxPanelProps) {
                 <span className="badge">{conversation.status}</span>
               </div>
               <p className="conversation-meta">
-                {conversation.source} · {formatTimestamp(conversation.last_message_at)}
+                {conversation.source} ·{" "}
+                {formatTimestamp(conversation.last_message_at)}
               </p>
               <p className="conversation-snippet">
                 {conversation.snippet ?? "No message preview available."}

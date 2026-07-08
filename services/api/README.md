@@ -5,7 +5,7 @@ CLARA API service.
 ## Status
 
 ```text
-PR-08 Reply Send API
+PR-10 Security and QA Hardening
 ```
 
 This service currently provides runtime foundation, database schema/migrations, mock auth, read-only conversation/customer/activity APIs, AI draft creation, and simulated reply send for local/test flows.
@@ -54,6 +54,7 @@ npm run db:generate
 npm run db:migrate
 npm run db:seed
 npm run db:studio
+npm audit --omit=dev --audit-level=high
 ```
 
 ## Environment Variables
@@ -122,10 +123,31 @@ x-mock-role         // owner | agent | viewer
 - AI draft creation stores editable drafts only and never sends replies automatically.
 - Reply send is explicit human-triggered API input only; AI draft endpoint does not send messages.
 - AI draft responses do not expose hidden prompts or raw provider payloads.
+- Provider failures return safe error envelopes and must not leak raw upstream errors or stack traces.
 - AI provider calls must not be added directly here without AI gateway boundary decision.
 
-## Next PR
+## Local Validation
+
+```bash
+cd services/api
+npx --yes prettier "src/**/*.ts" "tests/**/*.ts" --write
+npm run typecheck
+npm run test
+npm run build
+npm audit --omit=dev --audit-level=high
+```
+
+From repo root:
+
+```bash
+bash scripts/validate-repo-structure.sh
+```
+
+## Known Limitations
 
 ```text
-PR-09 External Channel Adapter Readiness
+mock auth only
+mock AI draft provider only
+simulated reply send provider only
+no real WhatsApp/Instagram/TikTok/email integration yet
 ```

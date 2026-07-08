@@ -52,8 +52,6 @@ describe("ComposerPanel", () => {
     expect(
       screen.getByRole("button", { name: "Generate AI Draft" }),
     ).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: "Send Reply" }),
-    ).toBeEnabled();
+    expect(screen.getByRole("button", { name: "Send Reply" })).toBeEnabled();
   });
 });

@@ -62,7 +62,9 @@ export function ConversationPane(props: ConversationPaneProps) {
       <section className="panel thread-panel">
         <div className="state-card">
           <strong>Select a conversation to view the message history.</strong>
-          <p>The customer profile and activity timeline will appear on the right.</p>
+          <p>
+            The customer profile and activity timeline will appear on the right.
+          </p>
         </div>
       </section>
     );

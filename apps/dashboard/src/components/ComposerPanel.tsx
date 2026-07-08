@@ -80,8 +80,8 @@ export function ComposerPanel(props: ComposerPanelProps) {
       ) : null}
 
       <p className="helper-copy">
-        AI-assisted drafts stay editable and require explicit human review before
-        sending.
+        AI-assisted drafts stay editable and require explicit human review
+        before sending.
       </p>
     </section>
   );

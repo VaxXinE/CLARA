@@ -5,7 +5,7 @@ CLARA Dashboard conversation workspace built with Vite, React, and TypeScript.
 ## Status
 
 ```text
-PR-09 Frontend Conversation Workspace
+PR-10 Security and QA Hardening
 ```
 
 ## Features
@@ -72,6 +72,7 @@ npm run dev
 npm run typecheck
 npm run build
 npm run test
+npm audit --omit=dev --audit-level=high
 ```
 
 ## Security Notes
@@ -82,3 +83,30 @@ npm run test
 - AI drafts are visibly labeled as drafts and require human review.
 - Send action always requires explicit human click.
 - Viewer role does not see enabled AI draft or send controls.
+- API errors are rendered as plain text only and should never expose raw provider payloads.
+
+## Local Validation
+
+```bash
+cd apps/dashboard
+npx --yes prettier "src/**/*.ts" --write
+npm run typecheck
+npm run test
+npm run build
+npm audit --omit=dev --audit-level=high
+```
+
+From repo root:
+
+```bash
+bash scripts/validate-repo-structure.sh
+```
+
+## Known Limitations
+
+```text
+demo role switcher is for local/mock auth only
+mock AI draft provider only
+simulated reply send provider only
+no real WhatsApp/Instagram/TikTok/email integration yet
+```
