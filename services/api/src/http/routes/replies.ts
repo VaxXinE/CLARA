@@ -99,10 +99,12 @@ export async function registerReplyRoutes(
       const serviceInput = {
         auth,
         conversationId,
+        correlationId: request.id,
         body: body.body,
       } as {
         auth: typeof auth;
         conversationId: string;
+        correlationId: string;
         body: string;
         draftId?: string;
       };

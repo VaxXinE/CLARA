@@ -1,5 +1,6 @@
 import type { AuthContext } from "../auth/auth-context";
 import { assertPermission } from "../auth/permissions";
+import { AuditLogService } from "../audit/audit-log-service";
 import type { ConversationRepository } from "../conversations/conversation-repository";
 import { AppError, NotFoundError } from "../errors/app-error";
 import { getWorkspaceScopeFromAuth } from "../workspace/workspace-scope";
@@ -10,6 +11,7 @@ import { validateDraftBody, type AiDraftProvider } from "./ai-draft-provider";
 export type GenerateAiDraftRequest = {
   auth: AuthContext;
   conversationId: string;
+  correlationId: string;
   tone?: string;
   instruction?: string;
 };
@@ -36,6 +38,7 @@ export class AiDraftService {
     >,
     private readonly repository: AiDraftRepository,
     private readonly provider: AiDraftProvider,
+    private readonly auditLogs: AuditLogService,
   ) {}
 
   async generateDraft(
@@ -89,6 +92,17 @@ export class AiDraftService {
         draftBody: validateDraftBody(generated.draftBody),
         provider: generated.provider,
         model: generated.model,
+        promptVersion: generated.promptVersion,
+        latencyMs: generated.latencyMs,
+      });
+
+      await this.auditLogs.recordAiDraftGenerated({
+        auth: input.auth,
+        correlationId: input.correlationId,
+        conversationId: conversation.id,
+        draftId: createdDraft.id,
+        provider: createdDraft.provider,
+        model: createdDraft.model,
         promptVersion: generated.promptVersion,
         latencyMs: generated.latencyMs,
       });

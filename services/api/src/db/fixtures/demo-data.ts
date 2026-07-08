@@ -1,6 +1,7 @@
 import type { InferInsertModel } from "drizzle-orm";
 import {
   activityEvents,
+  auditLogs,
   aiDraftEvents,
   conversations,
   customers,
@@ -22,6 +23,7 @@ type MessageInsert = InferInsertModel<typeof messages>;
 type ReplyDraftInsert = InferInsertModel<typeof replyDrafts>;
 type AiDraftEventInsert = InferInsertModel<typeof aiDraftEvents>;
 type ActivityEventInsert = InferInsertModel<typeof activityEvents>;
+type AuditLogInsert = InferInsertModel<typeof auditLogs>;
 
 function at(value: string): Date {
   return new Date(value);
@@ -420,6 +422,8 @@ export const demoActivityEvents: ActivityEventInsert[] = [
   },
 ];
 
+export const demoAuditLogs: AuditLogInsert[] = [];
+
 export const demoSeedData = {
   organizations: demoOrganizations,
   workspaces: demoWorkspaces,
@@ -431,4 +435,5 @@ export const demoSeedData = {
   replyDrafts: demoReplyDrafts,
   aiDraftEvents: demoAiDraftEvents,
   activityEvents: demoActivityEvents,
+  auditLogs: demoAuditLogs,
 };

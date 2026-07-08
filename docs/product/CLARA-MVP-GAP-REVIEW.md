@@ -74,6 +74,7 @@ customer reads now have a DB-backed repository foundation while preserving fixtu
 activity reads now have a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
 AI draft persistence now has a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
 reply persistence now has a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
+audit log baseline now records AI draft and reply send events with scoped, metadata-only persistence
 workspace-scoped conversation list and conversation detail APIs work
 workspace-scoped customer detail API works
 workspace-scoped activity timeline API works
@@ -151,7 +152,7 @@ rate limiting and abuse prevention are not implemented as production controls
 provider integration security is still untested because real integrations do not exist yet
 secret rotation and production secret storage are not yet part of the implementation path
 no webhook signature verification flow exists yet
-no production audit trail for real send events exists yet
+no production-integrated audit export, SIEM pipeline, or alerting exists yet
 ```
 
 Security hardening backlog:
@@ -164,6 +165,7 @@ add request/response logging policy with stronger redaction guarantees
 add webhook verification and replay protection for future provider callbacks
 add security tests for real auth failure modes
 add threat model and operational controls for provider integrations
+extend audit log baseline toward operator review, retention policy, and SIEM integration
 ```
 
 ---

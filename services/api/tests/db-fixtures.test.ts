@@ -45,4 +45,8 @@ describe("database demo fixtures", () => {
 
     expect(conversationIds).toContain("conv_other_workspace_secret");
   });
+
+  it("starts audit log fixtures without sensitive payload data", () => {
+    expect(demoSeedData.auditLogs).toEqual([]);
+  });
 });

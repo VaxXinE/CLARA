@@ -2,6 +2,11 @@ import type { Env } from "../config/env";
 import { FixtureActivityRepository } from "../activity/activity-repository";
 import { DrizzleActivityRepository } from "../activity/activity-db-repository";
 import { ActivityQueryService } from "../activity/activity-service";
+import {
+  DrizzleAuditLogRepository,
+  FixtureAuditLogRepository,
+} from "../audit/audit-log-repository";
+import { AuditLogService } from "../audit/audit-log-service";
 import { FixtureAiDraftRepository } from "../ai-drafts/ai-draft-repository";
 import { DrizzleAiDraftRepository } from "../ai-drafts/ai-draft-db-repository";
 import { MockAiDraftProvider } from "../ai-drafts/mock-ai-draft-provider";
@@ -50,6 +55,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
   if (shouldUseDatabaseRepositories(env)) {
     const { db, pool } = createDatabase(env);
     const conversationRepository = new DrizzleConversationRepository(db);
+    const auditLogs = new AuditLogService(new DrizzleAuditLogRepository(db));
 
     return {
       services: {
@@ -63,11 +69,13 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
           conversationRepository,
           new DrizzleAiDraftRepository(db),
           new MockAiDraftProvider(),
+          auditLogs,
         ),
         replies: new ReplyService(
           conversationRepository,
           new DrizzleReplyRepository(db),
           new SimulatedReplySendProvider(),
+          auditLogs,
         ),
       },
       auth: {
@@ -91,6 +99,9 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
   const conversationRepository = new FixtureConversationRepository(
     fixtureStore,
   );
+  const auditLogs = new AuditLogService(
+    new FixtureAuditLogRepository(fixtureStore),
+  );
 
   return {
     services: {
@@ -104,11 +115,13 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         conversationRepository,
         new FixtureAiDraftRepository(fixtureStore),
         new MockAiDraftProvider(),
+        auditLogs,
       ),
       replies: new ReplyService(
         conversationRepository,
         new FixtureReplyRepository(fixtureStore),
         new SimulatedReplySendProvider(),
+        auditLogs,
       ),
     },
     auth: {

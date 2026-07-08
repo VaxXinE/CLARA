@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { FixtureActivityRepository } from "../src/activity/activity-repository";
 import { ActivityQueryService } from "../src/activity/activity-service";
+import { FixtureAuditLogRepository } from "../src/audit/audit-log-repository";
+import { AuditLogService } from "../src/audit/audit-log-service";
 import { FixtureAiDraftRepository } from "../src/ai-drafts/ai-draft-repository";
 import { AiDraftService } from "../src/ai-drafts/ai-draft-service";
 import { MockAiDraftProvider } from "../src/ai-drafts/mock-ai-draft-provider";
@@ -53,10 +55,13 @@ function createTestServerWithProvider(provider: AiDraftProvider) {
     fixtureStore,
   );
   const activityRepository = new FixtureActivityRepository(fixtureStore);
+  const auditRepository = new FixtureAuditLogRepository(fixtureStore);
   const aiDraftRepository = new FixtureAiDraftRepository(fixtureStore);
   const replyRepository = new FixtureReplyRepository(fixtureStore);
+  const auditLogs = new AuditLogService(auditRepository);
 
   return {
+    auditRepository,
     aiDraftRepository,
     appPromise: createServer({
       env: testEnv,
@@ -71,11 +76,13 @@ function createTestServerWithProvider(provider: AiDraftProvider) {
           conversationRepository,
           aiDraftRepository,
           provider,
+          auditLogs,
         ),
         replies: new ReplyService(
           conversationRepository,
           replyRepository,
           new SimulatedReplySendProvider(),
+          auditLogs,
         ),
       },
     }),
@@ -112,9 +119,11 @@ describe("AI draft API", () => {
   });
 
   it("creates AI draft, AI event, and activity event for an agent", async () => {
-    const { appPromise, aiDraftRepository } = createTestServer();
+    const { appPromise, aiDraftRepository, auditRepository } =
+      createTestServer();
     const app = await appPromise;
     const beforeState = aiDraftRepository.getState();
+    const beforeAuditState = auditRepository.getState();
 
     const response = await app.inject({
       method: "POST",
@@ -159,6 +168,9 @@ describe("AI draft API", () => {
     expect(afterState.activityEvents).toHaveLength(
       beforeState.activityEvents.length + 1,
     );
+    expect(auditRepository.getState().auditLogs).toHaveLength(
+      beforeAuditState.auditLogs.length + 1,
+    );
 
     const createdDraft = afterState.replyDrafts.at(-1);
     const createdAiEvent = afterState.aiDraftEvents.at(-1);
@@ -197,6 +209,22 @@ describe("AI draft API", () => {
     expect(JSON.stringify(createdActivityEvent?.metadata ?? {})).not.toContain(
       "hidden_prompt",
     );
+    expect(auditRepository.getState().auditLogs.at(-1)).toMatchObject({
+      organizationId: "org_demo",
+      workspaceId: "wks_demo_sales",
+      actorUserId: "usr_demo_agent",
+      actorRole: "agent",
+      action: "ai_draft.generated",
+      resourceType: "reply_draft",
+      resourceId: body.data.draft.id,
+      outcome: "success",
+    });
+    expect(
+      JSON.stringify(auditRepository.getState().auditLogs.at(-1)?.metadataJson),
+    ).not.toContain("Hi Budi");
+    expect(
+      JSON.stringify(auditRepository.getState().auditLogs.at(-1)?.metadataJson),
+    ).not.toContain("api_key");
 
     const activityResponse = await app.inject({
       method: "GET",
@@ -248,9 +276,11 @@ describe("AI draft API", () => {
   });
 
   it("forbids viewer from generating AI drafts", async () => {
-    const { appPromise, aiDraftRepository } = createTestServer();
+    const { appPromise, aiDraftRepository, auditRepository } =
+      createTestServer();
     const app = await appPromise;
     const beforeState = aiDraftRepository.getState();
+    const beforeAuditState = auditRepository.getState();
 
     const response = await app.inject({
       method: "POST",
@@ -276,6 +306,7 @@ describe("AI draft API", () => {
     const afterState = aiDraftRepository.getState();
 
     expect(afterState).toEqual(beforeState);
+    expect(auditRepository.getState()).toEqual(beforeAuditState);
   });
 
   it("returns 404 for cross-workspace conversation AI draft generation", async () => {
@@ -331,11 +362,11 @@ describe("AI draft API", () => {
   });
 
   it("returns a safe 502 envelope when the AI provider fails", async () => {
-    const { appPromise, aiDraftRepository } = createTestServerWithProvider(
-      new FailingAiDraftProvider(),
-    );
+    const { appPromise, aiDraftRepository, auditRepository } =
+      createTestServerWithProvider(new FailingAiDraftProvider());
     const app = await appPromise;
     const beforeState = aiDraftRepository.getState();
+    const beforeAuditState = auditRepository.getState();
 
     const response = await app.inject({
       method: "POST",
@@ -362,5 +393,6 @@ describe("AI draft API", () => {
     expect(response.body).not.toContain("secret-demo-token");
     expect(response.body).not.toContain("stack");
     expect(aiDraftRepository.getState()).toEqual(beforeState);
+    expect(auditRepository.getState()).toEqual(beforeAuditState);
   });
 });

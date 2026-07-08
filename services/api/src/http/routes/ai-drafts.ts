@@ -90,9 +90,11 @@ export async function registerAiDraftRoutes(
       const serviceInput = {
         auth,
         conversationId,
+        correlationId: request.id,
       } as {
         auth: typeof auth;
         conversationId: string;
+        correlationId: string;
         tone?: string;
         instruction?: string;
       };

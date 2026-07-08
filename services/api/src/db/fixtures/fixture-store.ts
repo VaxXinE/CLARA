@@ -1,6 +1,7 @@
 import type { InferInsertModel } from "drizzle-orm";
 import {
   activityEvents,
+  auditLogs,
   aiDraftEvents,
   conversations,
   messages,
@@ -8,6 +9,7 @@ import {
 } from "../schema";
 import {
   demoActivityEvents,
+  demoAuditLogs,
   demoAiDraftEvents,
   demoConversations,
   demoMessages,
@@ -19,6 +21,7 @@ type MessageInsert = InferInsertModel<typeof messages>;
 type ReplyDraftInsert = InferInsertModel<typeof replyDrafts>;
 type AiDraftEventInsert = InferInsertModel<typeof aiDraftEvents>;
 type ActivityEventInsert = InferInsertModel<typeof activityEvents>;
+type AuditLogInsert = InferInsertModel<typeof auditLogs>;
 
 export type FixtureAppStore = {
   conversations: ConversationInsert[];
@@ -26,6 +29,7 @@ export type FixtureAppStore = {
   replyDrafts: ReplyDraftInsert[];
   aiDraftEvents: AiDraftEventInsert[];
   activityEvents: ActivityEventInsert[];
+  auditLogs: AuditLogInsert[];
 };
 
 function cloneRows<T>(rows: T[]): T[] {
@@ -39,5 +43,6 @@ export function createFixtureAppStore(): FixtureAppStore {
     replyDrafts: cloneRows(demoReplyDrafts),
     aiDraftEvents: cloneRows(demoAiDraftEvents),
     activityEvents: cloneRows(demoActivityEvents),
+    auditLogs: cloneRows(demoAuditLogs),
   };
 }

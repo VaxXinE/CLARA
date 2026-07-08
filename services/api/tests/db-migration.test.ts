@@ -15,6 +15,11 @@ const authMembershipMigrationSql = readFileSync(
   authMembershipMigrationPath,
   "utf8",
 );
+const auditLogMigrationPath = path.resolve(
+  __dirname,
+  "../drizzle/0002_p2_audit_log_baseline.sql",
+);
+const auditLogMigrationSql = readFileSync(auditLogMigrationPath, "utf8");
 
 describe("initial database migration", () => {
   it("creates all required PR-04 tables", () => {
@@ -29,8 +34,12 @@ describe("initial database migration", () => {
       "reply_drafts",
       "ai_draft_events",
       "activity_events",
+      "audit_logs",
     ]) {
-      expect(migrationSql).toContain(`create table if not exists ${tableName}`);
+      const source =
+        tableName === "audit_logs" ? auditLogMigrationSql : migrationSql;
+
+      expect(source).toContain(`create table if not exists ${tableName}`);
     }
   });
 
@@ -79,6 +88,18 @@ describe("initial database migration", () => {
     );
     expect(authMembershipMigrationSql).toContain(
       "create unique index if not exists users_provider_subject_unique",
+    );
+  });
+
+  it("adds scoped audit log constraints and indexes", () => {
+    expect(auditLogMigrationSql).toContain("action in (");
+    expect(auditLogMigrationSql).toContain("'reply.send_attempted'");
+    expect(auditLogMigrationSql).toContain("outcome in ('success', 'failure')");
+    expect(auditLogMigrationSql).toContain(
+      "create index if not exists idx_audit_logs_workspace_action_created",
+    );
+    expect(auditLogMigrationSql).toContain(
+      "create index if not exists idx_audit_logs_organization_workspace",
     );
   });
 });

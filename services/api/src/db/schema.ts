@@ -51,6 +51,18 @@ export const activityEventTypes = [
   "reply_failed",
   "conversation_status_changed",
 ] as const;
+export const auditLogActions = [
+  "ai_draft.generated",
+  "reply.send_attempted",
+  "reply.sent",
+  "reply.failed",
+] as const;
+export const auditLogOutcomes = ["success", "failure"] as const;
+export const auditLogResourceTypes = [
+  "conversation",
+  "reply_draft",
+  "message",
+] as const;
 
 function textOneOf(name: string, values: readonly string[]) {
   return check(
@@ -492,6 +504,64 @@ export const activityEvents = pgTable(
   ],
 );
 
+export const auditLogs = pgTable(
+  "audit_logs",
+  {
+    id: text("id").primaryKey(),
+    organizationId: text("organization_id")
+      .notNull()
+      .references(() => organizations.id),
+    workspaceId: text("workspace_id")
+      .notNull()
+      .references(() => workspaces.id),
+    actorUserId: text("actor_user_id")
+      .notNull()
+      .references(() => users.id),
+    actorRole: text("actor_role").notNull(),
+    action: text("action").notNull(),
+    resourceType: text("resource_type").notNull(),
+    resourceId: text("resource_id").notNull(),
+    outcome: text("outcome").notNull(),
+    metadataJson: jsonb("metadata_json"),
+    correlationId: text("correlation_id").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    textOneOf("actor_role", workspaceMemberRoles),
+    textOneOf("action", auditLogActions),
+    textOneOf("resource_type", auditLogResourceTypes),
+    textOneOf("outcome", auditLogOutcomes),
+    check(
+      "audit_logs_resource_id_not_empty",
+      sql`char_length(trim(${table.resourceId})) > 0`,
+    ),
+    check(
+      "audit_logs_correlation_id_not_empty",
+      sql`char_length(trim(${table.correlationId})) > 0`,
+    ),
+    index("idx_audit_logs_workspace_created").on(
+      table.workspaceId,
+      table.createdAt,
+    ),
+    index("idx_audit_logs_workspace_action_created").on(
+      table.workspaceId,
+      table.action,
+      table.createdAt,
+    ),
+    index("idx_audit_logs_workspace_resource").on(
+      table.workspaceId,
+      table.resourceType,
+      table.resourceId,
+    ),
+    index("idx_audit_logs_organization_workspace").on(
+      table.organizationId,
+      table.workspaceId,
+    ),
+  ],
+);
+
 export const dbSchema = {
   organizations,
   workspaces,
@@ -503,6 +573,7 @@ export const dbSchema = {
   replyDrafts,
   aiDraftEvents,
   activityEvents,
+  auditLogs,
 };
 
 export type Organization = typeof organizations.$inferSelect;
@@ -515,6 +586,7 @@ export type Message = typeof messages.$inferSelect;
 export type ReplyDraft = typeof replyDrafts.$inferSelect;
 export type AiDraftEvent = typeof aiDraftEvents.$inferSelect;
 export type ActivityEvent = typeof activityEvents.$inferSelect;
+export type AuditLog = typeof auditLogs.$inferSelect;
 
 export type JsonObject = Record<string, string | number | boolean | null>;
 export type ActivityMetadata = JsonObject;

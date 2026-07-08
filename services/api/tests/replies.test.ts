@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { FixtureActivityRepository } from "../src/activity/activity-repository";
 import { ActivityQueryService } from "../src/activity/activity-service";
+import { FixtureAuditLogRepository } from "../src/audit/audit-log-repository";
+import { AuditLogService } from "../src/audit/audit-log-service";
 import { FixtureAiDraftRepository } from "../src/ai-drafts/ai-draft-repository";
 import { AiDraftService } from "../src/ai-drafts/ai-draft-service";
 import { MockAiDraftProvider } from "../src/ai-drafts/mock-ai-draft-provider";
@@ -53,10 +55,13 @@ function createTestServerWithProvider(provider: ReplySendProvider) {
     fixtureStore,
   );
   const activityRepository = new FixtureActivityRepository(fixtureStore);
+  const auditRepository = new FixtureAuditLogRepository(fixtureStore);
   const aiDraftRepository = new FixtureAiDraftRepository(fixtureStore);
   const replyRepository = new FixtureReplyRepository(fixtureStore);
+  const auditLogs = new AuditLogService(auditRepository);
 
   return {
+    auditRepository,
     aiDraftRepository,
     replyRepository,
     appPromise: createServer({
@@ -72,11 +77,13 @@ function createTestServerWithProvider(provider: ReplySendProvider) {
           conversationRepository,
           aiDraftRepository,
           new MockAiDraftProvider(),
+          auditLogs,
         ),
         replies: new ReplyService(
           conversationRepository,
           replyRepository,
           provider,
+          auditLogs,
         ),
       },
     }),
@@ -116,9 +123,10 @@ describe("reply send API", () => {
   });
 
   it("sends a reply for an agent, updates draft status, conversation timestamps, and activity", async () => {
-    const { appPromise, replyRepository } = createTestServer();
+    const { appPromise, replyRepository, auditRepository } = createTestServer();
     const app = await appPromise;
     const beforeState = replyRepository.getState();
+    const beforeAuditState = auditRepository.getState();
 
     const response = await app.inject({
       method: "POST",
@@ -160,6 +168,9 @@ describe("reply send API", () => {
     expect(afterState.activityEvents).toHaveLength(
       beforeState.activityEvents.length + 1,
     );
+    expect(auditRepository.getState().auditLogs).toHaveLength(
+      beforeAuditState.auditLogs.length + 2,
+    );
 
     const lastMessage = afterState.messages.at(-1);
     const updatedDraft = afterState.replyDrafts.find(
@@ -195,6 +206,20 @@ describe("reply send API", () => {
       actorUserId: "usr_demo_agent",
       eventType: "reply_sent",
     });
+    expect(auditRepository.getState().auditLogs.at(-2)).toMatchObject({
+      action: "reply.send_attempted",
+      resourceType: "conversation",
+      resourceId: "conv_demo_budi_stock",
+      outcome: "success",
+    });
+    expect(auditRepository.getState().auditLogs.at(-1)).toMatchObject({
+      action: "reply.sent",
+      resourceType: "message",
+      outcome: "success",
+    });
+    expect(
+      JSON.stringify(auditRepository.getState().auditLogs.at(-1)?.metadataJson),
+    ).not.toContain("Hi Budi");
 
     const detailResponse = await app.inject({
       method: "GET",
@@ -257,9 +282,10 @@ describe("reply send API", () => {
   });
 
   it("forbids viewer from sending replies", async () => {
-    const { appPromise, replyRepository } = createTestServer();
+    const { appPromise, replyRepository, auditRepository } = createTestServer();
     const app = await appPromise;
     const beforeState = replyRepository.getState();
+    const beforeAuditState = auditRepository.getState();
 
     const response = await app.inject({
       method: "POST",
@@ -285,6 +311,7 @@ describe("reply send API", () => {
       },
     });
     expect(replyRepository.getState()).toEqual(beforeState);
+    expect(auditRepository.getState()).toEqual(beforeAuditState);
   });
 
   it("returns safe validation error for empty or oversized reply body", async () => {
@@ -464,11 +491,11 @@ describe("reply send API", () => {
   });
 
   it("returns a safe 502 envelope when the send provider fails", async () => {
-    const { appPromise, replyRepository } = createTestServerWithProvider(
-      new FailingReplySendProvider(),
-    );
+    const { appPromise, replyRepository, auditRepository } =
+      createTestServerWithProvider(new FailingReplySendProvider());
     const app = await appPromise;
     const beforeState = replyRepository.getState();
+    const beforeAuditState = auditRepository.getState();
 
     const response = await app.inject({
       method: "POST",
@@ -497,6 +524,31 @@ describe("reply send API", () => {
     expect(response.body).not.toContain("simulated upstream send failure");
     expect(response.body).not.toContain("demo-send-secret");
     expect(response.body).not.toContain("stack");
-    expect(replyRepository.getState()).toEqual(beforeState);
+    expect(replyRepository.getState().messages).toEqual(beforeState.messages);
+    expect(replyRepository.getState().replyDrafts).toEqual(
+      beforeState.replyDrafts,
+    );
+    expect(replyRepository.getState().conversations).toEqual(
+      beforeState.conversations,
+    );
+    expect(replyRepository.getState().activityEvents).toEqual(
+      beforeState.activityEvents,
+    );
+    expect(auditRepository.getState().auditLogs).toHaveLength(
+      beforeAuditState.auditLogs.length + 2,
+    );
+    expect(auditRepository.getState().auditLogs.at(-2)).toMatchObject({
+      action: "reply.send_attempted",
+      resourceId: "conv_demo_budi_stock",
+      outcome: "success",
+    });
+    expect(auditRepository.getState().auditLogs.at(-1)).toMatchObject({
+      action: "reply.failed",
+      resourceId: "conv_demo_budi_stock",
+      outcome: "failure",
+    });
+    expect(
+      JSON.stringify(auditRepository.getState().auditLogs.at(-1)?.metadataJson),
+    ).not.toContain("demo-send-secret");
   });
 });

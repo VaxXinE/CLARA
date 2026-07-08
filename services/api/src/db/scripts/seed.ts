@@ -3,6 +3,7 @@ import { loadEnv } from "../../config/env";
 import { demoSeedData } from "../fixtures/demo-data";
 import {
   activityEvents,
+  auditLogs,
   aiDraftEvents,
   conversations,
   customers,
@@ -56,6 +57,10 @@ async function run(): Promise<void> {
       await tx
         .insert(activityEvents)
         .values(demoSeedData.activityEvents)
+        .onConflictDoNothing();
+      await tx
+        .insert(auditLogs)
+        .values(demoSeedData.auditLogs)
         .onConflictDoNothing();
     });
   } finally {
