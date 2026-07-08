@@ -79,21 +79,21 @@ npm audit --omit=dev --audit-level=high
 
 ## Environment Variables
 
-| Name                |                     Required | Default                                          | Description                                          |
-| ------------------- | ---------------------------: | ------------------------------------------------ | ---------------------------------------------------- |
-| `NODE_ENV`          |                           No | `development`                                    | Runtime environment                                  |
-| `APP_NAME`          |                           No | `clara-api`                                      | Service name                                         |
-| `HOST`              |                           No | `127.0.0.1`                                      | Bind host                                            |
-| `PORT`              |                           No | `3000`                                           | Bind port                                            |
-| `LOG_LEVEL`         |                           No | `info`                                           | Logger level                                         |
-| `AUTH_MODE`         |                           No | `mock`                                           | Auth mode: `mock` or `provider`                      |
-| `AUTH_PROVIDER`     |         Provider mode only | none                                             | Provider selection: `supabase` or `better-auth`     |
-| `SUPABASE_AUTH_JWKS_URL` | Production + `AUTH_PROVIDER=supabase` | none | Supabase JWKS URL for future provider token verification |
-| `SUPABASE_AUTH_ISSUER` | Production + `AUTH_PROVIDER=supabase` | none | Supabase issuer URL for future provider token verification |
-| `BETTER_AUTH_BASE_URL` | Production + `AUTH_PROVIDER=better-auth` | none | Better Auth base URL for future provider verification |
-| `DATABASE_URL`      | Required for DB scripts only | none                                             | PostgreSQL connection string for migrate/seed/studio |
-| `MOCK_AUTH_ENABLED` |                           No | `true` outside production, `false` in production | Enables local/dev/test mock auth                     |
-| `CORS_ORIGIN`       |                           No | empty                                            | Reserved for future CORS setup                       |
+| Name                     |                                 Required | Default                                          | Description                                                |
+| ------------------------ | ---------------------------------------: | ------------------------------------------------ | ---------------------------------------------------------- |
+| `NODE_ENV`               |                                       No | `development`                                    | Runtime environment                                        |
+| `APP_NAME`               |                                       No | `clara-api`                                      | Service name                                               |
+| `HOST`                   |                                       No | `127.0.0.1`                                      | Bind host                                                  |
+| `PORT`                   |                                       No | `3000`                                           | Bind port                                                  |
+| `LOG_LEVEL`              |                                       No | `info`                                           | Logger level                                               |
+| `AUTH_MODE`              |                                       No | `mock`                                           | Auth mode: `mock` or `provider`                            |
+| `AUTH_PROVIDER`          |                       Provider mode only | none                                             | Provider selection: `supabase` or `better-auth`            |
+| `SUPABASE_AUTH_JWKS_URL` |    Production + `AUTH_PROVIDER=supabase` | none                                             | Supabase JWKS URL for future provider token verification   |
+| `SUPABASE_AUTH_ISSUER`   |    Production + `AUTH_PROVIDER=supabase` | none                                             | Supabase issuer URL for future provider token verification |
+| `BETTER_AUTH_BASE_URL`   | Production + `AUTH_PROVIDER=better-auth` | none                                             | Better Auth base URL for future provider verification      |
+| `DATABASE_URL`           |             Required for DB scripts only | none                                             | PostgreSQL connection string for migrate/seed/studio       |
+| `MOCK_AUTH_ENABLED`      |                                       No | `true` outside production, `false` in production | Enables local/dev/test mock auth                           |
+| `CORS_ORIGIN`            |                                       No | empty                                            | Reserved for future CORS setup                             |
 
 ## Auth Modes
 
