@@ -42,4 +42,4 @@ Use this directory when documentation needs a dedicated home outside the long-fo
 ## Records
 
 - `ADR-0001-athena-documentation-architecture.md`
-- `ADR-0001-production-auth-foundation.md`
+- `ADR-0002-production-auth-foundation.md`

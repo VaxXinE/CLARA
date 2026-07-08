@@ -8,7 +8,7 @@ last_updated: "2026-07-08"
 classification: "phase-plan"
 repository: "https://github.com/VaxXinE/CLARA"
 related_documents:
-  - "../adr/ADR-0001-production-auth-foundation.md"
+  - "../adr/ADR-0002-production-auth-foundation.md"
   - "./CLARA-MVP-GAP-REVIEW.md"
   - "./CLARA-MVP-FIRST-PRODUCT-SLICE-SECURITY-PRIVACY-CHECKLIST/02-AUTHENTICATION-CHECKLIST.md"
   - "./CLARA-MVP-FIRST-PRODUCT-SLICE-SECURITY-PRIVACY-CHECKLIST/03-AUTHORIZATION-AND-RBAC-CHECKLIST.md"

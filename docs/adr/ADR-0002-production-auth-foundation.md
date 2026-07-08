@@ -1,5 +1,5 @@
 ---
-title: "ADR-0001 Production Auth Foundation"
+title: "ADR-0002 Production Auth Foundation"
 version: "1.0.0"
 status: "proposed"
 owner: "Clara Architecture Team"
@@ -13,7 +13,7 @@ related_documents:
   - "../product/CLARA-MVP-FIRST-PRODUCT-SLICE-SECURITY-PRIVACY-CHECKLIST/04-TENANT-WORKSPACE-ISOLATION-CHECKLIST.md"
 ---
 
-# ADR-0001 Production Auth Foundation
+# ADR-0002 Production Auth Foundation
 
 ## 1. Context
 
@@ -325,13 +325,13 @@ Clara database decides what the user can do
 
 Current permission model remains:
 
-| Permission | Owner | Agent | Viewer |
-| --- | ---: | ---: | ---: |
-| `conversation:read` | Yes | Yes | Yes |
-| `customer:read` | Yes | Yes | Yes |
-| `activity:read` | Yes | Yes | Yes |
-| `ai_draft:create` | Yes | Yes | No |
-| `reply:send` | Yes | Yes | No |
+| Permission          | Owner | Agent | Viewer |
+| ------------------- | ----: | ----: | -----: |
+| `conversation:read` |   Yes |   Yes |    Yes |
+| `customer:read`     |   Yes |   Yes |    Yes |
+| `activity:read`     |   Yes |   Yes |    Yes |
+| `ai_draft:create`   |   Yes |   Yes |     No |
+| `reply:send`        |   Yes |   Yes |     No |
 
 ## 10. Mock Auth Isolation/Deprecation Plan
 
