@@ -201,6 +201,14 @@ DATABASE_URL present -> PostgreSQL-backed customer repository for scoped custome
 production without DATABASE_URL -> startup fails closed instead of falling back to fixture customer data
 ```
 
+Activity repository runtime selection:
+
+```text
+no DATABASE_URL in non-production -> fixture-backed activity repository for local/demo/test safety
+DATABASE_URL present -> PostgreSQL-backed activity repository for scoped activity timeline reads
+production without DATABASE_URL -> startup fails closed instead of falling back to fixture activity data
+```
+
 ## Mock Auth Headers
 
 For local/dev/test authenticated requests:

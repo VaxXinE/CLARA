@@ -1,8 +1,6 @@
 import type { Env } from "../config/env";
-import {
-  DrizzleActivityRepository,
-  FixtureActivityRepository,
-} from "../activity/activity-repository";
+import { FixtureActivityRepository } from "../activity/activity-repository";
+import { DrizzleActivityRepository } from "../activity/activity-db-repository";
 import { ActivityQueryService } from "../activity/activity-service";
 import {
   DrizzleAiDraftRepository,
@@ -89,7 +87,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
 
   if (env.NODE_ENV === "production") {
     throw new Error(
-      "DATABASE_URL is required in production so conversation, customer, and related APIs do not fall back to fixture data.",
+      "DATABASE_URL is required in production so conversation, customer, activity, and related APIs do not fall back to fixture data.",
     );
   }
 

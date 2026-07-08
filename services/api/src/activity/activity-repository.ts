@@ -1,9 +1,6 @@
-import { and, desc, eq } from "drizzle-orm";
-import type { Database } from "../db/client";
-import { demoActivityEvents, demoUsers } from "../db/fixtures/demo-data";
+import { demoUsers } from "../db/fixtures/demo-data";
 import type { FixtureAppStore } from "../db/fixtures/fixture-store";
 import { createFixtureAppStore } from "../db/fixtures/fixture-store";
-import { activityEvents, users } from "../db/schema";
 import type { WorkspaceScope } from "../workspace/workspace-scope";
 
 export type ActivityEventRecord = {
@@ -75,45 +72,5 @@ export class FixtureActivityRepository implements ActivityRepository {
           : null,
         createdAt: requireDate(event.createdAt, "activity.createdAt"),
       }));
-  }
-}
-
-export class DrizzleActivityRepository implements ActivityRepository {
-  constructor(private readonly db: Database) {}
-
-  async listByConversationScoped(
-    scope: WorkspaceScope,
-    conversationId: string,
-  ): Promise<ActivityEventRecord[]> {
-    const rows = await this.db
-      .select({
-        id: activityEvents.id,
-        conversationId: activityEvents.conversationId,
-        eventType: activityEvents.eventType,
-        summary: activityEvents.summary,
-        actorUserId: activityEvents.actorUserId,
-        actorDisplayName: users.displayName,
-        createdAt: activityEvents.createdAt,
-      })
-      .from(activityEvents)
-      .leftJoin(users, eq(activityEvents.actorUserId, users.id))
-      .where(
-        and(
-          eq(activityEvents.organizationId, scope.organizationId),
-          eq(activityEvents.workspaceId, scope.workspaceId),
-          eq(activityEvents.conversationId, conversationId),
-        ),
-      )
-      .orderBy(desc(activityEvents.createdAt), desc(activityEvents.id));
-
-    return rows.map((row) => ({
-      id: row.id,
-      conversationId: row.conversationId,
-      eventType: row.eventType,
-      summary: row.summary,
-      actorUserId: row.actorUserId,
-      actorDisplayName: row.actorDisplayName,
-      createdAt: row.createdAt,
-    }));
   }
 }
