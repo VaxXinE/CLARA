@@ -6,6 +6,7 @@ import {
   dbSchema,
   messageDirections,
   workspaceMemberRoles,
+  workspaceMembershipStatuses,
 } from "../src/db/schema";
 
 describe("database schema", () => {
@@ -42,6 +43,7 @@ describe("database schema", () => {
 
   it("defines documented enum values", () => {
     expect(workspaceMemberRoles).toEqual(["owner", "agent", "viewer"]);
+    expect(workspaceMembershipStatuses).toEqual(["active", "inactive"]);
     expect(conversationStatuses).toEqual(["open", "pending", "closed"]);
     expect(messageDirections).toEqual(["inbound", "outbound", "internal"]);
     expect(aiDraftStatuses).toEqual(["succeeded", "failed"]);

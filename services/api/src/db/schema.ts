@@ -20,6 +20,7 @@ export const organizationStatuses = [
 export const workspaceStatuses = ["active", "archived"] as const;
 export const userStatuses = ["active", "disabled"] as const;
 export const workspaceMemberRoles = ["owner", "agent", "viewer"] as const;
+export const workspaceMembershipStatuses = ["active", "inactive"] as const;
 export const customerSources = [
   "demo",
   "whatsapp_demo",
@@ -120,6 +121,7 @@ export const users = pgTable(
     organizationId: text("organization_id")
       .notNull()
       .references(() => organizations.id),
+    providerSubject: text("provider_subject"),
     email: text("email").notNull(),
     displayName: text("display_name").notNull(),
     status: text("status").notNull().default("active"),
@@ -133,6 +135,10 @@ export const users = pgTable(
   (table) => [
     check("users_email_not_empty", sql`char_length(trim(${table.email})) > 0`),
     check(
+      "users_provider_subject_not_empty",
+      sql`${table.providerSubject} is null or char_length(trim(${table.providerSubject})) > 0`,
+    ),
+    check(
       "users_display_name_not_empty",
       sql`char_length(trim(${table.displayName})) > 0`,
     ),
@@ -141,7 +147,9 @@ export const users = pgTable(
       table.organizationId,
       table.email,
     ),
+    uniqueIndex("users_provider_subject_unique").on(table.providerSubject),
     index("idx_users_organization_email").on(table.organizationId, table.email),
+    index("idx_users_provider_subject").on(table.providerSubject),
   ],
 );
 
@@ -159,6 +167,7 @@ export const workspaceMemberships = pgTable(
       .notNull()
       .references(() => users.id),
     role: text("role").notNull(),
+    status: text("status").notNull().default("active"),
     createdAt: timestamp("created_at", { withTimezone: true })
       .notNull()
       .defaultNow(),
@@ -168,12 +177,18 @@ export const workspaceMemberships = pgTable(
   },
   (table) => [
     textOneOf("role", workspaceMemberRoles),
+    textOneOf("status", workspaceMembershipStatuses),
     uniqueIndex("workspace_memberships_workspace_user_unique").on(
       table.workspaceId,
       table.userId,
     ),
     index("idx_memberships_workspace_user").on(table.workspaceId, table.userId),
+    index("idx_memberships_workspace_status").on(
+      table.workspaceId,
+      table.status,
+    ),
     index("idx_memberships_user_workspace").on(table.userId, table.workspaceId),
+    index("idx_memberships_user_status").on(table.userId, table.status),
     index("idx_memberships_role").on(table.role),
   ],
 );

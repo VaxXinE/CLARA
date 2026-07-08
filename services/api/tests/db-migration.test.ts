@@ -7,6 +7,14 @@ const migrationPath = path.resolve(
   "../drizzle/0000_pr04_initial_schema.sql",
 );
 const migrationSql = readFileSync(migrationPath, "utf8");
+const authMembershipMigrationPath = path.resolve(
+  __dirname,
+  "../drizzle/0001_p2_auth_membership_lookup.sql",
+);
+const authMembershipMigrationSql = readFileSync(
+  authMembershipMigrationPath,
+  "utf8",
+);
 
 describe("initial database migration", () => {
   it("creates all required PR-04 tables", () => {
@@ -56,6 +64,21 @@ describe("initial database migration", () => {
     );
     expect(migrationSql).toContain(
       "create index if not exists idx_activity_events_workspace_conversation_created",
+    );
+  });
+
+  it("adds provider subject mapping and membership status support", () => {
+    expect(authMembershipMigrationSql).toContain(
+      "add column if not exists provider_subject text",
+    );
+    expect(authMembershipMigrationSql).toContain(
+      "add column if not exists status text not null default 'active'",
+    );
+    expect(authMembershipMigrationSql).toContain(
+      "status in ('active', 'inactive')",
+    );
+    expect(authMembershipMigrationSql).toContain(
+      "create unique index if not exists users_provider_subject_unique",
     );
   });
 });

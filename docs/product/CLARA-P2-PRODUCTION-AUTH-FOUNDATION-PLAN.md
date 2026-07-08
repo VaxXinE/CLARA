@@ -153,6 +153,8 @@ Deliver:
 load organization_id, workspace_id, and role from Clara database
 support current owner/agent/viewer model
 fail closed if membership is missing or inactive
+resolve AuthContext only after provider_subject maps to exactly one active workspace membership
+reject ambiguous multi-workspace resolution until explicit workspace-selection flow exists
 ```
 
 ### Step 5: AuthContext Cutover
