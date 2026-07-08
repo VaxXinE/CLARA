@@ -59,6 +59,12 @@ provider mode attaches Authorization: Bearer <access_token> only when a real pro
 backend remains the source of truth for permissions
 ```
 
+Auth smoke-test reference:
+
+```text
+docs/product/CLARA-P2-AUTH-SMOKE-TEST-RUNBOOK.md
+```
+
 ## Environment
 
 | Name                     |                 Required | Default                 | Description                                                 |
@@ -92,6 +98,7 @@ Provider mode behavior:
 provider session shell renders a login form when no session exists
 dashboard does not load conversation data until a provider session exists
 frontend only sends provider access_token as a bearer token
+frontend never invents a bearer token when no session exists
 backend still decides role, organization, and workspace from authenticated context
 ```
 
@@ -136,6 +143,13 @@ From repo root:
 bash scripts/validate-repo-structure.sh
 ```
 
+Focused auth smoke tests:
+
+```bash
+cd apps/dashboard
+npm run test -- --run src/App.test.tsx src/auth/AuthProvider.test.tsx src/api/client.test.ts
+```
+
 ## Known Limitations
 
 ```text
@@ -143,6 +157,7 @@ demo role switcher is for local/mock auth only
 provider login UI is only a shell; no OAuth callback UI or workspace switcher UI yet
 mock AI draft provider only
 simulated reply send provider only
+provider mode still depends on backend membership resolution before any product data is allowed
 no real WhatsApp/Instagram/TikTok/email integration yet
 no frontend secrets or provider API keys should exist in this app
 ```

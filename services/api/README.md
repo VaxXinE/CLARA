@@ -18,7 +18,7 @@ Current auth baseline:
 
 ```text
 AUTH_MODE=mock for local/demo/test
-AUTH_MODE=provider reserved for production auth integration baseline
+AUTH_MODE=provider for production-auth validation and fail-closed smoke checks
 backend remains the source of truth for authorization
 ```
 
@@ -125,6 +125,12 @@ valid Supabase JWT only becomes app auth after CLARA membership lookup succeeds
 mock auth headers are ignored when AUTH_MODE=provider
 ```
 
+Auth smoke-test reference:
+
+```text
+docs/product/CLARA-P2-AUTH-SMOKE-TEST-RUNBOOK.md
+```
+
 Production guardrails:
 
 ```text
@@ -200,7 +206,13 @@ viewer -> read-only; cannot generate AI draft or send reply
 
 Mock auth is for local/demo/test only and must not be treated as a production auth solution.
 
-Provider mode is a safe placeholder for production auth integration work. It fails closed until real provider verification is implemented.
+Provider mode is now the production-auth foundation path:
+
+```text
+Supabase JWT verification is implemented through JWKS + issuer validation
+Better Auth remains fail-closed until explicitly implemented
+active CLARA workspace membership is still required after provider identity verification
+```
 
 Workspace membership lookup foundation now exists for the future provider path:
 
@@ -219,6 +231,13 @@ issuer is verified against SUPABASE_AUTH_ISSUER
 provider identity uses sub as the trusted subject
 email is read only as optional profile metadata
 organization_id, workspace_id, and role still come only from CLARA backend lookup
+```
+
+Provider-mode smoke validation:
+
+```bash
+cd services/api
+npm run test -- --run tests/require-auth.test.ts tests/auth-production-guardrails.test.ts
 ```
 
 ## Provider Behavior
@@ -251,6 +270,8 @@ background delivery workers
 - All future business queries must include tenant/workspace scope.
 - `organization_id` and `workspace_id` must come from authenticated context, not request input.
 - Frontend role or tenant values must never be trusted as final authorization input.
+- Provider-mode requests without a session token must fail closed with safe `401` responses.
+- Verified provider identity without an active CLARA membership must fail closed with safe `403` responses.
 - Every tenant-owned business table includes `organization_id` and every workspace-owned business table includes `workspace_id`.
 - Future repository/query methods must never read business records by ID alone.
 - `viewer` is read-only and cannot create AI drafts or send replies.
