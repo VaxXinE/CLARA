@@ -154,10 +154,7 @@ export class ApiClient {
     );
   }
 
-  private async request<T>(
-    path: string,
-    init?: RequestInit,
-  ): Promise<T> {
+  private async request<T>(path: string, init?: RequestInit): Promise<T> {
     const response = await fetch(joinUrl(this.baseUrl, path), {
       ...init,
       headers: {

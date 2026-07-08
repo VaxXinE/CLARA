@@ -93,9 +93,9 @@ export default function App() {
   const [customer, setCustomer] = useState<
     CustomerProfileResponse["customer"] | null
   >(null);
-  const [activityItems, setActivityItems] = useState<ActivityResponse["data"]["items"]>(
-    [],
-  );
+  const [activityItems, setActivityItems] = useState<
+    ActivityResponse["data"]["items"]
+  >([]);
   const [composerValue, setComposerValue] = useState("");
   const [draftId, setDraftId] = useState<string | null>(null);
   const [aiDraftLabel, setAiDraftLabel] = useState<string | null>(null);

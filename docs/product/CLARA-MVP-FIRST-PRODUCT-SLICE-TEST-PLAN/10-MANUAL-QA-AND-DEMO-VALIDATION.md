@@ -4,7 +4,7 @@ artifact: "MVP First Product Slice Test Plan"
 version: "1.0.0"
 status: "draft-for-review"
 owner: "CLARA QA, Engineering, Security, Product, AI, and Product Operations Team"
-last_updated: "2026-07-07"
+last_updated: "2026-07-08"
 classification: "test-plan"
 repository: "https://github.com/VaxXinE/CLARA"
 based_on:
@@ -180,6 +180,27 @@ viewer cannot send
 
 ---
 
+# Demo Readiness Checklist
+
+Confirm all items before presenting the MVP:
+
+```text
+repository structure validation passed
+API typecheck/test/build passed
+dashboard typecheck/test/build passed
+API production dependency audit passed
+dashboard production dependency audit passed
+viewer cannot generate AI draft
+viewer cannot send reply
+owner/agent can generate AI draft
+owner/agent can send reply
+cross-workspace access returns 404
+safe errors do not expose stack traces or raw provider payloads
+AI draft remains draft-only until a human clicks Send Reply
+```
+
+---
+
 # Demo Talk Track
 
 Key message:
@@ -194,4 +215,10 @@ CLARA helps the team respond faster with customer context and AI draft assistanc
 
 ```text
 If the demo makes AI look autonomous, the UX is not ready.
+```
+
+Known limitation:
+
+```text
+Only mock AI draft and simulated reply send are available. No real WhatsApp/Instagram/TikTok/email integration exists in this MVP slice yet.
 ```

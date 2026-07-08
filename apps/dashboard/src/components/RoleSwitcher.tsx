@@ -9,9 +9,7 @@ type RoleSwitcherProps = {
 export function RoleSwitcher(props: RoleSwitcherProps) {
   return (
     <div className="role-switcher" aria-label="Demo role switcher">
-      {(
-        Object.keys(props.profiles) as DemoRole[]
-      ).map((role) => (
+      {(Object.keys(props.profiles) as DemoRole[]).map((role) => (
         <button
           key={role}
           type="button"

@@ -73,7 +73,10 @@ export function CustomerSidebar(props: CustomerSidebarProps) {
             </div>
             <div>
               <dt>Notes</dt>
-              <dd>{props.customer.notes_summary ?? "Customer profile is incomplete."}</dd>
+              <dd>
+                {props.customer.notes_summary ??
+                  "Customer profile is incomplete."}
+              </dd>
             </div>
           </dl>
         ) : null}

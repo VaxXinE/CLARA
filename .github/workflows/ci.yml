@@ -72,6 +72,9 @@ jobs:
       - name: Production dependency audit
         run: npm audit --omit=dev --audit-level=high
 
+      - name: Production dependency audit
+        run: npm audit --omit=dev --audit-level=high
+
   dashboard-workspace:
     name: Dashboard Workspace Validation
     runs-on: ubuntu-latest

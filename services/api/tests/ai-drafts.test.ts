@@ -4,6 +4,11 @@ import { ActivityQueryService } from "../src/activity/activity-service";
 import { FixtureAiDraftRepository } from "../src/ai-drafts/ai-draft-repository";
 import { AiDraftService } from "../src/ai-drafts/ai-draft-service";
 import { MockAiDraftProvider } from "../src/ai-drafts/mock-ai-draft-provider";
+import type {
+  AiDraftProvider,
+  GenerateAiDraftInput,
+  GenerateAiDraftResult,
+} from "../src/ai-drafts/ai-draft-provider";
 import { createFixtureAppStore } from "../src/db/fixtures/fixture-store";
 import { loadEnv } from "../src/config/env";
 import { FixtureConversationRepository } from "../src/conversations/conversation-repository";
@@ -39,6 +44,10 @@ function authHeaders(input: {
 }
 
 function createTestServer() {
+  return createTestServerWithProvider(new MockAiDraftProvider());
+}
+
+function createTestServerWithProvider(provider: AiDraftProvider) {
   const fixtureStore = createFixtureAppStore();
   const conversationRepository = new FixtureConversationRepository(
     fixtureStore,
@@ -61,7 +70,7 @@ function createTestServer() {
         aiDrafts: new AiDraftService(
           conversationRepository,
           aiDraftRepository,
-          new MockAiDraftProvider(),
+          provider,
         ),
         replies: new ReplyService(
           conversationRepository,
@@ -71,6 +80,14 @@ function createTestServer() {
       },
     }),
   };
+}
+
+class FailingAiDraftProvider implements AiDraftProvider {
+  async generateDraft(
+    _input: GenerateAiDraftInput,
+  ): Promise<GenerateAiDraftResult> {
+    throw new Error("provider exploded with token=secret-demo-token");
+  }
 }
 
 describe("AI draft API", () => {
@@ -311,5 +328,39 @@ describe("AI draft API", () => {
         message: "Invalid request.",
       },
     });
+  });
+
+  it("returns a safe 502 envelope when the AI provider fails", async () => {
+    const { appPromise, aiDraftRepository } = createTestServerWithProvider(
+      new FailingAiDraftProvider(),
+    );
+    const app = await appPromise;
+    const beforeState = aiDraftRepository.getState();
+
+    const response = await app.inject({
+      method: "POST",
+      url: "/api/v1/conversations/conv_demo_budi_stock/ai-draft?workspace_id=wks_demo_other",
+      headers: authHeaders({
+        userId: "usr_demo_agent",
+        organizationId: "org_demo",
+        workspaceId: "wks_demo_sales",
+        role: "agent",
+      }),
+    });
+
+    await app.close();
+
+    expect(response.statusCode).toBe(502);
+    expect(response.json()).toMatchObject({
+      error: {
+        code: "AI_DRAFT_FAILED",
+        message: "Unable to generate AI draft right now.",
+      },
+    });
+    expect(response.json().error.correlation_id).toEqual(expect.any(String));
+    expect(response.body).not.toContain("provider exploded");
+    expect(response.body).not.toContain("secret-demo-token");
+    expect(response.body).not.toContain("stack");
+    expect(aiDraftRepository.getState()).toEqual(beforeState);
   });
 });

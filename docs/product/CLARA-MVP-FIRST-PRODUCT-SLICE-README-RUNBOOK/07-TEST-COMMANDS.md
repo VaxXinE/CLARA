@@ -4,7 +4,7 @@ artifact: "MVP First Product Slice README / Runbook"
 version: "1.0.0"
 status: "draft-for-review"
 owner: "CLARA Engineering, DevOps, Security, QA, Product, and AI Team"
-last_updated: "2026-07-07"
+last_updated: "2026-07-08"
 classification: "readme-runbook"
 repository: "https://github.com/VaxXinE/CLARA"
 based_on:
@@ -35,172 +35,87 @@ source_of_truth:
 
 # Purpose
 
-This document defines test command templates.
-
-Exact commands should be updated after final stack/tooling is selected.
+This document defines the current validation commands for the implemented MVP slice.
 
 ---
 
 # Run All Tests
 
-Template:
+```bash
+bash scripts/validate-repo-structure.sh
+```
+
+# API Validation
 
 ```bash
-npm test
-```
-
-or:
-
-```bash
-npm run test
-```
-
----
-
-# Unit Tests
-
-```bash
-npm run test:unit
-```
-
-Must cover:
-
-```text
-permissions
-scope helper
-validators
-AI context builder
-error mapper
-redaction helper
-```
-
----
-
-# Integration Tests
-
-```bash
-npm run test:integration
-```
-
-Must cover:
-
-```text
-conversation APIs
-customer profile
-AI draft with mock provider
-reply simulated send
-activity events
-workspace scoping
-```
-
----
-
-# API Contract Tests
-
-```bash
-npm run test:contract
-```
-
-Must cover:
-
-```text
-GET /me
-GET /conversations
-GET /conversations/{id}
-GET /customers/{id}
-POST /ai-draft
-POST /reply
-GET /activity
-```
-
----
-
-# Database Tests
-
-```bash
-npm run test:db
-```
-
-Must cover:
-
-```text
-migrations
-constraints
-indexes
-seed idempotency
-scope columns
-```
-
----
-
-# Security Tests
-
-```bash
-npm run test:security
-```
-
-Must cover:
-
-```text
-unauthenticated blocked
-viewer cannot draft
-viewer cannot send
-cross-workspace access blocked
-AI draft cannot auto-send
-safe errors
-```
-
----
-
-# Frontend Tests
-
-```bash
-npm run test:frontend
-```
-
-Must cover:
-
-```text
-inbox renders
-conversation detail renders
-AI draft states
-viewer permission UX
-send failure state
-XSS rendering smoke test
-```
-
----
-
-# Lint / Typecheck / Build
-
-```bash
-npm run lint
+cd services/api
+npm ci
+npm run db:check
+npx --yes prettier "src/**/*.ts" "tests/**/*.ts" --write
 npm run typecheck
+npm run test
 npm run build
+npm audit --omit=dev --audit-level=high
+```
+
+Coverage focus:
+
+```text
+mock auth
+workspace scoping
+viewer write restrictions
+owner/agent AI draft and reply send
+invalid IDs -> safe 400
+cross-workspace resources -> 404
+provider failure -> safe 502 envelope
+AI draft cannot auto-send
+```
+
+---
+
+# Dashboard Validation
+
+```bash
+cd apps/dashboard
+npm ci
+npx --yes prettier "src/**/*.ts" --write
+npm run typecheck
+npm run test
+npm run build
+npm audit --omit=dev --audit-level=high
+```
+
+Coverage focus:
+
+```text
+viewer permission UX
+AI draft label visibility
+explicit human send click
+safe API error rendering as text
+XSS smoke test via plain React escaping
 ```
 
 ---
 
 # Manual QA
 
+Use:
+
 ```text
-Use docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-TEST-PLAN/10-MANUAL-QA-AND-DEMO-VALIDATION.md
+docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-TEST-PLAN/10-MANUAL-QA-AND-DEMO-VALIDATION.md
 ```
 
 ---
 
-# Minimum Demo Test Gate
+# Minimum Demo Gate
 
-Before demo:
+Run all of the following before demo:
 
 ```bash
-npm run test:unit
-npm run test:integration
-npm run test:security
-npm run test:frontend
+bash scripts/validate-repo-structure.sh
+cd services/api && npm run typecheck && npm run test && npm run build
+cd apps/dashboard && npm run typecheck && npm run test && npm run build
 ```
-
-If final stack differs, update this file.
 
 ---
 
