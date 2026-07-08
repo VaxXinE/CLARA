@@ -25,6 +25,19 @@ describe("auth context", () => {
     expect(context.permissions).toContain("ai_draft:create");
   });
 
+  it("supports provider auth method for future production auth context", () => {
+    const context = buildAuthContext({
+      userId: "user_agent_01",
+      organizationId: "org_01",
+      workspaceId: "ws_01",
+      role: "agent",
+      authMethod: "provider",
+    });
+
+    expect(context.authMethod).toBe("provider");
+    expect(context.permissions).toContain("conversation:read");
+  });
+
   it("rejects mock auth if required headers are missing", () => {
     const env = loadEnv({
       NODE_ENV: "test",

@@ -14,6 +14,14 @@ Use this together with `apps/dashboard` for the full local MVP flow.
 
 For a production-like local PostgreSQL runtime, use `infra/local/docker-compose.yml`.
 
+Current auth baseline:
+
+```text
+AUTH_MODE=mock for local/demo/test
+AUTH_MODE=provider reserved for production auth integration baseline
+backend remains the source of truth for authorization
+```
+
 ## Current Endpoints
 
 ```text
@@ -78,9 +86,41 @@ npm audit --omit=dev --audit-level=high
 | `HOST`              |                           No | `127.0.0.1`                                      | Bind host                                            |
 | `PORT`              |                           No | `3000`                                           | Bind port                                            |
 | `LOG_LEVEL`         |                           No | `info`                                           | Logger level                                         |
+| `AUTH_MODE`         |                           No | `mock`                                           | Auth mode: `mock` or `provider`                      |
+| `AUTH_PROVIDER`     |         Provider mode only | none                                             | Provider selection: `supabase` or `better-auth`     |
+| `SUPABASE_AUTH_JWKS_URL` | Production + `AUTH_PROVIDER=supabase` | none | Supabase JWKS URL for future provider token verification |
+| `SUPABASE_AUTH_ISSUER` | Production + `AUTH_PROVIDER=supabase` | none | Supabase issuer URL for future provider token verification |
+| `BETTER_AUTH_BASE_URL` | Production + `AUTH_PROVIDER=better-auth` | none | Better Auth base URL for future provider verification |
 | `DATABASE_URL`      | Required for DB scripts only | none                                             | PostgreSQL connection string for migrate/seed/studio |
 | `MOCK_AUTH_ENABLED` |                           No | `true` outside production, `false` in production | Enables local/dev/test mock auth                     |
 | `CORS_ORIGIN`       |                           No | empty                                            | Reserved for future CORS setup                       |
+
+## Auth Modes
+
+Supported auth modes:
+
+```text
+mock
+provider
+```
+
+Current baseline behavior:
+
+```text
+mock mode keeps the current local/demo/test flow working
+provider mode is a fail-closed baseline and does not accept arbitrary bearer tokens
+provider verification is not implemented yet
+```
+
+Production guardrails:
+
+```text
+AUTH_MODE=mock is blocked in production
+MOCK_AUTH_ENABLED=true is blocked in production
+production with AUTH_MODE=provider requires provider selection
+production with AUTH_PROVIDER=supabase requires SUPABASE_AUTH_JWKS_URL and SUPABASE_AUTH_ISSUER
+production with AUTH_PROVIDER=better-auth requires BETTER_AUTH_BASE_URL
+```
 
 ## Database Setup
 
@@ -147,6 +187,8 @@ viewer -> read-only; cannot generate AI draft or send reply
 
 Mock auth is for local/demo/test only and must not be treated as a production auth solution.
 
+Provider mode is a safe placeholder for production auth integration work. It fails closed until real provider verification is implemented.
+
 ## Provider Behavior
 
 Current MVP provider behavior:
@@ -171,10 +213,12 @@ background delivery workers
 
 - Do not commit `.env`.
 - Do not log secrets.
+- Do not log auth tokens.
 - Do not expose stack traces in production.
 - All future product endpoints must authenticate.
 - All future business queries must include tenant/workspace scope.
 - `organization_id` and `workspace_id` must come from authenticated context, not request input.
+- Frontend role or tenant values must never be trusted as final authorization input.
 - Every tenant-owned business table includes `organization_id` and every workspace-owned business table includes `workspace_id`.
 - Future repository/query methods must never read business records by ID alone.
 - `viewer` is read-only and cannot create AI drafts or send replies.
@@ -218,4 +262,5 @@ mock auth only
 mock AI draft provider only
 simulated reply send provider only
 no real WhatsApp/Instagram/TikTok/email integration yet
+provider auth verification not implemented yet
 ```

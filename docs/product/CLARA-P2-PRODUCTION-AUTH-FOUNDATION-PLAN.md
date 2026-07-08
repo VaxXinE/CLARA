@@ -19,7 +19,7 @@ related_documents:
 
 ## Purpose
 
-This document translates ADR-0001 into a practical implementation plan for Phase 2.
+This document translates ADR-0002 into a practical implementation plan for Phase 2.
 
 Goal:
 
@@ -27,6 +27,7 @@ Goal:
 replace MVP mock auth as the production trust boundary
 keep Clara backend as source of truth for authorization
 preserve organization/workspace scope and current RBAC model
+introduce explicit auth modes and provider configuration as the baseline integration contract
 ```
 
 ## Phase Objective
