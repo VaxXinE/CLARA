@@ -72,6 +72,8 @@ local PostgreSQL runtime is now documented and runnable through infra/local/dock
 conversation reads now have a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
 customer reads now have a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
 activity reads now have a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
+AI draft persistence now has a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
+reply persistence now has a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
 workspace-scoped conversation list and conversation detail APIs work
 workspace-scoped customer detail API works
 workspace-scoped activity timeline API works
@@ -201,7 +203,7 @@ no webhook endpoints for delivery updates or incoming channel events
 no queue/background worker model for asynchronous provider tasks
 no production-grade rate limiting or quota enforcement
 no advanced search/filtering beyond MVP-safe scope
-reply send, AI draft write paths, and external provider adapters still need the next DB/runtime cutover work
+external provider adapters still need the next DB/runtime and integration cutover work
 ```
 
 Engineering consequence:

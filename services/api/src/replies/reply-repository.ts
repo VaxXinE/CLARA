@@ -1,17 +1,9 @@
 import { randomUUID } from "node:crypto";
-import { and, eq } from "drizzle-orm";
 import type { InferInsertModel } from "drizzle-orm";
-import type { Database } from "../db/client";
 import { demoUsers } from "../db/fixtures/demo-data";
 import type { FixtureAppStore } from "../db/fixtures/fixture-store";
 import { createFixtureAppStore } from "../db/fixtures/fixture-store";
-import {
-  activityEvents,
-  conversations,
-  messages,
-  replyDrafts,
-  users,
-} from "../db/schema";
+import { activityEvents, messages } from "../db/schema";
 import { NotFoundError } from "../errors/app-error";
 import type { WorkspaceScope } from "../workspace/workspace-scope";
 import type { CreatedReplyRecord } from "./reply-dto";
@@ -34,7 +26,7 @@ export interface ReplyRepository {
   createReply(input: CreateReplyInput): Promise<CreatedReplyRecord>;
 }
 
-function createPrefixedId(prefix: string): string {
+export function createPrefixedId(prefix: string): string {
   return `${prefix}_${randomUUID()}`;
 }
 
@@ -42,7 +34,7 @@ function findUserDisplayName(userId: string): string {
   return demoUsers.find((user) => user.id === userId)?.displayName ?? userId;
 }
 
-function buildMessageRow(
+export function buildMessageRow(
   input: CreateReplyInput,
   messageId: string,
   createdAt: Date,
@@ -62,7 +54,7 @@ function buildMessageRow(
   };
 }
 
-function buildActivityEventRow(
+export function buildActivityEventRow(
   input: CreateReplyInput,
   activityEventId: string,
   messageId: string,
@@ -85,7 +77,7 @@ function buildActivityEventRow(
   };
 }
 
-function toCreatedReplyRecord(input: {
+export function toCreatedReplyRecord(input: {
   messageId: string;
   conversationId: string;
   body: string;
@@ -175,102 +167,5 @@ export class FixtureReplyRepository implements ReplyRepository {
 
   getState(): FixtureAppStore {
     return structuredClone(this.store);
-  }
-}
-
-export class DrizzleReplyRepository implements ReplyRepository {
-  constructor(private readonly db: Database) {}
-
-  async createReply(input: CreateReplyInput): Promise<CreatedReplyRecord> {
-    return this.db.transaction(async (tx) => {
-      const createdAt = new Date();
-      const messageId = createPrefixedId("msg");
-      const activityEventId = createPrefixedId("act");
-
-      if (input.draftId) {
-        const draftRows = await tx
-          .select({
-            id: replyDrafts.id,
-          })
-          .from(replyDrafts)
-          .where(
-            and(
-              eq(replyDrafts.id, input.draftId),
-              eq(replyDrafts.organizationId, input.scope.organizationId),
-              eq(replyDrafts.workspaceId, input.scope.workspaceId),
-              eq(replyDrafts.conversationId, input.conversationId),
-            ),
-          )
-          .limit(1);
-
-        const draft = draftRows[0];
-
-        if (!draft) {
-          throw new NotFoundError("Reply draft not found.");
-        }
-
-        await tx
-          .update(replyDrafts)
-          .set({
-            status: "sent",
-            updatedAt: createdAt,
-          })
-          .where(
-            and(
-              eq(replyDrafts.id, input.draftId),
-              eq(replyDrafts.organizationId, input.scope.organizationId),
-              eq(replyDrafts.workspaceId, input.scope.workspaceId),
-              eq(replyDrafts.conversationId, input.conversationId),
-            ),
-          );
-      }
-
-      const senderRows = await tx
-        .select({
-          displayName: users.displayName,
-        })
-        .from(users)
-        .where(
-          and(
-            eq(users.id, input.senderUserId),
-            eq(users.organizationId, input.scope.organizationId),
-          ),
-        )
-        .limit(1);
-
-      const senderName = senderRows[0]?.displayName ?? input.senderUserId;
-
-      await tx
-        .insert(messages)
-        .values(buildMessageRow(input, messageId, createdAt));
-      await tx
-        .insert(activityEvents)
-        .values(
-          buildActivityEventRow(input, activityEventId, messageId, createdAt),
-        );
-      await tx
-        .update(conversations)
-        .set({
-          lastMessageAt: createdAt,
-          updatedAt: createdAt,
-        })
-        .where(
-          and(
-            eq(conversations.id, input.conversationId),
-            eq(conversations.organizationId, input.scope.organizationId),
-            eq(conversations.workspaceId, input.scope.workspaceId),
-          ),
-        );
-
-      return toCreatedReplyRecord({
-        messageId,
-        conversationId: input.conversationId,
-        body: input.body,
-        senderUserId: input.senderUserId,
-        senderName,
-        createdAt,
-        provider: input.provider,
-      });
-    });
   }
 }
