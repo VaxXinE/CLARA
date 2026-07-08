@@ -1,6 +1,10 @@
 import fastify, { type FastifyInstance } from 'fastify';
 import helmet from '@fastify/helmet';
 import type { Env } from '../config/env';
+import {
+  createAppServiceContainer,
+  type AppServices
+} from '../app/service-container';
 import { createLoggerOptions } from '../logging/logger';
 import {
   generateRequestId,
@@ -9,14 +13,20 @@ import {
 import { registerErrorHandlers } from '../errors/error-handler';
 import { registerHealthRoutes } from './routes/health';
 import { registerMeRoutes } from './routes/me';
+import { registerConversationRoutes } from './routes/conversations';
+import { registerCustomerRoutes } from './routes/customers';
 
 export type CreateServerOptions = {
   env: Env;
+  services?: AppServices;
 };
 
 export async function createServer(
   options: CreateServerOptions
 ): Promise<FastifyInstance> {
+  const serviceContainer = options.services
+    ? { services: options.services }
+    : createAppServiceContainer(options.env);
   const app = fastify({
     logger: createLoggerOptions(options.env),
     genReqId: generateRequestId,
@@ -32,6 +42,22 @@ export async function createServer(
 
   await registerHealthRoutes(app, options.env);
   await registerMeRoutes(app, options.env);
+  await registerConversationRoutes(
+    app,
+    options.env,
+    serviceContainer.services.conversations
+  );
+  await registerCustomerRoutes(
+    app,
+    options.env,
+    serviceContainer.services.customers
+  );
+
+  if (serviceContainer.close) {
+    app.addHook('onClose', async () => {
+      await serviceContainer.close?.();
+    });
+  }
 
   return app;
 }

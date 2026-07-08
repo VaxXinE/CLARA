@@ -38,3 +38,26 @@ export class AuthorizationError extends AppError {
     this.name = 'AuthorizationError';
   }
 }
+
+export class ValidationError extends AppError {
+  constructor(message = 'Invalid request.', details?: unknown) {
+    super({
+      statusCode: 400,
+      appCode: 'VALIDATION_ERROR',
+      message,
+      details
+    });
+    this.name = 'ValidationError';
+  }
+}
+
+export class NotFoundError extends AppError {
+  constructor(message = 'Resource not found.') {
+    super({
+      statusCode: 404,
+      appCode: 'NOT_FOUND',
+      message
+    });
+    this.name = 'NotFoundError';
+  }
+}

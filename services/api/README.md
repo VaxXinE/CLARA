@@ -5,10 +5,10 @@ CLARA API service.
 ## Status
 
 ```text
-PR-04 Database Migrations and Seed
+PR-05 Conversation and Customer APIs
 ```
 
-This service currently provides runtime foundation plus database schema, migrations, and safe demo seed tooling.
+This service currently provides runtime foundation, database schema/migrations, mock auth, and read-only conversation/customer APIs.
 
 ## Current Endpoints
 
@@ -18,6 +18,9 @@ GET /ready
 GET /api/v1/health
 GET /api/v1/ready
 GET /api/v1/me
+GET /api/v1/conversations
+GET /api/v1/conversations/:conversation_id
+GET /api/v1/customers/:customer_id
 ```
 
 ## Local Setup
@@ -112,10 +115,11 @@ x-mock-role         // owner | agent | viewer
 - Future repository/query methods must never read business records by ID alone.
 - `viewer` is read-only and cannot create AI drafts or send replies.
 - Demo seed data is fake only and uses `.test` or clearly dummy identifiers.
+- Conversation and customer read APIs are server-side scoped by authenticated organization/workspace only.
 - AI provider calls must not be added directly here without AI gateway boundary decision.
 
 ## Next PR
 
 ```text
-PR-05 Conversations Read API
+PR-06 Activity and AI Draft Readiness
 ```
