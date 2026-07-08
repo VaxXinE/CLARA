@@ -336,6 +336,19 @@ export const demoAiDraftEvents: AiDraftEventInsert[] = [
 
 export const demoActivityEvents: ActivityEventInsert[] = [
   {
+    id: "act_demo_budi_status_changed",
+    organizationId: "org_demo",
+    workspaceId: "wks_demo_sales",
+    conversationId: "conv_demo_budi_stock",
+    eventType: "conversation_status_changed",
+    summary: "Conversation status updated during demo seed initialization.",
+    metadata: {
+      from_status: "new",
+      to_status: "open",
+    },
+    createdAt: at("2026-07-07T08:59:00.000Z"),
+  },
+  {
     id: "act_demo_budi_ai_generated",
     organizationId: "org_demo",
     workspaceId: "wks_demo_sales",

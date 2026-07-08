@@ -15,6 +15,7 @@ import { registerHealthRoutes } from "./routes/health";
 import { registerMeRoutes } from "./routes/me";
 import { registerConversationRoutes } from "./routes/conversations";
 import { registerCustomerRoutes } from "./routes/customers";
+import { registerActivityRoutes } from "./routes/activity";
 
 export type CreateServerOptions = {
   env: Env;
@@ -51,6 +52,11 @@ export async function createServer(
     app,
     options.env,
     serviceContainer.services.customers,
+  );
+  await registerActivityRoutes(
+    app,
+    options.env,
+    serviceContainer.services.activity,
   );
 
   if (serviceContainer.close) {
