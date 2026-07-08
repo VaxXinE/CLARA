@@ -17,10 +17,8 @@ import {
 import { WorkspaceMembershipService } from "../auth/workspace-membership-service";
 import { createDatabase } from "../db/client";
 import { createFixtureAppStore } from "../db/fixtures/fixture-store";
-import {
-  DrizzleConversationRepository,
-  FixtureConversationRepository,
-} from "../conversations/conversation-repository";
+import { FixtureConversationRepository } from "../conversations/conversation-repository";
+import { DrizzleConversationRepository } from "../conversations/conversation-db-repository";
 import { ConversationQueryService } from "../conversations/conversation-service";
 import {
   DrizzleCustomerRepository,
@@ -52,8 +50,12 @@ export type AppServiceContainer = {
   close?: () => Promise<void>;
 };
 
+function shouldUseDatabaseRepositories(env: Env): boolean {
+  return Boolean(env.DATABASE_URL);
+}
+
 export function createAppServiceContainer(env: Env): AppServiceContainer {
-  if (env.DATABASE_URL) {
+  if (shouldUseDatabaseRepositories(env)) {
     const { db, pool } = createDatabase(env);
     const conversationRepository = new DrizzleConversationRepository(db);
 
@@ -89,7 +91,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
 
   if (env.NODE_ENV === "production") {
     throw new Error(
-      "DATABASE_URL is required in production for conversation, customer, activity, and AI draft APIs.",
+      "DATABASE_URL is required in production so conversation and related APIs do not fall back to fixture data.",
     );
   }
 
