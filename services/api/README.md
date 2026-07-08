@@ -185,6 +185,14 @@ npm run db:seed
 
 This is optional for local integration checks only. Automated tests still use fixture-safe repositories by default and do not require a running PostgreSQL instance.
 
+Conversation repository runtime selection:
+
+```text
+no DATABASE_URL in non-production -> fixture-backed conversation repository for local/demo/test safety
+DATABASE_URL present -> PostgreSQL-backed conversation repository for conversation list/detail reads
+production without DATABASE_URL -> startup fails closed instead of falling back to fixtures
+```
+
 ## Mock Auth Headers
 
 For local/dev/test authenticated requests:

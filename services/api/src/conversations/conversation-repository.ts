@@ -1,24 +1,6 @@
-import {
-  and,
-  desc,
-  eq,
-  ilike,
-  inArray,
-  or,
-  sql,
-  asc,
-  type SQL,
-} from "drizzle-orm";
-import type { Database } from "../db/client";
-import {
-  demoConversations,
-  demoCustomers,
-  demoMessages,
-  demoUsers,
-} from "../db/fixtures/demo-data";
+import { demoCustomers, demoUsers } from "../db/fixtures/demo-data";
 import type { FixtureAppStore } from "../db/fixtures/fixture-store";
 import { createFixtureAppStore } from "../db/fixtures/fixture-store";
-import { conversations, customers, messages, users } from "../db/schema";
 import type { WorkspaceScope } from "../workspace/workspace-scope";
 
 export type ConversationListFilters = {
@@ -112,7 +94,7 @@ function getSortTimestamp(input: {
   return input.lastMessageAt ?? input.createdAt;
 }
 
-function toConversationCursor(record: {
+export function toConversationCursor(record: {
   id: string;
   lastMessageAt: Date | null;
   createdAt: Date;
@@ -164,9 +146,9 @@ function sortConversationItems<
 function buildMessageSnippet(
   conversationId: string,
   scope: WorkspaceScope,
-  scopedMessages: typeof demoMessages,
+  store: FixtureAppStore,
 ): string | null {
-  const latestMessage = [...scopedMessages]
+  const latestMessage = [...store.messages]
     .filter(
       (message) =>
         message.organizationId === scope.organizationId &&
@@ -245,11 +227,7 @@ export class FixtureConversationRepository implements ConversationRepository {
           id: conversation.id,
           source: conversation.source,
           status: conversation.status,
-          snippet: buildMessageSnippet(
-            conversation.id,
-            scope,
-            this.store.messages,
-          ),
+          snippet: buildMessageSnippet(conversation.id, scope, this.store),
           lastMessageAt: conversation.lastMessageAt ?? null,
           createdAt: requireDate(
             conversation.createdAt,
@@ -372,227 +350,6 @@ export class FixtureConversationRepository implements ConversationRepository {
           }
         : null,
       messages: scopedMessages,
-    };
-  }
-}
-
-export class DrizzleConversationRepository implements ConversationRepository {
-  constructor(private readonly db: Database) {}
-
-  async listScoped(
-    scope: WorkspaceScope,
-    filters: ConversationListFilters,
-  ): Promise<PaginatedConversationList> {
-    const sortTimestamp = sql<Date>`coalesce(${conversations.lastMessageAt}, ${conversations.createdAt})`;
-    const conditions: SQL[] = [
-      eq(conversations.organizationId, scope.organizationId),
-      eq(conversations.workspaceId, scope.workspaceId),
-      eq(customers.organizationId, scope.organizationId),
-      eq(customers.workspaceId, scope.workspaceId),
-    ];
-
-    if (filters.status) {
-      conditions.push(eq(conversations.status, filters.status));
-    }
-
-    if (filters.assignedTo) {
-      conditions.push(eq(conversations.assignedUserId, filters.assignedTo));
-    }
-
-    if (filters.search) {
-      const pattern = `%${filters.search}%`;
-      conditions.push(
-        or(
-          ilike(customers.displayName, pattern),
-          ilike(customers.contactIdentifier, pattern),
-        )!,
-      );
-    }
-
-    if (filters.cursor) {
-      conditions.push(
-        sql`(
-          ${sortTimestamp} < ${new Date(filters.cursor.sortTimestamp)}
-          or (
-            ${sortTimestamp} = ${new Date(filters.cursor.sortTimestamp)}
-            and ${conversations.id} < ${filters.cursor.conversationId}
-          )
-        )`,
-      );
-    }
-
-    const rows = await this.db
-      .select({
-        id: conversations.id,
-        source: conversations.source,
-        status: conversations.status,
-        lastMessageAt: conversations.lastMessageAt,
-        createdAt: conversations.createdAt,
-        updatedAt: conversations.updatedAt,
-        customerId: customers.id,
-        customerDisplayName: customers.displayName,
-        customerSource: customers.source,
-        customerStatus: customers.status,
-        assignedUserId: users.id,
-        assignedUserDisplayName: users.displayName,
-      })
-      .from(conversations)
-      .innerJoin(customers, eq(conversations.customerId, customers.id))
-      .leftJoin(users, eq(conversations.assignedUserId, users.id))
-      .where(and(...conditions))
-      .orderBy(desc(sortTimestamp), desc(conversations.id))
-      .limit(filters.limit + 1);
-
-    const conversationIds = rows.map((row) => row.id);
-    const latestMessagesByConversation = new Map<string, string | null>();
-
-    if (conversationIds.length > 0) {
-      const latestMessageRows = await this.db
-        .select({
-          conversationId: messages.conversationId,
-          body: messages.body,
-          sentAt: messages.sentAt,
-          id: messages.id,
-        })
-        .from(messages)
-        .where(
-          and(
-            eq(messages.organizationId, scope.organizationId),
-            eq(messages.workspaceId, scope.workspaceId),
-            inArray(messages.conversationId, conversationIds),
-          ),
-        )
-        .orderBy(desc(messages.sentAt), desc(messages.id));
-
-      for (const row of latestMessageRows) {
-        if (!latestMessagesByConversation.has(row.conversationId)) {
-          latestMessagesByConversation.set(row.conversationId, row.body);
-        }
-      }
-    }
-
-    const items = rows.map<ConversationListItemRecord>((row) => ({
-      id: row.id,
-      source: row.source,
-      status: row.status,
-      snippet: latestMessagesByConversation.get(row.id) ?? null,
-      lastMessageAt: row.lastMessageAt ?? null,
-      createdAt: row.createdAt,
-      updatedAt: row.updatedAt,
-      customer: {
-        id: row.customerId,
-        displayName: row.customerDisplayName,
-        source: row.customerSource,
-        status: row.customerStatus,
-      },
-      assignedUser: row.assignedUserId
-        ? {
-            id: row.assignedUserId,
-            displayName: row.assignedUserDisplayName ?? row.assignedUserId,
-          }
-        : null,
-    }));
-
-    const hasNextPage = items.length > filters.limit;
-    const pagedItems = hasNextPage ? items.slice(0, filters.limit) : items;
-
-    return {
-      items: pagedItems,
-      nextCursor: hasNextPage
-        ? toConversationCursor(pagedItems[pagedItems.length - 1]!)
-        : null,
-    };
-  }
-
-  async findByIdScoped(
-    scope: WorkspaceScope,
-    conversationId: string,
-  ): Promise<ConversationDetailRecord | null> {
-    const conversationRow = await this.db
-      .select({
-        id: conversations.id,
-        source: conversations.source,
-        status: conversations.status,
-        lastMessageAt: conversations.lastMessageAt,
-        createdAt: conversations.createdAt,
-        updatedAt: conversations.updatedAt,
-        customerId: customers.id,
-        customerDisplayName: customers.displayName,
-        customerSource: customers.source,
-        customerStatus: customers.status,
-        assignedUserId: users.id,
-        assignedUserDisplayName: users.displayName,
-      })
-      .from(conversations)
-      .innerJoin(customers, eq(conversations.customerId, customers.id))
-      .leftJoin(users, eq(conversations.assignedUserId, users.id))
-      .where(
-        and(
-          eq(conversations.id, conversationId),
-          eq(conversations.organizationId, scope.organizationId),
-          eq(conversations.workspaceId, scope.workspaceId),
-          eq(customers.organizationId, scope.organizationId),
-          eq(customers.workspaceId, scope.workspaceId),
-        ),
-      )
-      .limit(1);
-
-    const row = conversationRow[0];
-
-    if (!row) {
-      return null;
-    }
-
-    const messageRows = await this.db
-      .select({
-        id: messages.id,
-        direction: messages.direction,
-        senderType: messages.senderType,
-        senderUserId: messages.senderUserId,
-        body: messages.body,
-        sentAt: messages.sentAt,
-        deliveryStatus: messages.deliveryStatus,
-        createdAt: messages.createdAt,
-      })
-      .from(messages)
-      .where(
-        and(
-          eq(messages.conversationId, row.id),
-          eq(messages.organizationId, scope.organizationId),
-          eq(messages.workspaceId, scope.workspaceId),
-        ),
-      )
-      .orderBy(asc(messages.sentAt), asc(messages.id));
-
-    return {
-      id: row.id,
-      source: row.source,
-      status: row.status,
-      lastMessageAt: row.lastMessageAt ?? null,
-      createdAt: row.createdAt,
-      updatedAt: row.updatedAt,
-      customer: {
-        id: row.customerId,
-        displayName: row.customerDisplayName,
-        source: row.customerSource,
-        status: row.customerStatus,
-      },
-      assignedUser: row.assignedUserId
-        ? {
-            id: row.assignedUserId,
-            displayName: row.assignedUserDisplayName ?? row.assignedUserId,
-          }
-        : null,
-      messages: messageRows.map((message) => ({
-        id: message.id,
-        direction: message.direction,
-        senderType: message.senderType,
-        senderUserId: message.senderUserId ?? null,
-        body: message.body,
-        sentAt: message.sentAt,
-        deliveryStatus: message.deliveryStatus,
-        createdAt: message.createdAt,
-      })),
     };
   }
 }
