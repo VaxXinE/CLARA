@@ -12,6 +12,8 @@ This service currently provides runtime foundation, database schema/migrations, 
 
 Use this together with `apps/dashboard` for the full local MVP flow.
 
+For a production-like local PostgreSQL runtime, use `infra/local/docker-compose.yml`.
+
 ## Current Endpoints
 
 ```text
@@ -31,10 +33,14 @@ POST /api/v1/conversations/:conversation_id/reply
 ## Local Setup
 
 ```bash
-cd services/api
+cd infra/local
+docker compose up -d
+
+cd ../../services/api
 npm install
 cp .env.example .env
 npm run db:check
+npm run db:ready
 npm run db:migrate
 npm run db:seed
 npm run dev
@@ -59,6 +65,7 @@ npm run db:generate
 npm run db:migrate
 npm run db:seed
 npm run db:studio
+npm run db:ready
 npm audit --omit=dev --audit-level=high
 ```
 
@@ -80,16 +87,20 @@ npm audit --omit=dev --audit-level=high
 Example local PostgreSQL URL:
 
 ```text
-postgresql://postgres:postgres@127.0.0.1:5432/clara_api_dev
+postgresql://clara_user:clara_password_dev_only@127.0.0.1:5432/clara_api_dev
 ```
 
 Typical flow:
 
 ```bash
-cd services/api
+cd infra/local
+docker compose up -d
+
+cd ../../services/api
 npm install
 cp .env.example .env
 npm run db:check
+npm run db:ready
 npm run db:migrate
 npm run db:seed
 npm run dev
@@ -100,6 +111,20 @@ Optional migration authoring workflow:
 ```bash
 npm run db:generate
 ```
+
+Optional real database validation:
+
+```bash
+cd infra/local
+docker compose up -d
+
+cd ../../services/api
+npm run db:ready
+npm run db:migrate
+npm run db:seed
+```
+
+This is optional for local integration checks only. Automated tests still use fixture-safe repositories by default and do not require a running PostgreSQL instance.
 
 ## Mock Auth Headers
 
@@ -181,7 +206,8 @@ bash scripts/validate-repo-structure.sh
 Together with the dashboard:
 
 ```bash
-cd services/api && npm run dev
+cd infra/local && docker compose up -d
+cd services/api && npm run db:ready && npm run db:migrate && npm run db:seed && npm run dev
 cd apps/dashboard && npm install && cp .env.example .env.local && npm run dev
 ```
 

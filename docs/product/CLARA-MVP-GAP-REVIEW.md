@@ -68,6 +68,7 @@ Working capabilities:
 ```text
 API starts locally and passes typecheck, test, build, and production dependency audit
 dashboard starts locally and passes typecheck, test, build, and production dependency audit
+local PostgreSQL runtime is now documented and runnable through infra/local/docker-compose.yml
 workspace-scoped conversation list and conversation detail APIs work
 workspace-scoped customer detail API works
 workspace-scoped activity timeline API works
@@ -95,6 +96,7 @@ AI draft generation uses a mock provider only
 reply send uses a simulated provider only
 demo identities and seed conversations are fake
 channel delivery is not connected to real WhatsApp/Instagram/TikTok/email providers
+local PostgreSQL credentials are safe placeholders only
 ```
 
 Operational implication:

@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: clara-local-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: clara_api_dev
+      POSTGRES_USER: clara_user
+      POSTGRES_PASSWORD: clara_password_dev_only
+    ports:
+      - "5432:5432"
+    volumes:
+      - clara-local-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U clara_user -d clara_api_dev"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+
+volumes:
+  clara-local-postgres-data:

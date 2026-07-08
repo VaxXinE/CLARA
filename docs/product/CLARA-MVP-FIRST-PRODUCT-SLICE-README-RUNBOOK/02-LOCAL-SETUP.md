@@ -40,7 +40,9 @@ Required baseline:
 Git
 Node.js LTS
 npm
-PostgreSQL local
+Docker
+Docker Compose
+PostgreSQL local runtime
 ```
 
 ---
@@ -104,8 +106,12 @@ Never commit:
 # Database Setup
 
 ```bash
-cd services/api
+cd infra/local
+docker compose up -d
+
+cd ../../services/api
 npm run db:check
+npm run db:ready
 npm run db:migrate
 npm run db:seed
 ```
@@ -146,6 +152,7 @@ Dashboard: http://127.0.0.1:5173
 - [ ] `services/api/.env` created from `.env.example`.
 - [ ] `apps/dashboard/.env.local` created from `.env.example`.
 - [ ] Local PostgreSQL running.
+- [ ] `infra/local/docker-compose.yml` or equivalent safe local runtime is available.
 - [ ] No production secrets used.
 - [ ] Mock auth configured for local only.
 - [ ] Mock AI provider configured.

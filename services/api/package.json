@@ -18,6 +18,7 @@
     "db:seed": "node --import tsx src/db/scripts/seed.ts",
     "db:studio": "drizzle-kit studio --config=drizzle.config.ts",
     "db:check": "node --import tsx src/db/scripts/check.ts",
+    "db:ready": "node --import tsx src/db/scripts/ready.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "lint:placeholder": "echo \"lint not configured yet\""
