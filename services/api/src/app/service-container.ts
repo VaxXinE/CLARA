@@ -2,10 +2,8 @@ import type { Env } from "../config/env";
 import { FixtureActivityRepository } from "../activity/activity-repository";
 import { DrizzleActivityRepository } from "../activity/activity-db-repository";
 import { ActivityQueryService } from "../activity/activity-service";
-import {
-  DrizzleAiDraftRepository,
-  FixtureAiDraftRepository,
-} from "../ai-drafts/ai-draft-repository";
+import { FixtureAiDraftRepository } from "../ai-drafts/ai-draft-repository";
+import { DrizzleAiDraftRepository } from "../ai-drafts/ai-draft-db-repository";
 import { MockAiDraftProvider } from "../ai-drafts/mock-ai-draft-provider";
 import { AiDraftService } from "../ai-drafts/ai-draft-service";
 import {
@@ -21,10 +19,8 @@ import { ConversationQueryService } from "../conversations/conversation-service"
 import { FixtureCustomerRepository } from "../customers/customer-repository";
 import { DrizzleCustomerRepository } from "../customers/customer-db-repository";
 import { CustomerQueryService } from "../customers/customer-service";
-import {
-  DrizzleReplyRepository,
-  FixtureReplyRepository,
-} from "../replies/reply-repository";
+import { FixtureReplyRepository } from "../replies/reply-repository";
+import { DrizzleReplyRepository } from "../replies/reply-db-repository";
 import { ReplyService } from "../replies/reply-service";
 import { SimulatedReplySendProvider } from "../replies/simulated-reply-send-provider";
 

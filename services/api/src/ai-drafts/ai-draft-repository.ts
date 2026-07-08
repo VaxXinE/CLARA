@@ -1,6 +1,5 @@
 import { randomUUID } from "node:crypto";
 import type { InferInsertModel } from "drizzle-orm";
-import type { Database } from "../db/client";
 import type { FixtureAppStore } from "../db/fixtures/fixture-store";
 import { createFixtureAppStore } from "../db/fixtures/fixture-store";
 import { activityEvents, aiDraftEvents, replyDrafts } from "../db/schema";
@@ -28,11 +27,11 @@ export interface AiDraftRepository {
   ): Promise<CreatedAiDraftRecord>;
 }
 
-function createPrefixedId(prefix: string): string {
+export function createPrefixedId(prefix: string): string {
   return `${prefix}_${randomUUID()}`;
 }
 
-function buildReplyDraftRow(
+export function buildReplyDraftRow(
   input: CreateAiDraftArtifactsInput,
   draftId: string,
   createdAt: Date,
@@ -51,7 +50,7 @@ function buildReplyDraftRow(
   };
 }
 
-function buildAiDraftEventRow(
+export function buildAiDraftEventRow(
   input: CreateAiDraftArtifactsInput,
   aiDraftEventId: string,
   draftId: string,
@@ -73,7 +72,7 @@ function buildAiDraftEventRow(
   };
 }
 
-function buildActivityEventRow(
+export function buildActivityEventRow(
   input: CreateAiDraftArtifactsInput,
   activityEventId: string,
   draftId: string,
@@ -98,7 +97,7 @@ function buildActivityEventRow(
   };
 }
 
-function toCreatedAiDraftRecord(input: {
+export function toCreatedAiDraftRecord(input: {
   draftId: string;
   conversationId: string;
   draftBody: string;
@@ -152,43 +151,5 @@ export class FixtureAiDraftRepository implements AiDraftRepository {
 
   getState(): FixtureAppStore {
     return structuredClone(this.store);
-  }
-}
-
-export class DrizzleAiDraftRepository implements AiDraftRepository {
-  constructor(private readonly db: Database) {}
-
-  async createDraftArtifacts(
-    input: CreateAiDraftArtifactsInput,
-  ): Promise<CreatedAiDraftRecord> {
-    return this.db.transaction(async (tx) => {
-      const createdAt = new Date();
-      const draftId = createPrefixedId("draft");
-      const aiDraftEventId = createPrefixedId("ai_evt");
-      const activityEventId = createPrefixedId("act");
-
-      await tx
-        .insert(replyDrafts)
-        .values(buildReplyDraftRow(input, draftId, createdAt));
-      await tx
-        .insert(aiDraftEvents)
-        .values(
-          buildAiDraftEventRow(input, aiDraftEventId, draftId, createdAt),
-        );
-      await tx
-        .insert(activityEvents)
-        .values(
-          buildActivityEventRow(input, activityEventId, draftId, createdAt),
-        );
-
-      return toCreatedAiDraftRecord({
-        draftId,
-        conversationId: input.conversationId,
-        draftBody: input.draftBody,
-        createdAt,
-        provider: input.provider,
-        model: input.model,
-      });
-    });
   }
 }

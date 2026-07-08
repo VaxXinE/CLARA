@@ -209,6 +209,22 @@ DATABASE_URL present -> PostgreSQL-backed activity repository for scoped activit
 production without DATABASE_URL -> startup fails closed instead of falling back to fixture activity data
 ```
 
+AI draft persistence runtime selection:
+
+```text
+no DATABASE_URL in non-production -> fixture-backed AI draft persistence for local/demo/test safety
+DATABASE_URL present -> PostgreSQL-backed AI draft persistence for scoped reply_drafts, ai_draft_events, and activity_events writes
+production without DATABASE_URL -> startup fails closed instead of falling back to fixture AI draft persistence
+```
+
+Reply persistence runtime selection:
+
+```text
+no DATABASE_URL in non-production -> fixture-backed reply persistence for local/demo/test safety
+DATABASE_URL present -> PostgreSQL-backed reply persistence for scoped outbound messages, reply_draft status updates, and activity_events writes
+production without DATABASE_URL -> startup fails closed instead of falling back to fixture reply persistence
+```
+
 ## Mock Auth Headers
 
 For local/dev/test authenticated requests:
