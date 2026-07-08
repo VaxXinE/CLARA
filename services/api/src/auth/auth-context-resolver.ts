@@ -1,8 +1,6 @@
 import { buildAuthContext, type AuthContext } from "./auth-context";
-import type {
-  TrustedProviderIdentity,
-  WorkspaceMembershipService,
-} from "./workspace-membership-service";
+import type { TrustedProviderIdentity } from "./provider-identity";
+import type { WorkspaceMembershipService } from "./workspace-membership-service";
 
 export async function resolveAuthContextFromTrustedProviderIdentity(
   identity: TrustedProviderIdentity,

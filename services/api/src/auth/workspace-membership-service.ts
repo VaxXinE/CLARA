@@ -1,15 +1,10 @@
 import { AuthorizationError } from "../errors/app-error";
+import type { TrustedProviderIdentity } from "./provider-identity";
 import { roles, type Role } from "./permissions";
 import type {
   WorkspaceMembershipRecord,
   WorkspaceMembershipRepository,
 } from "./workspace-membership-repository";
-
-export type TrustedProviderIdentity = {
-  provider: "supabase" | "better-auth";
-  subject: string;
-  email?: string;
-};
 
 export type ActiveWorkspaceAccess = {
   userId: string;

@@ -1,7 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
+import type { AuthProvider } from "../../auth/auth-provider";
 import { getAuthContext } from "../../auth/auth-context";
-import type { Env } from "../../config/env";
 import { CustomerQueryService } from "../../customers/customer-service";
 import { ValidationError } from "../../errors/app-error";
 import { requireAuth } from "../../auth/require-auth";
@@ -32,13 +32,13 @@ function parseCustomerId(customerId: string, path: string): string {
 
 export async function registerCustomerRoutes(
   app: FastifyInstance,
-  env: Env,
+  authProvider: AuthProvider,
   service: CustomerQueryService,
 ): Promise<void> {
   app.get(
     "/api/v1/customers/:customer_id",
     {
-      preHandler: requireAuth(env),
+      preHandler: requireAuth(authProvider),
     },
     async (request) => {
       const auth = getAuthContext(request);

@@ -10,6 +10,11 @@ import {
 } from "../ai-drafts/ai-draft-repository";
 import { MockAiDraftProvider } from "../ai-drafts/mock-ai-draft-provider";
 import { AiDraftService } from "../ai-drafts/ai-draft-service";
+import {
+  DrizzleWorkspaceMembershipRepository,
+  FixtureWorkspaceMembershipRepository,
+} from "../auth/workspace-membership-repository";
+import { WorkspaceMembershipService } from "../auth/workspace-membership-service";
 import { createDatabase } from "../db/client";
 import { createFixtureAppStore } from "../db/fixtures/fixture-store";
 import {
@@ -37,8 +42,13 @@ export type AppServices = {
   replies: ReplyService;
 };
 
+export type AuthServices = {
+  workspaceMemberships: WorkspaceMembershipService;
+};
+
 export type AppServiceContainer = {
   services: AppServices;
+  auth: AuthServices;
   close?: () => Promise<void>;
 };
 
@@ -64,6 +74,11 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
           conversationRepository,
           new DrizzleReplyRepository(db),
           new SimulatedReplySendProvider(),
+        ),
+      },
+      auth: {
+        workspaceMemberships: new WorkspaceMembershipService(
+          new DrizzleWorkspaceMembershipRepository(db),
         ),
       },
       close: async () => {
@@ -100,6 +115,11 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         conversationRepository,
         new FixtureReplyRepository(fixtureStore),
         new SimulatedReplySendProvider(),
+      ),
+    },
+    auth: {
+      workspaceMemberships: new WorkspaceMembershipService(
+        new FixtureWorkspaceMembershipRepository(),
       ),
     },
   };

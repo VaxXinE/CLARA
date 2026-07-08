@@ -1,8 +1,8 @@
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
+import type { AuthProvider } from "../../auth/auth-provider";
 import { getAuthContext } from "../../auth/auth-context";
 import { requireAuth } from "../../auth/require-auth";
-import type { Env } from "../../config/env";
 import { ValidationError } from "../../errors/app-error";
 import { ReplyService } from "../../replies/reply-service";
 import { REPLY_MAX_BODY_LENGTH } from "../../replies/reply-send-provider";
@@ -80,13 +80,13 @@ function parseReplyBody(body: unknown): {
 
 export async function registerReplyRoutes(
   app: FastifyInstance,
-  env: Env,
+  authProvider: AuthProvider,
   service: ReplyService,
 ): Promise<void> {
   app.post(
     "/api/v1/conversations/:conversation_id/reply",
     {
-      preHandler: requireAuth(env),
+      preHandler: requireAuth(authProvider),
     },
     async (request, reply) => {
       const auth = getAuthContext(request);

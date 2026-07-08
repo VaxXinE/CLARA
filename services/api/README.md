@@ -108,8 +108,9 @@ Current baseline behavior:
 
 ```text
 mock mode keeps the current local/demo/test flow working
-provider mode is a fail-closed baseline and does not accept arbitrary bearer tokens
-provider verification is not implemented yet
+provider mode is fail-closed and does not accept arbitrary bearer tokens
+Supabase provider mode now verifies JWT signature and issuer through JWKS before creating trusted identity
+Better Auth provider mode remains a safe placeholder and is not implemented yet
 trusted provider identity must map to a CLARA user + exactly one active workspace membership before AuthContext is created
 ```
 
@@ -119,7 +120,8 @@ Provider-mode middleware behavior today:
 Authorization: Bearer <token> is required before provider verification is attempted
 missing Authorization header returns safe 401
 malformed Authorization header returns safe 401
-valid-looking bearer token still fails closed until real provider verification is implemented
+invalid, expired, or wrong-issuer Supabase JWT returns safe 401
+valid Supabase JWT only becomes app auth after CLARA membership lookup succeeds
 mock auth headers are ignored when AUTH_MODE=provider
 ```
 
@@ -207,6 +209,16 @@ trusted provider identity -> CLARA user lookup by provider_subject
 CLARA user -> active workspace membership lookup
 membership role -> server-side permissions
 missing user, inactive membership, unsupported role, or ambiguous membership fails closed
+```
+
+Supabase verification skeleton:
+
+```text
+jose library verifies JWT signature against configured JWKS
+issuer is verified against SUPABASE_AUTH_ISSUER
+provider identity uses sub as the trusted subject
+email is read only as optional profile metadata
+organization_id, workspace_id, and role still come only from CLARA backend lookup
 ```
 
 ## Provider Behavior

@@ -116,6 +116,16 @@ export const demoUsers: UserInsert[] = [
     createdAt: now,
     updatedAt: now,
   },
+  {
+    id: "usr_demo_no_membership",
+    organizationId: "org_demo",
+    providerSubject: "subject_demo_no_membership",
+    email: "no-membership@example.test",
+    displayName: "No Membership Demo",
+    status: "active",
+    createdAt: now,
+    updatedAt: now,
+  },
 ];
 
 export const demoWorkspaceMemberships: WorkspaceMembershipInsert[] = [

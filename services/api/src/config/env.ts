@@ -146,16 +146,17 @@ export function loadEnv(input: NodeJS.ProcessEnv = process.env): Env {
     );
   }
 
-  if (env.NODE_ENV === "production" && env.AUTH_MODE === "provider") {
-    if (
-      env.AUTH_PROVIDER === "supabase" &&
-      (!env.SUPABASE_AUTH_JWKS_URL || !env.SUPABASE_AUTH_ISSUER)
-    ) {
-      throw new Error(
-        "Invalid environment configuration: SUPABASE_AUTH_JWKS_URL and SUPABASE_AUTH_ISSUER are required for AUTH_PROVIDER=supabase in production.",
-      );
-    }
+  if (
+    env.AUTH_MODE === "provider" &&
+    env.AUTH_PROVIDER === "supabase" &&
+    (!env.SUPABASE_AUTH_JWKS_URL || !env.SUPABASE_AUTH_ISSUER)
+  ) {
+    throw new Error(
+      "Invalid environment configuration: SUPABASE_AUTH_JWKS_URL and SUPABASE_AUTH_ISSUER are required when AUTH_PROVIDER=supabase.",
+    );
+  }
 
+  if (env.NODE_ENV === "production" && env.AUTH_MODE === "provider") {
     if (env.AUTH_PROVIDER === "better-auth" && !env.BETTER_AUTH_BASE_URL) {
       throw new Error(
         "Invalid environment configuration: BETTER_AUTH_BASE_URL is required for AUTH_PROVIDER=better-auth in production.",
