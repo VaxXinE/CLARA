@@ -193,6 +193,14 @@ DATABASE_URL present -> PostgreSQL-backed conversation repository for conversati
 production without DATABASE_URL -> startup fails closed instead of falling back to fixtures
 ```
 
+Customer repository runtime selection:
+
+```text
+no DATABASE_URL in non-production -> fixture-backed customer repository for local/demo/test safety
+DATABASE_URL present -> PostgreSQL-backed customer repository for scoped customer detail reads
+production without DATABASE_URL -> startup fails closed instead of falling back to fixture customer data
+```
+
 ## Mock Auth Headers
 
 For local/dev/test authenticated requests:

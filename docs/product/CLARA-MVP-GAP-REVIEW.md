@@ -70,6 +70,7 @@ API starts locally and passes typecheck, test, build, and production dependency 
 dashboard starts locally and passes typecheck, test, build, and production dependency audit
 local PostgreSQL runtime is now documented and runnable through infra/local/docker-compose.yml
 conversation reads now have a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
+customer reads now have a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
 workspace-scoped conversation list and conversation detail APIs work
 workspace-scoped customer detail API works
 workspace-scoped activity timeline API works
@@ -199,7 +200,7 @@ no webhook endpoints for delivery updates or incoming channel events
 no queue/background worker model for asynchronous provider tasks
 no production-grade rate limiting or quota enforcement
 no advanced search/filtering beyond MVP-safe scope
-customer and activity reads still need the same DB-backed repository cutover already started for conversations
+activity reads still need the same DB-backed repository cutover already started for conversations and customers
 ```
 
 Engineering consequence:
