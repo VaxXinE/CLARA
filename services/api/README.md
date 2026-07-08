@@ -112,6 +112,16 @@ provider mode is a fail-closed baseline and does not accept arbitrary bearer tok
 provider verification is not implemented yet
 ```
 
+Provider-mode middleware behavior today:
+
+```text
+Authorization: Bearer <token> is required before provider verification is attempted
+missing Authorization header returns safe 401
+malformed Authorization header returns safe 401
+valid-looking bearer token still fails closed until real provider verification is implemented
+mock auth headers are ignored when AUTH_MODE=provider
+```
+
 Production guardrails:
 
 ```text
