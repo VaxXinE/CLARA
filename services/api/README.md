@@ -5,10 +5,10 @@ CLARA API service.
 ## Status
 
 ```text
-PR-07 AI Draft API
+PR-08 Reply Send API
 ```
 
-This service currently provides runtime foundation, database schema/migrations, mock auth, read-only conversation/customer/activity APIs, and AI draft creation with mock provider mode.
+This service currently provides runtime foundation, database schema/migrations, mock auth, read-only conversation/customer/activity APIs, AI draft creation, and simulated reply send for local/test flows.
 
 ## Current Endpoints
 
@@ -22,6 +22,7 @@ GET /api/v1/conversations
 GET /api/v1/conversations/:conversation_id
 GET /api/v1/conversations/:conversation_id/activity
 POST /api/v1/conversations/:conversation_id/ai-draft
+POST /api/v1/conversations/:conversation_id/reply
 GET /api/v1/customers/:customer_id
 ```
 
@@ -119,11 +120,12 @@ x-mock-role         // owner | agent | viewer
 - Demo seed data is fake only and uses `.test` or clearly dummy identifiers.
 - Conversation, customer, and activity read APIs are server-side scoped by authenticated organization/workspace only.
 - AI draft creation stores editable drafts only and never sends replies automatically.
+- Reply send is explicit human-triggered API input only; AI draft endpoint does not send messages.
 - AI draft responses do not expose hidden prompts or raw provider payloads.
 - AI provider calls must not be added directly here without AI gateway boundary decision.
 
 ## Next PR
 
 ```text
-PR-08 Reply Send API
+PR-09 External Channel Adapter Readiness
 ```

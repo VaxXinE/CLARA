@@ -16,6 +16,8 @@ import {
   demoMessages,
   demoUsers,
 } from "../db/fixtures/demo-data";
+import type { FixtureAppStore } from "../db/fixtures/fixture-store";
+import { createFixtureAppStore } from "../db/fixtures/fixture-store";
 import { conversations, customers, messages, users } from "../db/schema";
 import type { WorkspaceScope } from "../workspace/workspace-scope";
 
@@ -162,8 +164,9 @@ function sortConversationItems<
 function buildMessageSnippet(
   conversationId: string,
   scope: WorkspaceScope,
+  scopedMessages: typeof demoMessages,
 ): string | null {
-  const latestMessage = [...demoMessages]
+  const latestMessage = [...scopedMessages]
     .filter(
       (message) =>
         message.organizationId === scope.organizationId &&
@@ -184,6 +187,12 @@ function buildMessageSnippet(
 }
 
 export class FixtureConversationRepository implements ConversationRepository {
+  private readonly store: FixtureAppStore;
+
+  constructor(store: FixtureAppStore = createFixtureAppStore()) {
+    this.store = store;
+  }
+
   async listScoped(
     scope: WorkspaceScope,
     filters: ConversationListFilters,
@@ -195,7 +204,7 @@ export class FixtureConversationRepository implements ConversationRepository {
       demoCustomers.map((customer) => [customer.id, customer]),
     );
 
-    let items = demoConversations
+    let items = this.store.conversations
       .filter(
         (conversation) =>
           conversation.organizationId === scope.organizationId &&
@@ -236,7 +245,11 @@ export class FixtureConversationRepository implements ConversationRepository {
           id: conversation.id,
           source: conversation.source,
           status: conversation.status,
-          snippet: buildMessageSnippet(conversation.id, scope),
+          snippet: buildMessageSnippet(
+            conversation.id,
+            scope,
+            this.store.messages,
+          ),
           lastMessageAt: conversation.lastMessageAt ?? null,
           createdAt: requireDate(
             conversation.createdAt,
@@ -285,7 +298,7 @@ export class FixtureConversationRepository implements ConversationRepository {
     conversationId: string,
   ): Promise<ConversationDetailRecord | null> {
     const conversation =
-      demoConversations.find(
+      this.store.conversations.find(
         (item) =>
           item.id === conversationId &&
           item.organizationId === scope.organizationId &&
@@ -312,7 +325,7 @@ export class FixtureConversationRepository implements ConversationRepository {
         null)
       : null;
 
-    const scopedMessages = demoMessages
+    const scopedMessages = this.store.messages
       .filter(
         (message) =>
           message.organizationId === scope.organizationId &&

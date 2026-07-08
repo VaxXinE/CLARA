@@ -17,6 +17,7 @@ import { registerConversationRoutes } from "./routes/conversations";
 import { registerCustomerRoutes } from "./routes/customers";
 import { registerActivityRoutes } from "./routes/activity";
 import { registerAiDraftRoutes } from "./routes/ai-drafts";
+import { registerReplyRoutes } from "./routes/replies";
 
 export type CreateServerOptions = {
   env: Env;
@@ -63,6 +64,11 @@ export async function createServer(
     app,
     options.env,
     serviceContainer.services.aiDrafts,
+  );
+  await registerReplyRoutes(
+    app,
+    options.env,
+    serviceContainer.services.replies,
   );
 
   if (serviceContainer.close) {

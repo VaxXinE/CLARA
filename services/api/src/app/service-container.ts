@@ -22,12 +22,19 @@ import {
   FixtureCustomerRepository,
 } from "../customers/customer-repository";
 import { CustomerQueryService } from "../customers/customer-service";
+import {
+  DrizzleReplyRepository,
+  FixtureReplyRepository,
+} from "../replies/reply-repository";
+import { ReplyService } from "../replies/reply-service";
+import { SimulatedReplySendProvider } from "../replies/simulated-reply-send-provider";
 
 export type AppServices = {
   conversations: ConversationQueryService;
   customers: CustomerQueryService;
   activity: ActivityQueryService;
   aiDrafts: AiDraftService;
+  replies: ReplyService;
 };
 
 export type AppServiceContainer = {
@@ -53,6 +60,11 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
           new DrizzleAiDraftRepository(db),
           new MockAiDraftProvider(),
         ),
+        replies: new ReplyService(
+          conversationRepository,
+          new DrizzleReplyRepository(db),
+          new SimulatedReplySendProvider(),
+        ),
       },
       close: async () => {
         await pool.end();
@@ -66,8 +78,10 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
     );
   }
 
-  const conversationRepository = new FixtureConversationRepository();
   const fixtureStore = createFixtureAppStore();
+  const conversationRepository = new FixtureConversationRepository(
+    fixtureStore,
+  );
 
   return {
     services: {
@@ -81,6 +95,11 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         conversationRepository,
         new FixtureAiDraftRepository(fixtureStore),
         new MockAiDraftProvider(),
+      ),
+      replies: new ReplyService(
+        conversationRepository,
+        new FixtureReplyRepository(fixtureStore),
+        new SimulatedReplySendProvider(),
       ),
     },
   };

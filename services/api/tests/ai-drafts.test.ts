@@ -11,6 +11,9 @@ import { ConversationQueryService } from "../src/conversations/conversation-serv
 import { FixtureCustomerRepository } from "../src/customers/customer-repository";
 import { CustomerQueryService } from "../src/customers/customer-service";
 import { createServer } from "../src/http/server";
+import { FixtureReplyRepository } from "../src/replies/reply-repository";
+import { ReplyService } from "../src/replies/reply-service";
+import { SimulatedReplySendProvider } from "../src/replies/simulated-reply-send-provider";
 
 const testEnv = loadEnv({
   NODE_ENV: "test",
@@ -37,9 +40,12 @@ function authHeaders(input: {
 
 function createTestServer() {
   const fixtureStore = createFixtureAppStore();
-  const conversationRepository = new FixtureConversationRepository();
+  const conversationRepository = new FixtureConversationRepository(
+    fixtureStore,
+  );
   const activityRepository = new FixtureActivityRepository(fixtureStore);
   const aiDraftRepository = new FixtureAiDraftRepository(fixtureStore);
+  const replyRepository = new FixtureReplyRepository(fixtureStore);
 
   return {
     aiDraftRepository,
@@ -56,6 +62,11 @@ function createTestServer() {
           conversationRepository,
           aiDraftRepository,
           new MockAiDraftProvider(),
+        ),
+        replies: new ReplyService(
+          conversationRepository,
+          replyRepository,
+          new SimulatedReplySendProvider(),
         ),
       },
     }),
