@@ -1,4 +1,4 @@
-import { demoSeedData } from '../fixtures/demo-data';
+import { demoSeedData } from "../fixtures/demo-data";
 import {
   activityEventTypes,
   aiDraftStatuses,
@@ -6,16 +6,16 @@ import {
   customerSources,
   dbSchema,
   messageDirections,
-  workspaceMemberRoles
-} from '../schema';
+  workspaceMemberRoles,
+} from "../schema";
 
 const requiredScopedTables = [
-  'customers',
-  'conversations',
-  'messages',
-  'replyDrafts',
-  'aiDraftEvents',
-  'activityEvents'
+  "customers",
+  "conversations",
+  "messages",
+  "replyDrafts",
+  "aiDraftEvents",
+  "activityEvents",
 ] as const;
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -30,31 +30,42 @@ function runSchemaChecks(): void {
     const columns = Object.keys(table);
 
     assert(
-      columns.includes('organizationId'),
-      `${tableName} must include organizationId`
+      columns.includes("organizationId"),
+      `${tableName} must include organizationId`,
     );
-    assert(columns.includes('workspaceId'), `${tableName} must include workspaceId`);
+    assert(
+      columns.includes("workspaceId"),
+      `${tableName} must include workspaceId`,
+    );
   }
 
-  assert(workspaceMemberRoles.includes('owner'), 'role enum must include owner');
-  assert(workspaceMemberRoles.includes('agent'), 'role enum must include agent');
-  assert(workspaceMemberRoles.includes('viewer'), 'role enum must include viewer');
   assert(
-    conversationStatuses.includes('open') &&
-      conversationStatuses.includes('pending') &&
-      conversationStatuses.includes('closed'),
-    'conversation status enum is incomplete'
+    workspaceMemberRoles.includes("owner"),
+    "role enum must include owner",
   );
   assert(
-    messageDirections.includes('inbound') &&
-      messageDirections.includes('outbound') &&
-      messageDirections.includes('internal'),
-    'message direction enum is incomplete'
+    workspaceMemberRoles.includes("agent"),
+    "role enum must include agent",
   );
   assert(
-    aiDraftStatuses.includes('succeeded') &&
-      aiDraftStatuses.includes('failed'),
-    'AI draft status enum is incomplete'
+    workspaceMemberRoles.includes("viewer"),
+    "role enum must include viewer",
+  );
+  assert(
+    conversationStatuses.includes("open") &&
+      conversationStatuses.includes("pending") &&
+      conversationStatuses.includes("closed"),
+    "conversation status enum is incomplete",
+  );
+  assert(
+    messageDirections.includes("inbound") &&
+      messageDirections.includes("outbound") &&
+      messageDirections.includes("internal"),
+    "message direction enum is incomplete",
+  );
+  assert(
+    aiDraftStatuses.includes("succeeded") && aiDraftStatuses.includes("failed"),
+    "AI draft status enum is incomplete",
   );
 }
 
@@ -62,57 +73,66 @@ function runFixtureChecks(): void {
   const allEmails = demoSeedData.users.map((user) => user.email);
   const allCustomerContacts = demoSeedData.customers
     .map((customer) => customer.contactIdentifier)
-    .filter((value): value is string => typeof value === 'string');
+    .filter((value): value is string => typeof value === "string");
 
   assert(
-    demoSeedData.organizations.some((org) => org.id === 'org_demo'),
-    'demo organization fixture is missing'
+    demoSeedData.organizations.some((org) => org.id === "org_demo"),
+    "demo organization fixture is missing",
   );
   assert(
-    demoSeedData.workspaces.some((workspace) => workspace.id === 'wks_demo_sales'),
-    'demo workspace fixture is missing'
+    demoSeedData.workspaces.some(
+      (workspace) => workspace.id === "wks_demo_sales",
+    ),
+    "demo workspace fixture is missing",
   );
   assert(
-    demoSeedData.workspaces.some((workspace) => workspace.id === 'wks_demo_other'),
-    'other workspace fixture is missing'
+    demoSeedData.workspaces.some(
+      (workspace) => workspace.id === "wks_demo_other",
+    ),
+    "other workspace fixture is missing",
   );
   assert(
     demoSeedData.workspaceMemberships.some(
-      (membership) => membership.role === 'owner'
+      (membership) => membership.role === "owner",
     ) &&
       demoSeedData.workspaceMemberships.some(
-        (membership) => membership.role === 'agent'
+        (membership) => membership.role === "agent",
       ) &&
       demoSeedData.workspaceMemberships.some(
-        (membership) => membership.role === 'viewer'
+        (membership) => membership.role === "viewer",
       ),
-    'owner/agent/viewer fixtures are required'
+    "owner/agent/viewer fixtures are required",
   );
 
   for (const email of allEmails) {
-    assert(email.endsWith('.test'), `fixture email must use .test domain: ${email}`);
+    assert(
+      email.endsWith(".test"),
+      `fixture email must use .test domain: ${email}`,
+    );
   }
 
   for (const contact of allCustomerContacts) {
     assert(
-      contact.endsWith('.test') || /^\+62000000000\d+$/.test(contact),
-      `fixture contact identifier must be clearly fake: ${contact}`
+      contact.endsWith(".test") || /^\+62000000000\d+$/.test(contact),
+      `fixture contact identifier must be clearly fake: ${contact}`,
     );
   }
 
   for (const customer of demoSeedData.customers) {
     assert(
-      customerSources.includes(customer.source as (typeof customerSources)[number]),
-      `customer source is invalid for ${customer.id}`
+      customerSources.includes(
+        customer.source as (typeof customerSources)[number],
+      ),
+      `customer source is invalid for ${customer.id}`,
     );
   }
 
   for (const event of demoSeedData.activityEvents) {
     assert(
       activityEventTypes.includes(
-        event.eventType as (typeof activityEventTypes)[number]
+        event.eventType as (typeof activityEventTypes)[number],
       ),
-      `activity event type is invalid for ${event.id}`
+      `activity event type is invalid for ${event.id}`,
     );
   }
 }

@@ -1,29 +1,29 @@
-import { drizzle, type NodePgDatabase } from 'drizzle-orm/node-postgres';
-import { Pool } from 'pg';
-import type { Env } from '../config/env';
-import { dbSchema } from './schema';
+import { drizzle, type NodePgDatabase } from "drizzle-orm/node-postgres";
+import { Pool } from "pg";
+import type { Env } from "../config/env";
+import { dbSchema } from "./schema";
 
 export type Database = NodePgDatabase<typeof dbSchema>;
 
-export function getDatabaseUrl(env: Pick<Env, 'DATABASE_URL'>): string {
+export function getDatabaseUrl(env: Pick<Env, "DATABASE_URL">): string {
   if (!env.DATABASE_URL) {
     throw new Error(
-      'Invalid environment configuration: DATABASE_URL is required for database commands.'
+      "Invalid environment configuration: DATABASE_URL is required for database commands.",
     );
   }
 
   return env.DATABASE_URL;
 }
 
-export function createDatabasePool(env: Pick<Env, 'DATABASE_URL'>): Pool {
+export function createDatabasePool(env: Pick<Env, "DATABASE_URL">): Pool {
   return new Pool({
     connectionString: getDatabaseUrl(env),
     max: 10,
-    idleTimeoutMillis: 30_000
+    idleTimeoutMillis: 30_000,
   });
 }
 
-export function createDatabase(env: Pick<Env, 'DATABASE_URL'>): {
+export function createDatabase(env: Pick<Env, "DATABASE_URL">): {
   db: Database;
   pool: Pool;
 } {
@@ -31,8 +31,8 @@ export function createDatabase(env: Pick<Env, 'DATABASE_URL'>): {
 
   return {
     db: drizzle(pool, {
-      schema: dbSchema
+      schema: dbSchema,
     }),
-    pool
+    pool,
   };
 }

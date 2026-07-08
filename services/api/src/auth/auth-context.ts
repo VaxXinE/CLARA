@@ -1,10 +1,10 @@
-import type { FastifyRequest } from 'fastify';
-import { AuthenticationError } from '../errors/app-error';
+import type { FastifyRequest } from "fastify";
+import { AuthenticationError } from "../errors/app-error";
 import {
   type Permission,
   type Role,
-  getPermissionsForRole
-} from './permissions';
+  getPermissionsForRole,
+} from "./permissions";
 
 export type AuthContext = {
   userId: string;
@@ -12,7 +12,7 @@ export type AuthContext = {
   workspaceId: string;
   role: Role;
   permissions: Permission[];
-  authMethod: 'mock';
+  authMethod: "mock";
 };
 
 export type AuthenticatedRequest = FastifyRequest & {
@@ -24,7 +24,7 @@ export function buildAuthContext(input: {
   organizationId: string;
   workspaceId: string;
   role: Role;
-  authMethod?: AuthContext['authMethod'];
+  authMethod?: AuthContext["authMethod"];
 }): AuthContext {
   return {
     userId: input.userId,
@@ -32,13 +32,13 @@ export function buildAuthContext(input: {
     workspaceId: input.workspaceId,
     role: input.role,
     permissions: getPermissionsForRole(input.role),
-    authMethod: input.authMethod ?? 'mock'
+    authMethod: input.authMethod ?? "mock",
   };
 }
 
 export function setAuthContext(
   request: FastifyRequest,
-  context: AuthContext
+  context: AuthContext,
 ): asserts request is AuthenticatedRequest {
   (request as AuthenticatedRequest).auth = context;
 }

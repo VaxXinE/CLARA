@@ -1,12 +1,15 @@
-import { assertPermission } from '../auth/permissions';
-import { buildPermissionHints, type PermissionHints } from '../auth/permission-hints';
-import type { AuthContext } from '../auth/auth-context';
-import { NotFoundError } from '../errors/app-error';
-import { getWorkspaceScopeFromAuth } from '../workspace/workspace-scope';
+import { assertPermission } from "../auth/permissions";
+import {
+  buildPermissionHints,
+  type PermissionHints,
+} from "../auth/permission-hints";
+import type { AuthContext } from "../auth/auth-context";
+import { NotFoundError } from "../errors/app-error";
+import { getWorkspaceScopeFromAuth } from "../workspace/workspace-scope";
 import type {
   CustomerProfileRecord,
-  CustomerRepository
-} from './customer-repository';
+  CustomerRepository,
+} from "./customer-repository";
 
 export type CustomerProfileDto = {
   id: string;
@@ -25,7 +28,9 @@ export type CustomerProfileResult = {
   permissions: PermissionHints;
 };
 
-function toCustomerProfileDto(record: CustomerProfileRecord): CustomerProfileDto {
+function toCustomerProfileDto(
+  record: CustomerProfileRecord,
+): CustomerProfileDto {
   return {
     id: record.id,
     display_name: record.displayName,
@@ -35,7 +40,7 @@ function toCustomerProfileDto(record: CustomerProfileRecord): CustomerProfileDto
     notes_summary: record.notesSummary,
     last_interaction_at: record.lastInteractionAt?.toISOString() ?? null,
     created_at: record.createdAt.toISOString(),
-    updated_at: record.updatedAt.toISOString()
+    updated_at: record.updatedAt.toISOString(),
   };
 }
 
@@ -46,20 +51,20 @@ export class CustomerQueryService {
     auth: AuthContext;
     customerId: string;
   }): Promise<CustomerProfileResult> {
-    assertPermission(input.auth.role, 'customer:read');
+    assertPermission(input.auth.role, "customer:read");
 
     const record = await this.repository.findByIdScoped(
       getWorkspaceScopeFromAuth(input.auth),
-      input.customerId
+      input.customerId,
     );
 
     if (!record) {
-      throw new NotFoundError('Customer not found.');
+      throw new NotFoundError("Customer not found.");
     }
 
     return {
       customer: toCustomerProfileDto(record),
-      permissions: buildPermissionHints(input.auth.role)
+      permissions: buildPermissionHints(input.auth.role),
     };
   }
 }

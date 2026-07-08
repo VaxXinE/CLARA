@@ -1,6 +1,6 @@
-import { createDatabase } from '../client';
-import { loadEnv } from '../../config/env';
-import { demoSeedData } from '../fixtures/demo-data';
+import { createDatabase } from "../client";
+import { loadEnv } from "../../config/env";
+import { demoSeedData } from "../fixtures/demo-data";
 import {
   activityEvents,
   aiDraftEvents,
@@ -11,8 +11,8 @@ import {
   replyDrafts,
   users,
   workspaceMemberships,
-  workspaces
-} from '../schema';
+  workspaces,
+} from "../schema";
 
 async function run(): Promise<void> {
   const env = loadEnv();

@@ -1,25 +1,25 @@
-import { describe, expect, it } from 'vitest';
-import { demoSeedData } from '../src/db/fixtures/demo-data';
+import { describe, expect, it } from "vitest";
+import { demoSeedData } from "../src/db/fixtures/demo-data";
 
-describe('database demo fixtures', () => {
-  it('includes demo and isolation workspaces', () => {
-    expect(demoSeedData.organizations.map((organization) => organization.id)).toEqual(
-      expect.arrayContaining(['org_demo', 'org_demo_other'])
-    );
-    expect(demoSeedData.workspaces.map((workspace) => workspace.id)).toEqual(
-      expect.arrayContaining(['wks_demo_sales', 'wks_demo_other'])
-    );
-  });
-
-  it('includes owner, agent, and viewer memberships', () => {
+describe("database demo fixtures", () => {
+  it("includes demo and isolation workspaces", () => {
     expect(
-      demoSeedData.workspaceMemberships.map((membership) => membership.role)
-    ).toEqual(expect.arrayContaining(['owner', 'agent', 'viewer']));
+      demoSeedData.organizations.map((organization) => organization.id),
+    ).toEqual(expect.arrayContaining(["org_demo", "org_demo_other"]));
+    expect(demoSeedData.workspaces.map((workspace) => workspace.id)).toEqual(
+      expect.arrayContaining(["wks_demo_sales", "wks_demo_other"]),
+    );
   });
 
-  it('uses safe fake email and contact domains only', () => {
+  it("includes owner, agent, and viewer memberships", () => {
+    expect(
+      demoSeedData.workspaceMemberships.map((membership) => membership.role),
+    ).toEqual(expect.arrayContaining(["owner", "agent", "viewer"]));
+  });
+
+  it("uses safe fake email and contact domains only", () => {
     for (const user of demoSeedData.users) {
-      expect(user.email.endsWith('.test')).toBe(true);
+      expect(user.email.endsWith(".test")).toBe(true);
     }
 
     for (const customer of demoSeedData.customers) {
@@ -28,17 +28,17 @@ describe('database demo fixtures', () => {
       }
 
       expect(
-        customer.contactIdentifier.endsWith('.test') ||
-          /^\+62000000000\d+$/.test(customer.contactIdentifier)
+        customer.contactIdentifier.endsWith(".test") ||
+          /^\+62000000000\d+$/.test(customer.contactIdentifier),
       ).toBe(true);
     }
   });
 
-  it('includes another workspace conversation for tenant isolation tests', () => {
+  it("includes another workspace conversation for tenant isolation tests", () => {
     const conversationIds = demoSeedData.conversations.map(
-      (conversation) => conversation.id
+      (conversation) => conversation.id,
     );
 
-    expect(conversationIds).toContain('conv_other_workspace_secret');
+    expect(conversationIds).toContain("conv_other_workspace_secret");
   });
 });

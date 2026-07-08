@@ -1,15 +1,15 @@
-import type { Env } from '../config/env';
-import { createDatabase } from '../db/client';
+import type { Env } from "../config/env";
+import { createDatabase } from "../db/client";
 import {
   DrizzleConversationRepository,
-  FixtureConversationRepository
-} from '../conversations/conversation-repository';
-import { ConversationQueryService } from '../conversations/conversation-service';
+  FixtureConversationRepository,
+} from "../conversations/conversation-repository";
+import { ConversationQueryService } from "../conversations/conversation-service";
 import {
   DrizzleCustomerRepository,
-  FixtureCustomerRepository
-} from '../customers/customer-repository';
-import { CustomerQueryService } from '../customers/customer-service';
+  FixtureCustomerRepository,
+} from "../customers/customer-repository";
+import { CustomerQueryService } from "../customers/customer-service";
 
 export type AppServices = {
   conversations: ConversationQueryService;
@@ -28,28 +28,28 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
     return {
       services: {
         conversations: new ConversationQueryService(
-          new DrizzleConversationRepository(db)
+          new DrizzleConversationRepository(db),
         ),
-        customers: new CustomerQueryService(new DrizzleCustomerRepository(db))
+        customers: new CustomerQueryService(new DrizzleCustomerRepository(db)),
       },
       close: async () => {
         await pool.end();
-      }
+      },
     };
   }
 
-  if (env.NODE_ENV === 'production') {
+  if (env.NODE_ENV === "production") {
     throw new Error(
-      'DATABASE_URL is required in production for conversation and customer APIs.'
+      "DATABASE_URL is required in production for conversation and customer APIs.",
     );
   }
 
   return {
     services: {
       conversations: new ConversationQueryService(
-        new FixtureConversationRepository()
+        new FixtureConversationRepository(),
       ),
-      customers: new CustomerQueryService(new FixtureCustomerRepository())
-    }
+      customers: new CustomerQueryService(new FixtureCustomerRepository()),
+    },
   };
 }

@@ -10,7 +10,7 @@ export class AppError extends Error {
     details?: unknown;
   }) {
     super(options.message);
-    this.name = 'AppError';
+    this.name = "AppError";
     this.statusCode = options.statusCode;
     this.appCode = options.appCode;
     this.details = options.details;
@@ -18,46 +18,46 @@ export class AppError extends Error {
 }
 
 export class AuthenticationError extends AppError {
-  constructor(message = 'Authentication is required.') {
+  constructor(message = "Authentication is required.") {
     super({
       statusCode: 401,
-      appCode: 'UNAUTHENTICATED',
-      message
+      appCode: "UNAUTHENTICATED",
+      message,
     });
-    this.name = 'AuthenticationError';
+    this.name = "AuthenticationError";
   }
 }
 
 export class AuthorizationError extends AppError {
-  constructor(message = 'You do not have permission to perform this action.') {
+  constructor(message = "You do not have permission to perform this action.") {
     super({
       statusCode: 403,
-      appCode: 'FORBIDDEN',
-      message
+      appCode: "FORBIDDEN",
+      message,
     });
-    this.name = 'AuthorizationError';
+    this.name = "AuthorizationError";
   }
 }
 
 export class ValidationError extends AppError {
-  constructor(message = 'Invalid request.', details?: unknown) {
+  constructor(message = "Invalid request.", details?: unknown) {
     super({
       statusCode: 400,
-      appCode: 'VALIDATION_ERROR',
+      appCode: "VALIDATION_ERROR",
       message,
-      details
+      details,
     });
-    this.name = 'ValidationError';
+    this.name = "ValidationError";
   }
 }
 
 export class NotFoundError extends AppError {
-  constructor(message = 'Resource not found.') {
+  constructor(message = "Resource not found.") {
     super({
       statusCode: 404,
-      appCode: 'NOT_FOUND',
-      message
+      appCode: "NOT_FOUND",
+      message,
     });
-    this.name = 'NotFoundError';
+    this.name = "NotFoundError";
   }
 }

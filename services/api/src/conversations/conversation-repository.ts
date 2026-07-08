@@ -7,17 +7,17 @@ import {
   or,
   sql,
   asc,
-  type SQL
-} from 'drizzle-orm';
-import type { Database } from '../db/client';
+  type SQL,
+} from "drizzle-orm";
+import type { Database } from "../db/client";
 import {
   demoConversations,
   demoCustomers,
   demoMessages,
-  demoUsers
-} from '../db/fixtures/demo-data';
-import { conversations, customers, messages, users } from '../db/schema';
-import type { WorkspaceScope } from '../workspace/workspace-scope';
+  demoUsers,
+} from "../db/fixtures/demo-data";
+import { conversations, customers, messages, users } from "../db/schema";
+import type { WorkspaceScope } from "../workspace/workspace-scope";
 
 export type ConversationListFilters = {
   status?: string;
@@ -87,11 +87,11 @@ export type PaginatedConversationList = {
 export interface ConversationRepository {
   listScoped(
     scope: WorkspaceScope,
-    filters: ConversationListFilters
+    filters: ConversationListFilters,
   ): Promise<PaginatedConversationList>;
   findByIdScoped(
     scope: WorkspaceScope,
-    conversationId: string
+    conversationId: string,
   ): Promise<ConversationDetailRecord | null>;
 }
 
@@ -117,7 +117,7 @@ function toConversationCursor(record: {
 }): ConversationCursor {
   return {
     sortTimestamp: getSortTimestamp(record).toISOString(),
-    conversationId: record.id
+    conversationId: record.id,
   };
 }
 
@@ -127,7 +127,7 @@ function compareCursor(
     lastMessageAt: Date | null;
     createdAt: Date;
   },
-  cursor: ConversationCursor
+  cursor: ConversationCursor,
 ): boolean {
   const itemTimestamp = getSortTimestamp(item).toISOString();
 
@@ -135,14 +135,18 @@ function compareCursor(
     return true;
   }
 
-  return itemTimestamp === cursor.sortTimestamp && item.id < cursor.conversationId;
+  return (
+    itemTimestamp === cursor.sortTimestamp && item.id < cursor.conversationId
+  );
 }
 
-function sortConversationItems<T extends {
-  id: string;
-  lastMessageAt: Date | null;
-  createdAt: Date;
-}>(items: T[]): T[] {
+function sortConversationItems<
+  T extends {
+    id: string;
+    lastMessageAt: Date | null;
+    createdAt: Date;
+  },
+>(items: T[]): T[] {
   return [...items].sort((left, right) => {
     const leftTimestamp = getSortTimestamp(left).getTime();
     const rightTimestamp = getSortTimestamp(right).getTime();
@@ -157,14 +161,14 @@ function sortConversationItems<T extends {
 
 function buildMessageSnippet(
   conversationId: string,
-  scope: WorkspaceScope
+  scope: WorkspaceScope,
 ): string | null {
   const latestMessage = [...demoMessages]
     .filter(
       (message) =>
         message.organizationId === scope.organizationId &&
         message.workspaceId === scope.workspaceId &&
-        message.conversationId === conversationId
+        message.conversationId === conversationId,
     )
     .sort((left, right) => {
       const sentDelta = right.sentAt.getTime() - left.sentAt.getTime();
@@ -182,24 +186,28 @@ function buildMessageSnippet(
 export class FixtureConversationRepository implements ConversationRepository {
   async listScoped(
     scope: WorkspaceScope,
-    filters: ConversationListFilters
+    filters: ConversationListFilters,
   ): Promise<PaginatedConversationList> {
     const assignedUsersById = new Map(
-      demoUsers.map((user) => [user.id, user.displayName])
+      demoUsers.map((user) => [user.id, user.displayName]),
     );
-    const customersById = new Map(demoCustomers.map((customer) => [customer.id, customer]));
+    const customersById = new Map(
+      demoCustomers.map((customer) => [customer.id, customer]),
+    );
 
     let items = demoConversations
       .filter(
         (conversation) =>
           conversation.organizationId === scope.organizationId &&
-          conversation.workspaceId === scope.workspaceId
+          conversation.workspaceId === scope.workspaceId,
       )
       .filter((conversation) =>
-        filters.status ? conversation.status === filters.status : true
+        filters.status ? conversation.status === filters.status : true,
       )
       .filter((conversation) =>
-        filters.assignedTo ? conversation.assignedUserId === filters.assignedTo : true
+        filters.assignedTo
+          ? conversation.assignedUserId === filters.assignedTo
+          : true,
       )
       .filter((conversation) => {
         if (!filters.search) {
@@ -211,10 +219,10 @@ export class FixtureConversationRepository implements ConversationRepository {
 
         return Boolean(
           customer &&
-            (customer.displayName.toLowerCase().includes(searchValue) ||
-              (customer.contactIdentifier ?? '')
-                .toLowerCase()
-                .includes(searchValue))
+          (customer.displayName.toLowerCase().includes(searchValue) ||
+            (customer.contactIdentifier ?? "")
+              .toLowerCase()
+              .includes(searchValue)),
         );
       })
       .map((conversation) => {
@@ -224,34 +232,40 @@ export class FixtureConversationRepository implements ConversationRepository {
           return null;
         }
 
-          return {
-            id: conversation.id,
-            source: conversation.source,
-            status: conversation.status,
-            snippet: buildMessageSnippet(conversation.id, scope),
-            lastMessageAt: conversation.lastMessageAt ?? null,
-            createdAt: requireDate(conversation.createdAt, 'conversation.createdAt'),
-            updatedAt: requireDate(conversation.updatedAt, 'conversation.updatedAt'),
+        return {
+          id: conversation.id,
+          source: conversation.source,
+          status: conversation.status,
+          snippet: buildMessageSnippet(conversation.id, scope),
+          lastMessageAt: conversation.lastMessageAt ?? null,
+          createdAt: requireDate(
+            conversation.createdAt,
+            "conversation.createdAt",
+          ),
+          updatedAt: requireDate(
+            conversation.updatedAt,
+            "conversation.updatedAt",
+          ),
           customer: {
             id: customer.id,
             displayName: customer.displayName,
             source: customer.source,
-            status: customer.status
+            status: customer.status,
           },
           assignedUser: conversation.assignedUserId
             ? {
                 id: conversation.assignedUserId,
                 displayName:
                   assignedUsersById.get(conversation.assignedUserId) ??
-                  conversation.assignedUserId
+                  conversation.assignedUserId,
               }
-            : null
+            : null,
         };
       })
       .filter((item): item is ConversationListItemRecord => item !== null);
 
     items = sortConversationItems(items).filter((item) =>
-      filters.cursor ? compareCursor(item, filters.cursor) : true
+      filters.cursor ? compareCursor(item, filters.cursor) : true,
     );
 
     const page = items.slice(0, filters.limit + 1);
@@ -260,20 +274,22 @@ export class FixtureConversationRepository implements ConversationRepository {
 
     return {
       items: pagedItems,
-      nextCursor: hasNextPage ? toConversationCursor(pagedItems[pagedItems.length - 1]!) : null
+      nextCursor: hasNextPage
+        ? toConversationCursor(pagedItems[pagedItems.length - 1]!)
+        : null,
     };
   }
 
   async findByIdScoped(
     scope: WorkspaceScope,
-    conversationId: string
+    conversationId: string,
   ): Promise<ConversationDetailRecord | null> {
     const conversation =
       demoConversations.find(
         (item) =>
           item.id === conversationId &&
           item.organizationId === scope.organizationId &&
-          item.workspaceId === scope.workspaceId
+          item.workspaceId === scope.workspaceId,
       ) ?? null;
 
     if (!conversation) {
@@ -284,7 +300,7 @@ export class FixtureConversationRepository implements ConversationRepository {
       (item) =>
         item.id === conversation.customerId &&
         item.organizationId === scope.organizationId &&
-        item.workspaceId === scope.workspaceId
+        item.workspaceId === scope.workspaceId,
     );
 
     if (!customer) {
@@ -292,7 +308,8 @@ export class FixtureConversationRepository implements ConversationRepository {
     }
 
     const assignedUser = conversation.assignedUserId
-      ? demoUsers.find((user) => user.id === conversation.assignedUserId) ?? null
+      ? (demoUsers.find((user) => user.id === conversation.assignedUserId) ??
+        null)
       : null;
 
     const scopedMessages = demoMessages
@@ -300,7 +317,7 @@ export class FixtureConversationRepository implements ConversationRepository {
         (message) =>
           message.organizationId === scope.organizationId &&
           message.workspaceId === scope.workspaceId &&
-          message.conversationId === conversation.id
+          message.conversationId === conversation.id,
       )
       .sort((left, right) => {
         const sentDelta = left.sentAt.getTime() - right.sentAt.getTime();
@@ -319,7 +336,7 @@ export class FixtureConversationRepository implements ConversationRepository {
         body: message.body,
         sentAt: message.sentAt,
         deliveryStatus: message.deliveryStatus,
-        createdAt: requireDate(message.createdAt, 'message.createdAt')
+        createdAt: requireDate(message.createdAt, "message.createdAt"),
       }));
 
     return {
@@ -327,21 +344,21 @@ export class FixtureConversationRepository implements ConversationRepository {
       source: conversation.source,
       status: conversation.status,
       lastMessageAt: conversation.lastMessageAt ?? null,
-      createdAt: requireDate(conversation.createdAt, 'conversation.createdAt'),
-      updatedAt: requireDate(conversation.updatedAt, 'conversation.updatedAt'),
+      createdAt: requireDate(conversation.createdAt, "conversation.createdAt"),
+      updatedAt: requireDate(conversation.updatedAt, "conversation.updatedAt"),
       customer: {
         id: customer.id,
         displayName: customer.displayName,
         source: customer.source,
-        status: customer.status
+        status: customer.status,
       },
       assignedUser: assignedUser
         ? {
             id: assignedUser.id,
-            displayName: assignedUser.displayName
+            displayName: assignedUser.displayName,
           }
         : null,
-      messages: scopedMessages
+      messages: scopedMessages,
     };
   }
 }
@@ -351,14 +368,14 @@ export class DrizzleConversationRepository implements ConversationRepository {
 
   async listScoped(
     scope: WorkspaceScope,
-    filters: ConversationListFilters
+    filters: ConversationListFilters,
   ): Promise<PaginatedConversationList> {
     const sortTimestamp = sql<Date>`coalesce(${conversations.lastMessageAt}, ${conversations.createdAt})`;
     const conditions: SQL[] = [
       eq(conversations.organizationId, scope.organizationId),
       eq(conversations.workspaceId, scope.workspaceId),
       eq(customers.organizationId, scope.organizationId),
-      eq(customers.workspaceId, scope.workspaceId)
+      eq(customers.workspaceId, scope.workspaceId),
     ];
 
     if (filters.status) {
@@ -374,8 +391,8 @@ export class DrizzleConversationRepository implements ConversationRepository {
       conditions.push(
         or(
           ilike(customers.displayName, pattern),
-          ilike(customers.contactIdentifier, pattern)
-        )!
+          ilike(customers.contactIdentifier, pattern),
+        )!,
       );
     }
 
@@ -387,7 +404,7 @@ export class DrizzleConversationRepository implements ConversationRepository {
             ${sortTimestamp} = ${new Date(filters.cursor.sortTimestamp)}
             and ${conversations.id} < ${filters.cursor.conversationId}
           )
-        )`
+        )`,
       );
     }
 
@@ -404,7 +421,7 @@ export class DrizzleConversationRepository implements ConversationRepository {
         customerSource: customers.source,
         customerStatus: customers.status,
         assignedUserId: users.id,
-        assignedUserDisplayName: users.displayName
+        assignedUserDisplayName: users.displayName,
       })
       .from(conversations)
       .innerJoin(customers, eq(conversations.customerId, customers.id))
@@ -422,15 +439,15 @@ export class DrizzleConversationRepository implements ConversationRepository {
           conversationId: messages.conversationId,
           body: messages.body,
           sentAt: messages.sentAt,
-          id: messages.id
+          id: messages.id,
         })
         .from(messages)
         .where(
           and(
             eq(messages.organizationId, scope.organizationId),
             eq(messages.workspaceId, scope.workspaceId),
-            inArray(messages.conversationId, conversationIds)
-          )
+            inArray(messages.conversationId, conversationIds),
+          ),
         )
         .orderBy(desc(messages.sentAt), desc(messages.id));
 
@@ -453,14 +470,14 @@ export class DrizzleConversationRepository implements ConversationRepository {
         id: row.customerId,
         displayName: row.customerDisplayName,
         source: row.customerSource,
-        status: row.customerStatus
+        status: row.customerStatus,
       },
       assignedUser: row.assignedUserId
         ? {
             id: row.assignedUserId,
-            displayName: row.assignedUserDisplayName ?? row.assignedUserId
+            displayName: row.assignedUserDisplayName ?? row.assignedUserId,
           }
-        : null
+        : null,
     }));
 
     const hasNextPage = items.length > filters.limit;
@@ -468,13 +485,15 @@ export class DrizzleConversationRepository implements ConversationRepository {
 
     return {
       items: pagedItems,
-      nextCursor: hasNextPage ? toConversationCursor(pagedItems[pagedItems.length - 1]!) : null
+      nextCursor: hasNextPage
+        ? toConversationCursor(pagedItems[pagedItems.length - 1]!)
+        : null,
     };
   }
 
   async findByIdScoped(
     scope: WorkspaceScope,
-    conversationId: string
+    conversationId: string,
   ): Promise<ConversationDetailRecord | null> {
     const conversationRow = await this.db
       .select({
@@ -489,7 +508,7 @@ export class DrizzleConversationRepository implements ConversationRepository {
         customerSource: customers.source,
         customerStatus: customers.status,
         assignedUserId: users.id,
-        assignedUserDisplayName: users.displayName
+        assignedUserDisplayName: users.displayName,
       })
       .from(conversations)
       .innerJoin(customers, eq(conversations.customerId, customers.id))
@@ -500,8 +519,8 @@ export class DrizzleConversationRepository implements ConversationRepository {
           eq(conversations.organizationId, scope.organizationId),
           eq(conversations.workspaceId, scope.workspaceId),
           eq(customers.organizationId, scope.organizationId),
-          eq(customers.workspaceId, scope.workspaceId)
-        )
+          eq(customers.workspaceId, scope.workspaceId),
+        ),
       )
       .limit(1);
 
@@ -520,15 +539,15 @@ export class DrizzleConversationRepository implements ConversationRepository {
         body: messages.body,
         sentAt: messages.sentAt,
         deliveryStatus: messages.deliveryStatus,
-        createdAt: messages.createdAt
+        createdAt: messages.createdAt,
       })
       .from(messages)
       .where(
         and(
           eq(messages.conversationId, row.id),
           eq(messages.organizationId, scope.organizationId),
-          eq(messages.workspaceId, scope.workspaceId)
-        )
+          eq(messages.workspaceId, scope.workspaceId),
+        ),
       )
       .orderBy(asc(messages.sentAt), asc(messages.id));
 
@@ -543,12 +562,12 @@ export class DrizzleConversationRepository implements ConversationRepository {
         id: row.customerId,
         displayName: row.customerDisplayName,
         source: row.customerSource,
-        status: row.customerStatus
+        status: row.customerStatus,
       },
       assignedUser: row.assignedUserId
         ? {
             id: row.assignedUserId,
-            displayName: row.assignedUserDisplayName ?? row.assignedUserId
+            displayName: row.assignedUserDisplayName ?? row.assignedUserId,
           }
         : null,
       messages: messageRows.map((message) => ({
@@ -559,8 +578,8 @@ export class DrizzleConversationRepository implements ConversationRepository {
         body: message.body,
         sentAt: message.sentAt,
         deliveryStatus: message.deliveryStatus,
-        createdAt: message.createdAt
-      }))
+        createdAt: message.createdAt,
+      })),
     };
   }
 }

@@ -2,11 +2,11 @@ import type {
   FastifyError,
   FastifyInstance,
   FastifyReply,
-  FastifyRequest
-} from 'fastify';
-import type { Env } from '../config/env';
-import { isProduction } from '../config/env';
-import { AppError } from './app-error';
+  FastifyRequest,
+} from "fastify";
+import type { Env } from "../config/env";
+import { isProduction } from "../config/env";
+import { AppError } from "./app-error";
 
 type ErrorPayload = {
   error: {
@@ -22,11 +22,11 @@ function getStatusCode(error: FastifyError): number {
     return error.statusCode;
   }
 
-  if (typeof error.statusCode === 'number') {
+  if (typeof error.statusCode === "number") {
     return error.statusCode;
   }
 
-  if (typeof error.validation === 'object' && error.validation !== null) {
+  if (typeof error.validation === "object" && error.validation !== null) {
     return 400;
   }
 
@@ -35,26 +35,26 @@ function getStatusCode(error: FastifyError): number {
 
 function getErrorCode(statusCode: number): string {
   if (statusCode === 400) {
-    return 'BAD_REQUEST';
+    return "BAD_REQUEST";
   }
 
   if (statusCode === 401) {
-    return 'UNAUTHENTICATED';
+    return "UNAUTHENTICATED";
   }
 
   if (statusCode === 403) {
-    return 'FORBIDDEN';
+    return "FORBIDDEN";
   }
 
   if (statusCode === 404) {
-    return 'NOT_FOUND';
+    return "NOT_FOUND";
   }
 
   if (statusCode === 429) {
-    return 'RATE_LIMITED';
+    return "RATE_LIMITED";
   }
 
-  return 'INTERNAL_SERVER_ERROR';
+  return "INTERNAL_SERVER_ERROR";
 }
 
 function getErrorDetails(error: FastifyError, statusCode: number, env: Env) {
@@ -72,25 +72,25 @@ function getErrorDetails(error: FastifyError, statusCode: number, env: Env) {
 function getSafeMessage(
   error: FastifyError,
   statusCode: number,
-  env: Env
+  env: Env,
 ): string {
   if (statusCode >= 500) {
     return isProduction(env)
-      ? 'Unexpected server error.'
-      : error.message || 'Unexpected server error.';
+      ? "Unexpected server error."
+      : error.message || "Unexpected server error.";
   }
 
-  return error.message || 'Request failed.';
+  return error.message || "Request failed.";
 }
 
 export function registerErrorHandlers(app: FastifyInstance, env: Env): void {
   app.setNotFoundHandler(async (request, reply) => {
     const payload: ErrorPayload = {
       error: {
-        code: 'NOT_FOUND',
-        message: 'Route not found.',
-        correlation_id: request.id
-      }
+        code: "NOT_FOUND",
+        message: "Route not found.",
+        correlation_id: request.id,
+      },
     };
 
     await reply.status(404).send(payload);
@@ -100,16 +100,18 @@ export function registerErrorHandlers(app: FastifyInstance, env: Env): void {
     async (
       error: FastifyError,
       request: FastifyRequest,
-      reply: FastifyReply
+      reply: FastifyReply,
     ) => {
       const statusCode = getStatusCode(error);
       const payload: ErrorPayload = {
         error: {
           code:
-            error instanceof AppError ? error.appCode : getErrorCode(statusCode),
+            error instanceof AppError
+              ? error.appCode
+              : getErrorCode(statusCode),
           message: getSafeMessage(error, statusCode, env),
-          correlation_id: request.id
-        }
+          correlation_id: request.id,
+        },
       };
 
       const details = getErrorDetails(error, statusCode, env);
@@ -119,12 +121,12 @@ export function registerErrorHandlers(app: FastifyInstance, env: Env): void {
       }
 
       if (statusCode >= 500) {
-        request.log.error({ err: error }, 'Unhandled API error');
+        request.log.error({ err: error }, "Unhandled API error");
       } else {
-        request.log.warn({ err: error }, 'Handled API error');
+        request.log.warn({ err: error }, "Handled API error");
       }
 
       await reply.status(statusCode).send(payload);
-    }
+    },
   );
 }
