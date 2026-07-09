@@ -78,6 +78,63 @@ export type Env = Omit<
   BETTER_AUTH_BASE_URL?: string;
 };
 
+function parseCorsOrigins(value: string): string[] {
+  return value
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter((origin) => origin.length > 0);
+}
+
+function isSafeProductionLogLevel(value: Env["LOG_LEVEL"]): boolean {
+  return !["debug", "trace", "silent"].includes(value);
+}
+
+function validateProductionEnv(env: Env): void {
+  if (env.MOCK_AUTH_ENABLED) {
+    throw new Error(
+      "Invalid environment configuration: mock auth must be disabled in production.",
+    );
+  }
+
+  if (env.AUTH_MODE === "mock") {
+    throw new Error(
+      "Invalid environment configuration: AUTH_MODE=mock is not allowed in production.",
+    );
+  }
+
+  if (!env.DATABASE_URL) {
+    throw new Error(
+      "Invalid environment configuration: DATABASE_URL is required in production.",
+    );
+  }
+
+  const corsOrigins = parseCorsOrigins(env.CORS_ORIGIN);
+
+  if (corsOrigins.length === 0) {
+    throw new Error(
+      "Invalid environment configuration: CORS_ORIGIN must be set to at least one explicit origin in production.",
+    );
+  }
+
+  if (corsOrigins.includes("*")) {
+    throw new Error(
+      "Invalid environment configuration: CORS_ORIGIN=* is not allowed in production.",
+    );
+  }
+
+  if (!env.RATE_LIMIT_ENABLED) {
+    throw new Error(
+      "Invalid environment configuration: RATE_LIMIT_ENABLED must remain true in production.",
+    );
+  }
+
+  if (!isSafeProductionLogLevel(env.LOG_LEVEL)) {
+    throw new Error(
+      "Invalid environment configuration: LOG_LEVEL must be one of fatal, error, warn, or info in production.",
+    );
+  }
+}
+
 export function loadEnv(input: NodeJS.ProcessEnv = process.env): Env {
   const parsed = envSchema.safeParse(input);
 
@@ -145,16 +202,8 @@ export function loadEnv(input: NodeJS.ProcessEnv = process.env): Env {
     env.BETTER_AUTH_BASE_URL = parsed.data.BETTER_AUTH_BASE_URL;
   }
 
-  if (env.NODE_ENV === "production" && env.MOCK_AUTH_ENABLED) {
-    throw new Error(
-      "Invalid environment configuration: mock auth must be disabled in production.",
-    );
-  }
-
-  if (env.NODE_ENV === "production" && env.AUTH_MODE === "mock") {
-    throw new Error(
-      "Invalid environment configuration: AUTH_MODE=mock is not allowed in production.",
-    );
+  if (env.NODE_ENV === "production") {
+    validateProductionEnv(env);
   }
 
   if (env.AUTH_MODE === "mock" && !env.MOCK_AUTH_ENABLED) {

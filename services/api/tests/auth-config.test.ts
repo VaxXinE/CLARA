@@ -86,7 +86,7 @@ describe("auth configuration", () => {
         LOG_LEVEL: "info",
         AUTH_MODE: "mock",
         MOCK_AUTH_ENABLED: "false",
-        CORS_ORIGIN: "",
+        CORS_ORIGIN: "https://dashboard.example.test",
       }),
     ).toThrow("AUTH_MODE=mock is not allowed in production");
   });
@@ -102,7 +102,9 @@ describe("auth configuration", () => {
         AUTH_MODE: "provider",
         AUTH_PROVIDER: "supabase",
         MOCK_AUTH_ENABLED: "false",
-        CORS_ORIGIN: "",
+        DATABASE_URL:
+          "postgresql://clara_user:clara_password_dev_only@127.0.0.1:5432/clara_api_prod_like",
+        CORS_ORIGIN: "https://dashboard.example.test",
       }),
     ).toThrow(
       "SUPABASE_AUTH_JWKS_URL and SUPABASE_AUTH_ISSUER are required when AUTH_PROVIDER=supabase",
@@ -120,7 +122,9 @@ describe("auth configuration", () => {
         AUTH_MODE: "provider",
         AUTH_PROVIDER: "better-auth",
         MOCK_AUTH_ENABLED: "false",
-        CORS_ORIGIN: "",
+        DATABASE_URL:
+          "postgresql://clara_user:clara_password_dev_only@127.0.0.1:5432/clara_api_prod_like",
+        CORS_ORIGIN: "https://dashboard.example.test",
       }),
     ).toThrow(
       "BETTER_AUTH_BASE_URL is required for AUTH_PROVIDER=better-auth in production",
@@ -139,7 +143,9 @@ describe("auth configuration", () => {
       MOCK_AUTH_ENABLED: "false",
       SUPABASE_AUTH_JWKS_URL: "https://example.supabase.test/auth/v1/jwks",
       SUPABASE_AUTH_ISSUER: "https://example.supabase.test/auth/v1",
-      CORS_ORIGIN: "",
+      DATABASE_URL:
+        "postgresql://clara_user:clara_password_dev_only@127.0.0.1:5432/clara_api_prod_like",
+      CORS_ORIGIN: "https://dashboard.example.test",
     });
 
     expect(env.AUTH_MODE).toBe("provider");

@@ -90,6 +90,7 @@ provider failures return safe error envelopes
 AI draft does not auto-send
 reply send requires explicit human action
 runbook, demo script, and validation docs exist
+deployment config baseline now documents fail-fast production env requirements for API and dashboard
 ```
 
 ---
@@ -139,6 +140,7 @@ mock auth cannot be used outside local/demo/test
 simulated send does not prove real delivery guarantees
 mock AI does not prove provider latency, failure rate, cost, or safety behavior
 manual local run flow does not replace deploy/run/rollback operations
+deployment config baseline exists now, but it is still documentation plus startup guardrails rather than a full deployment system
 ```
 
 ---

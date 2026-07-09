@@ -74,6 +74,12 @@ docs/product/CLARA-P2-AUTH-SMOKE-TEST-RUNBOOK.md
 | `VITE_SUPABASE_URL`      | Required in provider mode | none                    | Supabase project URL for browser session handling           |
 | `VITE_SUPABASE_ANON_KEY` | Required in provider mode | none                    | Supabase anon key only. Never use a service role key here.  |
 
+Deployment config runbook:
+
+```text
+docs/product/CLARA-P2-DEPLOYMENT-CONFIG-RUNBOOK.md
+```
+
 ## Demo Roles
 
 The local role switcher maps to backend mock auth headers and demo seed users:
@@ -117,6 +123,8 @@ npm audit --omit=dev --audit-level=high
 - Do not put API keys or secrets in frontend env.
 - Never commit real Supabase URL or anon key.
 - Never use a Supabase service role key in frontend.
+- Production deployments must use `VITE_AUTH_MODE=provider`.
+- `VITE_API_BASE_URL` must point to the intended deployed API environment.
 - Backend authorization remains the source of truth.
 - Mock auth in the dashboard is for local/demo only.
 - Provider auth in the dashboard is a session shell only; backend still decides authorization.

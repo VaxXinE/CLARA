@@ -235,22 +235,20 @@ describe("DrizzleConversationRepository", () => {
 
 describe("app service container repository selection", () => {
   it("blocks fixture fallback in production when DATABASE_URL is missing", () => {
-    const env = loadEnv({
-      NODE_ENV: "production",
-      APP_NAME: "clara-api",
-      HOST: "127.0.0.1",
-      PORT: "3000",
-      LOG_LEVEL: "info",
-      AUTH_MODE: "provider",
-      AUTH_PROVIDER: "supabase",
-      MOCK_AUTH_ENABLED: "false",
-      SUPABASE_AUTH_JWKS_URL: "https://example.supabase.test/auth/v1/jwks",
-      SUPABASE_AUTH_ISSUER: "https://example.supabase.test/auth/v1",
-      CORS_ORIGIN: "",
-    });
-
-    expect(() => createAppServiceContainer(env)).toThrow(
-      "DATABASE_URL is required in production so conversation, customer, activity, and related APIs do not fall back to fixture data.",
-    );
+    expect(() =>
+      loadEnv({
+        NODE_ENV: "production",
+        APP_NAME: "clara-api",
+        HOST: "127.0.0.1",
+        PORT: "3000",
+        LOG_LEVEL: "info",
+        AUTH_MODE: "provider",
+        AUTH_PROVIDER: "supabase",
+        MOCK_AUTH_ENABLED: "false",
+        SUPABASE_AUTH_JWKS_URL: "https://example.supabase.test/auth/v1/jwks",
+        SUPABASE_AUTH_ISSUER: "https://example.supabase.test/auth/v1",
+        CORS_ORIGIN: "https://dashboard.example.test",
+      }),
+    ).toThrow("DATABASE_URL is required in production");
   });
 });

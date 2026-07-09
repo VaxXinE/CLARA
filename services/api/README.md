@@ -97,9 +97,9 @@ npm audit --omit=dev --audit-level=high
 | `SUPABASE_AUTH_JWKS_URL` |    Production + `AUTH_PROVIDER=supabase` | none                                             | Supabase JWKS URL for future provider token verification   |
 | `SUPABASE_AUTH_ISSUER`   |    Production + `AUTH_PROVIDER=supabase` | none                                             | Supabase issuer URL for future provider token verification |
 | `BETTER_AUTH_BASE_URL`   | Production + `AUTH_PROVIDER=better-auth` | none                                             | Better Auth base URL for future provider verification      |
-| `DATABASE_URL`           |             Required for DB scripts only | none                                             | PostgreSQL connection string for migrate/seed/studio       |
+| `DATABASE_URL`           | Required in production and DB scripts     | none                                             | PostgreSQL connection string for runtime, migrate, seed, and studio |
 | `MOCK_AUTH_ENABLED`      |                                       No | `true` outside production, `false` in production | Enables local/dev/test mock auth                           |
-| `CORS_ORIGIN`            |                                       No | empty                                            | Reserved for future CORS setup                             |
+| `CORS_ORIGIN`            | Required in production                    | empty                                            | Explicit allowed frontend origin list; `*` is rejected in production |
 
 ## Auth Modes
 
@@ -145,6 +145,16 @@ MOCK_AUTH_ENABLED=true is blocked in production
 production with AUTH_MODE=provider requires provider selection
 production with AUTH_PROVIDER=supabase requires SUPABASE_AUTH_JWKS_URL and SUPABASE_AUTH_ISSUER
 production with AUTH_PROVIDER=better-auth requires BETTER_AUTH_BASE_URL
+production requires DATABASE_URL
+production requires explicit CORS_ORIGIN and rejects CORS_ORIGIN=*
+production requires RATE_LIMIT_ENABLED=true
+production rejects LOG_LEVEL=debug, trace, or silent
+```
+
+Deployment config runbook:
+
+```text
+docs/product/CLARA-P2-DEPLOYMENT-CONFIG-RUNBOOK.md
 ```
 
 ## Database Setup
@@ -257,6 +267,18 @@ request completion logs include method, path, status_code, duration_ms, and corr
 authenticated requests also include organization_id, workspace_id, actor_user_id, and actor_role
 error logs are structured and safe; they do not log Authorization headers, bearer tokens, cookies, raw JWT payloads, full customer messages, or full AI/reply text
 Fastify default request logging is disabled so CLARA uses one centralized structured request log per request
+```
+
+Production deployment config baseline:
+
+```text
+NODE_ENV=production must run with provider auth only
+DATABASE_URL must come from secret-managed deployment config and is never committed
+CORS_ORIGIN must be an explicit dashboard origin list and must never be *
+LOG_LEVEL should stay info or warn in production
+rate limiting remains enabled in production by config guardrail
+dashboard provider mode must use Supabase URL plus anon key only
+frontend must never contain a Supabase service role key
 ```
 
 Rate limiting and request size baseline:
