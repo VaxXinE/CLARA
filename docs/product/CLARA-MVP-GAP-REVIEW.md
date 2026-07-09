@@ -78,6 +78,7 @@ audit log baseline now records AI draft and reply send events with scoped, metad
 structured request logging baseline now records correlation_id, request metadata, and safe auth scope metadata without logging sensitive payloads
 rate limiting and request body limit baseline now protects general traffic plus stricter AI draft and reply send routes
 centralized production error handling now returns a safe, correlation_id-based error envelope for handled 400/401/403/404/409/413/429/500 paths
+backend email channel normalization skeleton now exists for local/dev/test without real provider connectivity
 workspace-scoped conversation list and conversation detail APIs work
 workspace-scoped customer detail API works
 workspace-scoped activity timeline API works
@@ -109,6 +110,7 @@ AI draft generation uses a mock provider only
 reply send uses a simulated provider only
 demo identities and seed conversations are fake
 channel delivery is not connected to real WhatsApp/Instagram/TikTok/email providers
+email channel support is only a simulated inbound normalization skeleton
 local PostgreSQL credentials are safe placeholders only
 ```
 
@@ -213,6 +215,7 @@ Current backend gaps:
 no production auth provider integration
 no real provider abstraction execution path beyond mock/simulated implementations
 no inbound message ingestion pipeline
+no real inbound email provider integration yet
 no webhook endpoints for delivery updates or incoming channel events
 no queue/background worker model for asynchronous provider tasks
 no production-grade rate limiting or quota enforcement

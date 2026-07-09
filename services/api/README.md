@@ -99,6 +99,7 @@ docker compose -f docker-compose.prod.example.yml config
 | `AI_DRAFT_RATE_LIMIT_MAX`|                                       No | `20`                                             | Stricter per-identity cap for `POST /ai-draft`             |
 | `REPLY_SEND_RATE_LIMIT_MAX`|                                     No | `30`                                             | Stricter per-identity cap for `POST /reply`                |
 | `REQUEST_BODY_LIMIT_BYTES`|                                      No | `1048576`                                        | Global Fastify request body limit in bytes                 |
+| `EMAIL_CHANNEL_MODE`      |                                       No | `disabled`                                       | Email channel skeleton mode: `disabled` or `simulated`     |
 | `AUTH_MODE`              |                                       No | `mock`                                           | Auth mode: `mock` or `provider`                            |
 | `AUTH_PROVIDER`          |                       Provider mode only | none                                             | Provider selection: `supabase` or `better-auth`            |
 | `SUPABASE_AUTH_JWKS_URL` |    Production + `AUTH_PROVIDER=supabase` | none                                             | Supabase JWKS URL for future provider token verification   |
@@ -256,6 +257,35 @@ Audit log runtime selection:
 no DATABASE_URL in non-production -> fixture-backed audit log persistence for local/demo/test safety
 DATABASE_URL present -> PostgreSQL-backed audit log persistence for scoped audit_logs writes
 production without DATABASE_URL -> startup fails closed instead of falling back to fixture-backed business and audit persistence
+```
+
+## Email Channel Skeleton
+
+Current email channel baseline:
+
+```text
+no public email webhook or inbound email API is exposed yet
+EMAIL_CHANNEL_MODE=disabled keeps the skeleton inactive by default
+EMAIL_CHANNEL_MODE=simulated enables only local/dev/test normalization flows
+simulated adapter normalizes inbound email metadata into a CLARA internal message shape
+raw HTML is not rendered or stored for UI use in this skeleton
+attachments are reduced to attachments_present only and are not downloaded or processed
+allowlisted headers only: message-id, in-reply-to, references, reply-to
+```
+
+Future integration direction:
+
+```text
+Gmail API, IMAP, or another provider adapter should verify provider trust first
+provider-specific payloads should be normalized through the email channel adapter boundary
+workspace assignment must still come from trusted backend logic, not from email payload fields
+provider tokens, email auth headers, and raw HTML bodies must not be logged
+```
+
+Email channel design reference:
+
+```text
+docs/product/CLARA-P3-EMAIL-CHANNEL-ADAPTER-SPEC.md
 ```
 
 Audit log baseline:
