@@ -28,6 +28,8 @@ const envSchema = z.object({
 
   REQUEST_BODY_LIMIT_BYTES: z.coerce.number().int().min(1).default(1_048_576),
 
+  EMAIL_CHANNEL_MODE: z.enum(["disabled", "simulated"]).optional(),
+
   DATABASE_URL: z
     .string()
     .trim()
@@ -63,6 +65,7 @@ export type Env = Omit<
   | "AUTH_PROVIDER"
   | "MOCK_AUTH_ENABLED"
   | "RATE_LIMIT_ENABLED"
+  | "EMAIL_CHANNEL_MODE"
   | "DATABASE_URL"
   | "SUPABASE_AUTH_JWKS_URL"
   | "SUPABASE_AUTH_ISSUER"
@@ -71,6 +74,7 @@ export type Env = Omit<
   AUTH_MODE: "mock" | "provider";
   AUTH_PROVIDER?: "supabase" | "better-auth";
   DATABASE_URL?: string;
+  EMAIL_CHANNEL_MODE: "disabled" | "simulated";
   MOCK_AUTH_ENABLED: boolean;
   RATE_LIMIT_ENABLED: boolean;
   SUPABASE_AUTH_JWKS_URL?: string;
@@ -165,6 +169,7 @@ export function loadEnv(input: NodeJS.ProcessEnv = process.env): Env {
     AI_DRAFT_RATE_LIMIT_MAX: parsed.data.AI_DRAFT_RATE_LIMIT_MAX,
     REPLY_SEND_RATE_LIMIT_MAX: parsed.data.REPLY_SEND_RATE_LIMIT_MAX,
     REQUEST_BODY_LIMIT_BYTES: parsed.data.REQUEST_BODY_LIMIT_BYTES,
+    EMAIL_CHANNEL_MODE: parsed.data.EMAIL_CHANNEL_MODE ?? "disabled",
     AUTH_MODE: parsed.data.AUTH_MODE ?? "mock",
     MOCK_AUTH_ENABLED:
       parsed.data.MOCK_AUTH_ENABLED === undefined
