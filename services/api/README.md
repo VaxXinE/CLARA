@@ -243,6 +243,16 @@ bearer tokens, Authorization headers, and raw JWT payloads must never be stored 
 audit writes are best-effort so business responses do not fail open or leak internals when audit persistence has an internal problem
 ```
 
+Structured logging baseline:
+
+```text
+every request receives x-correlation-id and x-request-id
+request completion logs include method, path, status_code, duration_ms, and correlation_id
+authenticated requests also include organization_id, workspace_id, actor_user_id, and actor_role
+error logs are structured and safe; they do not log Authorization headers, bearer tokens, cookies, raw JWT payloads, full customer messages, or full AI/reply text
+Fastify default request logging is disabled so CLARA uses one centralized structured request log per request
+```
+
 ## Mock Auth Headers
 
 For local/dev/test authenticated requests:
