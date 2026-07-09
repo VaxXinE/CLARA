@@ -77,6 +77,13 @@ npm run db:ready
 npm audit --omit=dev --audit-level=high
 ```
 
+Docker validation:
+
+```bash
+docker build -f services/api/Dockerfile -t clara-api:local .
+docker compose -f docker-compose.prod.example.yml config
+```
+
 ## Environment Variables
 
 | Name                     |                                 Required | Default                                          | Description                                                |
@@ -279,6 +286,8 @@ LOG_LEVEL should stay info or warn in production
 rate limiting remains enabled in production by config guardrail
 dashboard provider mode must use Supabase URL plus anon key only
 frontend must never contain a Supabase service role key
+```
+
 Standard API error envelope:
 
 ```json
@@ -310,6 +319,58 @@ POST /api/v1/conversations/:conversation_id/reply uses a stricter authenticated 
 request bodies larger than REQUEST_BODY_LIMIT_BYTES return a safe 413 envelope
 rate limit responses return a safe 429 envelope without exposing internal counters or store details
 ```
+
+## Docker Production Build
+
+API Docker baseline:
+
+```text
+multi-stage build
+TypeScript is compiled in a build stage
+runtime image installs production dependencies only
+runtime container runs as a non-root user
+.env files, local secrets, and private keys are excluded from the Docker build context
+```
+
+Build locally:
+
+```bash
+docker build -f services/api/Dockerfile -t clara-api:local .
+```
+
+Run locally with explicit production-like env:
+
+```bash
+docker run --rm \
+  -p 3000:3000 \
+  -e NODE_ENV=production \
+  -e APP_NAME=clara-api \
+  -e HOST=0.0.0.0 \
+  -e PORT=3000 \
+  -e LOG_LEVEL=info \
+  -e RATE_LIMIT_ENABLED=true \
+  -e RATE_LIMIT_MAX=120 \
+  -e RATE_LIMIT_WINDOW_MS=60000 \
+  -e AI_DRAFT_RATE_LIMIT_MAX=20 \
+  -e REPLY_SEND_RATE_LIMIT_MAX=30 \
+  -e REQUEST_BODY_LIMIT_BYTES=1048576 \
+  -e AUTH_MODE=provider \
+  -e AUTH_PROVIDER=supabase \
+  -e MOCK_AUTH_ENABLED=false \
+  -e SUPABASE_AUTH_JWKS_URL=https://example.supabase.test/auth/v1/jwks \
+  -e SUPABASE_AUTH_ISSUER=https://example.supabase.test/auth/v1 \
+  -e DATABASE_URL=postgresql://clara_user:clara_password_dev_only@host.docker.internal:5432/clara_api_prod_like \
+  -e CORS_ORIGIN=http://127.0.0.1:8080 \
+  clara-api:local
+```
+
+Production-like local compose example:
+
+```text
+docker-compose.prod.example.yml
+```
+
+This compose file is for local smoke validation only. Real production should use managed secrets and deployment-specific configuration.
 
 ## Mock Auth Headers
 

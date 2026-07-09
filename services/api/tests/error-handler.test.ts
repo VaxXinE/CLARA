@@ -223,6 +223,9 @@ describe("error handler", () => {
       AUTH_PROVIDER: "better-auth",
       BETTER_AUTH_BASE_URL: "https://auth.example.test",
       MOCK_AUTH_ENABLED: "false",
+      DATABASE_URL:
+        "postgresql://clara_user:clara_password_dev_only@127.0.0.1:5432/clara_api_prod_like",
+      CORS_ORIGIN: "https://dashboard.example.test",
     });
 
     const providerResponse = await app.inject({

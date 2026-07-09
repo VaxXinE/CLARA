@@ -1,0 +1,41 @@
+.git
+.github
+.DS_Store
+
+# Secrets and local env files
+.env
+.env.local
+.env.*.local
+.env.production
+**/.env
+**/.env.local
+**/.env.*.local
+**/.env.production
+**/*.pem
+**/*.key
+**/id_rsa
+**/id_ed25519
+**/.npmrc
+**/.ssh
+
+# Local dependencies and build output
+**/node_modules
+**/dist
+**/build
+**/coverage
+**/.vite
+
+# Repo areas not needed for Docker production builds
+docs
+infra/local
+packages
+tests
+tools
+workers
+services/ai-gateway
+services/integration-gateway
+apps/web
+
+# Local development artifacts
+**/*.log
+**/logs
