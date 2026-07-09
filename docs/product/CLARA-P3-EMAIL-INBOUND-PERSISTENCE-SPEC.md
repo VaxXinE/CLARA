@@ -42,6 +42,7 @@ scoped conversation reuse by provider thread identity
 idempotency by scoped provider_message_id
 deterministic offline tests
 minimal schema for email inbound records
+internal ingestion harness can now call the persistence service in batch mode
 ```
 
 This PR does not add:

@@ -13,3 +13,9 @@ export interface EmailChannelAdapter<TInboundMessage = unknown> {
 
 export type SimulatedEmailChannelAdapter =
   EmailChannelAdapter<SimulatedInboundEmailPayload>;
+
+export interface EmailBatchLoadingAdapter<
+  TInboundMessage = unknown,
+> extends EmailChannelAdapter<TInboundMessage> {
+  loadInboundMessages(): Promise<TInboundMessage[]>;
+}
