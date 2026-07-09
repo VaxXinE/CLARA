@@ -1,4 +1,4 @@
-import { demoCustomers, demoUsers } from "../db/fixtures/demo-data";
+import { demoUsers } from "../db/fixtures/demo-data";
 import type { FixtureAppStore } from "../db/fixtures/fixture-store";
 import { createFixtureAppStore } from "../db/fixtures/fixture-store";
 import type { WorkspaceScope } from "../workspace/workspace-scope";
@@ -183,7 +183,7 @@ export class FixtureConversationRepository implements ConversationRepository {
       demoUsers.map((user) => [user.id, user.displayName]),
     );
     const customersById = new Map(
-      demoCustomers.map((customer) => [customer.id, customer]),
+      this.store.customers.map((customer) => [customer.id, customer]),
     );
 
     let items = this.store.conversations
@@ -287,14 +287,14 @@ export class FixtureConversationRepository implements ConversationRepository {
       return null;
     }
 
-    const customer = demoCustomers.find(
+    const scopedCustomer = this.store.customers.find(
       (item) =>
         item.id === conversation.customerId &&
         item.organizationId === scope.organizationId &&
         item.workspaceId === scope.workspaceId,
     );
 
-    if (!customer) {
+    if (!scopedCustomer) {
       return null;
     }
 
@@ -338,10 +338,10 @@ export class FixtureConversationRepository implements ConversationRepository {
       createdAt: requireDate(conversation.createdAt, "conversation.createdAt"),
       updatedAt: requireDate(conversation.updatedAt, "conversation.updatedAt"),
       customer: {
-        id: customer.id,
-        displayName: customer.displayName,
-        source: customer.source,
-        status: customer.status,
+        id: scopedCustomer.id,
+        displayName: scopedCustomer.displayName,
+        source: scopedCustomer.source,
+        status: scopedCustomer.status,
       },
       assignedUser: assignedUser
         ? {

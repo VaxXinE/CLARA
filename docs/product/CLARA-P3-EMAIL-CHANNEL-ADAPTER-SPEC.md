@@ -33,6 +33,7 @@ email channel type definitions
 adapter interface for inbound email normalization
 simulated adapter for local/dev/test
 service layer that converts normalized inbound email into CLARA internal message shape
+inbound persistence foundation for customer/conversation/message/activity storage
 offline deterministic unit tests
 environment config baseline through EMAIL_CHANNEL_MODE
 ```
@@ -183,5 +184,6 @@ no real provider connectivity
 no attachment handling
 no HTML sanitization/rendering pipeline because raw HTML is not exposed
 no inbound conversation creation flow yet
-no customer/workspace matching from inbound email yet
+customer reuse and conversation persistence now exist only after trusted scope is provided server-side
+no automatic customer/workspace matching from provider mailbox configuration yet
 ```

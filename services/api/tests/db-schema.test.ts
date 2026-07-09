@@ -25,6 +25,7 @@ describe("database schema", () => {
       "aiDraftEvents",
       "activityEvents",
       "auditLogs",
+      "emailInboundRecords",
     ]);
   });
 
@@ -37,6 +38,7 @@ describe("database schema", () => {
       "aiDraftEvents",
       "activityEvents",
       "auditLogs",
+      "emailInboundRecords",
     ] as const) {
       const columns = Object.keys(dbSchema[tableName]);
 
@@ -64,6 +66,7 @@ describe("database schema", () => {
       "reply_sent",
       "reply_failed",
       "conversation_status_changed",
+      "email_received",
     ]);
   });
 });

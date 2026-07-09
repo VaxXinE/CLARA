@@ -39,6 +39,8 @@ function toActivityType(eventType: string): string {
       return "reply.failed";
     case "conversation_status_changed":
       return "conversation.status_changed";
+    case "email_received":
+      return "email.received";
     default:
       return eventType;
   }
@@ -56,6 +58,8 @@ function toActivityTitle(eventType: string): string {
       return "Reply failed";
     case "conversation_status_changed":
       return "Conversation status changed";
+    case "email_received":
+      return "Email received";
     default:
       return "Conversation activity";
   }

@@ -20,6 +20,14 @@ const auditLogMigrationPath = path.resolve(
   "../drizzle/0002_p2_audit_log_baseline.sql",
 );
 const auditLogMigrationSql = readFileSync(auditLogMigrationPath, "utf8");
+const emailInboundMigrationPath = path.resolve(
+  __dirname,
+  "../drizzle/0003_p3_email_inbound_persistence.sql",
+);
+const emailInboundMigrationSql = readFileSync(
+  emailInboundMigrationPath,
+  "utf8",
+);
 
 describe("initial database migration", () => {
   it("creates all required PR-04 tables", () => {
@@ -35,9 +43,14 @@ describe("initial database migration", () => {
       "ai_draft_events",
       "activity_events",
       "audit_logs",
+      "email_inbound_records",
     ]) {
       const source =
-        tableName === "audit_logs" ? auditLogMigrationSql : migrationSql;
+        tableName === "audit_logs"
+          ? auditLogMigrationSql
+          : tableName === "email_inbound_records"
+            ? emailInboundMigrationSql
+            : migrationSql;
 
       expect(source).toContain(`create table if not exists ${tableName}`);
     }
@@ -51,8 +64,13 @@ describe("initial database migration", () => {
       "reply_drafts",
       "ai_draft_events",
       "activity_events",
+      "email_inbound_records",
     ]) {
-      const tableBlock = migrationSql
+      const source =
+        tableName === "email_inbound_records"
+          ? emailInboundMigrationSql
+          : migrationSql;
+      const tableBlock = source
         .split(`create table if not exists ${tableName} (`)[1]
         ?.split(");")[0];
 
@@ -100,6 +118,22 @@ describe("initial database migration", () => {
     );
     expect(auditLogMigrationSql).toContain(
       "create index if not exists idx_audit_logs_organization_workspace",
+    );
+  });
+
+  it("adds email inbound persistence schema and scoped uniqueness", () => {
+    expect(emailInboundMigrationSql).toContain(
+      "create table if not exists email_inbound_records",
+    );
+    expect(emailInboundMigrationSql).toContain(
+      "source in ('demo', 'whatsapp_demo', 'web_chat_demo', 'email')",
+    );
+    expect(emailInboundMigrationSql).toContain("'email_received'");
+    expect(emailInboundMigrationSql).toContain(
+      "create unique index if not exists email_inbound_records_scope_provider_message_unique",
+    );
+    expect(emailInboundMigrationSql).toContain(
+      "provider_message_id text not null",
     );
   });
 });
