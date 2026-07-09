@@ -36,6 +36,8 @@ Start here for local usage:
 services/api/README.md
 apps/dashboard/README.md
 docs/product/CLARA-P2-DEPLOYMENT-CONFIG-RUNBOOK.md
+docs/product/CLARA-P2-STAGING-SMOKE-RUNBOOK.md
+docs/product/CLARA-P2-RELEASE-CHECKLIST.md
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-README-RUNBOOK/
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-DEMO-SCRIPT/
 ```

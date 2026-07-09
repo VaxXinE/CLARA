@@ -12,6 +12,8 @@ Current script:
 
 ```text
 validate-repo-structure.sh
+docker-smoke.sh
+staging-smoke.sh
 ```
 
 ---
