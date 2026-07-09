@@ -51,6 +51,10 @@ function getErrorCode(statusCode: number): string {
     return "NOT_FOUND";
   }
 
+  if (statusCode === 413) {
+    return "PAYLOAD_TOO_LARGE";
+  }
+
   if (statusCode === 429) {
     return "RATE_LIMITED";
   }
@@ -79,6 +83,14 @@ function getSafeMessage(
     return isProduction(env)
       ? "Unexpected server error."
       : error.message || "Unexpected server error.";
+  }
+
+  if (statusCode === 413) {
+    return "Request payload is too large.";
+  }
+
+  if (statusCode === 429) {
+    return "Too many requests. Please try again later.";
   }
 
   return error.message || "Request failed.";

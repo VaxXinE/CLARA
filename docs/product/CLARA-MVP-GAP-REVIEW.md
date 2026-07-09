@@ -76,6 +76,7 @@ AI draft persistence now has a DB-backed repository foundation while preserving 
 reply persistence now has a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
 audit log baseline now records AI draft and reply send events with scoped, metadata-only persistence
 structured request logging baseline now records correlation_id, request metadata, and safe auth scope metadata without logging sensitive payloads
+rate limiting and request body limit baseline now protects general traffic plus stricter AI draft and reply send routes
 workspace-scoped conversation list and conversation detail APIs work
 workspace-scoped customer detail API works
 workspace-scoped activity timeline API works
@@ -155,6 +156,7 @@ secret rotation and production secret storage are not yet part of the implementa
 no webhook signature verification flow exists yet
 no production-integrated audit export, SIEM pipeline, or alerting exists yet
 no external APM, metrics pipeline, or centralized log shipping integration exists yet
+no distributed Redis-backed rate limiting or edge/WAF enforcement exists yet
 ```
 
 Security hardening backlog:

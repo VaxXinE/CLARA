@@ -6,6 +6,8 @@ import { requireAuth } from "../../auth/require-auth";
 import { ValidationError } from "../../errors/app-error";
 import { ReplyService } from "../../replies/reply-service";
 import { REPLY_MAX_BODY_LENGTH } from "../../replies/reply-send-provider";
+import type { Env } from "../../config/env";
+import { createScopedRateLimitPreHandler } from "../middleware/rate-limit";
 
 const safeIdPattern = /^[a-zA-Z0-9._:-]+$/;
 
@@ -82,11 +84,24 @@ export async function registerReplyRoutes(
   app: FastifyInstance,
   authProvider: AuthProvider,
   service: ReplyService,
+  env: Pick<
+    Env,
+    | "RATE_LIMIT_ENABLED"
+    | "RATE_LIMIT_WINDOW_MS"
+    | "AI_DRAFT_RATE_LIMIT_MAX"
+    | "REPLY_SEND_RATE_LIMIT_MAX"
+  >,
 ): Promise<void> {
   app.post(
     "/api/v1/conversations/:conversation_id/reply",
     {
-      preHandler: requireAuth(authProvider),
+      preHandler: [
+        requireAuth(authProvider),
+        createScopedRateLimitPreHandler({
+          scope: "reply_send",
+          env,
+        }),
+      ],
     },
     async (request, reply) => {
       const auth = getAuthContext(request);

@@ -16,6 +16,18 @@ const envSchema = z.object({
     .enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"])
     .default("info"),
 
+  RATE_LIMIT_ENABLED: z.enum(["true", "false"]).optional(),
+
+  RATE_LIMIT_MAX: z.coerce.number().int().min(1).default(120),
+
+  RATE_LIMIT_WINDOW_MS: z.coerce.number().int().min(1).default(60_000),
+
+  AI_DRAFT_RATE_LIMIT_MAX: z.coerce.number().int().min(1).default(20),
+
+  REPLY_SEND_RATE_LIMIT_MAX: z.coerce.number().int().min(1).default(30),
+
+  REQUEST_BODY_LIMIT_BYTES: z.coerce.number().int().min(1).default(1_048_576),
+
   DATABASE_URL: z
     .string()
     .trim()
@@ -50,6 +62,7 @@ export type Env = Omit<
   | "AUTH_MODE"
   | "AUTH_PROVIDER"
   | "MOCK_AUTH_ENABLED"
+  | "RATE_LIMIT_ENABLED"
   | "DATABASE_URL"
   | "SUPABASE_AUTH_JWKS_URL"
   | "SUPABASE_AUTH_ISSUER"
@@ -59,6 +72,7 @@ export type Env = Omit<
   AUTH_PROVIDER?: "supabase" | "better-auth";
   DATABASE_URL?: string;
   MOCK_AUTH_ENABLED: boolean;
+  RATE_LIMIT_ENABLED: boolean;
   SUPABASE_AUTH_JWKS_URL?: string;
   SUPABASE_AUTH_ISSUER?: string;
   BETTER_AUTH_BASE_URL?: string;
@@ -85,6 +99,15 @@ export function loadEnv(input: NodeJS.ProcessEnv = process.env): Env {
     PORT: parsed.data.PORT,
     LOG_LEVEL: parsed.data.LOG_LEVEL,
     CORS_ORIGIN: parsed.data.CORS_ORIGIN,
+    RATE_LIMIT_ENABLED:
+      parsed.data.RATE_LIMIT_ENABLED === undefined
+        ? true
+        : parsed.data.RATE_LIMIT_ENABLED === "true",
+    RATE_LIMIT_MAX: parsed.data.RATE_LIMIT_MAX,
+    RATE_LIMIT_WINDOW_MS: parsed.data.RATE_LIMIT_WINDOW_MS,
+    AI_DRAFT_RATE_LIMIT_MAX: parsed.data.AI_DRAFT_RATE_LIMIT_MAX,
+    REPLY_SEND_RATE_LIMIT_MAX: parsed.data.REPLY_SEND_RATE_LIMIT_MAX,
+    REQUEST_BODY_LIMIT_BYTES: parsed.data.REQUEST_BODY_LIMIT_BYTES,
     AUTH_MODE: parsed.data.AUTH_MODE ?? "mock",
     MOCK_AUTH_ENABLED:
       parsed.data.MOCK_AUTH_ENABLED === undefined

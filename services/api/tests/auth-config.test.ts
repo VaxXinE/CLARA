@@ -15,6 +15,36 @@ describe("auth configuration", () => {
 
     expect(env.AUTH_MODE).toBe("mock");
     expect(env.MOCK_AUTH_ENABLED).toBe(true);
+    expect(env.RATE_LIMIT_ENABLED).toBe(true);
+    expect(env.RATE_LIMIT_MAX).toBe(120);
+    expect(env.RATE_LIMIT_WINDOW_MS).toBe(60_000);
+    expect(env.AI_DRAFT_RATE_LIMIT_MAX).toBe(20);
+    expect(env.REPLY_SEND_RATE_LIMIT_MAX).toBe(30);
+    expect(env.REQUEST_BODY_LIMIT_BYTES).toBe(1_048_576);
+  });
+
+  it("accepts explicit rate limiting and request body limit overrides", () => {
+    const env = loadEnv({
+      NODE_ENV: "test",
+      APP_NAME: "clara-api-test",
+      HOST: "127.0.0.1",
+      PORT: "3000",
+      LOG_LEVEL: "silent",
+      RATE_LIMIT_ENABLED: "false",
+      RATE_LIMIT_MAX: "200",
+      RATE_LIMIT_WINDOW_MS: "30000",
+      AI_DRAFT_RATE_LIMIT_MAX: "10",
+      REPLY_SEND_RATE_LIMIT_MAX: "15",
+      REQUEST_BODY_LIMIT_BYTES: "4096",
+      CORS_ORIGIN: "",
+    });
+
+    expect(env.RATE_LIMIT_ENABLED).toBe(false);
+    expect(env.RATE_LIMIT_MAX).toBe(200);
+    expect(env.RATE_LIMIT_WINDOW_MS).toBe(30_000);
+    expect(env.AI_DRAFT_RATE_LIMIT_MAX).toBe(10);
+    expect(env.REPLY_SEND_RATE_LIMIT_MAX).toBe(15);
+    expect(env.REQUEST_BODY_LIMIT_BYTES).toBe(4096);
   });
 
   it("rejects mock mode when mock auth is explicitly disabled", () => {
