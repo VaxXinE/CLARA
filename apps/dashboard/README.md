@@ -118,6 +118,13 @@ npm run test
 npm audit --omit=dev --audit-level=high
 ```
 
+Docker validation:
+
+```bash
+docker build -f apps/dashboard/Dockerfile -t clara-dashboard:local .
+docker compose -f docker-compose.prod.example.yml config
+```
+
 ## Security Notes
 
 - Do not put API keys or secrets in frontend env.
@@ -168,4 +175,47 @@ simulated reply send provider only
 provider mode still depends on backend membership resolution before any product data is allowed
 no real WhatsApp/Instagram/TikTok/email integration yet
 no frontend secrets or provider API keys should exist in this app
+```
+
+## Docker Production Build
+
+Dashboard Docker baseline:
+
+```text
+multi-stage build
+Vite static assets are built in a Node build stage
+runtime image uses unprivileged nginx on port 8080
+only public VITE_* values are baked into the frontend image
+.env files, local credentials, and private keys are excluded from the Docker build context
+```
+
+Build locally:
+
+```bash
+docker build -f apps/dashboard/Dockerfile -t clara-dashboard:local .
+```
+
+Optional provider-mode build args:
+
+```bash
+docker build \
+  -f apps/dashboard/Dockerfile \
+  -t clara-dashboard:local \
+  --build-arg VITE_API_BASE_URL=https://api.example.com \
+  --build-arg VITE_AUTH_MODE=provider \
+  --build-arg VITE_SUPABASE_URL=https://example.supabase.co \
+  --build-arg VITE_SUPABASE_ANON_KEY=public-anon-key-only \
+  .
+```
+
+Run locally:
+
+```bash
+docker run --rm -p 8080:8080 clara-dashboard:local
+```
+
+Production-like local compose example:
+
+```text
+docker-compose.prod.example.yml
 ```

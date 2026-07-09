@@ -41,6 +41,20 @@ do not commit real database credentials
 do not commit real JWT or JWKS payloads
 backend remains the source of truth for role, organization_id, and workspace_id
 mock/demo auth must never be enabled in production
+do not bake secrets into Docker images
+do not copy .env files, private keys, SSH keys, or local credentials into Docker build contexts
+```
+
+## 1A. Docker Build Baseline
+
+Current Docker baseline:
+
+```text
+services/api uses a multi-stage Node build and a non-root runtime image
+apps/dashboard uses a multi-stage Vite build and an unprivileged nginx runtime image
+root .dockerignore excludes .env files, keys, node_modules, and unrelated repo areas from build context
+dashboard image should receive only public VITE_* values at build time
+docker-compose.prod.example.yml is for production-like local smoke testing only
 ```
 
 ## 1. Environment Matrix
@@ -212,6 +226,15 @@ Repo:
 
 ```bash
 bash scripts/validate-repo-structure.sh
+```
+
+Docker baseline:
+
+```bash
+docker build -f services/api/Dockerfile -t clara-api:local .
+docker build -f apps/dashboard/Dockerfile -t clara-dashboard:local .
+docker compose -f docker-compose.prod.example.yml config
+bash scripts/docker-smoke.sh
 ```
 
 ## 6. Known Limitations

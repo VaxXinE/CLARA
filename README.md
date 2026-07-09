@@ -27,6 +27,7 @@ Current MVP implementation:
 ```text
 services/api: runnable local API with mock auth, workspace scope, seeded demo data, conversation/customer/activity read APIs, mock AI draft, and simulated reply send
 apps/dashboard: runnable local React dashboard for the conversation workspace flow
+production-oriented Docker build baseline now exists for services/api and apps/dashboard
 ```
 
 Start here for local usage:
@@ -34,6 +35,7 @@ Start here for local usage:
 ```text
 services/api/README.md
 apps/dashboard/README.md
+docs/product/CLARA-P2-DEPLOYMENT-CONFIG-RUNBOOK.md
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-README-RUNBOOK/
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-DEMO-SCRIPT/
 ```

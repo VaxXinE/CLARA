@@ -1,0 +1,54 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: clara_api_prod_like
+      POSTGRES_USER: clara_user
+      POSTGRES_PASSWORD: clara_password_dev_only
+    volumes:
+      - clara-prod-like-postgres:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: .
+      dockerfile: services/api/Dockerfile
+    environment:
+      NODE_ENV: production
+      APP_NAME: clara-api
+      HOST: 0.0.0.0
+      PORT: 3000
+      LOG_LEVEL: info
+      RATE_LIMIT_ENABLED: "true"
+      RATE_LIMIT_MAX: 120
+      RATE_LIMIT_WINDOW_MS: 60000
+      AI_DRAFT_RATE_LIMIT_MAX: 20
+      REPLY_SEND_RATE_LIMIT_MAX: 30
+      REQUEST_BODY_LIMIT_BYTES: 1048576
+      AUTH_MODE: provider
+      AUTH_PROVIDER: supabase
+      MOCK_AUTH_ENABLED: "false"
+      SUPABASE_AUTH_JWKS_URL: https://example.supabase.test/auth/v1/jwks
+      SUPABASE_AUTH_ISSUER: https://example.supabase.test/auth/v1
+      DATABASE_URL: postgresql://clara_user:clara_password_dev_only@db:5432/clara_api_prod_like
+      CORS_ORIGIN: http://127.0.0.1:8080
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: apps/dashboard/Dockerfile
+      args:
+        VITE_API_BASE_URL: http://127.0.0.1:3000
+        VITE_AUTH_MODE: provider
+        VITE_SUPABASE_URL: https://example.supabase.test
+        VITE_SUPABASE_ANON_KEY: example-anon-key
+    depends_on:
+      - api
+    ports:
+      - "8080:8080"
+
+volumes:
+  clara-prod-like-postgres:
