@@ -1,4 +1,4 @@
-import fastify, { type FastifyInstance } from "fastify";
+import fastify, { LogController, type FastifyInstance } from "fastify";
 import helmet from "@fastify/helmet";
 import { createAuthProvider, type AuthProvider } from "../auth/auth-provider";
 import type { Env } from "../config/env";
@@ -12,6 +12,7 @@ import {
   generateRequestId,
   registerCorrelationIdHook,
 } from "./middleware/correlation-id";
+import { registerRequestLogging } from "./middleware/request-logging";
 import { registerErrorHandlers } from "../errors/error-handler";
 import { registerHealthRoutes } from "./routes/health";
 import { registerMeRoutes } from "./routes/me";
@@ -63,6 +64,9 @@ export async function createServer(
     logger: createLoggerOptions(options.env),
     genReqId: generateRequestId,
     trustProxy: false,
+    logController: new LogController({
+      disableRequestLogging: true,
+    }),
   });
 
   await app.register(helmet, {
@@ -70,6 +74,7 @@ export async function createServer(
   });
 
   registerCorrelationIdHook(app);
+  registerRequestLogging(app);
   registerErrorHandlers(app, options.env);
 
   await registerHealthRoutes(app, options.env);

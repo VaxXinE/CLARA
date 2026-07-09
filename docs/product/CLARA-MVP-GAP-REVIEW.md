@@ -75,6 +75,7 @@ activity reads now have a DB-backed repository foundation while preserving fixtu
 AI draft persistence now has a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
 reply persistence now has a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
 audit log baseline now records AI draft and reply send events with scoped, metadata-only persistence
+structured request logging baseline now records correlation_id, request metadata, and safe auth scope metadata without logging sensitive payloads
 workspace-scoped conversation list and conversation detail APIs work
 workspace-scoped customer detail API works
 workspace-scoped activity timeline API works
@@ -153,6 +154,7 @@ provider integration security is still untested because real integrations do not
 secret rotation and production secret storage are not yet part of the implementation path
 no webhook signature verification flow exists yet
 no production-integrated audit export, SIEM pipeline, or alerting exists yet
+no external APM, metrics pipeline, or centralized log shipping integration exists yet
 ```
 
 Security hardening backlog:

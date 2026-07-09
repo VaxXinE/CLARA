@@ -1,19 +1,5 @@
 import type { Env } from "../config/env";
-
-const redactPaths = [
-  "req.headers.authorization",
-  "req.headers.cookie",
-  'req.headers["x-api-key"]',
-  'res.headers["set-cookie"]',
-  "*.password",
-  "*.token",
-  "*.access_token",
-  "*.refresh_token",
-  "*.api_key",
-  "*.secret",
-  "*.authorization",
-  "*.cookie",
-];
+import { redactPaths } from "./redaction";
 
 export function createLoggerOptions(env: Env) {
   return {
@@ -24,7 +10,7 @@ export function createLoggerOptions(env: Env) {
       environment: env.NODE_ENV,
     },
     redact: {
-      paths: redactPaths,
+      paths: [...redactPaths],
       censor: "[REDACTED]",
     },
   };

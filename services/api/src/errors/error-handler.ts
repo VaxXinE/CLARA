@@ -6,6 +6,7 @@ import type {
 } from "fastify";
 import type { Env } from "../config/env";
 import { isProduction } from "../config/env";
+import { buildErrorLogContext } from "../http/middleware/request-logging";
 import { AppError } from "./app-error";
 
 type ErrorPayload = {
@@ -83,7 +84,9 @@ function getSafeMessage(
   return error.message || "Request failed.";
 }
 
-export function registerErrorHandlers(app: FastifyInstance, env: Env): void {
+export function registerErrorHandlers<
+  TApp extends FastifyInstance = FastifyInstance,
+>(app: TApp, env: Env): void {
   app.setNotFoundHandler(async (request, reply) => {
     const payload: ErrorPayload = {
       error: {
@@ -121,9 +124,23 @@ export function registerErrorHandlers(app: FastifyInstance, env: Env): void {
       }
 
       if (statusCode >= 500) {
-        request.log.error({ err: error }, "Unhandled API error");
+        request.log.error(
+          buildErrorLogContext({
+            request,
+            statusCode,
+            error,
+          }),
+          "Unhandled API error",
+        );
       } else {
-        request.log.warn({ err: error }, "Handled API error");
+        request.log.warn(
+          buildErrorLogContext({
+            request,
+            statusCode,
+            error,
+          }),
+          "Handled API error",
+        );
       }
 
       await reply.status(statusCode).send(payload);

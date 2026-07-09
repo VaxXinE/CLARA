@@ -44,8 +44,11 @@ export function generateRequestId(request: IncomingMessage): string {
   return normalizeCorrelationId(correlationId);
 }
 
-export function registerCorrelationIdHook(app: FastifyInstance): void {
+export function registerCorrelationIdHook<
+  TApp extends FastifyInstance = FastifyInstance,
+>(app: TApp): void {
   app.addHook("onRequest", async (request, reply) => {
     reply.header("x-correlation-id", request.id);
+    reply.header("x-request-id", request.id);
   });
 }

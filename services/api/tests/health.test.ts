@@ -24,6 +24,7 @@ describe("health endpoints", () => {
 
     expect(response.statusCode).toBe(200);
     expect(response.headers["x-correlation-id"]).toBeDefined();
+    expect(response.headers["x-request-id"]).toBeDefined();
 
     const body = response.json();
 
@@ -66,6 +67,7 @@ describe("health endpoints", () => {
 
     expect(response.statusCode).toBe(200);
     expect(response.headers["x-correlation-id"]).toBe("test-correlation-123");
+    expect(response.headers["x-request-id"]).toBe("test-correlation-123");
   });
 
   it("returns a safe not found error envelope", async () => {
