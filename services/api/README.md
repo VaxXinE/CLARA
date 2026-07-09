@@ -259,6 +259,27 @@ error logs are structured and safe; they do not log Authorization headers, beare
 Fastify default request logging is disabled so CLARA uses one centralized structured request log per request
 ```
 
+Standard API error envelope:
+
+```json
+{
+  "error": {
+    "code": "STRING_CODE",
+    "message": "Safe user-facing message",
+    "correlation_id": "request-correlation-id"
+  }
+}
+```
+
+Current error-handling hardening:
+
+```text
+all handled API errors include correlation_id
+400 validation/bad request, 401, 403, 404, 409, 413, 429, and 500 paths use the centralized error handler
+production responses do not expose stack traces, database internals, provider internals, or raw validation engine internals
+cross-workspace misses continue returning safe 404 envelopes
+```
+
 Rate limiting and request size baseline:
 
 ```text
