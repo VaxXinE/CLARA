@@ -12,7 +12,9 @@ import {
   generateRequestId,
   registerCorrelationIdHook,
 } from "./middleware/correlation-id";
+import { getRequestBodyLimitBytes } from "./middleware/request-size-limit";
 import { registerRequestLogging } from "./middleware/request-logging";
+import { createGlobalRateLimitPreHandler } from "./middleware/rate-limit";
 import { registerErrorHandlers } from "../errors/error-handler";
 import { registerHealthRoutes } from "./routes/health";
 import { registerMeRoutes } from "./routes/me";
@@ -64,6 +66,7 @@ export async function createServer(
     logger: createLoggerOptions(options.env),
     genReqId: generateRequestId,
     trustProxy: false,
+    bodyLimit: getRequestBodyLimitBytes(options.env),
     logController: new LogController({
       disableRequestLogging: true,
     }),
@@ -76,14 +79,25 @@ export async function createServer(
   registerCorrelationIdHook(app);
   registerRequestLogging(app);
   registerErrorHandlers(app, options.env);
+  app.addHook(
+    "preHandler",
+    createGlobalRateLimitPreHandler({
+      env: options.env,
+    }),
+  );
 
   await registerHealthRoutes(app, options.env);
   await registerMeRoutes(app, authProvider);
   await registerConversationRoutes(app, authProvider, services.conversations);
   await registerCustomerRoutes(app, authProvider, services.customers);
   await registerActivityRoutes(app, authProvider, services.activity);
-  await registerAiDraftRoutes(app, authProvider, services.aiDrafts);
-  await registerReplyRoutes(app, authProvider, services.replies);
+  await registerAiDraftRoutes(
+    app,
+    authProvider,
+    services.aiDrafts,
+    options.env,
+  );
+  await registerReplyRoutes(app, authProvider, services.replies, options.env);
 
   if (serviceContainer?.close) {
     app.addHook("onClose", async () => {

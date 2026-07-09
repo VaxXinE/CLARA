@@ -86,6 +86,12 @@ npm audit --omit=dev --audit-level=high
 | `HOST`                   |                                       No | `127.0.0.1`                                      | Bind host                                                  |
 | `PORT`                   |                                       No | `3000`                                           | Bind port                                                  |
 | `LOG_LEVEL`              |                                       No | `info`                                           | Logger level                                               |
+| `RATE_LIMIT_ENABLED`     |                                       No | `true`                                           | Enables in-memory API rate limiting                        |
+| `RATE_LIMIT_MAX`         |                                       No | `120`                                            | Default request cap per window                             |
+| `RATE_LIMIT_WINDOW_MS`   |                                       No | `60000`                                          | Shared window size for in-memory rate limiting             |
+| `AI_DRAFT_RATE_LIMIT_MAX`|                                       No | `20`                                             | Stricter per-identity cap for `POST /ai-draft`             |
+| `REPLY_SEND_RATE_LIMIT_MAX`|                                     No | `30`                                             | Stricter per-identity cap for `POST /reply`                |
+| `REQUEST_BODY_LIMIT_BYTES`|                                      No | `1048576`                                        | Global Fastify request body limit in bytes                 |
 | `AUTH_MODE`              |                                       No | `mock`                                           | Auth mode: `mock` or `provider`                            |
 | `AUTH_PROVIDER`          |                       Provider mode only | none                                             | Provider selection: `supabase` or `better-auth`            |
 | `SUPABASE_AUTH_JWKS_URL` |    Production + `AUTH_PROVIDER=supabase` | none                                             | Supabase JWKS URL for future provider token verification   |
@@ -251,6 +257,17 @@ request completion logs include method, path, status_code, duration_ms, and corr
 authenticated requests also include organization_id, workspace_id, actor_user_id, and actor_role
 error logs are structured and safe; they do not log Authorization headers, bearer tokens, cookies, raw JWT payloads, full customer messages, or full AI/reply text
 Fastify default request logging is disabled so CLARA uses one centralized structured request log per request
+```
+
+Rate limiting and request size baseline:
+
+```text
+all requests use an in-memory baseline rate limit by safe network fallback before auth context exists
+failed unauthenticated requests are still rate limited
+POST /api/v1/conversations/:conversation_id/ai-draft uses a stricter authenticated per-user/workspace limit
+POST /api/v1/conversations/:conversation_id/reply uses a stricter authenticated per-user/workspace limit
+request bodies larger than REQUEST_BODY_LIMIT_BYTES return a safe 413 envelope
+rate limit responses return a safe 429 envelope without exposing internal counters or store details
 ```
 
 ## Mock Auth Headers

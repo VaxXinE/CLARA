@@ -5,6 +5,8 @@ import { getAuthContext } from "../../auth/auth-context";
 import { requireAuth } from "../../auth/require-auth";
 import { ValidationError } from "../../errors/app-error";
 import { AiDraftService } from "../../ai-drafts/ai-draft-service";
+import type { Env } from "../../config/env";
+import { createScopedRateLimitPreHandler } from "../middleware/rate-limit";
 
 const safeIdPattern = /^[a-zA-Z0-9._:-]+$/;
 
@@ -73,11 +75,24 @@ export async function registerAiDraftRoutes(
   app: FastifyInstance,
   authProvider: AuthProvider,
   service: AiDraftService,
+  env: Pick<
+    Env,
+    | "RATE_LIMIT_ENABLED"
+    | "RATE_LIMIT_WINDOW_MS"
+    | "AI_DRAFT_RATE_LIMIT_MAX"
+    | "REPLY_SEND_RATE_LIMIT_MAX"
+  >,
 ): Promise<void> {
   app.post(
     "/api/v1/conversations/:conversation_id/ai-draft",
     {
-      preHandler: requireAuth(authProvider),
+      preHandler: [
+        requireAuth(authProvider),
+        createScopedRateLimitPreHandler({
+          scope: "ai_draft",
+          env,
+        }),
+      ],
     },
     async (request, reply) => {
       const auth = getAuthContext(request);
