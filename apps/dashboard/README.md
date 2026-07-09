@@ -78,6 +78,8 @@ Deployment config runbook:
 
 ```text
 docs/product/CLARA-P2-DEPLOYMENT-CONFIG-RUNBOOK.md
+docs/product/CLARA-P2-STAGING-SMOKE-RUNBOOK.md
+docs/product/CLARA-P2-RELEASE-CHECKLIST.md
 ```
 
 ## Demo Roles

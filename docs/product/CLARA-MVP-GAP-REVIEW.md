@@ -94,6 +94,7 @@ reply send requires explicit human action
 runbook, demo script, and validation docs exist
 deployment config baseline now documents fail-fast production env requirements for API and dashboard
 Docker production build baseline now exists for API and dashboard images plus a production-like local compose example
+staging smoke and release checklist baseline now exists for production-like validation and rollback preparation
 ```
 
 ---
@@ -145,6 +146,7 @@ mock AI does not prove provider latency, failure rate, cost, or safety behavior
 manual local run flow does not replace deploy/run/rollback operations
 deployment config baseline exists now, but it is still documentation plus startup guardrails rather than a full deployment system
 Docker production build baseline exists now, but it is still a local smoke/developer packaging layer rather than a complete cloud deployment path
+staging smoke and release checklists improve operator readiness, but they do not replace managed rollout automation or incident tooling
 ```
 
 ---

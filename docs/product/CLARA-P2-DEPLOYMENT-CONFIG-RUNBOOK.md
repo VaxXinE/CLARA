@@ -9,6 +9,8 @@ classification: "runbook"
 related_documents:
   - "./CLARA-P2-PRODUCTION-AUTH-FOUNDATION-PLAN.md"
   - "./CLARA-P2-AUTH-SMOKE-TEST-RUNBOOK.md"
+  - "./CLARA-P2-STAGING-SMOKE-RUNBOOK.md"
+  - "./CLARA-P2-RELEASE-CHECKLIST.md"
   - "../../services/api/README.md"
   - "../../apps/dashboard/README.md"
   - "../../SECURITY.md"
@@ -55,6 +57,13 @@ apps/dashboard uses a multi-stage Vite build and an unprivileged nginx runtime i
 root .dockerignore excludes .env files, keys, node_modules, and unrelated repo areas from build context
 dashboard image should receive only public VITE_* values at build time
 docker-compose.prod.example.yml is for production-like local smoke testing only
+```
+
+Operator follow-up:
+
+```text
+use CLARA-P2-STAGING-SMOKE-RUNBOOK.md for post-deploy smoke validation
+use CLARA-P2-RELEASE-CHECKLIST.md for release, rollback, and post-deploy verification steps
 ```
 
 ## 1. Environment Matrix
