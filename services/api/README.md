@@ -286,6 +286,19 @@ Email channel design reference:
 
 ```text
 docs/product/CLARA-P3-EMAIL-CHANNEL-ADAPTER-SPEC.md
+docs/product/CLARA-P3-EMAIL-INBOUND-PERSISTENCE-SPEC.md
+```
+
+Current email inbound persistence baseline:
+
+```text
+no public email webhook is exposed yet
+trusted server scope plus normalized inbound email can be persisted through the email inbound persistence service
+customer reuse is scoped by organization_id + workspace_id + from_email
+conversation reuse is scoped by organization_id + workspace_id + provider + provider_thread_id
+idempotency is scoped by organization_id + workspace_id + provider + provider_message_id
+raw provider payload, raw html, and attachments are not persisted
+html-only emails are rejected in this baseline because CLARA does not render or store raw HTML
 ```
 
 Audit log baseline:

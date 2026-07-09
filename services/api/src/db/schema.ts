@@ -25,6 +25,7 @@ export const customerSources = [
   "demo",
   "whatsapp_demo",
   "web_chat_demo",
+  "email",
 ] as const;
 export const customerStatuses = [
   "new",
@@ -50,6 +51,7 @@ export const activityEventTypes = [
   "reply_sent",
   "reply_failed",
   "conversation_status_changed",
+  "email_received",
 ] as const;
 export const auditLogActions = [
   "ai_draft.generated",
@@ -562,6 +564,71 @@ export const auditLogs = pgTable(
   ],
 );
 
+export const emailInboundRecords = pgTable(
+  "email_inbound_records",
+  {
+    id: text("id").primaryKey(),
+    organizationId: text("organization_id")
+      .notNull()
+      .references(() => organizations.id),
+    workspaceId: text("workspace_id")
+      .notNull()
+      .references(() => workspaces.id),
+    provider: text("provider").notNull(),
+    providerMessageId: text("provider_message_id").notNull(),
+    providerThreadId: text("provider_thread_id"),
+    customerId: text("customer_id")
+      .notNull()
+      .references(() => customers.id),
+    conversationId: text("conversation_id")
+      .notNull()
+      .references(() => conversations.id),
+    activityId: text("activity_id")
+      .notNull()
+      .references(() => activityEvents.id),
+    receivedAt: timestamp("received_at", { withTimezone: true }).notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    check(
+      "email_inbound_records_provider_not_empty",
+      sql`char_length(trim(${table.provider})) > 0`,
+    ),
+    check(
+      "email_inbound_records_provider_message_id_not_empty",
+      sql`char_length(trim(${table.providerMessageId})) > 0`,
+    ),
+    check(
+      "email_inbound_records_provider_thread_id_not_empty",
+      sql`${table.providerThreadId} is null or char_length(trim(${table.providerThreadId})) > 0`,
+    ),
+    uniqueIndex("email_inbound_records_scope_provider_message_unique").on(
+      table.organizationId,
+      table.workspaceId,
+      table.provider,
+      table.providerMessageId,
+    ),
+    index("idx_email_inbound_records_scope_provider_thread").on(
+      table.organizationId,
+      table.workspaceId,
+      table.provider,
+      table.providerThreadId,
+    ),
+    index("idx_email_inbound_records_scope_conversation").on(
+      table.organizationId,
+      table.workspaceId,
+      table.conversationId,
+    ),
+    index("idx_email_inbound_records_scope_received_at").on(
+      table.organizationId,
+      table.workspaceId,
+      table.receivedAt,
+    ),
+  ],
+);
+
 export const dbSchema = {
   organizations,
   workspaces,
@@ -574,6 +641,7 @@ export const dbSchema = {
   aiDraftEvents,
   activityEvents,
   auditLogs,
+  emailInboundRecords,
 };
 
 export type Organization = typeof organizations.$inferSelect;
@@ -587,6 +655,7 @@ export type ReplyDraft = typeof replyDrafts.$inferSelect;
 export type AiDraftEvent = typeof aiDraftEvents.$inferSelect;
 export type ActivityEvent = typeof activityEvents.$inferSelect;
 export type AuditLog = typeof auditLogs.$inferSelect;
+export type EmailInboundRecord = typeof emailInboundRecords.$inferSelect;
 
 export type JsonObject = Record<string, string | number | boolean | null>;
 export type ActivityMetadata = JsonObject;

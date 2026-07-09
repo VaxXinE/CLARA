@@ -1,4 +1,5 @@
-import { demoCustomers } from "../db/fixtures/demo-data";
+import type { FixtureAppStore } from "../db/fixtures/fixture-store";
+import { createFixtureAppStore } from "../db/fixtures/fixture-store";
 import type { WorkspaceScope } from "../workspace/workspace-scope";
 
 export type CustomerProfileRecord = {
@@ -29,12 +30,18 @@ function requireDate(value: Date | undefined, field: string): Date {
 }
 
 export class FixtureCustomerRepository implements CustomerRepository {
+  private readonly store: FixtureAppStore;
+
+  constructor(store: FixtureAppStore = createFixtureAppStore()) {
+    this.store = store;
+  }
+
   async findByIdScoped(
     scope: WorkspaceScope,
     customerId: string,
   ): Promise<CustomerProfileRecord | null> {
     const row =
-      demoCustomers.find(
+      this.store.customers.find(
         (customer) =>
           customer.id === customerId &&
           customer.organizationId === scope.organizationId &&
