@@ -8,6 +8,7 @@ import type { Env } from "../config/env";
 import { isProduction } from "../config/env";
 import { buildErrorLogContext } from "../http/middleware/request-logging";
 import { AppError } from "./app-error";
+import { ERROR_CODES, getErrorCodeForStatusCode } from "./error-codes";
 
 type ErrorPayload = {
   error: {
@@ -34,36 +35,8 @@ function getStatusCode(error: FastifyError): number {
   return 500;
 }
 
-function getErrorCode(statusCode: number): string {
-  if (statusCode === 400) {
-    return "BAD_REQUEST";
-  }
-
-  if (statusCode === 401) {
-    return "UNAUTHENTICATED";
-  }
-
-  if (statusCode === 403) {
-    return "FORBIDDEN";
-  }
-
-  if (statusCode === 404) {
-    return "NOT_FOUND";
-  }
-
-  if (statusCode === 413) {
-    return "PAYLOAD_TOO_LARGE";
-  }
-
-  if (statusCode === 429) {
-    return "RATE_LIMITED";
-  }
-
-  return "INTERNAL_SERVER_ERROR";
-}
-
 function getErrorDetails(error: FastifyError, statusCode: number, env: Env) {
-  if (error instanceof AppError) {
+  if (error instanceof AppError && statusCode < 500) {
     return error.details;
   }
 
@@ -85,6 +58,10 @@ function getSafeMessage(
       : error.message || "Unexpected server error.";
   }
 
+  if (statusCode === 400 && error.validation) {
+    return "Invalid request.";
+  }
+
   if (statusCode === 413) {
     return "Request payload is too large.";
   }
@@ -96,13 +73,21 @@ function getSafeMessage(
   return error.message || "Request failed.";
 }
 
+function getErrorCode(error: FastifyError, statusCode: number): string {
+  if (error instanceof AppError) {
+    return error.appCode;
+  }
+
+  return getErrorCodeForStatusCode(statusCode);
+}
+
 export function registerErrorHandlers<
   TApp extends FastifyInstance = FastifyInstance,
 >(app: TApp, env: Env): void {
   app.setNotFoundHandler(async (request, reply) => {
     const payload: ErrorPayload = {
       error: {
-        code: "NOT_FOUND",
+        code: ERROR_CODES.notFound,
         message: "Route not found.",
         correlation_id: request.id,
       },
@@ -120,10 +105,7 @@ export function registerErrorHandlers<
       const statusCode = getStatusCode(error);
       const payload: ErrorPayload = {
         error: {
-          code:
-            error instanceof AppError
-              ? error.appCode
-              : getErrorCode(statusCode),
+          code: getErrorCode(error, statusCode),
           message: getSafeMessage(error, statusCode, env),
           correlation_id: request.id,
         },

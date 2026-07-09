@@ -279,6 +279,25 @@ LOG_LEVEL should stay info or warn in production
 rate limiting remains enabled in production by config guardrail
 dashboard provider mode must use Supabase URL plus anon key only
 frontend must never contain a Supabase service role key
+Standard API error envelope:
+
+```json
+{
+  "error": {
+    "code": "STRING_CODE",
+    "message": "Safe user-facing message",
+    "correlation_id": "request-correlation-id"
+  }
+}
+```
+
+Current error-handling hardening:
+
+```text
+all handled API errors include correlation_id
+400 validation/bad request, 401, 403, 404, 409, 413, 429, and 500 paths use the centralized error handler
+production responses do not expose stack traces, database internals, provider internals, or raw validation engine internals
+cross-workspace misses continue returning safe 404 envelopes
 ```
 
 Rate limiting and request size baseline:

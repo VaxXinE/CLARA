@@ -77,6 +77,7 @@ reply persistence now has a DB-backed repository foundation while preserving fix
 audit log baseline now records AI draft and reply send events with scoped, metadata-only persistence
 structured request logging baseline now records correlation_id, request metadata, and safe auth scope metadata without logging sensitive payloads
 rate limiting and request body limit baseline now protects general traffic plus stricter AI draft and reply send routes
+centralized production error handling now returns a safe, correlation_id-based error envelope for handled 400/401/403/404/409/413/429/500 paths
 workspace-scoped conversation list and conversation detail APIs work
 workspace-scoped customer detail API works
 workspace-scoped activity timeline API works
@@ -87,6 +88,7 @@ viewer is read-only
 cross-workspace resource access is blocked
 invalid IDs return safe 400 responses
 provider failures return safe error envelopes
+production error responses do not expose stack traces, database internals, or provider internals
 AI draft does not auto-send
 reply send requires explicit human action
 runbook, demo script, and validation docs exist
