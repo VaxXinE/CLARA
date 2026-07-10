@@ -108,6 +108,8 @@ docker compose -f docker-compose.prod.example.yml config
 | `GMAIL_OAUTH_REDIRECT_URI`|                                       No | none                                             | Optional default Gmail OAuth redirect URI                    |
 | `GMAIL_OAUTH_REDIRECT_URI_ALLOWLIST`|                           No | `GMAIL_OAUTH_REDIRECT_URI` if set                | Comma-separated exact Gmail OAuth redirect URI allowlist    |
 | `GMAIL_OAUTH_ALLOWED_SCOPES`|                                    No | `gmail.readonly,gmail.send`                      | Comma-separated Gmail OAuth scope allowlist aliases         |
+| `GMAIL_OAUTH_TOKEN_EXCHANGE_MODE`|                              No | `disabled`                                       | Gmail OAuth token exchange boundary mode: `disabled`, `simulated`, or `real` |
+| `GMAIL_OAUTH_TOKEN_ENDPOINT`|                                   No | `https://oauth2.googleapis.com/token`            | Reserved public token endpoint config for future real Gmail token exchange |
 | `TOKEN_VAULT_ENCRYPTION_KEY_BASE64`|                          Encrypted vault mode only | none                                             | Base64-encoded 32-byte AES-256-GCM key for encrypted Gmail token vault persistence |
 | `TOKEN_VAULT_ENCRYPTION_KEY_VERSION`|                         No | `v1`                                             | Key version recorded with encrypted Gmail token vault rows |
 | `GMAIL_TOKEN_ENCRYPTION_KEY`|                                    No | none                                             | Legacy fallback env name for local compatibility; prefer `TOKEN_VAULT_ENCRYPTION_KEY_BASE64` |
@@ -375,6 +377,10 @@ OAuth connect route skeleton now exists at POST /api/v1/integrations/gmail/oauth
 OAuth connect response returns authorization_url, provider, scopes, and expiry only; it never returns PKCE verifier, nonce, token, or client_secret
 OAuth callback validation route now exists at GET /api/v1/integrations/gmail/oauth/callback and validates code/state without token exchange
 OAuth callback never persists or returns authorization code, raw state, nonce, PKCE verifier, access token, or refresh token
+Gmail OAuth token exchange boundary now exists as an internal-only service and client abstraction
+simulated Gmail OAuth token exchange is allowed for local/test only and is blocked in production
+token exchange stores access_token and refresh_token only through the encrypted Gmail token vault boundary and never returns raw tokens
+public callback route contract is unchanged and does not automatically perform token exchange in this build
 ```
 
 Current email E2E internal smoke baseline:

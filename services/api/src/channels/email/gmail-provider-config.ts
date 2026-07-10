@@ -1,13 +1,22 @@
 import { z } from "zod";
 
 export const gmailTokenVaultModes = ["mock", "encrypted"] as const;
+export const gmailOAuthTokenExchangeModes = [
+  "disabled",
+  "simulated",
+  "real",
+] as const;
 
 export type GmailTokenVaultMode = (typeof gmailTokenVaultModes)[number];
+export type GmailOAuthTokenExchangeMode =
+  (typeof gmailOAuthTokenExchangeModes)[number];
 
 export type GmailProviderConfig = {
   enabled: boolean;
   tokenVaultMode: GmailTokenVaultMode;
   oauthAuthorizationEndpoint: string;
+  oauthTokenExchangeMode?: GmailOAuthTokenExchangeMode;
+  oauthTokenEndpoint?: string;
   oauthClientId?: string;
   oauthRedirectUri?: string;
   oauthAllowedRedirectUris?: string[];
@@ -20,6 +29,10 @@ const gmailProviderConfigSchema = z.object({
   GMAIL_PROVIDER_ENABLED: z.enum(["true", "false"]).optional(),
   GMAIL_TOKEN_VAULT_MODE: z.enum(gmailTokenVaultModes).optional(),
   GMAIL_OAUTH_AUTHORIZATION_ENDPOINT: z.string().trim().optional(),
+  GMAIL_OAUTH_TOKEN_EXCHANGE_MODE: z
+    .enum(gmailOAuthTokenExchangeModes)
+    .optional(),
+  GMAIL_OAUTH_TOKEN_ENDPOINT: z.string().trim().optional(),
   GMAIL_OAUTH_CLIENT_ID: z.string().trim().optional(),
   GMAIL_OAUTH_REDIRECT_URI: z.string().trim().optional(),
   GMAIL_OAUTH_REDIRECT_URI_ALLOWLIST: z.string().trim().optional(),
@@ -41,6 +54,11 @@ export function loadGmailProviderConfig(
     oauthAuthorizationEndpoint:
       parsed.GMAIL_OAUTH_AUTHORIZATION_ENDPOINT ??
       "https://accounts.google.com/o/oauth2/v2/auth",
+    oauthTokenExchangeMode:
+      parsed.GMAIL_OAUTH_TOKEN_EXCHANGE_MODE ?? "disabled",
+    oauthTokenEndpoint:
+      parsed.GMAIL_OAUTH_TOKEN_ENDPOINT ??
+      "https://oauth2.googleapis.com/token",
     oauthAllowedRedirectUris: [],
     oauthAllowedScopes: ["gmail.readonly", "gmail.send"],
     tokenEncryptionKeyVersion:
@@ -86,6 +104,10 @@ export function validateGmailProviderConfig(
   config: GmailProviderConfig,
   input: { nodeEnv: "development" | "test" | "production" },
 ): void {
+  const oauthTokenExchangeMode = config.oauthTokenExchangeMode ?? "disabled";
+  const oauthTokenEndpoint =
+    config.oauthTokenEndpoint ?? "https://oauth2.googleapis.com/token";
+
   if (input.nodeEnv === "production" && config.tokenVaultMode === "mock") {
     throw new Error(
       "Invalid Gmail provider configuration: mock Gmail token vault is not allowed in production.",
@@ -111,6 +133,21 @@ export function validateGmailProviderConfig(
   if (config.oauthAuthorizationEndpoint.trim().length === 0) {
     throw new Error(
       "Invalid Gmail provider configuration: GMAIL_OAUTH_AUTHORIZATION_ENDPOINT must not be empty.",
+    );
+  }
+
+  if (oauthTokenEndpoint.trim().length === 0) {
+    throw new Error(
+      "Invalid Gmail provider configuration: GMAIL_OAUTH_TOKEN_ENDPOINT must not be empty.",
+    );
+  }
+
+  if (
+    input.nodeEnv === "production" &&
+    oauthTokenExchangeMode === "simulated"
+  ) {
+    throw new Error(
+      "Invalid Gmail provider configuration: simulated Gmail OAuth token exchange is not allowed in production.",
     );
   }
 

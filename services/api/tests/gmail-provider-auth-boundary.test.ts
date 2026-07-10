@@ -212,6 +212,7 @@ describe("Gmail provider config boundary", () => {
     const config = loadGmailProviderConfig({
       GMAIL_PROVIDER_ENABLED: "true",
       GMAIL_TOKEN_VAULT_MODE: "encrypted",
+      GMAIL_OAUTH_TOKEN_EXCHANGE_MODE: "disabled",
       TOKEN_VAULT_ENCRYPTION_KEY_BASE64: Buffer.alloc(32, 9).toString("base64"),
       TOKEN_VAULT_ENCRYPTION_KEY_VERSION: "v2",
       GMAIL_OAUTH_CLIENT_ID: "gmail-client-id-placeholder",
@@ -223,6 +224,8 @@ describe("Gmail provider config boundary", () => {
       tokenVaultMode: "encrypted",
       oauthAuthorizationEndpoint:
         "https://accounts.google.com/o/oauth2/v2/auth",
+      oauthTokenExchangeMode: "disabled",
+      oauthTokenEndpoint: "https://oauth2.googleapis.com/token",
       oauthAllowedRedirectUris: [
         "http://127.0.0.1:3000/internal/gmail/redirect",
       ],
@@ -232,5 +235,29 @@ describe("Gmail provider config boundary", () => {
       oauthClientId: "gmail-client-id-placeholder",
       oauthRedirectUri: "http://127.0.0.1:3000/internal/gmail/redirect",
     });
+  });
+
+  it("blocks simulated Gmail OAuth token exchange mode in production", () => {
+    expect(() =>
+      validateGmailProviderConfig(
+        {
+          enabled: true,
+          tokenVaultMode: "encrypted",
+          oauthAuthorizationEndpoint:
+            "https://accounts.google.com/o/oauth2/v2/auth",
+          oauthTokenExchangeMode: "simulated",
+          oauthAllowedRedirectUris: [
+            "https://allowed.example.com/api/v1/integrations/gmail/oauth/callback",
+          ],
+          oauthAllowedScopes: ["gmail.readonly", "gmail.send"],
+          oauthClientId: "gmail-client-id-placeholder",
+          tokenEncryptionKeyBase64: Buffer.alloc(32, 9).toString("base64"),
+          tokenEncryptionKeyVersion: "v2",
+        },
+        { nodeEnv: "production" },
+      ),
+    ).toThrow(
+      "simulated Gmail OAuth token exchange is not allowed in production",
+    );
   });
 });
