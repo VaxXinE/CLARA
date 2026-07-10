@@ -8,6 +8,7 @@ last_updated: "2026-07-10"
 classification: "decision-spike"
 related_documents:
   - "./CLARA-P3-EMAIL-PROVIDER-RISK-MATRIX.md"
+  - "./CLARA-P3-GMAIL-AUTH-BOUNDARY-SPEC.md"
   - "./CLARA-P3-EMAIL-CHANNEL-ADAPTER-SPEC.md"
   - "./CLARA-P3-EMAIL-INBOUND-PERSISTENCE-SPEC.md"
   - "./CLARA-P3-EMAIL-INGESTION-HARNESS-SPEC.md"
@@ -275,6 +276,12 @@ Urutan implementasi yang disarankan:
 3. Inbound fetch prototype with strict normalization.
 4. Outbound send prototype with safe delivery record updates.
 5. Staging smoke runbook and revoke/rollback test.
+
+Current boundary skeleton reference:
+
+```text
+CLARA-P3-GMAIL-AUTH-BOUNDARY-SPEC.md
+```
 
 ## Final Position
 
