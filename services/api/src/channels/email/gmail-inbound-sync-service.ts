@@ -1,6 +1,8 @@
 import { AppError, NotFoundError } from "../../errors/app-error";
 import type { GmailConnectionHealthService } from "./gmail-connection-health-service";
 import type { GmailInboundMessageFetchService } from "./gmail-inbound-message-fetch-service";
+import type { GmailMessageNormalizationService } from "./gmail-message-normalization-service";
+import type { GmailNormalizedInboundEmailPersister } from "./gmail-message-normalization-types";
 import type { GmailProviderAccountRepository } from "./gmail-provider-account-repository";
 import type {
   GmailInboundSyncInput,
@@ -34,6 +36,13 @@ export class GmailInboundSyncService {
     private readonly accounts: GmailProviderAccountRepository,
     private readonly health: GmailConnectionHealthChecker,
     private readonly fetch: GmailInboundMessageFetcher,
+    private readonly options: {
+      normalization?: Pick<
+        GmailMessageNormalizationService,
+        "normalizeMessage"
+      >;
+      persistence?: GmailNormalizedInboundEmailPersister;
+    } = {},
   ) {}
 
   async syncMessages(
@@ -66,6 +75,8 @@ export class GmailInboundSyncService {
         provider: "gmail",
         status: "skipped",
         fetched_count: 0,
+        normalized_count: 0,
+        persisted_count: 0,
         skipped_count: 0,
         failed_count: 0,
         reason_code: "connection_unhealthy",
@@ -93,6 +104,8 @@ export class GmailInboundSyncService {
           provider: "gmail",
           status: "failed",
           fetched_count: 0,
+          normalized_count: 0,
+          persisted_count: 0,
           skipped_count: 0,
           failed_count: 0,
           reason_code: "provider_fetch_failed",
@@ -109,6 +122,8 @@ export class GmailInboundSyncService {
         provider: "gmail",
         status: "completed",
         fetched_count: 0,
+        normalized_count: 0,
+        persisted_count: 0,
         skipped_count: 0,
         failed_count: 0,
         ...(listed.next_page_token
@@ -122,13 +137,15 @@ export class GmailInboundSyncService {
     }
 
     let fetchedCount = 0;
+    let normalizedCount = 0;
+    let persistedCount = 0;
     let failedCount = 0;
     let skippedCount = 0;
     let reasonCode: GmailInboundSyncReasonCode | undefined = "sync_completed";
 
     for (const item of listed.items) {
       try {
-        await this.fetch.getMessage({
+        const message = await this.fetch.getMessage({
           organizationId: scope.organizationId,
           workspaceId: scope.workspaceId,
           accountId: account.id,
@@ -136,6 +153,38 @@ export class GmailInboundSyncService {
           now,
         });
         fetchedCount += 1;
+
+        if (input.persistNormalized) {
+          const normalization = this.options.normalization;
+          const persistence = this.options.persistence;
+
+          if (!normalization || !persistence) {
+            throw new AppError({
+              statusCode: 400,
+              appCode: "GMAIL_NORMALIZED_PERSISTENCE_NOT_CONFIGURED",
+              message:
+                "Gmail normalized inbound persistence is not configured.",
+            });
+          }
+
+          const envelope = normalization.normalizeMessage({
+            account,
+            message,
+            now,
+          });
+          normalizedCount += 1;
+
+          const persisted = await persistence.persistNormalizedEmail({
+            scope,
+            envelope,
+          });
+
+          if (persisted.alreadyProcessed) {
+            skippedCount += 1;
+          } else {
+            persistedCount += 1;
+          }
+        }
       } catch (error) {
         if (error instanceof AppError && error.statusCode === 400) {
           skippedCount += 1;
@@ -158,6 +207,8 @@ export class GmailInboundSyncService {
       provider: "gmail",
       status,
       fetched_count: fetchedCount,
+      normalized_count: normalizedCount,
+      persisted_count: persistedCount,
       skipped_count: skippedCount,
       failed_count: failedCount,
       ...(listed.next_page_token

@@ -23,12 +23,13 @@ Scope PR ini hanya mencakup:
 - cek health koneksi Gmail sebelum sync,
 - list message IDs,
 - fetch detail message secara bounded,
+- normalisasi aman Gmail message ke envelope inbound email internal,
+- hook opsional untuk persist envelope yang sudah dinormalisasi,
 - summary hasil sync yang aman,
 - route management-scoped untuk trigger sync manual.
 
 PR ini tidak mencakup:
 
-- persistence Gmail messages,
 - customer creation,
 - conversation creation,
 - activity creation,
@@ -45,6 +46,8 @@ provider_account_id
 provider
 status
 fetched_count
+normalized_count
+persisted_count
 skipped_count
 failed_count
 next_page_token optional
@@ -70,6 +73,7 @@ Selalu enforce:
 sync batch size harus dibatasi
 viewer tidak boleh trigger sync
 cross-workspace sync harus fail closed
-tidak boleh membuat customer/conversation/AI draft di PR ini
+persist_normalized harus explicit dan tidak boleh default implicit
+tidak boleh membuat customer/conversation/activity/AI draft di PR ini
 tidak boleh menyimpan attachment body/data
 ```

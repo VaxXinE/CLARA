@@ -36,6 +36,8 @@ describe("gmail inbound sync route", () => {
         provider: "gmail" as const,
         status: "completed" as const,
         fetched_count: 2,
+        normalized_count: 0,
+        persisted_count: 0,
         skipped_count: 0,
         failed_count: 0,
         next_page_token: "page_2",
@@ -80,6 +82,7 @@ describe("gmail inbound sync route", () => {
       payload: {
         max_messages: 999,
         page_token: "page_1",
+        persist_normalized: true,
         query: 'from:sales@example.test subject:"Invoice"',
         label_ids: ["INBOX", "UNREAD"],
       },
@@ -93,6 +96,8 @@ describe("gmail inbound sync route", () => {
       provider: "gmail",
       status: "completed",
       fetched_count: 2,
+      normalized_count: 0,
+      persisted_count: 0,
     });
     expect(syncService.syncMessages).toHaveBeenCalledWith({
       organizationId: "org_demo",
@@ -100,6 +105,7 @@ describe("gmail inbound sync route", () => {
       providerAccountId: "gmail_account_demo",
       maxMessages: 999,
       pageToken: "page_1",
+      persistNormalized: true,
       query: 'from:sales@example.test subject:"Invoice"',
       labelIds: ["INBOX", "UNREAD"],
     });

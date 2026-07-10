@@ -30,7 +30,7 @@ real token exchange exists behind a safe boundary
 token refresh boundary exists for internal/server-side use only
 connection health check exists for provider-management checks
 inbound Gmail message fetch boundary exists for safe list/get operations only
-inbound Gmail sync orchestrator exists for bounded manual sync summaries only
+inbound Gmail sync orchestrator exists for bounded manual sync summaries and optional normalized-envelope persistence
 no background refresh scheduler or outbound Gmail send yet
 ```
 
@@ -47,8 +47,8 @@ Gmail inbound sync notes:
 ```text
 manual orchestration only
 bounded fetch + safe summary only
-does not persist Gmail messages in this PR
-does not create customers, conversations, AI drafts, or replies
+optional persist_normalized mode persists sanitized Gmail inbound envelopes only
+does not create customers, conversations, activities, AI drafts, or replies
 ```
 
 ## Current Endpoints
