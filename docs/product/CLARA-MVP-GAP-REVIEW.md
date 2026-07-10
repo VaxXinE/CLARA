@@ -82,6 +82,7 @@ backend email channel normalization skeleton now exists for local/dev/test witho
 backend email inbound persistence baseline now exists for trusted scoped customer/conversation/message/activity creation without a public ingress endpoint
 backend email ingestion harness now exists for batch normalize-and-persist orchestration using simulated adapter inputs only
 backend email reply adapter skeleton now exists for simulated outbound email send without changing the public reply API flow
+backend email outbound delivery persistence now exists for safe simulated/sent/failed email delivery records without storing raw provider payloads
 workspace-scoped conversation list and conversation detail APIs work
 workspace-scoped customer detail API works
 workspace-scoped activity timeline API works
@@ -117,6 +118,7 @@ email channel support is only a simulated inbound normalization skeleton
 email inbound persistence exists only behind backend service boundaries and still has no real provider ingestion path
 email ingestion exists only as an internal harness and still has no public webhook or worker runtime
 email reply adapter exists only as a simulated backend boundary and is not connected to a real email provider yet
+email outbound delivery records exist only as internal persistence and still have no real provider reconciliation lifecycle
 local PostgreSQL credentials are safe placeholders only
 ```
 

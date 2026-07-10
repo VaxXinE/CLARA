@@ -268,6 +268,7 @@ no public email webhook or inbound email API is exposed yet
 EMAIL_CHANNEL_MODE=disabled keeps the skeleton inactive by default
 EMAIL_CHANNEL_MODE=simulated enables only local/dev/test normalization flows
 simulated adapter normalizes inbound email metadata into a CLARA internal message shape
+simulated outbound email reply results can now be persisted as safe delivery records
 raw HTML is not rendered or stored for UI use in this skeleton
 attachments are reduced to attachments_present only and are not downloaded or processed
 allowlisted headers only: message-id, in-reply-to, references, reply-to
@@ -287,6 +288,8 @@ Email channel design reference:
 ```text
 docs/product/CLARA-P3-EMAIL-CHANNEL-ADAPTER-SPEC.md
 docs/product/CLARA-P3-EMAIL-INBOUND-PERSISTENCE-SPEC.md
+docs/product/CLARA-P3-EMAIL-REPLY-ADAPTER-SPEC.md
+docs/product/CLARA-P3-EMAIL-OUTBOUND-DELIVERY-SPEC.md
 ```
 
 Current email inbound persistence baseline:

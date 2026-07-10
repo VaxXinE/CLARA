@@ -28,6 +28,14 @@ const emailInboundMigrationSql = readFileSync(
   emailInboundMigrationPath,
   "utf8",
 );
+const emailOutboundMigrationPath = path.resolve(
+  __dirname,
+  "../drizzle/0004_p3_email_outbound_delivery.sql",
+);
+const emailOutboundMigrationSql = readFileSync(
+  emailOutboundMigrationPath,
+  "utf8",
+);
 
 describe("initial database migration", () => {
   it("creates all required PR-04 tables", () => {
@@ -44,13 +52,16 @@ describe("initial database migration", () => {
       "activity_events",
       "audit_logs",
       "email_inbound_records",
+      "email_outbound_deliveries",
     ]) {
       const source =
         tableName === "audit_logs"
           ? auditLogMigrationSql
           : tableName === "email_inbound_records"
             ? emailInboundMigrationSql
-            : migrationSql;
+            : tableName === "email_outbound_deliveries"
+              ? emailOutboundMigrationSql
+              : migrationSql;
 
       expect(source).toContain(`create table if not exists ${tableName}`);
     }
@@ -65,11 +76,14 @@ describe("initial database migration", () => {
       "ai_draft_events",
       "activity_events",
       "email_inbound_records",
+      "email_outbound_deliveries",
     ]) {
       const source =
         tableName === "email_inbound_records"
           ? emailInboundMigrationSql
-          : migrationSql;
+          : tableName === "email_outbound_deliveries"
+            ? emailOutboundMigrationSql
+            : migrationSql;
       const tableBlock = source
         .split(`create table if not exists ${tableName} (`)[1]
         ?.split(");")[0];
@@ -134,6 +148,25 @@ describe("initial database migration", () => {
     );
     expect(emailInboundMigrationSql).toContain(
       "provider_message_id text not null",
+    );
+  });
+
+  it("adds email outbound delivery persistence schema and scoped uniqueness", () => {
+    expect(emailOutboundMigrationSql).toContain(
+      "create table if not exists email_outbound_deliveries",
+    );
+    expect(emailOutboundMigrationSql).toContain("channel in ('email')");
+    expect(emailOutboundMigrationSql).toContain(
+      "status in ('simulated', 'sent', 'failed')",
+    );
+    expect(emailOutboundMigrationSql).toContain(
+      "create unique index if not exists email_outbound_deliveries_scope_provider_message_unique",
+    );
+    expect(emailOutboundMigrationSql).toContain(
+      "create unique index if not exists email_outbound_deliveries_scope_idempotency_unique",
+    );
+    expect(emailOutboundMigrationSql).toContain(
+      "create index if not exists idx_email_outbound_deliveries_scope_conversation",
     );
   });
 });

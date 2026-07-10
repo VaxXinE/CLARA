@@ -29,6 +29,7 @@ outbound email reply command type
 reply adapter interface
 simulated email reply adapter
 reply service/harness for adapter invocation
+outbound email delivery persistence service and repository baseline
 deterministic offline tests
 ```
 
@@ -80,6 +81,13 @@ provider
 transport
 ```
 
+Delivery persistence metadata is also intentionally allowlisted:
+
+```text
+source
+transport
+```
+
 ## Security Rules
 
 Always enforce:
@@ -90,6 +98,7 @@ do not log provider credentials
 do not log Authorization headers, cookies, tokens, or raw JWTs
 do not log full reply body
 do not store raw provider response payload
+do not store unallowlisted provider metadata in outbound delivery records
 do not send attachments in this skeleton
 do not render raw HTML email
 treat reply body as untrusted text

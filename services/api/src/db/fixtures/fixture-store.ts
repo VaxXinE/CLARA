@@ -6,6 +6,7 @@ import {
   conversations,
   customers,
   emailInboundRecords,
+  emailOutboundDeliveries,
   messages,
   replyDrafts,
 } from "../schema";
@@ -16,6 +17,7 @@ import {
   demoConversations,
   demoCustomers,
   demoEmailInboundRecords,
+  demoEmailOutboundDeliveries,
   demoMessages,
   demoReplyDrafts,
 } from "./demo-data";
@@ -28,6 +30,9 @@ type AiDraftEventInsert = InferInsertModel<typeof aiDraftEvents>;
 type ActivityEventInsert = InferInsertModel<typeof activityEvents>;
 type AuditLogInsert = InferInsertModel<typeof auditLogs>;
 type EmailInboundRecordInsert = InferInsertModel<typeof emailInboundRecords>;
+type EmailOutboundDeliveryInsert = InferInsertModel<
+  typeof emailOutboundDeliveries
+>;
 
 export type FixtureAppStore = {
   customers: CustomerInsert[];
@@ -38,6 +43,7 @@ export type FixtureAppStore = {
   activityEvents: ActivityEventInsert[];
   auditLogs: AuditLogInsert[];
   emailInboundRecords: EmailInboundRecordInsert[];
+  emailOutboundDeliveries: EmailOutboundDeliveryInsert[];
 };
 
 function cloneRows<T>(rows: T[]): T[] {
@@ -54,5 +60,6 @@ export function createFixtureAppStore(): FixtureAppStore {
     activityEvents: cloneRows(demoActivityEvents),
     auditLogs: cloneRows(demoAuditLogs),
     emailInboundRecords: cloneRows(demoEmailInboundRecords),
+    emailOutboundDeliveries: cloneRows(demoEmailOutboundDeliveries),
   };
 }
