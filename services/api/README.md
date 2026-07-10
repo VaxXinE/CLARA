@@ -112,6 +112,9 @@ docker compose -f docker-compose.prod.example.yml config
 | `GMAIL_OAUTH_TOKEN_EXCHANGE_MODE`|                              No | `disabled`                                       | Gmail OAuth token exchange boundary mode: `disabled`, `simulated`, or `real` |
 | `GMAIL_OAUTH_TOKEN_ENDPOINT`|                                   No | `https://oauth2.googleapis.com/token`            | Reserved public token endpoint config for future real Gmail token exchange |
 | `GMAIL_OAUTH_TOKEN_EXCHANGE_TIMEOUT_MS`|                        No | `10000`                                          | Timeout in milliseconds for real Gmail OAuth token exchange HTTP requests |
+| `GMAIL_API_MODE`            |                                       No | `disabled`                                       | Gmail API client boundary mode: `disabled`, `mocked`, or `real` |
+| `GMAIL_API_BASE_URL`        |                            Real Gmail API mode only | none                                             | Explicit Gmail API base URL for real Gmail API HTTP calls |
+| `GMAIL_API_TIMEOUT_MS`      |                                       No | `10000`                                          | Timeout in milliseconds for Gmail API HTTP requests |
 | `TOKEN_VAULT_ENCRYPTION_KEY_BASE64`|                          Encrypted vault mode only | none                                             | Base64-encoded 32-byte AES-256-GCM key for encrypted Gmail token vault persistence |
 | `TOKEN_VAULT_ENCRYPTION_KEY_VERSION`|                         No | `v1`                                             | Key version recorded with encrypted Gmail token vault rows |
 | `GMAIL_TOKEN_ENCRYPTION_KEY`|                                    No | none                                             | Legacy fallback env name for local compatibility; prefer `TOKEN_VAULT_ENCRYPTION_KEY_BASE64` |
@@ -387,6 +390,9 @@ GMAIL_OAUTH_TOKEN_EXCHANGE_MODE=simulated completes the provider connection inte
 GMAIL_OAUTH_TOKEN_EXCHANGE_MODE=real now enables a real Google token exchange client boundary with strict config validation, timeout, and sanitized provider errors
 real token exchange still does not complete a full public Gmail connection flow in this build because Gmail profile resolution and Gmail API client work remain separate follow-up steps
 production-like real mode requires GMAIL_OAUTH_CLIENT_ID, GMAIL_OAUTH_CLIENT_SECRET, redirect URI allowlist, encrypted token vault config, and safe timeout config
+GMAIL_API_MODE=real now enables a real Gmail API HTTP client boundary that only accepts access tokens from the encrypted vault boundary
+GMAIL_API_MODE=mocked is local/test only and is blocked in production
+real Gmail API mode requires an explicit GMAIL_API_BASE_URL and returns sanitized provider errors without exposing bearer tokens
 ```
 
 Current email E2E internal smoke baseline:

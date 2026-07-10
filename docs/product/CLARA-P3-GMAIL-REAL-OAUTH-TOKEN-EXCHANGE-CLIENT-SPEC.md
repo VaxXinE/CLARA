@@ -35,6 +35,13 @@ PR ini tidak mencakup:
 - refresh scheduler,
 - public callback completion real end-to-end.
 
+Update status:
+
+```text
+Gmail API client boundary sekarang sudah ada sebagai boundary terpisah,
+tetapi profile lookup Gmail dan callback completion real end-to-end masih belum diimplementasikan.
+```
+
 ## Required Request Shape
 
 Client real wajib POST ke token endpoint terkonfigurasi dengan body:
