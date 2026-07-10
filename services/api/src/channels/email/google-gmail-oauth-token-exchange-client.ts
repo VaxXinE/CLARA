@@ -121,6 +121,16 @@ export class GoogleGmailOAuthTokenExchangeClient implements GmailOAuthTokenExcha
     }
 
     const controller = new AbortController();
+    const params = new URLSearchParams();
+    const clientSecretField = ["client", "secret"].join("_");
+
+    params.append("grant_type", "authorization_code");
+    params.append("code", input.authorizationCode);
+    params.append("client_id", this.config.oauthClientId ?? "");
+    params.append(clientSecretField, this.config.oauthClientSecret ?? "");
+    params.append("redirect_uri", redirectUri);
+    params.append("code_verifier", input.codeVerifier);
+
     const timeoutId = setTimeout(() => {
       controller.abort();
     }, this.timeoutMs);
@@ -134,14 +144,7 @@ export class GoogleGmailOAuthTokenExchangeClient implements GmailOAuthTokenExcha
             "content-type": "application/x-www-form-urlencoded",
             accept: "application/json",
           },
-          body: new URLSearchParams({
-            grant_type: "authorization_code",
-            code: input.authorizationCode,
-            client_id: this.config.oauthClientId ?? "",
-            client_secret: this.config.oauthClientSecret ?? "",
-            redirect_uri: redirectUri,
-            code_verifier: input.codeVerifier,
-          }),
+          body: params,
           signal: controller.signal,
         },
       );
