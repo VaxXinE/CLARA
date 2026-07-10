@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { buildGmailProviderAccount } from "../src/channels/email/gmail-auth-types";
 import type { GmailApiClient } from "../src/channels/email/gmail-api-client";
+import type { GmailApiRequestInput } from "../src/channels/email/gmail-api-client-types";
 import { GmailApiClientError } from "../src/channels/email/gmail-api-client-types";
 import { ScopedGmailApiAccessTokenProvider } from "../src/channels/email/gmail-api-access-token-provider";
 import { GmailProfileVerificationService } from "../src/channels/email/gmail-profile-verification-service";
@@ -49,16 +50,20 @@ describe("GmailProfileVerificationService", () => {
   it("fetches Gmail profile through the client boundary and updates safe metadata", async () => {
     const { accounts, vault } = await createScopedAccount();
     const clientCalls: Array<unknown> = [];
-    const gmailApiClient: GmailApiClient = {
-      requestJson: vi.fn(async (input) => {
+    const requestJsonMock = vi.fn(
+      async <T>(input: GmailApiRequestInput): Promise<T> => {
         clientCalls.push(input);
         return {
           emailAddress: "agent.gmail@example.test",
           messagesTotal: 42,
           threadsTotal: 8,
           historyId: "h123",
-        };
-      }),
+        } as T;
+      },
+    );
+    const gmailApiClient: GmailApiClient = {
+      requestJson: ((input: GmailApiRequestInput) =>
+        requestJsonMock(input)) as GmailApiClient["requestJson"],
     };
     const service = new GmailProfileVerificationService(
       accounts,
@@ -99,14 +104,19 @@ describe("GmailProfileVerificationService", () => {
 
   it("rejects profile email mismatch safely", async () => {
     const { accounts, vault } = await createScopedAccount();
+    const requestJsonMock = vi.fn(
+      async <T>(_input: GmailApiRequestInput): Promise<T> =>
+        ({
+          emailAddress: "other.account@example.test",
+          historyId: "h999",
+        }) as T,
+    );
     const service = new GmailProfileVerificationService(
       accounts,
       new ScopedGmailApiAccessTokenProvider(accounts, vault),
       {
-        requestJson: vi.fn(async () => ({
-          emailAddress: "other.account@example.test",
-          historyId: "h999",
-        })),
+        requestJson: ((input: GmailApiRequestInput) =>
+          requestJsonMock(input)) as GmailApiClient["requestJson"],
       },
     );
 
@@ -123,11 +133,17 @@ describe("GmailProfileVerificationService", () => {
 
   it("fails closed for cross-workspace access and missing access token", async () => {
     const { accounts, vault } = await createScopedAccount();
+    const requestJsonMock = vi.fn(
+      async <T>(_input: GmailApiRequestInput): Promise<T> => {
+        throw new Error("requestJson should not be called");
+      },
+    );
     const service = new GmailProfileVerificationService(
       accounts,
       new ScopedGmailApiAccessTokenProvider(accounts, vault),
       {
-        requestJson: vi.fn(),
+        requestJson: ((input: GmailApiRequestInput) =>
+          requestJsonMock(input)) as GmailApiClient["requestJson"],
       },
     );
 
@@ -155,7 +171,8 @@ describe("GmailProfileVerificationService", () => {
       accountsWithoutToken,
       new ScopedGmailApiAccessTokenProvider(accountsWithoutToken, vault),
       {
-        requestJson: vi.fn(),
+        requestJson: ((input: GmailApiRequestInput) =>
+          requestJsonMock(input)) as GmailApiClient["requestJson"],
       },
     );
 
@@ -170,16 +187,20 @@ describe("GmailProfileVerificationService", () => {
 
   it("sanitizes provider errors and does not store raw provider body", async () => {
     const { accounts, vault } = await createScopedAccount();
+    const requestJsonMock = vi.fn(
+      async <T>(_input: GmailApiRequestInput): Promise<T> => {
+        throw new GmailApiClientError(
+          "gmail_api_unauthenticated",
+          "raw provider bearer gat detail",
+        );
+      },
+    );
     const service = new GmailProfileVerificationService(
       accounts,
       new ScopedGmailApiAccessTokenProvider(accounts, vault),
       {
-        requestJson: vi.fn(async () => {
-          throw new GmailApiClientError(
-            "gmail_api_unauthenticated",
-            "raw provider bearer gat detail",
-          );
-        }),
+        requestJson: ((input: GmailApiRequestInput) =>
+          requestJsonMock(input)) as GmailApiClient["requestJson"],
       },
     );
 
