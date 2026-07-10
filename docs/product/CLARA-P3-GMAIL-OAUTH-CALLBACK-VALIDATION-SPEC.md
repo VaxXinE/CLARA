@@ -36,6 +36,11 @@ PR ini tidak mencakup:
 - dashboard OAuth UI,
 - persistence access token atau refresh token dari Google.
 
+Catatan:
+
+- token exchange boundary internal sekarang sudah ada sebagai service terpisah,
+- public callback route tetap tidak otomatis menjalankan token exchange pada build ini.
+
 ## Route
 
 Endpoint callback:

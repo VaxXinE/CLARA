@@ -35,6 +35,11 @@ PR ini tidak mencakup:
 - token refresh lifecycle,
 - operator-facing route atau UI.
 
+Catatan:
+
+- Gmail OAuth token exchange boundary sekarang sudah memakai vault ini untuk menulis token hasil exchange secara internal-only,
+- raw access token dan refresh token tetap tidak boleh keluar ke DTO publik.
+
 ## Stored Data
 
 Row vault hanya menyimpan:

@@ -125,7 +125,7 @@ email provider integration decision now exists, but no real provider code is imp
 gmail provider auth boundary skeleton now exists, but it still has no real OAuth flow, no real encrypted token storage, and no Gmail API client
 gmail provider account metadata persistence now exists, but it still stores reference-only metadata and not real OAuth tokens
 gmail encrypted token vault persistence now exists, but it is still an internal boundary without real OAuth exchange, refresh lifecycle, or Gmail API integration
-gmail oauth connect and callback validation route skeletons now exist, but there is still no real token exchange, refresh lifecycle, or Gmail API client
+gmail oauth connect and callback validation route skeletons now exist, and an internal simulated token exchange boundary now exists, but there is still no real token exchange, refresh lifecycle, or Gmail API client
 local PostgreSQL credentials are safe placeholders only
 ```
 

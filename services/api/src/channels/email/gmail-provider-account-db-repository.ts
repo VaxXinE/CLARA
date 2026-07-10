@@ -179,6 +179,12 @@ export class DrizzleGmailProviderAccountRepository implements GmailProviderAccou
           input.tokenReferenceId === undefined
             ? existing.tokenReferenceId
             : input.tokenReferenceId,
+        displayName:
+          input.displayName === undefined
+            ? existing.displayName
+            : input.displayName,
+        scopes:
+          input.scopes === undefined ? [...existing.scopes] : [...input.scopes],
         lastVerifiedAt:
           input.lastVerifiedAt === undefined
             ? existing.lastVerifiedAt

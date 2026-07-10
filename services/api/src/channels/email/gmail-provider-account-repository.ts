@@ -7,6 +7,8 @@ export type UpdateGmailProviderAccountInput = {
   accountId: string;
   status?: GmailProviderAccount["status"];
   tokenReferenceId?: string | null;
+  displayName?: string | null;
+  scopes?: string[];
   lastVerifiedAt?: Date | null;
   metadata?: GmailProviderAccount["metadata"];
   updatedAt: Date;
@@ -124,6 +126,12 @@ export class FixtureGmailProviderAccountRepository implements GmailProviderAccou
         input.tokenReferenceId === undefined
           ? existing.tokenReferenceId
           : input.tokenReferenceId,
+      displayName:
+        input.displayName === undefined
+          ? existing.displayName
+          : input.displayName,
+      scopes:
+        input.scopes === undefined ? [...existing.scopes] : [...input.scopes],
       lastVerifiedAt:
         input.lastVerifiedAt === undefined
           ? existing.lastVerifiedAt

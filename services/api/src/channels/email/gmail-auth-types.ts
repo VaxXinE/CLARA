@@ -111,7 +111,7 @@ function normalizeScopes(scopes: string[]): string[] {
 }
 
 export function buildGmailProviderAccount(
-  input: CreateGmailProviderAccountInput & {
+  input: Omit<CreateGmailProviderAccountInput, "tokenGrant"> & {
     id?: string;
     tokenReferenceId: string;
     createdAt?: Date;
