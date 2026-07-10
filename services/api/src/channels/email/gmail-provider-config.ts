@@ -6,10 +6,12 @@ export const gmailOAuthTokenExchangeModes = [
   "simulated",
   "real",
 ] as const;
+export const gmailApiModes = ["disabled", "mocked", "real"] as const;
 
 export type GmailTokenVaultMode = (typeof gmailTokenVaultModes)[number];
 export type GmailOAuthTokenExchangeMode =
   (typeof gmailOAuthTokenExchangeModes)[number];
+export type GmailApiMode = (typeof gmailApiModes)[number];
 
 export type GmailProviderConfig = {
   enabled: boolean;
@@ -23,6 +25,9 @@ export type GmailProviderConfig = {
   oauthAllowedRedirectUris?: string[];
   oauthAllowedScopes: string[];
   oauthTokenExchangeTimeoutMs?: number;
+  apiMode?: GmailApiMode;
+  apiBaseUrl?: string;
+  apiTimeoutMs?: number;
   tokenEncryptionKeyBase64?: string;
   tokenEncryptionKeyVersion?: string;
 };
@@ -46,6 +51,9 @@ const gmailProviderConfigSchema = z.object({
     .int()
     .min(1)
     .optional(),
+  GMAIL_API_MODE: z.enum(gmailApiModes).optional(),
+  GMAIL_API_BASE_URL: z.string().trim().optional(),
+  GMAIL_API_TIMEOUT_MS: z.coerce.number().int().min(1).optional(),
   TOKEN_VAULT_ENCRYPTION_KEY_BASE64: z.string().trim().optional(),
   TOKEN_VAULT_ENCRYPTION_KEY_VERSION: z.string().trim().optional(),
   GMAIL_TOKEN_ENCRYPTION_KEY: z.string().trim().optional(),
@@ -71,6 +79,8 @@ export function loadGmailProviderConfig(
     oauthAllowedScopes: ["gmail.readonly", "gmail.send"],
     oauthTokenExchangeTimeoutMs:
       parsed.GMAIL_OAUTH_TOKEN_EXCHANGE_TIMEOUT_MS ?? 10_000,
+    apiMode: parsed.GMAIL_API_MODE ?? "disabled",
+    apiTimeoutMs: parsed.GMAIL_API_TIMEOUT_MS ?? 10_000,
     tokenEncryptionKeyVersion:
       parsed.TOKEN_VAULT_ENCRYPTION_KEY_VERSION ?? "v1",
   };
@@ -85,6 +95,10 @@ export function loadGmailProviderConfig(
 
   if (parsed.GMAIL_OAUTH_REDIRECT_URI) {
     config.oauthRedirectUri = parsed.GMAIL_OAUTH_REDIRECT_URI;
+  }
+
+  if (parsed.GMAIL_API_BASE_URL) {
+    config.apiBaseUrl = parsed.GMAIL_API_BASE_URL;
   }
 
   const redirectUriListSource =
@@ -150,6 +164,12 @@ export function validateGmailProviderConfig(
     );
   }
 
+  if ((config.apiTimeoutMs ?? 10_000) < 1) {
+    throw new Error(
+      "Invalid Gmail provider configuration: GMAIL_API_TIMEOUT_MS must be greater than 0.",
+    );
+  }
+
   if (config.oauthAuthorizationEndpoint.trim().length === 0) {
     throw new Error(
       "Invalid Gmail provider configuration: GMAIL_OAUTH_AUTHORIZATION_ENDPOINT must not be empty.",
@@ -168,6 +188,12 @@ export function validateGmailProviderConfig(
   ) {
     throw new Error(
       "Invalid Gmail provider configuration: simulated Gmail OAuth token exchange is not allowed in production.",
+    );
+  }
+
+  if (input.nodeEnv === "production" && config.apiMode === "mocked") {
+    throw new Error(
+      "Invalid Gmail provider configuration: mocked Gmail API mode is not allowed in production.",
     );
   }
 
@@ -220,6 +246,14 @@ export function validateGmailProviderConfig(
     if (oauthTokenEndpoint.trim().length === 0) {
       throw new Error(
         "Invalid Gmail provider configuration: GMAIL_OAUTH_TOKEN_ENDPOINT is required when real Gmail OAuth token exchange is configured.",
+      );
+    }
+  }
+
+  if (config.apiMode === "real") {
+    if (!config.apiBaseUrl || config.apiBaseUrl.trim().length === 0) {
+      throw new Error(
+        "Invalid Gmail provider configuration: GMAIL_API_BASE_URL is required when real Gmail API mode is configured.",
       );
     }
   }
