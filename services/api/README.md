@@ -30,15 +30,25 @@ real token exchange exists behind a safe boundary
 token refresh boundary exists for internal/server-side use only
 connection health check exists for provider-management checks
 inbound Gmail message fetch boundary exists for safe list/get operations only
-no background refresh scheduler, inbound sync, or outbound Gmail send yet
+inbound Gmail sync orchestrator exists for bounded manual sync summaries only
+no background refresh scheduler or outbound Gmail send yet
 ```
 
 Gmail inbound fetch boundary notes:
 
 ```text
-safe list/get only, no sync orchestration yet
+safe list/get only, no persistence orchestration yet
 headers are allowlisted and attachment body bytes are stripped
 raw Gmail format is not returned in this build
+```
+
+Gmail inbound sync notes:
+
+```text
+manual orchestration only
+bounded fetch + safe summary only
+does not persist Gmail messages in this PR
+does not create customers, conversations, AI drafts, or replies
 ```
 
 ## Current Endpoints
@@ -58,6 +68,7 @@ POST /api/v1/conversations/:conversation_id/reply
 POST /api/v1/integrations/gmail/oauth/connect
 GET /api/v1/integrations/gmail/oauth/callback
 GET /api/v1/integrations/gmail/accounts/:providerAccountId/health
+POST /api/v1/integrations/gmail/accounts/:providerAccountId/sync
 ```
 
 ## Local Setup
