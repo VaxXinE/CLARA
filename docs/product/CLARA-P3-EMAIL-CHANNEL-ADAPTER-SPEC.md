@@ -34,6 +34,7 @@ adapter interface for inbound email normalization
 simulated adapter for local/dev/test
 service layer that converts normalized inbound email into CLARA internal message shape
 inbound persistence foundation for customer/conversation/message/activity storage
+outbound email reply adapter skeleton for simulated local/dev/test send
 offline deterministic unit tests
 environment config baseline through EMAIL_CHANNEL_MODE
 ```
@@ -150,6 +151,7 @@ Future adapters should plug in behind the same interface:
 Gmail API adapter
 IMAP adapter
 other provider-specific adapters
+Gmail API or SMTP reply send adapters
 ```
 
 Expected future flow:

@@ -313,6 +313,17 @@ per-item normalization or persistence failure is counted safely without aborting
 future worker or provider webhook should call the same internal ingestion service after provider trust is established
 ```
 
+Current email reply adapter skeleton:
+
+```text
+no public email send route is exposed
+email reply adapter skeleton is separate from the existing core reply API flow
+simulated email reply adapter is available for local/dev/test
+safe send result returns provider_message_id, provider_thread_id when available, sent_at, status, and allowlisted metadata only
+raw provider response payload, raw html, attachments, and full reply body are not stored in the adapter result
+future Gmail API or SMTP adapters should plug into the same email reply adapter interface after provider trust and secret management are in place
+```
+
 Audit log baseline:
 
 ```text
