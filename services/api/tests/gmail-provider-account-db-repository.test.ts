@@ -202,6 +202,58 @@ describe("DrizzleGmailProviderAccountRepository", () => {
     });
   });
 
+  it("persists allowlisted metadata updates such as historyId", async () => {
+    const recorder: Recorder = {
+      inserts: [],
+      updates: [],
+    };
+    const repository = new DrizzleGmailProviderAccountRepository(
+      createFakeDatabase({
+        findFirstResults: [
+          buildRow(),
+          buildRow({
+            metadata: {
+              mailboxType: "google_workspace",
+              connectionOrigin: "manual",
+              historyId: "h123",
+            },
+            updatedAt: new Date("2026-07-10T12:30:00.000Z"),
+          }),
+        ],
+        recorder,
+      }),
+    );
+
+    const updated = await repository.updateAccount({
+      scope: {
+        organizationId: "org_demo",
+        workspaceId: "wks_demo_sales",
+      },
+      accountId: "gmail_account_demo_001",
+      metadata: {
+        mailboxType: "google_workspace",
+        connectionOrigin: "manual",
+        historyId: "h123",
+        // @ts-expect-error runtime sanitization check
+        rawBody: "drop-me",
+      },
+      updatedAt: new Date("2026-07-10T12:30:00.000Z"),
+    });
+
+    expect(updated?.metadata).toEqual({
+      mailboxType: "google_workspace",
+      connectionOrigin: "manual",
+      historyId: "h123",
+    });
+    expect(recorder.updates[0]).toMatchObject({
+      metadata: {
+        mailboxType: "google_workspace",
+        connectionOrigin: "manual",
+        historyId: "h123",
+      },
+    });
+  });
+
   it("keeps workspace isolation on list reads", async () => {
     const repository = new DrizzleGmailProviderAccountRepository(
       createFakeDatabase({

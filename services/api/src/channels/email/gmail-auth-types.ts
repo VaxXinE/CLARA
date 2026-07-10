@@ -13,6 +13,7 @@ export type GmailProviderStatus = (typeof gmailProviderStatuses)[number];
 export type GmailProviderAccountMetadata = {
   mailboxType?: "gmail_consumer" | "google_workspace";
   connectionOrigin?: "manual" | "test";
+  historyId?: string;
 };
 
 export type GmailTokenGrant = {
@@ -87,6 +88,14 @@ export function sanitizeGmailProviderAccountMetadata(
     metadata?.connectionOrigin === "test"
   ) {
     safeMetadata.connectionOrigin = metadata.connectionOrigin;
+  }
+
+  if (
+    typeof metadata?.historyId === "string" &&
+    metadata.historyId.trim().length > 0 &&
+    metadata.historyId.trim().length <= 255
+  ) {
+    safeMetadata.historyId = metadata.historyId.trim();
   }
 
   return safeMetadata;

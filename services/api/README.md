@@ -393,6 +393,8 @@ production-like real mode requires GMAIL_OAUTH_CLIENT_ID, GMAIL_OAUTH_CLIENT_SEC
 GMAIL_API_MODE=real now enables a real Gmail API HTTP client boundary that only accepts access tokens from the encrypted vault boundary
 GMAIL_API_MODE=mocked is local/test only and is blocked in production
 real Gmail API mode requires an explicit GMAIL_API_BASE_URL and returns sanitized provider errors without exposing bearer tokens
+Gmail profile verification now uses GET /gmail/v1/users/me/profile through the Gmail API client boundary and updates only safe provider account metadata such as historyId and lastVerifiedAt
+profile verification rejects cross-workspace access, email mismatch, missing access token, and sanitized provider failures without storing raw provider bodies
 ```
 
 Current email E2E internal smoke baseline:
