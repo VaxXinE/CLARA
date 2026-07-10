@@ -375,12 +375,14 @@ raw access tokens, raw refresh tokens, OAuth client secrets, and raw provider pa
 duplicate provider + email within the same organization/workspace scope is rejected
 OAuth connect route skeleton now exists at POST /api/v1/integrations/gmail/oauth/connect for authenticated non-viewer users only
 OAuth connect response returns authorization_url, provider, scopes, and expiry only; it never returns PKCE verifier, nonce, token, or client_secret
-OAuth callback validation route now exists at GET /api/v1/integrations/gmail/oauth/callback and validates code/state without token exchange
+OAuth callback route now exists at GET /api/v1/integrations/gmail/oauth/callback and validates code/state with mode-based completion behavior
 OAuth callback never persists or returns authorization code, raw state, nonce, PKCE verifier, access token, or refresh token
 Gmail OAuth token exchange boundary now exists as an internal-only service and client abstraction
 simulated Gmail OAuth token exchange is allowed for local/test only and is blocked in production
 token exchange stores access_token and refresh_token only through the encrypted Gmail token vault boundary and never returns raw tokens
-public callback route contract is unchanged and does not automatically perform token exchange in this build
+GMAIL_OAUTH_TOKEN_EXCHANGE_MODE=disabled keeps callback response at pending_token_exchange
+GMAIL_OAUTH_TOKEN_EXCHANGE_MODE=simulated completes the provider connection internally and returns only a safe connected account DTO
+GMAIL_OAUTH_TOKEN_EXCHANGE_MODE=real fails closed because real Google token exchange is not implemented in this build
 ```
 
 Current email E2E internal smoke baseline:
