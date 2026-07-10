@@ -33,8 +33,12 @@ PR ini tidak mencakup:
 - real HTTP call ke Google token endpoint,
 - real Gmail API client,
 - refresh scheduler,
-- wiring otomatis dari public callback route,
 - dashboard OAuth UI.
+
+Catatan:
+
+- callback route sekarang bisa memanggil boundary ini pada mode `simulated`,
+- mode `real` tetap fail closed sampai real Google token exchange benar-benar diimplementasikan.
 
 ## Core Boundary
 

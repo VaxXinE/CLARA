@@ -1,6 +1,12 @@
-import { NotFoundError, ValidationError } from "../../errors/app-error";
+import {
+  AppError,
+  NotFoundError,
+  ValidationError,
+} from "../../errors/app-error";
+import type { GmailOAuthTokenExchangeMode } from "./gmail-provider-config";
 import type { GmailOAuthStateService } from "./gmail-oauth-state-service";
 import type { GmailOAuthCallbackResponse } from "./gmail-oauth-callback-types";
+import type { GmailOAuthTokenExchangeService } from "./gmail-oauth-token-exchange-service";
 
 const providerErrorMessages: Record<string, string> = {
   access_denied: "Gmail connection was cancelled by the provider or user.",
@@ -20,7 +26,13 @@ function sanitizeProviderError(error: string): string {
 }
 
 export class GmailOAuthCallbackService {
-  constructor(private readonly oauthStateService: GmailOAuthStateService) {}
+  constructor(
+    private readonly oauthStateService: GmailOAuthStateService,
+    private readonly options?: {
+      tokenExchangeMode?: GmailOAuthTokenExchangeMode;
+      tokenExchangeService?: GmailOAuthTokenExchangeService;
+    },
+  ) {}
 
   async validateCallback(input: {
     code?: string;
@@ -68,7 +80,52 @@ export class GmailOAuthCallbackService {
     });
 
     void input.errorDescription;
-    void code;
+    const tokenExchangeMode = this.options?.tokenExchangeMode ?? "disabled";
+
+    if (tokenExchangeMode === "real") {
+      throw new AppError({
+        statusCode: 501,
+        appCode: "GMAIL_OAUTH_REAL_TOKEN_EXCHANGE_NOT_IMPLEMENTED",
+        message:
+          "Real Gmail OAuth token exchange is not enabled in this build.",
+      });
+    }
+
+    if (tokenExchangeMode === "simulated") {
+      if (!this.options?.tokenExchangeService) {
+        throw new AppError({
+          statusCode: 500,
+          appCode: "GMAIL_OAUTH_TOKEN_EXCHANGE_NOT_CONFIGURED",
+          message: "Gmail OAuth token exchange is not configured.",
+        });
+      }
+
+      const exchangeResult =
+        await this.options.tokenExchangeService.exchangeAuthorizationCode({
+          consumedContext: consumed,
+          authorizationCode: code,
+          ...(input.now !== undefined ? { now: input.now } : {}),
+        });
+
+      const response: GmailOAuthCallbackResponse = {
+        provider: "gmail",
+        status: "connected",
+        message: "Gmail provider account connected successfully.",
+        workspace_id: consumed.entry.workspaceId,
+        state_expires_at: consumed.entry.expiresAt.toISOString(),
+        account: exchangeResult.account,
+      };
+
+      if (consumed.entry.consumedAt) {
+        response.state_consumed_at = consumed.entry.consumedAt.toISOString();
+      }
+
+      if (exchangeResult.token_expires_at !== undefined) {
+        response.token_expires_at = exchangeResult.token_expires_at;
+      }
+
+      return response;
+    }
 
     const response: GmailOAuthCallbackResponse = {
       provider: "gmail",

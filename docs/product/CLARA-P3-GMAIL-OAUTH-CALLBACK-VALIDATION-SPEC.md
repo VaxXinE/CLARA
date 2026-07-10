@@ -8,6 +8,7 @@ last_updated: "2026-07-10"
 classification: "product-spec"
 related_documents:
   - "./CLARA-P3-GMAIL-OAUTH-CONNECT-URL-SPEC.md"
+  - "./CLARA-P3-GMAIL-OAUTH-CALLBACK-COMPLETION-SPEC.md"
   - "./CLARA-P3-GMAIL-OAUTH-STATE-PKCE-SPEC.md"
   - "./CLARA-P3-GMAIL-AUTH-BOUNDARY-SPEC.md"
   - "../../services/api/README.md"
@@ -17,7 +18,7 @@ related_documents:
 
 ## Purpose
 
-Dokumen ini mendefinisikan baseline route callback Gmail OAuth yang hanya melakukan validasi callback dan consume one-time state.
+Dokumen ini mendefinisikan baseline route callback Gmail OAuth untuk validasi callback, consume one-time state, dan optional completion wiring sesuai mode config.
 
 Scope PR ini hanya mencakup:
 
@@ -26,11 +27,11 @@ Scope PR ini hanya mencakup:
 - one-time consume untuk `state`,
 - validasi `code` sebagai input transient,
 - safe response DTO tanpa secret,
-- tanpa token exchange.
+- callback completion wiring pada mode simulated/internal.
 
 PR ini tidak mencakup:
 
-- token exchange dengan Google,
+- token exchange dengan Google yang real,
 - refresh token lifecycle,
 - Gmail API client,
 - dashboard OAuth UI,
@@ -39,7 +40,8 @@ PR ini tidak mencakup:
 Catatan:
 
 - token exchange boundary internal sekarang sudah ada sebagai service terpisah,
-- public callback route tetap tidak otomatis menjalankan token exchange pada build ini.
+- callback route sekarang bisa menyelesaikan koneksi pada mode `simulated`,
+- mode `real` tetap fail closed karena belum diimplementasikan.
 
 ## Route
 
@@ -80,7 +82,7 @@ Aturan:
 
 ## Success Response
 
-Contoh response aman:
+Contoh response aman pada mode `disabled`:
 
 ```json
 {
@@ -118,6 +120,8 @@ client secret
 raw provider payload
 error_description mentah
 ```
+
+Pada mode `simulated`, callback boleh mengembalikan safe connected account DTO tanpa pernah mengembalikan code, state, PKCE verifier, atau raw token.
 
 ## Security Rules
 

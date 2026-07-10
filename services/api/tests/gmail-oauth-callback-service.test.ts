@@ -3,6 +3,10 @@ import { GmailOAuthCallbackService } from "../src/channels/email/gmail-oauth-cal
 import { FixtureGmailOAuthStateRepository } from "../src/channels/email/gmail-oauth-state-repository";
 import { GmailOAuthStateService } from "../src/channels/email/gmail-oauth-state-service";
 import { sha256Base64Url } from "../src/channels/email/gmail-pkce";
+import { GmailOAuthTokenExchangeService } from "../src/channels/email/gmail-oauth-token-exchange-service";
+import { SimulatedGmailOAuthTokenExchangeClient } from "../src/channels/email/simulated-gmail-oauth-token-exchange-client";
+import { MockGmailTokenVault } from "../src/channels/email/mock-gmail-token-vault";
+import { FixtureGmailProviderAccountRepository } from "../src/channels/email/gmail-provider-account-repository";
 
 function createServices() {
   const repository = new FixtureGmailOAuthStateRepository();
@@ -182,5 +186,75 @@ describe("GmailOAuthCallbackService", () => {
     } finally {
       globalThis.fetch = originalFetch;
     }
+  });
+
+  it("completes callback in simulated mode and returns only safe account metadata", async () => {
+    const { stateService } = createServices();
+    const tokenExchangeService = new GmailOAuthTokenExchangeService(
+      new SimulatedGmailOAuthTokenExchangeClient({
+        nodeEnv: "test",
+      }),
+      new MockGmailTokenVault(),
+      new FixtureGmailProviderAccountRepository(),
+    );
+    const callbackService = new GmailOAuthCallbackService(stateService, {
+      tokenExchangeMode: "simulated",
+      tokenExchangeService,
+    });
+    const intent = await stateService.createConnectIntent({
+      organizationId: "org_demo",
+      workspaceId: "wks_demo_sales",
+      actorUserId: "usr_demo_owner",
+      actorRole: "owner",
+      redirectUri:
+        "https://allowed.example.com/api/v1/integrations/gmail/oauth/callback",
+      scopes: ["gmail.readonly", "gmail.send"],
+      now: new Date("2026-07-10T10:00:00.000Z"),
+    });
+
+    const result = await callbackService.validateCallback({
+      code: "example-completion-code",
+      state: intent.state,
+      now: new Date("2026-07-10T10:00:30.000Z"),
+    });
+
+    expect(result).toMatchObject({
+      provider: "gmail",
+      status: "connected",
+      message: "Gmail provider account connected successfully.",
+      workspace_id: "wks_demo_sales",
+      account: {
+        provider: "gmail",
+        emailAddress: "simulated.gmail.account@example.test",
+        status: "connected",
+      },
+    });
+    expect(JSON.stringify(result)).not.toContain("example-completion-code");
+    expect(JSON.stringify(result)).not.toContain(intent.state);
+    expect(JSON.stringify(result)).not.toContain("example-gmail-access-token");
+    expect(JSON.stringify(result)).not.toContain("example-gmail-refresh-token");
+  });
+
+  it("fails closed in real mode because real token exchange is not implemented", async () => {
+    const { stateService } = createServices();
+    const callbackService = new GmailOAuthCallbackService(stateService, {
+      tokenExchangeMode: "real",
+    });
+    const intent = await stateService.createConnectIntent({
+      organizationId: "org_demo",
+      workspaceId: "wks_demo_sales",
+      actorUserId: "usr_demo_owner",
+      actorRole: "owner",
+      redirectUri:
+        "https://allowed.example.com/api/v1/integrations/gmail/oauth/callback",
+      scopes: ["gmail.readonly"],
+    });
+
+    await expect(
+      callbackService.validateCallback({
+        code: "example-real-mode-code",
+        state: intent.state,
+      }),
+    ).rejects.toThrow("Real Gmail OAuth token exchange is not enabled");
   });
 });
