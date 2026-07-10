@@ -18,9 +18,11 @@ export type GmailProviderConfig = {
   oauthTokenExchangeMode?: GmailOAuthTokenExchangeMode;
   oauthTokenEndpoint?: string;
   oauthClientId?: string;
+  oauthClientSecret?: string;
   oauthRedirectUri?: string;
   oauthAllowedRedirectUris?: string[];
   oauthAllowedScopes: string[];
+  oauthTokenExchangeTimeoutMs?: number;
   tokenEncryptionKeyBase64?: string;
   tokenEncryptionKeyVersion?: string;
 };
@@ -34,10 +36,16 @@ const gmailProviderConfigSchema = z.object({
     .optional(),
   GMAIL_OAUTH_TOKEN_ENDPOINT: z.string().trim().optional(),
   GMAIL_OAUTH_CLIENT_ID: z.string().trim().optional(),
+  GMAIL_OAUTH_CLIENT_SECRET: z.string().trim().optional(),
   GMAIL_OAUTH_REDIRECT_URI: z.string().trim().optional(),
   GMAIL_OAUTH_REDIRECT_URI_ALLOWLIST: z.string().trim().optional(),
   GMAIL_OAUTH_ALLOWED_REDIRECT_URIS: z.string().trim().optional(),
   GMAIL_OAUTH_ALLOWED_SCOPES: z.string().trim().optional(),
+  GMAIL_OAUTH_TOKEN_EXCHANGE_TIMEOUT_MS: z.coerce
+    .number()
+    .int()
+    .min(1)
+    .optional(),
   TOKEN_VAULT_ENCRYPTION_KEY_BASE64: z.string().trim().optional(),
   TOKEN_VAULT_ENCRYPTION_KEY_VERSION: z.string().trim().optional(),
   GMAIL_TOKEN_ENCRYPTION_KEY: z.string().trim().optional(),
@@ -61,12 +69,18 @@ export function loadGmailProviderConfig(
       "https://oauth2.googleapis.com/token",
     oauthAllowedRedirectUris: [],
     oauthAllowedScopes: ["gmail.readonly", "gmail.send"],
+    oauthTokenExchangeTimeoutMs:
+      parsed.GMAIL_OAUTH_TOKEN_EXCHANGE_TIMEOUT_MS ?? 10_000,
     tokenEncryptionKeyVersion:
       parsed.TOKEN_VAULT_ENCRYPTION_KEY_VERSION ?? "v1",
   };
 
   if (parsed.GMAIL_OAUTH_CLIENT_ID) {
     config.oauthClientId = parsed.GMAIL_OAUTH_CLIENT_ID;
+  }
+
+  if (parsed.GMAIL_OAUTH_CLIENT_SECRET) {
+    config.oauthClientSecret = parsed.GMAIL_OAUTH_CLIENT_SECRET;
   }
 
   if (parsed.GMAIL_OAUTH_REDIRECT_URI) {
@@ -130,6 +144,12 @@ export function validateGmailProviderConfig(
     );
   }
 
+  if ((config.oauthTokenExchangeTimeoutMs ?? 10_000) < 1) {
+    throw new Error(
+      "Invalid Gmail provider configuration: GMAIL_OAUTH_TOKEN_EXCHANGE_TIMEOUT_MS must be greater than 0.",
+    );
+  }
+
   if (config.oauthAuthorizationEndpoint.trim().length === 0) {
     throw new Error(
       "Invalid Gmail provider configuration: GMAIL_OAUTH_AUTHORIZATION_ENDPOINT must not be empty.",
@@ -179,5 +199,28 @@ export function validateGmailProviderConfig(
     throw new Error(
       "Invalid Gmail provider configuration: GMAIL_OAUTH_ALLOWED_SCOPES must contain at least one scope.",
     );
+  }
+
+  if (oauthTokenExchangeMode === "real") {
+    if (!config.oauthClientId || config.oauthClientId.trim().length === 0) {
+      throw new Error(
+        "Invalid Gmail provider configuration: GMAIL_OAUTH_CLIENT_ID is required when real Gmail OAuth token exchange is configured.",
+      );
+    }
+
+    if (
+      !config.oauthClientSecret ||
+      config.oauthClientSecret.trim().length === 0
+    ) {
+      throw new Error(
+        "Invalid Gmail provider configuration: GMAIL_OAUTH_CLIENT_SECRET is required when real Gmail OAuth token exchange is configured.",
+      );
+    }
+
+    if (oauthTokenEndpoint.trim().length === 0) {
+      throw new Error(
+        "Invalid Gmail provider configuration: GMAIL_OAUTH_TOKEN_ENDPOINT is required when real Gmail OAuth token exchange is configured.",
+      );
+    }
   }
 }

@@ -13,8 +13,8 @@ export type GmailOAuthTokenExchangeClientInput = {
 };
 
 export type GmailOAuthTokenExchangeClientResult = {
-  emailAddress: string;
-  displayName: string | null;
+  emailAddress?: string;
+  displayName?: string | null;
   scopes: string[];
   metadata?: GmailProviderAccountMetadata;
   tokenGrant: GmailTokenGrant;
@@ -31,10 +31,16 @@ export type GmailConsumedOAuthContext = GmailOAuthConsumeResult;
 
 export class GmailOAuthTokenExchangeClientError extends Error {
   readonly code: string;
+  readonly category: "provider" | "timeout" | "invalid_response";
 
-  constructor(code: string, message = "Gmail OAuth token exchange failed.") {
+  constructor(
+    code: string,
+    message = "Gmail OAuth token exchange failed.",
+    category: "provider" | "timeout" | "invalid_response" = "provider",
+  ) {
     super(message);
     this.name = "GmailOAuthTokenExchangeClientError";
     this.code = code;
+    this.category = category;
   }
 }
