@@ -6,6 +6,8 @@ import {
   auditLogOutcomes,
   conversationStatuses,
   dbSchema,
+  gmailProviderAccountProviders,
+  gmailProviderAccountStatuses,
   messageDirections,
   outboundDeliveryChannels,
   outboundDeliveryStatuses,
@@ -29,6 +31,7 @@ describe("database schema", () => {
       "auditLogs",
       "emailInboundRecords",
       "emailOutboundDeliveries",
+      "gmailProviderAccounts",
     ]);
   });
 
@@ -43,6 +46,7 @@ describe("database schema", () => {
       "auditLogs",
       "emailInboundRecords",
       "emailOutboundDeliveries",
+      "gmailProviderAccounts",
     ] as const) {
       const columns = Object.keys(dbSchema[tableName]);
 
@@ -66,6 +70,13 @@ describe("database schema", () => {
     expect(auditLogOutcomes).toEqual(["success", "failure"]);
     expect(outboundDeliveryChannels).toEqual(["email"]);
     expect(outboundDeliveryStatuses).toEqual(["simulated", "sent", "failed"]);
+    expect(gmailProviderAccountProviders).toEqual(["gmail"]);
+    expect(gmailProviderAccountStatuses).toEqual([
+      "not_connected",
+      "connected",
+      "revoked",
+      "error",
+    ]);
     expect(activityEventTypes).toEqual([
       "ai_draft_generated",
       "ai_draft_failed",

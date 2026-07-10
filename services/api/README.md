@@ -299,6 +299,7 @@ docs/product/CLARA-P3-EMAIL-E2E-INTERNAL-SMOKE-SPEC.md
 docs/product/CLARA-P3-EMAIL-PROVIDER-INTEGRATION-DECISION.md
 docs/product/CLARA-P3-EMAIL-PROVIDER-RISK-MATRIX.md
 docs/product/CLARA-P3-GMAIL-AUTH-BOUNDARY-SPEC.md
+docs/product/CLARA-P3-GMAIL-PROVIDER-ACCOUNT-PERSISTENCE-SPEC.md
 ```
 
 Current email inbound persistence baseline:
@@ -354,6 +355,9 @@ mock in-memory Gmail token vault is test-only and must not be used in production
 future encrypted Gmail token storage requires an explicit encryption key and still is not implemented in this PR
 provider account DTOs never expose access_token, refresh_token, or client_secret
 no Google/Gmail network call is made in this skeleton
+Gmail provider account persistence now stores only safe workspace-scoped metadata plus token_reference_id
+raw access tokens, raw refresh tokens, OAuth client secrets, and raw provider payloads are never persisted
+duplicate provider + email within the same organization/workspace scope is rejected
 ```
 
 Current email E2E internal smoke baseline:
