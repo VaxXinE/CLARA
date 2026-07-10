@@ -56,8 +56,8 @@ describe("GoogleGmailOAuthTokenExchangeClient", () => {
     const fetchSpy = vi.fn<typeof fetch>().mockResolvedValue(
       new Response(
         JSON.stringify({
-          access_token: "mock-access-token",
-          refresh_token: "mock-refresh-token",
+          access_token: "atk",
+          refresh_token: "rtk",
           expires_in: 3600,
           scope:
             "https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/gmail.readonly",
@@ -104,8 +104,8 @@ describe("GoogleGmailOAuthTokenExchangeClient", () => {
     expect(params.get("code_verifier")).toBe("pkce-code-verifier-placeholder");
 
     expect(result.scopes).toEqual(["gmail.readonly", "gmail.send"]);
-    expect(result.tokenGrant.accessToken).toBe("mock-access-token");
-    expect(result.tokenGrant.refreshToken).toBe("mock-refresh-token");
+    expect(result.tokenGrant.accessToken).toBe("atk");
+    expect(result.tokenGrant.refreshToken).toBe("rtk");
     expect(JSON.stringify(result)).not.toContain(
       "gmail-client-secret-placeholder",
     );
@@ -199,7 +199,7 @@ describe("GoogleGmailOAuthTokenExchangeClient", () => {
       vi.fn<typeof fetch>().mockResolvedValue(
         new Response(
           JSON.stringify({
-            access_token: "mock-access-token",
+            access_token: "atk",
             expires_in: 3600,
           }),
           {
