@@ -67,9 +67,7 @@ describe("GmailOAuthCallbackService", () => {
     );
 
     expect(stored?.status).toBe("consumed");
-    expect(stored?.consumedAt?.toISOString()).toBe(
-      "2026-07-10T10:01:00.000Z",
-    );
+    expect(stored?.consumedAt?.toISOString()).toBe("2026-07-10T10:01:00.000Z");
     expect(JSON.stringify(stored)).not.toContain("authorization-code-demo");
   });
 
@@ -171,7 +169,9 @@ describe("GmailOAuthCallbackService", () => {
         status: "provider_error",
         message: "Gmail connection was cancelled by the provider or user.",
       });
-      expect(JSON.stringify(result)).not.toContain("this should never be echoed");
+      expect(JSON.stringify(result)).not.toContain(
+        "this should never be echoed",
+      );
       expect(fetchCalls).toBe(0);
 
       const stored = await repository.findByStateHash(

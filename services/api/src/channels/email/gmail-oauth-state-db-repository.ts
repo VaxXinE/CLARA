@@ -153,7 +153,9 @@ export class DrizzleGmailOAuthStateRepository implements GmailOAuthStateReposito
     return row ? toEntry(row) : null;
   }
 
-  async findByStateHash(stateHash: string): Promise<GmailOAuthStateEntry | null> {
+  async findByStateHash(
+    stateHash: string,
+  ): Promise<GmailOAuthStateEntry | null> {
     const row = await this.db.query.gmailOAuthStateEntries.findFirst({
       where: eq(gmailOAuthStateEntries.stateHash, stateHash),
     });

@@ -1,7 +1,4 @@
-import {
-  NotFoundError,
-  ValidationError,
-} from "../../errors/app-error";
+import { NotFoundError, ValidationError } from "../../errors/app-error";
 import type { GmailOAuthStateService } from "./gmail-oauth-state-service";
 import type { GmailOAuthCallbackResponse } from "./gmail-oauth-callback-types";
 
@@ -16,13 +13,14 @@ const providerErrorMessages: Record<string, string> = {
 
 function sanitizeProviderError(error: string): string {
   const normalized = error.trim().toLowerCase();
-  return providerErrorMessages[normalized] ?? "Gmail provider returned an OAuth error.";
+  return (
+    providerErrorMessages[normalized] ??
+    "Gmail provider returned an OAuth error."
+  );
 }
 
 export class GmailOAuthCallbackService {
-  constructor(
-    private readonly oauthStateService: GmailOAuthStateService,
-  ) {}
+  constructor(private readonly oauthStateService: GmailOAuthStateService) {}
 
   async validateCallback(input: {
     code?: string;

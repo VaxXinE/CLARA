@@ -1,6 +1,5 @@
 export type GmailOAuthCallbackStatus =
-  | "pending_token_exchange"
-  | "provider_error";
+  "pending_token_exchange" | "provider_error";
 
 export type GmailOAuthCallbackResponse = {
   provider: "gmail";
@@ -10,4 +9,3 @@ export type GmailOAuthCallbackResponse = {
   state_consumed_at?: string;
   state_expires_at?: string;
 };
-

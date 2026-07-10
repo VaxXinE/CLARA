@@ -49,7 +49,9 @@ export class FixtureGmailOAuthStateRepository implements GmailOAuthStateReposito
     return null;
   }
 
-  async findByStateHash(stateHash: string): Promise<GmailOAuthStateEntry | null> {
+  async findByStateHash(
+    stateHash: string,
+  ): Promise<GmailOAuthStateEntry | null> {
     for (const entry of this.entries.values()) {
       if (entry.stateHash === stateHash) {
         return structuredClone(entry);

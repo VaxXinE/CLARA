@@ -110,9 +110,7 @@ export async function registerGmailIntegrationRoutes(
         }
 
         const result = await callbackService.validateCallback({
-          ...(parsed.data.code !== undefined
-            ? { code: parsed.data.code }
-            : {}),
+          ...(parsed.data.code !== undefined ? { code: parsed.data.code } : {}),
           ...(parsed.data.state !== undefined
             ? { state: parsed.data.state }
             : {}),
