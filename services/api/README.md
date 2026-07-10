@@ -29,7 +29,16 @@ OAuth connect + callback completion exist
 real token exchange exists behind a safe boundary
 token refresh boundary exists for internal/server-side use only
 connection health check exists for provider-management checks
+inbound Gmail message fetch boundary exists for safe list/get operations only
 no background refresh scheduler, inbound sync, or outbound Gmail send yet
+```
+
+Gmail inbound fetch boundary notes:
+
+```text
+safe list/get only, no sync orchestration yet
+headers are allowlisted and attachment body bytes are stripped
+raw Gmail format is not returned in this build
 ```
 
 ## Current Endpoints
