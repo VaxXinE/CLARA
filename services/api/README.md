@@ -104,6 +104,7 @@ docker compose -f docker-compose.prod.example.yml config
 | `GMAIL_TOKEN_VAULT_MODE`  |                                       No | `mock`                                           | Gmail token vault mode: `mock` or future `encrypted`       |
 | `GMAIL_OAUTH_CLIENT_ID`   |                                       No | none                                             | Placeholder client id boundary for future Gmail OAuth       |
 | `GMAIL_OAUTH_REDIRECT_URI`|                                       No | none                                             | Placeholder redirect URI boundary for future Gmail OAuth    |
+| `GMAIL_OAUTH_ALLOWED_REDIRECT_URIS`|                            No | `GMAIL_OAUTH_REDIRECT_URI` if set                | Comma-separated exact Gmail OAuth redirect URI allowlist    |
 | `TOKEN_VAULT_ENCRYPTION_KEY_BASE64`|                          Encrypted vault mode only | none                                             | Base64-encoded 32-byte AES-256-GCM key for encrypted Gmail token vault persistence |
 | `TOKEN_VAULT_ENCRYPTION_KEY_VERSION`|                         No | `v1`                                             | Key version recorded with encrypted Gmail token vault rows |
 | `GMAIL_TOKEN_ENCRYPTION_KEY`|                                    No | none                                             | Legacy fallback env name for local compatibility; prefer `TOKEN_VAULT_ENCRYPTION_KEY_BASE64` |
@@ -302,6 +303,8 @@ docs/product/CLARA-P3-EMAIL-PROVIDER-INTEGRATION-DECISION.md
 docs/product/CLARA-P3-EMAIL-PROVIDER-RISK-MATRIX.md
 docs/product/CLARA-P3-GMAIL-AUTH-BOUNDARY-SPEC.md
 docs/product/CLARA-P3-GMAIL-PROVIDER-ACCOUNT-PERSISTENCE-SPEC.md
+docs/product/CLARA-P3-GMAIL-ENCRYPTED-TOKEN-VAULT-SPEC.md
+docs/product/CLARA-P3-GMAIL-OAUTH-STATE-PKCE-SPEC.md
 ```
 
 Current email inbound persistence baseline:
@@ -357,6 +360,9 @@ mock in-memory Gmail token vault is test-only and must not be used in production
 encrypted Gmail token vault persistence now exists for internal DB-backed storage only
 encrypted token rows store ciphertext, iv, auth_tag, key_version, token_purpose, and allowlisted metadata only
 TOKEN_VAULT_ENCRYPTION_KEY_BASE64 must be a valid base64-encoded 32-byte AES-256-GCM key and must never be committed
+OAuth connect intent persistence now stores state_hash, nonce_hash, and encrypted PKCE verifier material only
+redirect_uri must match an exact allowlisted value from GMAIL_OAUTH_ALLOWED_REDIRECT_URIS
+OAuth state consume is one-time only and fails closed for reused, expired, revoked, or cross-workspace state
 provider account DTOs never expose access_token, refresh_token, or client_secret
 no Google/Gmail network call is made in this skeleton
 Gmail provider account persistence now stores only safe workspace-scoped metadata plus token_reference_id

@@ -28,6 +28,13 @@ export type GmailTokenPlaintext = {
   expiresAt: string | null;
 };
 
+export type GmailEncryptedSecretPayload = {
+  ciphertext: string;
+  iv: string;
+  authTag: string;
+  keyVersion: string;
+};
+
 function failClosed(message: string): never {
   throw new AppError({
     statusCode: 500,
@@ -74,15 +81,21 @@ export function encryptGmailTokenPlaintext(
   plaintext: GmailTokenPlaintext,
   key: GmailTokenEncryptionKey,
 ): GmailEncryptedTokenPayload {
+  return encryptGmailSecretValue(JSON.stringify(plaintext), key);
+}
+
+export function encryptGmailSecretValue(
+  plaintext: string,
+  key: GmailTokenEncryptionKey,
+): GmailEncryptedSecretPayload {
   const iv = randomBytes(GMAIL_TOKEN_ENCRYPTION_IV_BYTES);
   const cipher = createCipheriv(
     GMAIL_TOKEN_ENCRYPTION_ALGORITHM,
     key.keyMaterial,
     iv,
   );
-  const serialized = JSON.stringify(plaintext);
   const ciphertext = Buffer.concat([
-    cipher.update(serialized, "utf8"),
+    cipher.update(plaintext, "utf8"),
     cipher.final(),
   ]);
   const authTag = cipher.getAuthTag();
@@ -99,29 +112,9 @@ export function decryptGmailTokenPlaintext(
   payload: GmailEncryptedTokenPayload,
   key: GmailTokenEncryptionKey,
 ): GmailTokenPlaintext {
-  const payloadKeyVersion = Buffer.from(payload.keyVersion, "utf8");
-  const expectedKeyVersion = Buffer.from(key.keyVersion, "utf8");
-
-  if (
-    payloadKeyVersion.length !== expectedKeyVersion.length ||
-    !timingSafeEqual(payloadKeyVersion, expectedKeyVersion)
-  ) {
-    return failClosed(
-      "Gmail token vault key version mismatch. Token decryption failed closed.",
-    );
-  }
+  const plaintext = decryptGmailSecretValue(payload, key);
 
   try {
-    const decipher = createDecipheriv(
-      GMAIL_TOKEN_ENCRYPTION_ALGORITHM,
-      key.keyMaterial,
-      Buffer.from(payload.iv, "base64"),
-    );
-    decipher.setAuthTag(Buffer.from(payload.authTag, "base64"));
-    const plaintext = Buffer.concat([
-      decipher.update(Buffer.from(payload.ciphertext, "base64")),
-      decipher.final(),
-    ]).toString("utf8");
     const parsed = JSON.parse(plaintext) as Partial<GmailTokenPlaintext>;
 
     if (
@@ -150,6 +143,40 @@ export function decryptGmailTokenPlaintext(
       refreshToken: parsed.refreshToken,
       expiresAt: parsed.expiresAt ?? null,
     };
+  } catch {
+    return failClosed(
+      "Gmail token vault decryption failed closed. Token material could not be read safely.",
+    );
+  }
+}
+
+export function decryptGmailSecretValue(
+  payload: GmailEncryptedSecretPayload,
+  key: GmailTokenEncryptionKey,
+): string {
+  const payloadKeyVersion = Buffer.from(payload.keyVersion, "utf8");
+  const expectedKeyVersion = Buffer.from(key.keyVersion, "utf8");
+
+  if (
+    payloadKeyVersion.length !== expectedKeyVersion.length ||
+    !timingSafeEqual(payloadKeyVersion, expectedKeyVersion)
+  ) {
+    return failClosed(
+      "Gmail token vault key version mismatch. Token decryption failed closed.",
+    );
+  }
+
+  try {
+    const decipher = createDecipheriv(
+      GMAIL_TOKEN_ENCRYPTION_ALGORITHM,
+      key.keyMaterial,
+      Buffer.from(payload.iv, "base64"),
+    );
+    decipher.setAuthTag(Buffer.from(payload.authTag, "base64"));
+    return Buffer.concat([
+      decipher.update(Buffer.from(payload.ciphertext, "base64")),
+      decipher.final(),
+    ]).toString("utf8");
   } catch {
     return failClosed(
       "Gmail token vault decryption failed closed. Token material could not be read safely.",

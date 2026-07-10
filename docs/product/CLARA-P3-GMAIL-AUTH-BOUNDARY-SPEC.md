@@ -12,6 +12,7 @@ related_documents:
   - "./CLARA-P3-EMAIL-CHANNEL-ADAPTER-SPEC.md"
   - "./CLARA-P3-GMAIL-PROVIDER-ACCOUNT-PERSISTENCE-SPEC.md"
   - "./CLARA-P3-GMAIL-ENCRYPTED-TOKEN-VAULT-SPEC.md"
+  - "./CLARA-P3-GMAIL-OAUTH-STATE-PKCE-SPEC.md"
   - "../../services/api/README.md"
 ---
 
@@ -108,6 +109,8 @@ mock vault is test-only
 mock vault is blocked in production
 encrypted vault persistence requires explicit base64 AES-256-GCM key material plus key_version
 encrypted rows store ciphertext, iv, auth_tag, key_version, token_purpose, and allowlisted metadata only
+OAuth state persistence stores state_hash and encrypted PKCE verifier material only
+redirect URIs must come from an explicit allowlist and OAuth state consume must remain one-time only
 ```
 
 ## Security Notes

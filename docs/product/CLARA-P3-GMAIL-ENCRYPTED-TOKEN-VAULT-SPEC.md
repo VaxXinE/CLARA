@@ -9,6 +9,7 @@ classification: "product-spec"
 related_documents:
   - "./CLARA-P3-GMAIL-AUTH-BOUNDARY-SPEC.md"
   - "./CLARA-P3-GMAIL-PROVIDER-ACCOUNT-PERSISTENCE-SPEC.md"
+  - "./CLARA-P3-GMAIL-OAUTH-STATE-PKCE-SPEC.md"
   - "../../services/api/README.md"
 ---
 
@@ -98,5 +99,6 @@ no real token samples in docs
 no token logging
 no token values in DTO
 no cross-workspace token access
+OAuth PKCE verifier persistence should reuse the same encrypted secret boundary instead of storing plaintext
 AI draft must never auto-send
 ```

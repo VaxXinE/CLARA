@@ -218,6 +218,9 @@ describe("Gmail provider config boundary", () => {
     expect(config).toEqual({
       enabled: true,
       tokenVaultMode: "encrypted",
+      oauthAllowedRedirectUris: [
+        "http://127.0.0.1:3000/internal/gmail/redirect",
+      ],
       tokenEncryptionKeyBase64: Buffer.alloc(32, 9).toString("base64"),
       tokenEncryptionKeyVersion: "v2",
       oauthClientId: "gmail-client-id-placeholder",
