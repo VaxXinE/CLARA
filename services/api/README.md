@@ -100,6 +100,11 @@ docker compose -f docker-compose.prod.example.yml config
 | `REPLY_SEND_RATE_LIMIT_MAX`|                                     No | `30`                                             | Stricter per-identity cap for `POST /reply`                |
 | `REQUEST_BODY_LIMIT_BYTES`|                                      No | `1048576`                                        | Global Fastify request body limit in bytes                 |
 | `EMAIL_CHANNEL_MODE`      |                                       No | `disabled`                                       | Email channel skeleton mode: `disabled` or `simulated`     |
+| `GMAIL_PROVIDER_ENABLED`  |                                       No | `false`                                          | Enables the Gmail provider auth boundary skeleton only     |
+| `GMAIL_TOKEN_VAULT_MODE`  |                                       No | `mock`                                           | Gmail token vault mode: `mock` or future `encrypted`       |
+| `GMAIL_OAUTH_CLIENT_ID`   |                                       No | none                                             | Placeholder client id boundary for future Gmail OAuth       |
+| `GMAIL_OAUTH_REDIRECT_URI`|                                       No | none                                             | Placeholder redirect URI boundary for future Gmail OAuth    |
+| `GMAIL_TOKEN_ENCRYPTION_KEY`|                                    No | none                                             | Required when future encrypted Gmail token storage is enabled |
 | `AUTH_MODE`              |                                       No | `mock`                                           | Auth mode: `mock` or `provider`                            |
 | `AUTH_PROVIDER`          |                       Provider mode only | none                                             | Provider selection: `supabase` or `better-auth`            |
 | `SUPABASE_AUTH_JWKS_URL` |    Production + `AUTH_PROVIDER=supabase` | none                                             | Supabase JWKS URL for future provider token verification   |
@@ -293,6 +298,7 @@ docs/product/CLARA-P3-EMAIL-OUTBOUND-DELIVERY-SPEC.md
 docs/product/CLARA-P3-EMAIL-E2E-INTERNAL-SMOKE-SPEC.md
 docs/product/CLARA-P3-EMAIL-PROVIDER-INTEGRATION-DECISION.md
 docs/product/CLARA-P3-EMAIL-PROVIDER-RISK-MATRIX.md
+docs/product/CLARA-P3-GMAIL-AUTH-BOUNDARY-SPEC.md
 ```
 
 Current email inbound persistence baseline:
@@ -338,6 +344,16 @@ IMAP + SMTP remains a later fallback path
 SMTP-only remains an outbound-only future option
 transactional provider API remains a later outbound-focused option
 this repository does not contain real provider code, real OAuth flow, or real provider secrets
+```
+
+Current Gmail auth boundary skeleton:
+
+```text
+Gmail provider account service is internal-only and has no public HTTP route
+mock in-memory Gmail token vault is test-only and must not be used in production
+future encrypted Gmail token storage requires an explicit encryption key and still is not implemented in this PR
+provider account DTOs never expose access_token, refresh_token, or client_secret
+no Google/Gmail network call is made in this skeleton
 ```
 
 Current email E2E internal smoke baseline:

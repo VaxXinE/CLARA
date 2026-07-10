@@ -122,6 +122,7 @@ email reply adapter exists only as a simulated backend boundary and is not conne
 email outbound delivery records exist only as internal persistence and still have no real provider reconciliation lifecycle
 email e2e smoke exists only as an internal backend validation harness and is not an operator-facing workflow
 email provider integration decision now exists, but no real provider code is implemented yet
+gmail provider auth boundary skeleton now exists, but it still has no real OAuth flow, no real encrypted token storage, and no Gmail API client
 local PostgreSQL credentials are safe placeholders only
 ```
 
