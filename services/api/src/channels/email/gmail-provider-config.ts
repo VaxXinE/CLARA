@@ -9,7 +9,8 @@ export type GmailProviderConfig = {
   tokenVaultMode: GmailTokenVaultMode;
   oauthClientId?: string;
   oauthRedirectUri?: string;
-  tokenEncryptionKey?: string;
+  tokenEncryptionKeyBase64?: string;
+  tokenEncryptionKeyVersion?: string;
 };
 
 const gmailProviderConfigSchema = z.object({
@@ -17,6 +18,8 @@ const gmailProviderConfigSchema = z.object({
   GMAIL_TOKEN_VAULT_MODE: z.enum(gmailTokenVaultModes).optional(),
   GMAIL_OAUTH_CLIENT_ID: z.string().trim().optional(),
   GMAIL_OAUTH_REDIRECT_URI: z.string().trim().optional(),
+  TOKEN_VAULT_ENCRYPTION_KEY_BASE64: z.string().trim().optional(),
+  TOKEN_VAULT_ENCRYPTION_KEY_VERSION: z.string().trim().optional(),
   GMAIL_TOKEN_ENCRYPTION_KEY: z.string().trim().optional(),
 });
 
@@ -28,6 +31,8 @@ export function loadGmailProviderConfig(
   const config: GmailProviderConfig = {
     enabled: parsed.GMAIL_PROVIDER_ENABLED === "true",
     tokenVaultMode: parsed.GMAIL_TOKEN_VAULT_MODE ?? "mock",
+    tokenEncryptionKeyVersion:
+      parsed.TOKEN_VAULT_ENCRYPTION_KEY_VERSION ?? "v1",
   };
 
   if (parsed.GMAIL_OAUTH_CLIENT_ID) {
@@ -38,8 +43,10 @@ export function loadGmailProviderConfig(
     config.oauthRedirectUri = parsed.GMAIL_OAUTH_REDIRECT_URI;
   }
 
-  if (parsed.GMAIL_TOKEN_ENCRYPTION_KEY) {
-    config.tokenEncryptionKey = parsed.GMAIL_TOKEN_ENCRYPTION_KEY;
+  if (parsed.TOKEN_VAULT_ENCRYPTION_KEY_BASE64) {
+    config.tokenEncryptionKeyBase64 = parsed.TOKEN_VAULT_ENCRYPTION_KEY_BASE64;
+  } else if (parsed.GMAIL_TOKEN_ENCRYPTION_KEY) {
+    config.tokenEncryptionKeyBase64 = parsed.GMAIL_TOKEN_ENCRYPTION_KEY;
   }
 
   return config;
@@ -57,11 +64,17 @@ export function validateGmailProviderConfig(
 
   if (
     config.tokenVaultMode === "encrypted" &&
-    (!config.tokenEncryptionKey ||
-      config.tokenEncryptionKey.trim().length === 0)
+    (!config.tokenEncryptionKeyBase64 ||
+      config.tokenEncryptionKeyBase64.trim().length === 0)
   ) {
     throw new Error(
-      "Invalid Gmail provider configuration: GMAIL_TOKEN_ENCRYPTION_KEY is required when encrypted Gmail token storage is configured.",
+      "Invalid Gmail provider configuration: TOKEN_VAULT_ENCRYPTION_KEY_BASE64 is required when encrypted Gmail token storage is configured.",
+    );
+  }
+
+  if ((config.tokenEncryptionKeyVersion ?? "v1").trim().length === 0) {
+    throw new Error(
+      "Invalid Gmail provider configuration: TOKEN_VAULT_ENCRYPTION_KEY_VERSION must not be empty.",
     );
   }
 }

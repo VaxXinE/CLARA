@@ -8,6 +8,7 @@ last_updated: "2026-07-10"
 classification: "product-spec"
 related_documents:
   - "./CLARA-P3-GMAIL-AUTH-BOUNDARY-SPEC.md"
+  - "./CLARA-P3-GMAIL-ENCRYPTED-TOKEN-VAULT-SPEC.md"
   - "./CLARA-P3-EMAIL-PROVIDER-INTEGRATION-DECISION.md"
   - "../../services/api/README.md"
 ---
@@ -62,6 +63,7 @@ raw access token tidak boleh masuk database
 raw refresh token tidak boleh masuk database
 OAuth client secret tidak boleh masuk database
 raw provider payload tidak boleh masuk database
+encrypted token persistence berada di gmail_token_vault_entries dan bukan di tabel akun provider
 ```
 
 ## Scope and Isolation

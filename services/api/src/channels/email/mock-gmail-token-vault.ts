@@ -6,6 +6,7 @@ import type {
   RevokeGmailTokenReferenceInput,
   StoreGmailTokenReferenceInput,
 } from "./gmail-token-vault";
+import { sanitizeGmailTokenVaultMetadata } from "./gmail-token-vault";
 import type { GmailProviderConfig } from "./gmail-provider-config";
 import { validateGmailProviderConfig } from "./gmail-provider-config";
 
@@ -26,11 +27,18 @@ export class MockGmailTokenVault implements GmailTokenVault {
     }
   }
 
-  async storeTokenReference(
-    input: StoreGmailTokenReferenceInput,
-  ): Promise<{ referenceId: string; provider: "gmail"; createdAt: Date }> {
+  async storeTokenReference(input: StoreGmailTokenReferenceInput): Promise<{
+    referenceId: string;
+    provider: "gmail";
+    keyVersion: string;
+    createdAt: Date;
+  }> {
     const createdAt = new Date();
     const referenceId = `gmail_token_ref_${randomUUID()}`;
+    const metadata = sanitizeGmailTokenVaultMetadata({
+      ...input.metadata,
+      scopes: [...input.scopes, ...(input.metadata?.scopes ?? [])],
+    });
 
     this.tokenReferences.set(referenceId, {
       referenceId,
@@ -38,11 +46,14 @@ export class MockGmailTokenVault implements GmailTokenVault {
       organizationId: input.organizationId,
       workspaceId: input.workspaceId,
       accountId: input.accountId,
-      scopes: [...input.scopes],
+      tokenPurpose: input.tokenPurpose ?? "oauth_grant",
+      keyVersion: "mock-v1",
+      scopes: metadata.scopes ?? [],
       accessToken: input.tokenGrant.accessToken,
       refreshToken: input.tokenGrant.refreshToken,
       expiresAt: input.tokenGrant.expiresAt,
       revokedAt: null,
+      metadata,
       createdAt,
       updatedAt: createdAt,
     });
@@ -50,6 +61,7 @@ export class MockGmailTokenVault implements GmailTokenVault {
     return {
       referenceId,
       provider: "gmail",
+      keyVersion: "mock-v1",
       createdAt,
     };
   }
@@ -65,7 +77,8 @@ export class MockGmailTokenVault implements GmailTokenVault {
 
     if (
       tokenReference.organizationId !== input.organizationId ||
-      tokenReference.workspaceId !== input.workspaceId
+      tokenReference.workspaceId !== input.workspaceId ||
+      tokenReference.revokedAt !== null
     ) {
       return null;
     }
@@ -101,9 +114,12 @@ export class MockGmailTokenVault implements GmailTokenVault {
       organizationId: reference.organizationId,
       workspaceId: reference.workspaceId,
       accountId: reference.accountId,
+      tokenPurpose: reference.tokenPurpose,
+      keyVersion: reference.keyVersion,
       scopes: [...reference.scopes],
       expiresAt: reference.expiresAt,
       revokedAt: reference.revokedAt,
+      metadata: { ...reference.metadata },
       createdAt: reference.createdAt,
       updatedAt: reference.updatedAt,
     }));

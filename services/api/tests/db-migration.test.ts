@@ -44,6 +44,14 @@ const gmailProviderAccountsMigrationSql = readFileSync(
   gmailProviderAccountsMigrationPath,
   "utf8",
 );
+const gmailTokenVaultMigrationPath = path.resolve(
+  __dirname,
+  "../drizzle/0006_p3_gmail_token_vault.sql",
+);
+const gmailTokenVaultMigrationSql = readFileSync(
+  gmailTokenVaultMigrationPath,
+  "utf8",
+);
 
 describe("initial database migration", () => {
   it("creates all required PR-04 tables", () => {
@@ -62,6 +70,7 @@ describe("initial database migration", () => {
       "email_inbound_records",
       "email_outbound_deliveries",
       "gmail_provider_accounts",
+      "gmail_token_vault_entries",
     ]) {
       const source =
         tableName === "audit_logs"
@@ -72,7 +81,9 @@ describe("initial database migration", () => {
               ? emailOutboundMigrationSql
               : tableName === "gmail_provider_accounts"
                 ? gmailProviderAccountsMigrationSql
-                : migrationSql;
+                : tableName === "gmail_token_vault_entries"
+                  ? gmailTokenVaultMigrationSql
+                  : migrationSql;
 
       expect(source).toContain(`create table if not exists ${tableName}`);
     }
@@ -89,6 +100,7 @@ describe("initial database migration", () => {
       "email_inbound_records",
       "email_outbound_deliveries",
       "gmail_provider_accounts",
+      "gmail_token_vault_entries",
     ]) {
       const source =
         tableName === "email_inbound_records"
@@ -97,7 +109,9 @@ describe("initial database migration", () => {
             ? emailOutboundMigrationSql
             : tableName === "gmail_provider_accounts"
               ? gmailProviderAccountsMigrationSql
-              : migrationSql;
+              : tableName === "gmail_token_vault_entries"
+                ? gmailTokenVaultMigrationSql
+                : migrationSql;
       const tableBlock = source
         .split(`create table if not exists ${tableName} (`)[1]
         ?.split(");")[0];
@@ -205,6 +219,25 @@ describe("initial database migration", () => {
     );
     expect(gmailProviderAccountsMigrationSql).toContain(
       "token_reference_id text",
+    );
+  });
+
+  it("adds Gmail encrypted token vault persistence schema and scoped indexes", () => {
+    expect(gmailTokenVaultMigrationSql).toContain(
+      "create table if not exists gmail_token_vault_entries",
+    );
+    expect(gmailTokenVaultMigrationSql).toContain("provider in ('gmail')");
+    expect(gmailTokenVaultMigrationSql).toContain(
+      "token_purpose in ('oauth_grant')",
+    );
+    expect(gmailTokenVaultMigrationSql).toContain("ciphertext text not null");
+    expect(gmailTokenVaultMigrationSql).toContain("auth_tag text not null");
+    expect(gmailTokenVaultMigrationSql).toContain("key_version text not null");
+    expect(gmailTokenVaultMigrationSql).toContain(
+      "create index if not exists idx_gmail_token_vault_entries_scope_provider_account",
+    );
+    expect(gmailTokenVaultMigrationSql).toContain(
+      "create index if not exists idx_gmail_token_vault_entries_scope_revoked_at",
     );
   });
 });

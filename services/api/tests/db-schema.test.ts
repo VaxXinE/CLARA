@@ -8,6 +8,8 @@ import {
   dbSchema,
   gmailProviderAccountProviders,
   gmailProviderAccountStatuses,
+  gmailTokenVaultProviders,
+  gmailTokenVaultPurposes,
   messageDirections,
   outboundDeliveryChannels,
   outboundDeliveryStatuses,
@@ -32,6 +34,7 @@ describe("database schema", () => {
       "emailInboundRecords",
       "emailOutboundDeliveries",
       "gmailProviderAccounts",
+      "gmailTokenVaultEntries",
     ]);
   });
 
@@ -47,6 +50,7 @@ describe("database schema", () => {
       "emailInboundRecords",
       "emailOutboundDeliveries",
       "gmailProviderAccounts",
+      "gmailTokenVaultEntries",
     ] as const) {
       const columns = Object.keys(dbSchema[tableName]);
 
@@ -77,6 +81,8 @@ describe("database schema", () => {
       "revoked",
       "error",
     ]);
+    expect(gmailTokenVaultProviders).toEqual(["gmail"]);
+    expect(gmailTokenVaultPurposes).toEqual(["oauth_grant"]);
     expect(activityEventTypes).toEqual([
       "ai_draft_generated",
       "ai_draft_failed",

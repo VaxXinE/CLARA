@@ -1,17 +1,28 @@
 import { AppError, NotFoundError } from "../../errors/app-error";
 import type { GmailTokenGrant } from "./gmail-auth-types";
 
+export const gmailTokenPurposes = ["oauth_grant"] as const;
+
+export type GmailTokenPurpose = (typeof gmailTokenPurposes)[number];
+
+export type GmailTokenVaultMetadata = {
+  scopes?: string[];
+};
+
 export type GmailStoredTokenReference = {
   referenceId: string;
   provider: "gmail";
   organizationId: string;
   workspaceId: string;
-  accountId: string;
+  accountId: string | null;
+  tokenPurpose: GmailTokenPurpose;
+  keyVersion: string;
   scopes: string[];
   accessToken: string;
   refreshToken: string;
   expiresAt: Date | null;
   revokedAt: Date | null;
+  metadata: GmailTokenVaultMetadata;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -22,6 +33,8 @@ export type StoreGmailTokenReferenceInput = {
   accountId: string;
   scopes: string[];
   tokenGrant: GmailTokenGrant;
+  tokenPurpose?: GmailTokenPurpose;
+  metadata?: GmailTokenVaultMetadata;
 };
 
 export type GetGmailTokenReferenceInput = {
@@ -33,9 +46,12 @@ export type GetGmailTokenReferenceInput = {
 export type RevokeGmailTokenReferenceInput = GetGmailTokenReferenceInput;
 
 export interface GmailTokenVault {
-  storeTokenReference(
-    input: StoreGmailTokenReferenceInput,
-  ): Promise<{ referenceId: string; provider: "gmail"; createdAt: Date }>;
+  storeTokenReference(input: StoreGmailTokenReferenceInput): Promise<{
+    referenceId: string;
+    provider: "gmail";
+    keyVersion: string;
+    createdAt: Date;
+  }>;
 
   getTokenReference(
     input: GetGmailTokenReferenceInput,
@@ -64,4 +80,22 @@ export function assertScopedTokenReference(
   }
 
   return tokenReference;
+}
+
+export function sanitizeGmailTokenVaultMetadata(
+  metadata: GmailTokenVaultMetadata | undefined,
+): GmailTokenVaultMetadata {
+  const safeMetadata: GmailTokenVaultMetadata = {};
+
+  if (Array.isArray(metadata?.scopes)) {
+    safeMetadata.scopes = [
+      ...new Set(
+        metadata.scopes
+          .map((scope) => scope.trim())
+          .filter((scope) => scope.length > 0),
+      ),
+    ].sort();
+  }
+
+  return safeMetadata;
 }

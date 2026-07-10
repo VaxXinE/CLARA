@@ -198,17 +198,19 @@ describe("Gmail provider config boundary", () => {
         {
           enabled: true,
           tokenVaultMode: "encrypted",
+          tokenEncryptionKeyVersion: "v1",
         },
         { nodeEnv: "development" },
       ),
-    ).toThrow("GMAIL_TOKEN_ENCRYPTION_KEY is required");
+    ).toThrow("TOKEN_VAULT_ENCRYPTION_KEY_BASE64 is required");
   });
 
   it("loads Gmail provider config safely from env-like input", () => {
     const config = loadGmailProviderConfig({
       GMAIL_PROVIDER_ENABLED: "true",
       GMAIL_TOKEN_VAULT_MODE: "encrypted",
-      GMAIL_TOKEN_ENCRYPTION_KEY: "local-dev-only-key",
+      TOKEN_VAULT_ENCRYPTION_KEY_BASE64: Buffer.alloc(32, 9).toString("base64"),
+      TOKEN_VAULT_ENCRYPTION_KEY_VERSION: "v2",
       GMAIL_OAUTH_CLIENT_ID: "gmail-client-id-placeholder",
       GMAIL_OAUTH_REDIRECT_URI: "http://127.0.0.1:3000/internal/gmail/redirect",
     });
@@ -216,7 +218,8 @@ describe("Gmail provider config boundary", () => {
     expect(config).toEqual({
       enabled: true,
       tokenVaultMode: "encrypted",
-      tokenEncryptionKey: "local-dev-only-key",
+      tokenEncryptionKeyBase64: Buffer.alloc(32, 9).toString("base64"),
+      tokenEncryptionKeyVersion: "v2",
       oauthClientId: "gmail-client-id-placeholder",
       oauthRedirectUri: "http://127.0.0.1:3000/internal/gmail/redirect",
     });
