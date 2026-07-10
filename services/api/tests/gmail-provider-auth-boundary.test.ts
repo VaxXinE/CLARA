@@ -213,7 +213,9 @@ describe("Gmail provider config boundary", () => {
       GMAIL_PROVIDER_ENABLED: "true",
       GMAIL_TOKEN_VAULT_MODE: "encrypted",
       GMAIL_OAUTH_TOKEN_EXCHANGE_MODE: "disabled",
+      GMAIL_OAUTH_TOKEN_REFRESH_MODE: "disabled",
       GMAIL_OAUTH_TOKEN_EXCHANGE_TIMEOUT_MS: "15000",
+      GMAIL_OAUTH_TOKEN_REFRESH_TIMEOUT_MS: "9000",
       GMAIL_API_MODE: "disabled",
       GMAIL_API_TIMEOUT_MS: "12000",
       TOKEN_VAULT_ENCRYPTION_KEY_BASE64: Buffer.alloc(32, 9).toString("base64"),
@@ -228,12 +230,14 @@ describe("Gmail provider config boundary", () => {
       oauthAuthorizationEndpoint:
         "https://accounts.google.com/o/oauth2/v2/auth",
       oauthTokenExchangeMode: "disabled",
+      oauthTokenRefreshMode: "disabled",
       oauthTokenEndpoint: "https://oauth2.googleapis.com/token",
       oauthAllowedRedirectUris: [
         "http://127.0.0.1:3000/internal/gmail/redirect",
       ],
       oauthAllowedScopes: ["gmail.readonly", "gmail.send"],
       oauthTokenExchangeTimeoutMs: 15000,
+      oauthTokenRefreshTimeoutMs: 9000,
       apiMode: "disabled",
       apiTimeoutMs: 12000,
       tokenEncryptionKeyBase64: Buffer.alloc(32, 9).toString("base64"),
@@ -264,6 +268,30 @@ describe("Gmail provider config boundary", () => {
       ),
     ).toThrow(
       "simulated Gmail OAuth token exchange is not allowed in production",
+    );
+  });
+
+  it("blocks simulated Gmail OAuth token refresh mode in production", () => {
+    expect(() =>
+      validateGmailProviderConfig(
+        {
+          enabled: true,
+          tokenVaultMode: "encrypted",
+          oauthAuthorizationEndpoint:
+            "https://accounts.google.com/o/oauth2/v2/auth",
+          oauthTokenRefreshMode: "simulated",
+          oauthAllowedRedirectUris: [
+            "https://allowed.example.com/api/v1/integrations/gmail/oauth/callback",
+          ],
+          oauthAllowedScopes: ["gmail.readonly", "gmail.send"],
+          oauthClientId: "gmail-client-id-placeholder",
+          tokenEncryptionKeyBase64: Buffer.alloc(32, 9).toString("base64"),
+          tokenEncryptionKeyVersion: "v2",
+        },
+        { nodeEnv: "production" },
+      ),
+    ).toThrow(
+      "simulated Gmail OAuth token refresh is not allowed in production",
     );
   });
 

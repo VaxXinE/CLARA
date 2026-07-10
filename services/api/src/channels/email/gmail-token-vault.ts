@@ -7,6 +7,8 @@ export type GmailTokenPurpose = (typeof gmailTokenPurposes)[number];
 
 export type GmailTokenVaultMetadata = {
   scopes?: string[];
+  refreshedAt?: string;
+  accessTokenExpiresAt?: string;
 };
 
 export type GmailStoredTokenReference = {
@@ -95,6 +97,22 @@ export function sanitizeGmailTokenVaultMetadata(
           .filter((scope) => scope.length > 0),
       ),
     ].sort();
+  }
+
+  if (
+    typeof metadata?.refreshedAt === "string" &&
+    metadata.refreshedAt.trim().length > 0 &&
+    metadata.refreshedAt.trim().length <= 255
+  ) {
+    safeMetadata.refreshedAt = metadata.refreshedAt.trim();
+  }
+
+  if (
+    typeof metadata?.accessTokenExpiresAt === "string" &&
+    metadata.accessTokenExpiresAt.trim().length > 0 &&
+    metadata.accessTokenExpiresAt.trim().length <= 255
+  ) {
+    safeMetadata.accessTokenExpiresAt = metadata.accessTokenExpiresAt.trim();
   }
 
   return safeMetadata;

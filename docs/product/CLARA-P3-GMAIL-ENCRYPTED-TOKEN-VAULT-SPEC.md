@@ -38,6 +38,7 @@ PR ini tidak mencakup:
 Catatan:
 
 - Gmail OAuth token exchange boundary sekarang sudah memakai vault ini untuk menulis token hasil exchange secara internal-only,
+- Gmail OAuth token refresh boundary sekarang juga memakai vault ini untuk rotasi access token dan optional refresh token secara internal-only,
 - raw access token dan refresh token tetap tidak boleh keluar ke DTO publik.
 
 ## Stored Data

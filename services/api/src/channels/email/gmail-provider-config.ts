@@ -6,11 +6,18 @@ export const gmailOAuthTokenExchangeModes = [
   "simulated",
   "real",
 ] as const;
+export const gmailOAuthTokenRefreshModes = [
+  "disabled",
+  "simulated",
+  "real",
+] as const;
 export const gmailApiModes = ["disabled", "mocked", "real"] as const;
 
 export type GmailTokenVaultMode = (typeof gmailTokenVaultModes)[number];
 export type GmailOAuthTokenExchangeMode =
   (typeof gmailOAuthTokenExchangeModes)[number];
+export type GmailOAuthTokenRefreshMode =
+  (typeof gmailOAuthTokenRefreshModes)[number];
 export type GmailApiMode = (typeof gmailApiModes)[number];
 
 export type GmailProviderConfig = {
@@ -18,6 +25,7 @@ export type GmailProviderConfig = {
   tokenVaultMode: GmailTokenVaultMode;
   oauthAuthorizationEndpoint: string;
   oauthTokenExchangeMode?: GmailOAuthTokenExchangeMode;
+  oauthTokenRefreshMode?: GmailOAuthTokenRefreshMode;
   oauthTokenEndpoint?: string;
   oauthClientId?: string;
   oauthClientSecret?: string;
@@ -25,6 +33,7 @@ export type GmailProviderConfig = {
   oauthAllowedRedirectUris?: string[];
   oauthAllowedScopes: string[];
   oauthTokenExchangeTimeoutMs?: number;
+  oauthTokenRefreshTimeoutMs?: number;
   apiMode?: GmailApiMode;
   apiBaseUrl?: string;
   apiTimeoutMs?: number;
@@ -39,6 +48,9 @@ const gmailProviderConfigSchema = z.object({
   GMAIL_OAUTH_TOKEN_EXCHANGE_MODE: z
     .enum(gmailOAuthTokenExchangeModes)
     .optional(),
+  GMAIL_OAUTH_TOKEN_REFRESH_MODE: z
+    .enum(gmailOAuthTokenRefreshModes)
+    .optional(),
   GMAIL_OAUTH_TOKEN_ENDPOINT: z.string().trim().optional(),
   GMAIL_OAUTH_CLIENT_ID: z.string().trim().optional(),
   GMAIL_OAUTH_CLIENT_SECRET: z.string().trim().optional(),
@@ -47,6 +59,11 @@ const gmailProviderConfigSchema = z.object({
   GMAIL_OAUTH_ALLOWED_REDIRECT_URIS: z.string().trim().optional(),
   GMAIL_OAUTH_ALLOWED_SCOPES: z.string().trim().optional(),
   GMAIL_OAUTH_TOKEN_EXCHANGE_TIMEOUT_MS: z.coerce
+    .number()
+    .int()
+    .min(1)
+    .optional(),
+  GMAIL_OAUTH_TOKEN_REFRESH_TIMEOUT_MS: z.coerce
     .number()
     .int()
     .min(1)
@@ -72,6 +89,7 @@ export function loadGmailProviderConfig(
       "https://accounts.google.com/o/oauth2/v2/auth",
     oauthTokenExchangeMode:
       parsed.GMAIL_OAUTH_TOKEN_EXCHANGE_MODE ?? "disabled",
+    oauthTokenRefreshMode: parsed.GMAIL_OAUTH_TOKEN_REFRESH_MODE ?? "disabled",
     oauthTokenEndpoint:
       parsed.GMAIL_OAUTH_TOKEN_ENDPOINT ??
       "https://oauth2.googleapis.com/token",
@@ -79,6 +97,8 @@ export function loadGmailProviderConfig(
     oauthAllowedScopes: ["gmail.readonly", "gmail.send"],
     oauthTokenExchangeTimeoutMs:
       parsed.GMAIL_OAUTH_TOKEN_EXCHANGE_TIMEOUT_MS ?? 10_000,
+    oauthTokenRefreshTimeoutMs:
+      parsed.GMAIL_OAUTH_TOKEN_REFRESH_TIMEOUT_MS ?? 10_000,
     apiMode: parsed.GMAIL_API_MODE ?? "disabled",
     apiTimeoutMs: parsed.GMAIL_API_TIMEOUT_MS ?? 10_000,
     tokenEncryptionKeyVersion:
@@ -133,6 +153,7 @@ export function validateGmailProviderConfig(
   input: { nodeEnv: "development" | "test" | "production" },
 ): void {
   const oauthTokenExchangeMode = config.oauthTokenExchangeMode ?? "disabled";
+  const oauthTokenRefreshMode = config.oauthTokenRefreshMode ?? "disabled";
   const oauthTokenEndpoint =
     config.oauthTokenEndpoint ?? "https://oauth2.googleapis.com/token";
 
@@ -164,6 +185,12 @@ export function validateGmailProviderConfig(
     );
   }
 
+  if ((config.oauthTokenRefreshTimeoutMs ?? 10_000) < 1) {
+    throw new Error(
+      "Invalid Gmail provider configuration: GMAIL_OAUTH_TOKEN_REFRESH_TIMEOUT_MS must be greater than 0.",
+    );
+  }
+
   if ((config.apiTimeoutMs ?? 10_000) < 1) {
     throw new Error(
       "Invalid Gmail provider configuration: GMAIL_API_TIMEOUT_MS must be greater than 0.",
@@ -188,6 +215,12 @@ export function validateGmailProviderConfig(
   ) {
     throw new Error(
       "Invalid Gmail provider configuration: simulated Gmail OAuth token exchange is not allowed in production.",
+    );
+  }
+
+  if (input.nodeEnv === "production" && oauthTokenRefreshMode === "simulated") {
+    throw new Error(
+      "Invalid Gmail provider configuration: simulated Gmail OAuth token refresh is not allowed in production.",
     );
   }
 
@@ -246,6 +279,29 @@ export function validateGmailProviderConfig(
     if (oauthTokenEndpoint.trim().length === 0) {
       throw new Error(
         "Invalid Gmail provider configuration: GMAIL_OAUTH_TOKEN_ENDPOINT is required when real Gmail OAuth token exchange is configured.",
+      );
+    }
+  }
+
+  if (oauthTokenRefreshMode === "real") {
+    if (!config.oauthClientId || config.oauthClientId.trim().length === 0) {
+      throw new Error(
+        "Invalid Gmail provider configuration: GMAIL_OAUTH_CLIENT_ID is required when real Gmail OAuth token refresh is configured.",
+      );
+    }
+
+    if (
+      !config.oauthClientSecret ||
+      config.oauthClientSecret.trim().length === 0
+    ) {
+      throw new Error(
+        "Invalid Gmail provider configuration: GMAIL_OAUTH_CLIENT_SECRET is required when real Gmail OAuth token refresh is configured.",
+      );
+    }
+
+    if (oauthTokenEndpoint.trim().length === 0) {
+      throw new Error(
+        "Invalid Gmail provider configuration: GMAIL_OAUTH_TOKEN_ENDPOINT is required when real Gmail OAuth token refresh is configured.",
       );
     }
   }
