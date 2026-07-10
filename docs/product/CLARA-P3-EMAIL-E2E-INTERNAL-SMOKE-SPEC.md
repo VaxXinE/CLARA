@@ -8,6 +8,7 @@ last_updated: "2026-07-10"
 classification: "product-spec"
 related_documents:
   - "./CLARA-P3-EMAIL-CHANNEL-ADAPTER-SPEC.md"
+  - "./CLARA-P3-EMAIL-PROVIDER-INTEGRATION-DECISION.md"
   - "./CLARA-P3-EMAIL-INBOUND-PERSISTENCE-SPEC.md"
   - "./CLARA-P3-EMAIL-INGESTION-HARNESS-SPEC.md"
   - "./CLARA-P3-EMAIL-REPLY-ADAPTER-SPEC.md"
@@ -106,3 +107,10 @@ future worker/webhook implementation reference
 ```
 
 Harness ini tidak boleh dipublish sebagai endpoint publik tanpa desain auth, trust verification, rate limiting, dan security review yang baru.
+
+Untuk arah provider nyata berikutnya, lihat:
+
+```text
+CLARA-P3-EMAIL-PROVIDER-INTEGRATION-DECISION.md
+CLARA-P3-EMAIL-PROVIDER-RISK-MATRIX.md
+```

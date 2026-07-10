@@ -121,6 +121,7 @@ email ingestion exists only as an internal harness and still has no public webho
 email reply adapter exists only as a simulated backend boundary and is not connected to a real email provider yet
 email outbound delivery records exist only as internal persistence and still have no real provider reconciliation lifecycle
 email e2e smoke exists only as an internal backend validation harness and is not an operator-facing workflow
+email provider integration decision now exists, but no real provider code is implemented yet
 local PostgreSQL credentials are safe placeholders only
 ```
 

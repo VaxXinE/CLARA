@@ -7,6 +7,8 @@ owner: "CLARA Engineering and Security Team"
 last_updated: "2026-07-09"
 classification: "product-spec"
 related_documents:
+  - "./CLARA-P3-EMAIL-PROVIDER-INTEGRATION-DECISION.md"
+  - "./CLARA-P3-EMAIL-PROVIDER-RISK-MATRIX.md"
   - "../../services/api/README.md"
   - "./CLARA-MVP-GAP-REVIEW.md"
   - "./CLARA-P2-DEPLOYMENT-CONFIG-RUNBOOK.md"
@@ -152,6 +154,13 @@ Gmail API adapter
 IMAP adapter
 other provider-specific adapters
 Gmail API or SMTP reply send adapters
+```
+
+Provider decision reference:
+
+```text
+CLARA-P3-EMAIL-PROVIDER-INTEGRATION-DECISION.md
+CLARA-P3-EMAIL-PROVIDER-RISK-MATRIX.md
 ```
 
 Expected future flow:

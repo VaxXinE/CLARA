@@ -291,6 +291,8 @@ docs/product/CLARA-P3-EMAIL-INBOUND-PERSISTENCE-SPEC.md
 docs/product/CLARA-P3-EMAIL-REPLY-ADAPTER-SPEC.md
 docs/product/CLARA-P3-EMAIL-OUTBOUND-DELIVERY-SPEC.md
 docs/product/CLARA-P3-EMAIL-E2E-INTERNAL-SMOKE-SPEC.md
+docs/product/CLARA-P3-EMAIL-PROVIDER-INTEGRATION-DECISION.md
+docs/product/CLARA-P3-EMAIL-PROVIDER-RISK-MATRIX.md
 ```
 
 Current email inbound persistence baseline:
@@ -326,6 +328,16 @@ simulated email reply adapter is available for local/dev/test
 safe send result returns provider_message_id, provider_thread_id when available, sent_at, status, and allowlisted metadata only
 raw provider response payload, raw html, attachments, and full reply body are not stored in the adapter result
 future Gmail API or SMTP adapters should plug into the same email reply adapter interface after provider trust and secret management are in place
+```
+
+Current provider integration decision spike:
+
+```text
+Gmail API is the recommended first real integration path for Gmail / Google Workspace users
+IMAP + SMTP remains a later fallback path
+SMTP-only remains an outbound-only future option
+transactional provider API remains a later outbound-focused option
+this repository does not contain real provider code, real OAuth flow, or real provider secrets
 ```
 
 Current email E2E internal smoke baseline:
