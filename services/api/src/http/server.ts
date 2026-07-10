@@ -24,6 +24,7 @@ import { registerActivityRoutes } from "./routes/activity";
 import { registerAiDraftRoutes } from "./routes/ai-drafts";
 import { registerReplyRoutes } from "./routes/replies";
 import type { GmailOAuthConnectService } from "../channels/email/gmail-oauth-connect-service";
+import type { GmailOAuthCallbackService } from "../channels/email/gmail-oauth-callback-service";
 import { registerGmailIntegrationRoutes } from "./routes/gmail-integrations";
 
 export type CreateServerOptions = {
@@ -32,6 +33,7 @@ export type CreateServerOptions = {
   authServices?: AuthServices;
   authProvider?: AuthProvider;
   gmailOAuthConnectService?: GmailOAuthConnectService;
+  gmailOAuthCallbackService?: GmailOAuthCallbackService;
 };
 
 export async function createServer(
@@ -101,11 +103,24 @@ export async function createServer(
     options.env,
   );
   await registerReplyRoutes(app, authProvider, services.replies, options.env);
-  if (options.gmailOAuthConnectService) {
+  if (options.gmailOAuthConnectService || options.gmailOAuthCallbackService) {
+    const gmailIntegrationServices: {
+      connect?: GmailOAuthConnectService;
+      callback?: GmailOAuthCallbackService;
+    } = {};
+
+    if (options.gmailOAuthConnectService) {
+      gmailIntegrationServices.connect = options.gmailOAuthConnectService;
+    }
+
+    if (options.gmailOAuthCallbackService) {
+      gmailIntegrationServices.callback = options.gmailOAuthCallbackService;
+    }
+
     await registerGmailIntegrationRoutes(
       app,
       authProvider,
-      options.gmailOAuthConnectService,
+      gmailIntegrationServices,
     );
   }
 

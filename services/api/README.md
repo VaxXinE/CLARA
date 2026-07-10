@@ -37,6 +37,7 @@ GET /api/v1/conversations/:conversation_id/activity
 POST /api/v1/conversations/:conversation_id/ai-draft
 POST /api/v1/conversations/:conversation_id/reply
 POST /api/v1/integrations/gmail/oauth/connect
+GET /api/v1/integrations/gmail/oauth/callback
 ```
 
 ## Local Setup
@@ -372,6 +373,8 @@ raw access tokens, raw refresh tokens, OAuth client secrets, and raw provider pa
 duplicate provider + email within the same organization/workspace scope is rejected
 OAuth connect route skeleton now exists at POST /api/v1/integrations/gmail/oauth/connect for authenticated non-viewer users only
 OAuth connect response returns authorization_url, provider, scopes, and expiry only; it never returns PKCE verifier, nonce, token, or client_secret
+OAuth callback validation route now exists at GET /api/v1/integrations/gmail/oauth/callback and validates code/state without token exchange
+OAuth callback never persists or returns authorization code, raw state, nonce, PKCE verifier, access token, or refresh token
 ```
 
 Current email E2E internal smoke baseline:

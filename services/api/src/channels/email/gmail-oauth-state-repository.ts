@@ -12,6 +12,7 @@ export type UpdateGmailOAuthStateInput = {
 
 export interface GmailOAuthStateRepository {
   createEntry(entry: GmailOAuthStateEntry): Promise<GmailOAuthStateEntry>;
+  findByStateHash(stateHash: string): Promise<GmailOAuthStateEntry | null>;
   findByStateHashScoped(
     scope: WorkspaceScope,
     stateHash: string,
@@ -41,6 +42,18 @@ export class FixtureGmailOAuthStateRepository implements GmailOAuthStateReposito
         entry.workspaceId === scope.workspaceId &&
         entry.stateHash === stateHash
       ) {
+        return structuredClone(entry);
+      }
+    }
+
+    return null;
+  }
+
+  async findByStateHash(
+    stateHash: string,
+  ): Promise<GmailOAuthStateEntry | null> {
+    for (const entry of this.entries.values()) {
+      if (entry.stateHash === stateHash) {
         return structuredClone(entry);
       }
     }

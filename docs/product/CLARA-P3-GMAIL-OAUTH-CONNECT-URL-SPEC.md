@@ -8,6 +8,7 @@ last_updated: "2026-07-10"
 classification: "product-spec"
 related_documents:
   - "./CLARA-P3-GMAIL-AUTH-BOUNDARY-SPEC.md"
+  - "./CLARA-P3-GMAIL-OAUTH-CALLBACK-VALIDATION-SPEC.md"
   - "./CLARA-P3-GMAIL-OAUTH-STATE-PKCE-SPEC.md"
   - "./CLARA-P3-GMAIL-PROVIDER-ACCOUNT-PERSISTENCE-SPEC.md"
   - "../../services/api/README.md"
@@ -30,11 +31,15 @@ Scope PR ini hanya mencakup:
 
 PR ini tidak mencakup:
 
-- OAuth callback route,
 - token exchange dengan Google,
 - refresh flow,
 - Gmail API client,
 - dashboard OAuth UI.
+
+Catatan:
+
+- callback validation route sekarang tersedia sebagai skeleton terpisah,
+- connect route tetap hanya bertugas membuat authorization URL dan state/PKCE intent.
 
 ## Route
 
