@@ -290,6 +290,7 @@ docs/product/CLARA-P3-EMAIL-CHANNEL-ADAPTER-SPEC.md
 docs/product/CLARA-P3-EMAIL-INBOUND-PERSISTENCE-SPEC.md
 docs/product/CLARA-P3-EMAIL-REPLY-ADAPTER-SPEC.md
 docs/product/CLARA-P3-EMAIL-OUTBOUND-DELIVERY-SPEC.md
+docs/product/CLARA-P3-EMAIL-E2E-INTERNAL-SMOKE-SPEC.md
 ```
 
 Current email inbound persistence baseline:
@@ -325,6 +326,16 @@ simulated email reply adapter is available for local/dev/test
 safe send result returns provider_message_id, provider_thread_id when available, sent_at, status, and allowlisted metadata only
 raw provider response payload, raw html, attachments, and full reply body are not stored in the adapter result
 future Gmail API or SMTP adapters should plug into the same email reply adapter interface after provider trust and secret management are in place
+```
+
+Current email E2E internal smoke baseline:
+
+```text
+no public smoke endpoint is exposed
+email e2e smoke service is internal-only and offline
+the smoke flow covers simulated inbound load, normalization, inbound persistence, simulated outbound reply, and outbound delivery record persistence
+viewer role is blocked from the smoke reply action through the same permission helper used by the API
+the smoke harness must not call external providers or store raw provider payloads, tokens, or secrets
 ```
 
 Audit log baseline:
