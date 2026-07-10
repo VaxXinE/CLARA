@@ -12,10 +12,14 @@ function createService(
     {
       enabled: true,
       tokenVaultMode: "encrypted",
+      oauthAuthorizationEndpoint:
+        "https://accounts.google.com/o/oauth2/v2/auth",
+      oauthClientId: "gmail-client-id-placeholder",
       oauthRedirectUri: "http://127.0.0.1:3000/internal/gmail/callback",
       oauthAllowedRedirectUris: [
         "http://127.0.0.1:3000/internal/gmail/callback",
       ],
+      oauthAllowedScopes: ["gmail.readonly", "gmail.send"],
       tokenEncryptionKeyBase64: Buffer.alloc(32, 4).toString("base64"),
       tokenEncryptionKeyVersion: "v1",
     },

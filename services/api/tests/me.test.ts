@@ -47,6 +47,7 @@ describe("GET /api/v1/me", () => {
         "activity:read",
         "ai_draft:create",
         "reply:send",
+        "integration:gmail_connect",
       ],
       auth: {
         method: "mock",

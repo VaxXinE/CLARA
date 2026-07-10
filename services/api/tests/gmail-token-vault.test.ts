@@ -134,6 +134,9 @@ describe("MockGmailTokenVault", () => {
           config: {
             enabled: true,
             tokenVaultMode: "mock",
+            oauthAuthorizationEndpoint:
+              "https://accounts.google.com/o/oauth2/v2/auth",
+            oauthAllowedScopes: ["gmail.readonly", "gmail.send"],
           },
           nodeEnv: "production",
         }),
@@ -149,6 +152,13 @@ describe("EncryptedGmailTokenVaultService", () => {
       {
         enabled: true,
         tokenVaultMode: "encrypted",
+        oauthAuthorizationEndpoint:
+          "https://accounts.google.com/o/oauth2/v2/auth",
+        oauthClientId: "gmail-client-id-placeholder",
+        oauthAllowedRedirectUris: [
+          "http://127.0.0.1:3000/internal/gmail/callback",
+        ],
+        oauthAllowedScopes: ["gmail.readonly", "gmail.send"],
         tokenEncryptionKeyBase64: Buffer.alloc(32, 5).toString("base64"),
         tokenEncryptionKeyVersion: "v1",
       },
@@ -209,6 +219,13 @@ describe("EncryptedGmailTokenVaultService", () => {
           {
             enabled: true,
             tokenVaultMode: "encrypted",
+            oauthAuthorizationEndpoint:
+              "https://accounts.google.com/o/oauth2/v2/auth",
+            oauthClientId: "gmail-client-id-placeholder",
+            oauthAllowedRedirectUris: [
+              "http://127.0.0.1:3000/internal/gmail/callback",
+            ],
+            oauthAllowedScopes: ["gmail.readonly", "gmail.send"],
             tokenEncryptionKeyBase64: "not-base64",
             tokenEncryptionKeyVersion: "v1",
           },
@@ -229,6 +246,10 @@ describe("EncryptedGmailTokenVaultService", () => {
           {
             enabled: true,
             tokenVaultMode: "encrypted",
+            oauthAuthorizationEndpoint:
+              "https://accounts.google.com/o/oauth2/v2/auth",
+            oauthClientId: "gmail-client-id-placeholder",
+            oauthAllowedScopes: ["gmail.readonly", "gmail.send"],
             tokenEncryptionKeyVersion: "v1",
           },
           {

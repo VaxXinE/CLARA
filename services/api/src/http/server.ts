@@ -23,12 +23,15 @@ import { registerCustomerRoutes } from "./routes/customers";
 import { registerActivityRoutes } from "./routes/activity";
 import { registerAiDraftRoutes } from "./routes/ai-drafts";
 import { registerReplyRoutes } from "./routes/replies";
+import type { GmailOAuthConnectService } from "../channels/email/gmail-oauth-connect-service";
+import { registerGmailIntegrationRoutes } from "./routes/gmail-integrations";
 
 export type CreateServerOptions = {
   env: Env;
   services?: AppServices;
   authServices?: AuthServices;
   authProvider?: AuthProvider;
+  gmailOAuthConnectService?: GmailOAuthConnectService;
 };
 
 export async function createServer(
@@ -98,6 +101,13 @@ export async function createServer(
     options.env,
   );
   await registerReplyRoutes(app, authProvider, services.replies, options.env);
+  if (options.gmailOAuthConnectService) {
+    await registerGmailIntegrationRoutes(
+      app,
+      authProvider,
+      options.gmailOAuthConnectService,
+    );
+  }
 
   if (serviceContainer?.close) {
     app.addHook("onClose", async () => {

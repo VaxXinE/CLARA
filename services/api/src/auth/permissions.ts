@@ -10,6 +10,7 @@ export const permissions = [
   "activity:read",
   "ai_draft:create",
   "reply:send",
+  "integration:gmail_connect",
 ] as const;
 
 export type Permission = (typeof permissions)[number];

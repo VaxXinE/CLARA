@@ -198,6 +198,9 @@ describe("Gmail provider config boundary", () => {
         {
           enabled: true,
           tokenVaultMode: "encrypted",
+          oauthAuthorizationEndpoint:
+            "https://accounts.google.com/o/oauth2/v2/auth",
+          oauthAllowedScopes: ["gmail.readonly", "gmail.send"],
           tokenEncryptionKeyVersion: "v1",
         },
         { nodeEnv: "development" },
@@ -218,9 +221,12 @@ describe("Gmail provider config boundary", () => {
     expect(config).toEqual({
       enabled: true,
       tokenVaultMode: "encrypted",
+      oauthAuthorizationEndpoint:
+        "https://accounts.google.com/o/oauth2/v2/auth",
       oauthAllowedRedirectUris: [
         "http://127.0.0.1:3000/internal/gmail/redirect",
       ],
+      oauthAllowedScopes: ["gmail.readonly", "gmail.send"],
       tokenEncryptionKeyBase64: Buffer.alloc(32, 9).toString("base64"),
       tokenEncryptionKeyVersion: "v2",
       oauthClientId: "gmail-client-id-placeholder",
