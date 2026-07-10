@@ -10,6 +10,7 @@ related_documents:
   - "./CLARA-P3-EMAIL-PROVIDER-INTEGRATION-DECISION.md"
   - "./CLARA-P3-EMAIL-PROVIDER-RISK-MATRIX.md"
   - "./CLARA-P3-EMAIL-CHANNEL-ADAPTER-SPEC.md"
+  - "./CLARA-P3-GMAIL-PROVIDER-ACCOUNT-PERSISTENCE-SPEC.md"
   - "../../services/api/README.md"
 ---
 
@@ -64,6 +65,15 @@ created_at
 updated_at
 metadata allowlist only
 token_reference_id internal only
+```
+
+Persistence baseline:
+
+```text
+provider account state is now persisted in gmail_provider_accounts
+only safe metadata and token_reference_id are stored
+raw access_token and refresh_token stay outside the database
+duplicate provider + email in the same organization/workspace scope is rejected
 ```
 
 Public DTO hanya mengandung:

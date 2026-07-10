@@ -3,7 +3,6 @@ import type { GmailProviderConfig } from "./gmail-provider-config";
 import { validateGmailProviderConfig } from "./gmail-provider-config";
 import type {
   CreateGmailProviderAccountInput,
-  GmailProviderAccount,
   GmailProviderAccountPublicDto,
   RevokeGmailProviderAccountInput,
 } from "./gmail-auth-types";
@@ -11,13 +10,16 @@ import {
   buildGmailProviderAccount,
   toGmailProviderAccountPublicDto,
 } from "./gmail-auth-types";
+import {
+  FixtureGmailProviderAccountRepository,
+  type GmailProviderAccountRepository,
+} from "./gmail-provider-account-repository";
 import type { GmailTokenVault } from "./gmail-token-vault";
 
 export class GmailProviderAccountService {
-  private readonly accounts = new Map<string, GmailProviderAccount>();
-
   constructor(
     private readonly tokenVault: GmailTokenVault,
+    private readonly repository: GmailProviderAccountRepository = new FixtureGmailProviderAccountRepository(),
     options?: {
       config?: GmailProviderConfig;
       nodeEnv?: "development" | "test" | "production";
@@ -33,6 +35,25 @@ export class GmailProviderAccountService {
   async createConnectedAccount(
     input: CreateGmailProviderAccountInput,
   ): Promise<GmailProviderAccountPublicDto> {
+    const scope = {
+      organizationId: input.organizationId,
+      workspaceId: input.workspaceId,
+    } as const;
+    const existing = await this.repository.findByEmailScoped(
+      scope,
+      "gmail",
+      input.emailAddress.trim().toLowerCase(),
+    );
+
+    if (existing) {
+      throw new AppError({
+        statusCode: 409,
+        appCode: "GMAIL_PROVIDER_ACCOUNT_ALREADY_EXISTS",
+        message:
+          "Gmail provider account already exists for this workspace email.",
+      });
+    }
+
     const provisionalAccount = buildGmailProviderAccount({
       ...input,
       tokenReferenceId: "pending",
@@ -46,14 +67,24 @@ export class GmailProviderAccountService {
       tokenGrant: input.tokenGrant,
     });
 
-    const account = buildGmailProviderAccount({
+    let account = buildGmailProviderAccount({
       ...input,
       id: provisionalAccount.id,
       createdAt: provisionalAccount.createdAt,
       tokenReferenceId: tokenReference.referenceId,
     });
 
-    this.accounts.set(account.id, account);
+    try {
+      account = await this.repository.createAccount(account);
+    } catch (error) {
+      await this.tokenVault.revokeTokenReference({
+        organizationId: provisionalAccount.organizationId,
+        workspaceId: provisionalAccount.workspaceId,
+        referenceId: tokenReference.referenceId,
+      });
+
+      throw error;
+    }
 
     return toGmailProviderAccountPublicDto(account);
   }
@@ -63,16 +94,15 @@ export class GmailProviderAccountService {
     workspaceId: string;
     accountId: string;
   }): Promise<GmailProviderAccountPublicDto> {
-    const account = this.accounts.get(input.accountId);
+    const account = await this.repository.findByIdScoped(
+      {
+        organizationId: input.organizationId,
+        workspaceId: input.workspaceId,
+      },
+      input.accountId,
+    );
 
     if (!account) {
-      throw new NotFoundError("Gmail provider account not found.");
-    }
-
-    if (
-      account.organizationId !== input.organizationId ||
-      account.workspaceId !== input.workspaceId
-    ) {
       throw new NotFoundError("Gmail provider account not found.");
     }
 
@@ -83,28 +113,27 @@ export class GmailProviderAccountService {
     organizationId: string;
     workspaceId: string;
   }): Promise<GmailProviderAccountPublicDto[]> {
-    return [...this.accounts.values()]
-      .filter(
-        (account) =>
-          account.organizationId === input.organizationId &&
-          account.workspaceId === input.workspaceId,
-      )
-      .map((account) => toGmailProviderAccountPublicDto(account));
+    return (
+      await this.repository.listAccountsScoped({
+        organizationId: input.organizationId,
+        workspaceId: input.workspaceId,
+      })
+    ).map((account) => toGmailProviderAccountPublicDto(account));
   }
 
   async revokeAccount(
     input: RevokeGmailProviderAccountInput,
   ): Promise<GmailProviderAccountPublicDto> {
-    const account = this.accounts.get(input.accountId);
+    const scope = {
+      organizationId: input.organizationId,
+      workspaceId: input.workspaceId,
+    } as const;
+    const account = await this.repository.findByIdScoped(
+      scope,
+      input.accountId,
+    );
 
     if (!account) {
-      throw new NotFoundError("Gmail provider account not found.");
-    }
-
-    if (
-      account.organizationId !== input.organizationId ||
-      account.workspaceId !== input.workspaceId
-    ) {
       throw new NotFoundError("Gmail provider account not found.");
     }
 
@@ -122,35 +151,49 @@ export class GmailProviderAccountService {
       referenceId: account.tokenReferenceId,
     });
 
-    const updatedAccount: GmailProviderAccount = {
-      ...account,
+    const updatedAccount = await this.repository.updateAccount({
+      scope,
+      accountId: account.id,
       status: "revoked",
       updatedAt: new Date(),
-    };
-    this.accounts.set(account.id, updatedAccount);
+    });
+
+    if (!updatedAccount) {
+      throw new NotFoundError("Gmail provider account not found.");
+    }
 
     return toGmailProviderAccountPublicDto(updatedAccount);
   }
 
-  getDebugSnapshot(): Array<
-    Omit<GmailProviderAccount, "tokenReferenceId"> & {
-      hasTokenReference: boolean;
+  async updateAccountStatus(input: {
+    organizationId: string;
+    workspaceId: string;
+    accountId: string;
+    status: "not_connected" | "connected" | "revoked" | "error";
+    lastVerifiedAt?: Date | null;
+  }): Promise<GmailProviderAccountPublicDto> {
+    const updateInput = {
+      scope: {
+        organizationId: input.organizationId,
+        workspaceId: input.workspaceId,
+      },
+      accountId: input.accountId,
+      status: input.status,
+      updatedAt: new Date(),
+    };
+    const account = await this.repository.updateAccount({
+      ...updateInput,
+      ...(input.lastVerifiedAt === undefined
+        ? {}
+        : {
+            lastVerifiedAt: input.lastVerifiedAt,
+          }),
+    });
+
+    if (!account) {
+      throw new NotFoundError("Gmail provider account not found.");
     }
-  > {
-    return [...this.accounts.values()].map((account) => ({
-      id: account.id,
-      organizationId: account.organizationId,
-      workspaceId: account.workspaceId,
-      provider: account.provider,
-      emailAddress: account.emailAddress,
-      displayName: account.displayName,
-      status: account.status,
-      scopes: [...account.scopes],
-      lastVerifiedAt: account.lastVerifiedAt,
-      createdAt: account.createdAt,
-      updatedAt: account.updatedAt,
-      metadata: { ...account.metadata },
-      hasTokenReference: Boolean(account.tokenReferenceId),
-    }));
+
+    return toGmailProviderAccountPublicDto(account);
   }
 }

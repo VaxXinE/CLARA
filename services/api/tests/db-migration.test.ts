@@ -36,6 +36,14 @@ const emailOutboundMigrationSql = readFileSync(
   emailOutboundMigrationPath,
   "utf8",
 );
+const gmailProviderAccountsMigrationPath = path.resolve(
+  __dirname,
+  "../drizzle/0005_p3_gmail_provider_accounts.sql",
+);
+const gmailProviderAccountsMigrationSql = readFileSync(
+  gmailProviderAccountsMigrationPath,
+  "utf8",
+);
 
 describe("initial database migration", () => {
   it("creates all required PR-04 tables", () => {
@@ -53,6 +61,7 @@ describe("initial database migration", () => {
       "audit_logs",
       "email_inbound_records",
       "email_outbound_deliveries",
+      "gmail_provider_accounts",
     ]) {
       const source =
         tableName === "audit_logs"
@@ -61,7 +70,9 @@ describe("initial database migration", () => {
             ? emailInboundMigrationSql
             : tableName === "email_outbound_deliveries"
               ? emailOutboundMigrationSql
-              : migrationSql;
+              : tableName === "gmail_provider_accounts"
+                ? gmailProviderAccountsMigrationSql
+                : migrationSql;
 
       expect(source).toContain(`create table if not exists ${tableName}`);
     }
@@ -77,13 +88,16 @@ describe("initial database migration", () => {
       "activity_events",
       "email_inbound_records",
       "email_outbound_deliveries",
+      "gmail_provider_accounts",
     ]) {
       const source =
         tableName === "email_inbound_records"
           ? emailInboundMigrationSql
           : tableName === "email_outbound_deliveries"
             ? emailOutboundMigrationSql
-            : migrationSql;
+            : tableName === "gmail_provider_accounts"
+              ? gmailProviderAccountsMigrationSql
+              : migrationSql;
       const tableBlock = source
         .split(`create table if not exists ${tableName} (`)[1]
         ?.split(");")[0];
@@ -167,6 +181,30 @@ describe("initial database migration", () => {
     );
     expect(emailOutboundMigrationSql).toContain(
       "create index if not exists idx_email_outbound_deliveries_scope_conversation",
+    );
+  });
+
+  it("adds Gmail provider account persistence schema and scoped uniqueness", () => {
+    expect(gmailProviderAccountsMigrationSql).toContain(
+      "create table if not exists gmail_provider_accounts",
+    );
+    expect(gmailProviderAccountsMigrationSql).toContain(
+      "provider in ('gmail')",
+    );
+    expect(gmailProviderAccountsMigrationSql).toContain(
+      "status in ('not_connected', 'connected', 'revoked', 'error')",
+    );
+    expect(gmailProviderAccountsMigrationSql).toContain(
+      "create unique index if not exists gmail_provider_accounts_scope_provider_email_unique",
+    );
+    expect(gmailProviderAccountsMigrationSql).toContain(
+      "create unique index if not exists gmail_provider_accounts_scope_token_reference_unique",
+    );
+    expect(gmailProviderAccountsMigrationSql).toContain(
+      "create index if not exists idx_gmail_provider_accounts_scope_status",
+    );
+    expect(gmailProviderAccountsMigrationSql).toContain(
+      "token_reference_id text",
     );
   });
 });

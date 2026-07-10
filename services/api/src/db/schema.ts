@@ -71,6 +71,13 @@ export const outboundDeliveryStatuses = [
   "sent",
   "failed",
 ] as const;
+export const gmailProviderAccountProviders = ["gmail"] as const;
+export const gmailProviderAccountStatuses = [
+  "not_connected",
+  "connected",
+  "revoked",
+  "error",
+] as const;
 
 function textOneOf(name: string, values: readonly string[]) {
   return check(
@@ -720,6 +727,71 @@ export const emailOutboundDeliveries = pgTable(
   ],
 );
 
+export const gmailProviderAccounts = pgTable(
+  "gmail_provider_accounts",
+  {
+    id: text("id").primaryKey(),
+    organizationId: text("organization_id")
+      .notNull()
+      .references(() => organizations.id),
+    workspaceId: text("workspace_id")
+      .notNull()
+      .references(() => workspaces.id),
+    provider: text("provider").notNull().default("gmail"),
+    emailAddress: text("email_address").notNull(),
+    displayName: text("display_name"),
+    status: text("status").notNull(),
+    scopes: jsonb("scopes").notNull().default([]),
+    tokenReferenceId: text("token_reference_id"),
+    lastVerifiedAt: timestamp("last_verified_at", { withTimezone: true }),
+    metadata: jsonb("metadata").notNull().default({}),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    textOneOf("provider", gmailProviderAccountProviders),
+    textOneOf("status", gmailProviderAccountStatuses),
+    check(
+      "gmail_provider_accounts_email_address_not_empty",
+      sql`char_length(trim(${table.emailAddress})) > 0`,
+    ),
+    check(
+      "gmail_provider_accounts_display_name_not_empty",
+      sql`${table.displayName} is null or char_length(trim(${table.displayName})) > 0`,
+    ),
+    check(
+      "gmail_provider_accounts_token_reference_id_not_empty",
+      sql`${table.tokenReferenceId} is null or char_length(trim(${table.tokenReferenceId})) > 0`,
+    ),
+    check(
+      "gmail_provider_accounts_scopes_is_array",
+      sql`jsonb_typeof(${table.scopes}) = 'array'`,
+    ),
+    check(
+      "gmail_provider_accounts_metadata_is_object",
+      sql`jsonb_typeof(${table.metadata}) = 'object'`,
+    ),
+    uniqueIndex("gmail_provider_accounts_scope_provider_email_unique").on(
+      table.organizationId,
+      table.workspaceId,
+      table.provider,
+      table.emailAddress,
+    ),
+    uniqueIndex("gmail_provider_accounts_scope_token_reference_unique")
+      .on(table.organizationId, table.workspaceId, table.tokenReferenceId)
+      .where(sql`${table.tokenReferenceId} is not null`),
+    index("idx_gmail_provider_accounts_scope_status").on(
+      table.organizationId,
+      table.workspaceId,
+      table.status,
+    ),
+  ],
+);
+
 export const dbSchema = {
   organizations,
   workspaces,
@@ -734,6 +806,7 @@ export const dbSchema = {
   auditLogs,
   emailInboundRecords,
   emailOutboundDeliveries,
+  gmailProviderAccounts,
 };
 
 export type Organization = typeof organizations.$inferSelect;
@@ -749,6 +822,7 @@ export type ActivityEvent = typeof activityEvents.$inferSelect;
 export type AuditLog = typeof auditLogs.$inferSelect;
 export type EmailInboundRecord = typeof emailInboundRecords.$inferSelect;
 export type EmailOutboundDelivery = typeof emailOutboundDeliveries.$inferSelect;
+export type GmailProviderAccountRow = typeof gmailProviderAccounts.$inferSelect;
 
 export type JsonObject = Record<string, string | number | boolean | null>;
 export type ActivityMetadata = JsonObject;

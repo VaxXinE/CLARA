@@ -83,16 +83,14 @@ describe("GmailProviderAccountService", () => {
         expiresAt: null,
       },
     });
-    const serviceSnapshot = service.getDebugSnapshot();
     const vaultSnapshot = vault.getDebugSnapshot();
 
     expect(JSON.stringify(account)).not.toContain("dto-access-token");
     expect(JSON.stringify(account)).not.toContain("dto-refresh-token");
-    expect(JSON.stringify(serviceSnapshot)).not.toContain("dto-access-token");
-    expect(JSON.stringify(serviceSnapshot)).not.toContain("dto-refresh-token");
     expect(JSON.stringify(vaultSnapshot)).not.toContain("dto-access-token");
     expect(JSON.stringify(vaultSnapshot)).not.toContain("dto-refresh-token");
-    expect(serviceSnapshot[0]?.hasTokenReference).toBe(true);
+    expect(vaultSnapshot[0]).not.toHaveProperty("accessToken");
+    expect(vaultSnapshot[0]).not.toHaveProperty("refreshToken");
   });
 
   it("can revoke a scoped provider account without any real provider network call", async () => {
@@ -130,6 +128,66 @@ describe("GmailProviderAccountService", () => {
     } finally {
       globalThis.fetch = originalFetch;
     }
+  });
+
+  it("rejects duplicate Gmail provider account per workspace email", async () => {
+    const service = new GmailProviderAccountService(new MockGmailTokenVault());
+
+    await service.createConnectedAccount({
+      organizationId: "org_demo",
+      workspaceId: "wks_demo_sales",
+      emailAddress: "duplicate@example.test",
+      scopes: ["gmail.readonly"],
+      tokenGrant: {
+        accessToken: "duplicate-access-token-1",
+        refreshToken: "duplicate-refresh-token-1",
+        expiresAt: null,
+      },
+    });
+
+    await expect(
+      service.createConnectedAccount({
+        organizationId: "org_demo",
+        workspaceId: "wks_demo_sales",
+        emailAddress: "duplicate@example.test",
+        scopes: ["gmail.send"],
+        tokenGrant: {
+          accessToken: "duplicate-access-token-2",
+          refreshToken: "duplicate-refresh-token-2",
+          expiresAt: null,
+        },
+      }),
+    ).rejects.toThrow(
+      "Gmail provider account already exists for this workspace email.",
+    );
+  });
+
+  it("can update account status without exposing token data", async () => {
+    const service = new GmailProviderAccountService(new MockGmailTokenVault());
+    const account = await service.createConnectedAccount({
+      organizationId: "org_demo",
+      workspaceId: "wks_demo_sales",
+      emailAddress: "status@example.test",
+      scopes: ["gmail.readonly"],
+      tokenGrant: {
+        accessToken: "status-access-token",
+        refreshToken: "status-refresh-token",
+        expiresAt: null,
+      },
+    });
+
+    const updated = await service.updateAccountStatus({
+      organizationId: "org_demo",
+      workspaceId: "wks_demo_sales",
+      accountId: account.id,
+      status: "error",
+      lastVerifiedAt: null,
+    });
+
+    expect(updated.status).toBe("error");
+    expect(updated.lastVerifiedAt).toBeNull();
+    expect(JSON.stringify(updated)).not.toContain("status-access-token");
+    expect(JSON.stringify(updated)).not.toContain("status-refresh-token");
   });
 });
 
