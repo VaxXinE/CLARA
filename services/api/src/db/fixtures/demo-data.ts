@@ -6,6 +6,7 @@ import {
   conversations,
   customers,
   emailInboundRecords,
+  emailOutboundDeliveries,
   messages,
   organizations,
   replyDrafts,
@@ -26,6 +27,9 @@ type AiDraftEventInsert = InferInsertModel<typeof aiDraftEvents>;
 type ActivityEventInsert = InferInsertModel<typeof activityEvents>;
 type AuditLogInsert = InferInsertModel<typeof auditLogs>;
 type EmailInboundRecordInsert = InferInsertModel<typeof emailInboundRecords>;
+type EmailOutboundDeliveryInsert = InferInsertModel<
+  typeof emailOutboundDeliveries
+>;
 
 function at(value: string): Date {
   return new Date(value);
@@ -427,6 +431,7 @@ export const demoActivityEvents: ActivityEventInsert[] = [
 export const demoAuditLogs: AuditLogInsert[] = [];
 
 export const demoEmailInboundRecords: EmailInboundRecordInsert[] = [];
+export const demoEmailOutboundDeliveries: EmailOutboundDeliveryInsert[] = [];
 
 export const demoSeedData = {
   organizations: demoOrganizations,
@@ -441,4 +446,5 @@ export const demoSeedData = {
   activityEvents: demoActivityEvents,
   auditLogs: demoAuditLogs,
   emailInboundRecords: demoEmailInboundRecords,
+  emailOutboundDeliveries: demoEmailOutboundDeliveries,
 };

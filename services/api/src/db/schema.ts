@@ -65,6 +65,12 @@ export const auditLogResourceTypes = [
   "reply_draft",
   "message",
 ] as const;
+export const outboundDeliveryChannels = ["email"] as const;
+export const outboundDeliveryStatuses = [
+  "simulated",
+  "sent",
+  "failed",
+] as const;
 
 function textOneOf(name: string, values: readonly string[]) {
   return check(
@@ -629,6 +635,91 @@ export const emailInboundRecords = pgTable(
   ],
 );
 
+export const emailOutboundDeliveries = pgTable(
+  "email_outbound_deliveries",
+  {
+    id: text("id").primaryKey(),
+    organizationId: text("organization_id")
+      .notNull()
+      .references(() => organizations.id),
+    workspaceId: text("workspace_id")
+      .notNull()
+      .references(() => workspaces.id),
+    conversationId: text("conversation_id")
+      .notNull()
+      .references(() => conversations.id),
+    customerId: text("customer_id").references(() => customers.id),
+    replyId: text("reply_id").references(() => messages.id),
+    actorUserId: text("actor_user_id")
+      .notNull()
+      .references(() => users.id),
+    channel: text("channel").notNull(),
+    provider: text("provider").notNull(),
+    providerMessageId: text("provider_message_id"),
+    providerThreadId: text("provider_thread_id"),
+    idempotencyKey: text("idempotency_key"),
+    status: text("status").notNull(),
+    failureCode: text("failure_code"),
+    metadata: jsonb("metadata").notNull().default({}),
+    sentAt: timestamp("sent_at", { withTimezone: true }),
+    failedAt: timestamp("failed_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    textOneOf("channel", outboundDeliveryChannels),
+    textOneOf("status", outboundDeliveryStatuses),
+    check(
+      "email_outbound_deliveries_provider_not_empty",
+      sql`char_length(trim(${table.provider})) > 0`,
+    ),
+    check(
+      "email_outbound_deliveries_provider_message_id_not_empty",
+      sql`${table.providerMessageId} is null or char_length(trim(${table.providerMessageId})) > 0`,
+    ),
+    check(
+      "email_outbound_deliveries_provider_thread_id_not_empty",
+      sql`${table.providerThreadId} is null or char_length(trim(${table.providerThreadId})) > 0`,
+    ),
+    check(
+      "email_outbound_deliveries_idempotency_key_not_empty",
+      sql`${table.idempotencyKey} is null or char_length(trim(${table.idempotencyKey})) > 0`,
+    ),
+    check(
+      "email_outbound_deliveries_failure_code_not_empty",
+      sql`${table.failureCode} is null or char_length(trim(${table.failureCode})) > 0`,
+    ),
+    check(
+      "email_outbound_deliveries_status_timestamps",
+      sql`(
+        (${table.status} in ('sent', 'simulated') and ${table.sentAt} is not null and ${table.failedAt} is null)
+        or
+        (${table.status} = 'failed' and ${table.failedAt} is not null and ${table.sentAt} is null)
+      )`,
+    ),
+    uniqueIndex("email_outbound_deliveries_scope_provider_message_unique").on(
+      table.organizationId,
+      table.workspaceId,
+      table.provider,
+      table.providerMessageId,
+    ),
+    uniqueIndex("email_outbound_deliveries_scope_idempotency_unique")
+      .on(table.organizationId, table.workspaceId, table.idempotencyKey)
+      .where(sql`${table.idempotencyKey} is not null`),
+    index("idx_email_outbound_deliveries_scope_conversation").on(
+      table.organizationId,
+      table.workspaceId,
+      table.conversationId,
+    ),
+    index("idx_email_outbound_deliveries_scope_status").on(
+      table.organizationId,
+      table.workspaceId,
+      table.status,
+    ),
+  ],
+);
+
 export const dbSchema = {
   organizations,
   workspaces,
@@ -642,6 +733,7 @@ export const dbSchema = {
   activityEvents,
   auditLogs,
   emailInboundRecords,
+  emailOutboundDeliveries,
 };
 
 export type Organization = typeof organizations.$inferSelect;
@@ -656,6 +748,7 @@ export type AiDraftEvent = typeof aiDraftEvents.$inferSelect;
 export type ActivityEvent = typeof activityEvents.$inferSelect;
 export type AuditLog = typeof auditLogs.$inferSelect;
 export type EmailInboundRecord = typeof emailInboundRecords.$inferSelect;
+export type EmailOutboundDelivery = typeof emailOutboundDeliveries.$inferSelect;
 
 export type JsonObject = Record<string, string | number | boolean | null>;
 export type ActivityMetadata = JsonObject;

@@ -7,6 +7,8 @@ import {
   conversationStatuses,
   dbSchema,
   messageDirections,
+  outboundDeliveryChannels,
+  outboundDeliveryStatuses,
   workspaceMemberRoles,
   workspaceMembershipStatuses,
 } from "../src/db/schema";
@@ -26,6 +28,7 @@ describe("database schema", () => {
       "activityEvents",
       "auditLogs",
       "emailInboundRecords",
+      "emailOutboundDeliveries",
     ]);
   });
 
@@ -39,6 +42,7 @@ describe("database schema", () => {
       "activityEvents",
       "auditLogs",
       "emailInboundRecords",
+      "emailOutboundDeliveries",
     ] as const) {
       const columns = Object.keys(dbSchema[tableName]);
 
@@ -60,6 +64,8 @@ describe("database schema", () => {
       "reply.failed",
     ]);
     expect(auditLogOutcomes).toEqual(["success", "failure"]);
+    expect(outboundDeliveryChannels).toEqual(["email"]);
+    expect(outboundDeliveryStatuses).toEqual(["simulated", "sent", "failed"]);
     expect(activityEventTypes).toEqual([
       "ai_draft_generated",
       "ai_draft_failed",
