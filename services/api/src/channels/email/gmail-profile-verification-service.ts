@@ -85,9 +85,17 @@ function sanitizeApiError(error: unknown): AppError {
         ? (error as { code: string }).code
         : "gmail_api_http_error";
 
+    const appCodeMap: Record<string, string> = {
+      gmail_api_unauthenticated: "GMAIL_PROFILE_PROVIDER_REJECTED",
+      gmail_api_forbidden: "GMAIL_PROFILE_PROVIDER_REJECTED",
+      gmail_api_timeout: "GMAIL_PROFILE_TIMEOUT",
+      gmail_api_invalid_response: "GMAIL_PROFILE_INVALID_RESPONSE",
+      gmail_api_http_error: "GMAIL_PROFILE_VERIFICATION_FAILED",
+    };
+
     return new AppError({
       statusCode: 502,
-      appCode: "GMAIL_PROFILE_VERIFICATION_FAILED",
+      appCode: appCodeMap[code] ?? "GMAIL_PROFILE_VERIFICATION_FAILED",
       message:
         gmailApiErrorMessages[code] ?? "Gmail profile verification failed.",
     });

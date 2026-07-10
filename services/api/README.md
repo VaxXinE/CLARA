@@ -28,6 +28,7 @@ Current Gmail provider baseline:
 OAuth connect + callback completion exist
 real token exchange exists behind a safe boundary
 token refresh boundary exists for internal/server-side use only
+connection health check exists for provider-management checks
 no background refresh scheduler, inbound sync, or outbound Gmail send yet
 ```
 
@@ -47,6 +48,7 @@ POST /api/v1/conversations/:conversation_id/ai-draft
 POST /api/v1/conversations/:conversation_id/reply
 POST /api/v1/integrations/gmail/oauth/connect
 GET /api/v1/integrations/gmail/oauth/callback
+GET /api/v1/integrations/gmail/accounts/:providerAccountId/health
 ```
 
 ## Local Setup

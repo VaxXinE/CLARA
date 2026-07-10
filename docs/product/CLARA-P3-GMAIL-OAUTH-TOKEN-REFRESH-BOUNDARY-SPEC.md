@@ -36,6 +36,11 @@ PR ini tidak mencakup:
 - Gmail outbound send,
 - UI frontend.
 
+Catatan:
+
+- Gmail connection health check boleh memakai refresh boundary ini secara internal bila access token lama sudah expired atau provider menolak token saat verifikasi profile,
+- refresh tetap tidak boleh mengembalikan raw token ke caller.
+
 ## Flow
 
 Flow internal yang diizinkan:

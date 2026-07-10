@@ -2,10 +2,40 @@ import type { FastifyInstance } from "fastify";
 import { z } from "zod";
 import type { AuthProvider } from "../../auth/auth-provider";
 import { getAuthContext } from "../../auth/auth-context";
+import { assertPermission } from "../../auth/permissions";
 import { requireAuth } from "../../auth/require-auth";
 import { ValidationError } from "../../errors/app-error";
 import type { GmailOAuthConnectService } from "../../channels/email/gmail-oauth-connect-service";
 import type { GmailOAuthCallbackService } from "../../channels/email/gmail-oauth-callback-service";
+import type { GmailConnectionHealthService } from "../../channels/email/gmail-connection-health-service";
+
+const safeIdPattern = /^[a-zA-Z0-9._:-]+$/;
+
+const providerAccountIdSchema = z
+  .string()
+  .trim()
+  .min(1)
+  .max(128)
+  .regex(safeIdPattern, "Invalid provider account ID.");
+
+function parseProviderAccountId(
+  providerAccountId: string,
+  path: string,
+): string {
+  const parsed = providerAccountIdSchema.safeParse(providerAccountId);
+
+  if (!parsed.success) {
+    throw new ValidationError("Invalid request.", [
+      {
+        path,
+        message:
+          parsed.error.issues[0]?.message ?? "Invalid provider account ID.",
+      },
+    ]);
+  }
+
+  return parsed.data;
+}
 
 const gmailOAuthConnectBodySchema = z
   .object({
@@ -56,6 +86,7 @@ export async function registerGmailIntegrationRoutes(
   services: {
     connect?: GmailOAuthConnectService;
     callback?: GmailOAuthCallbackService;
+    health?: GmailConnectionHealthService;
   },
 ): Promise<void> {
   if (services.connect) {
@@ -125,6 +156,32 @@ export async function registerGmailIntegrationRoutes(
         return reply
           .status(result.status === "provider_error" ? 400 : 200)
           .send(result);
+      },
+    );
+  }
+
+  if (services.health) {
+    const healthService = services.health;
+
+    app.get(
+      "/api/v1/integrations/gmail/accounts/:providerAccountId/health",
+      {
+        preHandler: requireAuth(authProvider),
+      },
+      async (request) => {
+        const auth = getAuthContext(request);
+        assertPermission(auth.role, "integration:gmail_connect");
+        const params = request.params as { providerAccountId?: string };
+        const providerAccountId = parseProviderAccountId(
+          params.providerAccountId ?? "",
+          "params.providerAccountId",
+        );
+
+        return healthService.checkHealth({
+          organizationId: auth.organizationId,
+          workspaceId: auth.workspaceId,
+          providerAccountId,
+        });
       },
     );
   }
