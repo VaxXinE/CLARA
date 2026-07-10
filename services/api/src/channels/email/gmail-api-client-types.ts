@@ -19,6 +19,13 @@ export interface GmailApiAccessTokenProvider {
   getAccessToken(input: GmailApiAccessTokenLookupInput): Promise<string>;
 }
 
+export type GmailUsersProfileResponse = {
+  emailAddress?: string;
+  messagesTotal?: number;
+  threadsTotal?: number;
+  historyId?: string;
+};
+
 export class GmailApiClientError extends Error {
   readonly code: string;
   readonly category:

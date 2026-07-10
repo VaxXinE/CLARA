@@ -24,6 +24,7 @@ Scope PR ini mencakup:
 - interface Gmail API client,
 - real Gmail API HTTP client,
 - access token provider boundary yang membaca token hanya lewat encrypted vault,
+- reusable boundary untuk Gmail profile verification,
 - config mode `disabled`, `mocked`, atau `real`,
 - timeout dan sanitasi error provider,
 - test offline penuh dengan fetch mock.
