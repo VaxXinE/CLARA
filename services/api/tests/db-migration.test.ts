@@ -52,6 +52,14 @@ const gmailTokenVaultMigrationSql = readFileSync(
   gmailTokenVaultMigrationPath,
   "utf8",
 );
+const gmailOAuthStateMigrationPath = path.resolve(
+  __dirname,
+  "../drizzle/0007_p3_gmail_oauth_state.sql",
+);
+const gmailOAuthStateMigrationSql = readFileSync(
+  gmailOAuthStateMigrationPath,
+  "utf8",
+);
 
 describe("initial database migration", () => {
   it("creates all required PR-04 tables", () => {
@@ -71,6 +79,7 @@ describe("initial database migration", () => {
       "email_outbound_deliveries",
       "gmail_provider_accounts",
       "gmail_token_vault_entries",
+      "gmail_oauth_state_entries",
     ]) {
       const source =
         tableName === "audit_logs"
@@ -83,7 +92,9 @@ describe("initial database migration", () => {
                 ? gmailProviderAccountsMigrationSql
                 : tableName === "gmail_token_vault_entries"
                   ? gmailTokenVaultMigrationSql
-                  : migrationSql;
+                  : tableName === "gmail_oauth_state_entries"
+                    ? gmailOAuthStateMigrationSql
+                    : migrationSql;
 
       expect(source).toContain(`create table if not exists ${tableName}`);
     }
@@ -101,6 +112,7 @@ describe("initial database migration", () => {
       "email_outbound_deliveries",
       "gmail_provider_accounts",
       "gmail_token_vault_entries",
+      "gmail_oauth_state_entries",
     ]) {
       const source =
         tableName === "email_inbound_records"
@@ -111,7 +123,9 @@ describe("initial database migration", () => {
               ? gmailProviderAccountsMigrationSql
               : tableName === "gmail_token_vault_entries"
                 ? gmailTokenVaultMigrationSql
-                : migrationSql;
+                : tableName === "gmail_oauth_state_entries"
+                  ? gmailOAuthStateMigrationSql
+                  : migrationSql;
       const tableBlock = source
         .split(`create table if not exists ${tableName} (`)[1]
         ?.split(");")[0];
@@ -239,5 +253,28 @@ describe("initial database migration", () => {
     expect(gmailTokenVaultMigrationSql).toContain(
       "create index if not exists idx_gmail_token_vault_entries_scope_revoked_at",
     );
+  });
+
+  it("adds Gmail OAuth state persistence schema and scoped uniqueness", () => {
+    expect(gmailOAuthStateMigrationSql).toContain(
+      "create table if not exists gmail_oauth_state_entries",
+    );
+    expect(gmailOAuthStateMigrationSql).toContain("provider in ('gmail')");
+    expect(gmailOAuthStateMigrationSql).toContain(
+      "status in ('pending', 'consumed', 'expired', 'revoked')",
+    );
+    expect(gmailOAuthStateMigrationSql).toContain(
+      "code_challenge_method in ('S256')",
+    );
+    expect(gmailOAuthStateMigrationSql).toContain(
+      "create unique index if not exists gmail_oauth_state_entries_scope_state_hash_unique",
+    );
+    expect(gmailOAuthStateMigrationSql).toContain(
+      "create index if not exists idx_gmail_oauth_state_entries_scope_status",
+    );
+    expect(gmailOAuthStateMigrationSql).toContain(
+      "pkce_verifier_ciphertext text not null",
+    );
+    expect(gmailOAuthStateMigrationSql).toContain("state_hash text not null");
   });
 });

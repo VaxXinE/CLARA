@@ -80,6 +80,14 @@ export const gmailProviderAccountStatuses = [
 ] as const;
 export const gmailTokenVaultProviders = ["gmail"] as const;
 export const gmailTokenVaultPurposes = ["oauth_grant"] as const;
+export const gmailOAuthStateProviders = ["gmail"] as const;
+export const gmailOAuthStateStatuses = [
+  "pending",
+  "consumed",
+  "expired",
+  "revoked",
+] as const;
+export const gmailOAuthCodeChallengeMethods = ["S256"] as const;
 
 function textOneOf(name: string, values: readonly string[]) {
   return check(
@@ -873,6 +881,107 @@ export const gmailTokenVaultEntries = pgTable(
   ],
 );
 
+export const gmailOAuthStateEntries = pgTable(
+  "gmail_oauth_state_entries",
+  {
+    id: text("id").primaryKey(),
+    organizationId: text("organization_id")
+      .notNull()
+      .references(() => organizations.id),
+    workspaceId: text("workspace_id")
+      .notNull()
+      .references(() => workspaces.id),
+    actorUserId: text("actor_user_id")
+      .notNull()
+      .references(() => users.id),
+    provider: text("provider").notNull().default("gmail"),
+    stateHash: text("state_hash").notNull(),
+    nonceHash: text("nonce_hash"),
+    pkceVerifierCiphertext: text("pkce_verifier_ciphertext").notNull(),
+    pkceVerifierIv: text("pkce_verifier_iv").notNull(),
+    pkceVerifierAuthTag: text("pkce_verifier_auth_tag").notNull(),
+    pkceKeyVersion: text("pkce_key_version").notNull(),
+    codeChallenge: text("code_challenge").notNull(),
+    codeChallengeMethod: text("code_challenge_method")
+      .notNull()
+      .default("S256"),
+    redirectUri: text("redirect_uri").notNull(),
+    scopes: jsonb("scopes").notNull().default([]),
+    status: text("status").notNull().default("pending"),
+    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+    consumedAt: timestamp("consumed_at", { withTimezone: true }),
+    revokedAt: timestamp("revoked_at", { withTimezone: true }),
+    metadata: jsonb("metadata").notNull().default({}),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    textOneOf("provider", gmailOAuthStateProviders),
+    textOneOf("status", gmailOAuthStateStatuses),
+    textOneOf("code_challenge_method", gmailOAuthCodeChallengeMethods),
+    check(
+      "gmail_oauth_state_entries_state_hash_not_empty",
+      sql`char_length(trim(${table.stateHash})) > 0`,
+    ),
+    check(
+      "gmail_oauth_state_entries_nonce_hash_not_empty",
+      sql`${table.nonceHash} is null or char_length(trim(${table.nonceHash})) > 0`,
+    ),
+    check(
+      "gmail_oauth_state_entries_pkce_verifier_ciphertext_not_empty",
+      sql`char_length(trim(${table.pkceVerifierCiphertext})) > 0`,
+    ),
+    check(
+      "gmail_oauth_state_entries_pkce_verifier_iv_not_empty",
+      sql`char_length(trim(${table.pkceVerifierIv})) > 0`,
+    ),
+    check(
+      "gmail_oauth_state_entries_pkce_verifier_auth_tag_not_empty",
+      sql`char_length(trim(${table.pkceVerifierAuthTag})) > 0`,
+    ),
+    check(
+      "gmail_oauth_state_entries_pkce_key_version_not_empty",
+      sql`char_length(trim(${table.pkceKeyVersion})) > 0`,
+    ),
+    check(
+      "gmail_oauth_state_entries_code_challenge_not_empty",
+      sql`char_length(trim(${table.codeChallenge})) > 0`,
+    ),
+    check(
+      "gmail_oauth_state_entries_redirect_uri_not_empty",
+      sql`char_length(trim(${table.redirectUri})) > 0`,
+    ),
+    check(
+      "gmail_oauth_state_entries_scopes_is_array",
+      sql`jsonb_typeof(${table.scopes}) = 'array'`,
+    ),
+    check(
+      "gmail_oauth_state_entries_metadata_is_object",
+      sql`jsonb_typeof(${table.metadata}) = 'object'`,
+    ),
+    uniqueIndex("gmail_oauth_state_entries_scope_state_hash_unique").on(
+      table.organizationId,
+      table.workspaceId,
+      table.stateHash,
+    ),
+    index("idx_gmail_oauth_state_entries_scope_actor_user").on(
+      table.organizationId,
+      table.workspaceId,
+      table.actorUserId,
+    ),
+    index("idx_gmail_oauth_state_entries_scope_status").on(
+      table.organizationId,
+      table.workspaceId,
+      table.status,
+    ),
+    index("idx_gmail_oauth_state_entries_expires_at").on(table.expiresAt),
+  ],
+);
+
 export const dbSchema = {
   organizations,
   workspaces,
@@ -889,6 +998,7 @@ export const dbSchema = {
   emailOutboundDeliveries,
   gmailProviderAccounts,
   gmailTokenVaultEntries,
+  gmailOAuthStateEntries,
 };
 
 export type Organization = typeof organizations.$inferSelect;
@@ -907,6 +1017,8 @@ export type EmailOutboundDelivery = typeof emailOutboundDeliveries.$inferSelect;
 export type GmailProviderAccountRow = typeof gmailProviderAccounts.$inferSelect;
 export type GmailTokenVaultEntryRow =
   typeof gmailTokenVaultEntries.$inferSelect;
+export type GmailOAuthStateEntryRow =
+  typeof gmailOAuthStateEntries.$inferSelect;
 
 export type JsonObject = Record<string, string | number | boolean | null>;
 export type ActivityMetadata = JsonObject;

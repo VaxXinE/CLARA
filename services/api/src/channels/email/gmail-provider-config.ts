@@ -9,6 +9,7 @@ export type GmailProviderConfig = {
   tokenVaultMode: GmailTokenVaultMode;
   oauthClientId?: string;
   oauthRedirectUri?: string;
+  oauthAllowedRedirectUris?: string[];
   tokenEncryptionKeyBase64?: string;
   tokenEncryptionKeyVersion?: string;
 };
@@ -18,6 +19,7 @@ const gmailProviderConfigSchema = z.object({
   GMAIL_TOKEN_VAULT_MODE: z.enum(gmailTokenVaultModes).optional(),
   GMAIL_OAUTH_CLIENT_ID: z.string().trim().optional(),
   GMAIL_OAUTH_REDIRECT_URI: z.string().trim().optional(),
+  GMAIL_OAUTH_ALLOWED_REDIRECT_URIS: z.string().trim().optional(),
   TOKEN_VAULT_ENCRYPTION_KEY_BASE64: z.string().trim().optional(),
   TOKEN_VAULT_ENCRYPTION_KEY_VERSION: z.string().trim().optional(),
   GMAIL_TOKEN_ENCRYPTION_KEY: z.string().trim().optional(),
@@ -31,6 +33,7 @@ export function loadGmailProviderConfig(
   const config: GmailProviderConfig = {
     enabled: parsed.GMAIL_PROVIDER_ENABLED === "true",
     tokenVaultMode: parsed.GMAIL_TOKEN_VAULT_MODE ?? "mock",
+    oauthAllowedRedirectUris: [],
     tokenEncryptionKeyVersion:
       parsed.TOKEN_VAULT_ENCRYPTION_KEY_VERSION ?? "v1",
   };
@@ -41,6 +44,16 @@ export function loadGmailProviderConfig(
 
   if (parsed.GMAIL_OAUTH_REDIRECT_URI) {
     config.oauthRedirectUri = parsed.GMAIL_OAUTH_REDIRECT_URI;
+  }
+
+  const redirectUriListSource =
+    parsed.GMAIL_OAUTH_ALLOWED_REDIRECT_URIS ?? parsed.GMAIL_OAUTH_REDIRECT_URI;
+
+  if (redirectUriListSource) {
+    config.oauthAllowedRedirectUris = redirectUriListSource
+      .split(",")
+      .map((value) => value.trim())
+      .filter((value) => value.length > 0);
   }
 
   if (parsed.TOKEN_VAULT_ENCRYPTION_KEY_BASE64) {
@@ -75,6 +88,15 @@ export function validateGmailProviderConfig(
   if ((config.tokenEncryptionKeyVersion ?? "v1").trim().length === 0) {
     throw new Error(
       "Invalid Gmail provider configuration: TOKEN_VAULT_ENCRYPTION_KEY_VERSION must not be empty.",
+    );
+  }
+
+  if (
+    config.oauthRedirectUri &&
+    !(config.oauthAllowedRedirectUris ?? []).includes(config.oauthRedirectUri)
+  ) {
+    throw new Error(
+      "Invalid Gmail provider configuration: GMAIL_OAUTH_REDIRECT_URI must be present in the allowed redirect URI list.",
     );
   }
 }

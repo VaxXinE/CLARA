@@ -6,6 +6,9 @@ import {
   auditLogOutcomes,
   conversationStatuses,
   dbSchema,
+  gmailOAuthCodeChallengeMethods,
+  gmailOAuthStateProviders,
+  gmailOAuthStateStatuses,
   gmailProviderAccountProviders,
   gmailProviderAccountStatuses,
   gmailTokenVaultProviders,
@@ -35,6 +38,7 @@ describe("database schema", () => {
       "emailOutboundDeliveries",
       "gmailProviderAccounts",
       "gmailTokenVaultEntries",
+      "gmailOAuthStateEntries",
     ]);
   });
 
@@ -51,6 +55,7 @@ describe("database schema", () => {
       "emailOutboundDeliveries",
       "gmailProviderAccounts",
       "gmailTokenVaultEntries",
+      "gmailOAuthStateEntries",
     ] as const) {
       const columns = Object.keys(dbSchema[tableName]);
 
@@ -83,6 +88,14 @@ describe("database schema", () => {
     ]);
     expect(gmailTokenVaultProviders).toEqual(["gmail"]);
     expect(gmailTokenVaultPurposes).toEqual(["oauth_grant"]);
+    expect(gmailOAuthStateProviders).toEqual(["gmail"]);
+    expect(gmailOAuthStateStatuses).toEqual([
+      "pending",
+      "consumed",
+      "expired",
+      "revoked",
+    ]);
+    expect(gmailOAuthCodeChallengeMethods).toEqual(["S256"]);
     expect(activityEventTypes).toEqual([
       "ai_draft_generated",
       "ai_draft_failed",
