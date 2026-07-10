@@ -26,6 +26,7 @@ import { registerReplyRoutes } from "./routes/replies";
 import type { GmailOAuthConnectService } from "../channels/email/gmail-oauth-connect-service";
 import type { GmailOAuthCallbackService } from "../channels/email/gmail-oauth-callback-service";
 import type { GmailConnectionHealthService } from "../channels/email/gmail-connection-health-service";
+import type { GmailInboundSyncService } from "../channels/email/gmail-inbound-sync-service";
 import { registerGmailIntegrationRoutes } from "./routes/gmail-integrations";
 
 export type CreateServerOptions = {
@@ -36,6 +37,7 @@ export type CreateServerOptions = {
   gmailOAuthConnectService?: GmailOAuthConnectService;
   gmailOAuthCallbackService?: GmailOAuthCallbackService;
   gmailConnectionHealthService?: GmailConnectionHealthService;
+  gmailInboundSyncService?: Pick<GmailInboundSyncService, "syncMessages">;
 };
 
 export async function createServer(
@@ -108,12 +110,14 @@ export async function createServer(
   if (
     options.gmailOAuthConnectService ||
     options.gmailOAuthCallbackService ||
-    options.gmailConnectionHealthService
+    options.gmailConnectionHealthService ||
+    options.gmailInboundSyncService
   ) {
     const gmailIntegrationServices: {
       connect?: GmailOAuthConnectService;
       callback?: GmailOAuthCallbackService;
       health?: GmailConnectionHealthService;
+      sync?: Pick<GmailInboundSyncService, "syncMessages">;
     } = {};
 
     if (options.gmailOAuthConnectService) {
@@ -126,6 +130,10 @@ export async function createServer(
 
     if (options.gmailConnectionHealthService) {
       gmailIntegrationServices.health = options.gmailConnectionHealthService;
+    }
+
+    if (options.gmailInboundSyncService) {
+      gmailIntegrationServices.sync = options.gmailInboundSyncService;
     }
 
     await registerGmailIntegrationRoutes(

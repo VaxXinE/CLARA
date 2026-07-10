@@ -8,6 +8,7 @@ import { ValidationError } from "../../errors/app-error";
 import type { GmailOAuthConnectService } from "../../channels/email/gmail-oauth-connect-service";
 import type { GmailOAuthCallbackService } from "../../channels/email/gmail-oauth-callback-service";
 import type { GmailConnectionHealthService } from "../../channels/email/gmail-connection-health-service";
+import type { GmailInboundSyncService } from "../../channels/email/gmail-inbound-sync-service";
 
 const safeIdPattern = /^[a-zA-Z0-9._:-]+$/;
 
@@ -80,6 +81,63 @@ function parseConnectBody(body: unknown): {
   return result;
 }
 
+const gmailSyncBodySchema = z
+  .object({
+    max_messages: z.number().int().min(1).max(1000).optional(),
+    page_token: z.string().trim().min(1).max(512).optional(),
+    query: z.string().trim().min(1).max(256).optional(),
+    label_ids: z
+      .array(z.string().trim().min(1).max(64))
+      .min(1)
+      .max(10)
+      .optional(),
+  })
+  .strict();
+
+function parseSyncBody(body: unknown): {
+  max_messages?: number;
+  page_token?: string;
+  query?: string;
+  label_ids?: string[];
+} {
+  const parsed = gmailSyncBodySchema.safeParse(body ?? {});
+
+  if (!parsed.success) {
+    throw new ValidationError(
+      "Invalid request.",
+      parsed.error.issues.map((issue) => ({
+        path: issue.path.join("."),
+        message: issue.message,
+      })),
+    );
+  }
+
+  const result: {
+    max_messages?: number;
+    page_token?: string;
+    query?: string;
+    label_ids?: string[];
+  } = {};
+
+  if (parsed.data.max_messages !== undefined) {
+    result.max_messages = parsed.data.max_messages;
+  }
+
+  if (parsed.data.page_token !== undefined) {
+    result.page_token = parsed.data.page_token;
+  }
+
+  if (parsed.data.query !== undefined) {
+    result.query = parsed.data.query;
+  }
+
+  if (parsed.data.label_ids !== undefined) {
+    result.label_ids = parsed.data.label_ids;
+  }
+
+  return result;
+}
+
 export async function registerGmailIntegrationRoutes(
   app: FastifyInstance,
   authProvider: AuthProvider,
@@ -87,6 +145,7 @@ export async function registerGmailIntegrationRoutes(
     connect?: GmailOAuthConnectService;
     callback?: GmailOAuthCallbackService;
     health?: GmailConnectionHealthService;
+    sync?: Pick<GmailInboundSyncService, "syncMessages">;
   },
 ): Promise<void> {
   if (services.connect) {
@@ -181,6 +240,41 @@ export async function registerGmailIntegrationRoutes(
           organizationId: auth.organizationId,
           workspaceId: auth.workspaceId,
           providerAccountId,
+        });
+      },
+    );
+  }
+
+  if (services.sync) {
+    const syncService = services.sync;
+
+    app.post(
+      "/api/v1/integrations/gmail/accounts/:providerAccountId/sync",
+      {
+        preHandler: requireAuth(authProvider),
+      },
+      async (request) => {
+        const auth = getAuthContext(request);
+        assertPermission(auth.role, "integration:gmail_connect");
+        const params = request.params as { providerAccountId?: string };
+        const providerAccountId = parseProviderAccountId(
+          params.providerAccountId ?? "",
+          "params.providerAccountId",
+        );
+        const body = parseSyncBody(request.body);
+
+        return syncService.syncMessages({
+          organizationId: auth.organizationId,
+          workspaceId: auth.workspaceId,
+          providerAccountId,
+          ...(body.max_messages !== undefined
+            ? { maxMessages: body.max_messages }
+            : {}),
+          ...(body.page_token !== undefined
+            ? { pageToken: body.page_token }
+            : {}),
+          ...(body.query !== undefined ? { query: body.query } : {}),
+          ...(body.label_ids !== undefined ? { labelIds: body.label_ids } : {}),
         });
       },
     );

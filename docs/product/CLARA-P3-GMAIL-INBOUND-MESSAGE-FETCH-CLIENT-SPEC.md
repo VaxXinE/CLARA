@@ -34,6 +34,11 @@ PR ini tidak mencakup:
 - outbound Gmail send,
 - worker/background job.
 
+Catatan:
+
+- orchestrator sync Gmail di PR berikutnya boleh memakai boundary ini untuk list/get message secara bounded,
+- boundary ini sendiri tidak melakukan persistence atau side effect bisnis.
+
 ## Safe DTO Rules
 
 Response hanya boleh berisi:
