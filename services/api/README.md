@@ -36,6 +36,7 @@ GET /api/v1/customers/:customer_id
 GET /api/v1/conversations/:conversation_id/activity
 POST /api/v1/conversations/:conversation_id/ai-draft
 POST /api/v1/conversations/:conversation_id/reply
+POST /api/v1/integrations/gmail/oauth/connect
 ```
 
 ## Local Setup
@@ -103,8 +104,9 @@ docker compose -f docker-compose.prod.example.yml config
 | `GMAIL_PROVIDER_ENABLED`  |                                       No | `false`                                          | Enables the Gmail provider auth boundary skeleton only     |
 | `GMAIL_TOKEN_VAULT_MODE`  |                                       No | `mock`                                           | Gmail token vault mode: `mock` or future `encrypted`       |
 | `GMAIL_OAUTH_CLIENT_ID`   |                                       No | none                                             | Placeholder client id boundary for future Gmail OAuth       |
-| `GMAIL_OAUTH_REDIRECT_URI`|                                       No | none                                             | Placeholder redirect URI boundary for future Gmail OAuth    |
-| `GMAIL_OAUTH_ALLOWED_REDIRECT_URIS`|                            No | `GMAIL_OAUTH_REDIRECT_URI` if set                | Comma-separated exact Gmail OAuth redirect URI allowlist    |
+| `GMAIL_OAUTH_REDIRECT_URI`|                                       No | none                                             | Optional default Gmail OAuth redirect URI                    |
+| `GMAIL_OAUTH_REDIRECT_URI_ALLOWLIST`|                           No | `GMAIL_OAUTH_REDIRECT_URI` if set                | Comma-separated exact Gmail OAuth redirect URI allowlist    |
+| `GMAIL_OAUTH_ALLOWED_SCOPES`|                                    No | `gmail.readonly,gmail.send`                      | Comma-separated Gmail OAuth scope allowlist aliases         |
 | `TOKEN_VAULT_ENCRYPTION_KEY_BASE64`|                          Encrypted vault mode only | none                                             | Base64-encoded 32-byte AES-256-GCM key for encrypted Gmail token vault persistence |
 | `TOKEN_VAULT_ENCRYPTION_KEY_VERSION`|                         No | `v1`                                             | Key version recorded with encrypted Gmail token vault rows |
 | `GMAIL_TOKEN_ENCRYPTION_KEY`|                                    No | none                                             | Legacy fallback env name for local compatibility; prefer `TOKEN_VAULT_ENCRYPTION_KEY_BASE64` |
@@ -361,13 +363,15 @@ encrypted Gmail token vault persistence now exists for internal DB-backed storag
 encrypted token rows store ciphertext, iv, auth_tag, key_version, token_purpose, and allowlisted metadata only
 TOKEN_VAULT_ENCRYPTION_KEY_BASE64 must be a valid base64-encoded 32-byte AES-256-GCM key and must never be committed
 OAuth connect intent persistence now stores state_hash, nonce_hash, and encrypted PKCE verifier material only
-redirect_uri must match an exact allowlisted value from GMAIL_OAUTH_ALLOWED_REDIRECT_URIS
+redirect_uri must match an exact allowlisted value from GMAIL_OAUTH_REDIRECT_URI_ALLOWLIST
 OAuth state consume is one-time only and fails closed for reused, expired, revoked, or cross-workspace state
 provider account DTOs never expose access_token, refresh_token, or client_secret
 no Google/Gmail network call is made in this skeleton
 Gmail provider account persistence now stores only safe workspace-scoped metadata plus token_reference_id
 raw access tokens, raw refresh tokens, OAuth client secrets, and raw provider payloads are never persisted
 duplicate provider + email within the same organization/workspace scope is rejected
+OAuth connect route skeleton now exists at POST /api/v1/integrations/gmail/oauth/connect for authenticated non-viewer users only
+OAuth connect response returns authorization_url, provider, scopes, and expiry only; it never returns PKCE verifier, nonce, token, or client_secret
 ```
 
 Current email E2E internal smoke baseline:

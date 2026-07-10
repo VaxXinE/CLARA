@@ -14,6 +14,7 @@ describe("permissions", () => {
       "activity:read",
       "ai_draft:create",
       "reply:send",
+      "integration:gmail_connect",
     ]);
   });
 
@@ -21,6 +22,7 @@ describe("permissions", () => {
     expect(hasPermission("agent", "conversation:read")).toBe(true);
     expect(hasPermission("agent", "ai_draft:create")).toBe(true);
     expect(hasPermission("agent", "reply:send")).toBe(true);
+    expect(hasPermission("agent", "integration:gmail_connect")).toBe(true);
   });
 
   it("keeps viewer read-only", () => {
@@ -29,6 +31,7 @@ describe("permissions", () => {
     expect(hasPermission("viewer", "activity:read")).toBe(true);
     expect(hasPermission("viewer", "ai_draft:create")).toBe(false);
     expect(hasPermission("viewer", "reply:send")).toBe(false);
+    expect(hasPermission("viewer", "integration:gmail_connect")).toBe(false);
   });
 
   it("blocks viewer from AI draft creation permission", () => {
@@ -41,5 +44,11 @@ describe("permissions", () => {
     expect(() => assertPermission("viewer", "reply:send")).toThrow(
       AuthorizationError,
     );
+  });
+
+  it("blocks viewer from Gmail integration connect permission", () => {
+    expect(() =>
+      assertPermission("viewer", "integration:gmail_connect"),
+    ).toThrow(AuthorizationError);
   });
 });
