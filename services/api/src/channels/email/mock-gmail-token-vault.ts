@@ -6,9 +6,7 @@ import type {
   RevokeGmailTokenReferenceInput,
   StoreGmailTokenReferenceInput,
 } from "./gmail-token-vault";
-import {
-  sanitizeGmailTokenVaultMetadata,
-} from "./gmail-token-vault";
+import { sanitizeGmailTokenVaultMetadata } from "./gmail-token-vault";
 import type { GmailProviderConfig } from "./gmail-provider-config";
 import { validateGmailProviderConfig } from "./gmail-provider-config";
 
@@ -29,9 +27,7 @@ export class MockGmailTokenVault implements GmailTokenVault {
     }
   }
 
-  async storeTokenReference(
-    input: StoreGmailTokenReferenceInput,
-  ): Promise<{
+  async storeTokenReference(input: StoreGmailTokenReferenceInput): Promise<{
     referenceId: string;
     provider: "gmail";
     keyVersion: string;

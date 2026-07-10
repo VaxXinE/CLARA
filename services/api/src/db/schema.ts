@@ -905,7 +905,8 @@ export type AuditLog = typeof auditLogs.$inferSelect;
 export type EmailInboundRecord = typeof emailInboundRecords.$inferSelect;
 export type EmailOutboundDelivery = typeof emailOutboundDeliveries.$inferSelect;
 export type GmailProviderAccountRow = typeof gmailProviderAccounts.$inferSelect;
-export type GmailTokenVaultEntryRow = typeof gmailTokenVaultEntries.$inferSelect;
+export type GmailTokenVaultEntryRow =
+  typeof gmailTokenVaultEntries.$inferSelect;
 
 export type JsonObject = Record<string, string | number | boolean | null>;
 export type ActivityMetadata = JsonObject;

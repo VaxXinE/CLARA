@@ -209,9 +209,7 @@ describe("Gmail provider config boundary", () => {
     const config = loadGmailProviderConfig({
       GMAIL_PROVIDER_ENABLED: "true",
       GMAIL_TOKEN_VAULT_MODE: "encrypted",
-      TOKEN_VAULT_ENCRYPTION_KEY_BASE64: Buffer.alloc(32, 9).toString(
-        "base64",
-      ),
+      TOKEN_VAULT_ENCRYPTION_KEY_BASE64: Buffer.alloc(32, 9).toString("base64"),
       TOKEN_VAULT_ENCRYPTION_KEY_VERSION: "v2",
       GMAIL_OAUTH_CLIENT_ID: "gmail-client-id-placeholder",
       GMAIL_OAUTH_REDIRECT_URI: "http://127.0.0.1:3000/internal/gmail/redirect",

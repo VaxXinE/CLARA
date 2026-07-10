@@ -15,9 +15,7 @@ import type {
   RevokeGmailTokenReferenceInput,
   StoreGmailTokenReferenceInput,
 } from "./gmail-token-vault";
-import {
-  sanitizeGmailTokenVaultMetadata,
-} from "./gmail-token-vault";
+import { sanitizeGmailTokenVaultMetadata } from "./gmail-token-vault";
 
 export class EncryptedGmailTokenVaultService implements GmailTokenVault {
   private readonly encryptionKey: GmailTokenEncryptionKey;
@@ -38,9 +36,7 @@ export class EncryptedGmailTokenVaultService implements GmailTokenVault {
     });
   }
 
-  async storeTokenReference(
-    input: StoreGmailTokenReferenceInput,
-  ): Promise<{
+  async storeTokenReference(input: StoreGmailTokenReferenceInput): Promise<{
     referenceId: string;
     provider: "gmail";
     keyVersion: string;

@@ -46,9 +46,7 @@ export type GetGmailTokenReferenceInput = {
 export type RevokeGmailTokenReferenceInput = GetGmailTokenReferenceInput;
 
 export interface GmailTokenVault {
-  storeTokenReference(
-    input: StoreGmailTokenReferenceInput,
-  ): Promise<{
+  storeTokenReference(input: StoreGmailTokenReferenceInput): Promise<{
     referenceId: string;
     provider: "gmail";
     keyVersion: string;

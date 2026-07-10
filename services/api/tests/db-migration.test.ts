@@ -83,7 +83,7 @@ describe("initial database migration", () => {
                 ? gmailProviderAccountsMigrationSql
                 : tableName === "gmail_token_vault_entries"
                   ? gmailTokenVaultMigrationSql
-                : migrationSql;
+                  : migrationSql;
 
       expect(source).toContain(`create table if not exists ${tableName}`);
     }
@@ -111,7 +111,7 @@ describe("initial database migration", () => {
               ? gmailProviderAccountsMigrationSql
               : tableName === "gmail_token_vault_entries"
                 ? gmailTokenVaultMigrationSql
-              : migrationSql;
+                : migrationSql;
       const tableBlock = source
         .split(`create table if not exists ${tableName} (`)[1]
         ?.split(");")[0];

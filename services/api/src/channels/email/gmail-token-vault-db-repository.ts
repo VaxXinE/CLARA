@@ -40,9 +40,7 @@ function requireDate(
   field: string,
 ): Date | null {
   if (value === undefined) {
-    throw new Error(
-      `Gmail token vault row is missing date field: ${field}`,
-    );
+    throw new Error(`Gmail token vault row is missing date field: ${field}`);
   }
 
   return value ?? null;
@@ -145,7 +143,11 @@ export class DrizzleGmailTokenVaultRepository {
   async revokeEntry(
     input: RevokeGmailTokenVaultEntryInput,
   ): Promise<GmailTokenVaultEntryRecord | null> {
-    const existing = await findScopedById(this.db, input.scope, input.referenceId);
+    const existing = await findScopedById(
+      this.db,
+      input.scope,
+      input.referenceId,
+    );
 
     if (!existing) {
       return null;
