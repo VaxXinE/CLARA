@@ -124,6 +124,7 @@ email e2e smoke exists only as an internal backend validation harness and is not
 email provider integration decision now exists, but no real provider code is implemented yet
 gmail provider auth boundary skeleton now exists, but it still has no real OAuth flow, no real encrypted token storage, and no Gmail API client
 gmail provider account metadata persistence now exists, but it still stores reference-only metadata and not real OAuth tokens
+gmail encrypted token vault persistence now exists, but it is still an internal boundary without real OAuth exchange, refresh lifecycle, or Gmail API integration
 local PostgreSQL credentials are safe placeholders only
 ```
 

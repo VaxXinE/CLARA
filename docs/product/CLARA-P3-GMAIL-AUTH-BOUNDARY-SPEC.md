@@ -11,6 +11,7 @@ related_documents:
   - "./CLARA-P3-EMAIL-PROVIDER-RISK-MATRIX.md"
   - "./CLARA-P3-EMAIL-CHANNEL-ADAPTER-SPEC.md"
   - "./CLARA-P3-GMAIL-PROVIDER-ACCOUNT-PERSISTENCE-SPEC.md"
+  - "./CLARA-P3-GMAIL-ENCRYPTED-TOKEN-VAULT-SPEC.md"
   - "../../services/api/README.md"
 ---
 
@@ -105,7 +106,8 @@ token values never appear in public DTOs
 token values never appear in logs
 mock vault is test-only
 mock vault is blocked in production
-future encrypted storage requires explicit encryption key
+encrypted vault persistence requires explicit base64 AES-256-GCM key material plus key_version
+encrypted rows store ciphertext, iv, auth_tag, key_version, token_purpose, and allowlisted metadata only
 ```
 
 ## Security Notes

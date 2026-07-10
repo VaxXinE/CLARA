@@ -104,7 +104,9 @@ docker compose -f docker-compose.prod.example.yml config
 | `GMAIL_TOKEN_VAULT_MODE`  |                                       No | `mock`                                           | Gmail token vault mode: `mock` or future `encrypted`       |
 | `GMAIL_OAUTH_CLIENT_ID`   |                                       No | none                                             | Placeholder client id boundary for future Gmail OAuth       |
 | `GMAIL_OAUTH_REDIRECT_URI`|                                       No | none                                             | Placeholder redirect URI boundary for future Gmail OAuth    |
-| `GMAIL_TOKEN_ENCRYPTION_KEY`|                                    No | none                                             | Required when future encrypted Gmail token storage is enabled |
+| `TOKEN_VAULT_ENCRYPTION_KEY_BASE64`|                          Encrypted vault mode only | none                                             | Base64-encoded 32-byte AES-256-GCM key for encrypted Gmail token vault persistence |
+| `TOKEN_VAULT_ENCRYPTION_KEY_VERSION`|                         No | `v1`                                             | Key version recorded with encrypted Gmail token vault rows |
+| `GMAIL_TOKEN_ENCRYPTION_KEY`|                                    No | none                                             | Legacy fallback env name for local compatibility; prefer `TOKEN_VAULT_ENCRYPTION_KEY_BASE64` |
 | `AUTH_MODE`              |                                       No | `mock`                                           | Auth mode: `mock` or `provider`                            |
 | `AUTH_PROVIDER`          |                       Provider mode only | none                                             | Provider selection: `supabase` or `better-auth`            |
 | `SUPABASE_AUTH_JWKS_URL` |    Production + `AUTH_PROVIDER=supabase` | none                                             | Supabase JWKS URL for future provider token verification   |
@@ -352,7 +354,9 @@ Current Gmail auth boundary skeleton:
 ```text
 Gmail provider account service is internal-only and has no public HTTP route
 mock in-memory Gmail token vault is test-only and must not be used in production
-future encrypted Gmail token storage requires an explicit encryption key and still is not implemented in this PR
+encrypted Gmail token vault persistence now exists for internal DB-backed storage only
+encrypted token rows store ciphertext, iv, auth_tag, key_version, token_purpose, and allowlisted metadata only
+TOKEN_VAULT_ENCRYPTION_KEY_BASE64 must be a valid base64-encoded 32-byte AES-256-GCM key and must never be committed
 provider account DTOs never expose access_token, refresh_token, or client_secret
 no Google/Gmail network call is made in this skeleton
 Gmail provider account persistence now stores only safe workspace-scoped metadata plus token_reference_id

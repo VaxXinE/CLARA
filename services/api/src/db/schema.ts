@@ -78,6 +78,8 @@ export const gmailProviderAccountStatuses = [
   "revoked",
   "error",
 ] as const;
+export const gmailTokenVaultProviders = ["gmail"] as const;
+export const gmailTokenVaultPurposes = ["oauth_grant"] as const;
 
 function textOneOf(name: string, values: readonly string[]) {
   return check(
@@ -792,6 +794,85 @@ export const gmailProviderAccounts = pgTable(
   ],
 );
 
+export const gmailTokenVaultEntries = pgTable(
+  "gmail_token_vault_entries",
+  {
+    id: text("id").primaryKey(),
+    organizationId: text("organization_id")
+      .notNull()
+      .references(() => organizations.id),
+    workspaceId: text("workspace_id")
+      .notNull()
+      .references(() => workspaces.id),
+    providerAccountId: text("provider_account_id").references(
+      () => gmailProviderAccounts.id,
+    ),
+    provider: text("provider").notNull().default("gmail"),
+    tokenPurpose: text("token_purpose").notNull().default("oauth_grant"),
+    ciphertext: text("ciphertext").notNull(),
+    iv: text("iv").notNull(),
+    authTag: text("auth_tag").notNull(),
+    keyVersion: text("key_version").notNull(),
+    expiresAt: timestamp("expires_at", { withTimezone: true }),
+    revokedAt: timestamp("revoked_at", { withTimezone: true }),
+    metadata: jsonb("metadata").notNull().default({}),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    textOneOf("provider", gmailTokenVaultProviders),
+    textOneOf("token_purpose", gmailTokenVaultPurposes),
+    check(
+      "gmail_token_vault_entries_provider_account_id_not_empty",
+      sql`${table.providerAccountId} is null or char_length(trim(${table.providerAccountId})) > 0`,
+    ),
+    check(
+      "gmail_token_vault_entries_ciphertext_not_empty",
+      sql`char_length(trim(${table.ciphertext})) > 0`,
+    ),
+    check(
+      "gmail_token_vault_entries_iv_not_empty",
+      sql`char_length(trim(${table.iv})) > 0`,
+    ),
+    check(
+      "gmail_token_vault_entries_auth_tag_not_empty",
+      sql`char_length(trim(${table.authTag})) > 0`,
+    ),
+    check(
+      "gmail_token_vault_entries_key_version_not_empty",
+      sql`char_length(trim(${table.keyVersion})) > 0`,
+    ),
+    check(
+      "gmail_token_vault_entries_metadata_is_object",
+      sql`jsonb_typeof(${table.metadata}) = 'object'`,
+    ),
+    index("idx_gmail_token_vault_entries_scope_id").on(
+      table.organizationId,
+      table.workspaceId,
+      table.id,
+    ),
+    index("idx_gmail_token_vault_entries_scope_provider_account").on(
+      table.organizationId,
+      table.workspaceId,
+      table.providerAccountId,
+    ),
+    index("idx_gmail_token_vault_entries_scope_token_purpose").on(
+      table.organizationId,
+      table.workspaceId,
+      table.tokenPurpose,
+    ),
+    index("idx_gmail_token_vault_entries_scope_revoked_at").on(
+      table.organizationId,
+      table.workspaceId,
+      table.revokedAt,
+    ),
+  ],
+);
+
 export const dbSchema = {
   organizations,
   workspaces,
@@ -807,6 +888,7 @@ export const dbSchema = {
   emailInboundRecords,
   emailOutboundDeliveries,
   gmailProviderAccounts,
+  gmailTokenVaultEntries,
 };
 
 export type Organization = typeof organizations.$inferSelect;
@@ -823,6 +905,7 @@ export type AuditLog = typeof auditLogs.$inferSelect;
 export type EmailInboundRecord = typeof emailInboundRecords.$inferSelect;
 export type EmailOutboundDelivery = typeof emailOutboundDeliveries.$inferSelect;
 export type GmailProviderAccountRow = typeof gmailProviderAccounts.$inferSelect;
+export type GmailTokenVaultEntryRow = typeof gmailTokenVaultEntries.$inferSelect;
 
 export type JsonObject = Record<string, string | number | boolean | null>;
 export type ActivityMetadata = JsonObject;
