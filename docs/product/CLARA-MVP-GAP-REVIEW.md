@@ -80,6 +80,7 @@ rate limiting and request body limit baseline now protects general traffic plus 
 centralized production error handling now returns a safe, correlation_id-based error envelope for handled 400/401/403/404/409/413/429/500 paths
 backend email channel normalization skeleton now exists for local/dev/test without real provider connectivity
 backend email inbound persistence baseline now exists for trusted scoped customer/conversation/message/activity creation without a public ingress endpoint
+backend email ingestion harness now exists for batch normalize-and-persist orchestration using simulated adapter inputs only
 workspace-scoped conversation list and conversation detail APIs work
 workspace-scoped customer detail API works
 workspace-scoped activity timeline API works
@@ -113,6 +114,7 @@ demo identities and seed conversations are fake
 channel delivery is not connected to real WhatsApp/Instagram/TikTok/email providers
 email channel support is only a simulated inbound normalization skeleton
 email inbound persistence exists only behind backend service boundaries and still has no real provider ingestion path
+email ingestion exists only as an internal harness and still has no public webhook or worker runtime
 local PostgreSQL credentials are safe placeholders only
 ```
 

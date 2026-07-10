@@ -301,6 +301,18 @@ raw provider payload, raw html, and attachments are not persisted
 html-only emails are rejected in this baseline because CLARA does not render or store raw HTML
 ```
 
+Current email ingestion harness baseline:
+
+```text
+no public ingestion route is exposed
+email ingestion service can load a batch from a batch-capable adapter or accept an explicit message list
+simulated email adapter is the local/dev/test harness implementation
+batch summary returns attempted_count, persisted_count, duplicate_count, failed_count, and safe failures only
+adapter batch loading failure aborts the run
+per-item normalization or persistence failure is counted safely without aborting the rest of the batch
+future worker or provider webhook should call the same internal ingestion service after provider trust is established
+```
+
 Audit log baseline:
 
 ```text
