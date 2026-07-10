@@ -4,7 +4,10 @@ export type GmailApiRequestInput = {
   accessToken: string;
   method: GmailApiRequestMethod;
   path: string;
-  query?: Record<string, string | number | boolean | undefined>;
+  query?: Record<
+    string,
+    string | number | boolean | Array<string | number | boolean> | undefined
+  >;
   jsonBody?: Record<string, unknown>;
 };
 

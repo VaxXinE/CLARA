@@ -32,6 +32,11 @@ PR ini tidak mencakup:
 - outbound Gmail send,
 - UI frontend Gmail management.
 
+Catatan:
+
+- health check ini dapat dipakai bersama inbound fetch boundary untuk memastikan koneksi masih layak dipakai sebelum future sync dijalankan,
+- PR ini sendiri tetap tidak menambahkan sync worker atau persistence Gmail messages.
+
 ## Safe Response
 
 DTO hanya boleh berisi:

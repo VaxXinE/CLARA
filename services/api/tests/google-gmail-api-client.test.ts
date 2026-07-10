@@ -81,6 +81,44 @@ describe("GoogleGmailApiClient", () => {
     });
   });
 
+  it("supports repeated query params safely for Gmail list operations", async () => {
+    const fetchSpy = vi.fn<typeof fetch>().mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          messages: [],
+        }),
+        {
+          status: 200,
+          headers: {
+            "content-type": "application/json",
+          },
+        },
+      ),
+    );
+
+    const client = new GoogleGmailApiClient(createConfig(), {
+      fetchImplementation: fetchSpy,
+      nodeEnv: "test",
+    });
+
+    await client.requestJson<{
+      messages: unknown[];
+    }>({
+      accessToken: "gmail-access-token-placeholder",
+      method: "GET",
+      path: "/gmail/v1/users/me/messages",
+      query: {
+        labelIds: ["INBOX", "UNREAD"],
+        maxResults: 10,
+      },
+    });
+
+    const [url] = fetchSpy.mock.calls[0] ?? [];
+    expect(url).toBe(
+      "https://gmail.googleapis.com/gmail/v1/users/me/messages?labelIds=INBOX&labelIds=UNREAD&maxResults=10",
+    );
+  });
+
   it("sanitizes timeout and provider failures without exposing the access token", async () => {
     const accessToken = "gmail-access-token-placeholder";
     const timeoutClient = new GoogleGmailApiClient(createConfig(), {

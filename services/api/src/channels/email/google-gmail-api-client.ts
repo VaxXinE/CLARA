@@ -13,15 +13,28 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 function buildUrl(
   baseUrl: string,
   path: string,
-  query?: Record<string, string | number | boolean | undefined>,
+  query?: Record<
+    string,
+    string | number | boolean | Array<string | number | boolean> | undefined
+  >,
 ): string {
   const sanitizedPath = path.startsWith("/") ? path : `/${path}`;
   const url = new URL(sanitizedPath, baseUrl);
 
   for (const [key, value] of Object.entries(query ?? {})) {
-    if (value !== undefined) {
-      url.searchParams.set(key, String(value));
+    if (value === undefined) {
+      continue;
     }
+
+    if (Array.isArray(value)) {
+      for (const item of value) {
+        url.searchParams.append(key, String(item));
+      }
+
+      continue;
+    }
+
+    url.searchParams.set(key, String(value));
   }
 
   return url.toString();
