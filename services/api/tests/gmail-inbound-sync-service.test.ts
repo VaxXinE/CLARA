@@ -1,5 +1,8 @@
 import { describe, expect, it, vi } from "vitest";
+import type { GmailInboundMessageDto } from "../src/channels/email/gmail-inbound-message-fetch-types";
 import { FixtureGmailProviderAccountRepository } from "../src/channels/email/gmail-provider-account-repository";
+import { GmailMessageNormalizationService } from "../src/channels/email/gmail-message-normalization-service";
+import type { GmailNormalizedInboundEmailPersister } from "../src/channels/email/gmail-message-normalization-types";
 import {
   GmailInboundSyncService,
   type GmailConnectionHealthChecker,
@@ -89,6 +92,8 @@ describe("GmailInboundSyncService", () => {
       provider: "gmail",
       status: "completed",
       fetched_count: 2,
+      normalized_count: 0,
+      persisted_count: 0,
       skipped_count: 0,
       failed_count: 0,
       next_page_token: "page_2",
@@ -128,6 +133,8 @@ describe("GmailInboundSyncService", () => {
       status: "skipped",
       reason_code: "connection_unhealthy",
       fetched_count: 0,
+      normalized_count: 0,
+      persisted_count: 0,
       skipped_count: 0,
       failed_count: 0,
     });
@@ -189,6 +196,8 @@ describe("GmailInboundSyncService", () => {
     ).toMatchObject({
       status: "partial",
       fetched_count: 1,
+      normalized_count: 0,
+      persisted_count: 0,
       failed_count: 1,
       reason_code: "message_fetch_failed",
     });
@@ -221,8 +230,119 @@ describe("GmailInboundSyncService", () => {
     ).toMatchObject({
       status: "failed",
       fetched_count: 0,
+      normalized_count: 0,
+      persisted_count: 0,
       failed_count: 0,
       reason_code: "provider_fetch_failed",
     });
+  });
+
+  it("can normalize and persist sanitized inbound envelopes without creating business entities", async () => {
+    const accounts = await createScopedAccount();
+    const persistedEnvelopes: unknown[] = [];
+    const persistence: GmailNormalizedInboundEmailPersister = {
+      persistNormalizedEmail: vi.fn(async ({ envelope }) => {
+        persistedEnvelopes.push(envelope);
+
+        return {
+          alreadyProcessed: envelope.provider_message_id === "msg_duplicate",
+        };
+      }),
+    };
+    const service = new GmailInboundSyncService(
+      accounts,
+      {
+        checkHealth: vi.fn(async () => ({
+          provider_account_id: "gmail_account_demo",
+          provider: "gmail" as const,
+          status: "healthy" as const,
+          reason_code: "ok" as const,
+          checked_at: "2026-07-10T12:00:00.000Z",
+        })),
+      } as GmailConnectionHealthChecker,
+      {
+        listMessages: vi.fn(async () => ({
+          items: [
+            {
+              provider_message_id: "msg_persisted",
+              thread_id: "thr_001",
+              label_ids: ["INBOX"],
+            },
+            {
+              provider_message_id: "msg_duplicate",
+              thread_id: "thr_001",
+              label_ids: ["INBOX"],
+            },
+          ],
+        })),
+        getMessage: vi.fn(async (input): Promise<GmailInboundMessageDto> => ({
+          provider_message_id: input.providerMessageId,
+          thread_id: "thr_001",
+          label_ids: ["INBOX"],
+          snippet: "Safe preview only",
+          payload: {
+            headers: [
+              {
+                name: "From",
+                value: "customer@example.test",
+              },
+              {
+                name: "To",
+                value: "support@example.test",
+              },
+              {
+                name: "Subject",
+                value: "Help needed",
+              },
+              {
+                name: "Message-ID",
+                value: `<${input.providerMessageId}@example.test>`,
+              },
+            ],
+            parts: [
+              {
+                mime_type: "text/plain",
+                headers: [],
+                body_size: 20,
+              },
+              {
+                filename: "proof.pdf",
+                attachment_id: "att_001",
+                headers: [],
+                body_size: 10,
+              },
+            ],
+          },
+        })),
+      } as GmailInboundMessageFetcher,
+      {
+        normalization: new GmailMessageNormalizationService(),
+        persistence,
+      },
+    );
+
+    const result = await service.syncMessages({
+      organizationId: "org_demo",
+      workspaceId: "wks_demo_sales",
+      providerAccountId: "gmail_account_demo",
+      persistNormalized: true,
+      now: new Date("2026-07-10T12:00:00.000Z"),
+    });
+
+    expect(result).toMatchObject({
+      status: "partial",
+      fetched_count: 2,
+      normalized_count: 2,
+      persisted_count: 1,
+      skipped_count: 1,
+      failed_count: 0,
+    });
+    expect(persistedEnvelopes).toHaveLength(2);
+    expect(JSON.stringify(persistedEnvelopes)).not.toContain("Authorization");
+    expect(JSON.stringify(persistedEnvelopes)).not.toContain("access_token");
+    expect(JSON.stringify(persistedEnvelopes)).not.toContain("refresh_token");
+    expect(JSON.stringify(persistedEnvelopes)).not.toContain("attachment data");
+    expect(JSON.stringify(persistedEnvelopes)).not.toContain("conversationId");
+    expect(JSON.stringify(persistedEnvelopes)).not.toContain("customerId");
   });
 });

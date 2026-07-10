@@ -23,6 +23,8 @@ export type GmailInboundSyncResultDto = {
   provider: "gmail";
   status: GmailInboundSyncStatus;
   fetched_count: number;
+  normalized_count: number;
+  persisted_count: number;
   skipped_count: number;
   failed_count: number;
   next_page_token?: string;
@@ -38,5 +40,6 @@ export type GmailInboundSyncInput = {
   pageToken?: string;
   query?: string;
   labelIds?: string[];
+  persistNormalized?: boolean;
   now?: Date;
 };
