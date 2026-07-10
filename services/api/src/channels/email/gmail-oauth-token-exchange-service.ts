@@ -18,6 +18,11 @@ const providerErrorMessages: Record<string, string> = {
   invalid_client:
     "Gmail token exchange client configuration is not accepted by the provider.",
   invalid_request: "Gmail token exchange request was rejected by the provider.",
+  provider_timeout:
+    "Gmail provider did not respond in time during token exchange.",
+  provider_http_error: "Gmail token exchange failed.",
+  provider_invalid_response:
+    "Gmail provider returned an invalid token exchange response.",
   temporarily_unavailable:
     "Gmail provider is temporarily unavailable. Please try again later.",
 };
@@ -53,8 +58,9 @@ export class GmailOAuthTokenExchangeService {
     }
 
     const now = input.now ?? new Date();
-
-    let exchangeResult;
+    let exchangeResult: Awaited<
+      ReturnType<GmailOAuthTokenExchangeClient["exchangeAuthorizationCode"]>
+    >;
 
     try {
       exchangeResult = await this.client.exchangeAuthorizationCode({
@@ -70,6 +76,17 @@ export class GmailOAuthTokenExchangeService {
         message: sanitizeProviderError(error),
       });
     }
+
+    if (!exchangeResult.emailAddress) {
+      throw new AppError({
+        statusCode: 501,
+        appCode: "GMAIL_PROVIDER_PROFILE_RESOLUTION_NOT_IMPLEMENTED",
+        message:
+          "Gmail token exchange succeeded, but provider account profile resolution is not enabled in this build.",
+      });
+    }
+
+    const displayName = exchangeResult.displayName ?? null;
 
     const scope = {
       organizationId: input.consumedContext.entry.organizationId,
@@ -104,7 +121,7 @@ export class GmailOAuthTokenExchangeService {
           accountId: existing.id,
           status: "connected",
           tokenReferenceId: tokenReference.referenceId,
-          displayName: exchangeResult.displayName,
+          displayName,
           scopes: [...exchangeResult.scopes],
           metadata: safeMetadata,
           lastVerifiedAt: now,
@@ -156,7 +173,7 @@ export class GmailOAuthTokenExchangeService {
       organizationId: scope.organizationId,
       workspaceId: scope.workspaceId,
       emailAddress: exchangeResult.emailAddress,
-      displayName: exchangeResult.displayName,
+      displayName,
       scopes: exchangeResult.scopes,
       metadata: safeMetadata,
       tokenReferenceId: "pending",
@@ -180,7 +197,7 @@ export class GmailOAuthTokenExchangeService {
           organizationId: scope.organizationId,
           workspaceId: scope.workspaceId,
           emailAddress: exchangeResult.emailAddress,
-          displayName: exchangeResult.displayName,
+          displayName,
           scopes: exchangeResult.scopes,
           metadata: safeMetadata,
           id: provisionalAccount.id,

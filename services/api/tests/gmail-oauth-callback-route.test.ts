@@ -112,6 +112,7 @@ function createGmailCompletionServices(input?: {
     oauthAuthorizationEndpoint: "https://accounts.google.com/o/oauth2/v2/auth",
     oauthTokenExchangeMode: input?.tokenExchangeMode ?? "simulated",
     oauthClientId: "gmail-client-id-placeholder",
+    oauthClientSecret: "gmail-client-secret-placeholder",
     oauthRedirectUri:
       "https://allowed.example.com/api/v1/integrations/gmail/oauth/callback",
     oauthAllowedRedirectUris: [

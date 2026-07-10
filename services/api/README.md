@@ -105,11 +105,13 @@ docker compose -f docker-compose.prod.example.yml config
 | `GMAIL_PROVIDER_ENABLED`  |                                       No | `false`                                          | Enables the Gmail provider auth boundary skeleton only     |
 | `GMAIL_TOKEN_VAULT_MODE`  |                                       No | `mock`                                           | Gmail token vault mode: `mock` or future `encrypted`       |
 | `GMAIL_OAUTH_CLIENT_ID`   |                                       No | none                                             | Placeholder client id boundary for future Gmail OAuth       |
+| `GMAIL_OAUTH_CLIENT_SECRET`|                                      Real token exchange only | none                                             | Gmail OAuth client secret boundary for real token exchange; keep in secret manager only |
 | `GMAIL_OAUTH_REDIRECT_URI`|                                       No | none                                             | Optional default Gmail OAuth redirect URI                    |
 | `GMAIL_OAUTH_REDIRECT_URI_ALLOWLIST`|                           No | `GMAIL_OAUTH_REDIRECT_URI` if set                | Comma-separated exact Gmail OAuth redirect URI allowlist    |
 | `GMAIL_OAUTH_ALLOWED_SCOPES`|                                    No | `gmail.readonly,gmail.send`                      | Comma-separated Gmail OAuth scope allowlist aliases         |
 | `GMAIL_OAUTH_TOKEN_EXCHANGE_MODE`|                              No | `disabled`                                       | Gmail OAuth token exchange boundary mode: `disabled`, `simulated`, or `real` |
 | `GMAIL_OAUTH_TOKEN_ENDPOINT`|                                   No | `https://oauth2.googleapis.com/token`            | Reserved public token endpoint config for future real Gmail token exchange |
+| `GMAIL_OAUTH_TOKEN_EXCHANGE_TIMEOUT_MS`|                        No | `10000`                                          | Timeout in milliseconds for real Gmail OAuth token exchange HTTP requests |
 | `TOKEN_VAULT_ENCRYPTION_KEY_BASE64`|                          Encrypted vault mode only | none                                             | Base64-encoded 32-byte AES-256-GCM key for encrypted Gmail token vault persistence |
 | `TOKEN_VAULT_ENCRYPTION_KEY_VERSION`|                         No | `v1`                                             | Key version recorded with encrypted Gmail token vault rows |
 | `GMAIL_TOKEN_ENCRYPTION_KEY`|                                    No | none                                             | Legacy fallback env name for local compatibility; prefer `TOKEN_VAULT_ENCRYPTION_KEY_BASE64` |
@@ -382,7 +384,9 @@ simulated Gmail OAuth token exchange is allowed for local/test only and is block
 token exchange stores access_token and refresh_token only through the encrypted Gmail token vault boundary and never returns raw tokens
 GMAIL_OAUTH_TOKEN_EXCHANGE_MODE=disabled keeps callback response at pending_token_exchange
 GMAIL_OAUTH_TOKEN_EXCHANGE_MODE=simulated completes the provider connection internally and returns only a safe connected account DTO
-GMAIL_OAUTH_TOKEN_EXCHANGE_MODE=real fails closed because real Google token exchange is not implemented in this build
+GMAIL_OAUTH_TOKEN_EXCHANGE_MODE=real now enables a real Google token exchange client boundary with strict config validation, timeout, and sanitized provider errors
+real token exchange still does not complete a full public Gmail connection flow in this build because Gmail profile resolution and Gmail API client work remain separate follow-up steps
+production-like real mode requires GMAIL_OAUTH_CLIENT_ID, GMAIL_OAUTH_CLIENT_SECRET, redirect URI allowlist, encrypted token vault config, and safe timeout config
 ```
 
 Current email E2E internal smoke baseline:

@@ -26,7 +26,7 @@ Scope PR ini mencakup:
 - penyimpanan token hanya melalui encrypted vault,
 - create/update Gmail provider account secara aman,
 - safe completion response tanpa secret,
-- fail-closed untuk mode `real`.
+- fail-closed untuk mode `real` sampai profile resolution Gmail siap.
 
 ## Modes
 
@@ -35,7 +35,7 @@ Mode callback completion:
 ```text
 disabled   -> callback hanya validasi dan mengembalikan pending_token_exchange
 simulated  -> callback menyelesaikan koneksi internal dan mengembalikan connected
-real       -> fail closed karena real token exchange belum diimplementasikan
+real       -> fail closed karena real token exchange client sudah ada, tetapi profile resolution Gmail dan Gmail API client belum diimplementasikan
 ```
 
 ## Safe Completion Response

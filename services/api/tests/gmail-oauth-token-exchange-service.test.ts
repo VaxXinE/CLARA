@@ -347,4 +347,60 @@ describe("GmailOAuthTokenExchangeService", () => {
       }),
     ).toHaveLength(0);
   });
+
+  it("fails closed when token exchange succeeds without provider account identity", async () => {
+    const { config, stateService } = createConsumedContext();
+    const intent = await stateService.createConnectIntent({
+      organizationId: "org_demo",
+      workspaceId: "wks_demo_sales",
+      actorUserId: "usr_demo_agent",
+      actorRole: "agent",
+      redirectUri:
+        "https://allowed.example.com/api/v1/integrations/gmail/oauth/callback",
+      scopes: ["gmail.readonly"],
+    });
+    const consumedContext = await stateService.consumeConnectIntentByState({
+      state: intent.state,
+    });
+    const { db, rows } = createEncryptedVaultDatabase();
+    const tokenVault = new EncryptedGmailTokenVaultService(
+      new DrizzleGmailTokenVaultRepository(db),
+      config,
+      { nodeEnv: "test" },
+    );
+    const accountRepository = new FixtureGmailProviderAccountRepository();
+    const client = new SimulatedGmailOAuthTokenExchangeClient({
+      nodeEnv: "test",
+      responseFactory: () => ({
+        scopes: ["gmail.readonly"],
+        tokenGrant: {
+          accessToken: "example-access-token-without-profile",
+          refreshToken: "example-refresh-token-without-profile",
+          expiresAt: null,
+        },
+      }),
+    });
+    const service = new GmailOAuthTokenExchangeService(
+      client,
+      tokenVault,
+      accountRepository,
+    );
+
+    await expect(
+      service.exchangeAuthorizationCode({
+        consumedContext,
+        authorizationCode: "example-missing-profile-code",
+      }),
+    ).rejects.toThrow(
+      "Gmail token exchange succeeded, but provider account profile resolution is not enabled in this build.",
+    );
+
+    expect(rows).toHaveLength(0);
+    expect(
+      await accountRepository.listAccountsScoped({
+        organizationId: "org_demo",
+        workspaceId: "wks_demo_sales",
+      }),
+    ).toHaveLength(0);
+  });
 });

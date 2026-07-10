@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { createGmailOAuthTokenExchangeClient } from "../src/channels/email/gmail-oauth-token-exchange-client";
 import { SimulatedGmailOAuthTokenExchangeClient } from "../src/channels/email/simulated-gmail-oauth-token-exchange-client";
 
 describe("SimulatedGmailOAuthTokenExchangeClient", () => {
@@ -50,6 +51,49 @@ describe("SimulatedGmailOAuthTokenExchangeClient", () => {
         }),
     ).toThrow(
       "Simulated Gmail OAuth token exchange client is not allowed in production.",
+    );
+  });
+
+  it("factory returns null for disabled mode and simulated client for simulated mode", () => {
+    expect(
+      createGmailOAuthTokenExchangeClient({
+        enabled: true,
+        tokenVaultMode: "encrypted",
+        oauthAuthorizationEndpoint:
+          "https://accounts.google.com/o/oauth2/v2/auth",
+        oauthTokenExchangeMode: "disabled",
+        oauthAllowedRedirectUris: [
+          "https://allowed.example.com/api/v1/integrations/gmail/oauth/callback",
+        ],
+        oauthAllowedScopes: ["gmail.readonly", "gmail.send"],
+        oauthClientId: "gmail-client-id-placeholder",
+        tokenEncryptionKeyBase64: Buffer.alloc(32, 7).toString("base64"),
+        tokenEncryptionKeyVersion: "v1",
+      }),
+    ).toBeNull();
+
+    const simulatedClient = createGmailOAuthTokenExchangeClient(
+      {
+        enabled: true,
+        tokenVaultMode: "encrypted",
+        oauthAuthorizationEndpoint:
+          "https://accounts.google.com/o/oauth2/v2/auth",
+        oauthTokenExchangeMode: "simulated",
+        oauthAllowedRedirectUris: [
+          "https://allowed.example.com/api/v1/integrations/gmail/oauth/callback",
+        ],
+        oauthAllowedScopes: ["gmail.readonly", "gmail.send"],
+        oauthClientId: "gmail-client-id-placeholder",
+        tokenEncryptionKeyBase64: Buffer.alloc(32, 7).toString("base64"),
+        tokenEncryptionKeyVersion: "v1",
+      },
+      {
+        nodeEnv: "test",
+      },
+    );
+
+    expect(simulatedClient).toBeInstanceOf(
+      SimulatedGmailOAuthTokenExchangeClient,
     );
   });
 });

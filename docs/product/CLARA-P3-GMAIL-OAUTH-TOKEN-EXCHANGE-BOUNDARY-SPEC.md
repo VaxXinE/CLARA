@@ -23,6 +23,7 @@ Scope PR ini hanya mencakup:
 
 - interface client token exchange,
 - simulated token exchange client untuk local/test,
+- real Google OAuth token exchange client dengan HTTP boundary, timeout, dan sanitasi error,
 - service internal untuk menukar authorization code melalui abstraction,
 - penyimpanan token hasil exchange hanya melalui encrypted vault,
 - create/update Gmail provider account dengan metadata aman,
@@ -30,7 +31,6 @@ Scope PR ini hanya mencakup:
 
 PR ini tidak mencakup:
 
-- real HTTP call ke Google token endpoint,
 - real Gmail API client,
 - refresh scheduler,
 - dashboard OAuth UI.
@@ -38,7 +38,8 @@ PR ini tidak mencakup:
 Catatan:
 
 - callback route sekarang bisa memanggil boundary ini pada mode `simulated`,
-- mode `real` tetap fail closed sampai real Google token exchange benar-benar diimplementasikan.
+- mode `real` sekarang punya real token exchange client boundary,
+- tetapi callback completion publik masih fail closed untuk full completion sampai profile resolution Gmail dan Gmail API client diimplementasikan.
 
 ## Core Boundary
 
@@ -94,7 +95,8 @@ Wajib enforce:
 
 ```text
 simulated token exchange client tidak boleh dipakai di production
-real token exchange client belum diimplementasikan di PR ini
+real token exchange client wajib pakai config lengkap dan timeout aman
+real token exchange client tidak boleh membocorkan raw provider body, authorization code, atau client_secret
 cross-workspace token exchange harus fail closed
 token exchange error harus disanitasi
 AI draft must never auto-send
@@ -105,6 +107,9 @@ AI draft must never auto-send
 Minimal harus dibuktikan:
 
 - successful simulated token exchange menulis token terenkripsi ke vault,
+- successful real token exchange client mengirim form body yang benar ke token endpoint dengan fetch yang dimock,
+- real token exchange timeout dan non-2xx response disanitasi,
+- invalid JSON atau payload provider yang tidak lengkap ditolak aman,
 - provider account connected/updated dengan metadata aman,
 - raw access_token dan refresh_token tidak pernah muncul di output,
 - authorization code tidak dipersist,
