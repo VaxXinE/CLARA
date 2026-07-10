@@ -209,6 +209,48 @@ export class GmailOAuthStateService {
     };
   }
 
+  async consumeConnectIntentByState(input: {
+    state: string;
+    now?: Date;
+  }): Promise<GmailOAuthConsumeResult> {
+    const now = input.now ?? new Date();
+    const entry = await this.repository.findByStateHash(
+      sha256Base64Url(input.state),
+    );
+
+    if (!entry) {
+      throw new NotFoundError("Gmail OAuth state not found.");
+    }
+
+    return this.consumeConnectIntent({
+      organizationId: entry.organizationId,
+      workspaceId: entry.workspaceId,
+      state: input.state,
+      now,
+    });
+  }
+
+  async revokeConnectIntentByState(input: {
+    state: string;
+    now?: Date;
+  }): Promise<GmailOAuthStateEntry> {
+    const now = input.now ?? new Date();
+    const entry = await this.repository.findByStateHash(
+      sha256Base64Url(input.state),
+    );
+
+    if (!entry) {
+      throw new NotFoundError("Gmail OAuth state not found.");
+    }
+
+    return this.revokeConnectIntent({
+      organizationId: entry.organizationId,
+      workspaceId: entry.workspaceId,
+      state: input.state,
+      now,
+    });
+  }
+
   async revokeConnectIntent(input: {
     organizationId: string;
     workspaceId: string;

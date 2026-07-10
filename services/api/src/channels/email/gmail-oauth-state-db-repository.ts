@@ -153,6 +153,14 @@ export class DrizzleGmailOAuthStateRepository implements GmailOAuthStateReposito
     return row ? toEntry(row) : null;
   }
 
+  async findByStateHash(stateHash: string): Promise<GmailOAuthStateEntry | null> {
+    const row = await this.db.query.gmailOAuthStateEntries.findFirst({
+      where: eq(gmailOAuthStateEntries.stateHash, stateHash),
+    });
+
+    return row ? toEntry(row) : null;
+  }
+
   async updateEntry(
     input: UpdateGmailOAuthStateInput,
   ): Promise<GmailOAuthStateEntry | null> {
