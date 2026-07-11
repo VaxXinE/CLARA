@@ -8,6 +8,7 @@ last_updated: "2026-07-11"
 classification: "product-spec"
 related_documents:
   - "./CLARA-P3-GMAIL-SCHEDULER-OPERATOR-STATUS-SPEC.md"
+  - "./CLARA-P3-GMAIL-SCHEDULER-OPERATOR-HARDENING-SPEC.md"
   - "./CLARA-P3-GMAIL-INBOUND-SYNC-SCHEDULER-RUNTIME-BOUNDARY-SPEC.md"
   - "../../services/api/README.md"
 ---
@@ -55,7 +56,20 @@ started_at
 finished_at
 reason_code
 scheduler_running
+correlation_id
 ```
+
+## Audit Behavior
+
+When audit logging is wired, the route records:
+
+- `gmail.scheduler.tick_requested`
+- `gmail.scheduler.tick_completed`
+- `gmail.scheduler.tick_disabled`
+- `gmail.scheduler.tick_skipped`
+- `gmail.scheduler.tick_failed`
+
+Metadata is allowlisted and contains only provider, status, reason code, safe counters, actor, organization, workspace, and correlation ID.
 
 ## Forbidden Response Data
 

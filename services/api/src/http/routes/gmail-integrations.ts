@@ -5,6 +5,7 @@ import { getAuthContext } from "../../auth/auth-context";
 import { assertPermission } from "../../auth/permissions";
 import { requireAuth } from "../../auth/require-auth";
 import { ValidationError } from "../../errors/app-error";
+import type { AuditLogService } from "../../audit/audit-log-service";
 import type { GmailOAuthConnectService } from "../../channels/email/gmail-oauth-connect-service";
 import type { GmailOAuthCallbackService } from "../../channels/email/gmail-oauth-callback-service";
 import type { GmailConnectionHealthService } from "../../channels/email/gmail-connection-health-service";
@@ -274,6 +275,7 @@ export async function registerGmailIntegrationRoutes(
     inboundSmoke?: Pick<GmailInboundE2ESmokeService, "runSmoke">;
     scheduler?: Pick<GmailInboundSyncSchedulerRuntimeService, "getStatus"> &
       Partial<Pick<GmailInboundSyncSchedulerRuntimeService, "tickNow">>;
+    auditLogs?: Pick<AuditLogService, "recordGmailSchedulerOperatorAction">;
   },
 ): Promise<void> {
   if (services.scheduler) {
@@ -287,9 +289,20 @@ export async function registerGmailIntegrationRoutes(
       async (request) => {
         const auth = getAuthContext(request);
         assertPermission(auth.role, "integration:gmail_connect");
+        const status = scheduler.getStatus();
+
+        await services.auditLogs?.recordGmailSchedulerOperatorAction({
+          auth,
+          correlationId: request.id,
+          action: "gmail.scheduler.status_read",
+          status: status.scheduler_running ? "running" : "not_running",
+          ...(status.last_reason_code !== undefined
+            ? { reasonCode: status.last_reason_code }
+            : {}),
+        });
 
         return {
-          data: scheduler.getStatus(),
+          data: status,
         };
       },
     );
@@ -307,6 +320,13 @@ export async function registerGmailIntegrationRoutes(
           assertPermission(auth.role, "integration:gmail_connect");
           const body = parseSchedulerTickBody(request.body);
 
+          await services.auditLogs?.recordGmailSchedulerOperatorAction({
+            auth,
+            correlationId: request.id,
+            action: "gmail.scheduler.tick_requested",
+            status: "requested",
+          });
+
           const result = await tickNow.call(scheduler, {
             ...(body.max_accounts_per_tick !== undefined
               ? { maxAccountsPerTick: body.max_accounts_per_tick }
@@ -315,10 +335,34 @@ export async function registerGmailIntegrationRoutes(
               ? { maxMessagesPerAccount: body.max_messages_per_account }
               : {}),
           });
+          const resultAction =
+            result.status === "disabled"
+              ? "gmail.scheduler.tick_disabled"
+              : result.status === "skipped"
+                ? "gmail.scheduler.tick_skipped"
+                : result.status === "failed"
+                  ? "gmail.scheduler.tick_failed"
+                  : "gmail.scheduler.tick_completed";
+
+          await services.auditLogs?.recordGmailSchedulerOperatorAction({
+            auth,
+            correlationId: request.id,
+            action: resultAction,
+            outcome: result.status === "failed" ? "failure" : "success",
+            status: result.status,
+            checkedAccountCount: result.checked_account_count,
+            scheduledJobCount: result.scheduled_job_count,
+            skippedCount: result.skipped_count,
+            failedCount: result.failed_count,
+            ...(result.reason_code !== undefined
+              ? { reasonCode: result.reason_code }
+              : {}),
+          });
 
           return {
             data: {
               ...result,
+              correlation_id: request.id,
               scheduler_running: scheduler.getStatus().scheduler_running,
             },
           };

@@ -29,6 +29,7 @@ import type { GmailConnectionHealthService } from "../channels/email/gmail-conne
 import type { GmailInboundE2ESmokeService } from "../channels/email/gmail-inbound-e2e-smoke-service";
 import type { GmailInboundSyncService } from "../channels/email/gmail-inbound-sync-service";
 import type { GmailInboundSyncSchedulerRuntimeService } from "../channels/email/gmail-inbound-sync-scheduler-runtime-service";
+import type { AuditLogService } from "../audit/audit-log-service";
 import { registerGmailIntegrationRoutes } from "./routes/gmail-integrations";
 
 export type CreateServerOptions = {
@@ -50,6 +51,10 @@ export type CreateServerOptions = {
     "getStatus"
   > &
     Partial<Pick<GmailInboundSyncSchedulerRuntimeService, "tickNow">>;
+  gmailSchedulerAuditLogService?: Pick<
+    AuditLogService,
+    "recordGmailSchedulerOperatorAction"
+  >;
 };
 
 export async function createServer(
@@ -136,6 +141,7 @@ export async function createServer(
       inboundSmoke?: Pick<GmailInboundE2ESmokeService, "runSmoke">;
       scheduler?: Pick<GmailInboundSyncSchedulerRuntimeService, "getStatus"> &
         Partial<Pick<GmailInboundSyncSchedulerRuntimeService, "tickNow">>;
+      auditLogs?: Pick<AuditLogService, "recordGmailSchedulerOperatorAction">;
     } = {};
 
     if (options.gmailOAuthConnectService) {
@@ -165,6 +171,11 @@ export async function createServer(
 
     if (schedulerStatus) {
       gmailIntegrationServices.scheduler = schedulerStatus;
+    }
+
+    if (options.gmailSchedulerAuditLogService) {
+      gmailIntegrationServices.auditLogs =
+        options.gmailSchedulerAuditLogService;
     }
 
     await registerGmailIntegrationRoutes(

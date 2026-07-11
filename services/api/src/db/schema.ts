@@ -58,12 +58,19 @@ export const auditLogActions = [
   "reply.send_attempted",
   "reply.sent",
   "reply.failed",
+  "gmail.scheduler.status_read",
+  "gmail.scheduler.tick_requested",
+  "gmail.scheduler.tick_completed",
+  "gmail.scheduler.tick_disabled",
+  "gmail.scheduler.tick_skipped",
+  "gmail.scheduler.tick_failed",
 ] as const;
 export const auditLogOutcomes = ["success", "failure"] as const;
 export const auditLogResourceTypes = [
   "conversation",
   "reply_draft",
   "message",
+  "gmail_scheduler",
 ] as const;
 export const outboundDeliveryChannels = ["email"] as const;
 export const outboundDeliveryStatuses = [

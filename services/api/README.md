@@ -33,7 +33,7 @@ inbound Gmail message fetch boundary exists for safe list/get operations only
 inbound Gmail sync orchestrator exists for bounded manual sync summaries and optional normalized-envelope persistence
 inbound Gmail sync state/cursor persistence now exists per scoped provider account
 internal Gmail inbound sync job boundary now exists for trusted server-side callers only
-internal Gmail inbound sync scheduler skeleton, runtime boundary, app lifecycle hook, operator status route, and manual tick route now exist as disabled-by-default services only
+internal Gmail inbound sync scheduler skeleton, runtime boundary, app lifecycle hook, operator status/manual tick routes, and safe operator audit trace now exist as disabled-by-default services only
 internal Gmail inbound smoke harness exists for offline verification when explicitly wired
 no externally scheduled background worker, background refresh scheduler, or outbound Gmail send yet
 ```
@@ -58,6 +58,7 @@ manual sync route now rejects workspace/org spoofing body fields, validates page
 inbound sync scheduler runtime can periodically call tickOnce only when explicitly wired by trusted server-side lifecycle code
 scheduler operator status route returns safe runtime state/config only and never returns token material or raw Gmail payloads
 manual scheduler tick route runs one bounded tick through the runtime boundary and does not start the background interval
+scheduler operator routes write safe audit metadata when audit logging is wired
 does not create AI drafts or outbound replies
 ```
 

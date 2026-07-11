@@ -164,4 +164,46 @@ export class AuditLogService {
       correlationId: input.correlationId,
     });
   }
+
+  async recordGmailSchedulerOperatorAction(
+    input: AuditContextInput & {
+      action:
+        | "gmail.scheduler.status_read"
+        | "gmail.scheduler.tick_requested"
+        | "gmail.scheduler.tick_completed"
+        | "gmail.scheduler.tick_disabled"
+        | "gmail.scheduler.tick_skipped"
+        | "gmail.scheduler.tick_failed";
+      outcome?: "success" | "failure";
+      status?: string;
+      reasonCode?: string;
+      checkedAccountCount?: number;
+      scheduledJobCount?: number;
+      skippedCount?: number;
+      failedCount?: number;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: input.action,
+      resourceType: "gmail_scheduler",
+      resourceId: "gmail_inbound_scheduler",
+      outcome: input.outcome ?? "success",
+      metadata: compactMetadata({
+        provider: "gmail",
+        status: input.status,
+        reason_code: input.reasonCode,
+        checked_account_count: input.checkedAccountCount,
+        scheduled_job_count: input.scheduledJobCount,
+        skipped_count: input.skippedCount,
+        failed_count: input.failedCount,
+      }),
+      correlationId: input.correlationId,
+    });
+  }
 }
