@@ -143,4 +143,47 @@ describe("GmailInboundSyncSchedulerRuntimeService", () => {
       }),
     );
   });
+
+  it("returns safe scheduler status without token material", async () => {
+    const runtime = new GmailInboundSyncSchedulerRuntimeService(
+      createScheduler(),
+      {
+        enabled: true,
+        intervalMs: 120_000,
+        maxAccountsPerTick: 3,
+        maxMessagesPerAccount: 4,
+      },
+    );
+
+    expect(runtime.getStatus()).toMatchObject({
+      scheduler_enabled: true,
+      scheduler_running: false,
+      interval_ms: 120_000,
+      max_accounts_per_tick: 3,
+      max_messages_per_account: 4,
+    });
+
+    runtime.start();
+    await runtime.tickNow({
+      now: new Date("2026-07-11T11:00:00.000Z"),
+    });
+    runtime.stop();
+
+    const status = runtime.getStatus();
+    const serialized = JSON.stringify(status);
+
+    expect(status).toMatchObject({
+      scheduler_enabled: true,
+      scheduler_running: false,
+      last_tick_status: "completed",
+    });
+    expect(status.last_started_at).toBeDefined();
+    expect(status.last_stopped_at).toBeDefined();
+    expect(status.last_tick_started_at).toBe("2026-07-11T11:00:00.000Z");
+    expect(status.last_tick_finished_at).toBe("2026-07-11T11:01:00.000Z");
+    expect(serialized).not.toContain("access_token");
+    expect(serialized).not.toContain("refresh_token");
+    expect(serialized).not.toContain("Authorization");
+    expect(serialized).not.toContain("raw Gmail");
+  });
 });

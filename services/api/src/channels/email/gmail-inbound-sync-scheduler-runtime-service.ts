@@ -5,6 +5,7 @@ import {
 } from "./gmail-inbound-sync-scheduler-service";
 import type {
   GmailInboundSyncSchedulerRuntimeConfig,
+  GmailInboundSyncSchedulerRuntimeStatusDto,
   GmailInboundSyncSchedulerRuntimeTickResult,
 } from "./gmail-inbound-sync-scheduler-runtime-types";
 
@@ -27,6 +28,14 @@ export function clampGmailInboundSyncSchedulerIntervalMs(
 export class GmailInboundSyncSchedulerRuntimeService {
   private timer: ReturnType<typeof setInterval> | undefined;
   private tickInFlight = false;
+  private lastStartedAt: string | undefined;
+  private lastStoppedAt: string | undefined;
+  private lastTickStartedAt: string | undefined;
+  private lastTickFinishedAt: string | undefined;
+  private lastTickStatus:
+    GmailInboundSyncSchedulerRuntimeTickResult["status"] | undefined;
+  private lastReasonCode:
+    GmailInboundSyncSchedulerRuntimeTickResult["reason_code"] | undefined;
 
   constructor(
     private readonly scheduler: Pick<
@@ -45,6 +54,8 @@ export class GmailInboundSyncSchedulerRuntimeService {
       return true;
     }
 
+    this.lastStartedAt = new Date().toISOString();
+    this.lastStoppedAt = undefined;
     this.timer = setInterval(() => {
       void this.tickNow();
     }, this.getIntervalMs());
@@ -60,6 +71,7 @@ export class GmailInboundSyncSchedulerRuntimeService {
 
     clearInterval(this.timer);
     this.timer = undefined;
+    this.lastStoppedAt = new Date().toISOString();
   }
 
   isRunning(): boolean {
@@ -70,28 +82,84 @@ export class GmailInboundSyncSchedulerRuntimeService {
     input: { now?: Date } = {},
   ): Promise<GmailInboundSyncSchedulerRuntimeTickResult> {
     const startedAt = input.now ?? new Date();
+    this.lastTickStartedAt = startedAt.toISOString();
 
     if (this.config.enabled !== true) {
-      return this.createResult("disabled", startedAt, "runtime_disabled");
+      const result = this.createResult(
+        "disabled",
+        startedAt,
+        "runtime_disabled",
+      );
+      this.recordTickResult(result);
+
+      return result;
     }
 
     if (this.tickInFlight) {
-      return this.createResult("skipped", startedAt, "tick_already_running", 1);
+      const result = this.createResult(
+        "skipped",
+        startedAt,
+        "tick_already_running",
+        1,
+      );
+      this.recordTickResult(result);
+
+      return result;
     }
 
     this.tickInFlight = true;
 
     try {
-      return await this.scheduler.tickOnce({
+      const result = await this.scheduler.tickOnce({
         now: startedAt,
         maxAccountsPerTick: this.getMaxAccountsPerTick(),
         maxMessagesPerAccount: this.getMaxMessagesPerAccount(),
       });
+      this.recordTickResult(result);
+
+      return result;
     } catch {
-      return this.createResult("failed", startedAt, "tick_failed", 0, 1);
+      const result = this.createResult(
+        "failed",
+        startedAt,
+        "tick_failed",
+        0,
+        1,
+      );
+      this.recordTickResult(result);
+
+      return result;
     } finally {
       this.tickInFlight = false;
     }
+  }
+
+  getStatus(): GmailInboundSyncSchedulerRuntimeStatusDto {
+    return {
+      scheduler_enabled: this.config.enabled === true,
+      scheduler_running: this.isRunning(),
+      interval_ms: this.getIntervalMs(),
+      max_accounts_per_tick: this.getMaxAccountsPerTick(),
+      max_messages_per_account: this.getMaxMessagesPerAccount(),
+      ...(this.lastStartedAt !== undefined
+        ? { last_started_at: this.lastStartedAt }
+        : {}),
+      ...(this.lastStoppedAt !== undefined
+        ? { last_stopped_at: this.lastStoppedAt }
+        : {}),
+      ...(this.lastTickStartedAt !== undefined
+        ? { last_tick_started_at: this.lastTickStartedAt }
+        : {}),
+      ...(this.lastTickFinishedAt !== undefined
+        ? { last_tick_finished_at: this.lastTickFinishedAt }
+        : {}),
+      ...(this.lastTickStatus !== undefined
+        ? { last_tick_status: this.lastTickStatus }
+        : {}),
+      ...(this.lastReasonCode !== undefined
+        ? { last_reason_code: this.lastReasonCode }
+        : {}),
+    };
   }
 
   getIntervalMs(): number {
@@ -127,5 +195,13 @@ export class GmailInboundSyncSchedulerRuntimeService {
       finished_at: finishedAt.toISOString(),
       ...(reasonCode !== undefined ? { reason_code: reasonCode } : {}),
     };
+  }
+
+  private recordTickResult(
+    result: GmailInboundSyncSchedulerRuntimeTickResult,
+  ): void {
+    this.lastTickFinishedAt = result.finished_at;
+    this.lastTickStatus = result.status;
+    this.lastReasonCode = result.reason_code;
   }
 }
