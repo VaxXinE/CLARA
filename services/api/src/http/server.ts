@@ -28,6 +28,7 @@ import type { GmailOAuthCallbackService } from "../channels/email/gmail-oauth-ca
 import type { GmailConnectionHealthService } from "../channels/email/gmail-connection-health-service";
 import type { GmailInboundE2ESmokeService } from "../channels/email/gmail-inbound-e2e-smoke-service";
 import type { GmailInboundSyncService } from "../channels/email/gmail-inbound-sync-service";
+import type { GmailInboundSyncSchedulerRuntimeService } from "../channels/email/gmail-inbound-sync-scheduler-runtime-service";
 import { registerGmailIntegrationRoutes } from "./routes/gmail-integrations";
 
 export type CreateServerOptions = {
@@ -40,6 +41,10 @@ export type CreateServerOptions = {
   gmailConnectionHealthService?: GmailConnectionHealthService;
   gmailInboundSyncService?: Pick<GmailInboundSyncService, "syncMessages">;
   gmailInboundE2ESmokeService?: Pick<GmailInboundE2ESmokeService, "runSmoke">;
+  gmailInboundSyncSchedulerRuntime?: Pick<
+    GmailInboundSyncSchedulerRuntimeService,
+    "start" | "stop" | "isRunning"
+  >;
 };
 
 export async function createServer(
@@ -150,6 +155,61 @@ export async function createServer(
       authProvider,
       gmailIntegrationServices,
     );
+  }
+
+  if (options.gmailInboundSyncSchedulerRuntime) {
+    const runtime = options.gmailInboundSyncSchedulerRuntime;
+    let bootstrapAttempted = false;
+
+    app.addHook("onReady", async () => {
+      if (bootstrapAttempted) {
+        return;
+      }
+
+      bootstrapAttempted = true;
+
+      try {
+        const started = runtime.start();
+        app.log.info(
+          {
+            scheduler_enabled: started,
+            scheduler_running: runtime.isRunning(),
+            ...(started ? { started_at: new Date().toISOString() } : {}),
+          },
+          "Gmail inbound sync scheduler lifecycle bootstrap complete",
+        );
+      } catch (error) {
+        app.log.error(
+          {
+            err: error,
+            scheduler_enabled: false,
+            scheduler_running: false,
+          },
+          "Gmail inbound sync scheduler lifecycle bootstrap failed",
+        );
+      }
+    });
+
+    app.addHook("onClose", async () => {
+      try {
+        runtime.stop();
+        app.log.info(
+          {
+            scheduler_running: runtime.isRunning(),
+            stopped_at: new Date().toISOString(),
+          },
+          "Gmail inbound sync scheduler lifecycle shutdown complete",
+        );
+      } catch (error) {
+        app.log.error(
+          {
+            err: error,
+            scheduler_running: false,
+          },
+          "Gmail inbound sync scheduler lifecycle shutdown failed",
+        );
+      }
+    });
   }
 
   if (serviceContainer?.close) {
