@@ -37,6 +37,15 @@ function createRuntime(
       running = false;
     }),
     isRunning: vi.fn(() => running),
+    tickNow: vi.fn(async () => ({
+      status: "completed" as const,
+      checked_account_count: 0,
+      scheduled_job_count: 0,
+      skipped_count: 0,
+      failed_count: 0,
+      started_at: "2026-07-11T11:00:00.000Z",
+      finished_at: "2026-07-11T11:00:00.000Z",
+    })),
     getStatus: vi.fn(() => ({
       scheduler_enabled: true,
       scheduler_running: running,

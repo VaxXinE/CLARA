@@ -79,7 +79,11 @@ export class GmailInboundSyncSchedulerRuntimeService {
   }
 
   async tickNow(
-    input: { now?: Date } = {},
+    input: {
+      now?: Date;
+      maxAccountsPerTick?: number;
+      maxMessagesPerAccount?: number;
+    } = {},
   ): Promise<GmailInboundSyncSchedulerRuntimeTickResult> {
     const startedAt = input.now ?? new Date();
     this.lastTickStartedAt = startedAt.toISOString();
@@ -112,8 +116,12 @@ export class GmailInboundSyncSchedulerRuntimeService {
     try {
       const result = await this.scheduler.tickOnce({
         now: startedAt,
-        maxAccountsPerTick: this.getMaxAccountsPerTick(),
-        maxMessagesPerAccount: this.getMaxMessagesPerAccount(),
+        maxAccountsPerTick: this.getMaxAccountsPerTick(
+          input.maxAccountsPerTick,
+        ),
+        maxMessagesPerAccount: this.getMaxMessagesPerAccount(
+          input.maxMessagesPerAccount,
+        ),
       });
       this.recordTickResult(result);
 
@@ -166,14 +174,12 @@ export class GmailInboundSyncSchedulerRuntimeService {
     return clampGmailInboundSyncSchedulerIntervalMs(this.config.intervalMs);
   }
 
-  getMaxAccountsPerTick(): number {
-    return clampGmailInboundSyncSchedulerMaxAccountsPerTick(
-      this.config.maxAccountsPerTick,
-    );
+  getMaxAccountsPerTick(value = this.config.maxAccountsPerTick): number {
+    return clampGmailInboundSyncSchedulerMaxAccountsPerTick(value);
   }
 
-  getMaxMessagesPerAccount(): number {
-    return clampGmailInboundSyncMaxMessages(this.config.maxMessagesPerAccount);
+  getMaxMessagesPerAccount(value = this.config.maxMessagesPerAccount): number {
+    return clampGmailInboundSyncMaxMessages(value);
   }
 
   private createResult(
