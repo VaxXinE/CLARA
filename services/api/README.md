@@ -35,8 +35,9 @@ inbound Gmail sync state/cursor persistence now exists per scoped provider accou
 internal Gmail inbound sync job boundary now exists for trusted server-side callers only
 internal Gmail inbound sync scheduler skeleton, runtime boundary, app lifecycle hook, operator status/manual tick routes, and safe operator audit trace now exist as disabled-by-default services only
 final Gmail inbound hardening regressions now cover token/header/raw payload redaction, attachment byte stripping, safe summaries, and no AI draft/outbound send side effects
+internal Gmail outbound send client/service boundary now exists with simulated local/test client only
 internal Gmail inbound smoke harness exists for offline verification when explicitly wired
-no externally scheduled background worker, background refresh scheduler, or outbound Gmail send yet
+no externally scheduled background worker, background refresh scheduler, public Gmail outbound route, dashboard Gmail send UI, or real Gmail outbound send yet
 ```
 
 Gmail inbound fetch boundary notes:
