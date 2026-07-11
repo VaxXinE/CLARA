@@ -127,6 +127,17 @@ const activityResponse: ActivityResponse = {
   },
 };
 
+const gmailSchedulerStatusResponse = {
+  data: {
+    scheduler_enabled: true,
+    scheduler_running: true,
+    interval_ms: 300000,
+    max_accounts_per_tick: 10,
+    max_messages_per_account: 25,
+    last_tick_status: "completed",
+  },
+};
+
 function jsonResponse(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {
     status,
@@ -300,6 +311,10 @@ describe("App", () => {
           );
         }
 
+        if (url.includes("/api/v1/integrations/gmail/scheduler/status")) {
+          return jsonResponse(gmailSchedulerStatusResponse);
+        }
+
         if (
           url.includes("/api/v1/conversations/conv_demo_budi_stock/activity")
         ) {
@@ -345,6 +360,9 @@ describe("App", () => {
     ).toBeInTheDocument();
     expect(screen.getByText(/usr_demo_agent/)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Log Out" })).toBeInTheDocument();
+    expect(screen.getByText("Gmail scheduler")).toBeInTheDocument();
+    expect(screen.getByText("completed")).toBeInTheDocument();
+    expect(screen.getAllByText("WhatsApp").length).toBeGreaterThan(0);
   });
 
   it("submits provider login from the login shell", async () => {

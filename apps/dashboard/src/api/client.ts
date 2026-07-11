@@ -6,6 +6,7 @@ import type {
   ConversationListResponse,
   CustomerProfileResponse,
   DemoAuthProfile,
+  GmailSchedulerStatusResponse,
   MeResponse,
   ReplySendResponse,
 } from "./types";
@@ -132,6 +133,12 @@ export class ApiClient {
   async getActivity(conversationId: string): Promise<ActivityResponse> {
     return this.request<ActivityResponse>(
       `/api/v1/conversations/${encodeURIComponent(conversationId)}/activity`,
+    );
+  }
+
+  async getGmailSchedulerStatus(): Promise<GmailSchedulerStatusResponse> {
+    return this.request<GmailSchedulerStatusResponse>(
+      "/api/v1/integrations/gmail/scheduler/status",
     );
   }
 

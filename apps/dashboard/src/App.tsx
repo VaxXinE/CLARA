@@ -8,6 +8,7 @@ import type {
   CustomerProfileResponse,
   DemoAuthProfile,
   DemoRole,
+  GmailSchedulerStatus,
   MeResponse,
 } from "./api/types";
 import { AuthProvider } from "./auth/AuthProvider";
@@ -19,6 +20,7 @@ import type { DashboardAuthClient } from "./auth/supabase-auth-client";
 import { useAuth } from "./auth/useAuth";
 import { ConversationPane } from "./components/ConversationPane";
 import { CustomerSidebar } from "./components/CustomerSidebar";
+import { GmailSchedulerStatusPanel } from "./components/GmailSchedulerStatusPanel";
 import { InboxPanel } from "./components/InboxPanel";
 import { LoginPanel } from "./components/LoginPanel";
 import { RoleSwitcher } from "./components/RoleSwitcher";
@@ -120,6 +122,8 @@ function WorkspaceAppShell() {
   const [activityItems, setActivityItems] = useState<
     ActivityResponse["data"]["items"]
   >([]);
+  const [gmailSchedulerStatus, setGmailSchedulerStatus] =
+    useState<GmailSchedulerStatus | null>(null);
   const [composerValue, setComposerValue] = useState("");
   const [draftId, setDraftId] = useState<string | null>(null);
   const [aiDraftLabel, setAiDraftLabel] = useState<string | null>(null);
@@ -136,6 +140,10 @@ function WorkspaceAppShell() {
   const [customerError, setCustomerError] = useState<string | null>(null);
   const [activityLoading, setActivityLoading] = useState(false);
   const [activityError, setActivityError] = useState<string | null>(null);
+  const [gmailSchedulerLoading, setGmailSchedulerLoading] = useState(false);
+  const [gmailSchedulerError, setGmailSchedulerError] = useState<string | null>(
+    null,
+  );
   const [composerError, setComposerError] = useState<string | null>(null);
   const [isGeneratingDraft, setIsGeneratingDraft] = useState(false);
   const [isSendingReply, setIsSendingReply] = useState(false);
@@ -157,6 +165,8 @@ function WorkspaceAppShell() {
       setConversationDetail(null);
       setCustomer(null);
       setActivityItems([]);
+      setGmailSchedulerStatus(null);
+      setGmailSchedulerError(null);
       setComposerValue("");
       setDraftId(null);
       setAiDraftLabel(null);
@@ -234,6 +244,59 @@ function WorkspaceAppShell() {
     deferredSearch,
     selectedRole,
     statusFilter,
+  ]);
+
+  useEffect(() => {
+    if (auth.status !== "authenticated" || me?.user.role === "viewer") {
+      setGmailSchedulerStatus(null);
+      setGmailSchedulerLoading(false);
+      setGmailSchedulerError(null);
+      return;
+    }
+
+    let cancelled = false;
+
+    async function loadGmailSchedulerStatus() {
+      const client = buildClient({
+        authMode: auth.config.mode,
+        role: selectedRole,
+        accessToken: auth.session?.accessToken ?? null,
+      });
+
+      setGmailSchedulerLoading(true);
+      setGmailSchedulerError(null);
+
+      try {
+        const response = await client.getGmailSchedulerStatus();
+
+        if (!cancelled) {
+          setGmailSchedulerStatus(response.data);
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setGmailSchedulerStatus(null);
+          setGmailSchedulerError(
+            toSafeMessage(error, "Gmail scheduler status is unavailable."),
+          );
+        }
+      } finally {
+        if (!cancelled) {
+          setGmailSchedulerLoading(false);
+        }
+      }
+    }
+
+    void loadGmailSchedulerStatus();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [
+    auth.config.mode,
+    auth.session?.accessToken,
+    auth.status,
+    me?.user.role,
+    selectedRole,
   ]);
 
   useEffect(() => {
@@ -529,6 +592,12 @@ function WorkspaceAppShell() {
       ) : null}
 
       <main className="workspace-grid">
+        <GmailSchedulerStatusPanel
+          status={gmailSchedulerStatus}
+          loading={gmailSchedulerLoading}
+          error={gmailSchedulerError}
+        />
+
         <InboxPanel
           conversations={conversations}
           selectedConversationId={selectedConversationId}

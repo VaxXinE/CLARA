@@ -15,8 +15,10 @@ top bar with current user/workspace
 demo role switcher for local mock auth
 conversation inbox with search and status filter
 conversation detail and message thread
+conversation source badge for email/Gmail/channel labels
 customer profile sidebar
 activity timeline
+read-only Gmail scheduler status visibility
 AI draft generation
 explicit human reply send
 viewer read-only UX
@@ -176,6 +178,7 @@ mock AI draft provider only
 simulated reply send provider only
 provider mode still depends on backend membership resolution before any product data is allowed
 no real WhatsApp/Instagram/TikTok/email integration yet
+Gmail scheduler status is read-only; no dashboard manual tick or OAuth account management UI yet
 no frontend secrets or provider API keys should exist in this app
 ```
 

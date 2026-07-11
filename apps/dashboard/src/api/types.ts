@@ -38,6 +38,7 @@ export type MeResponse = {
 export type ConversationSummary = {
   id: string;
   source: string;
+  provider?: string | null;
   status: string;
   snippet: string | null;
   last_message_at: string | null;
@@ -67,6 +68,7 @@ export type ConversationListResponse = {
 export type ConversationDetail = {
   id: string;
   source: string;
+  provider?: string | null;
   status: string;
   last_message_at: string | null;
   created_at: string;
@@ -167,6 +169,24 @@ export type ReplySendResponse = {
       status: "sent";
     };
   };
+};
+
+export type GmailSchedulerStatus = {
+  scheduler_enabled: boolean;
+  scheduler_running: boolean;
+  interval_ms: number;
+  max_accounts_per_tick: number;
+  max_messages_per_account: number;
+  last_started_at?: string;
+  last_stopped_at?: string;
+  last_tick_started_at?: string;
+  last_tick_finished_at?: string;
+  last_tick_status?: string;
+  last_reason_code?: string;
+};
+
+export type GmailSchedulerStatusResponse = {
+  data: GmailSchedulerStatus;
 };
 
 export type DemoRole = "owner" | "agent" | "viewer";
