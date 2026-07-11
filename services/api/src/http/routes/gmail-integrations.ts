@@ -87,6 +87,7 @@ const gmailSyncBodySchema = z
     page_token: z.string().trim().min(1).max(512).optional(),
     query: z.string().trim().min(1).max(256).optional(),
     persist_normalized: z.boolean().optional(),
+    materialize_conversation: z.boolean().optional(),
     label_ids: z
       .array(z.string().trim().min(1).max(64))
       .min(1)
@@ -100,6 +101,7 @@ function parseSyncBody(body: unknown): {
   page_token?: string;
   query?: string;
   persist_normalized?: boolean;
+  materialize_conversation?: boolean;
   label_ids?: string[];
 } {
   const parsed = gmailSyncBodySchema.safeParse(body ?? {});
@@ -119,6 +121,7 @@ function parseSyncBody(body: unknown): {
     page_token?: string;
     query?: string;
     persist_normalized?: boolean;
+    materialize_conversation?: boolean;
     label_ids?: string[];
   } = {};
 
@@ -136,6 +139,10 @@ function parseSyncBody(body: unknown): {
 
   if (parsed.data.persist_normalized !== undefined) {
     result.persist_normalized = parsed.data.persist_normalized;
+  }
+
+  if (parsed.data.materialize_conversation !== undefined) {
+    result.materialize_conversation = parsed.data.materialize_conversation;
   }
 
   if (parsed.data.label_ids !== undefined) {
@@ -283,6 +290,9 @@ export async function registerGmailIntegrationRoutes(
           ...(body.query !== undefined ? { query: body.query } : {}),
           ...(body.persist_normalized !== undefined
             ? { persistNormalized: body.persist_normalized }
+            : {}),
+          ...(body.materialize_conversation !== undefined
+            ? { materializeConversation: body.materialize_conversation }
             : {}),
           ...(body.label_ids !== undefined ? { labelIds: body.label_ids } : {}),
         });

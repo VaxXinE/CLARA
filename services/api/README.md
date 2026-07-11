@@ -48,7 +48,8 @@ Gmail inbound sync notes:
 manual orchestration only
 bounded fetch + safe summary only
 optional persist_normalized mode persists sanitized Gmail inbound envelopes only
-does not create customers, conversations, activities, AI drafts, or replies
+optional materialize_conversation mode reuses the existing inbound email persistence path to create scoped customer/conversation/message/activity records
+does not create AI drafts or outbound replies
 ```
 
 ## Current Endpoints

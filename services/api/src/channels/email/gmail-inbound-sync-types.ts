@@ -25,6 +25,7 @@ export type GmailInboundSyncResultDto = {
   fetched_count: number;
   normalized_count: number;
   persisted_count: number;
+  materialized_count: number;
   skipped_count: number;
   failed_count: number;
   next_page_token?: string;
@@ -41,5 +42,6 @@ export type GmailInboundSyncInput = {
   query?: string;
   labelIds?: string[];
   persistNormalized?: boolean;
+  materializeConversation?: boolean;
   now?: Date;
 };

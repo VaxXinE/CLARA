@@ -26,6 +26,7 @@ Scope PR ini hanya mencakup:
 - snippet sebagai text preview aman,
 - metadata thread dan label yang aman,
 - hook opsional untuk persist envelope yang sudah dinormalisasi.
+- hook opsional untuk materialize envelope ke domain record CLARA yang sudah ada.
 
 PR ini tidak mencakup:
 
@@ -80,5 +81,6 @@ tidak boleh menyimpan access token atau refresh token
 tidak boleh menyimpan Authorization header
 header harus allowlist only
 snippet boleh dipakai sebagai text preview aman
-persist hook Gmail tidak boleh diam-diam membuat customer/conversation/activity di PR ini
+persist hook Gmail tidak boleh menyimpan raw payload atau token
+materialization hook Gmail hanya boleh reuse scoped inbound email persistence path yang sudah ada
 ```

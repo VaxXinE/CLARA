@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import type { GmailInboundMessageDto } from "../src/channels/email/gmail-inbound-message-fetch-types";
 import { FixtureGmailProviderAccountRepository } from "../src/channels/email/gmail-provider-account-repository";
+import type { EmailInboundMaterializer } from "../src/channels/email/email-inbound-materialization-types";
 import { GmailMessageNormalizationService } from "../src/channels/email/gmail-message-normalization-service";
 import type { GmailNormalizedInboundEmailPersister } from "../src/channels/email/gmail-message-normalization-types";
 import {
@@ -94,6 +95,7 @@ describe("GmailInboundSyncService", () => {
       fetched_count: 2,
       normalized_count: 0,
       persisted_count: 0,
+      materialized_count: 0,
       skipped_count: 0,
       failed_count: 0,
       next_page_token: "page_2",
@@ -135,6 +137,7 @@ describe("GmailInboundSyncService", () => {
       fetched_count: 0,
       normalized_count: 0,
       persisted_count: 0,
+      materialized_count: 0,
       skipped_count: 0,
       failed_count: 0,
     });
@@ -198,6 +201,7 @@ describe("GmailInboundSyncService", () => {
       fetched_count: 1,
       normalized_count: 0,
       persisted_count: 0,
+      materialized_count: 0,
       failed_count: 1,
       reason_code: "message_fetch_failed",
     });
@@ -232,12 +236,13 @@ describe("GmailInboundSyncService", () => {
       fetched_count: 0,
       normalized_count: 0,
       persisted_count: 0,
+      materialized_count: 0,
       failed_count: 0,
       reason_code: "provider_fetch_failed",
     });
   });
 
-  it("can normalize and persist sanitized inbound envelopes without creating business entities", async () => {
+  it("can normalize, persist, and materialize safely with duplicate skips counted once per item", async () => {
     const accounts = await createScopedAccount();
     const persistedEnvelopes: unknown[] = [];
     const persistence: GmailNormalizedInboundEmailPersister = {
@@ -248,6 +253,14 @@ describe("GmailInboundSyncService", () => {
           alreadyProcessed: envelope.provider_message_id === "msg_duplicate",
         };
       }),
+    };
+    const materialization: EmailInboundMaterializer = {
+      materialize: vi.fn(async ({ envelope }) => ({
+        customerId: "cust_demo",
+        conversationId: "conv_demo",
+        activityId: "act_demo",
+        alreadyProcessed: envelope.provider_message_id === "msg_duplicate",
+      })),
     };
     const service = new GmailInboundSyncService(
       accounts,
@@ -318,6 +331,7 @@ describe("GmailInboundSyncService", () => {
       {
         normalization: new GmailMessageNormalizationService(),
         persistence,
+        materialization,
       },
     );
 
@@ -326,6 +340,7 @@ describe("GmailInboundSyncService", () => {
       workspaceId: "wks_demo_sales",
       providerAccountId: "gmail_account_demo",
       persistNormalized: true,
+      materializeConversation: true,
       now: new Date("2026-07-10T12:00:00.000Z"),
     });
 
@@ -334,6 +349,7 @@ describe("GmailInboundSyncService", () => {
       fetched_count: 2,
       normalized_count: 2,
       persisted_count: 1,
+      materialized_count: 1,
       skipped_count: 1,
       failed_count: 0,
     });
@@ -344,5 +360,6 @@ describe("GmailInboundSyncService", () => {
     expect(JSON.stringify(persistedEnvelopes)).not.toContain("attachment data");
     expect(JSON.stringify(persistedEnvelopes)).not.toContain("conversationId");
     expect(JSON.stringify(persistedEnvelopes)).not.toContain("customerId");
+    expect(materialization.materialize).toHaveBeenCalledTimes(2);
   });
 });
