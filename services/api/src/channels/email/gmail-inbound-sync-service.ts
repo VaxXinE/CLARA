@@ -13,7 +13,7 @@ import type {
 } from "./gmail-inbound-sync-types";
 
 const DEFAULT_SYNC_MAX_MESSAGES = 10;
-const SYNC_MAX_MESSAGES_LIMIT = 25;
+export const GMAIL_INBOUND_SYNC_MAX_MESSAGES_LIMIT = 25;
 
 export type GmailConnectionHealthChecker = Pick<
   GmailConnectionHealthService,
@@ -25,12 +25,17 @@ export type GmailInboundMessageFetcher = Pick<
   "listMessages" | "getMessage"
 >;
 
-function clampMaxMessages(value: number | undefined): number {
+export function clampGmailInboundSyncMaxMessages(
+  value: number | undefined,
+): number {
   if (value === undefined || !Number.isFinite(value)) {
     return DEFAULT_SYNC_MAX_MESSAGES;
   }
 
-  return Math.min(Math.max(Math.trunc(value), 1), SYNC_MAX_MESSAGES_LIMIT);
+  return Math.min(
+    Math.max(Math.trunc(value), 1),
+    GMAIL_INBOUND_SYNC_MAX_MESSAGES_LIMIT,
+  );
 }
 
 function toSyncStateDto(state: {
@@ -157,7 +162,7 @@ export class GmailInboundSyncService {
         organizationId: scope.organizationId,
         workspaceId: scope.workspaceId,
         accountId: account.id,
-        maxResults: clampMaxMessages(input.maxMessages),
+        maxResults: clampGmailInboundSyncMaxMessages(input.maxMessages),
         ...(input.pageToken ? { pageToken: input.pageToken } : {}),
         ...(input.query ? { query: input.query } : {}),
         ...(input.labelIds ? { labelIds: input.labelIds } : {}),
