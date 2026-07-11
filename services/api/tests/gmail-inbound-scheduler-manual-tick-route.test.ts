@@ -40,6 +40,7 @@ function tickResult(
 
 describe("POST /api/v1/integrations/gmail/scheduler/tick", () => {
   it("requires auth and blocks viewer", async () => {
+    const recordGmailSchedulerOperatorAction = vi.fn(async () => true);
     const scheduler = {
       getStatus: () => ({
         scheduler_enabled: true,
@@ -53,6 +54,9 @@ describe("POST /api/v1/integrations/gmail/scheduler/tick", () => {
     const app = await createServer({
       env: testEnv,
       gmailInboundSyncSchedulerStatus: scheduler,
+      gmailSchedulerAuditLogService: {
+        recordGmailSchedulerOperatorAction,
+      },
     });
 
     const unauthenticated = await app.inject({
@@ -70,9 +74,11 @@ describe("POST /api/v1/integrations/gmail/scheduler/tick", () => {
     expect(unauthenticated.statusCode).toBe(401);
     expect(viewer.statusCode).toBe(403);
     expect(scheduler.tickNow).not.toHaveBeenCalled();
+    expect(recordGmailSchedulerOperatorAction).not.toHaveBeenCalled();
   });
 
   it("allows agent to trigger one safe manual tick without lifecycle start", async () => {
+    const recordGmailSchedulerOperatorAction = vi.fn(async () => true);
     const scheduler = {
       start: vi.fn(() => true),
       getStatus: () => ({
@@ -87,6 +93,9 @@ describe("POST /api/v1/integrations/gmail/scheduler/tick", () => {
     const app = await createServer({
       env: testEnv,
       gmailInboundSyncSchedulerStatus: scheduler,
+      gmailSchedulerAuditLogService: {
+        recordGmailSchedulerOperatorAction,
+      },
     });
 
     const response = await app.inject({
@@ -103,11 +112,28 @@ describe("POST /api/v1/integrations/gmail/scheduler/tick", () => {
     expect(response.statusCode).toBe(200);
     expect(scheduler.start).not.toHaveBeenCalled();
     expect(scheduler.tickNow).toHaveBeenCalledTimes(1);
+    expect(recordGmailSchedulerOperatorAction).toHaveBeenCalledWith(
+      expect.objectContaining({
+        action: "gmail.scheduler.tick_requested",
+        status: "requested",
+      }),
+    );
+    expect(recordGmailSchedulerOperatorAction).toHaveBeenCalledWith(
+      expect.objectContaining({
+        action: "gmail.scheduler.tick_completed",
+        status: "completed",
+        checkedAccountCount: 1,
+        scheduledJobCount: 1,
+        skippedCount: 0,
+        failedCount: 0,
+      }),
+    );
     expect(body).toMatchObject({
       data: {
         status: "completed",
         checked_account_count: 1,
         scheduled_job_count: 1,
+        correlation_id: expect.any(String),
         scheduler_running: false,
       },
     });
@@ -161,6 +187,7 @@ describe("POST /api/v1/integrations/gmail/scheduler/tick", () => {
   });
 
   it("returns disabled and skipped summaries safely", async () => {
+    const recordGmailSchedulerOperatorAction = vi.fn(async () => true);
     const scheduler = {
       getStatus: () => ({
         scheduler_enabled: false,
@@ -183,6 +210,9 @@ describe("POST /api/v1/integrations/gmail/scheduler/tick", () => {
     const app = await createServer({
       env: testEnv,
       gmailInboundSyncSchedulerStatus: scheduler,
+      gmailSchedulerAuditLogService: {
+        recordGmailSchedulerOperatorAction,
+      },
     });
 
     const disabled = await app.inject({
@@ -210,6 +240,63 @@ describe("POST /api/v1/integrations/gmail/scheduler/tick", () => {
         reason_code: "tick_already_running",
       },
     });
+    expect(recordGmailSchedulerOperatorAction).toHaveBeenCalledWith(
+      expect.objectContaining({
+        action: "gmail.scheduler.tick_disabled",
+        status: "disabled",
+        reasonCode: "runtime_disabled",
+      }),
+    );
+    expect(recordGmailSchedulerOperatorAction).toHaveBeenCalledWith(
+      expect.objectContaining({
+        action: "gmail.scheduler.tick_skipped",
+        status: "skipped",
+        reasonCode: "tick_already_running",
+      }),
+    );
+  });
+
+  it("applies existing global rate limit guard to manual tick", async () => {
+    const app = await createServer({
+      env: loadEnv({
+        NODE_ENV: "test",
+        APP_NAME: "clara-api-test",
+        HOST: "127.0.0.1",
+        PORT: "3000",
+        LOG_LEVEL: "silent",
+        CORS_ORIGIN: "",
+        RATE_LIMIT_ENABLED: "true",
+        RATE_LIMIT_MAX: "1",
+        RATE_LIMIT_WINDOW_MS: "60000",
+      }),
+      gmailInboundSyncSchedulerStatus: {
+        getStatus: () => ({
+          scheduler_enabled: true,
+          scheduler_running: false,
+          interval_ms: 300000,
+          max_accounts_per_tick: 10,
+          max_messages_per_account: 25,
+        }),
+        tickNow: vi.fn(async () => tickResult()),
+      },
+    });
+
+    const first = await app.inject({
+      method: "POST",
+      url: "/api/v1/integrations/gmail/scheduler/tick",
+      headers: authHeaders("agent"),
+    });
+    const second = await app.inject({
+      method: "POST",
+      url: "/api/v1/integrations/gmail/scheduler/tick",
+      headers: authHeaders("agent"),
+    });
+
+    await app.close();
+
+    expect(first.statusCode).toBe(200);
+    expect(second.statusCode).toBe(429);
+    expect(JSON.stringify(second.json())).not.toContain("Authorization");
   });
 
   it("passes clamped manual limits to the runtime scheduler", async () => {

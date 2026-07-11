@@ -106,4 +106,48 @@ describe("AuditLogService", () => {
       correlationId: "corr_demo_003",
     });
   });
+
+  it("records safe Gmail scheduler operator metadata", async () => {
+    const create = vi.fn(async () => undefined);
+    const service = new AuditLogService({
+      create,
+    } satisfies AuditLogRepository);
+
+    await service.recordGmailSchedulerOperatorAction({
+      auth: createAuth("owner"),
+      correlationId: "corr_demo_scheduler",
+      action: "gmail.scheduler.tick_completed",
+      status: "completed",
+      checkedAccountCount: 2,
+      scheduledJobCount: 1,
+      skippedCount: 1,
+      failedCount: 0,
+    });
+
+    expect(create).toHaveBeenCalledWith({
+      organizationId: "org_demo",
+      workspaceId: "wks_demo_sales",
+      actorUserId: "usr_demo_agent",
+      actorRole: "owner",
+      action: "gmail.scheduler.tick_completed",
+      resourceType: "gmail_scheduler",
+      resourceId: "gmail_inbound_scheduler",
+      outcome: "success",
+      metadata: {
+        provider: "gmail",
+        status: "completed",
+        checked_account_count: 2,
+        scheduled_job_count: 1,
+        skipped_count: 1,
+        failed_count: 0,
+      },
+      correlationId: "corr_demo_scheduler",
+    });
+
+    expect(JSON.stringify(create.mock.calls)).not.toContain("access_token");
+    expect(JSON.stringify(create.mock.calls)).not.toContain("refresh_token");
+    expect(JSON.stringify(create.mock.calls)).not.toContain("Authorization");
+    expect(JSON.stringify(create.mock.calls)).not.toContain("raw Gmail");
+    expect(JSON.stringify(create.mock.calls)).not.toContain("client_secret");
+  });
 });

@@ -8,6 +8,7 @@ last_updated: "2026-07-11"
 classification: "product-spec"
 related_documents:
   - "./CLARA-P3-GMAIL-SCHEDULER-OPERATOR-STATUS-SPEC.md"
+  - "./CLARA-P3-GMAIL-SCHEDULER-OPERATOR-HARDENING-SPEC.md"
   - "./CLARA-P3-GMAIL-INBOUND-SYNC-SCHEDULER-RUNTIME-BOUNDARY-SPEC.md"
   - "../../services/api/README.md"
 ---
@@ -43,6 +44,14 @@ POST /api/v1/integrations/gmail/scheduler/tick
 
 Values are clamped by the runtime and scheduler boundaries.
 
+## Rate Limit / Abuse Guard
+
+Manual tick uses CLARA's existing global rate limit guard and the scheduler runtime's overlapping tick protection.
+
+- Repeated requests can return safe `429` rate-limit errors.
+- If another tick is already running, the runtime returns a safe skipped result with `tick_already_running`.
+- Neither response includes token material, Authorization headers, raw Gmail payloads, or provider raw errors.
+
 ## Safe Response Fields
 
 ```text
@@ -55,7 +64,20 @@ started_at
 finished_at
 reason_code
 scheduler_running
+correlation_id
 ```
+
+## Audit Behavior
+
+When audit logging is wired, the route records:
+
+- `gmail.scheduler.tick_requested`
+- `gmail.scheduler.tick_completed`
+- `gmail.scheduler.tick_disabled`
+- `gmail.scheduler.tick_skipped`
+- `gmail.scheduler.tick_failed`
+
+Metadata is allowlisted and contains only provider, status, reason code, safe counters, actor, organization, workspace, and correlation ID.
 
 ## Forbidden Response Data
 

@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { loadEnv } from "../src/config/env";
 import { createServer } from "../src/http/server";
 import type { GmailInboundSyncSchedulerRuntimeStatusDto } from "../src/channels/email/gmail-inbound-sync-scheduler-runtime-types";
@@ -59,6 +59,7 @@ describe("GET /api/v1/integrations/gmail/scheduler/status", () => {
   });
 
   it("allows agent to read disabled scheduler status safely", async () => {
+    const recordGmailSchedulerOperatorAction = vi.fn(async () => true);
     const app = await createServer({
       env: testEnv,
       gmailInboundSyncSchedulerStatus: createStatusService({
@@ -69,6 +70,9 @@ describe("GET /api/v1/integrations/gmail/scheduler/status", () => {
         max_messages_per_account: 25,
         last_reason_code: "runtime_disabled",
       }),
+      gmailSchedulerAuditLogService: {
+        recordGmailSchedulerOperatorAction,
+      },
     });
 
     const response = await app.inject({
@@ -80,6 +84,14 @@ describe("GET /api/v1/integrations/gmail/scheduler/status", () => {
     await app.close();
 
     expect(response.statusCode).toBe(200);
+    expect(recordGmailSchedulerOperatorAction).toHaveBeenCalledWith(
+      expect.objectContaining({
+        correlationId: expect.any(String),
+        action: "gmail.scheduler.status_read",
+        status: "not_running",
+        reasonCode: "runtime_disabled",
+      }),
+    );
     expect(response.json()).toEqual({
       data: {
         scheduler_enabled: false,
@@ -93,6 +105,7 @@ describe("GET /api/v1/integrations/gmail/scheduler/status", () => {
   });
 
   it("allows owner to read enabled scheduler status safely", async () => {
+    const recordGmailSchedulerOperatorAction = vi.fn(async () => true);
     const app = await createServer({
       env: testEnv,
       gmailInboundSyncSchedulerStatus: createStatusService({
@@ -106,6 +119,9 @@ describe("GET /api/v1/integrations/gmail/scheduler/status", () => {
         last_tick_finished_at: "2026-07-11T11:01:00.000Z",
         last_tick_status: "completed",
       }),
+      gmailSchedulerAuditLogService: {
+        recordGmailSchedulerOperatorAction,
+      },
     });
 
     const response = await app.inject({
@@ -120,6 +136,12 @@ describe("GET /api/v1/integrations/gmail/scheduler/status", () => {
     const serialized = JSON.stringify(body);
 
     expect(response.statusCode).toBe(200);
+    expect(recordGmailSchedulerOperatorAction).toHaveBeenCalledWith(
+      expect.objectContaining({
+        action: "gmail.scheduler.status_read",
+        status: "running",
+      }),
+    );
     expect(body).toMatchObject({
       data: {
         scheduler_enabled: true,
@@ -136,5 +158,45 @@ describe("GET /api/v1/integrations/gmail/scheduler/status", () => {
     expect(serialized).not.toContain("raw Gmail");
     expect(serialized).not.toContain("provider_raw_error");
     expect(serialized).not.toContain("client_secret");
+  });
+
+  it("applies existing global rate limit guard to status reads", async () => {
+    const app = await createServer({
+      env: loadEnv({
+        NODE_ENV: "test",
+        APP_NAME: "clara-api-test",
+        HOST: "127.0.0.1",
+        PORT: "3000",
+        LOG_LEVEL: "silent",
+        CORS_ORIGIN: "",
+        RATE_LIMIT_ENABLED: "true",
+        RATE_LIMIT_MAX: "1",
+        RATE_LIMIT_WINDOW_MS: "60000",
+      }),
+      gmailInboundSyncSchedulerStatus: createStatusService({
+        scheduler_enabled: true,
+        scheduler_running: false,
+        interval_ms: 300000,
+        max_accounts_per_tick: 10,
+        max_messages_per_account: 25,
+      }),
+    });
+
+    const first = await app.inject({
+      method: "GET",
+      url: "/api/v1/integrations/gmail/scheduler/status",
+      headers: authHeaders("agent"),
+    });
+    const second = await app.inject({
+      method: "GET",
+      url: "/api/v1/integrations/gmail/scheduler/status",
+      headers: authHeaders("agent"),
+    });
+
+    await app.close();
+
+    expect(first.statusCode).toBe(200);
+    expect(second.statusCode).toBe(429);
+    expect(JSON.stringify(second.json())).not.toContain("Authorization");
   });
 });

@@ -9,6 +9,7 @@ classification: "product-spec"
 related_documents:
   - "./CLARA-P3-GMAIL-INBOUND-SCHEDULER-LIFECYCLE-SPEC.md"
   - "./CLARA-P3-GMAIL-INBOUND-SYNC-SCHEDULER-RUNTIME-BOUNDARY-SPEC.md"
+  - "./CLARA-P3-GMAIL-SCHEDULER-OPERATOR-HARDENING-SPEC.md"
   - "./CLARA-P3-GMAIL-SCHEDULER-MANUAL-TICK-SPEC.md"
   - "../../services/api/README.md"
 ---
@@ -50,6 +51,10 @@ last_reason_code
 ```
 
 Optional fields may be omitted when no lifecycle or tick has occurred yet.
+
+## Audit Behavior
+
+When audit logging is wired, status reads record `gmail.scheduler.status_read` with safe provider/status/reason metadata only.
 
 ## Forbidden Response Data
 
