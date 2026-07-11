@@ -31,6 +31,7 @@ token refresh boundary exists for internal/server-side use only
 connection health check exists for provider-management checks
 inbound Gmail message fetch boundary exists for safe list/get operations only
 inbound Gmail sync orchestrator exists for bounded manual sync summaries and optional normalized-envelope persistence
+internal Gmail inbound smoke harness exists for offline verification when explicitly wired
 no background refresh scheduler or outbound Gmail send yet
 ```
 
@@ -52,6 +53,15 @@ optional materialize_conversation mode reuses the existing inbound email persist
 does not create AI drafts or outbound replies
 ```
 
+Gmail inbound smoke notes:
+
+```text
+internal/test-only route pattern
+uses mocked Gmail data only
+forces normalized persistence + conversation materialization
+does not call real Google/Gmail network endpoints
+```
+
 ## Current Endpoints
 
 ```text
@@ -70,6 +80,7 @@ POST /api/v1/integrations/gmail/oauth/connect
 GET /api/v1/integrations/gmail/oauth/callback
 GET /api/v1/integrations/gmail/accounts/:providerAccountId/health
 POST /api/v1/integrations/gmail/accounts/:providerAccountId/sync
+POST /api/v1/integrations/gmail/accounts/:providerAccountId/inbound-smoke
 ```
 
 ## Local Setup

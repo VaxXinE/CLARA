@@ -26,6 +26,7 @@ Scope PR ini hanya mencakup:
 - create inbound message dan activity secara aman,
 - idempotency by scoped provider message id,
 - trigger opsional dari Gmail sync manual.
+- trigger opsional dari Gmail inbound internal smoke.
 
 PR ini tidak mencakup:
 
