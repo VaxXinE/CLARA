@@ -47,11 +47,14 @@ export function sanitizeEmailOutboundDeliveryMetadata(
 ): EmailOutboundDeliveryMetadata {
   const safeMetadata: EmailOutboundDeliveryMetadata = {};
 
-  if (metadata?.source === "email_reply_adapter") {
+  if (
+    metadata?.source === "email_reply_adapter" ||
+    metadata?.source === "gmail_outbound_send"
+  ) {
     safeMetadata.source = metadata.source;
   }
 
-  if (metadata?.transport === "simulated") {
+  if (metadata?.transport === "simulated" || metadata?.transport === "gmail") {
     safeMetadata.transport = metadata.transport;
   }
 

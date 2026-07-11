@@ -10,6 +10,8 @@ describe("Gmail outbound send client boundary", () => {
       workspaceId: "wks_demo_sales",
       providerAccountId: "gmail_account_demo",
       to: ["customer@example.test"],
+      cc: [],
+      bcc: [],
       subject: "Follow up",
       textBody: "Safe reply body",
       conversationId: "conv_demo_001",

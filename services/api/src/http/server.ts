@@ -29,6 +29,7 @@ import type { GmailConnectionHealthService } from "../channels/email/gmail-conne
 import type { GmailInboundE2ESmokeService } from "../channels/email/gmail-inbound-e2e-smoke-service";
 import type { GmailInboundSyncService } from "../channels/email/gmail-inbound-sync-service";
 import type { GmailInboundSyncSchedulerRuntimeService } from "../channels/email/gmail-inbound-sync-scheduler-runtime-service";
+import type { GmailOutboundSendService } from "../channels/email/gmail-outbound-send-service";
 import type { AuditLogService } from "../audit/audit-log-service";
 import { registerGmailIntegrationRoutes } from "./routes/gmail-integrations";
 
@@ -42,6 +43,7 @@ export type CreateServerOptions = {
   gmailConnectionHealthService?: GmailConnectionHealthService;
   gmailInboundSyncService?: Pick<GmailInboundSyncService, "syncMessages">;
   gmailInboundE2ESmokeService?: Pick<GmailInboundE2ESmokeService, "runSmoke">;
+  gmailOutboundSendService?: Pick<GmailOutboundSendService, "send">;
   gmailInboundSyncSchedulerRuntime?: Pick<
     GmailInboundSyncSchedulerRuntimeService,
     "start" | "stop" | "isRunning" | "getStatus" | "tickNow"
@@ -130,6 +132,7 @@ export async function createServer(
     options.gmailConnectionHealthService ||
     options.gmailInboundSyncService ||
     options.gmailInboundE2ESmokeService ||
+    options.gmailOutboundSendService ||
     options.gmailInboundSyncSchedulerStatus ||
     options.gmailInboundSyncSchedulerRuntime
   ) {
@@ -142,6 +145,7 @@ export async function createServer(
       scheduler?: Pick<GmailInboundSyncSchedulerRuntimeService, "getStatus"> &
         Partial<Pick<GmailInboundSyncSchedulerRuntimeService, "tickNow">>;
       auditLogs?: Pick<AuditLogService, "recordGmailSchedulerOperatorAction">;
+      outboundSend?: Pick<GmailOutboundSendService, "send">;
     } = {};
 
     if (options.gmailOAuthConnectService) {
@@ -163,6 +167,10 @@ export async function createServer(
     if (options.gmailInboundE2ESmokeService) {
       gmailIntegrationServices.inboundSmoke =
         options.gmailInboundE2ESmokeService;
+    }
+
+    if (options.gmailOutboundSendService) {
+      gmailIntegrationServices.outboundSend = options.gmailOutboundSendService;
     }
 
     const schedulerStatus =

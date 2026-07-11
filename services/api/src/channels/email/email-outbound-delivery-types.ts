@@ -3,8 +3,8 @@ import type { EmailReplyResult } from "./email-reply-types";
 export type EmailOutboundDeliveryStatus = "simulated" | "sent" | "failed";
 
 export type EmailOutboundDeliveryMetadata = {
-  source?: "email_reply_adapter";
-  transport?: "simulated";
+  source?: "email_reply_adapter" | "gmail_outbound_send";
+  transport?: "simulated" | "gmail";
 };
 
 export type RecordEmailOutboundDeliveryScope = {
@@ -88,6 +88,24 @@ export type RecordFailedEmailReplyDeliveryInput = {
   provider: string;
   providerMessageId?: string | null | undefined;
   providerThreadId?: string | null | undefined;
+  idempotencyKey?: string | null | undefined;
+  failureCode: string;
+};
+
+export type RecordGmailOutboundSendResultInput = {
+  scope: RecordEmailOutboundDeliveryScope;
+  conversationId: string;
+  actorUserId: string;
+  providerMessageId: string;
+  idempotencyKey?: string | null | undefined;
+  status: "simulated" | "sent";
+  sentAt: Date;
+};
+
+export type RecordFailedGmailOutboundSendInput = {
+  scope: RecordEmailOutboundDeliveryScope;
+  conversationId: string;
+  actorUserId: string;
   idempotencyKey?: string | null | undefined;
   failureCode: string;
 };

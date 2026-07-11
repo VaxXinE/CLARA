@@ -16,6 +16,8 @@ export type GmailOutboundSendMessageInput = {
   providerAccountId: string;
   conversationId?: string | null;
   to: string[];
+  cc?: string[];
+  bcc?: string[];
   subject?: string | null;
   textBody: string;
   idempotencyKey?: string | null;
@@ -34,6 +36,7 @@ export type GmailOutboundSendResultDto = {
   status: "queued" | "sent" | "skipped" | "failed" | "simulated";
   provider: "gmail";
   provider_message_id?: string;
+  outbound_delivery_id?: string;
   reason_code?: GmailOutboundSendReasonCode;
   sent_at?: string;
   correlation_id?: string;

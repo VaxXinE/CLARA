@@ -3,6 +3,8 @@ export type GmailOutboundSendClientCommand = {
   workspaceId: string;
   providerAccountId: string;
   to: string[];
+  cc: string[];
+  bcc: string[];
   subject: string;
   textBody: string;
   conversationId: string | null;
