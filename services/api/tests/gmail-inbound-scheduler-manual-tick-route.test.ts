@@ -256,7 +256,7 @@ describe("POST /api/v1/integrations/gmail/scheduler/tick", () => {
     );
   });
 
-  it("returns safe 429 from existing request guard when throttled", async () => {
+  it("applies existing global rate limit guard to manual tick", async () => {
     const app = await createServer({
       env: loadEnv({
         NODE_ENV: "test",

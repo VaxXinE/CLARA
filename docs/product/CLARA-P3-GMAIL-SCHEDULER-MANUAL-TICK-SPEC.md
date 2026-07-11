@@ -44,6 +44,14 @@ POST /api/v1/integrations/gmail/scheduler/tick
 
 Values are clamped by the runtime and scheduler boundaries.
 
+## Rate Limit / Abuse Guard
+
+Manual tick uses CLARA's existing global rate limit guard and the scheduler runtime's overlapping tick protection.
+
+- Repeated requests can return safe `429` rate-limit errors.
+- If another tick is already running, the runtime returns a safe skipped result with `tick_already_running`.
+- Neither response includes token material, Authorization headers, raw Gmail payloads, or provider raw errors.
+
 ## Safe Response Fields
 
 ```text

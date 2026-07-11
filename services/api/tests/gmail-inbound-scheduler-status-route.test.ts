@@ -159,4 +159,44 @@ describe("GET /api/v1/integrations/gmail/scheduler/status", () => {
     expect(serialized).not.toContain("provider_raw_error");
     expect(serialized).not.toContain("client_secret");
   });
+
+  it("applies existing global rate limit guard to status reads", async () => {
+    const app = await createServer({
+      env: loadEnv({
+        NODE_ENV: "test",
+        APP_NAME: "clara-api-test",
+        HOST: "127.0.0.1",
+        PORT: "3000",
+        LOG_LEVEL: "silent",
+        CORS_ORIGIN: "",
+        RATE_LIMIT_ENABLED: "true",
+        RATE_LIMIT_MAX: "1",
+        RATE_LIMIT_WINDOW_MS: "60000",
+      }),
+      gmailInboundSyncSchedulerStatus: createStatusService({
+        scheduler_enabled: true,
+        scheduler_running: false,
+        interval_ms: 300000,
+        max_accounts_per_tick: 10,
+        max_messages_per_account: 25,
+      }),
+    });
+
+    const first = await app.inject({
+      method: "GET",
+      url: "/api/v1/integrations/gmail/scheduler/status",
+      headers: authHeaders("agent"),
+    });
+    const second = await app.inject({
+      method: "GET",
+      url: "/api/v1/integrations/gmail/scheduler/status",
+      headers: authHeaders("agent"),
+    });
+
+    await app.close();
+
+    expect(first.statusCode).toBe(200);
+    expect(second.statusCode).toBe(429);
+    expect(JSON.stringify(second.json())).not.toContain("Authorization");
+  });
 });

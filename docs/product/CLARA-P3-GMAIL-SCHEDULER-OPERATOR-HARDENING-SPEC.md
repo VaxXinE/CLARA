@@ -51,6 +51,15 @@ failed_count
 correlation_id
 ```
 
+## Rate Limit / Abuse Guard
+
+Scheduler operator routes use the existing CLARA global rate limit guard.
+
+- `GET /api/v1/integrations/gmail/scheduler/status` is rate-limited like other API requests.
+- `POST /api/v1/integrations/gmail/scheduler/tick` is rate-limited and still uses runtime overlap protection for already-running ticks.
+- Throttled requests return the standard safe `429` error envelope.
+- Rate-limit responses must not include tokens, Authorization headers, raw Gmail payloads, or provider raw errors.
+
 ## Production Smoke Guidance
 
 1. Confirm scheduler is disabled by default with the status route.
