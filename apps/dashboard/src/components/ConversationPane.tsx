@@ -1,5 +1,6 @@
 import type { ConversationDetail } from "../api/types";
 import { ComposerPanel } from "./ComposerPanel";
+import { ConversationSourceBadge } from "./ConversationSourceBadge";
 
 type ConversationPaneProps = {
   conversation: ConversationDetail | null;
@@ -74,7 +75,12 @@ export function ConversationPane(props: ConversationPaneProps) {
     <section className="panel thread-panel">
       <header className="panel-heading">
         <div>
-          <p className="eyebrow">{props.conversation.source}</p>
+          <p className="eyebrow">
+            <ConversationSourceBadge
+              source={props.conversation.source}
+              provider={props.conversation.provider}
+            />
+          </p>
           <h2>{props.conversation.customer.display_name}</h2>
         </div>
         <div className="thread-header-meta">

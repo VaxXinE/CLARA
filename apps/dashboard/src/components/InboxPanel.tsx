@@ -1,4 +1,5 @@
 import type { ConversationSummary } from "../api/types";
+import { ConversationSourceBadge } from "./ConversationSourceBadge";
 
 type InboxPanelProps = {
   conversations: ConversationSummary[];
@@ -96,8 +97,11 @@ export function InboxPanel(props: InboxPanelProps) {
                 <span className="badge">{conversation.status}</span>
               </div>
               <p className="conversation-meta">
-                {conversation.source} ·{" "}
-                {formatTimestamp(conversation.last_message_at)}
+                <ConversationSourceBadge
+                  source={conversation.source}
+                  provider={conversation.provider}
+                />{" "}
+                · {formatTimestamp(conversation.last_message_at)}
               </p>
               <p className="conversation-snippet">
                 {conversation.snippet ?? "No message preview available."}

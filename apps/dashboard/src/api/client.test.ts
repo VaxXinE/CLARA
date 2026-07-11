@@ -127,4 +127,36 @@ describe("ApiClient auth headers", () => {
 
     expect(headers.authorization).toBeUndefined();
   });
+
+  it("loads Gmail scheduler status safely", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        data: {
+          scheduler_enabled: false,
+          scheduler_running: false,
+          interval_ms: 300000,
+          max_accounts_per_tick: 10,
+          max_messages_per_account: 25,
+          last_reason_code: "runtime_disabled",
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({
+      baseUrl: "http://127.0.0.1:3000",
+    });
+
+    const response = await client.getGmailSchedulerStatus();
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/integrations/gmail/scheduler/status",
+      expect.any(Object),
+    );
+    expect(response.data).toMatchObject({
+      scheduler_enabled: false,
+      last_reason_code: "runtime_disabled",
+    });
+    expect(JSON.stringify(response)).not.toContain("access_token");
+    expect(JSON.stringify(response)).not.toContain("refresh_token");
+  });
 });
