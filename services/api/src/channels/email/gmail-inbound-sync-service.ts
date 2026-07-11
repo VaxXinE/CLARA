@@ -33,6 +33,27 @@ function clampMaxMessages(value: number | undefined): number {
   return Math.min(Math.max(Math.trunc(value), 1), SYNC_MAX_MESSAGES_LIMIT);
 }
 
+function toSyncStateDto(state: {
+  lastSyncStatus: "idle" | "running" | "completed" | "partial" | "failed";
+  lastStartedAt: Date | null;
+  lastCompletedAt: Date | null;
+  lastFailedAt: Date | null;
+  lastFailureReasonCode:
+    | "connection_unhealthy"
+    | "provider_fetch_failed"
+    | "message_fetch_failed"
+    | "no_messages"
+    | null;
+}): GmailInboundSyncResultDto["sync_state"] {
+  return {
+    status: state.lastSyncStatus,
+    last_started_at: state.lastStartedAt?.toISOString() ?? null,
+    last_completed_at: state.lastCompletedAt?.toISOString() ?? null,
+    last_failed_at: state.lastFailedAt?.toISOString() ?? null,
+    last_failure_reason_code: state.lastFailureReasonCode,
+  };
+}
+
 export class GmailInboundSyncService {
   constructor(
     private readonly accounts: GmailProviderAccountRepository,
@@ -73,7 +94,7 @@ export class GmailInboundSyncService {
       throw new NotFoundError("Gmail provider account not found.");
     }
 
-    await this.options.state?.markStarted({
+    const startedState = await this.options.state?.markStarted({
       scope,
       providerAccountId: account.id,
       now,
@@ -103,15 +124,28 @@ export class GmailInboundSyncService {
         skipped_count: 0,
         failed_count: 0,
         reason_code: "connection_unhealthy",
+        sync_state: startedState
+          ? toSyncStateDto(startedState)
+          : {
+              status: "failed",
+              last_started_at: now.toISOString(),
+              last_completed_at: null,
+              last_failed_at: now.toISOString(),
+              last_failure_reason_code: "connection_unhealthy",
+            },
         synced_at: now.toISOString(),
       };
 
-      await this.options.state?.markFailed({
+      const failedState = await this.options.state?.markFailed({
         scope,
         providerAccountId: account.id,
         reasonCode: "connection_unhealthy",
         now,
       });
+
+      result.sync_state = failedState
+        ? toSyncStateDto(failedState)
+        : result.sync_state;
 
       return result;
     }
@@ -142,15 +176,28 @@ export class GmailInboundSyncService {
           skipped_count: 0,
           failed_count: 0,
           reason_code: "provider_fetch_failed",
+          sync_state: startedState
+            ? toSyncStateDto(startedState)
+            : {
+                status: "failed",
+                last_started_at: now.toISOString(),
+                last_completed_at: null,
+                last_failed_at: now.toISOString(),
+                last_failure_reason_code: "provider_fetch_failed",
+              },
           synced_at: now.toISOString(),
         };
 
-        await this.options.state?.markFailed({
+        const failedState = await this.options.state?.markFailed({
           scope,
           providerAccountId: account.id,
           reasonCode: "provider_fetch_failed",
           now,
         });
+
+        result.sync_state = failedState
+          ? toSyncStateDto(failedState)
+          : result.sync_state;
 
         return result;
       }
@@ -174,11 +221,21 @@ export class GmailInboundSyncService {
               next_page_token: listed.next_page_token,
             }
           : {}),
+        ...(accountHistoryId ? { last_history_id: accountHistoryId } : {}),
         reason_code: "no_messages",
+        sync_state: startedState
+          ? toSyncStateDto(startedState)
+          : {
+              status: "completed",
+              last_started_at: now.toISOString(),
+              last_completed_at: now.toISOString(),
+              last_failed_at: null,
+              last_failure_reason_code: null,
+            },
         synced_at: now.toISOString(),
       };
 
-      await this.options.state?.markCompleted({
+      const completedState = await this.options.state?.markCompleted({
         scope,
         providerAccountId: account.id,
         counters: {
@@ -191,6 +248,10 @@ export class GmailInboundSyncService {
         lastPageToken: listed.next_page_token ?? null,
         now,
       });
+
+      result.sync_state = completedState
+        ? toSyncStateDto(completedState)
+        : result.sync_state;
 
       return result;
     }
@@ -317,11 +378,22 @@ export class GmailInboundSyncService {
             next_page_token: listed.next_page_token,
           }
         : {}),
+      ...(accountHistoryId ? { last_history_id: accountHistoryId } : {}),
       ...(reasonCode
         ? {
             reason_code: reasonCode,
           }
         : {}),
+      sync_state: startedState
+        ? toSyncStateDto(startedState)
+        : {
+            status,
+            last_started_at: now.toISOString(),
+            last_completed_at: status === "failed" ? null : now.toISOString(),
+            last_failed_at: status === "failed" ? now.toISOString() : null,
+            last_failure_reason_code:
+              status === "failed" ? "message_fetch_failed" : null,
+          },
       synced_at: now.toISOString(),
     };
 
@@ -333,7 +405,7 @@ export class GmailInboundSyncService {
     };
 
     if (status === "completed") {
-      await this.options.state?.markCompleted({
+      const completedState = await this.options.state?.markCompleted({
         scope,
         providerAccountId: account.id,
         counters,
@@ -341,8 +413,11 @@ export class GmailInboundSyncService {
         lastPageToken: listed.next_page_token ?? null,
         now,
       });
+      result.sync_state = completedState
+        ? toSyncStateDto(completedState)
+        : result.sync_state;
     } else if (status === "partial") {
-      await this.options.state?.markPartial({
+      const partialState = await this.options.state?.markPartial({
         scope,
         providerAccountId: account.id,
         counters,
@@ -352,14 +427,20 @@ export class GmailInboundSyncService {
         lastPageToken: listed.next_page_token ?? null,
         now,
       });
+      result.sync_state = partialState
+        ? toSyncStateDto(partialState)
+        : result.sync_state;
     } else {
-      await this.options.state?.markFailed({
+      const failedState = await this.options.state?.markFailed({
         scope,
         providerAccountId: account.id,
         reasonCode: "message_fetch_failed",
         counters,
         now,
       });
+      result.sync_state = failedState
+        ? toSyncStateDto(failedState)
+        : result.sync_state;
     }
 
     return result;

@@ -12,6 +12,7 @@ import type { GmailInboundE2ESmokeService } from "../../channels/email/gmail-inb
 import type { GmailInboundSyncService } from "../../channels/email/gmail-inbound-sync-service";
 
 const safeIdPattern = /^[a-zA-Z0-9._:-]+$/;
+const safePageTokenPattern = /^[A-Za-z0-9._~:/+=-]+$/;
 
 const providerAccountIdSchema = z
   .string()
@@ -85,7 +86,13 @@ function parseConnectBody(body: unknown): {
 const gmailSyncBodySchema = z
   .object({
     max_messages: z.number().int().min(1).max(1000).optional(),
-    page_token: z.string().trim().min(1).max(512).optional(),
+    page_token: z
+      .string()
+      .trim()
+      .min(1)
+      .max(512)
+      .regex(safePageTokenPattern, "Invalid page token.")
+      .optional(),
     query: z.string().trim().min(1).max(256).optional(),
     persist_normalized: z.boolean().optional(),
     materialize_conversation: z.boolean().optional(),
@@ -156,7 +163,13 @@ function parseSyncBody(body: unknown): {
 const gmailInboundSmokeBodySchema = z
   .object({
     max_messages: z.number().int().min(1).max(1000).optional(),
-    page_token: z.string().trim().min(1).max(512).optional(),
+    page_token: z
+      .string()
+      .trim()
+      .min(1)
+      .max(512)
+      .regex(safePageTokenPattern, "Invalid page token.")
+      .optional(),
     query: z.string().trim().min(1).max(256).optional(),
     label_ids: z
       .array(z.string().trim().min(1).max(64))

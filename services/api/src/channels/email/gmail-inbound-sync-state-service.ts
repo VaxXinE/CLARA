@@ -1,4 +1,5 @@
 import type { WorkspaceScope } from "../../workspace/workspace-scope";
+import { ConflictError } from "../../errors/app-error";
 import type { GmailInboundSyncStateRepository } from "./gmail-inbound-sync-state-repository";
 import {
   buildGmailInboundSyncState,
@@ -69,7 +70,11 @@ export class GmailInboundSyncStateService {
     now?: Date;
   }): Promise<GmailInboundSyncState> {
     const now = input.now ?? new Date();
-    await this.getOrCreateForProviderAccount(input);
+    const existing = await this.getOrCreateForProviderAccount(input);
+
+    if (existing.lastSyncStatus === "running") {
+      throw new ConflictError("Gmail inbound sync is already running.");
+    }
 
     return (await this.repository.updateState({
       scope: input.scope,

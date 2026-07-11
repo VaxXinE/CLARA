@@ -52,6 +52,7 @@ bounded fetch + safe summary only
 optional persist_normalized mode persists sanitized Gmail inbound envelopes only
 optional materialize_conversation mode reuses the existing inbound email persistence path to create scoped customer/conversation/message/activity records
 sync state now stores only safe counters, timestamps, last_history_id, and optional last_page_token per scoped provider account
+manual sync route now rejects workspace/org spoofing body fields, validates page_token safely, and returns safe sync_state metadata
 does not create AI drafts or outbound replies
 ```
 

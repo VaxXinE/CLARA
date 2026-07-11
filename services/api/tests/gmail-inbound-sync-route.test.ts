@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
+import { ConflictError, NotFoundError } from "../src/errors/app-error";
 import { loadEnv } from "../src/config/env";
 import { createServer } from "../src/http/server";
 import type { GmailInboundSyncService } from "../src/channels/email/gmail-inbound-sync-service";
@@ -42,7 +43,15 @@ describe("gmail inbound sync route", () => {
         skipped_count: 0,
         failed_count: 0,
         next_page_token: "page_2",
+        last_history_id: "h123",
         reason_code: "sync_completed" as const,
+        sync_state: {
+          status: "completed" as const,
+          last_started_at: "2026-07-10T11:59:00.000Z",
+          last_completed_at: "2026-07-10T12:00:00.000Z",
+          last_failed_at: null,
+          last_failure_reason_code: null,
+        },
         synced_at: "2026-07-10T12:00:00.000Z",
       })),
     };
@@ -101,6 +110,10 @@ describe("gmail inbound sync route", () => {
       normalized_count: 0,
       persisted_count: 0,
       materialized_count: 0,
+      last_history_id: "h123",
+      sync_state: {
+        status: "completed",
+      },
     });
     expect(syncService.syncMessages).toHaveBeenCalledWith({
       organizationId: "org_demo",
@@ -141,5 +154,102 @@ describe("gmail inbound sync route", () => {
     await app.close();
 
     expect(invalid.statusCode).toBe(400);
+  });
+
+  it("rejects unsafe page tokens and body scope spoofing safely", async () => {
+    const syncService: SyncRunner = {
+      syncMessages: vi.fn(),
+    };
+    const app = await createServer({
+      env: testEnv,
+      gmailInboundSyncService: syncService,
+    });
+
+    const unsafeToken = await app.inject({
+      method: "POST",
+      url: "/api/v1/integrations/gmail/accounts/gmail_account_demo/sync",
+      headers: authHeaders({
+        userId: "usr_demo_agent",
+        organizationId: "org_demo",
+        workspaceId: "wks_demo_sales",
+        role: "agent",
+      }),
+      payload: {
+        page_token: "bad token\nvalue",
+      },
+    });
+
+    const spoofedScope = await app.inject({
+      method: "POST",
+      url: "/api/v1/integrations/gmail/accounts/gmail_account_demo/sync",
+      headers: authHeaders({
+        userId: "usr_demo_agent",
+        organizationId: "org_demo",
+        workspaceId: "wks_demo_sales",
+        role: "agent",
+      }),
+      payload: {
+        organization_id: "org_other",
+        workspace_id: "wks_other",
+      },
+    });
+
+    await app.close();
+
+    expect(unsafeToken.statusCode).toBe(400);
+    expect(spoofedScope.statusCode).toBe(400);
+    expect(syncService.syncMessages).not.toHaveBeenCalled();
+  });
+
+  it("returns safe 409 for already-running sync and safe 404 for cross-workspace account access", async () => {
+    const syncService: SyncRunner = {
+      syncMessages: vi
+        .fn()
+        .mockRejectedValueOnce(
+          new ConflictError("Gmail inbound sync is already running."),
+        )
+        .mockRejectedValueOnce(
+          new NotFoundError("Gmail provider account not found."),
+        ),
+    };
+    const app = await createServer({
+      env: testEnv,
+      gmailInboundSyncService: syncService,
+    });
+
+    const conflict = await app.inject({
+      method: "POST",
+      url: "/api/v1/integrations/gmail/accounts/gmail_account_demo/sync",
+      headers: authHeaders({
+        userId: "usr_demo_agent",
+        organizationId: "org_demo",
+        workspaceId: "wks_demo_sales",
+        role: "agent",
+      }),
+      payload: {
+        max_messages: 5,
+      },
+    });
+
+    const notFound = await app.inject({
+      method: "POST",
+      url: "/api/v1/integrations/gmail/accounts/gmail_account_other/sync",
+      headers: authHeaders({
+        userId: "usr_demo_agent",
+        organizationId: "org_demo",
+        workspaceId: "wks_demo_sales",
+        role: "agent",
+      }),
+    });
+
+    await app.close();
+
+    expect(conflict.statusCode).toBe(409);
+    expect(conflict.json()).toMatchObject({
+      error: {
+        message: "Gmail inbound sync is already running.",
+      },
+    });
+    expect(notFound.statusCode).toBe(404);
   });
 });
