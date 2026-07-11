@@ -494,7 +494,7 @@ delivery records store status, provider_message_id when available, and safe reas
 responses and persistence never include access_token, refresh_token, Authorization header, client_secret, raw Gmail payload, or provider raw error body
 this build still uses the simulated Gmail outbound client only and does not call Google/Gmail network endpoints
 the route does not create AI drafts, run inbound sync, or trigger automatic sending from AI output
-route spec: `docs/product/CLARA-P3-GMAIL-OUTBOUND-PERSISTENCE-ROUTE-SPEC.md`
+route spec: `docs/product/CLARA-P3-GMAIL-OUTBOUND-PERSISTENCE-ROUTE-HARDENING-SPEC.md`
 ```
 
 Audit log baseline:
