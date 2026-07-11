@@ -7,6 +7,7 @@ owner: "CLARA Engineering and Security Team"
 last_updated: "2026-07-11"
 classification: "product-spec"
 related_documents:
+  - "./CLARA-P3-GMAIL-INBOUND-SCHEDULER-LIFECYCLE-SPEC.md"
   - "./CLARA-P3-GMAIL-INBOUND-SYNC-SCHEDULER-SKELETON-SPEC.md"
   - "./CLARA-P3-GMAIL-INBOUND-SYNC-JOB-BOUNDARY-SPEC.md"
   - "./CLARA-P3-GMAIL-INBOUND-SYNC-STATE-SPEC.md"
@@ -63,6 +64,10 @@ raw attachment data
 full Gmail body
 ```
 
+## Lifecycle Wiring
+
+The API app can now accept an explicitly constructed scheduler runtime and start/stop it through lifecycle hooks. The default app still does not construct or start Gmail scheduler work unless trusted server-side bootstrap code wires the runtime.
+
 ## Current Limitation
 
-Runtime boundary sudah tersedia, tetapi belum di-auto-start dari process lifecycle. Ini disengaja agar tidak ada background provider work yang berjalan tanpa operational owner dan rollout plan.
+Runtime lifecycle wiring is available, but there is still no external cron, queue adapter, distributed lock, or multi-process leader election.
