@@ -23,6 +23,10 @@ describe("logging redaction", () => {
       nested: {
         refresh_token: "refresh-secret",
         api_key: "api-secret",
+        provider_raw_error: "raw provider body",
+        raw_payload: {
+          message: "raw Gmail payload",
+        },
         safe: "ok",
       },
       items: [
@@ -37,6 +41,8 @@ describe("logging redaction", () => {
       nested: {
         refresh_token: "[REDACTED]",
         api_key: "[REDACTED]",
+        provider_raw_error: "[REDACTED]",
+        raw_payload: "[REDACTED]",
         safe: "ok",
       },
       items: [

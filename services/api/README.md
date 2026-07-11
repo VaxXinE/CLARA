@@ -34,6 +34,7 @@ inbound Gmail sync orchestrator exists for bounded manual sync summaries and opt
 inbound Gmail sync state/cursor persistence now exists per scoped provider account
 internal Gmail inbound sync job boundary now exists for trusted server-side callers only
 internal Gmail inbound sync scheduler skeleton, runtime boundary, app lifecycle hook, operator status/manual tick routes, and safe operator audit trace now exist as disabled-by-default services only
+final Gmail inbound hardening regressions now cover token/header/raw payload redaction, attachment byte stripping, safe summaries, and no AI draft/outbound send side effects
 internal Gmail inbound smoke harness exists for offline verification when explicitly wired
 no externally scheduled background worker, background refresh scheduler, or outbound Gmail send yet
 ```
@@ -59,6 +60,7 @@ inbound sync scheduler runtime can periodically call tickOnce only when explicit
 scheduler operator status route returns safe runtime state/config only and never returns token material or raw Gmail payloads
 manual scheduler tick route runs one bounded tick through the runtime boundary and does not start the background interval
 scheduler operator routes write safe audit metadata when audit logging is wired
+final hardening runbook: `docs/product/CLARA-P3-GMAIL-INBOUND-FINAL-HARDENING-SPEC.md`
 does not create AI drafts or outbound replies
 ```
 
