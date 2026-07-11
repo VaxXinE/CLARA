@@ -29,7 +29,20 @@ export type GmailInboundSyncResultDto = {
   skipped_count: number;
   failed_count: number;
   next_page_token?: string;
+  last_history_id?: string;
   reason_code?: GmailInboundSyncReasonCode;
+  sync_state: {
+    status: "idle" | "running" | "completed" | "partial" | "failed";
+    last_started_at: string | null;
+    last_completed_at: string | null;
+    last_failed_at: string | null;
+    last_failure_reason_code:
+      | "connection_unhealthy"
+      | "provider_fetch_failed"
+      | "message_fetch_failed"
+      | "no_messages"
+      | null;
+  };
   synced_at: string;
 };
 

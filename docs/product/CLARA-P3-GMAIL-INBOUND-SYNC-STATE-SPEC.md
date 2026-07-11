@@ -24,7 +24,8 @@ Scope PR ini hanya mencakup:
 - cursor aman seperti `last_history_id` dan `last_page_token`,
 - status sync aman: `idle`, `running`, `completed`, `partial`, `failed`,
 - timestamp dan counter summary aman,
-- wiring minimal ke manual sync orchestrator yang sudah ada.
+- wiring minimal ke manual sync orchestrator yang sudah ada,
+- guardrail conflict saat manual sync yang sama masih `running`.
 
 PR ini tidak mencakup:
 

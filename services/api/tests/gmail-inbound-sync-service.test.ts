@@ -110,6 +110,13 @@ describe("GmailInboundSyncService", () => {
       skipped_count: 0,
       failed_count: 0,
       next_page_token: "page_2",
+      sync_state: {
+        status: "completed",
+        last_started_at: "2026-07-10T12:00:00.000Z",
+        last_completed_at: "2026-07-10T12:00:00.000Z",
+        last_failed_at: null,
+        last_failure_reason_code: null,
+      },
       reason_code: "sync_completed",
       synced_at: "2026-07-10T12:00:00.000Z",
     });
@@ -154,6 +161,10 @@ describe("GmailInboundSyncService", () => {
       materialized_count: 0,
       skipped_count: 0,
       failed_count: 0,
+      sync_state: {
+        status: "failed",
+        last_failure_reason_code: "connection_unhealthy",
+      },
     });
 
     await expect(
@@ -221,6 +232,10 @@ describe("GmailInboundSyncService", () => {
       materialized_count: 0,
       failed_count: 1,
       reason_code: "message_fetch_failed",
+      sync_state: {
+        status: "partial",
+        last_failure_reason_code: "message_fetch_failed",
+      },
     });
 
     const failedService = new GmailInboundSyncService(
@@ -259,6 +274,10 @@ describe("GmailInboundSyncService", () => {
       materialized_count: 0,
       failed_count: 0,
       reason_code: "provider_fetch_failed",
+      sync_state: {
+        status: "failed",
+        last_failure_reason_code: "provider_fetch_failed",
+      },
     });
   });
 
@@ -373,6 +392,9 @@ describe("GmailInboundSyncService", () => {
       materialized_count: 1,
       skipped_count: 1,
       failed_count: 0,
+      sync_state: {
+        status: "partial",
+      },
     });
     expect(persistedEnvelopes).toHaveLength(2);
     expect(JSON.stringify(persistedEnvelopes)).not.toContain("Authorization");
@@ -524,5 +546,42 @@ describe("GmailInboundSyncService", () => {
       lastSyncStatus: "failed",
       lastFailureReasonCode: "connection_unhealthy",
     });
+  });
+
+  it("rejects a duplicate manual sync while the same scoped state is still running", async () => {
+    const accounts = await createScopedAccount();
+    const state = createSyncStateService();
+
+    await state.markStarted({
+      scope: {
+        organizationId: "org_demo",
+        workspaceId: "wks_demo_sales",
+      },
+      providerAccountId: "gmail_account_demo",
+      now: new Date("2026-07-11T12:30:00.000Z"),
+    });
+
+    const service = new GmailInboundSyncService(
+      accounts,
+      {
+        checkHealth: vi.fn(),
+      } as GmailConnectionHealthChecker,
+      {
+        listMessages: vi.fn(),
+        getMessage: vi.fn(),
+      } as GmailInboundMessageFetcher,
+      {
+        state,
+      },
+    );
+
+    await expect(
+      service.syncMessages({
+        organizationId: "org_demo",
+        workspaceId: "wks_demo_sales",
+        providerAccountId: "gmail_account_demo",
+        now: new Date("2026-07-11T12:31:00.000Z"),
+      }),
+    ).rejects.toThrow("Gmail inbound sync is already running.");
   });
 });

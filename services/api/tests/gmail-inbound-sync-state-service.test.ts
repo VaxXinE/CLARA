@@ -107,4 +107,23 @@ describe("GmailInboundSyncStateService", () => {
 
     expect(other).toBeNull();
   });
+
+  it("rejects a second start while sync state is still running", async () => {
+    const repository = new FixtureGmailInboundSyncStateRepository();
+    const service = new GmailInboundSyncStateService(repository);
+
+    await service.markStarted({
+      scope,
+      providerAccountId: "gmail_account_demo",
+      now: new Date("2026-07-11T10:00:00.000Z"),
+    });
+
+    await expect(
+      service.markStarted({
+        scope,
+        providerAccountId: "gmail_account_demo",
+        now: new Date("2026-07-11T10:01:00.000Z"),
+      }),
+    ).rejects.toThrow("Gmail inbound sync is already running.");
+  });
 });
