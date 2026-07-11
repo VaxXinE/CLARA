@@ -33,9 +33,9 @@ inbound Gmail message fetch boundary exists for safe list/get operations only
 inbound Gmail sync orchestrator exists for bounded manual sync summaries and optional normalized-envelope persistence
 inbound Gmail sync state/cursor persistence now exists per scoped provider account
 internal Gmail inbound sync job boundary now exists for trusted server-side callers only
-internal Gmail inbound sync scheduler skeleton now exists as disabled-by-default tickOnce boundary only
+internal Gmail inbound sync scheduler skeleton and runtime boundary now exist as disabled-by-default internal services only
 internal Gmail inbound smoke harness exists for offline verification when explicitly wired
-no background refresh scheduler or outbound Gmail send yet
+no auto-started background scheduler, background refresh scheduler, or outbound Gmail send yet
 ```
 
 Gmail inbound fetch boundary notes:
@@ -55,6 +55,7 @@ optional persist_normalized mode persists sanitized Gmail inbound envelopes only
 optional materialize_conversation mode reuses the existing inbound email persistence path to create scoped customer/conversation/message/activity records
 sync state now stores only safe counters, timestamps, last_history_id, and optional last_page_token per scoped provider account
 manual sync route now rejects workspace/org spoofing body fields, validates page_token safely, and returns safe sync_state metadata
+inbound sync scheduler runtime can periodically call tickOnce only when explicitly started by trusted server-side code
 does not create AI drafts or outbound replies
 ```
 
@@ -165,6 +166,10 @@ docker compose -f docker-compose.prod.example.yml config
 | `GMAIL_API_MODE`                        |                                       No | `disabled`                                       | Gmail API client boundary mode: `disabled`, `mocked`, or `real`                              |
 | `GMAIL_API_BASE_URL`                    |                 Real Gmail API mode only | none                                             | Explicit Gmail API base URL for real Gmail API HTTP calls                                    |
 | `GMAIL_API_TIMEOUT_MS`                  |                                       No | `10000`                                          | Timeout in milliseconds for Gmail API HTTP requests                                          |
+| `GMAIL_INBOUND_SYNC_SCHEDULER_ENABLED`  |                                       No | `false`                                          | Enables the internal Gmail inbound sync scheduler runtime only when explicitly started        |
+| `GMAIL_INBOUND_SYNC_SCHEDULER_INTERVAL_MS` |                                    No | `300000`                                         | Scheduler runtime interval; runtime clamps to a safe minimum                                 |
+| `GMAIL_INBOUND_SYNC_SCHEDULER_MAX_ACCOUNTS_PER_TICK` |                            No | `10`                                             | Maximum Gmail provider accounts checked per scheduler tick; clamped by runtime               |
+| `GMAIL_INBOUND_SYNC_SCHEDULER_MAX_MESSAGES_PER_ACCOUNT` |                        No | `25`                                             | Maximum Gmail messages fetched per account per scheduler tick; clamped by sync boundary      |
 | `TOKEN_VAULT_ENCRYPTION_KEY_BASE64`     |                Encrypted vault mode only | none                                             | Base64-encoded 32-byte AES-256-GCM key for encrypted Gmail token vault persistence           |
 | `TOKEN_VAULT_ENCRYPTION_KEY_VERSION`    |                                       No | `v1`                                             | Key version recorded with encrypted Gmail token vault rows                                   |
 | `GMAIL_TOKEN_ENCRYPTION_KEY`            |                                       No | none                                             | Legacy fallback env name for local compatibility; prefer `TOKEN_VAULT_ENCRYPTION_KEY_BASE64` |

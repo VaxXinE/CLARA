@@ -37,6 +37,10 @@ export type GmailProviderConfig = {
   apiMode?: GmailApiMode;
   apiBaseUrl?: string;
   apiTimeoutMs?: number;
+  inboundSyncSchedulerEnabled?: boolean;
+  inboundSyncSchedulerIntervalMs?: number;
+  inboundSyncSchedulerMaxAccountsPerTick?: number;
+  inboundSyncSchedulerMaxMessagesPerAccount?: number;
   tokenEncryptionKeyBase64?: string;
   tokenEncryptionKeyVersion?: string;
 };
@@ -71,6 +75,22 @@ const gmailProviderConfigSchema = z.object({
   GMAIL_API_MODE: z.enum(gmailApiModes).optional(),
   GMAIL_API_BASE_URL: z.string().trim().optional(),
   GMAIL_API_TIMEOUT_MS: z.coerce.number().int().min(1).optional(),
+  GMAIL_INBOUND_SYNC_SCHEDULER_ENABLED: z.enum(["true", "false"]).optional(),
+  GMAIL_INBOUND_SYNC_SCHEDULER_INTERVAL_MS: z.coerce
+    .number()
+    .int()
+    .min(1)
+    .optional(),
+  GMAIL_INBOUND_SYNC_SCHEDULER_MAX_ACCOUNTS_PER_TICK: z.coerce
+    .number()
+    .int()
+    .min(1)
+    .optional(),
+  GMAIL_INBOUND_SYNC_SCHEDULER_MAX_MESSAGES_PER_ACCOUNT: z.coerce
+    .number()
+    .int()
+    .min(1)
+    .optional(),
   TOKEN_VAULT_ENCRYPTION_KEY_BASE64: z.string().trim().optional(),
   TOKEN_VAULT_ENCRYPTION_KEY_VERSION: z.string().trim().optional(),
   GMAIL_TOKEN_ENCRYPTION_KEY: z.string().trim().optional(),
@@ -101,6 +121,14 @@ export function loadGmailProviderConfig(
       parsed.GMAIL_OAUTH_TOKEN_REFRESH_TIMEOUT_MS ?? 10_000,
     apiMode: parsed.GMAIL_API_MODE ?? "disabled",
     apiTimeoutMs: parsed.GMAIL_API_TIMEOUT_MS ?? 10_000,
+    inboundSyncSchedulerEnabled:
+      parsed.GMAIL_INBOUND_SYNC_SCHEDULER_ENABLED === "true",
+    inboundSyncSchedulerIntervalMs:
+      parsed.GMAIL_INBOUND_SYNC_SCHEDULER_INTERVAL_MS ?? 300_000,
+    inboundSyncSchedulerMaxAccountsPerTick:
+      parsed.GMAIL_INBOUND_SYNC_SCHEDULER_MAX_ACCOUNTS_PER_TICK ?? 10,
+    inboundSyncSchedulerMaxMessagesPerAccount:
+      parsed.GMAIL_INBOUND_SYNC_SCHEDULER_MAX_MESSAGES_PER_ACCOUNT ?? 25,
     tokenEncryptionKeyVersion:
       parsed.TOKEN_VAULT_ENCRYPTION_KEY_VERSION ?? "v1",
   };
@@ -194,6 +222,24 @@ export function validateGmailProviderConfig(
   if ((config.apiTimeoutMs ?? 10_000) < 1) {
     throw new Error(
       "Invalid Gmail provider configuration: GMAIL_API_TIMEOUT_MS must be greater than 0.",
+    );
+  }
+
+  if ((config.inboundSyncSchedulerIntervalMs ?? 300_000) < 1) {
+    throw new Error(
+      "Invalid Gmail provider configuration: GMAIL_INBOUND_SYNC_SCHEDULER_INTERVAL_MS must be greater than 0.",
+    );
+  }
+
+  if ((config.inboundSyncSchedulerMaxAccountsPerTick ?? 10) < 1) {
+    throw new Error(
+      "Invalid Gmail provider configuration: GMAIL_INBOUND_SYNC_SCHEDULER_MAX_ACCOUNTS_PER_TICK must be greater than 0.",
+    );
+  }
+
+  if ((config.inboundSyncSchedulerMaxMessagesPerAccount ?? 25) < 1) {
+    throw new Error(
+      "Invalid Gmail provider configuration: GMAIL_INBOUND_SYNC_SCHEDULER_MAX_MESSAGES_PER_ACCOUNT must be greater than 0.",
     );
   }
 

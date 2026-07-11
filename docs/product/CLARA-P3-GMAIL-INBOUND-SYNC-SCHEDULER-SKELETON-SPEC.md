@@ -8,6 +8,7 @@ last_updated: "2026-07-11"
 classification: "product-spec"
 related_documents:
   - "./CLARA-P3-GMAIL-INBOUND-SYNC-JOB-BOUNDARY-SPEC.md"
+  - "./CLARA-P3-GMAIL-INBOUND-SYNC-SCHEDULER-RUNTIME-BOUNDARY-SPEC.md"
   - "./CLARA-P3-GMAIL-INBOUND-SYNC-STATE-SPEC.md"
   - "../../services/api/README.md"
 ---
@@ -26,6 +27,7 @@ Scope PR ini hanya mencakup:
 - skip saat sync state masih `running`,
 - handoff ke Gmail inbound sync job boundary,
 - safe scheduler summary.
+- runtime boundary disabled-by-default di PR berikutnya.
 
 PR ini tidak mencakup:
 
@@ -34,6 +36,8 @@ PR ini tidak mencakup:
 - queue adapter,
 - retry queue,
 - external scheduler integration.
+
+Runtime boundary sekarang tersedia sebagai internal service yang harus dipanggil eksplisit oleh trusted server-side code. Service tersebut tetap tidak auto-start dari HTTP server.
 
 ## Safe Summary
 
