@@ -60,6 +60,14 @@ const gmailOAuthStateMigrationSql = readFileSync(
   gmailOAuthStateMigrationPath,
   "utf8",
 );
+const gmailInboundSyncStateMigrationPath = path.resolve(
+  __dirname,
+  "../drizzle/0008_p3_gmail_inbound_sync_state.sql",
+);
+const gmailInboundSyncStateMigrationSql = readFileSync(
+  gmailInboundSyncStateMigrationPath,
+  "utf8",
+);
 
 describe("initial database migration", () => {
   it("creates all required PR-04 tables", () => {
@@ -80,6 +88,7 @@ describe("initial database migration", () => {
       "gmail_provider_accounts",
       "gmail_token_vault_entries",
       "gmail_oauth_state_entries",
+      "gmail_inbound_sync_states",
     ]) {
       const source =
         tableName === "audit_logs"
@@ -94,7 +103,9 @@ describe("initial database migration", () => {
                   ? gmailTokenVaultMigrationSql
                   : tableName === "gmail_oauth_state_entries"
                     ? gmailOAuthStateMigrationSql
-                    : migrationSql;
+                    : tableName === "gmail_inbound_sync_states"
+                      ? gmailInboundSyncStateMigrationSql
+                      : migrationSql;
 
       expect(source).toContain(`create table if not exists ${tableName}`);
     }
@@ -113,6 +124,7 @@ describe("initial database migration", () => {
       "gmail_provider_accounts",
       "gmail_token_vault_entries",
       "gmail_oauth_state_entries",
+      "gmail_inbound_sync_states",
     ]) {
       const source =
         tableName === "email_inbound_records"
@@ -125,7 +137,9 @@ describe("initial database migration", () => {
                 ? gmailTokenVaultMigrationSql
                 : tableName === "gmail_oauth_state_entries"
                   ? gmailOAuthStateMigrationSql
-                  : migrationSql;
+                  : tableName === "gmail_inbound_sync_states"
+                    ? gmailInboundSyncStateMigrationSql
+                    : migrationSql;
       const tableBlock = source
         .split(`create table if not exists ${tableName} (`)[1]
         ?.split(");")[0];
@@ -276,5 +290,23 @@ describe("initial database migration", () => {
       "pkce_verifier_ciphertext text not null",
     );
     expect(gmailOAuthStateMigrationSql).toContain("state_hash text not null");
+  });
+
+  it("adds Gmail inbound sync state persistence schema and scoped indexes", () => {
+    expect(gmailInboundSyncStateMigrationSql).toContain(
+      "create table if not exists gmail_inbound_sync_states",
+    );
+    expect(gmailInboundSyncStateMigrationSql).toContain(
+      "last_sync_status in ('idle', 'running', 'completed', 'partial', 'failed')",
+    );
+    expect(gmailInboundSyncStateMigrationSql).toContain(
+      "last_failure_reason_code is null or last_failure_reason_code in (",
+    );
+    expect(gmailInboundSyncStateMigrationSql).toContain(
+      "create unique index if not exists gmail_inbound_sync_states_scope_provider_account_unique",
+    );
+    expect(gmailInboundSyncStateMigrationSql).toContain(
+      "create index if not exists idx_gmail_inbound_sync_states_scope_status",
+    );
   });
 });

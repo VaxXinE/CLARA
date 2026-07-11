@@ -5,6 +5,7 @@ import type { GmailInboundMessageFetchService } from "./gmail-inbound-message-fe
 import type { GmailMessageNormalizationService } from "./gmail-message-normalization-service";
 import type { GmailNormalizedInboundEmailPersister } from "./gmail-message-normalization-types";
 import type { GmailProviderAccountRepository } from "./gmail-provider-account-repository";
+import type { GmailInboundSyncStateService } from "./gmail-inbound-sync-state-service";
 import type {
   GmailInboundSyncInput,
   GmailInboundSyncReasonCode,
@@ -44,6 +45,14 @@ export class GmailInboundSyncService {
       >;
       persistence?: GmailNormalizedInboundEmailPersister;
       materialization?: EmailInboundMaterializer;
+      state?: Pick<
+        GmailInboundSyncStateService,
+        | "markStarted"
+        | "markCompleted"
+        | "markPartial"
+        | "markFailed"
+        | "updateCursor"
+      >;
     } = {},
   ) {}
 
@@ -64,6 +73,17 @@ export class GmailInboundSyncService {
       throw new NotFoundError("Gmail provider account not found.");
     }
 
+    await this.options.state?.markStarted({
+      scope,
+      providerAccountId: account.id,
+      now,
+    });
+
+    const accountHistoryId =
+      typeof account.metadata.historyId === "string"
+        ? account.metadata.historyId.trim() || null
+        : null;
+
     const health = await this.health.checkHealth({
       organizationId: scope.organizationId,
       workspaceId: scope.workspaceId,
@@ -72,7 +92,7 @@ export class GmailInboundSyncService {
     });
 
     if (health.status !== "healthy") {
-      return {
+      const result: GmailInboundSyncResultDto = {
         provider_account_id: account.id,
         provider: "gmail",
         status: "skipped",
@@ -85,6 +105,15 @@ export class GmailInboundSyncService {
         reason_code: "connection_unhealthy",
         synced_at: now.toISOString(),
       };
+
+      await this.options.state?.markFailed({
+        scope,
+        providerAccountId: account.id,
+        reasonCode: "connection_unhealthy",
+        now,
+      });
+
+      return result;
     }
 
     let listed;
@@ -102,7 +131,7 @@ export class GmailInboundSyncService {
       });
     } catch (error) {
       if (error instanceof AppError) {
-        return {
+        const result: GmailInboundSyncResultDto = {
           provider_account_id: account.id,
           provider: "gmail",
           status: "failed",
@@ -115,13 +144,22 @@ export class GmailInboundSyncService {
           reason_code: "provider_fetch_failed",
           synced_at: now.toISOString(),
         };
+
+        await this.options.state?.markFailed({
+          scope,
+          providerAccountId: account.id,
+          reasonCode: "provider_fetch_failed",
+          now,
+        });
+
+        return result;
       }
 
       throw error;
     }
 
     if (listed.items.length === 0) {
-      return {
+      const result: GmailInboundSyncResultDto = {
         provider_account_id: account.id,
         provider: "gmail",
         status: "completed",
@@ -139,6 +177,22 @@ export class GmailInboundSyncService {
         reason_code: "no_messages",
         synced_at: now.toISOString(),
       };
+
+      await this.options.state?.markCompleted({
+        scope,
+        providerAccountId: account.id,
+        counters: {
+          fetchedCount: 0,
+          normalizedCount: 0,
+          persistedCount: 0,
+          materializedCount: 0,
+        },
+        lastHistoryId: accountHistoryId,
+        lastPageToken: listed.next_page_token ?? null,
+        now,
+      });
+
+      return result;
     }
 
     let fetchedCount = 0;
@@ -248,7 +302,7 @@ export class GmailInboundSyncService {
           ? "partial"
           : "failed";
 
-    return {
+    const result: GmailInboundSyncResultDto = {
       provider_account_id: account.id,
       provider: "gmail",
       status,
@@ -270,5 +324,44 @@ export class GmailInboundSyncService {
         : {}),
       synced_at: now.toISOString(),
     };
+
+    const counters = {
+      fetchedCount,
+      normalizedCount,
+      persistedCount,
+      materializedCount,
+    };
+
+    if (status === "completed") {
+      await this.options.state?.markCompleted({
+        scope,
+        providerAccountId: account.id,
+        counters,
+        lastHistoryId: accountHistoryId,
+        lastPageToken: listed.next_page_token ?? null,
+        now,
+      });
+    } else if (status === "partial") {
+      await this.options.state?.markPartial({
+        scope,
+        providerAccountId: account.id,
+        counters,
+        reasonCode:
+          reasonCode === "sync_completed" ? null : (reasonCode ?? null),
+        lastHistoryId: accountHistoryId,
+        lastPageToken: listed.next_page_token ?? null,
+        now,
+      });
+    } else {
+      await this.options.state?.markFailed({
+        scope,
+        providerAccountId: account.id,
+        reasonCode: "message_fetch_failed",
+        counters,
+        now,
+      });
+    }
+
+    return result;
   }
 }

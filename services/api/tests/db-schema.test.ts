@@ -9,6 +9,9 @@ import {
   gmailOAuthCodeChallengeMethods,
   gmailOAuthStateProviders,
   gmailOAuthStateStatuses,
+  gmailInboundSyncStateProviders,
+  gmailInboundSyncStateReasonCodes,
+  gmailInboundSyncStateStatuses,
   gmailProviderAccountProviders,
   gmailProviderAccountStatuses,
   gmailTokenVaultProviders,
@@ -39,6 +42,7 @@ describe("database schema", () => {
       "gmailProviderAccounts",
       "gmailTokenVaultEntries",
       "gmailOAuthStateEntries",
+      "gmailInboundSyncStates",
     ]);
   });
 
@@ -56,6 +60,7 @@ describe("database schema", () => {
       "gmailProviderAccounts",
       "gmailTokenVaultEntries",
       "gmailOAuthStateEntries",
+      "gmailInboundSyncStates",
     ] as const) {
       const columns = Object.keys(dbSchema[tableName]);
 
@@ -96,6 +101,20 @@ describe("database schema", () => {
       "revoked",
     ]);
     expect(gmailOAuthCodeChallengeMethods).toEqual(["S256"]);
+    expect(gmailInboundSyncStateProviders).toEqual(["gmail"]);
+    expect(gmailInboundSyncStateStatuses).toEqual([
+      "idle",
+      "running",
+      "completed",
+      "partial",
+      "failed",
+    ]);
+    expect(gmailInboundSyncStateReasonCodes).toEqual([
+      "connection_unhealthy",
+      "provider_fetch_failed",
+      "message_fetch_failed",
+      "no_messages",
+    ]);
     expect(activityEventTypes).toEqual([
       "ai_draft_generated",
       "ai_draft_failed",
