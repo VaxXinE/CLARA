@@ -26,6 +26,7 @@ import { registerReplyRoutes } from "./routes/replies";
 import type { GmailOAuthConnectService } from "../channels/email/gmail-oauth-connect-service";
 import type { GmailOAuthCallbackService } from "../channels/email/gmail-oauth-callback-service";
 import type { GmailConnectionHealthService } from "../channels/email/gmail-connection-health-service";
+import type { GmailInboundE2ESmokeService } from "../channels/email/gmail-inbound-e2e-smoke-service";
 import type { GmailInboundSyncService } from "../channels/email/gmail-inbound-sync-service";
 import { registerGmailIntegrationRoutes } from "./routes/gmail-integrations";
 
@@ -38,6 +39,7 @@ export type CreateServerOptions = {
   gmailOAuthCallbackService?: GmailOAuthCallbackService;
   gmailConnectionHealthService?: GmailConnectionHealthService;
   gmailInboundSyncService?: Pick<GmailInboundSyncService, "syncMessages">;
+  gmailInboundE2ESmokeService?: Pick<GmailInboundE2ESmokeService, "runSmoke">;
 };
 
 export async function createServer(
@@ -111,13 +113,15 @@ export async function createServer(
     options.gmailOAuthConnectService ||
     options.gmailOAuthCallbackService ||
     options.gmailConnectionHealthService ||
-    options.gmailInboundSyncService
+    options.gmailInboundSyncService ||
+    options.gmailInboundE2ESmokeService
   ) {
     const gmailIntegrationServices: {
       connect?: GmailOAuthConnectService;
       callback?: GmailOAuthCallbackService;
       health?: GmailConnectionHealthService;
       sync?: Pick<GmailInboundSyncService, "syncMessages">;
+      inboundSmoke?: Pick<GmailInboundE2ESmokeService, "runSmoke">;
     } = {};
 
     if (options.gmailOAuthConnectService) {
@@ -134,6 +138,11 @@ export async function createServer(
 
     if (options.gmailInboundSyncService) {
       gmailIntegrationServices.sync = options.gmailInboundSyncService;
+    }
+
+    if (options.gmailInboundE2ESmokeService) {
+      gmailIntegrationServices.inboundSmoke =
+        options.gmailInboundE2ESmokeService;
     }
 
     await registerGmailIntegrationRoutes(
