@@ -7,11 +7,13 @@ import type {
   GmailInboundSyncSchedulerTickResult,
 } from "./gmail-inbound-sync-scheduler-types";
 
-const DEFAULT_MAX_ACCOUNTS_PER_TICK = 10;
+export const DEFAULT_GMAIL_INBOUND_SYNC_SCHEDULER_MAX_ACCOUNTS_PER_TICK = 10;
 
-function clampMaxAccountsPerTick(value: number | undefined): number {
+export function clampGmailInboundSyncSchedulerMaxAccountsPerTick(
+  value: number | undefined,
+): number {
   if (value === undefined || !Number.isFinite(value)) {
-    return DEFAULT_MAX_ACCOUNTS_PER_TICK;
+    return DEFAULT_GMAIL_INBOUND_SYNC_SCHEDULER_MAX_ACCOUNTS_PER_TICK;
   }
 
   return Math.min(Math.max(Math.trunc(value), 1), 50);
@@ -32,7 +34,11 @@ export class GmailInboundSyncSchedulerService {
   ) {}
 
   async tickOnce(
-    input: { now?: Date } = {},
+    input: {
+      now?: Date;
+      maxAccountsPerTick?: number;
+      maxMessagesPerAccount?: number;
+    } = {},
   ): Promise<GmailInboundSyncSchedulerTickResult> {
     const startedAt = input.now ?? new Date();
 
@@ -49,9 +55,11 @@ export class GmailInboundSyncSchedulerService {
       };
     }
 
-    const maxAccounts = clampMaxAccountsPerTick(this.config.maxAccountsPerTick);
+    const maxAccounts = clampGmailInboundSyncSchedulerMaxAccountsPerTick(
+      input.maxAccountsPerTick ?? this.config.maxAccountsPerTick,
+    );
     const maxMessages = clampGmailInboundSyncMaxMessages(
-      this.config.maxMessagesPerAccount,
+      input.maxMessagesPerAccount ?? this.config.maxMessagesPerAccount,
     );
     const eligibleAccounts =
       await this.accounts.listEligibleForScheduler(maxAccounts);
