@@ -42,7 +42,15 @@ function createFakeDatabase(options: {
     return result;
   });
 
-  const where = vi.fn(async () => options.selectRows ?? []);
+  const selectedRows = options.selectRows ?? [];
+  const queryResult = {
+    limit: vi.fn(async () => selectedRows),
+    then: (
+      resolve: (value: QueryRow[]) => unknown,
+      reject: (reason: unknown) => unknown,
+    ) => Promise.resolve(selectedRows).then(resolve, reject),
+  };
+  const where = vi.fn(() => queryResult);
   const from = vi.fn(() => ({
     where,
   }));
@@ -277,6 +285,39 @@ describe("DrizzleGmailProviderAccountRepository", () => {
       "wks_demo_sales",
       "wks_demo_sales",
     ]);
+  });
+
+  it("lists scheduler-eligible Gmail accounts without token material", async () => {
+    const repository = new DrizzleGmailProviderAccountRepository(
+      createFakeDatabase({
+        selectRows: [
+          buildRow(),
+          buildRow({
+            id: "gmail_account_demo_002",
+            workspaceId: "wks_demo_support",
+            tokenReferenceId: "vault_ref_demo_002",
+          }),
+        ],
+      }),
+    );
+
+    const accounts = await repository.listEligibleForScheduler(10);
+
+    expect(accounts).toEqual([
+      {
+        organizationId: "org_demo",
+        workspaceId: "wks_demo_sales",
+        providerAccountId: "gmail_account_demo_001",
+        provider: "gmail",
+      },
+      {
+        organizationId: "org_demo",
+        workspaceId: "wks_demo_support",
+        providerAccountId: "gmail_account_demo_002",
+        provider: "gmail",
+      },
+    ]);
+    expect(JSON.stringify(accounts)).not.toContain("vault_ref");
   });
 
   it("rejects duplicate provider email within the same workspace scope", async () => {

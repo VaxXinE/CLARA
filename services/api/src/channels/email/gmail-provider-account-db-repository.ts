@@ -6,6 +6,7 @@ import type { WorkspaceScope } from "../../workspace/workspace-scope";
 import type { GmailProviderAccount } from "./gmail-auth-types";
 import { sanitizeGmailProviderAccountMetadata } from "./gmail-auth-types";
 import type {
+  EligibleGmailProviderAccountForScheduler,
   GmailProviderAccountRepository,
   UpdateGmailProviderAccountInput,
 } from "./gmail-provider-account-repository";
@@ -156,6 +157,34 @@ export class DrizzleGmailProviderAccountRepository implements GmailProviderAccou
       );
 
     return rows.map((row) => toAccount(row));
+  }
+
+  async listEligibleForScheduler(
+    limit: number,
+  ): Promise<EligibleGmailProviderAccountForScheduler[]> {
+    const rows = await this.db
+      .select({
+        organizationId: gmailProviderAccounts.organizationId,
+        workspaceId: gmailProviderAccounts.workspaceId,
+        providerAccountId: gmailProviderAccounts.id,
+        provider: gmailProviderAccounts.provider,
+      })
+      .from(gmailProviderAccounts)
+      .where(
+        and(
+          eq(gmailProviderAccounts.provider, "gmail"),
+          eq(gmailProviderAccounts.status, "connected"),
+        ),
+      )
+      .limit(Math.max(Math.trunc(limit), 0));
+
+    return rows.map((row) => ({
+      organizationId: row.organizationId,
+      workspaceId: row.workspaceId,
+      providerAccountId:
+        row.providerAccountId ?? (row as { id?: string }).id ?? "",
+      provider: "gmail",
+    }));
   }
 
   async updateAccount(

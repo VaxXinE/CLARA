@@ -26,6 +26,7 @@ Scope PR ini hanya mencakup:
 - safe running-state guard,
 - reuse orchestrator sync yang sudah ada,
 - safe job result DTO.
+- entrypoint internal untuk scheduler skeleton.
 
 PR ini tidak mencakup:
 

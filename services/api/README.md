@@ -33,6 +33,7 @@ inbound Gmail message fetch boundary exists for safe list/get operations only
 inbound Gmail sync orchestrator exists for bounded manual sync summaries and optional normalized-envelope persistence
 inbound Gmail sync state/cursor persistence now exists per scoped provider account
 internal Gmail inbound sync job boundary now exists for trusted server-side callers only
+internal Gmail inbound sync scheduler skeleton now exists as disabled-by-default tickOnce boundary only
 internal Gmail inbound smoke harness exists for offline verification when explicitly wired
 no background refresh scheduler or outbound Gmail send yet
 ```
