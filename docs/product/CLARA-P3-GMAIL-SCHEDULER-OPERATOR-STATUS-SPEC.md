@@ -9,6 +9,7 @@ classification: "product-spec"
 related_documents:
   - "./CLARA-P3-GMAIL-INBOUND-SCHEDULER-LIFECYCLE-SPEC.md"
   - "./CLARA-P3-GMAIL-INBOUND-SYNC-SCHEDULER-RUNTIME-BOUNDARY-SPEC.md"
+  - "./CLARA-P3-GMAIL-SCHEDULER-MANUAL-TICK-SPEC.md"
   - "../../services/api/README.md"
 ---
 
@@ -59,9 +60,18 @@ Optional fields may be omitted when no lifecycle or tick has occurred yet.
 - No provider raw error bodies.
 - No OAuth client secret.
 
+## Related Operator Action
+
+Manual tick is exposed separately by:
+
+```text
+POST /api/v1/integrations/gmail/scheduler/tick
+```
+
+It returns a bounded safe tick summary and does not start the background scheduler interval.
+
 ## Non-Goals
 
-- No manual scheduler tick endpoint.
 - No external cron integration.
 - No queue adapter or distributed lock.
 - No Gmail outbound send workflow.

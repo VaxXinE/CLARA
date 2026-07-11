@@ -43,12 +43,13 @@ export type CreateServerOptions = {
   gmailInboundE2ESmokeService?: Pick<GmailInboundE2ESmokeService, "runSmoke">;
   gmailInboundSyncSchedulerRuntime?: Pick<
     GmailInboundSyncSchedulerRuntimeService,
-    "start" | "stop" | "isRunning" | "getStatus"
+    "start" | "stop" | "isRunning" | "getStatus" | "tickNow"
   >;
   gmailInboundSyncSchedulerStatus?: Pick<
     GmailInboundSyncSchedulerRuntimeService,
     "getStatus"
-  >;
+  > &
+    Partial<Pick<GmailInboundSyncSchedulerRuntimeService, "tickNow">>;
 };
 
 export async function createServer(
@@ -133,7 +134,8 @@ export async function createServer(
       health?: GmailConnectionHealthService;
       sync?: Pick<GmailInboundSyncService, "syncMessages">;
       inboundSmoke?: Pick<GmailInboundE2ESmokeService, "runSmoke">;
-      scheduler?: Pick<GmailInboundSyncSchedulerRuntimeService, "getStatus">;
+      scheduler?: Pick<GmailInboundSyncSchedulerRuntimeService, "getStatus"> &
+        Partial<Pick<GmailInboundSyncSchedulerRuntimeService, "tickNow">>;
     } = {};
 
     if (options.gmailOAuthConnectService) {

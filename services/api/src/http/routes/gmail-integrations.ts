@@ -105,6 +105,45 @@ const gmailSyncBodySchema = z
   })
   .strict();
 
+const gmailSchedulerTickBodySchema = z
+  .object({
+    max_accounts_per_tick: z.number().int().min(1).max(1000).optional(),
+    max_messages_per_account: z.number().int().min(1).max(1000).optional(),
+  })
+  .strict();
+
+function parseSchedulerTickBody(body: unknown): {
+  max_accounts_per_tick?: number;
+  max_messages_per_account?: number;
+} {
+  const parsed = gmailSchedulerTickBodySchema.safeParse(body ?? {});
+
+  if (!parsed.success) {
+    throw new ValidationError(
+      "Invalid request.",
+      parsed.error.issues.map((issue) => ({
+        path: issue.path.join("."),
+        message: issue.message,
+      })),
+    );
+  }
+
+  const result: {
+    max_accounts_per_tick?: number;
+    max_messages_per_account?: number;
+  } = {};
+
+  if (parsed.data.max_accounts_per_tick !== undefined) {
+    result.max_accounts_per_tick = parsed.data.max_accounts_per_tick;
+  }
+
+  if (parsed.data.max_messages_per_account !== undefined) {
+    result.max_messages_per_account = parsed.data.max_messages_per_account;
+  }
+
+  return result;
+}
+
 function parseSyncBody(body: unknown): {
   max_messages?: number;
   page_token?: string;
@@ -233,7 +272,8 @@ export async function registerGmailIntegrationRoutes(
     health?: GmailConnectionHealthService;
     sync?: Pick<GmailInboundSyncService, "syncMessages">;
     inboundSmoke?: Pick<GmailInboundE2ESmokeService, "runSmoke">;
-    scheduler?: Pick<GmailInboundSyncSchedulerRuntimeService, "getStatus">;
+    scheduler?: Pick<GmailInboundSyncSchedulerRuntimeService, "getStatus"> &
+      Partial<Pick<GmailInboundSyncSchedulerRuntimeService, "tickNow">>;
   },
 ): Promise<void> {
   if (services.scheduler) {
@@ -253,6 +293,38 @@ export async function registerGmailIntegrationRoutes(
         };
       },
     );
+
+    const tickNow = scheduler.tickNow;
+
+    if (tickNow) {
+      app.post(
+        "/api/v1/integrations/gmail/scheduler/tick",
+        {
+          preHandler: requireAuth(authProvider),
+        },
+        async (request) => {
+          const auth = getAuthContext(request);
+          assertPermission(auth.role, "integration:gmail_connect");
+          const body = parseSchedulerTickBody(request.body);
+
+          const result = await tickNow.call(scheduler, {
+            ...(body.max_accounts_per_tick !== undefined
+              ? { maxAccountsPerTick: body.max_accounts_per_tick }
+              : {}),
+            ...(body.max_messages_per_account !== undefined
+              ? { maxMessagesPerAccount: body.max_messages_per_account }
+              : {}),
+          });
+
+          return {
+            data: {
+              ...result,
+              scheduler_running: scheduler.getStatus().scheduler_running,
+            },
+          };
+        },
+      );
+    }
   }
 
   if (services.connect) {
