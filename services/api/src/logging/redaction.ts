@@ -1,5 +1,5 @@
 const secretKeyPattern =
-  /(authorization|cookie|password|token|secret|api[_-]?key|session)/i;
+  /(authorization|cookie|password|token|secret|api[_-]?key|session|raw[_-]?(payload|body|error)|provider[_-]?(payload|response|error))/i;
 
 export const redactPaths = [
   "req.headers.authorization",
@@ -14,6 +14,12 @@ export const redactPaths = [
   "*.secret",
   "*.authorization",
   "*.cookie",
+  "*.raw_payload",
+  "*.raw_body",
+  "*.raw_error",
+  "*.provider_payload",
+  "*.provider_response",
+  "*.provider_error",
 ] as const;
 
 function shouldRedactKey(key: string): boolean {
