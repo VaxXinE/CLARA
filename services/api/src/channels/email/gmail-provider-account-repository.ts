@@ -2,6 +2,13 @@ import type { WorkspaceScope } from "../../workspace/workspace-scope";
 import { ConflictError } from "../../errors/app-error";
 import type { GmailProviderAccount } from "./gmail-auth-types";
 
+export type EligibleGmailProviderAccountForScheduler = {
+  organizationId: string;
+  workspaceId: string;
+  providerAccountId: string;
+  provider: "gmail";
+};
+
 export type UpdateGmailProviderAccountInput = {
   scope: WorkspaceScope;
   accountId: string;
@@ -26,6 +33,9 @@ export interface GmailProviderAccountRepository {
     emailAddress: string,
   ): Promise<GmailProviderAccount | null>;
   listAccountsScoped(scope: WorkspaceScope): Promise<GmailProviderAccount[]>;
+  listEligibleForScheduler(
+    limit: number,
+  ): Promise<EligibleGmailProviderAccountForScheduler[]>;
   updateAccount(
     input: UpdateGmailProviderAccountInput,
   ): Promise<GmailProviderAccount | null>;
@@ -108,6 +118,21 @@ export class FixtureGmailProviderAccountRepository implements GmailProviderAccou
           account.workspaceId === scope.workspaceId,
       )
       .map((account) => structuredClone(account));
+  }
+
+  async listEligibleForScheduler(
+    limit: number,
+  ): Promise<EligibleGmailProviderAccountForScheduler[]> {
+    return [...this.accounts.values()]
+      .filter((account) => account.provider === "gmail")
+      .filter((account) => account.status === "connected")
+      .slice(0, Math.max(Math.trunc(limit), 0))
+      .map((account) => ({
+        organizationId: account.organizationId,
+        workspaceId: account.workspaceId,
+        providerAccountId: account.id,
+        provider: "gmail",
+      }));
   }
 
   async updateAccount(
