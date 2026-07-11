@@ -1,8 +1,10 @@
 import type { EmailOutboundDeliveryRepository } from "./email-outbound-delivery-repository";
 import type {
   EmailOutboundDeliveryRecord,
+  RecordFailedGmailOutboundSendInput,
   RecordEmailReplyDeliveryInput,
   RecordFailedEmailReplyDeliveryInput,
+  RecordGmailOutboundSendResultInput,
 } from "./email-outbound-delivery-types";
 
 export class EmailOutboundDeliveryService {
@@ -53,6 +55,46 @@ export class EmailOutboundDeliveryService {
       failedAt: new Date(),
       metadata: {
         source: "email_reply_adapter",
+      },
+    });
+  }
+
+  async recordGmailOutboundResult(
+    input: RecordGmailOutboundSendResultInput,
+  ): Promise<EmailOutboundDeliveryRecord> {
+    return this.repository.recordDelivery({
+      scope: input.scope,
+      conversationId: input.conversationId,
+      actorUserId: input.actorUserId,
+      provider: "gmail",
+      providerMessageId: input.providerMessageId,
+      providerThreadId: null,
+      idempotencyKey: input.idempotencyKey,
+      status: input.status,
+      sentAt: input.sentAt,
+      metadata: {
+        source: "gmail_outbound_send",
+        transport: input.status === "simulated" ? "simulated" : "gmail",
+      },
+    });
+  }
+
+  async recordGmailOutboundFailure(
+    input: RecordFailedGmailOutboundSendInput,
+  ): Promise<EmailOutboundDeliveryRecord> {
+    return this.repository.recordDelivery({
+      scope: input.scope,
+      conversationId: input.conversationId,
+      actorUserId: input.actorUserId,
+      provider: "gmail",
+      providerMessageId: null,
+      providerThreadId: null,
+      idempotencyKey: input.idempotencyKey,
+      status: "failed",
+      failureCode: input.failureCode,
+      failedAt: new Date(),
+      metadata: {
+        source: "gmail_outbound_send",
       },
     });
   }

@@ -36,8 +36,9 @@ internal Gmail inbound sync job boundary now exists for trusted server-side call
 internal Gmail inbound sync scheduler skeleton, runtime boundary, app lifecycle hook, operator status/manual tick routes, and safe operator audit trace now exist as disabled-by-default services only
 final Gmail inbound hardening regressions now cover token/header/raw payload redaction, attachment byte stripping, safe summaries, and no AI draft/outbound send side effects
 internal Gmail outbound send client/service boundary now exists with simulated local/test client only
+Gmail outbound send route now exists as an authenticated, non-viewer, explicit human/operator action that persists safe outbound delivery records
 internal Gmail inbound smoke harness exists for offline verification when explicitly wired
-no externally scheduled background worker, background refresh scheduler, public Gmail outbound route, dashboard Gmail send UI, or real Gmail outbound send yet
+no externally scheduled background worker, background refresh scheduler, dashboard Gmail send UI, or real Gmail outbound send yet
 ```
 
 Gmail inbound fetch boundary notes:
@@ -95,6 +96,7 @@ GET /api/v1/integrations/gmail/scheduler/status
 POST /api/v1/integrations/gmail/scheduler/tick
 POST /api/v1/integrations/gmail/accounts/:providerAccountId/sync
 POST /api/v1/integrations/gmail/accounts/:providerAccountId/inbound-smoke
+POST /api/v1/integrations/gmail/outbound/send
 ```
 
 ## Local Setup
@@ -477,6 +479,22 @@ email e2e smoke service is internal-only and offline
 the smoke flow covers simulated inbound load, normalization, inbound persistence, simulated outbound reply, and outbound delivery record persistence
 viewer role is blocked from the smoke reply action through the same permission helper used by the API
 the smoke harness must not call external providers or store raw provider payloads, tokens, or secrets
+```
+
+Gmail outbound route baseline:
+
+```text
+POST /api/v1/integrations/gmail/outbound/send requires authenticated owner/agent access
+viewer role is blocked server-side
+organization_id and workspace_id always come from AuthContext, not request body
+request body is strict and rejects scope spoofing or unknown raw provider fields
+send is an explicit human/operator API action only
+the route stores a safe email_outbound_deliveries record when conversation_id is provided
+delivery records store status, provider_message_id when available, and safe reason_code only
+responses and persistence never include access_token, refresh_token, Authorization header, client_secret, raw Gmail payload, or provider raw error body
+this build still uses the simulated Gmail outbound client only and does not call Google/Gmail network endpoints
+the route does not create AI drafts, run inbound sync, or trigger automatic sending from AI output
+route spec: `docs/product/CLARA-P3-GMAIL-OUTBOUND-PERSISTENCE-ROUTE-SPEC.md`
 ```
 
 Audit log baseline:

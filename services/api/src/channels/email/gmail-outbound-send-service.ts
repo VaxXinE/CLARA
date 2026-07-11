@@ -1,5 +1,6 @@
 import { assertPermission } from "../../auth/permissions";
 import { AppError, ValidationError } from "../../errors/app-error";
+import type { EmailOutboundDeliveryService } from "./email-outbound-delivery-service";
 import type { GmailOutboundSendClient } from "./gmail-outbound-send-client-types";
 import {
   GMAIL_OUTBOUND_DEFAULT_SUBJECT,
@@ -16,6 +17,8 @@ const messageInputKeys = new Set([
   "providerAccountId",
   "conversationId",
   "to",
+  "cc",
+  "bcc",
   "subject",
   "textBody",
   "idempotencyKey",
@@ -50,13 +53,20 @@ function assertNoUnsupportedFields(input: GmailOutboundSendMessageInput): void {
   }
 }
 
-function normalizeRecipients(value: string[]): string[] {
-  if (!Array.isArray(value) || value.length === 0) {
-    throw new ValidationError("At least one recipient is required.");
+function normalizeRecipientList(
+  value: string[] | undefined,
+  options: { required: boolean },
+): string[] {
+  if (value === undefined) {
+    if (options.required) {
+      throw new ValidationError("At least one recipient is required.");
+    }
+
+    return [];
   }
 
-  if (value.length > GMAIL_OUTBOUND_MAX_RECIPIENTS) {
-    throw new ValidationError("Too many Gmail outbound recipients.");
+  if (!Array.isArray(value) || (options.required && value.length === 0)) {
+    throw new ValidationError("At least one recipient is required.");
   }
 
   const recipients = [
@@ -64,7 +74,7 @@ function normalizeRecipients(value: string[]): string[] {
   ];
 
   if (
-    recipients.length === 0 ||
+    (options.required && recipients.length === 0) ||
     recipients.some((recipient) => !basicEmailPattern.test(recipient))
   ) {
     throw new ValidationError(
@@ -73,6 +83,19 @@ function normalizeRecipients(value: string[]): string[] {
   }
 
   return recipients;
+}
+
+function assertRecipientLimit(recipients: {
+  to: string[];
+  cc: string[];
+  bcc: string[];
+}): void {
+  const recipientCount =
+    recipients.to.length + recipients.cc.length + recipients.bcc.length;
+
+  if (recipientCount > GMAIL_OUTBOUND_MAX_RECIPIENTS) {
+    throw new ValidationError("Too many Gmail outbound recipients.");
+  }
 }
 
 function normalizeSubject(value: string | null | undefined): string {
@@ -105,7 +128,13 @@ function normalizeBody(value: string): string {
 }
 
 export class GmailOutboundSendService {
-  constructor(private readonly client: GmailOutboundSendClient) {}
+  constructor(
+    private readonly client: GmailOutboundSendClient,
+    private readonly deliveries?: Pick<
+      EmailOutboundDeliveryService,
+      "recordGmailOutboundResult" | "recordGmailOutboundFailure"
+    >,
+  ) {}
 
   async send(
     input: GmailOutboundSendServiceInput,
@@ -121,11 +150,21 @@ export class GmailOutboundSendService {
       throw new ValidationError("Gmail provider account is required.");
     }
 
+    const recipients = {
+      to: normalizeRecipientList(input.message.to, { required: true }),
+      cc: normalizeRecipientList(input.message.cc, { required: false }),
+      bcc: normalizeRecipientList(input.message.bcc, { required: false }),
+    };
+
+    assertRecipientLimit(recipients);
+
     const command = {
       organizationId: input.actor.organizationId,
       workspaceId: input.actor.workspaceId,
       providerAccountId,
-      to: normalizeRecipients(input.message.to),
+      to: recipients.to,
+      cc: recipients.cc,
+      bcc: recipients.bcc,
       subject: normalizeSubject(input.message.subject),
       textBody: normalizeBody(input.message.textBody),
       conversationId: normalizeOptionalText(input.message.conversationId),
@@ -135,11 +174,27 @@ export class GmailOutboundSendService {
 
     try {
       const result = await this.client.send(command);
+      const delivery =
+        command.conversationId && this.deliveries
+          ? await this.deliveries.recordGmailOutboundResult({
+              scope: {
+                organizationId: input.actor.organizationId,
+                workspaceId: input.actor.workspaceId,
+              },
+              conversationId: command.conversationId,
+              actorUserId: input.actor.userId,
+              providerMessageId: result.providerMessageId,
+              idempotencyKey: command.idempotencyKey,
+              status: result.status,
+              sentAt: result.sentAt,
+            })
+          : undefined;
 
       return {
         status: result.status,
         provider: "gmail",
         provider_message_id: result.providerMessageId,
+        ...(delivery ? { outbound_delivery_id: delivery.id } : {}),
         ...(result.status === "simulated"
           ? { reason_code: "simulated_send_completed" as const }
           : {}),
@@ -153,9 +208,24 @@ export class GmailOutboundSendService {
         throw error;
       }
 
+      const delivery =
+        command.conversationId && this.deliveries
+          ? await this.deliveries.recordGmailOutboundFailure({
+              scope: {
+                organizationId: input.actor.organizationId,
+                workspaceId: input.actor.workspaceId,
+              },
+              conversationId: command.conversationId,
+              actorUserId: input.actor.userId,
+              idempotencyKey: command.idempotencyKey,
+              failureCode: "provider_send_failed",
+            })
+          : undefined;
+
       return {
         status: "failed",
         provider: "gmail",
+        ...(delivery ? { outbound_delivery_id: delivery.id } : {}),
         reason_code: "provider_send_failed",
         ...(command.correlationId
           ? { correlation_id: command.correlationId }

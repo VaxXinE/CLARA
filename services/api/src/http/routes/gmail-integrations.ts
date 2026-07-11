@@ -12,6 +12,8 @@ import type { GmailConnectionHealthService } from "../../channels/email/gmail-co
 import type { GmailInboundE2ESmokeService } from "../../channels/email/gmail-inbound-e2e-smoke-service";
 import type { GmailInboundSyncService } from "../../channels/email/gmail-inbound-sync-service";
 import type { GmailInboundSyncSchedulerRuntimeService } from "../../channels/email/gmail-inbound-sync-scheduler-runtime-service";
+import type { GmailOutboundSendService } from "../../channels/email/gmail-outbound-send-service";
+import { GMAIL_OUTBOUND_MAX_BODY_LENGTH } from "../../channels/email/gmail-outbound-send-service-types";
 
 const safeIdPattern = /^[a-zA-Z0-9._:-]+$/;
 const safePageTokenPattern = /^[A-Za-z0-9._~:/+=-]+$/;
@@ -112,6 +114,81 @@ const gmailSchedulerTickBodySchema = z
     max_messages_per_account: z.number().int().min(1).max(1000).optional(),
   })
   .strict();
+
+const outboundEmailSchema = z.string().trim().min(1).max(254).email();
+
+const gmailOutboundSendBodySchema = z
+  .object({
+    provider_account_id: z.string().trim().min(1).max(128),
+    conversation_id: z.string().trim().min(1).max(128).optional(),
+    to: z.array(outboundEmailSchema).min(1).max(10),
+    cc: z.array(outboundEmailSchema).max(10).optional(),
+    bcc: z.array(outboundEmailSchema).max(10).optional(),
+    subject: z.string().trim().min(1).max(200).optional(),
+    body: z.string().min(1).max(GMAIL_OUTBOUND_MAX_BODY_LENGTH),
+    idempotency_key: z.string().trim().min(1).max(128).optional(),
+  })
+  .strict();
+
+function parseOutboundSendBody(body: unknown): {
+  provider_account_id: string;
+  conversation_id?: string;
+  to: string[];
+  cc?: string[];
+  bcc?: string[];
+  subject?: string;
+  body: string;
+  idempotency_key?: string;
+} {
+  const parsed = gmailOutboundSendBodySchema.safeParse(body ?? {});
+
+  if (!parsed.success) {
+    throw new ValidationError(
+      "Invalid request.",
+      parsed.error.issues.map((issue) => ({
+        path: issue.path.join("."),
+        message: issue.message,
+      })),
+    );
+  }
+
+  const result: {
+    provider_account_id: string;
+    conversation_id?: string;
+    to: string[];
+    cc?: string[];
+    bcc?: string[];
+    subject?: string;
+    body: string;
+    idempotency_key?: string;
+  } = {
+    provider_account_id: parsed.data.provider_account_id,
+    to: parsed.data.to,
+    body: parsed.data.body,
+  };
+
+  if (parsed.data.conversation_id !== undefined) {
+    result.conversation_id = parsed.data.conversation_id;
+  }
+
+  if (parsed.data.cc !== undefined) {
+    result.cc = parsed.data.cc;
+  }
+
+  if (parsed.data.bcc !== undefined) {
+    result.bcc = parsed.data.bcc;
+  }
+
+  if (parsed.data.subject !== undefined) {
+    result.subject = parsed.data.subject;
+  }
+
+  if (parsed.data.idempotency_key !== undefined) {
+    result.idempotency_key = parsed.data.idempotency_key;
+  }
+
+  return result;
+}
 
 function parseSchedulerTickBody(body: unknown): {
   max_accounts_per_tick?: number;
@@ -276,8 +353,49 @@ export async function registerGmailIntegrationRoutes(
     scheduler?: Pick<GmailInboundSyncSchedulerRuntimeService, "getStatus"> &
       Partial<Pick<GmailInboundSyncSchedulerRuntimeService, "tickNow">>;
     auditLogs?: Pick<AuditLogService, "recordGmailSchedulerOperatorAction">;
+    outboundSend?: Pick<GmailOutboundSendService, "send">;
   },
 ): Promise<void> {
+  if (services.outboundSend) {
+    const outboundSendService = services.outboundSend;
+
+    app.post(
+      "/api/v1/integrations/gmail/outbound/send",
+      {
+        preHandler: requireAuth(authProvider),
+      },
+      async (request) => {
+        const auth = getAuthContext(request);
+        assertPermission(auth.role, "reply:send");
+        const body = parseOutboundSendBody(request.body);
+
+        return outboundSendService.send({
+          actor: {
+            userId: auth.userId,
+            organizationId: auth.organizationId,
+            workspaceId: auth.workspaceId,
+            role: auth.role,
+          },
+          message: {
+            providerAccountId: body.provider_account_id,
+            ...(body.conversation_id !== undefined
+              ? { conversationId: body.conversation_id }
+              : {}),
+            to: body.to,
+            ...(body.cc !== undefined ? { cc: body.cc } : {}),
+            ...(body.bcc !== undefined ? { bcc: body.bcc } : {}),
+            ...(body.subject !== undefined ? { subject: body.subject } : {}),
+            textBody: body.body,
+            ...(body.idempotency_key !== undefined
+              ? { idempotencyKey: body.idempotency_key }
+              : {}),
+            correlationId: request.id,
+          },
+        });
+      },
+    );
+  }
+
   if (services.scheduler) {
     const scheduler = services.scheduler;
 
