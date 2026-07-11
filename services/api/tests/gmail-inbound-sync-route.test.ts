@@ -38,6 +38,7 @@ describe("gmail inbound sync route", () => {
         fetched_count: 2,
         normalized_count: 0,
         persisted_count: 0,
+        materialized_count: 0,
         skipped_count: 0,
         failed_count: 0,
         next_page_token: "page_2",
@@ -83,6 +84,7 @@ describe("gmail inbound sync route", () => {
         max_messages: 999,
         page_token: "page_1",
         persist_normalized: true,
+        materialize_conversation: true,
         query: 'from:sales@example.test subject:"Invoice"',
         label_ids: ["INBOX", "UNREAD"],
       },
@@ -98,6 +100,7 @@ describe("gmail inbound sync route", () => {
       fetched_count: 2,
       normalized_count: 0,
       persisted_count: 0,
+      materialized_count: 0,
     });
     expect(syncService.syncMessages).toHaveBeenCalledWith({
       organizationId: "org_demo",
@@ -106,6 +109,7 @@ describe("gmail inbound sync route", () => {
       maxMessages: 999,
       pageToken: "page_1",
       persistNormalized: true,
+      materializeConversation: true,
       query: 'from:sales@example.test subject:"Invoice"',
       labelIds: ["INBOX", "UNREAD"],
     });

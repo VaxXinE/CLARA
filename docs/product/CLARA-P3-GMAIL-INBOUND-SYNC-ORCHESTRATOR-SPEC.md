@@ -48,6 +48,7 @@ status
 fetched_count
 normalized_count
 persisted_count
+materialized_count
 skipped_count
 failed_count
 next_page_token optional
@@ -74,6 +75,7 @@ sync batch size harus dibatasi
 viewer tidak boleh trigger sync
 cross-workspace sync harus fail closed
 persist_normalized harus explicit dan tidak boleh default implicit
+materialize_conversation harus explicit dan tidak boleh default implicit
 tidak boleh membuat customer/conversation/activity/AI draft di PR ini
 tidak boleh menyimpan attachment body/data
 ```

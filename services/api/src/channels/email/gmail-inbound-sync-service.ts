@@ -1,5 +1,6 @@
 import { AppError, NotFoundError } from "../../errors/app-error";
 import type { GmailConnectionHealthService } from "./gmail-connection-health-service";
+import type { EmailInboundMaterializer } from "./email-inbound-materialization-types";
 import type { GmailInboundMessageFetchService } from "./gmail-inbound-message-fetch-service";
 import type { GmailMessageNormalizationService } from "./gmail-message-normalization-service";
 import type { GmailNormalizedInboundEmailPersister } from "./gmail-message-normalization-types";
@@ -42,6 +43,7 @@ export class GmailInboundSyncService {
         "normalizeMessage"
       >;
       persistence?: GmailNormalizedInboundEmailPersister;
+      materialization?: EmailInboundMaterializer;
     } = {},
   ) {}
 
@@ -77,6 +79,7 @@ export class GmailInboundSyncService {
         fetched_count: 0,
         normalized_count: 0,
         persisted_count: 0,
+        materialized_count: 0,
         skipped_count: 0,
         failed_count: 0,
         reason_code: "connection_unhealthy",
@@ -106,6 +109,7 @@ export class GmailInboundSyncService {
           fetched_count: 0,
           normalized_count: 0,
           persisted_count: 0,
+          materialized_count: 0,
           skipped_count: 0,
           failed_count: 0,
           reason_code: "provider_fetch_failed",
@@ -124,6 +128,7 @@ export class GmailInboundSyncService {
         fetched_count: 0,
         normalized_count: 0,
         persisted_count: 0,
+        materialized_count: 0,
         skipped_count: 0,
         failed_count: 0,
         ...(listed.next_page_token
@@ -139,6 +144,7 @@ export class GmailInboundSyncService {
     let fetchedCount = 0;
     let normalizedCount = 0;
     let persistedCount = 0;
+    let materializedCount = 0;
     let failedCount = 0;
     let skippedCount = 0;
     let reasonCode: GmailInboundSyncReasonCode | undefined = "sync_completed";
@@ -154,16 +160,14 @@ export class GmailInboundSyncService {
         });
         fetchedCount += 1;
 
-        if (input.persistNormalized) {
+        if (input.persistNormalized || input.materializeConversation) {
           const normalization = this.options.normalization;
-          const persistence = this.options.persistence;
 
-          if (!normalization || !persistence) {
+          if (!normalization) {
             throw new AppError({
               statusCode: 400,
-              appCode: "GMAIL_NORMALIZED_PERSISTENCE_NOT_CONFIGURED",
-              message:
-                "Gmail normalized inbound persistence is not configured.",
+              appCode: "GMAIL_MESSAGE_NORMALIZATION_NOT_CONFIGURED",
+              message: "Gmail message normalization is not configured.",
             });
           }
 
@@ -174,15 +178,57 @@ export class GmailInboundSyncService {
           });
           normalizedCount += 1;
 
-          const persisted = await persistence.persistNormalizedEmail({
-            scope,
-            envelope,
-          });
+          let itemSkipped = false;
 
-          if (persisted.alreadyProcessed) {
+          if (input.persistNormalized) {
+            const persistence = this.options.persistence;
+
+            if (!persistence) {
+              throw new AppError({
+                statusCode: 400,
+                appCode: "GMAIL_NORMALIZED_PERSISTENCE_NOT_CONFIGURED",
+                message:
+                  "Gmail normalized inbound persistence is not configured.",
+              });
+            }
+
+            const persisted = await persistence.persistNormalizedEmail({
+              scope,
+              envelope,
+            });
+
+            if (persisted.alreadyProcessed) {
+              itemSkipped = true;
+            } else {
+              persistedCount += 1;
+            }
+          }
+
+          if (input.materializeConversation) {
+            const materialization = this.options.materialization;
+
+            if (!materialization) {
+              throw new AppError({
+                statusCode: 400,
+                appCode: "EMAIL_INBOUND_MATERIALIZATION_NOT_CONFIGURED",
+                message: "Email inbound materialization is not configured.",
+              });
+            }
+
+            const materialized = await materialization.materialize({
+              scope,
+              envelope,
+            });
+
+            if (materialized.alreadyProcessed) {
+              itemSkipped = true;
+            } else {
+              materializedCount += 1;
+            }
+          }
+
+          if (itemSkipped) {
             skippedCount += 1;
-          } else {
-            persistedCount += 1;
           }
         }
       } catch (error) {
@@ -209,6 +255,7 @@ export class GmailInboundSyncService {
       fetched_count: fetchedCount,
       normalized_count: normalizedCount,
       persisted_count: persistedCount,
+      materialized_count: materializedCount,
       skipped_count: skippedCount,
       failed_count: failedCount,
       ...(listed.next_page_token
