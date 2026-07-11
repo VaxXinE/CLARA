@@ -37,6 +37,13 @@ function createRuntime(
       running = false;
     }),
     isRunning: vi.fn(() => running),
+    getStatus: vi.fn(() => ({
+      scheduler_enabled: true,
+      scheduler_running: running,
+      interval_ms: 300000,
+      max_accounts_per_tick: 10,
+      max_messages_per_account: 25,
+    })),
   };
 }
 

@@ -10,6 +10,7 @@ import type { GmailOAuthCallbackService } from "../../channels/email/gmail-oauth
 import type { GmailConnectionHealthService } from "../../channels/email/gmail-connection-health-service";
 import type { GmailInboundE2ESmokeService } from "../../channels/email/gmail-inbound-e2e-smoke-service";
 import type { GmailInboundSyncService } from "../../channels/email/gmail-inbound-sync-service";
+import type { GmailInboundSyncSchedulerRuntimeService } from "../../channels/email/gmail-inbound-sync-scheduler-runtime-service";
 
 const safeIdPattern = /^[a-zA-Z0-9._:-]+$/;
 const safePageTokenPattern = /^[A-Za-z0-9._~:/+=-]+$/;
@@ -232,8 +233,28 @@ export async function registerGmailIntegrationRoutes(
     health?: GmailConnectionHealthService;
     sync?: Pick<GmailInboundSyncService, "syncMessages">;
     inboundSmoke?: Pick<GmailInboundE2ESmokeService, "runSmoke">;
+    scheduler?: Pick<GmailInboundSyncSchedulerRuntimeService, "getStatus">;
   },
 ): Promise<void> {
+  if (services.scheduler) {
+    const scheduler = services.scheduler;
+
+    app.get(
+      "/api/v1/integrations/gmail/scheduler/status",
+      {
+        preHandler: requireAuth(authProvider),
+      },
+      async (request) => {
+        const auth = getAuthContext(request);
+        assertPermission(auth.role, "integration:gmail_connect");
+
+        return {
+          data: scheduler.getStatus(),
+        };
+      },
+    );
+  }
+
   if (services.connect) {
     const connectService = services.connect;
     app.post(

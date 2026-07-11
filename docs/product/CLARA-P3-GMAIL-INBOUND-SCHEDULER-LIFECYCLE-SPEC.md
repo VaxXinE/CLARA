@@ -9,6 +9,7 @@ classification: "product-spec"
 related_documents:
   - "./CLARA-P3-GMAIL-INBOUND-SYNC-SCHEDULER-RUNTIME-BOUNDARY-SPEC.md"
   - "./CLARA-P3-GMAIL-INBOUND-SYNC-SCHEDULER-SKELETON-SPEC.md"
+  - "./CLARA-P3-GMAIL-SCHEDULER-OPERATOR-STATUS-SPEC.md"
   - "../../services/api/README.md"
 ---
 
@@ -25,6 +26,7 @@ Wire the Gmail inbound scheduler runtime into the API app lifecycle without enab
 - Duplicate readiness bootstrap does not create duplicate starts.
 - App close stops the runtime.
 - Startup and shutdown failures are logged safely and do not expose token material.
+- The operator status route may read safe runtime state/config when the scheduler status service is wired.
 
 ## Non-Goals
 

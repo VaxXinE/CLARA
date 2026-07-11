@@ -43,7 +43,11 @@ export type CreateServerOptions = {
   gmailInboundE2ESmokeService?: Pick<GmailInboundE2ESmokeService, "runSmoke">;
   gmailInboundSyncSchedulerRuntime?: Pick<
     GmailInboundSyncSchedulerRuntimeService,
-    "start" | "stop" | "isRunning"
+    "start" | "stop" | "isRunning" | "getStatus"
+  >;
+  gmailInboundSyncSchedulerStatus?: Pick<
+    GmailInboundSyncSchedulerRuntimeService,
+    "getStatus"
   >;
 };
 
@@ -119,7 +123,9 @@ export async function createServer(
     options.gmailOAuthCallbackService ||
     options.gmailConnectionHealthService ||
     options.gmailInboundSyncService ||
-    options.gmailInboundE2ESmokeService
+    options.gmailInboundE2ESmokeService ||
+    options.gmailInboundSyncSchedulerStatus ||
+    options.gmailInboundSyncSchedulerRuntime
   ) {
     const gmailIntegrationServices: {
       connect?: GmailOAuthConnectService;
@@ -127,6 +133,7 @@ export async function createServer(
       health?: GmailConnectionHealthService;
       sync?: Pick<GmailInboundSyncService, "syncMessages">;
       inboundSmoke?: Pick<GmailInboundE2ESmokeService, "runSmoke">;
+      scheduler?: Pick<GmailInboundSyncSchedulerRuntimeService, "getStatus">;
     } = {};
 
     if (options.gmailOAuthConnectService) {
@@ -148,6 +155,14 @@ export async function createServer(
     if (options.gmailInboundE2ESmokeService) {
       gmailIntegrationServices.inboundSmoke =
         options.gmailInboundE2ESmokeService;
+    }
+
+    const schedulerStatus =
+      options.gmailInboundSyncSchedulerStatus ??
+      options.gmailInboundSyncSchedulerRuntime;
+
+    if (schedulerStatus) {
+      gmailIntegrationServices.scheduler = schedulerStatus;
     }
 
     await registerGmailIntegrationRoutes(
