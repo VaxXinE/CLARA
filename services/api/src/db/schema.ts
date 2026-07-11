@@ -88,6 +88,20 @@ export const gmailOAuthStateStatuses = [
   "revoked",
 ] as const;
 export const gmailOAuthCodeChallengeMethods = ["S256"] as const;
+export const gmailInboundSyncStateProviders = ["gmail"] as const;
+export const gmailInboundSyncStateStatuses = [
+  "idle",
+  "running",
+  "completed",
+  "partial",
+  "failed",
+] as const;
+export const gmailInboundSyncStateReasonCodes = [
+  "connection_unhealthy",
+  "provider_fetch_failed",
+  "message_fetch_failed",
+  "no_messages",
+] as const;
 
 function textOneOf(name: string, values: readonly string[]) {
   return check(
@@ -982,6 +996,92 @@ export const gmailOAuthStateEntries = pgTable(
   ],
 );
 
+export const gmailInboundSyncStates = pgTable(
+  "gmail_inbound_sync_states",
+  {
+    id: text("id").primaryKey(),
+    organizationId: text("organization_id")
+      .notNull()
+      .references(() => organizations.id),
+    workspaceId: text("workspace_id")
+      .notNull()
+      .references(() => workspaces.id),
+    providerAccountId: text("provider_account_id")
+      .notNull()
+      .references(() => gmailProviderAccounts.id),
+    provider: text("provider").notNull().default("gmail"),
+    lastHistoryId: text("last_history_id"),
+    lastPageToken: text("last_page_token"),
+    lastSyncStatus: text("last_sync_status").notNull().default("idle"),
+    lastStartedAt: timestamp("last_started_at", { withTimezone: true }),
+    lastCompletedAt: timestamp("last_completed_at", { withTimezone: true }),
+    lastFailedAt: timestamp("last_failed_at", { withTimezone: true }),
+    lastFailureReasonCode: text("last_failure_reason_code"),
+    lastFetchedCount: integer("last_fetched_count").notNull().default(0),
+    lastNormalizedCount: integer("last_normalized_count").notNull().default(0),
+    lastPersistedCount: integer("last_persisted_count").notNull().default(0),
+    lastMaterializedCount: integer("last_materialized_count")
+      .notNull()
+      .default(0),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    textOneOf("provider", gmailInboundSyncStateProviders),
+    textOneOf("last_sync_status", gmailInboundSyncStateStatuses),
+    check(
+      "gmail_inbound_sync_states_provider_account_id_not_empty",
+      sql`char_length(trim(${table.providerAccountId})) > 0`,
+    ),
+    check(
+      "gmail_inbound_sync_states_last_history_id_not_empty",
+      sql`${table.lastHistoryId} is null or char_length(trim(${table.lastHistoryId})) > 0`,
+    ),
+    check(
+      "gmail_inbound_sync_states_last_page_token_not_empty",
+      sql`${table.lastPageToken} is null or char_length(trim(${table.lastPageToken})) > 0`,
+    ),
+    check(
+      "gmail_inbound_sync_states_last_failure_reason_code_check",
+      sql`${table.lastFailureReasonCode} is null or ${table.lastFailureReasonCode} in (${sql.join(
+        gmailInboundSyncStateReasonCodes.map((value) => sql`${value}`),
+        sql.raw(", "),
+      )})`,
+    ),
+    check(
+      "gmail_inbound_sync_states_last_fetched_count_non_negative",
+      sql`${table.lastFetchedCount} >= 0`,
+    ),
+    check(
+      "gmail_inbound_sync_states_last_normalized_count_non_negative",
+      sql`${table.lastNormalizedCount} >= 0`,
+    ),
+    check(
+      "gmail_inbound_sync_states_last_persisted_count_non_negative",
+      sql`${table.lastPersistedCount} >= 0`,
+    ),
+    check(
+      "gmail_inbound_sync_states_last_materialized_count_non_negative",
+      sql`${table.lastMaterializedCount} >= 0`,
+    ),
+    uniqueIndex("gmail_inbound_sync_states_scope_provider_account_unique").on(
+      table.organizationId,
+      table.workspaceId,
+      table.provider,
+      table.providerAccountId,
+    ),
+    index("idx_gmail_inbound_sync_states_scope_status").on(
+      table.organizationId,
+      table.workspaceId,
+      table.lastSyncStatus,
+    ),
+  ],
+);
+
 export const dbSchema = {
   organizations,
   workspaces,
@@ -999,6 +1099,7 @@ export const dbSchema = {
   gmailProviderAccounts,
   gmailTokenVaultEntries,
   gmailOAuthStateEntries,
+  gmailInboundSyncStates,
 };
 
 export type Organization = typeof organizations.$inferSelect;
@@ -1019,6 +1120,8 @@ export type GmailTokenVaultEntryRow =
   typeof gmailTokenVaultEntries.$inferSelect;
 export type GmailOAuthStateEntryRow =
   typeof gmailOAuthStateEntries.$inferSelect;
+export type GmailInboundSyncStateRow =
+  typeof gmailInboundSyncStates.$inferSelect;
 
 export type JsonObject = Record<string, string | number | boolean | null>;
 export type ActivityMetadata = JsonObject;

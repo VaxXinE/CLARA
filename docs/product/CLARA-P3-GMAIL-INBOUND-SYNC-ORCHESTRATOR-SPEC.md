@@ -25,6 +25,7 @@ Scope PR ini hanya mencakup:
 - fetch detail message secara bounded,
 - normalisasi aman Gmail message ke envelope inbound email internal,
 - hook opsional untuk persist envelope yang sudah dinormalisasi,
+- update state/cursor sync aman per provider account,
 - summary hasil sync yang aman,
 - route management-scoped untuk trigger sync manual.
 

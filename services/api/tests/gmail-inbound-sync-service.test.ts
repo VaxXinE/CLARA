@@ -1,5 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import type { GmailInboundMessageDto } from "../src/channels/email/gmail-inbound-message-fetch-types";
+import { FixtureGmailInboundSyncStateRepository } from "../src/channels/email/gmail-inbound-sync-state-repository";
+import { GmailInboundSyncStateService } from "../src/channels/email/gmail-inbound-sync-state-service";
 import { FixtureGmailProviderAccountRepository } from "../src/channels/email/gmail-provider-account-repository";
 import type { EmailInboundMaterializer } from "../src/channels/email/email-inbound-materialization-types";
 import { GmailMessageNormalizationService } from "../src/channels/email/gmail-message-normalization-service";
@@ -33,6 +35,12 @@ async function createScopedAccount() {
   });
 
   return accounts;
+}
+
+function createSyncStateService() {
+  return new GmailInboundSyncStateService(
+    new FixtureGmailInboundSyncStateRepository(),
+  );
 }
 
 describe("GmailInboundSyncService", () => {
@@ -78,6 +86,9 @@ describe("GmailInboundSyncService", () => {
       accounts,
       healthService,
       fetchService,
+      {
+        state: createSyncStateService(),
+      },
     );
 
     const result = await service.syncMessages({
@@ -123,6 +134,9 @@ describe("GmailInboundSyncService", () => {
         listMessages: vi.fn(),
         getMessage: vi.fn(),
       } as GmailInboundMessageFetcher,
+      {
+        state: createSyncStateService(),
+      },
     );
 
     expect(
@@ -188,6 +202,9 @@ describe("GmailInboundSyncService", () => {
           };
         }),
       } as GmailInboundMessageFetcher,
+      {
+        state: createSyncStateService(),
+      },
     );
 
     expect(
@@ -223,6 +240,9 @@ describe("GmailInboundSyncService", () => {
         }),
         getMessage: vi.fn(),
       } as GmailInboundMessageFetcher,
+      {
+        state: createSyncStateService(),
+      },
     );
 
     expect(
@@ -332,6 +352,7 @@ describe("GmailInboundSyncService", () => {
         normalization: new GmailMessageNormalizationService(),
         persistence,
         materialization,
+        state: createSyncStateService(),
       },
     );
 
@@ -361,5 +382,147 @@ describe("GmailInboundSyncService", () => {
     expect(JSON.stringify(persistedEnvelopes)).not.toContain("conversationId");
     expect(JSON.stringify(persistedEnvelopes)).not.toContain("customerId");
     expect(materialization.materialize).toHaveBeenCalledTimes(2);
+  });
+
+  it("updates scoped sync state on completed, partial, and failed runs", async () => {
+    const accounts = await createScopedAccount();
+    const state = createSyncStateService();
+
+    const completed = new GmailInboundSyncService(
+      accounts,
+      {
+        checkHealth: vi.fn(async () => ({
+          provider_account_id: "gmail_account_demo",
+          provider: "gmail" as const,
+          status: "healthy" as const,
+          reason_code: "ok" as const,
+          checked_at: "2026-07-11T12:00:00.000Z",
+        })),
+      } as GmailConnectionHealthChecker,
+      {
+        listMessages: vi.fn(async () => ({
+          items: [{ provider_message_id: "msg_ok", label_ids: [] }],
+        })),
+        getMessage: vi.fn(async (): Promise<GmailInboundMessageDto> => ({
+          provider_message_id: "msg_ok",
+          label_ids: [],
+        })),
+      } as GmailInboundMessageFetcher,
+      {
+        state,
+      },
+    );
+
+    await completed.syncMessages({
+      organizationId: "org_demo",
+      workspaceId: "wks_demo_sales",
+      providerAccountId: "gmail_account_demo",
+      now: new Date("2026-07-11T12:00:00.000Z"),
+    });
+
+    const afterCompleted = await state.getByProviderAccountScoped(
+      {
+        organizationId: "org_demo",
+        workspaceId: "wks_demo_sales",
+      },
+      "gmail_account_demo",
+    );
+    expect(afterCompleted).toMatchObject({
+      lastSyncStatus: "completed",
+      lastFailureReasonCode: null,
+      lastFetchedCount: 1,
+    });
+
+    const partial = new GmailInboundSyncService(
+      accounts,
+      {
+        checkHealth: vi.fn(async () => ({
+          provider_account_id: "gmail_account_demo",
+          provider: "gmail" as const,
+          status: "healthy" as const,
+          reason_code: "ok" as const,
+          checked_at: "2026-07-11T12:10:00.000Z",
+        })),
+      } as GmailConnectionHealthChecker,
+      {
+        listMessages: vi.fn(async () => ({
+          items: [
+            { provider_message_id: "msg_ok", label_ids: [] },
+            { provider_message_id: "msg_bad", label_ids: [] },
+          ],
+        })),
+        getMessage: vi.fn(async (input): Promise<GmailInboundMessageDto> => {
+          if (input.providerMessageId === "msg_bad") {
+            throw new Error("hidden");
+          }
+
+          return {
+            provider_message_id: "msg_ok",
+            label_ids: [],
+          };
+        }),
+      } as GmailInboundMessageFetcher,
+      {
+        state,
+      },
+    );
+
+    await partial.syncMessages({
+      organizationId: "org_demo",
+      workspaceId: "wks_demo_sales",
+      providerAccountId: "gmail_account_demo",
+      now: new Date("2026-07-11T12:10:00.000Z"),
+    });
+
+    const afterPartial = await state.getByProviderAccountScoped(
+      {
+        organizationId: "org_demo",
+        workspaceId: "wks_demo_sales",
+      },
+      "gmail_account_demo",
+    );
+    expect(afterPartial).toMatchObject({
+      lastSyncStatus: "partial",
+      lastFailureReasonCode: "message_fetch_failed",
+    });
+
+    const failed = new GmailInboundSyncService(
+      accounts,
+      {
+        checkHealth: vi.fn(async () => ({
+          provider_account_id: "gmail_account_demo",
+          provider: "gmail" as const,
+          status: "action_required" as const,
+          reason_code: "provider_rejected" as const,
+          checked_at: "2026-07-11T12:20:00.000Z",
+        })),
+      } as GmailConnectionHealthChecker,
+      {
+        listMessages: vi.fn(),
+        getMessage: vi.fn(),
+      } as GmailInboundMessageFetcher,
+      {
+        state,
+      },
+    );
+
+    await failed.syncMessages({
+      organizationId: "org_demo",
+      workspaceId: "wks_demo_sales",
+      providerAccountId: "gmail_account_demo",
+      now: new Date("2026-07-11T12:20:00.000Z"),
+    });
+
+    const afterFailed = await state.getByProviderAccountScoped(
+      {
+        organizationId: "org_demo",
+        workspaceId: "wks_demo_sales",
+      },
+      "gmail_account_demo",
+    );
+    expect(afterFailed).toMatchObject({
+      lastSyncStatus: "failed",
+      lastFailureReasonCode: "connection_unhealthy",
+    });
   });
 });

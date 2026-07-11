@@ -31,6 +31,7 @@ token refresh boundary exists for internal/server-side use only
 connection health check exists for provider-management checks
 inbound Gmail message fetch boundary exists for safe list/get operations only
 inbound Gmail sync orchestrator exists for bounded manual sync summaries and optional normalized-envelope persistence
+inbound Gmail sync state/cursor persistence now exists per scoped provider account
 internal Gmail inbound smoke harness exists for offline verification when explicitly wired
 no background refresh scheduler or outbound Gmail send yet
 ```
@@ -50,6 +51,7 @@ manual orchestration only
 bounded fetch + safe summary only
 optional persist_normalized mode persists sanitized Gmail inbound envelopes only
 optional materialize_conversation mode reuses the existing inbound email persistence path to create scoped customer/conversation/message/activity records
+sync state now stores only safe counters, timestamps, last_history_id, and optional last_page_token per scoped provider account
 does not create AI drafts or outbound replies
 ```
 
