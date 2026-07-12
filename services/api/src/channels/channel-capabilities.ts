@@ -62,14 +62,15 @@ export const channelCapabilities: ChannelCapability[] = [
     provider: "webchat",
     channel_type: "webchat",
     display_name: "Webchat",
-    inbound_supported: false,
+    inbound_supported: true,
     outbound_supported: false,
     oauth_supported: false,
     manual_sync_supported: false,
     scheduler_supported: false,
     audit_supported: false,
     dashboard_status_supported: false,
-    production_status: "planned",
-    safe_notes: "Planned metadata only; no provider integration exists yet.",
+    production_status: "available",
+    safe_notes:
+      "Webchat inbound foundation is available; outbound replies and dashboard UI are not implemented yet.",
   },
 ];

@@ -49,15 +49,24 @@ describe("channel account routes", () => {
     const serialized = JSON.stringify(body);
 
     expect(response.statusCode).toBe(200);
-    expect(body.data.items).toEqual([
-      expect.objectContaining({
-        id: "channel_account_demo_gmail",
-        provider: "gmail",
-        channel_type: "email",
-        status: "connected",
-        health_status: "healthy",
-      }),
-    ]);
+    expect(body.data.items).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          id: "channel_account_demo_gmail",
+          provider: "gmail",
+          channel_type: "email",
+          status: "connected",
+          health_status: "healthy",
+        }),
+        expect.objectContaining({
+          id: "channel_account_demo_webchat",
+          provider: "webchat",
+          channel_type: "webchat",
+          status: "connected",
+          health_status: "healthy",
+        }),
+      ]),
+    );
     expect(serialized).not.toContain("organization_id");
     expect(serialized).not.toContain("workspace_id");
     expect(serialized).not.toContain("Authorization");

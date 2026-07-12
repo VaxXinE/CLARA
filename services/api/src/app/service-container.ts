@@ -20,6 +20,10 @@ import { ChannelAccountService } from "../channels/channel-account-service";
 import { DrizzleChannelAccountRepository } from "../channels/channel-account-db-repository";
 import { FixtureChannelAccountRepository } from "../channels/channel-account-repository";
 import { ChannelRegistryService } from "../channels/channel-registry-service";
+import { DrizzleWebchatInboundRepository } from "../channels/webchat/webchat-inbound-db-repository";
+import { WebchatInboundMaterializationService } from "../channels/webchat/webchat-inbound-materialization-service";
+import { WebchatInboundPersistenceService } from "../channels/webchat/webchat-inbound-persistence-service";
+import { FixtureWebchatInboundRepository } from "../channels/webchat/webchat-inbound-repository";
 import { createDatabase } from "../db/client";
 import { createFixtureAppStore } from "../db/fixtures/fixture-store";
 import { FixtureConversationRepository } from "../conversations/conversation-repository";
@@ -41,6 +45,7 @@ export type AppServices = {
   replies: ReplyService;
   channelRegistry?: ChannelRegistryService;
   channelAccounts?: ChannelAccountService;
+  webchatInbound?: WebchatInboundMaterializationService;
 };
 
 export type AuthServices = {
@@ -61,6 +66,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
   if (shouldUseDatabaseRepositories(env)) {
     const { db, pool } = createDatabase(env);
     const conversationRepository = new DrizzleConversationRepository(db);
+    const channelAccountRepository = new DrizzleChannelAccountRepository(db);
     const auditLogs = new AuditLogService(new DrizzleAuditLogRepository(db));
 
     return {
@@ -84,8 +90,12 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
           auditLogs,
         ),
         channelRegistry: new ChannelRegistryService(),
-        channelAccounts: new ChannelAccountService(
-          new DrizzleChannelAccountRepository(db),
+        channelAccounts: new ChannelAccountService(channelAccountRepository),
+        webchatInbound: new WebchatInboundMaterializationService(
+          channelAccountRepository,
+          new WebchatInboundPersistenceService(
+            new DrizzleWebchatInboundRepository(db),
+          ),
         ),
       },
       auth: {
@@ -109,6 +119,9 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
   const conversationRepository = new FixtureConversationRepository(
     fixtureStore,
   );
+  const channelAccountRepository = new FixtureChannelAccountRepository(
+    fixtureStore,
+  );
   const auditLogs = new AuditLogService(
     new FixtureAuditLogRepository(fixtureStore),
   );
@@ -116,7 +129,9 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
   return {
     services: {
       conversations: new ConversationQueryService(conversationRepository),
-      customers: new CustomerQueryService(new FixtureCustomerRepository()),
+      customers: new CustomerQueryService(
+        new FixtureCustomerRepository(fixtureStore),
+      ),
       activity: new ActivityQueryService(
         new FixtureActivityRepository(fixtureStore),
         conversationRepository,
@@ -134,8 +149,12 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         auditLogs,
       ),
       channelRegistry: new ChannelRegistryService(),
-      channelAccounts: new ChannelAccountService(
-        new FixtureChannelAccountRepository(fixtureStore),
+      channelAccounts: new ChannelAccountService(channelAccountRepository),
+      webchatInbound: new WebchatInboundMaterializationService(
+        channelAccountRepository,
+        new WebchatInboundPersistenceService(
+          new FixtureWebchatInboundRepository(fixtureStore),
+        ),
       ),
     },
     auth: {

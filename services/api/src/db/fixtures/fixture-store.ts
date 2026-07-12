@@ -10,6 +10,7 @@ import {
   emailOutboundDeliveries,
   messages,
   replyDrafts,
+  webchatInboundMessages,
 } from "../schema";
 import {
   demoActivityEvents,
@@ -22,6 +23,7 @@ import {
   demoEmailOutboundDeliveries,
   demoMessages,
   demoReplyDrafts,
+  demoWebchatInboundMessages,
 } from "./demo-data";
 
 type ConversationInsert = InferInsertModel<typeof conversations>;
@@ -36,6 +38,9 @@ type EmailInboundRecordInsert = InferInsertModel<typeof emailInboundRecords>;
 type EmailOutboundDeliveryInsert = InferInsertModel<
   typeof emailOutboundDeliveries
 >;
+type WebchatInboundMessageInsert = InferInsertModel<
+  typeof webchatInboundMessages
+>;
 
 export type FixtureAppStore = {
   customers: CustomerInsert[];
@@ -48,6 +53,7 @@ export type FixtureAppStore = {
   channelAccounts: ChannelAccountInsert[];
   emailInboundRecords: EmailInboundRecordInsert[];
   emailOutboundDeliveries: EmailOutboundDeliveryInsert[];
+  webchatInboundMessages: WebchatInboundMessageInsert[];
 };
 
 function cloneRows<T>(rows: T[]): T[] {
@@ -66,5 +72,6 @@ export function createFixtureAppStore(): FixtureAppStore {
     channelAccounts: cloneRows(demoChannelAccounts),
     emailInboundRecords: cloneRows(demoEmailInboundRecords),
     emailOutboundDeliveries: cloneRows(demoEmailOutboundDeliveries),
+    webchatInboundMessages: cloneRows(demoWebchatInboundMessages),
   };
 }

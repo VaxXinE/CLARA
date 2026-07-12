@@ -24,6 +24,7 @@ import { registerActivityRoutes } from "./routes/activity";
 import { registerAiDraftRoutes } from "./routes/ai-drafts";
 import { registerReplyRoutes } from "./routes/replies";
 import { registerChannelRoutes } from "./routes/channels";
+import { registerWebchatRoutes } from "./routes/webchat";
 import type { GmailOAuthConnectService } from "../channels/email/gmail-oauth-connect-service";
 import type { GmailOAuthCallbackService } from "../channels/email/gmail-oauth-callback-service";
 import type { GmailConnectionHealthService } from "../channels/email/gmail-connection-health-service";
@@ -34,6 +35,7 @@ import type { GmailOutboundSendService } from "../channels/email/gmail-outbound-
 import type { EmailOutboundDeliveryService } from "../channels/email/email-outbound-delivery-service";
 import type { AuditLogService } from "../audit/audit-log-service";
 import { registerGmailIntegrationRoutes } from "./routes/gmail-integrations";
+import { SimulatedWebchatChannelAdapter } from "../channels/webchat/simulated-webchat-channel-adapter";
 
 export type CreateServerOptions = {
   env: Env;
@@ -138,6 +140,13 @@ export async function createServer(
       authProvider,
       services.channelRegistry,
       services.channelAccounts,
+    );
+  }
+  if (services.webchatInbound) {
+    await registerWebchatRoutes(
+      app,
+      new SimulatedWebchatChannelAdapter(),
+      services.webchatInbound,
     );
   }
   if (
