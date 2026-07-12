@@ -1,4 +1,5 @@
 import { assertPermission } from "../../auth/permissions";
+import type { AuditLogService } from "../../audit/audit-log-service";
 import { AppError, ValidationError } from "../../errors/app-error";
 import type { EmailOutboundDeliveryService } from "./email-outbound-delivery-service";
 import type { GmailOutboundSendClient } from "./gmail-outbound-send-client-types";
@@ -134,6 +135,10 @@ export class GmailOutboundSendService {
       EmailOutboundDeliveryService,
       "recordGmailOutboundResult" | "recordGmailOutboundFailure"
     >,
+    private readonly auditLogs?: Pick<
+      AuditLogService,
+      "recordGmailOutboundSendRequested" | "recordGmailOutboundSendResult"
+    >,
   ) {}
 
   async send(
@@ -157,6 +162,8 @@ export class GmailOutboundSendService {
     };
 
     assertRecipientLimit(recipients);
+    const recipientCount =
+      recipients.to.length + recipients.cc.length + recipients.bcc.length;
 
     const command = {
       organizationId: input.actor.organizationId,
@@ -173,6 +180,13 @@ export class GmailOutboundSendService {
     };
 
     try {
+      await this.auditLogs?.recordGmailOutboundSendRequested({
+        actor: input.actor,
+        correlationId: command.correlationId ?? "gmail_outbound_send",
+        conversationId: command.conversationId,
+        recipientCount,
+      });
+
       const result = await this.client.send(command);
       const delivery =
         command.conversationId && this.deliveries
@@ -189,6 +203,16 @@ export class GmailOutboundSendService {
               sentAt: result.sentAt,
             })
           : undefined;
+      await this.auditLogs?.recordGmailOutboundSendResult({
+        actor: input.actor,
+        correlationId: command.correlationId ?? "gmail_outbound_send",
+        conversationId: command.conversationId,
+        status: result.status,
+        reasonCode:
+          result.status === "simulated" ? "simulated_send_completed" : null,
+        recipientCount,
+        ...(delivery ? { outboundDeliveryId: delivery.id } : {}),
+      });
 
       return {
         status: result.status,
@@ -221,6 +245,15 @@ export class GmailOutboundSendService {
               failureCode: "provider_send_failed",
             })
           : undefined;
+      await this.auditLogs?.recordGmailOutboundSendResult({
+        actor: input.actor,
+        correlationId: command.correlationId ?? "gmail_outbound_send",
+        conversationId: command.conversationId,
+        status: "failed",
+        reasonCode: "provider_send_failed",
+        recipientCount,
+        ...(delivery ? { outboundDeliveryId: delivery.id } : {}),
+      });
 
       return {
         status: "failed",

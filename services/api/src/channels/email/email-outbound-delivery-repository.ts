@@ -18,6 +18,10 @@ export interface EmailOutboundDeliveryRepository {
   recordDelivery(
     input: RecordEmailOutboundDeliveryInput,
   ): Promise<EmailOutboundDeliveryRecord>;
+  findByIdScoped(
+    scope: RecordEmailOutboundDeliveryInput["scope"],
+    deliveryId: string,
+  ): Promise<EmailOutboundDeliveryRecord | null>;
 }
 
 function normalizeText(value: string, fieldName: string): string {
@@ -229,5 +233,19 @@ export class FixtureEmailOutboundDeliveryRepository implements EmailOutboundDeli
     this.store.emailOutboundDeliveries.push(row);
 
     return toRecord(row, false);
+  }
+
+  async findByIdScoped(
+    scope: RecordEmailOutboundDeliveryInput["scope"],
+    deliveryId: string,
+  ): Promise<EmailOutboundDeliveryRecord | null> {
+    const record = this.store.emailOutboundDeliveries.find(
+      (item) =>
+        item.organizationId === scope.organizationId &&
+        item.workspaceId === scope.workspaceId &&
+        item.id === deliveryId,
+    );
+
+    return record ? toRecord(record, true) : null;
   }
 }

@@ -159,4 +159,40 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("access_token");
     expect(JSON.stringify(response)).not.toContain("refresh_token");
   });
+
+  it("loads Gmail outbound delivery status safely", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        data: {
+          outbound_delivery_id: "email_outbound_demo",
+          provider: "gmail",
+          status: "simulated",
+          reason_code: "simulated_send_completed",
+          provider_message_id: "gmail_msg_demo",
+          conversation_id: "conv_demo",
+          created_at: "2026-01-01T00:00:00.000Z",
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({
+      baseUrl: "http://127.0.0.1:3000",
+    });
+
+    const response = await client.getGmailOutboundDeliveryStatus(
+      "email_outbound_demo",
+    );
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/integrations/gmail/outbound/deliveries/email_outbound_demo",
+      expect.any(Object),
+    );
+    expect(response.data).toMatchObject({
+      provider: "gmail",
+      status: "simulated",
+    });
+    expect(JSON.stringify(response)).not.toContain("access_token");
+    expect(JSON.stringify(response)).not.toContain("refresh_token");
+    expect(JSON.stringify(response)).not.toContain("Authorization");
+  });
 });

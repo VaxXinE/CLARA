@@ -76,6 +76,14 @@ const gmailSchedulerAuditMigrationSql = readFileSync(
   gmailSchedulerAuditMigrationPath,
   "utf8",
 );
+const gmailOutboundAuditMigrationPath = path.resolve(
+  __dirname,
+  "../drizzle/0010_p3_gmail_outbound_audit_actions.sql",
+);
+const gmailOutboundAuditMigrationSql = readFileSync(
+  gmailOutboundAuditMigrationPath,
+  "utf8",
+);
 
 describe("initial database migration", () => {
   it("creates all required PR-04 tables", () => {
@@ -210,6 +218,18 @@ describe("initial database migration", () => {
       "'gmail.scheduler.tick_failed'",
     );
     expect(gmailSchedulerAuditMigrationSql).toContain("'gmail_scheduler'");
+  });
+
+  it("adds Gmail outbound audit actions", () => {
+    expect(gmailOutboundAuditMigrationSql).toContain(
+      "'gmail.outbound_send.requested'",
+    );
+    expect(gmailOutboundAuditMigrationSql).toContain(
+      "'gmail.outbound_send.failed'",
+    );
+    expect(gmailOutboundAuditMigrationSql).toContain(
+      "'gmail.reply_send.succeeded'",
+    );
   });
 
   it("adds email inbound persistence schema and scoped uniqueness", () => {

@@ -69,6 +69,19 @@ export type EmailOutboundDeliveryRecord = {
   alreadyRecorded: boolean;
 };
 
+export type GmailOutboundDeliveryStatusDto = {
+  outbound_delivery_id: string;
+  provider: "gmail";
+  status: EmailOutboundDeliveryStatus;
+  reason_code?: string;
+  provider_message_id?: string;
+  conversation_id: string;
+  sent_at?: string;
+  failed_at?: string;
+  created_at: string;
+  correlation_id?: string;
+};
+
 export type RecordEmailReplyDeliveryInput = {
   scope: RecordEmailOutboundDeliveryScope;
   conversationId: string;

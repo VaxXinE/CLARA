@@ -169,8 +169,27 @@ describe("Gmail reply send integration", () => {
     );
     expect(store.emailInboundRecords).toHaveLength(beforeInboundCount);
     expect(store.aiDraftEvents).toHaveLength(beforeAiDraftCount);
+    expect(store.auditLogs.slice(-2)).toMatchObject([
+      {
+        action: "reply.sent",
+        outcome: "success",
+      },
+      {
+        action: "gmail.reply_send.succeeded",
+        resourceId: "conv_demo_sari_followup",
+        outcome: "success",
+      },
+    ]);
+    expect(store.auditLogs.at(-1)?.metadataJson).toMatchObject({
+      provider: "gmail",
+      conversation_id: "conv_demo_sari_followup",
+      status: "simulated",
+      reason_code: "simulated_send_completed",
+      recipient_count: 1,
+    });
     expectSafe(body);
     expectSafe(store.emailOutboundDeliveries[0]);
+    expectSafe(store.auditLogs.slice(-2));
   });
 
   it("preserves the non-Gmail reply path", async () => {
@@ -286,7 +305,25 @@ describe("Gmail reply send integration", () => {
         source: "gmail_outbound_send",
       },
     });
+    expect(store.auditLogs.slice(-2)).toMatchObject([
+      {
+        action: "gmail.reply_send.failed",
+        outcome: "failure",
+      },
+      {
+        action: "reply.failed",
+        outcome: "failure",
+      },
+    ]);
+    expect(store.auditLogs.at(-2)?.metadataJson).toMatchObject({
+      provider: "gmail",
+      conversation_id: "conv_demo_sari_followup",
+      status: "failed",
+      reason_code: "provider_send_failed",
+      recipient_count: 1,
+    });
     expectSafe(body);
     expectSafe(store.emailOutboundDeliveries[0]);
+    expectSafe(store.auditLogs.slice(-2));
   });
 });

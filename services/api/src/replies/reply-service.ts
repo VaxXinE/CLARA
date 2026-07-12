@@ -116,6 +116,15 @@ export class ReplyService {
       await this.auditLogs.recordReplySendAttempted(attemptedAuditInput);
 
       if (this.gmailReply && isGmailReplySource(conversation.source)) {
+        const customerEmail = getCustomerEmail(conversation);
+
+        await this.auditLogs.recordGmailReplySendRequested({
+          auth: input.auth,
+          correlationId: input.correlationId,
+          conversationId: conversation.id,
+          recipientCount: 1,
+        });
+
         const gmailResult = await this.gmailReply.service.send({
           actor: {
             userId: input.auth.userId,
@@ -126,7 +135,7 @@ export class ReplyService {
           message: {
             providerAccountId: this.gmailReply.providerAccountId,
             conversationId: conversation.id,
-            to: [getCustomerEmail(conversation)],
+            to: [customerEmail],
             subject: `Re: ${conversation.id}`,
             textBody: validatedBody,
             idempotencyKey: `reply:${conversation.id}:${input.correlationId}`,
@@ -135,6 +144,16 @@ export class ReplyService {
         });
 
         if (gmailResult.status === "failed") {
+          await this.auditLogs.recordGmailReplySendResult({
+            auth: input.auth,
+            correlationId: input.correlationId,
+            conversationId: conversation.id,
+            status: "failed",
+            reasonCode: gmailResult.reason_code ?? null,
+            outboundDeliveryId: gmailResult.outbound_delivery_id ?? null,
+            recipientCount: 1,
+          });
+
           await this.auditLogs.recordReplyFailed({
             auth: input.auth,
             correlationId: input.correlationId,
@@ -187,6 +206,16 @@ export class ReplyService {
           deliveryStatus:
             gmailResult.status === "simulated" ? "simulated" : "sent",
           ...(input.draftId ? { draftId: input.draftId } : {}),
+        });
+
+        await this.auditLogs.recordGmailReplySendResult({
+          auth: input.auth,
+          correlationId: input.correlationId,
+          conversationId: conversation.id,
+          status: gmailResult.status === "simulated" ? "simulated" : "sent",
+          reasonCode: gmailResult.reason_code ?? null,
+          outboundDeliveryId: gmailResult.outbound_delivery_id ?? null,
+          recipientCount: 1,
         });
 
         return toReplySendResponseDto(createdReply, {

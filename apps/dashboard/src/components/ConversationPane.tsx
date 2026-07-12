@@ -1,6 +1,10 @@
-import type { ConversationDetail } from "../api/types";
+import type {
+  ConversationDetail,
+  GmailOutboundDeliveryStatus,
+} from "../api/types";
 import { ComposerPanel } from "./ComposerPanel";
 import { ConversationSourceBadge } from "./ConversationSourceBadge";
+import { GmailOutboundStatusPanel } from "./GmailOutboundStatusPanel";
 
 type ConversationPaneProps = {
   conversation: ConversationDetail | null;
@@ -17,6 +21,9 @@ type ConversationPaneProps = {
   composerError: string | null;
   aiDraftLabel: string | null;
   readOnlyMessage: string | null;
+  gmailOutboundStatus: GmailOutboundDeliveryStatus | null;
+  gmailOutboundStatusLoading: boolean;
+  gmailOutboundStatusError: string | null;
 };
 
 function formatMessageTime(value: string): string {
@@ -111,6 +118,12 @@ export function ConversationPane(props: ConversationPaneProps) {
           </article>
         ))}
       </div>
+
+      <GmailOutboundStatusPanel
+        status={props.gmailOutboundStatus}
+        loading={props.gmailOutboundStatusLoading}
+        error={props.gmailOutboundStatusError}
+      />
 
       <ComposerPanel
         value={props.composerValue}
