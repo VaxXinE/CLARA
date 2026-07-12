@@ -86,7 +86,7 @@ const gmailOutboundAuditMigrationSql = readFileSync(
 );
 const channelAccountsMigrationPath = path.resolve(
   __dirname,
-  "../drizzle/0011_p4_channel_accounts.sql",
+  "../drizzle/0012_p4_channel_accounts.sql",
 );
 const channelAccountsMigrationSql = readFileSync(
   channelAccountsMigrationPath,
