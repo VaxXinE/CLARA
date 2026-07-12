@@ -115,6 +115,32 @@ export const gmailInboundSyncStateReasonCodes = [
   "message_fetch_failed",
   "no_messages",
 ] as const;
+export const channelProviders = [
+  "gmail",
+  "whatsapp",
+  "instagram",
+  "tiktok",
+  "webchat",
+] as const;
+export const channelTypes = [
+  "email",
+  "messaging",
+  "social",
+  "webchat",
+] as const;
+export const channelAccountStatuses = [
+  "connected",
+  "disconnected",
+  "degraded",
+  "disabled",
+  "planned",
+] as const;
+export const channelHealthStatuses = [
+  "healthy",
+  "degraded",
+  "unavailable",
+  "unknown",
+] as const;
 
 function textOneOf(name: string, values: readonly string[]) {
   return check(
@@ -1095,6 +1121,58 @@ export const gmailInboundSyncStates = pgTable(
   ],
 );
 
+export const channelAccounts = pgTable(
+  "channel_accounts",
+  {
+    id: text("id").primaryKey(),
+    organizationId: text("organization_id")
+      .notNull()
+      .references(() => organizations.id),
+    workspaceId: text("workspace_id")
+      .notNull()
+      .references(() => workspaces.id),
+    provider: text("provider").notNull(),
+    channelType: text("channel_type").notNull(),
+    displayName: text("display_name").notNull(),
+    externalAccountId: text("external_account_id"),
+    status: text("status").notNull(),
+    healthStatus: text("health_status").notNull().default("unknown"),
+    lastHealthCheckedAt: timestamp("last_health_checked_at", {
+      withTimezone: true,
+    }),
+    metadata: jsonb("metadata").notNull().default({}),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    textOneOf("provider", channelProviders),
+    textOneOf("channel_type", channelTypes),
+    textOneOf("status", channelAccountStatuses),
+    textOneOf("health_status", channelHealthStatuses),
+    check(
+      "channel_accounts_display_name_not_empty",
+      sql`char_length(trim(${table.displayName})) > 0`,
+    ),
+    check(
+      "channel_accounts_external_account_id_not_empty",
+      sql`${table.externalAccountId} is null or char_length(trim(${table.externalAccountId})) > 0`,
+    ),
+    index("idx_channel_accounts_organization_workspace").on(
+      table.organizationId,
+      table.workspaceId,
+    ),
+    index("idx_channel_accounts_scope_provider").on(
+      table.organizationId,
+      table.workspaceId,
+      table.provider,
+    ),
+  ],
+);
+
 export const dbSchema = {
   organizations,
   workspaces,
@@ -1113,6 +1191,7 @@ export const dbSchema = {
   gmailTokenVaultEntries,
   gmailOAuthStateEntries,
   gmailInboundSyncStates,
+  channelAccounts,
 };
 
 export type Organization = typeof organizations.$inferSelect;
@@ -1135,6 +1214,7 @@ export type GmailOAuthStateEntryRow =
   typeof gmailOAuthStateEntries.$inferSelect;
 export type GmailInboundSyncStateRow =
   typeof gmailInboundSyncStates.$inferSelect;
+export type ChannelAccountRow = typeof channelAccounts.$inferSelect;
 
 export type JsonObject = Record<string, string | number | boolean | null>;
 export type ActivityMetadata = JsonObject;

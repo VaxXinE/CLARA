@@ -4,6 +4,10 @@ import {
   aiDraftStatuses,
   auditLogActions,
   auditLogOutcomes,
+  channelAccountStatuses,
+  channelHealthStatuses,
+  channelProviders,
+  channelTypes,
   conversationStatuses,
   dbSchema,
   gmailOAuthCodeChallengeMethods,
@@ -43,6 +47,7 @@ describe("database schema", () => {
       "gmailTokenVaultEntries",
       "gmailOAuthStateEntries",
       "gmailInboundSyncStates",
+      "channelAccounts",
     ]);
   });
 
@@ -61,6 +66,7 @@ describe("database schema", () => {
       "gmailTokenVaultEntries",
       "gmailOAuthStateEntries",
       "gmailInboundSyncStates",
+      "channelAccounts",
     ] as const) {
       const columns = Object.keys(dbSchema[tableName]);
 
@@ -126,6 +132,27 @@ describe("database schema", () => {
       "provider_fetch_failed",
       "message_fetch_failed",
       "no_messages",
+    ]);
+    expect(channelProviders).toEqual([
+      "gmail",
+      "whatsapp",
+      "instagram",
+      "tiktok",
+      "webchat",
+    ]);
+    expect(channelTypes).toEqual(["email", "messaging", "social", "webchat"]);
+    expect(channelAccountStatuses).toEqual([
+      "connected",
+      "disconnected",
+      "degraded",
+      "disabled",
+      "planned",
+    ]);
+    expect(channelHealthStatuses).toEqual([
+      "healthy",
+      "degraded",
+      "unavailable",
+      "unknown",
     ]);
     expect(activityEventTypes).toEqual([
       "ai_draft_generated",

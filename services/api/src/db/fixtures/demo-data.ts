@@ -3,6 +3,7 @@ import {
   activityEvents,
   auditLogs,
   aiDraftEvents,
+  channelAccounts,
   conversations,
   customers,
   emailInboundRecords,
@@ -26,6 +27,7 @@ type ReplyDraftInsert = InferInsertModel<typeof replyDrafts>;
 type AiDraftEventInsert = InferInsertModel<typeof aiDraftEvents>;
 type ActivityEventInsert = InferInsertModel<typeof activityEvents>;
 type AuditLogInsert = InferInsertModel<typeof auditLogs>;
+type ChannelAccountInsert = InferInsertModel<typeof channelAccounts>;
 type EmailInboundRecordInsert = InferInsertModel<typeof emailInboundRecords>;
 type EmailOutboundDeliveryInsert = InferInsertModel<
   typeof emailOutboundDeliveries
@@ -429,6 +431,43 @@ export const demoActivityEvents: ActivityEventInsert[] = [
 ];
 
 export const demoAuditLogs: AuditLogInsert[] = [];
+export const demoChannelAccounts: ChannelAccountInsert[] = [
+  {
+    id: "channel_account_demo_gmail",
+    organizationId: "org_demo",
+    workspaceId: "wks_demo_sales",
+    provider: "gmail",
+    channelType: "email",
+    displayName: "Demo Gmail",
+    externalAccountId: "demo@example.test",
+    status: "connected",
+    healthStatus: "healthy",
+    lastHealthCheckedAt: now,
+    metadata: {
+      source: "demo_fixture",
+      safe_note: "Safe demo Gmail channel account.",
+    },
+    createdAt: now,
+    updatedAt: now,
+  },
+  {
+    id: "channel_account_other_gmail",
+    organizationId: "org_demo_other",
+    workspaceId: "wks_demo_other",
+    provider: "gmail",
+    channelType: "email",
+    displayName: "Other Demo Gmail",
+    externalAccountId: "other@example.test",
+    status: "connected",
+    healthStatus: "healthy",
+    lastHealthCheckedAt: now,
+    metadata: {
+      source: "demo_fixture",
+    },
+    createdAt: now,
+    updatedAt: now,
+  },
+];
 
 export const demoEmailInboundRecords: EmailInboundRecordInsert[] = [];
 export const demoEmailOutboundDeliveries: EmailOutboundDeliveryInsert[] = [];
@@ -445,6 +484,7 @@ export const demoSeedData = {
   aiDraftEvents: demoAiDraftEvents,
   activityEvents: demoActivityEvents,
   auditLogs: demoAuditLogs,
+  channelAccounts: demoChannelAccounts,
   emailInboundRecords: demoEmailInboundRecords,
   emailOutboundDeliveries: demoEmailOutboundDeliveries,
 };

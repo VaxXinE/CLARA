@@ -23,6 +23,7 @@ import { registerCustomerRoutes } from "./routes/customers";
 import { registerActivityRoutes } from "./routes/activity";
 import { registerAiDraftRoutes } from "./routes/ai-drafts";
 import { registerReplyRoutes } from "./routes/replies";
+import { registerChannelRoutes } from "./routes/channels";
 import type { GmailOAuthConnectService } from "../channels/email/gmail-oauth-connect-service";
 import type { GmailOAuthCallbackService } from "../channels/email/gmail-oauth-callback-service";
 import type { GmailConnectionHealthService } from "../channels/email/gmail-connection-health-service";
@@ -131,6 +132,14 @@ export async function createServer(
     options.env,
   );
   await registerReplyRoutes(app, authProvider, services.replies, options.env);
+  if (services.channelRegistry && services.channelAccounts) {
+    await registerChannelRoutes(
+      app,
+      authProvider,
+      services.channelRegistry,
+      services.channelAccounts,
+    );
+  }
   if (
     options.gmailOAuthConnectService ||
     options.gmailOAuthCallbackService ||

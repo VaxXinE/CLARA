@@ -45,6 +45,7 @@ describe("GET /api/v1/me", () => {
         "conversation:read",
         "customer:read",
         "activity:read",
+        "channel:read",
         "ai_draft:create",
         "reply:send",
         "integration:gmail_connect",

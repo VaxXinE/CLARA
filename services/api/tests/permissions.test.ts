@@ -12,6 +12,7 @@ describe("permissions", () => {
       "conversation:read",
       "customer:read",
       "activity:read",
+      "channel:read",
       "ai_draft:create",
       "reply:send",
       "integration:gmail_connect",
@@ -29,6 +30,7 @@ describe("permissions", () => {
     expect(hasPermission("viewer", "conversation:read")).toBe(true);
     expect(hasPermission("viewer", "customer:read")).toBe(true);
     expect(hasPermission("viewer", "activity:read")).toBe(true);
+    expect(hasPermission("viewer", "channel:read")).toBe(true);
     expect(hasPermission("viewer", "ai_draft:create")).toBe(false);
     expect(hasPermission("viewer", "reply:send")).toBe(false);
     expect(hasPermission("viewer", "integration:gmail_connect")).toBe(false);

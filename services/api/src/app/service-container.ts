@@ -16,6 +16,10 @@ import {
   FixtureWorkspaceMembershipRepository,
 } from "../auth/workspace-membership-repository";
 import { WorkspaceMembershipService } from "../auth/workspace-membership-service";
+import { ChannelAccountService } from "../channels/channel-account-service";
+import { DrizzleChannelAccountRepository } from "../channels/channel-account-db-repository";
+import { FixtureChannelAccountRepository } from "../channels/channel-account-repository";
+import { ChannelRegistryService } from "../channels/channel-registry-service";
 import { createDatabase } from "../db/client";
 import { createFixtureAppStore } from "../db/fixtures/fixture-store";
 import { FixtureConversationRepository } from "../conversations/conversation-repository";
@@ -35,6 +39,8 @@ export type AppServices = {
   activity: ActivityQueryService;
   aiDrafts: AiDraftService;
   replies: ReplyService;
+  channelRegistry?: ChannelRegistryService;
+  channelAccounts?: ChannelAccountService;
 };
 
 export type AuthServices = {
@@ -76,6 +82,10 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
           new DrizzleReplyRepository(db),
           new SimulatedReplySendProvider(),
           auditLogs,
+        ),
+        channelRegistry: new ChannelRegistryService(),
+        channelAccounts: new ChannelAccountService(
+          new DrizzleChannelAccountRepository(db),
         ),
       },
       auth: {
@@ -122,6 +132,10 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         new FixtureReplyRepository(fixtureStore),
         new SimulatedReplySendProvider(),
         auditLogs,
+      ),
+      channelRegistry: new ChannelRegistryService(),
+      channelAccounts: new ChannelAccountService(
+        new FixtureChannelAccountRepository(fixtureStore),
       ),
     },
     auth: {

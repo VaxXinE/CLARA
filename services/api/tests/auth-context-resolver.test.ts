@@ -48,7 +48,12 @@ describe("auth context resolver", () => {
       organizationId: "org_demo",
       workspaceId: "wks_demo_sales",
       role: "viewer",
-      permissions: ["conversation:read", "customer:read", "activity:read"],
+      permissions: [
+        "conversation:read",
+        "customer:read",
+        "activity:read",
+        "channel:read",
+      ],
       authMethod: "provider",
     });
   });

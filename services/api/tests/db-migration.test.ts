@@ -84,6 +84,14 @@ const gmailOutboundAuditMigrationSql = readFileSync(
   gmailOutboundAuditMigrationPath,
   "utf8",
 );
+const channelAccountsMigrationPath = path.resolve(
+  __dirname,
+  "../drizzle/0011_p4_channel_accounts.sql",
+);
+const channelAccountsMigrationSql = readFileSync(
+  channelAccountsMigrationPath,
+  "utf8",
+);
 
 describe("initial database migration", () => {
   it("creates all required PR-04 tables", () => {
@@ -105,6 +113,7 @@ describe("initial database migration", () => {
       "gmail_token_vault_entries",
       "gmail_oauth_state_entries",
       "gmail_inbound_sync_states",
+      "channel_accounts",
     ]) {
       const source =
         tableName === "audit_logs"
@@ -121,7 +130,9 @@ describe("initial database migration", () => {
                     ? gmailOAuthStateMigrationSql
                     : tableName === "gmail_inbound_sync_states"
                       ? gmailInboundSyncStateMigrationSql
-                      : migrationSql;
+                      : tableName === "channel_accounts"
+                        ? channelAccountsMigrationSql
+                        : migrationSql;
 
       expect(source).toContain(`create table if not exists ${tableName}`);
     }
@@ -141,6 +152,7 @@ describe("initial database migration", () => {
       "gmail_token_vault_entries",
       "gmail_oauth_state_entries",
       "gmail_inbound_sync_states",
+      "channel_accounts",
     ]) {
       const source =
         tableName === "email_inbound_records"
@@ -155,7 +167,9 @@ describe("initial database migration", () => {
                   ? gmailOAuthStateMigrationSql
                   : tableName === "gmail_inbound_sync_states"
                     ? gmailInboundSyncStateMigrationSql
-                    : migrationSql;
+                    : tableName === "channel_accounts"
+                      ? channelAccountsMigrationSql
+                      : migrationSql;
       const tableBlock = source
         .split(`create table if not exists ${tableName} (`)[1]
         ?.split(");")[0];
@@ -229,6 +243,21 @@ describe("initial database migration", () => {
     );
     expect(gmailOutboundAuditMigrationSql).toContain(
       "'gmail.reply_send.succeeded'",
+    );
+  });
+
+  it("adds generic channel account schema", () => {
+    expect(channelAccountsMigrationSql).toContain(
+      "create table if not exists channel_accounts",
+    );
+    expect(channelAccountsMigrationSql).toContain(
+      "provider in ('gmail', 'whatsapp', 'instagram', 'tiktok', 'webchat')",
+    );
+    expect(channelAccountsMigrationSql).toContain(
+      "status in ('connected', 'disconnected', 'degraded', 'disabled', 'planned')",
+    );
+    expect(channelAccountsMigrationSql).toContain(
+      "create index if not exists idx_channel_accounts_scope_provider",
     );
   });
 
