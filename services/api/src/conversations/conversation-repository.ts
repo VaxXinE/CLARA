@@ -19,6 +19,7 @@ export type ConversationCursor = {
 export type ConversationCustomerSummaryRecord = {
   id: string;
   displayName: string;
+  contactIdentifier: string | null;
   source: string;
   status: string;
 };
@@ -240,6 +241,7 @@ export class FixtureConversationRepository implements ConversationRepository {
           customer: {
             id: customer.id,
             displayName: customer.displayName,
+            contactIdentifier: customer.contactIdentifier ?? null,
             source: customer.source,
             status: customer.status,
           },
@@ -340,6 +342,7 @@ export class FixtureConversationRepository implements ConversationRepository {
       customer: {
         id: scopedCustomer.id,
         displayName: scopedCustomer.displayName,
+        contactIdentifier: scopedCustomer.contactIdentifier ?? null,
         source: scopedCustomer.source,
         status: scopedCustomer.status,
       },

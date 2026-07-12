@@ -37,6 +37,7 @@ internal Gmail inbound sync scheduler skeleton, runtime boundary, app lifecycle 
 final Gmail inbound hardening regressions now cover token/header/raw payload redaction, attachment byte stripping, safe summaries, and no AI draft/outbound send side effects
 internal Gmail outbound send client/service boundary now exists with simulated local/test client only
 Gmail outbound send route now exists as an authenticated, non-viewer, explicit human/operator action that persists safe outbound delivery records
+Gmail reply send integration now exists when ReplyService is explicitly wired with Gmail outbound send and the conversation source is email/Gmail
 internal Gmail inbound smoke harness exists for offline verification when explicitly wired
 no externally scheduled background worker, background refresh scheduler, dashboard Gmail send UI, or real Gmail outbound send yet
 ```
@@ -497,6 +498,21 @@ the route does not create AI drafts, run inbound sync, or trigger automatic send
 route spec: `docs/product/CLARA-P3-GMAIL-OUTBOUND-PERSISTENCE-ROUTE-HARDENING-SPEC.md`
 ```
 
+Gmail reply send integration baseline:
+
+```text
+POST /api/v1/conversations/:conversation_id/reply still requires explicit authenticated human action
+viewer remains blocked by the existing reply:send permission
+organization_id and workspace_id come from AuthContext only
+Gmail path is used only when ReplyService is explicitly configured with Gmail outbound send and conversation source is email/Gmail
+Gmail path sends through the simulated Gmail outbound client in local/test and persists safe email_outbound_deliveries metadata
+non-Gmail conversations continue using the existing simulated reply provider
+AI draft endpoint still never sends a reply
+inbound sync and scheduler do not trigger outbound send
+internal E2E smoke is service-only and has no public route
+spec: `docs/product/CLARA-P3-GMAIL-REPLY-SEND-E2E-SMOKE-SPEC.md`
+```
+
 Audit log baseline:
 
 ```text
@@ -674,7 +690,7 @@ Current MVP provider behavior:
 
 ```text
 AI draft uses a mock provider only
-reply send uses a simulated provider only
+reply send uses simulated providers only; Gmail-sourced conversations can use the simulated Gmail outbound boundary when explicitly wired
 AI draft creates a draft row and activity but does not send any message
 reply send requires an explicit human API request
 ```

@@ -1,6 +1,6 @@
 export type ReplySendResponseDto = {
   data: {
-    message: {
+    message?: {
       id: string;
       conversation_id: string;
       direction: "outbound";
@@ -14,7 +14,12 @@ export type ReplySendResponseDto = {
     };
     send: {
       provider: string;
-      status: "sent";
+      status: "sent" | "simulated" | "failed";
+      provider_message_id?: string;
+      outbound_delivery_id?: string;
+      reason_code?: string;
+      sent_at?: string;
+      correlation_id?: string;
     };
   };
 };
@@ -32,6 +37,7 @@ export type CreatedReplyRecord = {
 
 export function toReplySendResponseDto(
   record: CreatedReplyRecord,
+  send?: Partial<ReplySendResponseDto["data"]["send"]>,
 ): ReplySendResponseDto {
   return {
     data: {
@@ -48,8 +54,19 @@ export function toReplySendResponseDto(
         created_at: record.createdAt.toISOString(),
       },
       send: {
-        provider: record.provider,
-        status: record.status,
+        provider: send?.provider ?? record.provider,
+        status: send?.status ?? record.status,
+        ...(send?.provider_message_id
+          ? { provider_message_id: send.provider_message_id }
+          : {}),
+        ...(send?.outbound_delivery_id
+          ? { outbound_delivery_id: send.outbound_delivery_id }
+          : {}),
+        ...(send?.reason_code ? { reason_code: send.reason_code } : {}),
+        ...(send?.sent_at ? { sent_at: send.sent_at } : {}),
+        ...(send?.correlation_id
+          ? { correlation_id: send.correlation_id }
+          : {}),
       },
     },
   };
