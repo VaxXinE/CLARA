@@ -11,6 +11,8 @@ classification: "product-spec"
 
 P4-PR-01 adds the smallest shared channel foundation needed before adding more providers:
 
+This p4 baseline is intentionally read-only: it exposes safe channel metadata without enabling provider mutation, webhooks, or sends.
+
 ```text
 generic channel capability registry
 workspace-scoped channel account persistence
