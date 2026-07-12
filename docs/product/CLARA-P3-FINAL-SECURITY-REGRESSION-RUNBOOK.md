@@ -24,6 +24,8 @@ Phase 3 closes the Gmail channel foundation:
 - Dashboard read-only Gmail scheduler and outbound delivery visibility.
 - Gmail outbound send boundary, safe delivery persistence, reply-send integration, audit logging, and internal smoke tests.
 
+This runbook is the p3 final security regression and p3 production readiness gate for the Gmail channel before any later real-provider expansion.
+
 ## Gmail Inbound Operational Checklist
 
 - Confirm Gmail API mode is explicit and not accidentally enabled in production.
