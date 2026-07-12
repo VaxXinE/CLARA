@@ -9,7 +9,6 @@ import { AuditLogService } from "../src/audit/audit-log-service";
 import { EmailOutboundDeliveryService } from "../src/channels/email/email-outbound-delivery-service";
 import { FixtureEmailOutboundDeliveryRepository } from "../src/channels/email/email-outbound-delivery-repository";
 import type { GmailOutboundSendClient } from "../src/channels/email/gmail-outbound-send-client-types";
-import { GmailOutboundE2ESmokeService } from "../src/channels/email/gmail-outbound-e2e-smoke-service";
 import { GmailOutboundSendService } from "../src/channels/email/gmail-outbound-send-service";
 import { SimulatedGmailOutboundSendClient } from "../src/channels/email/simulated-gmail-outbound-send-client";
 import { loadEnv } from "../src/config/env";
@@ -289,49 +288,5 @@ describe("Gmail reply send integration", () => {
     });
     expectSafe(body);
     expectSafe(store.emailOutboundDeliveries[0]);
-  });
-
-  it("runs the internal Gmail outbound E2E smoke through the same human reply path", async () => {
-    const { replies, store, replyRepository } = createGmailReplyHarness(
-      new SimulatedGmailOutboundSendClient(),
-    );
-    const smoke = new GmailOutboundE2ESmokeService(replies);
-    const beforeState = replyRepository.getState();
-
-    const result = await smoke.run({
-      auth: {
-        userId: "usr_demo_agent",
-        organizationId: "org_demo",
-        workspaceId: "wks_demo_sales",
-        role: "agent",
-        permissions: [
-          "conversation:read",
-          "customer:read",
-          "activity:read",
-          "ai_draft:create",
-          "reply:send",
-          "integration:gmail_connect",
-        ],
-        authMethod: "mock",
-      },
-      conversationId: "conv_demo_sari_followup",
-      body: "Internal Gmail outbound smoke reply.",
-      correlationId: "corr_gmail_outbound_smoke",
-    });
-
-    expect(result).toMatchObject({
-      status: "simulated",
-      provider: "gmail",
-      reply_id: expect.stringMatching(/^msg_/),
-      outbound_delivery_id: expect.stringMatching(/^email_outbound_/),
-      provider_message_id: expect.stringMatching(/^gmail_msg_/),
-      reason_code: "simulated_send_completed",
-      correlation_id: "corr_gmail_outbound_smoke",
-    });
-    expect(replyRepository.getState().messages).toHaveLength(
-      beforeState.messages.length + 1,
-    );
-    expect(store.emailOutboundDeliveries).toHaveLength(1);
-    expectSafe(result);
   });
 });

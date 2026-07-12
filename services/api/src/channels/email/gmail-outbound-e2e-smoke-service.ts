@@ -1,22 +1,8 @@
-import type { AuthContext } from "../../auth/auth-context";
 import type { ReplyService } from "../../replies/reply-service";
-
-export type GmailOutboundE2ESmokeInput = {
-  auth: AuthContext;
-  conversationId: string;
-  body: string;
-  correlationId: string;
-};
-
-export type GmailOutboundE2ESmokeResult = {
-  status: "sent" | "simulated" | "failed";
-  provider: string;
-  reply_id?: string;
-  outbound_delivery_id?: string;
-  provider_message_id?: string;
-  reason_code?: string;
-  correlation_id?: string;
-};
+import type {
+  GmailOutboundE2ESmokeInput,
+  GmailOutboundE2ESmokeResult,
+} from "./gmail-outbound-e2e-smoke-types";
 
 export class GmailOutboundE2ESmokeService {
   constructor(private readonly replies: Pick<ReplyService, "sendReply">) {}
