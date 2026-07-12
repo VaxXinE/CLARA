@@ -146,4 +146,25 @@ export class DrizzleEmailOutboundDeliveryRepository implements EmailOutboundDeli
       return toRecord(row, false);
     });
   }
+
+  async findByIdScoped(
+    scope: RecordEmailOutboundDeliveryInput["scope"],
+    deliveryId: string,
+  ): Promise<EmailOutboundDeliveryRecord | null> {
+    const rows = await this.db
+      .select()
+      .from(emailOutboundDeliveries)
+      .where(
+        and(
+          eq(emailOutboundDeliveries.organizationId, scope.organizationId),
+          eq(emailOutboundDeliveries.workspaceId, scope.workspaceId),
+          eq(emailOutboundDeliveries.id, deliveryId),
+        ),
+      )
+      .limit(1);
+
+    const row = rows[0] as PersistedDeliveryRow | undefined;
+
+    return row ? toRecord(row, true) : null;
+  }
 }

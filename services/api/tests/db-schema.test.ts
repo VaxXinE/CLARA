@@ -86,6 +86,12 @@ describe("database schema", () => {
       "gmail.scheduler.tick_disabled",
       "gmail.scheduler.tick_skipped",
       "gmail.scheduler.tick_failed",
+      "gmail.outbound_send.requested",
+      "gmail.outbound_send.succeeded",
+      "gmail.outbound_send.failed",
+      "gmail.reply_send.requested",
+      "gmail.reply_send.succeeded",
+      "gmail.reply_send.failed",
     ]);
     expect(auditLogOutcomes).toEqual(["success", "failure"]);
     expect(outboundDeliveryChannels).toEqual(["email"]);

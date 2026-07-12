@@ -30,6 +30,7 @@ import type { GmailInboundE2ESmokeService } from "../channels/email/gmail-inboun
 import type { GmailInboundSyncService } from "../channels/email/gmail-inbound-sync-service";
 import type { GmailInboundSyncSchedulerRuntimeService } from "../channels/email/gmail-inbound-sync-scheduler-runtime-service";
 import type { GmailOutboundSendService } from "../channels/email/gmail-outbound-send-service";
+import type { EmailOutboundDeliveryService } from "../channels/email/email-outbound-delivery-service";
 import type { AuditLogService } from "../audit/audit-log-service";
 import { registerGmailIntegrationRoutes } from "./routes/gmail-integrations";
 
@@ -44,6 +45,10 @@ export type CreateServerOptions = {
   gmailInboundSyncService?: Pick<GmailInboundSyncService, "syncMessages">;
   gmailInboundE2ESmokeService?: Pick<GmailInboundE2ESmokeService, "runSmoke">;
   gmailOutboundSendService?: Pick<GmailOutboundSendService, "send">;
+  gmailOutboundDeliveryService?: Pick<
+    EmailOutboundDeliveryService,
+    "getGmailOutboundStatus"
+  >;
   gmailInboundSyncSchedulerRuntime?: Pick<
     GmailInboundSyncSchedulerRuntimeService,
     "start" | "stop" | "isRunning" | "getStatus" | "tickNow"
@@ -133,6 +138,7 @@ export async function createServer(
     options.gmailInboundSyncService ||
     options.gmailInboundE2ESmokeService ||
     options.gmailOutboundSendService ||
+    options.gmailOutboundDeliveryService ||
     options.gmailInboundSyncSchedulerStatus ||
     options.gmailInboundSyncSchedulerRuntime
   ) {
@@ -146,6 +152,10 @@ export async function createServer(
         Partial<Pick<GmailInboundSyncSchedulerRuntimeService, "tickNow">>;
       auditLogs?: Pick<AuditLogService, "recordGmailSchedulerOperatorAction">;
       outboundSend?: Pick<GmailOutboundSendService, "send">;
+      outboundDeliveries?: Pick<
+        EmailOutboundDeliveryService,
+        "getGmailOutboundStatus"
+      >;
     } = {};
 
     if (options.gmailOAuthConnectService) {
@@ -171,6 +181,11 @@ export async function createServer(
 
     if (options.gmailOutboundSendService) {
       gmailIntegrationServices.outboundSend = options.gmailOutboundSendService;
+    }
+
+    if (options.gmailOutboundDeliveryService) {
+      gmailIntegrationServices.outboundDeliveries =
+        options.gmailOutboundDeliveryService;
     }
 
     const schedulerStatus =

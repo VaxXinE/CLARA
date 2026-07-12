@@ -37,6 +37,8 @@ internal Gmail inbound sync scheduler skeleton, runtime boundary, app lifecycle 
 final Gmail inbound hardening regressions now cover token/header/raw payload redaction, attachment byte stripping, safe summaries, and no AI draft/outbound send side effects
 internal Gmail outbound send client/service boundary now exists with simulated local/test client only
 Gmail outbound send route now exists as an authenticated, non-viewer, explicit human/operator action that persists safe outbound delivery records
+Gmail outbound delivery status route returns scoped read-only delivery metadata for dashboard/operator visibility
+Gmail outbound send and Gmail reply send write safe audit events when audit logging is wired
 Gmail reply send integration now exists when ReplyService is explicitly wired with Gmail outbound send and the conversation source is email/Gmail
 internal Gmail inbound smoke harness exists for offline verification when explicitly wired
 no externally scheduled background worker, background refresh scheduler, dashboard Gmail send UI, or real Gmail outbound send yet
@@ -98,6 +100,7 @@ POST /api/v1/integrations/gmail/scheduler/tick
 POST /api/v1/integrations/gmail/accounts/:providerAccountId/sync
 POST /api/v1/integrations/gmail/accounts/:providerAccountId/inbound-smoke
 POST /api/v1/integrations/gmail/outbound/send
+GET /api/v1/integrations/gmail/outbound/deliveries/:deliveryId
 ```
 
 ## Local Setup

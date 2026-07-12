@@ -152,7 +152,7 @@ export type AiDraftResponse = {
 
 export type ReplySendResponse = {
   data: {
-    message: {
+    message?: {
       id: string;
       conversation_id: string;
       direction: "outbound";
@@ -166,9 +166,31 @@ export type ReplySendResponse = {
     };
     send: {
       provider: string;
-      status: "sent";
+      status: "sent" | "simulated" | "failed";
+      provider_message_id?: string;
+      outbound_delivery_id?: string;
+      reason_code?: string;
+      sent_at?: string;
+      correlation_id?: string;
     };
   };
+};
+
+export type GmailOutboundDeliveryStatus = {
+  outbound_delivery_id: string;
+  provider: "gmail";
+  status: "sent" | "simulated" | "failed";
+  reason_code?: string;
+  provider_message_id?: string;
+  conversation_id: string;
+  sent_at?: string;
+  failed_at?: string;
+  created_at: string;
+  correlation_id?: string;
+};
+
+export type GmailOutboundDeliveryStatusResponse = {
+  data: GmailOutboundDeliveryStatus;
 };
 
 export type GmailSchedulerStatus = {

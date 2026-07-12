@@ -9,6 +9,13 @@ type AuditContextInput = {
   correlationId: string;
 };
 
+type GmailAuditActorInput = {
+  userId: string;
+  organizationId: string;
+  workspaceId: string;
+  role: AuthContext["role"];
+};
+
 type SafeAuditError = AppError | Error | unknown;
 
 function compactMetadata(
@@ -202,6 +209,124 @@ export class AuditLogService {
         scheduled_job_count: input.scheduledJobCount,
         skipped_count: input.skippedCount,
         failed_count: input.failedCount,
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
+  async recordGmailOutboundSendRequested(input: {
+    actor: GmailAuditActorInput;
+    correlationId: string;
+    conversationId?: string | null;
+    recipientCount: number;
+  }): Promise<boolean> {
+    return this.write({
+      organizationId: input.actor.organizationId,
+      workspaceId: input.actor.workspaceId,
+      actorUserId: input.actor.userId,
+      actorRole: input.actor.role,
+      action: "gmail.outbound_send.requested",
+      resourceType: "conversation",
+      resourceId: input.conversationId ?? "gmail_outbound_send",
+      outcome: "success",
+      metadata: compactMetadata({
+        provider: "gmail",
+        conversation_id: input.conversationId ?? null,
+        recipient_count: input.recipientCount,
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
+  async recordGmailOutboundSendResult(input: {
+    actor: GmailAuditActorInput;
+    correlationId: string;
+    conversationId?: string | null;
+    outboundDeliveryId?: string | null;
+    status: "sent" | "simulated" | "failed";
+    reasonCode?: string | null;
+    recipientCount: number;
+  }): Promise<boolean> {
+    return this.write({
+      organizationId: input.actor.organizationId,
+      workspaceId: input.actor.workspaceId,
+      actorUserId: input.actor.userId,
+      actorRole: input.actor.role,
+      action:
+        input.status === "failed"
+          ? "gmail.outbound_send.failed"
+          : "gmail.outbound_send.succeeded",
+      resourceType: "conversation",
+      resourceId: input.conversationId ?? "gmail_outbound_send",
+      outcome: input.status === "failed" ? "failure" : "success",
+      metadata: compactMetadata({
+        provider: "gmail",
+        conversation_id: input.conversationId ?? null,
+        outbound_delivery_id: input.outboundDeliveryId ?? null,
+        status: input.status,
+        reason_code: input.reasonCode ?? null,
+        recipient_count: input.recipientCount,
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
+  async recordGmailReplySendRequested(
+    input: AuditContextInput & {
+      conversationId: string;
+      recipientCount: number;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: "gmail.reply_send.requested",
+      resourceType: "conversation",
+      resourceId: input.conversationId,
+      outcome: "success",
+      metadata: compactMetadata({
+        provider: "gmail",
+        conversation_id: input.conversationId,
+        recipient_count: input.recipientCount,
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
+  async recordGmailReplySendResult(
+    input: AuditContextInput & {
+      conversationId: string;
+      outboundDeliveryId?: string | null;
+      status: "sent" | "simulated" | "failed";
+      reasonCode?: string | null;
+      recipientCount: number;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action:
+        input.status === "failed"
+          ? "gmail.reply_send.failed"
+          : "gmail.reply_send.succeeded",
+      resourceType: "conversation",
+      resourceId: input.conversationId,
+      outcome: input.status === "failed" ? "failure" : "success",
+      metadata: compactMetadata({
+        provider: "gmail",
+        conversation_id: input.conversationId,
+        outbound_delivery_id: input.outboundDeliveryId ?? null,
+        status: input.status,
+        reason_code: input.reasonCode ?? null,
+        recipient_count: input.recipientCount,
       }),
       correlationId: input.correlationId,
     });

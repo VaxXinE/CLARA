@@ -13,6 +13,7 @@ import type { GmailInboundE2ESmokeService } from "../../channels/email/gmail-inb
 import type { GmailInboundSyncService } from "../../channels/email/gmail-inbound-sync-service";
 import type { GmailInboundSyncSchedulerRuntimeService } from "../../channels/email/gmail-inbound-sync-scheduler-runtime-service";
 import type { GmailOutboundSendService } from "../../channels/email/gmail-outbound-send-service";
+import type { EmailOutboundDeliveryService } from "../../channels/email/email-outbound-delivery-service";
 import { GMAIL_OUTBOUND_MAX_BODY_LENGTH } from "../../channels/email/gmail-outbound-send-service-types";
 
 const safeIdPattern = /^[a-zA-Z0-9._:-]+$/;
@@ -354,8 +355,42 @@ export async function registerGmailIntegrationRoutes(
       Partial<Pick<GmailInboundSyncSchedulerRuntimeService, "tickNow">>;
     auditLogs?: Pick<AuditLogService, "recordGmailSchedulerOperatorAction">;
     outboundSend?: Pick<GmailOutboundSendService, "send">;
+    outboundDeliveries?: Pick<
+      EmailOutboundDeliveryService,
+      "getGmailOutboundStatus"
+    >;
   },
 ): Promise<void> {
+  if (services.outboundDeliveries) {
+    const outboundDeliveries = services.outboundDeliveries;
+
+    app.get(
+      "/api/v1/integrations/gmail/outbound/deliveries/:deliveryId",
+      {
+        preHandler: requireAuth(authProvider),
+      },
+      async (request) => {
+        const auth = getAuthContext(request);
+        const params = request.params as { deliveryId?: string };
+        const deliveryId = parseProviderAccountId(
+          params.deliveryId ?? "",
+          "params.deliveryId",
+        );
+
+        return {
+          data: await outboundDeliveries.getGmailOutboundStatus({
+            scope: {
+              organizationId: auth.organizationId,
+              workspaceId: auth.workspaceId,
+            },
+            deliveryId,
+            correlationId: request.id,
+          }),
+        };
+      },
+    );
+  }
+
   if (services.outboundSend) {
     const outboundSendService = services.outboundSend;
 

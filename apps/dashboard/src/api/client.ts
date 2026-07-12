@@ -6,6 +6,7 @@ import type {
   ConversationListResponse,
   CustomerProfileResponse,
   DemoAuthProfile,
+  GmailOutboundDeliveryStatusResponse,
   GmailSchedulerStatusResponse,
   MeResponse,
   ReplySendResponse,
@@ -139,6 +140,16 @@ export class ApiClient {
   async getGmailSchedulerStatus(): Promise<GmailSchedulerStatusResponse> {
     return this.request<GmailSchedulerStatusResponse>(
       "/api/v1/integrations/gmail/scheduler/status",
+    );
+  }
+
+  async getGmailOutboundDeliveryStatus(
+    deliveryId: string,
+  ): Promise<GmailOutboundDeliveryStatusResponse> {
+    return this.request<GmailOutboundDeliveryStatusResponse>(
+      `/api/v1/integrations/gmail/outbound/deliveries/${encodeURIComponent(
+        deliveryId,
+      )}`,
     );
   }
 

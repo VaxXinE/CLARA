@@ -1,5 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import type { GmailOutboundSendClient } from "../src/channels/email/gmail-outbound-send-client-types";
+import { AuditLogService } from "../src/audit/audit-log-service";
+import { FixtureAuditLogRepository } from "../src/audit/audit-log-repository";
 import { EmailOutboundDeliveryService } from "../src/channels/email/email-outbound-delivery-service";
 import { FixtureEmailOutboundDeliveryRepository } from "../src/channels/email/email-outbound-delivery-repository";
 import { GmailOutboundSendService } from "../src/channels/email/gmail-outbound-send-service";
@@ -151,6 +153,113 @@ describe("POST /api/v1/integrations/gmail/outbound/send", () => {
     ).toHaveLength(initialOutboundMessageCount);
     expectSafePayload(body);
     expectSafePayload(store.emailOutboundDeliveries[0]);
+  });
+
+  it("writes safe audit logs for Gmail outbound send request and result", async () => {
+    const store = createFixtureAppStore();
+    const auditLogs = new AuditLogService(new FixtureAuditLogRepository(store));
+    const app = await createServer({
+      env: testEnv,
+      gmailOutboundSendService: new GmailOutboundSendService(
+        new SimulatedGmailOutboundSendClient(),
+        new EmailOutboundDeliveryService(
+          new FixtureEmailOutboundDeliveryRepository(store),
+        ),
+        auditLogs,
+      ),
+    });
+
+    const response = await app.inject({
+      method: "POST",
+      url: "/api/v1/integrations/gmail/outbound/send",
+      headers: authHeaders("agent"),
+      payload: validPayload(),
+    });
+
+    await app.close();
+
+    expect(response.statusCode).toBe(200);
+    expect(store.auditLogs.slice(-2)).toMatchObject([
+      {
+        action: "gmail.outbound_send.requested",
+        resourceType: "conversation",
+        resourceId: "conv_demo_budi_stock",
+        outcome: "success",
+      },
+      {
+        action: "gmail.outbound_send.succeeded",
+        resourceType: "conversation",
+        resourceId: "conv_demo_budi_stock",
+        outcome: "success",
+      },
+    ]);
+    expect(store.auditLogs.at(-1)?.metadataJson).toMatchObject({
+      provider: "gmail",
+      conversation_id: "conv_demo_budi_stock",
+      status: "simulated",
+      reason_code: "simulated_send_completed",
+      recipient_count: 3,
+    });
+    expectSafePayload(store.auditLogs.slice(-2));
+  });
+
+  it("returns scoped safe Gmail outbound delivery status", async () => {
+    const store = createFixtureAppStore();
+    const deliveries = new EmailOutboundDeliveryService(
+      new FixtureEmailOutboundDeliveryRepository(store),
+    );
+    const delivery = await deliveries.recordGmailOutboundResult({
+      scope: {
+        organizationId: "org_demo",
+        workspaceId: "wks_demo_sales",
+      },
+      conversationId: "conv_demo_budi_stock",
+      actorUserId: "usr_demo_agent",
+      providerMessageId: "gmail_msg_safe",
+      status: "sent",
+      sentAt: new Date("2026-01-01T00:00:00.000Z"),
+    });
+    const app = await createServer({
+      env: testEnv,
+      gmailOutboundDeliveryService: deliveries,
+    });
+
+    const ok = await app.inject({
+      method: "GET",
+      url: `/api/v1/integrations/gmail/outbound/deliveries/${delivery.id}`,
+      headers: authHeaders("viewer"),
+    });
+    const unauthenticated = await app.inject({
+      method: "GET",
+      url: `/api/v1/integrations/gmail/outbound/deliveries/${delivery.id}`,
+    });
+    const crossWorkspace = await app.inject({
+      method: "GET",
+      url: `/api/v1/integrations/gmail/outbound/deliveries/${delivery.id}`,
+      headers: {
+        ...authHeaders("agent"),
+        "x-mock-workspace-id": "wks_other",
+      },
+    });
+
+    await app.close();
+
+    expect(ok.statusCode).toBe(200);
+    expect(ok.json()).toMatchObject({
+      data: {
+        outbound_delivery_id: delivery.id,
+        provider: "gmail",
+        status: "sent",
+        provider_message_id: "gmail_msg_safe",
+        conversation_id: "conv_demo_budi_stock",
+        sent_at: "2026-01-01T00:00:00.000Z",
+        created_at: expect.any(String),
+        correlation_id: expect.any(String),
+      },
+    });
+    expect(unauthenticated.statusCode).toBe(401);
+    expect(crossWorkspace.statusCode).toBe(404);
+    expectSafePayload(ok.json());
   });
 
   it("rejects spoofed scope and unknown unsafe body fields", async () => {

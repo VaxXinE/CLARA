@@ -174,6 +174,52 @@ button {
   margin: 4px 0 0;
 }
 
+.gmail-outbound-status {
+  border: 1px solid var(--border);
+  background: rgba(255, 248, 236, 0.78);
+  border-radius: 18px;
+  padding: 14px;
+}
+
+.status-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.compact-facts {
+  display: grid;
+  gap: 8px;
+  margin: 10px 0 0;
+}
+
+.compact-facts div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.compact-facts dt {
+  color: var(--text-muted);
+}
+
+.compact-facts dd {
+  margin: 0;
+  word-break: break-word;
+}
+
+.outbound-status-sent,
+.outbound-status-simulated {
+  background: rgba(33, 120, 74, 0.12);
+  color: #1e6b43;
+}
+
+.outbound-status-failed {
+  background: rgba(153, 54, 36, 0.12);
+  color: #8d321f;
+}
+
 .source-badge {
   display: inline-flex;
   align-items: center;

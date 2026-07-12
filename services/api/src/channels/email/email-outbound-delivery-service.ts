@@ -1,11 +1,13 @@
 import type { EmailOutboundDeliveryRepository } from "./email-outbound-delivery-repository";
 import type {
   EmailOutboundDeliveryRecord,
+  GmailOutboundDeliveryStatusDto,
   RecordFailedGmailOutboundSendInput,
   RecordEmailReplyDeliveryInput,
   RecordFailedEmailReplyDeliveryInput,
   RecordGmailOutboundSendResultInput,
 } from "./email-outbound-delivery-types";
+import { NotFoundError } from "../../errors/app-error";
 
 export class EmailOutboundDeliveryService {
   constructor(private readonly repository: EmailOutboundDeliveryRepository) {}
@@ -97,5 +99,35 @@ export class EmailOutboundDeliveryService {
         source: "gmail_outbound_send",
       },
     });
+  }
+
+  async getGmailOutboundStatus(input: {
+    scope: RecordGmailOutboundSendResultInput["scope"];
+    deliveryId: string;
+    correlationId?: string;
+  }): Promise<GmailOutboundDeliveryStatusDto> {
+    const record = await this.repository.findByIdScoped(
+      input.scope,
+      input.deliveryId,
+    );
+
+    if (!record || record.provider !== "gmail") {
+      throw new NotFoundError("Gmail outbound delivery not found.");
+    }
+
+    return {
+      outbound_delivery_id: record.id,
+      provider: "gmail",
+      status: record.status,
+      ...(record.failureCode ? { reason_code: record.failureCode } : {}),
+      ...(record.providerMessageId
+        ? { provider_message_id: record.providerMessageId }
+        : {}),
+      conversation_id: record.conversationId,
+      ...(record.sentAt ? { sent_at: record.sentAt.toISOString() } : {}),
+      ...(record.failedAt ? { failed_at: record.failedAt.toISOString() } : {}),
+      created_at: record.createdAt.toISOString(),
+      ...(input.correlationId ? { correlation_id: input.correlationId } : {}),
+    };
   }
 }

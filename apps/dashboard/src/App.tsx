@@ -8,6 +8,7 @@ import type {
   CustomerProfileResponse,
   DemoAuthProfile,
   DemoRole,
+  GmailOutboundDeliveryStatus,
   GmailSchedulerStatus,
   MeResponse,
 } from "./api/types";
@@ -124,6 +125,8 @@ function WorkspaceAppShell() {
   >([]);
   const [gmailSchedulerStatus, setGmailSchedulerStatus] =
     useState<GmailSchedulerStatus | null>(null);
+  const [gmailOutboundStatus, setGmailOutboundStatus] =
+    useState<GmailOutboundDeliveryStatus | null>(null);
   const [composerValue, setComposerValue] = useState("");
   const [draftId, setDraftId] = useState<string | null>(null);
   const [aiDraftLabel, setAiDraftLabel] = useState<string | null>(null);
@@ -144,6 +147,11 @@ function WorkspaceAppShell() {
   const [gmailSchedulerError, setGmailSchedulerError] = useState<string | null>(
     null,
   );
+  const [gmailOutboundStatusLoading, setGmailOutboundStatusLoading] =
+    useState(false);
+  const [gmailOutboundStatusError, setGmailOutboundStatusError] = useState<
+    string | null
+  >(null);
   const [composerError, setComposerError] = useState<string | null>(null);
   const [isGeneratingDraft, setIsGeneratingDraft] = useState(false);
   const [isSendingReply, setIsSendingReply] = useState(false);
@@ -167,9 +175,13 @@ function WorkspaceAppShell() {
       setActivityItems([]);
       setGmailSchedulerStatus(null);
       setGmailSchedulerError(null);
+      setGmailOutboundStatus(null);
+      setGmailOutboundStatusError(null);
       setComposerValue("");
       setDraftId(null);
       setAiDraftLabel(null);
+      setGmailOutboundStatus(null);
+      setGmailOutboundStatusError(null);
       setListLoading(false);
       return;
     }
@@ -326,6 +338,8 @@ function WorkspaceAppShell() {
       setDraftId(null);
       setAiDraftLabel(null);
       setComposerValue("");
+      setGmailOutboundStatus(null);
+      setGmailOutboundStatusError(null);
 
       try {
         const [detailResponse, activityResponse] = await Promise.all([
@@ -468,13 +482,33 @@ function WorkspaceAppShell() {
     setComposerError(null);
 
     try {
-      await client.sendReply(selectedConversationId, {
+      const response = await client.sendReply(selectedConversationId, {
         body: composerValue,
         draft_id: draftId ?? undefined,
       });
       setComposerValue("");
       setDraftId(null);
       setAiDraftLabel(null);
+      setGmailOutboundStatus(null);
+      setGmailOutboundStatusError(null);
+      const outboundDeliveryId = response.data.send.outbound_delivery_id;
+
+      if (outboundDeliveryId) {
+        setGmailOutboundStatusLoading(true);
+
+        try {
+          const statusResponse =
+            await client.getGmailOutboundDeliveryStatus(outboundDeliveryId);
+          setGmailOutboundStatus(statusResponse.data);
+        } catch (error) {
+          setGmailOutboundStatusError(
+            toSafeMessage(error, "Gmail outbound status is unavailable."),
+          );
+        } finally {
+          setGmailOutboundStatusLoading(false);
+        }
+      }
+
       await refreshConversationWorkspace(selectedConversationId);
     } catch (error) {
       setComposerError(
@@ -633,6 +667,9 @@ function WorkspaceAppShell() {
               ? "You have view-only access to this conversation."
               : null
           }
+          gmailOutboundStatus={gmailOutboundStatus}
+          gmailOutboundStatusLoading={gmailOutboundStatusLoading}
+          gmailOutboundStatusError={gmailOutboundStatusError}
         />
 
         <CustomerSidebar
