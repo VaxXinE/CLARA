@@ -49,9 +49,20 @@ Current multi-channel foundation:
 
 ```text
 generic channel capabilities and channel account read APIs now exist
-Gmail is marked available; WhatsApp, Instagram, TikTok, and Webchat are planned metadata only
+Gmail and Webchat inbound are marked available; WhatsApp, Instagram, and TikTok are planned metadata only
 channel account reads are scoped by backend AuthContext and never trust client-provided organization_id or workspace_id
 responses never include provider secrets, tokens, Authorization headers, raw provider payloads, or raw provider errors
+```
+
+Webchat inbound baseline:
+
+```text
+POST /api/v1/webchat/inbound/messages accepts public widget messages with a non-secret channel_public_key
+organization_id and workspace_id are resolved from the channel account server-side
+message text, email, page URL, and metadata are validated and sanitized
+raw request payloads, cookies, Authorization headers, IP addresses, tokens, and provider secrets are not persisted
+webchat inbound materializes safe customer, conversation, message, activity, and webchat inbound records
+no webchat outbound reply, dashboard widget, or AI draft generation exists in this PR
 ```
 
 Gmail inbound fetch boundary notes:
@@ -107,6 +118,7 @@ GET /api/v1/channels/capabilities
 GET /api/v1/channels/accounts
 GET /api/v1/channels/accounts/:channelAccountId
 GET /api/v1/channels/accounts/:channelAccountId/health
+POST /api/v1/webchat/inbound/messages
 POST /api/v1/integrations/gmail/oauth/connect
 GET /api/v1/integrations/gmail/oauth/callback
 GET /api/v1/integrations/gmail/accounts/:providerAccountId/health

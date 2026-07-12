@@ -22,6 +22,10 @@ export interface ChannelAccountRepository {
     scope: WorkspaceScope,
     channelAccountId: string,
   ): Promise<ChannelAccountRecord | null>;
+  findByProviderExternalAccount(
+    provider: ChannelProvider,
+    externalAccountId: string,
+  ): Promise<ChannelAccountRecord | null>;
 }
 
 export function sanitizeChannelAccountMetadata(
@@ -142,6 +146,20 @@ export class FixtureChannelAccountRepository implements ChannelAccountRepository
           account.id === channelAccountId &&
           account.organizationId === scope.organizationId &&
           account.workspaceId === scope.workspaceId,
+      ) ?? null;
+
+    return row ? toChannelAccountRecord(row) : null;
+  }
+
+  async findByProviderExternalAccount(
+    provider: ChannelProvider,
+    externalAccountId: string,
+  ): Promise<ChannelAccountRecord | null> {
+    const row =
+      this.store.channelAccounts.find(
+        (account) =>
+          account.provider === provider &&
+          account.externalAccountId === externalAccountId,
       ) ?? null;
 
     return row ? toChannelAccountRecord(row) : null;

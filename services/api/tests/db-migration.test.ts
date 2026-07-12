@@ -92,6 +92,33 @@ const channelAccountsMigrationSql = readFileSync(
   channelAccountsMigrationPath,
   "utf8",
 );
+const webchatInboundMigrationPath = path.resolve(
+  __dirname,
+  "../drizzle/0013_p4_webchat_inbound_messages.sql",
+);
+const webchatInboundMigrationSql = readFileSync(
+  webchatInboundMigrationPath,
+  "utf8",
+);
+
+function migrationForTable(tableName: string): string {
+  if (tableName === "audit_logs") return auditLogMigrationSql;
+  if (tableName === "email_inbound_records") return emailInboundMigrationSql;
+  if (tableName === "email_outbound_deliveries")
+    return emailOutboundMigrationSql;
+  if (tableName === "gmail_provider_accounts")
+    return gmailProviderAccountsMigrationSql;
+  if (tableName === "gmail_token_vault_entries")
+    return gmailTokenVaultMigrationSql;
+  if (tableName === "gmail_oauth_state_entries")
+    return gmailOAuthStateMigrationSql;
+  if (tableName === "gmail_inbound_sync_states")
+    return gmailInboundSyncStateMigrationSql;
+  if (tableName === "channel_accounts") return channelAccountsMigrationSql;
+  if (tableName === "webchat_inbound_messages")
+    return webchatInboundMigrationSql;
+  return migrationSql;
+}
 
 describe("initial database migration", () => {
   it("creates all required PR-04 tables", () => {
@@ -114,25 +141,9 @@ describe("initial database migration", () => {
       "gmail_oauth_state_entries",
       "gmail_inbound_sync_states",
       "channel_accounts",
+      "webchat_inbound_messages",
     ]) {
-      const source =
-        tableName === "audit_logs"
-          ? auditLogMigrationSql
-          : tableName === "email_inbound_records"
-            ? emailInboundMigrationSql
-            : tableName === "email_outbound_deliveries"
-              ? emailOutboundMigrationSql
-              : tableName === "gmail_provider_accounts"
-                ? gmailProviderAccountsMigrationSql
-                : tableName === "gmail_token_vault_entries"
-                  ? gmailTokenVaultMigrationSql
-                  : tableName === "gmail_oauth_state_entries"
-                    ? gmailOAuthStateMigrationSql
-                    : tableName === "gmail_inbound_sync_states"
-                      ? gmailInboundSyncStateMigrationSql
-                      : tableName === "channel_accounts"
-                        ? channelAccountsMigrationSql
-                        : migrationSql;
+      const source = migrationForTable(tableName);
 
       expect(source).toContain(`create table if not exists ${tableName}`);
     }
@@ -153,23 +164,9 @@ describe("initial database migration", () => {
       "gmail_oauth_state_entries",
       "gmail_inbound_sync_states",
       "channel_accounts",
+      "webchat_inbound_messages",
     ]) {
-      const source =
-        tableName === "email_inbound_records"
-          ? emailInboundMigrationSql
-          : tableName === "email_outbound_deliveries"
-            ? emailOutboundMigrationSql
-            : tableName === "gmail_provider_accounts"
-              ? gmailProviderAccountsMigrationSql
-              : tableName === "gmail_token_vault_entries"
-                ? gmailTokenVaultMigrationSql
-                : tableName === "gmail_oauth_state_entries"
-                  ? gmailOAuthStateMigrationSql
-                  : tableName === "gmail_inbound_sync_states"
-                    ? gmailInboundSyncStateMigrationSql
-                    : tableName === "channel_accounts"
-                      ? channelAccountsMigrationSql
-                      : migrationSql;
+      const source = migrationForTable(tableName);
       const tableBlock = source
         .split(`create table if not exists ${tableName} (`)[1]
         ?.split(");")[0];
@@ -258,6 +255,17 @@ describe("initial database migration", () => {
     );
     expect(channelAccountsMigrationSql).toContain(
       "create index if not exists idx_channel_accounts_scope_provider",
+    );
+  });
+
+  it("adds webchat inbound persistence schema", () => {
+    expect(webchatInboundMigrationSql).toContain(
+      "create table if not exists webchat_inbound_messages",
+    );
+    expect(webchatInboundMigrationSql).toContain("'webchat'");
+    expect(webchatInboundMigrationSql).toContain("'webchat_received'");
+    expect(webchatInboundMigrationSql).toContain(
+      "create index if not exists idx_webchat_inbound_messages_scope_session",
     );
   });
 

@@ -48,6 +48,7 @@ describe("database schema", () => {
       "gmailOAuthStateEntries",
       "gmailInboundSyncStates",
       "channelAccounts",
+      "webchatInboundMessages",
     ]);
   });
 
@@ -67,6 +68,7 @@ describe("database schema", () => {
       "gmailOAuthStateEntries",
       "gmailInboundSyncStates",
       "channelAccounts",
+      "webchatInboundMessages",
     ] as const) {
       const columns = Object.keys(dbSchema[tableName]);
 
@@ -161,6 +163,7 @@ describe("database schema", () => {
       "reply_failed",
       "conversation_status_changed",
       "email_received",
+      "webchat_received",
     ]);
   });
 });

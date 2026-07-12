@@ -12,6 +12,7 @@ import {
   organizations,
   replyDrafts,
   users,
+  webchatInboundMessages,
   workspaceMemberships,
   workspaces,
 } from "../schema";
@@ -31,6 +32,9 @@ type ChannelAccountInsert = InferInsertModel<typeof channelAccounts>;
 type EmailInboundRecordInsert = InferInsertModel<typeof emailInboundRecords>;
 type EmailOutboundDeliveryInsert = InferInsertModel<
   typeof emailOutboundDeliveries
+>;
+type WebchatInboundMessageInsert = InferInsertModel<
+  typeof webchatInboundMessages
 >;
 
 function at(value: string): Date {
@@ -467,10 +471,29 @@ export const demoChannelAccounts: ChannelAccountInsert[] = [
     createdAt: now,
     updatedAt: now,
   },
+  {
+    id: "channel_account_demo_webchat",
+    organizationId: "org_demo",
+    workspaceId: "wks_demo_sales",
+    provider: "webchat",
+    channelType: "webchat",
+    displayName: "Demo Webchat",
+    externalAccountId: "webchat_public_demo",
+    status: "connected",
+    healthStatus: "healthy",
+    lastHealthCheckedAt: now,
+    metadata: {
+      source: "demo_fixture",
+      safe_note: "Safe demo Webchat channel account.",
+    },
+    createdAt: now,
+    updatedAt: now,
+  },
 ];
 
 export const demoEmailInboundRecords: EmailInboundRecordInsert[] = [];
 export const demoEmailOutboundDeliveries: EmailOutboundDeliveryInsert[] = [];
+export const demoWebchatInboundMessages: WebchatInboundMessageInsert[] = [];
 
 export const demoSeedData = {
   organizations: demoOrganizations,
@@ -487,4 +510,5 @@ export const demoSeedData = {
   channelAccounts: demoChannelAccounts,
   emailInboundRecords: demoEmailInboundRecords,
   emailOutboundDeliveries: demoEmailOutboundDeliveries,
+  webchatInboundMessages: demoWebchatInboundMessages,
 };

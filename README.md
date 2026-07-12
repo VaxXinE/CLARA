@@ -28,7 +28,7 @@ Current MVP implementation:
 services/api: runnable local API with mock auth, workspace scope, seeded demo data, conversation/customer/activity read APIs, mock AI draft, and simulated reply send
 apps/dashboard: runnable local React dashboard for the conversation workspace flow
 production-oriented Docker build baseline now exists for services/api and apps/dashboard
-multi-channel registry/account foundation now exposes safe read-only Gmail capability metadata plus planned channel metadata
+multi-channel registry/account foundation now exposes safe read-only Gmail and Webchat inbound capability metadata plus planned channel metadata
 ```
 
 Start here for local usage:

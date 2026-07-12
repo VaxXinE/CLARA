@@ -70,4 +70,18 @@ export class DrizzleChannelAccountRepository implements ChannelAccountRepository
 
     return row ? toChannelAccountRecord(row) : null;
   }
+
+  async findByProviderExternalAccount(
+    provider: "gmail" | "whatsapp" | "instagram" | "tiktok" | "webchat",
+    externalAccountId: string,
+  ): Promise<ChannelAccountRecord | null> {
+    const row = await this.db.query.channelAccounts.findFirst({
+      where: and(
+        eq(channelAccounts.provider, provider),
+        eq(channelAccounts.externalAccountId, externalAccountId),
+      ),
+    });
+
+    return row ? toChannelAccountRecord(row) : null;
+  }
 }
