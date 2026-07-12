@@ -40,6 +40,7 @@ Gmail outbound send route now exists as an authenticated, non-viewer, explicit h
 Gmail outbound delivery status route returns scoped read-only delivery metadata for dashboard/operator visibility
 Gmail outbound send and Gmail reply send write safe audit events when audit logging is wired
 Gmail reply send integration now exists when ReplyService is explicitly wired with Gmail outbound send and the conversation source is email/Gmail
+P3 final Gmail security regression runbook now documents inbound, scheduler, outbound, OAuth/token, audit/logging, and dashboard safety checks
 internal Gmail inbound smoke harness exists for offline verification when explicitly wired
 no externally scheduled background worker, background refresh scheduler, dashboard Gmail send UI, or real Gmail outbound send yet
 ```
@@ -66,6 +67,7 @@ scheduler operator status route returns safe runtime state/config only and never
 manual scheduler tick route runs one bounded tick through the runtime boundary and does not start the background interval
 scheduler operator routes write safe audit metadata when audit logging is wired
 final hardening runbook: `docs/product/CLARA-P3-GMAIL-INBOUND-FINAL-HARDENING-SPEC.md`
+final P3 security runbook: `docs/product/CLARA-P3-FINAL-SECURITY-REGRESSION-RUNBOOK.md`
 does not create AI drafts or outbound replies
 ```
 
