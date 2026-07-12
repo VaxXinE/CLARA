@@ -4,6 +4,7 @@ import { AuditLogService } from "../audit/audit-log-service";
 import type { ConversationRepository } from "../conversations/conversation-repository";
 import { AppError, NotFoundError, ValidationError } from "../errors/app-error";
 import { getWorkspaceScopeFromAuth } from "../workspace/workspace-scope";
+import type { GmailOutboundSendService } from "../channels/email/gmail-outbound-send-service";
 import { toReplySendResponseDto, type ReplySendResponseDto } from "./reply-dto";
 import type { ReplyRepository } from "./reply-repository";
 import {
@@ -19,6 +20,38 @@ export type SendReplyRequest = {
   draftId?: string;
 };
 
+export type GmailReplySendIntegration = {
+  service: Pick<GmailOutboundSendService, "send">;
+  providerAccountId: string;
+};
+
+function isGmailReplySource(source: string): boolean {
+  const normalized = source.trim().toLowerCase();
+
+  return (
+    normalized === "email" ||
+    normalized === "gmail" ||
+    normalized.includes("gmail")
+  );
+}
+
+function getCustomerEmail(conversation: {
+  customer: { contactIdentifier?: string | null };
+}): string {
+  const email = conversation.customer.contactIdentifier?.trim();
+
+  if (!email) {
+    throw new ValidationError("Invalid request.", [
+      {
+        path: "conversation.customer",
+        message: "Gmail conversation customer email is required.",
+      },
+    ]);
+  }
+
+  return email;
+}
+
 export class ReplyService {
   constructor(
     private readonly conversationRepository: Pick<
@@ -28,6 +61,7 @@ export class ReplyService {
     private readonly repository: ReplyRepository,
     private readonly provider: ReplySendProvider,
     private readonly auditLogs: AuditLogService,
+    private readonly gmailReply?: GmailReplySendIntegration,
   ) {}
 
   async sendReply(input: SendReplyRequest): Promise<ReplySendResponseDto> {
@@ -80,6 +114,99 @@ export class ReplyService {
       }
 
       await this.auditLogs.recordReplySendAttempted(attemptedAuditInput);
+
+      if (this.gmailReply && isGmailReplySource(conversation.source)) {
+        const gmailResult = await this.gmailReply.service.send({
+          actor: {
+            userId: input.auth.userId,
+            organizationId: input.auth.organizationId,
+            workspaceId: input.auth.workspaceId,
+            role: input.auth.role,
+          },
+          message: {
+            providerAccountId: this.gmailReply.providerAccountId,
+            conversationId: conversation.id,
+            to: [getCustomerEmail(conversation)],
+            subject: `Re: ${conversation.id}`,
+            textBody: validatedBody,
+            idempotencyKey: `reply:${conversation.id}:${input.correlationId}`,
+            correlationId: input.correlationId,
+          },
+        });
+
+        if (gmailResult.status === "failed") {
+          await this.auditLogs.recordReplyFailed({
+            auth: input.auth,
+            correlationId: input.correlationId,
+            conversationId: conversation.id,
+            error: new AppError({
+              statusCode: 502,
+              appCode: "SEND_FAILED",
+              message: "Unable to send reply right now.",
+            }),
+            ...(input.draftId ? { draftId: input.draftId } : {}),
+          });
+
+          return {
+            data: {
+              send: {
+                provider: "gmail",
+                status: "failed",
+                ...(gmailResult.outbound_delivery_id
+                  ? { outbound_delivery_id: gmailResult.outbound_delivery_id }
+                  : {}),
+                ...(gmailResult.reason_code
+                  ? { reason_code: gmailResult.reason_code }
+                  : {}),
+                ...(gmailResult.correlation_id
+                  ? { correlation_id: gmailResult.correlation_id }
+                  : {}),
+              },
+            },
+          };
+        }
+
+        const createdReply = await this.repository.createReply({
+          scope,
+          conversationId: conversation.id,
+          senderUserId: input.auth.userId,
+          body: validatedBody,
+          provider: "gmail",
+          sendStatus: "sent",
+          deliveryStatus:
+            gmailResult.status === "simulated" ? "simulated" : "sent",
+          ...(input.draftId ? { draftId: input.draftId } : {}),
+        });
+
+        await this.auditLogs.recordReplySent({
+          auth: input.auth,
+          correlationId: input.correlationId,
+          conversationId: conversation.id,
+          messageId: createdReply.id,
+          provider: "gmail",
+          deliveryStatus:
+            gmailResult.status === "simulated" ? "simulated" : "sent",
+          ...(input.draftId ? { draftId: input.draftId } : {}),
+        });
+
+        return toReplySendResponseDto(createdReply, {
+          provider: "gmail",
+          status: gmailResult.status === "simulated" ? "simulated" : "sent",
+          ...(gmailResult.provider_message_id
+            ? { provider_message_id: gmailResult.provider_message_id }
+            : {}),
+          ...(gmailResult.outbound_delivery_id
+            ? { outbound_delivery_id: gmailResult.outbound_delivery_id }
+            : {}),
+          ...(gmailResult.reason_code
+            ? { reason_code: gmailResult.reason_code }
+            : {}),
+          ...(gmailResult.sent_at ? { sent_at: gmailResult.sent_at } : {}),
+          ...(gmailResult.correlation_id
+            ? { correlation_id: gmailResult.correlation_id }
+            : {}),
+        });
+      }
 
       const sendResult = await this.provider.sendReply({
         conversationId: conversation.id,

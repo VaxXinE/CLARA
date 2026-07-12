@@ -31,6 +31,7 @@ type ConversationListRow = {
   updatedAt: Date;
   customerId: string;
   customerDisplayName: string;
+  customerContactIdentifier: string | null;
   customerSource: string;
   customerStatus: string;
   assignedUserId: string | null;
@@ -68,6 +69,7 @@ function toConversationListItemRecord(
     customer: {
       id: row.customerId,
       displayName: row.customerDisplayName,
+      contactIdentifier: row.customerContactIdentifier,
       source: row.customerSource,
       status: row.customerStatus,
     },
@@ -109,6 +111,7 @@ function toConversationDetailRecord(
     customer: {
       id: row.customerId,
       displayName: row.customerDisplayName,
+      contactIdentifier: row.customerContactIdentifier,
       source: row.customerSource,
       status: row.customerStatus,
     },
@@ -191,6 +194,7 @@ export class DrizzleConversationRepository implements ConversationRepository {
         updatedAt: conversations.updatedAt,
         customerId: customers.id,
         customerDisplayName: customers.displayName,
+        customerContactIdentifier: customers.contactIdentifier,
         customerSource: customers.source,
         customerStatus: customers.status,
         assignedUserId: users.id,
@@ -259,6 +263,7 @@ export class DrizzleConversationRepository implements ConversationRepository {
         updatedAt: conversations.updatedAt,
         customerId: customers.id,
         customerDisplayName: customers.displayName,
+        customerContactIdentifier: customers.contactIdentifier,
         customerSource: customers.source,
         customerStatus: customers.status,
         assignedUserId: users.id,

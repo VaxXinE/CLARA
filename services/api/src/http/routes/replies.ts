@@ -130,7 +130,9 @@ export async function registerReplyRoutes(
 
       const result = await service.sendReply(serviceInput);
 
-      return reply.status(201).send(result);
+      return reply
+        .status(result.data.send.status === "failed" ? 200 : 201)
+        .send(result);
     },
   );
 }
