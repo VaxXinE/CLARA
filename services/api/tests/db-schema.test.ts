@@ -23,6 +23,7 @@ import {
   messageDirections,
   outboundDeliveryChannels,
   outboundDeliveryStatuses,
+  webchatOutboundDeliveryStatuses,
   workspaceMemberRoles,
   workspaceMembershipStatuses,
 } from "../src/db/schema";
@@ -49,6 +50,7 @@ describe("database schema", () => {
       "gmailInboundSyncStates",
       "channelAccounts",
       "webchatInboundMessages",
+      "webchatOutboundDeliveries",
     ]);
   });
 
@@ -69,6 +71,7 @@ describe("database schema", () => {
       "gmailInboundSyncStates",
       "channelAccounts",
       "webchatInboundMessages",
+      "webchatOutboundDeliveries",
     ] as const) {
       const columns = Object.keys(dbSchema[tableName]);
 
@@ -104,6 +107,13 @@ describe("database schema", () => {
     expect(auditLogOutcomes).toEqual(["success", "failure"]);
     expect(outboundDeliveryChannels).toEqual(["email"]);
     expect(outboundDeliveryStatuses).toEqual(["simulated", "sent", "failed"]);
+    expect(webchatOutboundDeliveryStatuses).toEqual([
+      "pending",
+      "sent",
+      "simulated",
+      "failed",
+      "skipped",
+    ]);
     expect(gmailProviderAccountProviders).toEqual(["gmail"]);
     expect(gmailProviderAccountStatuses).toEqual([
       "not_connected",

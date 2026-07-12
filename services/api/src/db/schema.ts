@@ -86,6 +86,13 @@ export const outboundDeliveryStatuses = [
   "sent",
   "failed",
 ] as const;
+export const webchatOutboundDeliveryStatuses = [
+  "pending",
+  "sent",
+  "simulated",
+  "failed",
+  "skipped",
+] as const;
 export const gmailProviderAccountProviders = ["gmail"] as const;
 export const gmailProviderAccountStatuses = [
   "not_connected",
@@ -1243,6 +1250,68 @@ export const webchatInboundMessages = pgTable(
   ],
 );
 
+export const webchatOutboundDeliveries = pgTable(
+  "webchat_outbound_deliveries",
+  {
+    id: text("id").primaryKey(),
+    organizationId: text("organization_id")
+      .notNull()
+      .references(() => organizations.id),
+    workspaceId: text("workspace_id")
+      .notNull()
+      .references(() => workspaces.id),
+    channelAccountId: text("channel_account_id")
+      .notNull()
+      .references(() => channelAccounts.id),
+    conversationId: text("conversation_id")
+      .notNull()
+      .references(() => conversations.id),
+    replyId: text("reply_id").references(() => messages.id),
+    provider: text("provider").notNull().default("webchat"),
+    status: text("status").notNull(),
+    reasonCode: text("reason_code"),
+    providerMessageId: text("provider_message_id"),
+    sentAt: timestamp("sent_at", { withTimezone: true }),
+    metadata: jsonb("metadata").notNull().default({}),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    check(
+      "webchat_outbound_deliveries_provider_check",
+      sql`${table.provider} = 'webchat'`,
+    ),
+    textOneOf("status", webchatOutboundDeliveryStatuses),
+    check(
+      "webchat_outbound_deliveries_reason_code_not_empty",
+      sql`${table.reasonCode} is null or char_length(trim(${table.reasonCode})) > 0`,
+    ),
+    check(
+      "webchat_outbound_deliveries_provider_message_id_not_empty",
+      sql`${table.providerMessageId} is null or char_length(trim(${table.providerMessageId})) > 0`,
+    ),
+    check(
+      "webchat_outbound_deliveries_metadata_is_object",
+      sql`jsonb_typeof(${table.metadata}) = 'object'`,
+    ),
+    index("idx_webchat_outbound_deliveries_scope_conversation").on(
+      table.organizationId,
+      table.workspaceId,
+      table.conversationId,
+    ),
+    index("idx_webchat_outbound_deliveries_scope_channel_created").on(
+      table.organizationId,
+      table.workspaceId,
+      table.channelAccountId,
+      table.createdAt,
+    ),
+  ],
+);
+
 export const dbSchema = {
   organizations,
   workspaces,
@@ -1263,6 +1332,7 @@ export const dbSchema = {
   gmailInboundSyncStates,
   channelAccounts,
   webchatInboundMessages,
+  webchatOutboundDeliveries,
 };
 
 export type Organization = typeof organizations.$inferSelect;
@@ -1288,6 +1358,8 @@ export type GmailInboundSyncStateRow =
 export type ChannelAccountRow = typeof channelAccounts.$inferSelect;
 export type WebchatInboundMessageRow =
   typeof webchatInboundMessages.$inferSelect;
+export type WebchatOutboundDeliveryRow =
+  typeof webchatOutboundDeliveries.$inferSelect;
 
 export type JsonObject = Record<string, string | number | boolean | null>;
 export type ActivityMetadata = JsonObject;

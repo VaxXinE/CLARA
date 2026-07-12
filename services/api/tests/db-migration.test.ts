@@ -100,6 +100,14 @@ const webchatInboundMigrationSql = readFileSync(
   webchatInboundMigrationPath,
   "utf8",
 );
+const webchatOutboundMigrationPath = path.resolve(
+  __dirname,
+  "../drizzle/0014_p4_webchat_outbound_deliveries.sql",
+);
+const webchatOutboundMigrationSql = readFileSync(
+  webchatOutboundMigrationPath,
+  "utf8",
+);
 
 function migrationForTable(tableName: string): string {
   if (tableName === "audit_logs") return auditLogMigrationSql;
@@ -117,6 +125,8 @@ function migrationForTable(tableName: string): string {
   if (tableName === "channel_accounts") return channelAccountsMigrationSql;
   if (tableName === "webchat_inbound_messages")
     return webchatInboundMigrationSql;
+  if (tableName === "webchat_outbound_deliveries")
+    return webchatOutboundMigrationSql;
   return migrationSql;
 }
 
@@ -142,6 +152,7 @@ describe("initial database migration", () => {
       "gmail_inbound_sync_states",
       "channel_accounts",
       "webchat_inbound_messages",
+      "webchat_outbound_deliveries",
     ]) {
       const source = migrationForTable(tableName);
 
@@ -165,6 +176,7 @@ describe("initial database migration", () => {
       "gmail_inbound_sync_states",
       "channel_accounts",
       "webchat_inbound_messages",
+      "webchat_outbound_deliveries",
     ]) {
       const source = migrationForTable(tableName);
       const tableBlock = source
@@ -266,6 +278,19 @@ describe("initial database migration", () => {
     expect(webchatInboundMigrationSql).toContain("'webchat_received'");
     expect(webchatInboundMigrationSql).toContain(
       "create index if not exists idx_webchat_inbound_messages_scope_session",
+    );
+  });
+
+  it("adds webchat outbound delivery persistence schema", () => {
+    expect(webchatOutboundMigrationSql).toContain(
+      "create table if not exists webchat_outbound_deliveries",
+    );
+    expect(webchatOutboundMigrationSql).toContain("provider = 'webchat'");
+    expect(webchatOutboundMigrationSql).toContain(
+      "status in ('pending', 'sent', 'simulated', 'failed', 'skipped')",
+    );
+    expect(webchatOutboundMigrationSql).toContain(
+      "create index if not exists idx_webchat_outbound_deliveries_scope_conversation",
     );
   });
 

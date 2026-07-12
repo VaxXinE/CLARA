@@ -195,4 +195,43 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("refresh_token");
     expect(JSON.stringify(response)).not.toContain("Authorization");
   });
+
+  it("loads Webchat outbound delivery status safely", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        data: {
+          outbound_delivery_id: "webchat_outbound_demo",
+          provider: "webchat",
+          status: "simulated",
+          reason_code: "simulated_send_completed",
+          provider_message_id: "webchat_msg_demo",
+          conversation_id: "conv_demo",
+          channel_account_id: "channel_account_demo_webchat",
+          created_at: "2026-01-01T00:00:00.000Z",
+          updated_at: "2026-01-01T00:00:00.000Z",
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({
+      baseUrl: "http://127.0.0.1:3000",
+    });
+
+    const response = await client.getWebchatOutboundDeliveryStatus(
+      "webchat_outbound_demo",
+    );
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/integrations/webchat/outbound/deliveries/webchat_outbound_demo",
+      expect.any(Object),
+    );
+    expect(response.data).toMatchObject({
+      provider: "webchat",
+      status: "simulated",
+    });
+    expect(JSON.stringify(response)).not.toContain("access_token");
+    expect(JSON.stringify(response)).not.toContain("refresh_token");
+    expect(JSON.stringify(response)).not.toContain("Authorization");
+    expect(JSON.stringify(response)).not.toContain("raw_provider");
+  });
 });

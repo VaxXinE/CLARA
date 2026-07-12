@@ -62,7 +62,9 @@ organization_id and workspace_id are resolved from the channel account server-si
 message text, email, page URL, and metadata are validated and sanitized
 raw request payloads, cookies, Authorization headers, IP addresses, tokens, and provider secrets are not persisted
 webchat inbound materializes safe customer, conversation, message, activity, and webchat inbound records
-no webchat outbound reply, dashboard widget, or AI draft generation exists in this PR
+webchat reply can use the simulated Webchat outbound boundary when POST /reply targets a Webchat conversation
+webchat outbound delivery status is exposed through a scoped read-only API for dashboard visibility
+no webchat public widget frontend, resend/retry, real provider call, or AI draft generation exists in this PR
 ```
 
 Gmail inbound fetch boundary notes:
@@ -119,6 +121,7 @@ GET /api/v1/channels/accounts
 GET /api/v1/channels/accounts/:channelAccountId
 GET /api/v1/channels/accounts/:channelAccountId/health
 POST /api/v1/webchat/inbound/messages
+GET /api/v1/integrations/webchat/outbound/deliveries/:deliveryId
 POST /api/v1/integrations/gmail/oauth/connect
 GET /api/v1/integrations/gmail/oauth/callback
 GET /api/v1/integrations/gmail/accounts/:providerAccountId/health

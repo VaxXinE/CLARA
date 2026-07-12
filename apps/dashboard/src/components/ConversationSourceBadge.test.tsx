@@ -9,6 +9,16 @@ describe("ConversationSourceBadge", () => {
     expect(screen.getByText("Gmail")).toBeInTheDocument();
   });
 
+  it("renders webchat sources safely", () => {
+    const { rerender } = render(<ConversationSourceBadge source="webchat" />);
+
+    expect(screen.getByText("Webchat")).toBeInTheDocument();
+
+    rerender(<ConversationSourceBadge source="web_chat_demo" />);
+
+    expect(screen.getByText("Webchat")).toBeInTheDocument();
+  });
+
   it("handles missing and unknown sources safely", () => {
     const { rerender } = render(<ConversationSourceBadge />);
 
