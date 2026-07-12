@@ -19,7 +19,7 @@ async function createScopedAccount() {
     tokenGrant: {
       accessToken: "gat",
       refreshToken: "grt",
-      expiresAt: new Date("2026-07-12T16:00:00.000Z"),
+      expiresAt: new Date("2099-01-01T00:00:00.000Z"),
     },
   });
 

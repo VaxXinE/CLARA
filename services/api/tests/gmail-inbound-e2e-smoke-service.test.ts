@@ -90,7 +90,7 @@ async function createHarness(options?: {
     tokenGrant: {
       accessToken: "atk",
       refreshToken: "rtk",
-      expiresAt: new Date("2026-07-12T14:00:00.000Z"),
+      expiresAt: new Date("2099-01-01T00:00:00.000Z"),
     },
   });
 

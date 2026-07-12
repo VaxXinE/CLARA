@@ -3,6 +3,7 @@ import {
   activityEvents,
   auditLogs,
   aiDraftEvents,
+  channelAccounts,
   conversations,
   customers,
   emailInboundRecords,
@@ -14,6 +15,7 @@ import {
   demoActivityEvents,
   demoAuditLogs,
   demoAiDraftEvents,
+  demoChannelAccounts,
   demoConversations,
   demoCustomers,
   demoEmailInboundRecords,
@@ -29,6 +31,7 @@ type ReplyDraftInsert = InferInsertModel<typeof replyDrafts>;
 type AiDraftEventInsert = InferInsertModel<typeof aiDraftEvents>;
 type ActivityEventInsert = InferInsertModel<typeof activityEvents>;
 type AuditLogInsert = InferInsertModel<typeof auditLogs>;
+type ChannelAccountInsert = InferInsertModel<typeof channelAccounts>;
 type EmailInboundRecordInsert = InferInsertModel<typeof emailInboundRecords>;
 type EmailOutboundDeliveryInsert = InferInsertModel<
   typeof emailOutboundDeliveries
@@ -42,6 +45,7 @@ export type FixtureAppStore = {
   aiDraftEvents: AiDraftEventInsert[];
   activityEvents: ActivityEventInsert[];
   auditLogs: AuditLogInsert[];
+  channelAccounts: ChannelAccountInsert[];
   emailInboundRecords: EmailInboundRecordInsert[];
   emailOutboundDeliveries: EmailOutboundDeliveryInsert[];
 };
@@ -59,6 +63,7 @@ export function createFixtureAppStore(): FixtureAppStore {
     aiDraftEvents: cloneRows(demoAiDraftEvents),
     activityEvents: cloneRows(demoActivityEvents),
     auditLogs: cloneRows(demoAuditLogs),
+    channelAccounts: cloneRows(demoChannelAccounts),
     emailInboundRecords: cloneRows(demoEmailInboundRecords),
     emailOutboundDeliveries: cloneRows(demoEmailOutboundDeliveries),
   };

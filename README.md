@@ -28,6 +28,7 @@ Current MVP implementation:
 services/api: runnable local API with mock auth, workspace scope, seeded demo data, conversation/customer/activity read APIs, mock AI draft, and simulated reply send
 apps/dashboard: runnable local React dashboard for the conversation workspace flow
 production-oriented Docker build baseline now exists for services/api and apps/dashboard
+multi-channel registry/account foundation now exposes safe read-only Gmail capability metadata plus planned channel metadata
 ```
 
 Start here for local usage:
@@ -39,6 +40,7 @@ docs/product/CLARA-P2-DEPLOYMENT-CONFIG-RUNBOOK.md
 docs/product/CLARA-P2-STAGING-SMOKE-RUNBOOK.md
 docs/product/CLARA-P2-RELEASE-CHECKLIST.md
 docs/product/CLARA-P3-FINAL-SECURITY-REGRESSION-RUNBOOK.md
+docs/product/CLARA-P4-MULTICHANNEL-FOUNDATION-SPEC.md
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-README-RUNBOOK/
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-DEMO-SCRIPT/
 docs/product/CLARA-P3-EMAIL-PROVIDER-INTEGRATION-DECISION.md

@@ -45,6 +45,15 @@ internal Gmail inbound smoke harness exists for offline verification when explic
 no externally scheduled background worker, background refresh scheduler, dashboard Gmail send UI, or real Gmail outbound send yet
 ```
 
+Current multi-channel foundation:
+
+```text
+generic channel capabilities and channel account read APIs now exist
+Gmail is marked available; WhatsApp, Instagram, TikTok, and Webchat are planned metadata only
+channel account reads are scoped by backend AuthContext and never trust client-provided organization_id or workspace_id
+responses never include provider secrets, tokens, Authorization headers, raw provider payloads, or raw provider errors
+```
+
 Gmail inbound fetch boundary notes:
 
 ```text
@@ -94,6 +103,10 @@ GET /api/v1/customers/:customer_id
 GET /api/v1/conversations/:conversation_id/activity
 POST /api/v1/conversations/:conversation_id/ai-draft
 POST /api/v1/conversations/:conversation_id/reply
+GET /api/v1/channels/capabilities
+GET /api/v1/channels/accounts
+GET /api/v1/channels/accounts/:channelAccountId
+GET /api/v1/channels/accounts/:channelAccountId/health
 POST /api/v1/integrations/gmail/oauth/connect
 GET /api/v1/integrations/gmail/oauth/callback
 GET /api/v1/integrations/gmail/accounts/:providerAccountId/health
