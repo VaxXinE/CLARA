@@ -105,6 +105,7 @@ implemented route: POST /api/v1/extension/:channel/snapshots
 snapshot intake requires CLARA auth, blocks viewer, derives tenant scope from AuthContext, persists safe normalized snapshots/messages, materializes extension_bridge conversations, and audits safe metadata
 apps/extension now provides a local TypeScript active-conversation auto-sync engine that posts safe snapshots to the intake route
 apps/extension now provides ChatGPT Companion safe context preview/copy/open helpers entirely on the extension side
+P4.5 final regression/runbook coverage now documents operator-assisted usage, rollback, and security boundaries
 no packaged browser extension artifact, reply suggestion endpoint, manual-send confirmation endpoint, provider network call, ChatGPT auto-submit, or auto-send exists yet
 ```
 

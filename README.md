@@ -33,6 +33,7 @@ P4.5 extension bridge contract is documented for future operator-visible active 
 P4.5 extension snapshot intake is implemented for authenticated WhatsApp, Instagram, and TikTok extension bridge snapshots
 apps/extension now contains the local TypeScript auto-sync engine for visible active-conversation snapshots
 apps/extension now contains ChatGPT Companion safe context preview/copy/open helpers without ChatGPT token storage or auto-submit
+P4.5 Extension Bridge final regression/runbook coverage is now documented for operator-assisted active-conversation workflows
 ```
 
 Start here for local usage:
@@ -56,6 +57,9 @@ docs/product/CLARA-P45-CHATGPT-COMPANION-SPEC.md
 docs/product/CLARA-P45-EXTENSION-SNAPSHOT-INTAKE-SPEC.md
 docs/product/CLARA-P45-EXTENSION-AUTO-SYNC-ENGINE-SPEC.md
 docs/product/CLARA-P45-CHATGPT-COMPANION-SAFE-CONTEXT-SPEC.md
+docs/product/CLARA-P45-FINAL-REGRESSION-RUNBOOK.md
+docs/product/CLARA-P45-EXTENSION-BRIDGE-FINAL-SECURITY-CHECKLIST.md
+docs/product/CLARA-P45-EXTENSION-BRIDGE-OPERATOR-RUNBOOK.md
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-README-RUNBOOK/
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-DEMO-SCRIPT/
 docs/product/CLARA-P3-EMAIL-PROVIDER-INTEGRATION-DECISION.md
