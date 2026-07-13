@@ -12,6 +12,8 @@ classification: "product-spec"
 
 P4.5-PR-03 adds the extension-side auto-sync engine for operator-visible active conversations.
 
+This is the p4.5 extension auto-sync readiness checkpoint for the local browser-side bridge.
+
 The engine reads only the currently open conversation, creates a safe bounded snapshot, deduplicates by `snapshot_hash`, and posts changed snapshots to the CLARA backend snapshot intake route.
 
 ## Implemented
