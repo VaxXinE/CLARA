@@ -14,6 +14,7 @@ describe("multichannel audit privacy policy", () => {
       "whatsapp",
       "instagram",
       "tiktok",
+      "extension",
     ]);
     expect(multichannelAuditMetadataAllowlist).toEqual(
       expect.arrayContaining([

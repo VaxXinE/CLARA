@@ -1,5 +1,11 @@
 export type MultichannelAuditProvider =
-  "gmail" | "email" | "webchat" | "whatsapp" | "instagram" | "tiktok";
+  | "gmail"
+  | "email"
+  | "webchat"
+  | "whatsapp"
+  | "instagram"
+  | "tiktok"
+  | "extension";
 
 export type MultichannelAuditMetadata = Record<
   string,

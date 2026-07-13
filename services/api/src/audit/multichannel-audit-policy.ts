@@ -5,16 +5,22 @@ import type {
 
 export const multichannelAuditMetadataAllowlist = [
   "provider",
+  "channel",
+  "source",
   "channel_account_id",
   "conversation_id",
+  "customer_id",
   "delivery_id",
   "outbound_delivery_id",
+  "snapshot_hash",
   "reason_code",
   "status",
   "direction",
   "correlation_id",
   "recipient_count",
   "message_count",
+  "incoming_count",
+  "outgoing_count",
   "has_attachments",
   "html_body_present",
 ] as const;
@@ -28,6 +34,7 @@ export const multichannelAuditProviders: MultichannelAuditProvider[] = [
   "whatsapp",
   "instagram",
   "tiktok",
+  "extension",
 ];
 
 export function sanitizeMultichannelAuditMetadata(
