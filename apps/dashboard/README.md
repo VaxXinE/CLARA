@@ -67,6 +67,7 @@ Auth smoke-test reference:
 
 ```text
 docs/product/CLARA-P2-AUTH-SMOKE-TEST-RUNBOOK.md
+docs/product/CLARA-P5-DASHBOARD-PROVIDER-AUTH-UX-SPEC.md
 ```
 
 ## Environment
@@ -112,6 +113,7 @@ dashboard does not load conversation data until a provider session exists
 frontend only sends provider access_token as a bearer token
 frontend never invents a bearer token when no session exists
 backend still decides role, organization, and workspace from authenticated context
+P5 keeps this as a contract only; full login UX and workspace switcher are later work
 ```
 
 ## Commands
