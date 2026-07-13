@@ -72,6 +72,7 @@ describe("GET /api/v1/channels/capabilities", () => {
         expect.objectContaining({
           provider: "webchat",
           inbound_supported: true,
+          outbound_supported: true,
           production_status: "available",
         }),
       ]),

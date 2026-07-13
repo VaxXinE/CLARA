@@ -36,12 +36,12 @@ All routes require authentication. Viewer, agent, and owner can read. No route a
 | Provider | Channel type | Status |
 | --- | --- | --- |
 | Gmail | email | available |
-| WhatsApp | messaging | planned |
+| WhatsApp | messaging | available |
 | Instagram | social | planned |
 | TikTok | social | planned |
-| Webchat | webchat | planned |
+| Webchat | webchat | available |
 
-Planned providers are metadata only. They have no webhook, OAuth, send, sync, or dashboard mutation behavior in this PR.
+Instagram and TikTok planned providers are metadata only. They have no webhook, OAuth, send, sync, or dashboard mutation behavior in this phase.
 
 ## Security Rules
 
@@ -69,10 +69,9 @@ Cross-workspace account access returns safe 404.
 ## Not Implemented
 
 ```text
-WhatsApp integration
+real WhatsApp provider outbound send
 Instagram integration
 TikTok integration
-Webchat integration
 provider webhooks
 provider account mutation APIs
 dashboard channel management UI

@@ -9,6 +9,8 @@ describe("ChannelRoutingService", () => {
     expect(service.resolve("gmail").provider).toBe("gmail");
     expect(service.resolve("webchat").provider).toBe("webchat");
     expect(service.resolve("whatsapp").provider).toBe("whatsapp");
+    expect(service.resolve("instagram").provider).toBe("default");
+    expect(service.resolve("tiktok").provider).toBe("default");
     expect(service.resolve("unknown").provider).toBe("default");
   });
 

@@ -43,7 +43,8 @@ export const channelCapabilities: ChannelCapability[] = [
     audit_supported: false,
     dashboard_status_supported: false,
     production_status: "planned",
-    safe_notes: "Planned metadata only; no provider integration exists yet.",
+    safe_notes:
+      "Planned metadata only; future implementation requires official API and compliance review.",
   },
   {
     provider: "tiktok",
@@ -57,14 +58,15 @@ export const channelCapabilities: ChannelCapability[] = [
     audit_supported: false,
     dashboard_status_supported: false,
     production_status: "planned",
-    safe_notes: "Planned metadata only; no provider integration exists yet.",
+    safe_notes:
+      "Planned metadata only; future implementation requires official API and compliance review.",
   },
   {
     provider: "webchat",
     channel_type: "webchat",
     display_name: "Webchat",
     inbound_supported: true,
-    outbound_supported: false,
+    outbound_supported: true,
     oauth_supported: false,
     manual_sync_supported: false,
     scheduler_supported: false,
@@ -72,6 +74,6 @@ export const channelCapabilities: ChannelCapability[] = [
     dashboard_status_supported: false,
     production_status: "available",
     safe_notes:
-      "Webchat inbound foundation is available; outbound replies and dashboard UI are not implemented yet.",
+      "Webchat inbound and simulated outbound reply boundaries are available; real provider calls are not implemented.",
   },
 ];
