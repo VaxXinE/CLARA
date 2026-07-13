@@ -103,7 +103,8 @@ the bridge must not crawl inbox lists, crawl background conversations, capture p
 ChatGPT Companion is user-triggered, previewable, bounded, and does not store ChatGPT session material in the CLARA backend
 implemented route: POST /api/v1/extension/:channel/snapshots
 snapshot intake requires CLARA auth, blocks viewer, derives tenant scope from AuthContext, persists safe normalized snapshots/messages, materializes extension_bridge conversations, and audits safe metadata
-no browser extension UI, ChatGPT UI, reply suggestion endpoint, manual-send confirmation endpoint, provider network call, or auto-send exists yet
+apps/extension now provides a local TypeScript active-conversation auto-sync engine that posts safe snapshots to the intake route
+no packaged browser extension artifact, ChatGPT UI, reply suggestion endpoint, manual-send confirmation endpoint, provider network call, or auto-send exists yet
 ```
 
 Gmail inbound fetch boundary notes:
@@ -172,6 +173,7 @@ POST /api/v1/integrations/gmail/accounts/:providerAccountId/sync
 POST /api/v1/integrations/gmail/accounts/:providerAccountId/inbound-smoke
 POST /api/v1/integrations/gmail/outbound/send
 GET /api/v1/integrations/gmail/outbound/deliveries/:deliveryId
+POST /api/v1/extension/:channel/snapshots
 ```
 
 ## Local Setup
