@@ -10,6 +10,8 @@ import {
   channelTypes,
   conversationStatuses,
   dbSchema,
+  extensionSnapshotChannels,
+  extensionSnapshotStatuses,
   gmailOAuthCodeChallengeMethods,
   gmailOAuthStateProviders,
   gmailOAuthStateStatuses,
@@ -54,6 +56,8 @@ describe("database schema", () => {
       "webchatOutboundDeliveries",
       "whatsappInboundMessages",
       "whatsappOutboundDeliveries",
+      "extensionSnapshots",
+      "extensionSnapshotMessages",
     ]);
   });
 
@@ -77,6 +81,8 @@ describe("database schema", () => {
       "webchatOutboundDeliveries",
       "whatsappInboundMessages",
       "whatsappOutboundDeliveries",
+      "extensionSnapshots",
+      "extensionSnapshotMessages",
     ] as const) {
       const columns = Object.keys(dbSchema[tableName]);
 
@@ -108,6 +114,9 @@ describe("database schema", () => {
       "gmail.reply_send.requested",
       "gmail.reply_send.succeeded",
       "gmail.reply_send.failed",
+      "extension.snapshot.accepted",
+      "extension.snapshot.duplicate",
+      "extension.snapshot.rejected",
     ]);
     expect(auditLogOutcomes).toEqual(["success", "failure"]);
     expect(outboundDeliveryChannels).toEqual(["email"]);
@@ -125,6 +134,16 @@ describe("database schema", () => {
       "simulated",
       "failed",
       "skipped",
+    ]);
+    expect(extensionSnapshotChannels).toEqual([
+      "whatsapp",
+      "instagram",
+      "tiktok",
+    ]);
+    expect(extensionSnapshotStatuses).toEqual([
+      "accepted",
+      "duplicate",
+      "rejected",
     ]);
     expect(gmailProviderAccountProviders).toEqual(["gmail"]);
     expect(gmailProviderAccountStatuses).toEqual([
@@ -187,6 +206,7 @@ describe("database schema", () => {
       "email_received",
       "webchat_received",
       "whatsapp_received",
+      "extension_snapshot_received",
     ]);
   });
 });

@@ -44,6 +44,9 @@ import { ConversationQueryService } from "../conversations/conversation-service"
 import { FixtureCustomerRepository } from "../customers/customer-repository";
 import { DrizzleCustomerRepository } from "../customers/customer-db-repository";
 import { CustomerQueryService } from "../customers/customer-service";
+import { DrizzleExtensionSnapshotRepository } from "../extension/extension-snapshot-db-repository";
+import { ExtensionSnapshotPersistenceService } from "../extension/extension-snapshot-persistence-service";
+import { FixtureExtensionSnapshotRepository } from "../extension/extension-snapshot-repository";
 import { FixtureReplyRepository } from "../replies/reply-repository";
 import { DrizzleReplyRepository } from "../replies/reply-db-repository";
 import { ReplyService } from "../replies/reply-service";
@@ -61,6 +64,7 @@ export type AppServices = {
   webchatReply?: WebchatReplySendService;
   whatsappInbound?: WhatsappInboundMaterializationService;
   whatsappReply?: WhatsappReplySendService;
+  extensionSnapshots?: ExtensionSnapshotPersistenceService;
 };
 
 export type AuthServices = {
@@ -137,6 +141,10 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
           ),
         ),
         whatsappReply,
+        extensionSnapshots: new ExtensionSnapshotPersistenceService(
+          new DrizzleExtensionSnapshotRepository(db),
+          auditLogs,
+        ),
       },
       auth: {
         workspaceMemberships: new WorkspaceMembershipService(
@@ -221,6 +229,10 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         ),
       ),
       whatsappReply,
+      extensionSnapshots: new ExtensionSnapshotPersistenceService(
+        new FixtureExtensionSnapshotRepository(),
+        auditLogs,
+      ),
     },
     auth: {
       workspaceMemberships: new WorkspaceMembershipService(

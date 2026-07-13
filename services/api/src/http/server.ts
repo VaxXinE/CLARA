@@ -30,6 +30,7 @@ import { registerReplyRoutes } from "./routes/replies";
 import { registerChannelRoutes } from "./routes/channels";
 import { registerWebchatRoutes } from "./routes/webchat";
 import { registerWhatsappRoutes } from "./routes/whatsapp";
+import { registerExtensionRoutes } from "./routes/extension";
 import type { GmailOAuthConnectService } from "../channels/email/gmail-oauth-connect-service";
 import type { GmailOAuthCallbackService } from "../channels/email/gmail-oauth-callback-service";
 import type { GmailConnectionHealthService } from "../channels/email/gmail-connection-health-service";
@@ -191,6 +192,13 @@ export async function createServer(
         readWhatsappProviderConfig(options.env),
       ),
       services.whatsappInbound,
+    );
+  }
+  if (services.extensionSnapshots) {
+    await registerExtensionRoutes(
+      app,
+      authProvider,
+      services.extensionSnapshots,
     );
   }
   if (

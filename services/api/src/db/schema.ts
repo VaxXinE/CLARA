@@ -28,6 +28,7 @@ export const customerSources = [
   "web_chat_demo",
   "email",
   "webchat",
+  "extension_bridge",
 ] as const;
 export const customerStatuses = [
   "new",
@@ -56,6 +57,7 @@ export const activityEventTypes = [
   "email_received",
   "webchat_received",
   "whatsapp_received",
+  "extension_snapshot_received",
 ] as const;
 export const auditLogActions = [
   "ai_draft.generated",
@@ -74,6 +76,9 @@ export const auditLogActions = [
   "gmail.reply_send.requested",
   "gmail.reply_send.succeeded",
   "gmail.reply_send.failed",
+  "extension.snapshot.accepted",
+  "extension.snapshot.duplicate",
+  "extension.snapshot.rejected",
 ] as const;
 export const auditLogOutcomes = ["success", "failure"] as const;
 export const auditLogResourceTypes = [
@@ -81,6 +86,17 @@ export const auditLogResourceTypes = [
   "reply_draft",
   "message",
   "gmail_scheduler",
+  "extension_snapshot",
+] as const;
+export const extensionSnapshotChannels = [
+  "whatsapp",
+  "instagram",
+  "tiktok",
+] as const;
+export const extensionSnapshotStatuses = [
+  "accepted",
+  "duplicate",
+  "rejected",
 ] as const;
 export const outboundDeliveryChannels = ["email"] as const;
 export const outboundDeliveryStatuses = [
@@ -1455,6 +1471,141 @@ export const whatsappOutboundDeliveries = pgTable(
   ],
 );
 
+export const extensionSnapshots = pgTable(
+  "extension_snapshots",
+  {
+    id: text("id").primaryKey(),
+    organizationId: text("organization_id")
+      .notNull()
+      .references(() => organizations.id),
+    workspaceId: text("workspace_id")
+      .notNull()
+      .references(() => workspaces.id),
+    channel: text("channel").notNull(),
+    provider: text("provider").notNull().default("extension"),
+    officialApi: integer("official_api").notNull().default(0),
+    snapshotHash: text("snapshot_hash").notNull(),
+    conversationFingerprint: text("conversation_fingerprint").notNull(),
+    chatTitle: text("chat_title").notNull(),
+    chatSubtitle: text("chat_subtitle"),
+    sourceUrlOrigin: text("source_url_origin"),
+    messageCount: integer("message_count").notNull(),
+    incomingCount: integer("incoming_count").notNull(),
+    outgoingCount: integer("outgoing_count").notNull(),
+    capturedAt: timestamp("captured_at", { withTimezone: true }).notNull(),
+    status: text("status").notNull(),
+    conversationId: text("conversation_id").references(() => conversations.id),
+    customerId: text("customer_id").references(() => customers.id),
+    safeMetadata: jsonb("safe_metadata"),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    textOneOf("channel", extensionSnapshotChannels),
+    check(
+      "extension_snapshots_provider_check",
+      sql`${table.provider} = 'extension'`,
+    ),
+    check(
+      "extension_snapshots_official_api_check",
+      sql`${table.officialApi} = 0`,
+    ),
+    textOneOf("status", extensionSnapshotStatuses),
+    check(
+      "extension_snapshots_snapshot_hash_not_empty",
+      sql`char_length(trim(${table.snapshotHash})) > 0`,
+    ),
+    check(
+      "extension_snapshots_conversation_fingerprint_not_empty",
+      sql`char_length(trim(${table.conversationFingerprint})) > 0`,
+    ),
+    check(
+      "extension_snapshots_chat_title_not_empty",
+      sql`char_length(trim(${table.chatTitle})) > 0`,
+    ),
+    uniqueIndex("extension_snapshots_scope_hash_unique").on(
+      table.organizationId,
+      table.workspaceId,
+      table.channel,
+      table.conversationFingerprint,
+      table.snapshotHash,
+    ),
+    index("idx_extension_snapshots_scope_conversation").on(
+      table.organizationId,
+      table.workspaceId,
+      table.conversationId,
+    ),
+    index("idx_extension_snapshots_scope_channel_captured").on(
+      table.organizationId,
+      table.workspaceId,
+      table.channel,
+      table.capturedAt,
+    ),
+  ],
+);
+
+export const extensionSnapshotMessages = pgTable(
+  "extension_snapshot_messages",
+  {
+    id: text("id").primaryKey(),
+    organizationId: text("organization_id")
+      .notNull()
+      .references(() => organizations.id),
+    workspaceId: text("workspace_id")
+      .notNull()
+      .references(() => workspaces.id),
+    snapshotId: text("snapshot_id")
+      .notNull()
+      .references(() => extensionSnapshots.id),
+    conversationId: text("conversation_id")
+      .notNull()
+      .references(() => conversations.id),
+    messageId: text("message_id").references(() => messages.id),
+    channel: text("channel").notNull(),
+    localMessageId: text("local_message_id").notNull(),
+    direction: text("direction").notNull(),
+    author: text("author"),
+    text: text("text").notNull(),
+    timestampLabel: text("timestamp_label"),
+    replyContextText: text("reply_context_text"),
+    sortOrder: integer("sort_order").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    textOneOf("channel", extensionSnapshotChannels),
+    textOneOf("direction", ["incoming", "outgoing"]),
+    check(
+      "extension_snapshot_messages_local_message_id_not_empty",
+      sql`char_length(trim(${table.localMessageId})) > 0`,
+    ),
+    check(
+      "extension_snapshot_messages_text_not_empty",
+      sql`char_length(trim(${table.text})) > 0`,
+    ),
+    uniqueIndex(
+      "extension_snapshot_messages_scope_conversation_local_unique",
+    ).on(
+      table.organizationId,
+      table.workspaceId,
+      table.channel,
+      table.conversationId,
+      table.localMessageId,
+    ),
+    index("idx_extension_snapshot_messages_scope_snapshot").on(
+      table.organizationId,
+      table.workspaceId,
+      table.snapshotId,
+      table.sortOrder,
+    ),
+  ],
+);
+
 export const dbSchema = {
   organizations,
   workspaces,
@@ -1478,6 +1629,8 @@ export const dbSchema = {
   webchatOutboundDeliveries,
   whatsappInboundMessages,
   whatsappOutboundDeliveries,
+  extensionSnapshots,
+  extensionSnapshotMessages,
 };
 
 export type Organization = typeof organizations.$inferSelect;
@@ -1509,6 +1662,9 @@ export type WhatsappInboundMessageRow =
   typeof whatsappInboundMessages.$inferSelect;
 export type WhatsappOutboundDeliveryRow =
   typeof whatsappOutboundDeliveries.$inferSelect;
+export type ExtensionSnapshotRow = typeof extensionSnapshots.$inferSelect;
+export type ExtensionSnapshotMessageRow =
+  typeof extensionSnapshotMessages.$inferSelect;
 
 export type JsonObject = Record<string, string | number | boolean | null>;
 export type ActivityMetadata = JsonObject;
