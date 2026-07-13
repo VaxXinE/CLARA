@@ -92,6 +92,18 @@ scraping, browser automation, session-cookie reuse, QR hijacking, credential cap
 no Instagram/TikTok inbound webhook, outbound send, dashboard UI, token storage, or provider network call exists
 ```
 
+P4.5 extension bridge contract baseline:
+
+```text
+provider is extension, official_api is false, and send_mode is manual_assisted
+planned contract routes are POST /api/v1/extension/:channel/snapshots, /reply-suggestions, and /manual-send-confirmations
+supported bridge channels are WhatsApp, Instagram, and TikTok
+auto-sync is limited to the user-visible active conversation and must dedupe by snapshot_hash
+the bridge must not crawl inbox lists, crawl background conversations, capture provider credentials, store browser session material, persist raw DOM/HTML, or auto-send replies
+ChatGPT Companion is user-triggered, previewable, bounded, and does not store ChatGPT session material in the CLARA backend
+no extension route, snapshot persistence, browser extension UI, ChatGPT UI, or provider network call exists yet
+```
+
 Gmail inbound fetch boundary notes:
 
 ```text
