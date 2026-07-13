@@ -34,13 +34,12 @@ describe("WebchatStatusPanel", () => {
     expect(text).not.toContain(["client", "secret"].join("_"));
   });
 
-  it("renders empty state without resend or retry controls", () => {
+  it("renders empty state without mutation controls", () => {
     const { container } = render(
       <WebchatStatusPanel loading={false} error={null} status={null} />,
     );
 
     expect(container).toBeEmptyDOMElement();
-    expect(screen.queryByText(/resend/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/retry/i)).not.toBeInTheDocument();
+    expect(screen.queryAllByRole("button")).toHaveLength(0);
   });
 });
