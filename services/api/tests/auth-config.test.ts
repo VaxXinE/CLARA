@@ -23,6 +23,28 @@ describe("auth configuration", () => {
     expect(env.REQUEST_BODY_LIMIT_BYTES).toBe(1_048_576);
   });
 
+  it("treats blank optional enum values as unset for local .env files", () => {
+    const env = loadEnv({
+      NODE_ENV: "development",
+      APP_NAME: "clara-api",
+      HOST: "127.0.0.1",
+      PORT: "3000",
+      LOG_LEVEL: "info",
+      AUTH_MODE: "mock",
+      AUTH_PROVIDER: "",
+      MOCK_AUTH_ENABLED: "true",
+      RATE_LIMIT_ENABLED: "",
+      EMAIL_CHANNEL_MODE: "",
+      CORS_ORIGIN: "http://127.0.0.1:5173",
+    });
+
+    expect(env.AUTH_MODE).toBe("mock");
+    expect(env.AUTH_PROVIDER).toBeUndefined();
+    expect(env.MOCK_AUTH_ENABLED).toBe(true);
+    expect(env.RATE_LIMIT_ENABLED).toBe(true);
+    expect(env.EMAIL_CHANNEL_MODE).toBe("disabled");
+  });
+
   it("accepts explicit rate limiting and request body limit overrides", () => {
     const env = loadEnv({
       NODE_ENV: "test",

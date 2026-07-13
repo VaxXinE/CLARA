@@ -30,6 +30,29 @@ function createStatusService(
 }
 
 describe("GET /api/v1/integrations/gmail/scheduler/status", () => {
+  it("returns a safe disabled status from the default app wiring", async () => {
+    const app = await createServer({ env: testEnv });
+
+    const response = await app.inject({
+      method: "GET",
+      url: "/api/v1/integrations/gmail/scheduler/status",
+      headers: authHeaders("agent"),
+    });
+
+    await app.close();
+
+    expect(response.statusCode).toBe(200);
+    expect(response.json()).toEqual({
+      data: {
+        scheduler_enabled: false,
+        scheduler_running: false,
+        interval_ms: 300000,
+        max_accounts_per_tick: 10,
+        max_messages_per_account: 25,
+      },
+    });
+  });
+
   it("requires auth and blocks viewer", async () => {
     const app = await createServer({
       env: testEnv,

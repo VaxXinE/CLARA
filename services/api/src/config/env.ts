@@ -1,6 +1,9 @@
 import "dotenv/config";
 import { z } from "zod";
 
+const blankToUndefined = (value: unknown): unknown =>
+  value === "" ? undefined : value;
+
 const envSchema = z.object({
   NODE_ENV: z
     .enum(["development", "test", "production"])
@@ -16,7 +19,10 @@ const envSchema = z.object({
     .enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"])
     .default("info"),
 
-  RATE_LIMIT_ENABLED: z.enum(["true", "false"]).optional(),
+  RATE_LIMIT_ENABLED: z.preprocess(
+    blankToUndefined,
+    z.enum(["true", "false"]).optional(),
+  ),
 
   RATE_LIMIT_MAX: z.coerce.number().int().min(1).default(120),
 
@@ -28,7 +34,10 @@ const envSchema = z.object({
 
   REQUEST_BODY_LIMIT_BYTES: z.coerce.number().int().min(1).default(1_048_576),
 
-  EMAIL_CHANNEL_MODE: z.enum(["disabled", "simulated"]).optional(),
+  EMAIL_CHANNEL_MODE: z.preprocess(
+    blankToUndefined,
+    z.enum(["disabled", "simulated"]).optional(),
+  ),
 
   WHATSAPP_WEBHOOK_VERIFY_TOKEN: z.string().trim().optional(),
 
@@ -46,11 +55,20 @@ const envSchema = z.object({
     )
     .optional(),
 
-  AUTH_MODE: z.enum(["mock", "provider"]).optional(),
+  AUTH_MODE: z.preprocess(
+    blankToUndefined,
+    z.enum(["mock", "provider"]).optional(),
+  ),
 
-  AUTH_PROVIDER: z.enum(["supabase", "better-auth"]).optional(),
+  AUTH_PROVIDER: z.preprocess(
+    blankToUndefined,
+    z.enum(["supabase", "better-auth"]).optional(),
+  ),
 
-  MOCK_AUTH_ENABLED: z.enum(["true", "false"]).optional(),
+  MOCK_AUTH_ENABLED: z.preprocess(
+    blankToUndefined,
+    z.enum(["true", "false"]).optional(),
+  ),
 
   SUPABASE_AUTH_JWKS_URL: z.string().trim().optional(),
 

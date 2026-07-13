@@ -100,6 +100,64 @@ function registerJsonRawBodyParser(app: FastifyInstance): void {
   );
 }
 
+function parseAllowedCorsOrigins(value: string): Set<string> {
+  return new Set(
+    value
+      .split(",")
+      .map((origin) => origin.trim())
+      .filter((origin) => origin.length > 0),
+  );
+}
+
+function registerCorsHook(app: FastifyInstance, env: Env): void {
+  const allowedOrigins = parseAllowedCorsOrigins(env.CORS_ORIGIN);
+
+  if (allowedOrigins.size === 0) {
+    return;
+  }
+
+  app.addHook("onRequest", async (request, reply) => {
+    const origin = request.headers.origin;
+
+    if (origin && allowedOrigins.has(origin)) {
+      reply.header("access-control-allow-origin", origin);
+      reply.header("vary", "Origin");
+      reply.header("access-control-allow-methods", "GET,POST,OPTIONS");
+      reply.header(
+        "access-control-allow-headers",
+        [
+          "authorization",
+          "content-type",
+          "x-correlation-id",
+          "x-mock-organization-id",
+          "x-mock-role",
+          "x-mock-user-id",
+          "x-mock-workspace-id",
+        ].join(","),
+      );
+    }
+
+    if (request.method === "OPTIONS") {
+      return reply
+        .status(origin && allowedOrigins.has(origin) ? 204 : 403)
+        .send();
+    }
+  });
+}
+
+const disabledGmailSchedulerStatus: Pick<
+  GmailInboundSyncSchedulerRuntimeService,
+  "getStatus"
+> = {
+  getStatus: () => ({
+    scheduler_enabled: false,
+    scheduler_running: false,
+    interval_ms: 300_000,
+    max_accounts_per_tick: 10,
+    max_messages_per_account: 25,
+  }),
+};
+
 export async function createServer(
   options: CreateServerOptions,
 ): Promise<FastifyInstance> {
@@ -146,6 +204,7 @@ export async function createServer(
   });
 
   registerJsonRawBodyParser(app);
+  registerCorsHook(app, options.env);
   registerCorrelationIdHook(app);
   registerRequestLogging(app);
   registerErrorHandlers(app, options.env);
@@ -201,82 +260,65 @@ export async function createServer(
       services.extensionSnapshots,
     );
   }
-  if (
-    options.gmailOAuthConnectService ||
-    options.gmailOAuthCallbackService ||
-    options.gmailConnectionHealthService ||
-    options.gmailInboundSyncService ||
-    options.gmailInboundE2ESmokeService ||
-    options.gmailOutboundSendService ||
-    options.gmailOutboundDeliveryService ||
-    options.gmailInboundSyncSchedulerStatus ||
-    options.gmailInboundSyncSchedulerRuntime
-  ) {
-    const gmailIntegrationServices: {
-      connect?: GmailOAuthConnectService;
-      callback?: GmailOAuthCallbackService;
-      health?: GmailConnectionHealthService;
-      sync?: Pick<GmailInboundSyncService, "syncMessages">;
-      inboundSmoke?: Pick<GmailInboundE2ESmokeService, "runSmoke">;
-      scheduler?: Pick<GmailInboundSyncSchedulerRuntimeService, "getStatus"> &
-        Partial<Pick<GmailInboundSyncSchedulerRuntimeService, "tickNow">>;
-      auditLogs?: Pick<AuditLogService, "recordGmailSchedulerOperatorAction">;
-      outboundSend?: Pick<GmailOutboundSendService, "send">;
-      outboundDeliveries?: Pick<
-        EmailOutboundDeliveryService,
-        "getGmailOutboundStatus"
-      >;
-    } = {};
-
-    if (options.gmailOAuthConnectService) {
-      gmailIntegrationServices.connect = options.gmailOAuthConnectService;
-    }
-
-    if (options.gmailOAuthCallbackService) {
-      gmailIntegrationServices.callback = options.gmailOAuthCallbackService;
-    }
-
-    if (options.gmailConnectionHealthService) {
-      gmailIntegrationServices.health = options.gmailConnectionHealthService;
-    }
-
-    if (options.gmailInboundSyncService) {
-      gmailIntegrationServices.sync = options.gmailInboundSyncService;
-    }
-
-    if (options.gmailInboundE2ESmokeService) {
-      gmailIntegrationServices.inboundSmoke =
-        options.gmailInboundE2ESmokeService;
-    }
-
-    if (options.gmailOutboundSendService) {
-      gmailIntegrationServices.outboundSend = options.gmailOutboundSendService;
-    }
-
-    if (options.gmailOutboundDeliveryService) {
-      gmailIntegrationServices.outboundDeliveries =
-        options.gmailOutboundDeliveryService;
-    }
-
-    const schedulerStatus =
+  const gmailIntegrationServices: {
+    connect?: GmailOAuthConnectService;
+    callback?: GmailOAuthCallbackService;
+    health?: GmailConnectionHealthService;
+    sync?: Pick<GmailInboundSyncService, "syncMessages">;
+    inboundSmoke?: Pick<GmailInboundE2ESmokeService, "runSmoke">;
+    scheduler: Pick<GmailInboundSyncSchedulerRuntimeService, "getStatus"> &
+      Partial<Pick<GmailInboundSyncSchedulerRuntimeService, "tickNow">>;
+    auditLogs?: Pick<AuditLogService, "recordGmailSchedulerOperatorAction">;
+    outboundSend?: Pick<GmailOutboundSendService, "send">;
+    outboundDeliveries?: Pick<
+      EmailOutboundDeliveryService,
+      "getGmailOutboundStatus"
+    >;
+  } = {
+    scheduler:
       options.gmailInboundSyncSchedulerStatus ??
-      options.gmailInboundSyncSchedulerRuntime;
+      options.gmailInboundSyncSchedulerRuntime ??
+      disabledGmailSchedulerStatus,
+  };
 
-    if (schedulerStatus) {
-      gmailIntegrationServices.scheduler = schedulerStatus;
-    }
-
-    if (options.gmailSchedulerAuditLogService) {
-      gmailIntegrationServices.auditLogs =
-        options.gmailSchedulerAuditLogService;
-    }
-
-    await registerGmailIntegrationRoutes(
-      app,
-      authProvider,
-      gmailIntegrationServices,
-    );
+  if (options.gmailOAuthConnectService) {
+    gmailIntegrationServices.connect = options.gmailOAuthConnectService;
   }
+
+  if (options.gmailOAuthCallbackService) {
+    gmailIntegrationServices.callback = options.gmailOAuthCallbackService;
+  }
+
+  if (options.gmailConnectionHealthService) {
+    gmailIntegrationServices.health = options.gmailConnectionHealthService;
+  }
+
+  if (options.gmailInboundSyncService) {
+    gmailIntegrationServices.sync = options.gmailInboundSyncService;
+  }
+
+  if (options.gmailInboundE2ESmokeService) {
+    gmailIntegrationServices.inboundSmoke = options.gmailInboundE2ESmokeService;
+  }
+
+  if (options.gmailOutboundSendService) {
+    gmailIntegrationServices.outboundSend = options.gmailOutboundSendService;
+  }
+
+  if (options.gmailOutboundDeliveryService) {
+    gmailIntegrationServices.outboundDeliveries =
+      options.gmailOutboundDeliveryService;
+  }
+
+  if (options.gmailSchedulerAuditLogService) {
+    gmailIntegrationServices.auditLogs = options.gmailSchedulerAuditLogService;
+  }
+
+  await registerGmailIntegrationRoutes(
+    app,
+    authProvider,
+    gmailIntegrationServices,
+  );
 
   if (options.gmailInboundSyncSchedulerRuntime) {
     const runtime = options.gmailInboundSyncSchedulerRuntime;

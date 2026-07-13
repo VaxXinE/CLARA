@@ -52,6 +52,38 @@ describe("health endpoints", () => {
     expect(response.json().status).toBe("ok");
   });
 
+  it("allows configured dashboard origin for browser requests", async () => {
+    const app = await createServer({
+      env: loadEnv({
+        NODE_ENV: "test",
+        APP_NAME: "clara-api-test",
+        HOST: "127.0.0.1",
+        PORT: "3000",
+        LOG_LEVEL: "silent",
+        CORS_ORIGIN: "http://localhost:5173,http://127.0.0.1:5173",
+      }),
+    });
+
+    const response = await app.inject({
+      method: "OPTIONS",
+      url: "/api/v1/me",
+      headers: {
+        origin: "http://localhost:5173",
+        "access-control-request-method": "GET",
+      },
+    });
+
+    await app.close();
+
+    expect(response.statusCode).toBe(204);
+    expect(response.headers["access-control-allow-origin"]).toBe(
+      "http://localhost:5173",
+    );
+    expect(response.headers["access-control-allow-headers"]).toContain(
+      "x-mock-role",
+    );
+  });
+
   it("preserves a safe inbound correlation id", async () => {
     const app = await createServer({ env: testEnv });
 
