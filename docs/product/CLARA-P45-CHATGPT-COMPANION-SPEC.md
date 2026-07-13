@@ -9,6 +9,7 @@ last_updated: "2026-07-13"
 # CLARA P4.5 ChatGPT Companion Spec
 
 The ChatGPT Companion is an operator cockpit helper inside the future extension. CLARA remains the system of record.
+For validation and runbook wording, this p4.5 chatgpt companion contract is user-triggered only and never a send authority.
 
 ## Safety Model
 

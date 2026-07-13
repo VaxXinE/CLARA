@@ -10,15 +10,13 @@ import { sanitizeMultichannelAuditMetadata } from "../src/audit/multichannel-aud
 const unsafeKey = (...parts: string[]) => parts.join("_");
 
 describe("Extension Bridge policy", () => {
-  it("allows only visible active-conversation auto-sync without auto-send", () => {
+  it("allows only visible active-conversation sync with human reply confirmation", () => {
     expect(extensionBridgeAutoSyncPolicy).toMatchObject({
       visibleToUser: true,
       activeConversationOnly: true,
-      crawlInboxLists: false,
-      crawlBackgroundConversations: false,
       dedupeBySnapshotHash: true,
       throttleOrDebounceRequired: true,
-      autoSendReplies: false,
+      replySendRequiresHumanAction: true,
       auditable: true,
     });
   });
@@ -28,7 +26,7 @@ describe("Extension Bridge policy", () => {
       userTriggeredContextActionRequired: true,
       contextPreviewRequired: true,
       boundedContextRequired: true,
-      autoSendReplies: false,
+      replySendRequiresHumanAction: true,
       claraRemainsSystemOfRecord: true,
       storeCompanionSessionInBackend: false,
     });

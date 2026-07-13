@@ -1,11 +1,9 @@
 export const extensionBridgeAutoSyncPolicy = {
   visibleToUser: true,
   activeConversationOnly: true,
-  crawlInboxLists: false,
-  crawlBackgroundConversations: false,
   dedupeBySnapshotHash: true,
   throttleOrDebounceRequired: true,
-  autoSendReplies: false,
+  replySendRequiresHumanAction: true,
   auditable: true,
 } as const;
 
@@ -13,7 +11,7 @@ export const chatGptCompanionPolicy = {
   userTriggeredContextActionRequired: true,
   contextPreviewRequired: true,
   boundedContextRequired: true,
-  autoSendReplies: false,
+  replySendRequiresHumanAction: true,
   claraRemainsSystemOfRecord: true,
   storeCompanionSessionInBackend: false,
 } as const;
