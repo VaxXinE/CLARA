@@ -11,6 +11,10 @@ classification: "product-spec"
 
 P4-PR-03 adds the smallest safe Webchat reply and visibility baseline:
 
+This p4 webchat reply dashboard baseline keeps outbound Webchat operator
+actions explicit, scoped, and simulated-only until a real provider contract
+exists.
+
 ```text
 simulated Webchat reply adapter
 workspace-scoped Webchat outbound delivery records
