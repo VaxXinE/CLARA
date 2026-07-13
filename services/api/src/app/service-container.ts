@@ -32,6 +32,10 @@ import { DrizzleWhatsappInboundRepository } from "../channels/whatsapp/whatsapp-
 import { WhatsappInboundMaterializationService } from "../channels/whatsapp/whatsapp-inbound-materialization-service";
 import { WhatsappInboundPersistenceService } from "../channels/whatsapp/whatsapp-inbound-persistence-service";
 import { FixtureWhatsappInboundRepository } from "../channels/whatsapp/whatsapp-inbound-repository";
+import { DrizzleWhatsappOutboundDeliveryRepository } from "../channels/whatsapp/whatsapp-outbound-delivery-db-repository";
+import { FixtureWhatsappOutboundDeliveryRepository } from "../channels/whatsapp/whatsapp-outbound-delivery-repository";
+import { WhatsappReplySendService } from "../channels/whatsapp/whatsapp-reply-send-service";
+import { SimulatedWhatsappOutboundSendClient } from "../channels/whatsapp/simulated-whatsapp-outbound-send-client";
 import { createDatabase } from "../db/client";
 import { createFixtureAppStore } from "../db/fixtures/fixture-store";
 import { FixtureConversationRepository } from "../conversations/conversation-repository";
@@ -56,6 +60,7 @@ export type AppServices = {
   webchatInbound?: WebchatInboundMaterializationService;
   webchatReply?: WebchatReplySendService;
   whatsappInbound?: WhatsappInboundMaterializationService;
+  whatsappReply?: WhatsappReplySendService;
 };
 
 export type AuthServices = {
@@ -82,6 +87,11 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
       new DrizzleWebchatOutboundDeliveryRepository(db),
       new SimulatedWebchatReplyAdapter(),
     );
+    const whatsappReply = new WhatsappReplySendService(
+      channelAccountRepository,
+      new DrizzleWhatsappOutboundDeliveryRepository(db),
+      new SimulatedWhatsappOutboundSendClient(),
+    );
     const auditLogs = new AuditLogService(new DrizzleAuditLogRepository(db));
 
     return {
@@ -107,6 +117,9 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
           {
             service: webchatReply,
           },
+          {
+            service: whatsappReply,
+          },
         ),
         channelRegistry: new ChannelRegistryService(),
         channelAccounts: new ChannelAccountService(channelAccountRepository),
@@ -123,6 +136,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
             new DrizzleWhatsappInboundRepository(db),
           ),
         ),
+        whatsappReply,
       },
       auth: {
         workspaceMemberships: new WorkspaceMembershipService(
@@ -153,6 +167,11 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
     new FixtureWebchatOutboundDeliveryRepository(fixtureStore),
     new SimulatedWebchatReplyAdapter(),
   );
+  const whatsappReply = new WhatsappReplySendService(
+    channelAccountRepository,
+    new FixtureWhatsappOutboundDeliveryRepository(fixtureStore),
+    new SimulatedWhatsappOutboundSendClient(),
+  );
   const auditLogs = new AuditLogService(
     new FixtureAuditLogRepository(fixtureStore),
   );
@@ -182,6 +201,9 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         {
           service: webchatReply,
         },
+        {
+          service: whatsappReply,
+        },
       ),
       channelRegistry: new ChannelRegistryService(),
       channelAccounts: new ChannelAccountService(channelAccountRepository),
@@ -198,6 +220,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
           new FixtureWhatsappInboundRepository(fixtureStore),
         ),
       ),
+      whatsappReply,
     },
     auth: {
       workspaceMemberships: new WorkspaceMembershipService(

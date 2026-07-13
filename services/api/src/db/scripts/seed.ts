@@ -17,6 +17,7 @@ import {
   webchatInboundMessages,
   webchatOutboundDeliveries,
   whatsappInboundMessages,
+  whatsappOutboundDeliveries,
   workspaceMemberships,
   workspaces,
 } from "../schema";
@@ -102,6 +103,12 @@ async function run(): Promise<void> {
         await tx
           .insert(whatsappInboundMessages)
           .values(demoSeedData.whatsappInboundMessages)
+          .onConflictDoNothing();
+      }
+      if (demoSeedData.whatsappOutboundDeliveries.length > 0) {
+        await tx
+          .insert(whatsappOutboundDeliveries)
+          .values(demoSeedData.whatsappOutboundDeliveries)
           .onConflictDoNothing();
       }
     });

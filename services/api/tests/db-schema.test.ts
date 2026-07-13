@@ -24,6 +24,7 @@ import {
   outboundDeliveryChannels,
   outboundDeliveryStatuses,
   webchatOutboundDeliveryStatuses,
+  whatsappOutboundDeliveryStatuses,
   workspaceMemberRoles,
   workspaceMembershipStatuses,
 } from "../src/db/schema";
@@ -52,6 +53,7 @@ describe("database schema", () => {
       "webchatInboundMessages",
       "webchatOutboundDeliveries",
       "whatsappInboundMessages",
+      "whatsappOutboundDeliveries",
     ]);
   });
 
@@ -74,6 +76,7 @@ describe("database schema", () => {
       "webchatInboundMessages",
       "webchatOutboundDeliveries",
       "whatsappInboundMessages",
+      "whatsappOutboundDeliveries",
     ] as const) {
       const columns = Object.keys(dbSchema[tableName]);
 
@@ -110,6 +113,13 @@ describe("database schema", () => {
     expect(outboundDeliveryChannels).toEqual(["email"]);
     expect(outboundDeliveryStatuses).toEqual(["simulated", "sent", "failed"]);
     expect(webchatOutboundDeliveryStatuses).toEqual([
+      "pending",
+      "sent",
+      "simulated",
+      "failed",
+      "skipped",
+    ]);
+    expect(whatsappOutboundDeliveryStatuses).toEqual([
       "pending",
       "sent",
       "simulated",

@@ -28,7 +28,7 @@ describe("ChannelRegistryService", () => {
       provider: "whatsapp",
       channel_type: "messaging",
       inbound_supported: true,
-      outbound_supported: false,
+      outbound_supported: true,
       production_status: "available",
     });
     expect(

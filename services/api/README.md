@@ -49,7 +49,7 @@ Current multi-channel foundation:
 
 ```text
 generic channel capabilities and channel account read APIs now exist
-Gmail, Webchat inbound, and WhatsApp official webhook inbound are marked available; Instagram and TikTok are planned metadata only
+Gmail, Webchat inbound/reply, and WhatsApp official inbound plus simulated outbound are marked available; Instagram and TikTok are planned metadata only
 channel account reads are scoped by backend AuthContext and never trust client-provided organization_id or workspace_id
 responses never include provider secrets, tokens, Authorization headers, raw provider payloads, or raw provider errors
 ```
@@ -75,7 +75,9 @@ POST /api/v1/whatsapp/webhook accepts signed text message callbacks only
 organization_id and workspace_id are resolved from the server-side WhatsApp channel account mapping
 provider message ids are idempotent inside organization/workspace scope
 raw provider payloads, access tokens, refresh tokens, Authorization headers, cookies, client secrets, and provider raw errors are not returned
-this boundary does not implement WhatsApp outbound send, templates, media download/storage, contact sync, groups, interactive messages, or AI auto-send
+WhatsApp conversations can use the simulated WhatsApp outbound boundary when POST /reply targets a WhatsApp conversation
+WhatsApp outbound delivery records persist safe scoped metadata only
+this boundary does not implement real WhatsApp network send, templates, media download/storage, contact sync, groups, interactive messages, retry queue, scheduler-triggered sends, or AI auto-send
 production WhatsApp work must use the official provider path; scraping, QR hijacking, session-cookie reuse, and unofficial WhatsApp Web clients are rejected
 ```
 
@@ -740,6 +742,7 @@ Current MVP provider behavior:
 ```text
 AI draft uses a mock provider only
 reply send uses simulated providers only; Gmail-sourced conversations can use the simulated Gmail outbound boundary when explicitly wired
+WhatsApp-sourced conversations can use the simulated WhatsApp outbound boundary through the existing explicit human reply endpoint
 AI draft creates a draft row and activity but does not send any message
 reply send requires an explicit human API request
 ```

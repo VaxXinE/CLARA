@@ -58,7 +58,7 @@ describe("GET /api/v1/channels/capabilities", () => {
         expect.objectContaining({
           provider: "whatsapp",
           inbound_supported: true,
-          outbound_supported: false,
+          outbound_supported: true,
           production_status: "available",
         }),
         expect.objectContaining({

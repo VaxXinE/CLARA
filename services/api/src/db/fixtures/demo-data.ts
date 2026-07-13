@@ -15,6 +15,7 @@ import {
   webchatInboundMessages,
   webchatOutboundDeliveries,
   whatsappInboundMessages,
+  whatsappOutboundDeliveries,
   workspaceMemberships,
   workspaces,
 } from "../schema";
@@ -43,6 +44,9 @@ type WebchatOutboundDeliveryInsert = InferInsertModel<
 >;
 type WhatsappInboundMessageInsert = InferInsertModel<
   typeof whatsappInboundMessages
+>;
+type WhatsappOutboundDeliveryInsert = InferInsertModel<
+  typeof whatsappOutboundDeliveries
 >;
 
 function at(value: string): Date {
@@ -523,6 +527,8 @@ export const demoWebchatInboundMessages: WebchatInboundMessageInsert[] = [];
 export const demoWebchatOutboundDeliveries: WebchatOutboundDeliveryInsert[] =
   [];
 export const demoWhatsappInboundMessages: WhatsappInboundMessageInsert[] = [];
+export const demoWhatsappOutboundDeliveries: WhatsappOutboundDeliveryInsert[] =
+  [];
 
 export const demoSeedData = {
   organizations: demoOrganizations,
@@ -542,4 +548,5 @@ export const demoSeedData = {
   webchatInboundMessages: demoWebchatInboundMessages,
   webchatOutboundDeliveries: demoWebchatOutboundDeliveries,
   whatsappInboundMessages: demoWhatsappInboundMessages,
+  whatsappOutboundDeliveries: demoWhatsappOutboundDeliveries,
 };

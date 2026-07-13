@@ -4,8 +4,10 @@ import { AuditLogService } from "../audit/audit-log-service";
 import type { ConversationRepository } from "../conversations/conversation-repository";
 import { AppError, NotFoundError, ValidationError } from "../errors/app-error";
 import { getWorkspaceScopeFromAuth } from "../workspace/workspace-scope";
+import { ChannelRoutingService } from "../channels/channel-routing-service";
 import type { GmailOutboundSendService } from "../channels/email/gmail-outbound-send-service";
 import type { WebchatReplySendService } from "../channels/webchat/webchat-reply-send-service";
+import type { WhatsappReplySendService } from "../channels/whatsapp/whatsapp-reply-send-service";
 import { toReplySendResponseDto, type ReplySendResponseDto } from "./reply-dto";
 import type { ReplyRepository } from "./reply-repository";
 import {
@@ -30,21 +32,9 @@ export type WebchatReplySendIntegration = {
   service: Pick<WebchatReplySendService, "send">;
 };
 
-function isGmailReplySource(source: string): boolean {
-  const normalized = source.trim().toLowerCase();
-
-  return (
-    normalized === "email" ||
-    normalized === "gmail" ||
-    normalized.includes("gmail")
-  );
-}
-
-function isWebchatReplySource(source: string): boolean {
-  const normalized = source.trim().toLowerCase();
-
-  return normalized === "webchat" || normalized === "web_chat_demo";
-}
+export type WhatsappReplySendIntegration = {
+  service: Pick<WhatsappReplySendService, "send">;
+};
 
 function getCustomerEmail(conversation: {
   customer: { contactIdentifier?: string | null };
@@ -63,7 +53,32 @@ function getCustomerEmail(conversation: {
   return email;
 }
 
+function isLegacyWebchatDemoSource(source: string): boolean {
+  return source.trim().toLowerCase() === "web_chat_demo";
+}
+
+function getWhatsappRecipient(conversation: {
+  customer: { contactIdentifier?: string | null };
+}): string {
+  const identifier = conversation.customer.contactIdentifier?.trim();
+
+  if (!identifier) {
+    throw new ValidationError("Invalid request.", [
+      {
+        path: "conversation.customer",
+        message: "WhatsApp conversation customer identifier is required.",
+      },
+    ]);
+  }
+
+  return identifier.startsWith("whatsapp:")
+    ? (identifier.split(":").pop() ?? identifier)
+    : identifier;
+}
+
 export class ReplyService {
+  private readonly channelRouting = new ChannelRoutingService();
+
   constructor(
     private readonly conversationRepository: Pick<
       ConversationRepository,
@@ -74,6 +89,7 @@ export class ReplyService {
     private readonly auditLogs: AuditLogService,
     private readonly gmailReply?: GmailReplySendIntegration,
     private readonly webchatReply?: WebchatReplySendIntegration,
+    private readonly whatsappReply?: WhatsappReplySendIntegration,
   ) {}
 
   async sendReply(input: SendReplyRequest): Promise<ReplySendResponseDto> {
@@ -126,8 +142,13 @@ export class ReplyService {
       }
 
       await this.auditLogs.recordReplySendAttempted(attemptedAuditInput);
+      const channelRoute = this.channelRouting.resolve(conversation.source);
 
-      if (this.gmailReply && isGmailReplySource(conversation.source)) {
+      if (channelRoute.provider === "gmail") {
+        if (!this.gmailReply) {
+          throw new ValidationError("Gmail reply send is not configured.");
+        }
+
         const customerEmail = getCustomerEmail(conversation);
 
         await this.auditLogs.recordGmailReplySendRequested({
@@ -249,7 +270,14 @@ export class ReplyService {
         });
       }
 
-      if (this.webchatReply && isWebchatReplySource(conversation.source)) {
+      if (
+        channelRoute.provider === "webchat" ||
+        (this.webchatReply && isLegacyWebchatDemoSource(conversation.source))
+      ) {
+        if (!this.webchatReply) {
+          throw new ValidationError("Webchat reply send is not configured.");
+        }
+
         const delivery = await this.webchatReply.service.send({
           actor: {
             userId: input.auth.userId,
@@ -313,6 +341,88 @@ export class ReplyService {
 
         return toReplySendResponseDto(createdReply, {
           provider: "webchat",
+          status: delivery.status === "sent" ? "sent" : "simulated",
+          ...(delivery.providerMessageId
+            ? { provider_message_id: delivery.providerMessageId }
+            : {}),
+          outbound_delivery_id: delivery.id,
+          ...(delivery.reasonCode ? { reason_code: delivery.reasonCode } : {}),
+          ...(delivery.sentAt
+            ? { sent_at: delivery.sentAt.toISOString() }
+            : {}),
+          correlation_id: input.correlationId,
+        });
+      }
+
+      if (channelRoute.provider === "whatsapp") {
+        if (!this.whatsappReply) {
+          throw new ValidationError("WhatsApp reply send is not configured.");
+        }
+
+        const delivery = await this.whatsappReply.service.send({
+          actor: {
+            userId: input.auth.userId,
+            role: input.auth.role,
+          },
+          scope,
+          conversationId: conversation.id,
+          conversationSource: conversation.source,
+          recipientExternalId: getWhatsappRecipient(conversation),
+          body: validatedBody,
+          correlationId: input.correlationId,
+        });
+
+        if (delivery.status === "failed" || delivery.status === "skipped") {
+          await this.auditLogs.recordReplyFailed({
+            auth: input.auth,
+            correlationId: input.correlationId,
+            conversationId: conversation.id,
+            error: new AppError({
+              statusCode: 502,
+              appCode: "SEND_FAILED",
+              message: "Unable to send reply right now.",
+            }),
+            ...(input.draftId ? { draftId: input.draftId } : {}),
+          });
+
+          return {
+            data: {
+              send: {
+                provider: "whatsapp",
+                status: "failed",
+                outbound_delivery_id: delivery.id,
+                ...(delivery.reasonCode
+                  ? { reason_code: delivery.reasonCode }
+                  : {}),
+                correlation_id: input.correlationId,
+              },
+            },
+          };
+        }
+
+        const createdReply = await this.repository.createReply({
+          scope,
+          conversationId: conversation.id,
+          senderUserId: input.auth.userId,
+          body: validatedBody,
+          provider: "whatsapp",
+          sendStatus: "sent",
+          deliveryStatus: delivery.status === "sent" ? "sent" : "simulated",
+          ...(input.draftId ? { draftId: input.draftId } : {}),
+        });
+
+        await this.auditLogs.recordReplySent({
+          auth: input.auth,
+          correlationId: input.correlationId,
+          conversationId: conversation.id,
+          messageId: createdReply.id,
+          provider: "whatsapp",
+          deliveryStatus: delivery.status === "sent" ? "sent" : "simulated",
+          ...(input.draftId ? { draftId: input.draftId } : {}),
+        });
+
+        return toReplySendResponseDto(createdReply, {
+          provider: "whatsapp",
           status: delivery.status === "sent" ? "sent" : "simulated",
           ...(delivery.providerMessageId
             ? { provider_message_id: delivery.providerMessageId }
