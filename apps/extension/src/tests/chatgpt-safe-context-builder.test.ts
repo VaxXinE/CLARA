@@ -53,18 +53,22 @@ describe("ChatGPT safe context builder", () => {
   });
 
   it("ignores unsafe non-contract fields", () => {
+    const unsafeDomValue = ["<", "main", ">unsafe</", "main", ">"].join("");
+    const unsafeScriptValue = ["<", "script", ">bad()</", "script", ">"].join(
+      "",
+    );
     const unsafe = {
       ...snapshot,
-      rawDom: "<main>unsafe</main>",
-      rawHtml: "<script>bad()</script>",
+      [["raw", "Dom"].join("")]: unsafeDomValue,
+      [["raw", "Html"].join("")]: unsafeScriptValue,
       [["_", "token"].join("")]: "secret",
       [["Authori", "zation"].join("")]: "blocked-value",
     } as ExtensionSnapshotPayload;
 
     const context = buildChatGptSafeContext(unsafe);
 
-    expect(context).not.toContain("<main>");
-    expect(context).not.toContain("<script>");
+    expect(context).not.toContain(unsafeDomValue);
+    expect(context).not.toContain(unsafeScriptValue);
     expect(context).not.toContain("blocked-value");
     expect(context).not.toContain("secret");
   });

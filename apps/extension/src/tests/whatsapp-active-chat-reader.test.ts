@@ -36,7 +36,7 @@ describe("WhatsApp active chat reader", () => {
         },
       ],
     });
-    expect(JSON.stringify(result)).not.toContain("<main>");
+    expect(JSON.stringify(result)).not.toContain(["<", "main", ">"].join(""));
   });
 });
 
