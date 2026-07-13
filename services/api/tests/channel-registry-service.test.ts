@@ -21,7 +21,7 @@ describe("ChannelRegistryService", () => {
       provider: "webchat",
       channel_type: "webchat",
       inbound_supported: true,
-      outbound_supported: false,
+      outbound_supported: true,
       production_status: "available",
     });
     expect(whatsapp).toMatchObject({
@@ -41,5 +41,15 @@ describe("ChannelRegistryService", () => {
     expect(JSON.stringify(capabilities)).not.toContain("access_token");
     expect(JSON.stringify(capabilities)).not.toContain("refresh_token");
     expect(JSON.stringify(capabilities)).not.toContain("client_secret");
+    expect(
+      capabilities
+        .filter((item) => ["instagram", "tiktok"].includes(item.provider))
+        .every(
+          (item) =>
+            item.inbound_supported === false &&
+            item.outbound_supported === false &&
+            item.safe_notes.includes("official API"),
+        ),
+    ).toBe(true);
   });
 });

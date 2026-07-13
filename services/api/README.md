@@ -49,9 +49,11 @@ Current multi-channel foundation:
 
 ```text
 generic channel capabilities and channel account read APIs now exist
-Gmail, Webchat inbound/reply, and WhatsApp official inbound plus simulated outbound are marked available; Instagram and TikTok are planned metadata only
+Gmail, Webchat inbound/reply, and WhatsApp official inbound plus simulated outbound are marked available
+Instagram and TikTok are decision-only planned metadata and require official API/compliance review before implementation
 channel account reads are scoped by backend AuthContext and never trust client-provided organization_id or workspace_id
 responses never include provider secrets, tokens, Authorization headers, raw provider payloads, or raw provider errors
+multi-channel audit metadata is allowlisted and must not include message bodies, cookies, Authorization headers, tokens, secrets, raw provider payloads, or raw provider errors
 ```
 
 Webchat inbound baseline:
@@ -64,7 +66,7 @@ raw request payloads, cookies, Authorization headers, IP addresses, tokens, and 
 webchat inbound materializes safe customer, conversation, message, activity, and webchat inbound records
 webchat reply can use the simulated Webchat outbound boundary when POST /reply targets a Webchat conversation
 webchat outbound delivery status is exposed through a scoped read-only API for dashboard visibility
-no webchat public widget frontend, resend/retry, real provider call, or AI draft generation exists in this PR
+no webchat public widget frontend, repeat-delivery controls, real provider call, or AI draft generation exists in this PR
 ```
 
 WhatsApp official inbound baseline:
@@ -77,8 +79,17 @@ provider message ids are idempotent inside organization/workspace scope
 raw provider payloads, access tokens, refresh tokens, Authorization headers, cookies, client secrets, and provider raw errors are not returned
 WhatsApp conversations can use the simulated WhatsApp outbound boundary when POST /reply targets a WhatsApp conversation
 WhatsApp outbound delivery records persist safe scoped metadata only
-this boundary does not implement real WhatsApp network send, templates, media download/storage, contact sync, groups, interactive messages, retry queue, scheduler-triggered sends, or AI auto-send
+this boundary does not implement real WhatsApp network send, templates, media download/storage, contact sync, groups, interactive messages, delivery queue, scheduler-triggered sends, or AI auto-send
 production WhatsApp work must use the official provider path; scraping, QR hijacking, session-cookie reuse, and unofficial WhatsApp Web clients are rejected
+```
+
+Social DM decision baseline:
+
+```text
+Instagram and TikTok remain planned metadata only
+future Social DM support must use official provider APIs and compliance review
+scraping, browser automation, session-cookie reuse, QR hijacking, credential capture, and unofficial clients are rejected
+no Instagram/TikTok inbound webhook, outbound send, dashboard UI, token storage, or provider network call exists
 ```
 
 Gmail inbound fetch boundary notes:
