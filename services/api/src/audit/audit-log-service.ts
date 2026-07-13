@@ -331,4 +331,46 @@ export class AuditLogService {
       correlationId: input.correlationId,
     });
   }
+
+  async recordExtensionSnapshotIntake(
+    input: AuditContextInput & {
+      snapshotId: string;
+      channel: string;
+      status: "accepted" | "duplicate" | "rejected";
+      snapshotHash?: string;
+      messageCount?: number;
+      incomingCount?: number;
+      outgoingCount?: number;
+      conversationId?: string | null;
+      customerId?: string | null;
+      reasonCode?: string | null;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: `extension.snapshot.${input.status}`,
+      resourceType: "extension_snapshot",
+      resourceId: input.snapshotId,
+      outcome: input.status === "rejected" ? "failure" : "success",
+      metadata: compactMetadata({
+        provider: "extension",
+        channel: input.channel,
+        source: "extension_bridge",
+        snapshot_hash: input.snapshotHash,
+        message_count: input.messageCount,
+        incoming_count: input.incomingCount,
+        outgoing_count: input.outgoingCount,
+        conversation_id: input.conversationId ?? null,
+        customer_id: input.customerId ?? null,
+        status: input.status,
+        reason_code: input.reasonCode ?? null,
+      }),
+      correlationId: input.correlationId,
+    });
+  }
 }

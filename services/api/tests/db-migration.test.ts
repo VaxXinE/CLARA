@@ -124,6 +124,14 @@ const whatsappOutboundMigrationSql = readFileSync(
   whatsappOutboundMigrationPath,
   "utf8",
 );
+const extensionSnapshotsMigrationPath = path.resolve(
+  __dirname,
+  "../drizzle/0017_p45_extension_snapshots.sql",
+);
+const extensionSnapshotsMigrationSql = readFileSync(
+  extensionSnapshotsMigrationPath,
+  "utf8",
+);
 
 function migrationForTable(tableName: string): string {
   if (tableName === "audit_logs") return auditLogMigrationSql;
@@ -147,6 +155,11 @@ function migrationForTable(tableName: string): string {
     return whatsappInboundMigrationSql;
   if (tableName === "whatsapp_outbound_deliveries")
     return whatsappOutboundMigrationSql;
+  if (
+    tableName === "extension_snapshots" ||
+    tableName === "extension_snapshot_messages"
+  )
+    return extensionSnapshotsMigrationSql;
   return migrationSql;
 }
 
@@ -175,6 +188,8 @@ describe("initial database migration", () => {
       "webchat_outbound_deliveries",
       "whatsapp_inbound_messages",
       "whatsapp_outbound_deliveries",
+      "extension_snapshots",
+      "extension_snapshot_messages",
     ]) {
       const source = migrationForTable(tableName);
 
@@ -201,6 +216,8 @@ describe("initial database migration", () => {
       "webchat_outbound_deliveries",
       "whatsapp_inbound_messages",
       "whatsapp_outbound_deliveries",
+      "extension_snapshots",
+      "extension_snapshot_messages",
     ]) {
       const source = migrationForTable(tableName);
       const tableBlock = source
@@ -265,6 +282,25 @@ describe("initial database migration", () => {
       "'gmail.scheduler.tick_failed'",
     );
     expect(gmailSchedulerAuditMigrationSql).toContain("'gmail_scheduler'");
+  });
+
+  it("adds scoped extension bridge snapshot persistence", () => {
+    expect(extensionSnapshotsMigrationSql).toContain(
+      "create table if not exists extension_snapshots",
+    );
+    expect(extensionSnapshotsMigrationSql).toContain(
+      "create table if not exists extension_snapshot_messages",
+    );
+    expect(extensionSnapshotsMigrationSql).toContain(
+      "extension_snapshots_scope_hash_unique",
+    );
+    expect(extensionSnapshotsMigrationSql).toContain(
+      "extension_snapshot_messages_scope_conversation_local_unique",
+    );
+    expect(extensionSnapshotsMigrationSql).toContain("'extension_bridge'");
+    expect(extensionSnapshotsMigrationSql).toContain(
+      "'extension.snapshot.accepted'",
+    );
   });
 
   it("adds Gmail outbound audit actions", () => {

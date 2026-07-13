@@ -101,7 +101,9 @@ supported bridge channels are WhatsApp, Instagram, and TikTok
 auto-sync is limited to the user-visible active conversation and must dedupe by snapshot_hash
 the bridge must not crawl inbox lists, crawl background conversations, capture provider credentials, store browser session material, persist raw DOM/HTML, or auto-send replies
 ChatGPT Companion is user-triggered, previewable, bounded, and does not store ChatGPT session material in the CLARA backend
-no extension route, snapshot persistence, browser extension UI, ChatGPT UI, or provider network call exists yet
+implemented route: POST /api/v1/extension/:channel/snapshots
+snapshot intake requires CLARA auth, blocks viewer, derives tenant scope from AuthContext, persists safe normalized snapshots/messages, materializes extension_bridge conversations, and audits safe metadata
+no browser extension UI, ChatGPT UI, reply suggestion endpoint, manual-send confirmation endpoint, provider network call, or auto-send exists yet
 ```
 
 Gmail inbound fetch boundary notes:

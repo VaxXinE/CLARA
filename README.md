@@ -30,6 +30,7 @@ apps/dashboard: runnable local React dashboard for the conversation workspace fl
 production-oriented Docker build baseline now exists for services/api and apps/dashboard
 multi-channel registry/account foundation now exposes safe read-only Gmail metadata, Webchat inbound/reply visibility, WhatsApp official inbound plus simulated outbound boundary, and decision-only Instagram/TikTok metadata
 P4.5 extension bridge contract is documented for future operator-visible active conversation sync
+P4.5 extension snapshot intake is implemented for authenticated WhatsApp, Instagram, and TikTok extension bridge snapshots
 ```
 
 Start here for local usage:
@@ -50,6 +51,7 @@ docs/product/CLARA-P4-FINAL-REGRESSION-RUNBOOK.md
 docs/product/CLARA-P45-EXTENSION-BRIDGE-CONTRACT-SPEC.md
 docs/product/CLARA-P45-EXTENSION-BRIDGE-SECURITY-SPEC.md
 docs/product/CLARA-P45-CHATGPT-COMPANION-SPEC.md
+docs/product/CLARA-P45-EXTENSION-SNAPSHOT-INTAKE-SPEC.md
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-README-RUNBOOK/
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-DEMO-SCRIPT/
 docs/product/CLARA-P3-EMAIL-PROVIDER-INTEGRATION-DECISION.md

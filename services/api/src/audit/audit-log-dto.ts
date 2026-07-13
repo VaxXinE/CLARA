@@ -19,12 +19,19 @@ export type AuditLogAction =
   | "gmail.outbound_send.failed"
   | "gmail.reply_send.requested"
   | "gmail.reply_send.succeeded"
-  | "gmail.reply_send.failed";
+  | "gmail.reply_send.failed"
+  | "extension.snapshot.accepted"
+  | "extension.snapshot.duplicate"
+  | "extension.snapshot.rejected";
 
 export type AuditLogOutcome = "success" | "failure";
 
 export type AuditLogResourceType =
-  "conversation" | "reply_draft" | "message" | "gmail_scheduler";
+  | "conversation"
+  | "reply_draft"
+  | "message"
+  | "gmail_scheduler"
+  | "extension_snapshot";
 
 export type AuditLogRecord = {
   id: string;
