@@ -5,6 +5,7 @@ import type { ConversationRepository } from "../conversations/conversation-repos
 import { AppError, NotFoundError, ValidationError } from "../errors/app-error";
 import { getWorkspaceScopeFromAuth } from "../workspace/workspace-scope";
 import type { GmailOutboundSendService } from "../channels/email/gmail-outbound-send-service";
+import type { WebchatReplySendService } from "../channels/webchat/webchat-reply-send-service";
 import { toReplySendResponseDto, type ReplySendResponseDto } from "./reply-dto";
 import type { ReplyRepository } from "./reply-repository";
 import {
@@ -25,6 +26,10 @@ export type GmailReplySendIntegration = {
   providerAccountId: string;
 };
 
+export type WebchatReplySendIntegration = {
+  service: Pick<WebchatReplySendService, "send">;
+};
+
 function isGmailReplySource(source: string): boolean {
   const normalized = source.trim().toLowerCase();
 
@@ -33,6 +38,12 @@ function isGmailReplySource(source: string): boolean {
     normalized === "gmail" ||
     normalized.includes("gmail")
   );
+}
+
+function isWebchatReplySource(source: string): boolean {
+  const normalized = source.trim().toLowerCase();
+
+  return normalized === "webchat" || normalized === "web_chat_demo";
 }
 
 function getCustomerEmail(conversation: {
@@ -62,6 +73,7 @@ export class ReplyService {
     private readonly provider: ReplySendProvider,
     private readonly auditLogs: AuditLogService,
     private readonly gmailReply?: GmailReplySendIntegration,
+    private readonly webchatReply?: WebchatReplySendIntegration,
   ) {}
 
   async sendReply(input: SendReplyRequest): Promise<ReplySendResponseDto> {
@@ -234,6 +246,83 @@ export class ReplyService {
           ...(gmailResult.correlation_id
             ? { correlation_id: gmailResult.correlation_id }
             : {}),
+        });
+      }
+
+      if (this.webchatReply && isWebchatReplySource(conversation.source)) {
+        const delivery = await this.webchatReply.service.send({
+          actor: {
+            userId: input.auth.userId,
+            role: input.auth.role,
+          },
+          scope,
+          conversationId: conversation.id,
+          conversationSource: conversation.source,
+          body: validatedBody,
+          correlationId: input.correlationId,
+        });
+
+        if (delivery.status === "failed" || delivery.status === "skipped") {
+          await this.auditLogs.recordReplyFailed({
+            auth: input.auth,
+            correlationId: input.correlationId,
+            conversationId: conversation.id,
+            error: new AppError({
+              statusCode: 502,
+              appCode: "SEND_FAILED",
+              message: "Unable to send reply right now.",
+            }),
+            ...(input.draftId ? { draftId: input.draftId } : {}),
+          });
+
+          return {
+            data: {
+              send: {
+                provider: "webchat",
+                status: "failed",
+                outbound_delivery_id: delivery.id,
+                ...(delivery.reasonCode
+                  ? { reason_code: delivery.reasonCode }
+                  : {}),
+                correlation_id: input.correlationId,
+              },
+            },
+          };
+        }
+
+        const createdReply = await this.repository.createReply({
+          scope,
+          conversationId: conversation.id,
+          senderUserId: input.auth.userId,
+          body: validatedBody,
+          provider: "webchat",
+          sendStatus: "sent",
+          deliveryStatus: delivery.status === "sent" ? "sent" : "simulated",
+          ...(input.draftId ? { draftId: input.draftId } : {}),
+        });
+
+        await this.auditLogs.recordReplySent({
+          auth: input.auth,
+          correlationId: input.correlationId,
+          conversationId: conversation.id,
+          messageId: createdReply.id,
+          provider: "webchat",
+          deliveryStatus: delivery.status === "sent" ? "sent" : "simulated",
+          ...(input.draftId ? { draftId: input.draftId } : {}),
+        });
+
+        return toReplySendResponseDto(createdReply, {
+          provider: "webchat",
+          status: delivery.status === "sent" ? "sent" : "simulated",
+          ...(delivery.providerMessageId
+            ? { provider_message_id: delivery.providerMessageId }
+            : {}),
+          outbound_delivery_id: delivery.id,
+          ...(delivery.reasonCode ? { reason_code: delivery.reasonCode } : {}),
+          ...(delivery.sentAt
+            ? { sent_at: delivery.sentAt.toISOString() }
+            : {}),
+          correlation_id: input.correlationId,
         });
       }
 

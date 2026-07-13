@@ -13,6 +13,7 @@ import {
   replyDrafts,
   users,
   webchatInboundMessages,
+  webchatOutboundDeliveries,
   workspaceMemberships,
   workspaces,
 } from "../schema";
@@ -35,6 +36,9 @@ type EmailOutboundDeliveryInsert = InferInsertModel<
 >;
 type WebchatInboundMessageInsert = InferInsertModel<
   typeof webchatInboundMessages
+>;
+type WebchatOutboundDeliveryInsert = InferInsertModel<
+  typeof webchatOutboundDeliveries
 >;
 
 function at(value: string): Date {
@@ -494,6 +498,8 @@ export const demoChannelAccounts: ChannelAccountInsert[] = [
 export const demoEmailInboundRecords: EmailInboundRecordInsert[] = [];
 export const demoEmailOutboundDeliveries: EmailOutboundDeliveryInsert[] = [];
 export const demoWebchatInboundMessages: WebchatInboundMessageInsert[] = [];
+export const demoWebchatOutboundDeliveries: WebchatOutboundDeliveryInsert[] =
+  [];
 
 export const demoSeedData = {
   organizations: demoOrganizations,
@@ -511,4 +517,5 @@ export const demoSeedData = {
   emailInboundRecords: demoEmailInboundRecords,
   emailOutboundDeliveries: demoEmailOutboundDeliveries,
   webchatInboundMessages: demoWebchatInboundMessages,
+  webchatOutboundDeliveries: demoWebchatOutboundDeliveries,
 };

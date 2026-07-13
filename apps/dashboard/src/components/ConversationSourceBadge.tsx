@@ -20,8 +20,8 @@ function toSourceLabel(source?: string | null, provider?: string | null) {
     return "WhatsApp";
   }
 
-  if (value === "web_chat_demo") {
-    return "Web chat";
+  if (value === "webchat" || value === "web_chat_demo") {
+    return "Webchat";
   }
 
   if (!value) {

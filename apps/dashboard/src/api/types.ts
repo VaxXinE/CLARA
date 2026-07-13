@@ -193,6 +193,24 @@ export type GmailOutboundDeliveryStatusResponse = {
   data: GmailOutboundDeliveryStatus;
 };
 
+export type WebchatOutboundDeliveryStatus = {
+  outbound_delivery_id: string;
+  provider: "webchat";
+  status: "pending" | "sent" | "simulated" | "failed" | "skipped";
+  reason_code?: string;
+  provider_message_id?: string;
+  conversation_id: string;
+  channel_account_id: string;
+  sent_at?: string;
+  created_at: string;
+  updated_at: string;
+  correlation_id?: string;
+};
+
+export type WebchatOutboundDeliveryStatusResponse = {
+  data: WebchatOutboundDeliveryStatus;
+};
+
 export type GmailSchedulerStatus = {
   scheduler_enabled: boolean;
   scheduler_running: boolean;

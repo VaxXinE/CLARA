@@ -24,6 +24,10 @@ import { DrizzleWebchatInboundRepository } from "../channels/webchat/webchat-inb
 import { WebchatInboundMaterializationService } from "../channels/webchat/webchat-inbound-materialization-service";
 import { WebchatInboundPersistenceService } from "../channels/webchat/webchat-inbound-persistence-service";
 import { FixtureWebchatInboundRepository } from "../channels/webchat/webchat-inbound-repository";
+import { DrizzleWebchatOutboundDeliveryRepository } from "../channels/webchat/webchat-outbound-delivery-db-repository";
+import { FixtureWebchatOutboundDeliveryRepository } from "../channels/webchat/webchat-outbound-delivery-repository";
+import { WebchatReplySendService } from "../channels/webchat/webchat-reply-send-service";
+import { SimulatedWebchatReplyAdapter } from "../channels/webchat/simulated-webchat-reply-adapter";
 import { createDatabase } from "../db/client";
 import { createFixtureAppStore } from "../db/fixtures/fixture-store";
 import { FixtureConversationRepository } from "../conversations/conversation-repository";
@@ -46,6 +50,7 @@ export type AppServices = {
   channelRegistry?: ChannelRegistryService;
   channelAccounts?: ChannelAccountService;
   webchatInbound?: WebchatInboundMaterializationService;
+  webchatReply?: WebchatReplySendService;
 };
 
 export type AuthServices = {
@@ -67,6 +72,11 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
     const { db, pool } = createDatabase(env);
     const conversationRepository = new DrizzleConversationRepository(db);
     const channelAccountRepository = new DrizzleChannelAccountRepository(db);
+    const webchatReply = new WebchatReplySendService(
+      channelAccountRepository,
+      new DrizzleWebchatOutboundDeliveryRepository(db),
+      new SimulatedWebchatReplyAdapter(),
+    );
     const auditLogs = new AuditLogService(new DrizzleAuditLogRepository(db));
 
     return {
@@ -88,6 +98,10 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
           new DrizzleReplyRepository(db),
           new SimulatedReplySendProvider(),
           auditLogs,
+          undefined,
+          {
+            service: webchatReply,
+          },
         ),
         channelRegistry: new ChannelRegistryService(),
         channelAccounts: new ChannelAccountService(channelAccountRepository),
@@ -97,6 +111,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
             new DrizzleWebchatInboundRepository(db),
           ),
         ),
+        webchatReply,
       },
       auth: {
         workspaceMemberships: new WorkspaceMembershipService(
@@ -121,6 +136,11 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
   );
   const channelAccountRepository = new FixtureChannelAccountRepository(
     fixtureStore,
+  );
+  const webchatReply = new WebchatReplySendService(
+    channelAccountRepository,
+    new FixtureWebchatOutboundDeliveryRepository(fixtureStore),
+    new SimulatedWebchatReplyAdapter(),
   );
   const auditLogs = new AuditLogService(
     new FixtureAuditLogRepository(fixtureStore),
@@ -147,6 +167,10 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         new FixtureReplyRepository(fixtureStore),
         new SimulatedReplySendProvider(),
         auditLogs,
+        undefined,
+        {
+          service: webchatReply,
+        },
       ),
       channelRegistry: new ChannelRegistryService(),
       channelAccounts: new ChannelAccountService(channelAccountRepository),
@@ -156,6 +180,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
           new FixtureWebchatInboundRepository(fixtureStore),
         ),
       ),
+      webchatReply,
     },
     auth: {
       workspaceMemberships: new WorkspaceMembershipService(

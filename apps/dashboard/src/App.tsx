@@ -11,6 +11,7 @@ import type {
   GmailOutboundDeliveryStatus,
   GmailSchedulerStatus,
   MeResponse,
+  WebchatOutboundDeliveryStatus,
 } from "./api/types";
 import { AuthProvider } from "./auth/AuthProvider";
 import {
@@ -127,6 +128,8 @@ function WorkspaceAppShell() {
     useState<GmailSchedulerStatus | null>(null);
   const [gmailOutboundStatus, setGmailOutboundStatus] =
     useState<GmailOutboundDeliveryStatus | null>(null);
+  const [webchatOutboundStatus, setWebchatOutboundStatus] =
+    useState<WebchatOutboundDeliveryStatus | null>(null);
   const [composerValue, setComposerValue] = useState("");
   const [draftId, setDraftId] = useState<string | null>(null);
   const [aiDraftLabel, setAiDraftLabel] = useState<string | null>(null);
@@ -150,6 +153,11 @@ function WorkspaceAppShell() {
   const [gmailOutboundStatusLoading, setGmailOutboundStatusLoading] =
     useState(false);
   const [gmailOutboundStatusError, setGmailOutboundStatusError] = useState<
+    string | null
+  >(null);
+  const [webchatOutboundStatusLoading, setWebchatOutboundStatusLoading] =
+    useState(false);
+  const [webchatOutboundStatusError, setWebchatOutboundStatusError] = useState<
     string | null
   >(null);
   const [composerError, setComposerError] = useState<string | null>(null);
@@ -177,11 +185,15 @@ function WorkspaceAppShell() {
       setGmailSchedulerError(null);
       setGmailOutboundStatus(null);
       setGmailOutboundStatusError(null);
+      setWebchatOutboundStatus(null);
+      setWebchatOutboundStatusError(null);
       setComposerValue("");
       setDraftId(null);
       setAiDraftLabel(null);
       setGmailOutboundStatus(null);
       setGmailOutboundStatusError(null);
+      setWebchatOutboundStatus(null);
+      setWebchatOutboundStatusError(null);
       setListLoading(false);
       return;
     }
@@ -340,6 +352,8 @@ function WorkspaceAppShell() {
       setComposerValue("");
       setGmailOutboundStatus(null);
       setGmailOutboundStatusError(null);
+      setWebchatOutboundStatus(null);
+      setWebchatOutboundStatusError(null);
 
       try {
         const [detailResponse, activityResponse] = await Promise.all([
@@ -491,9 +505,11 @@ function WorkspaceAppShell() {
       setAiDraftLabel(null);
       setGmailOutboundStatus(null);
       setGmailOutboundStatusError(null);
+      setWebchatOutboundStatus(null);
+      setWebchatOutboundStatusError(null);
       const outboundDeliveryId = response.data.send.outbound_delivery_id;
 
-      if (outboundDeliveryId) {
+      if (outboundDeliveryId && response.data.send.provider === "gmail") {
         setGmailOutboundStatusLoading(true);
 
         try {
@@ -506,6 +522,22 @@ function WorkspaceAppShell() {
           );
         } finally {
           setGmailOutboundStatusLoading(false);
+        }
+      }
+
+      if (outboundDeliveryId && response.data.send.provider === "webchat") {
+        setWebchatOutboundStatusLoading(true);
+
+        try {
+          const statusResponse =
+            await client.getWebchatOutboundDeliveryStatus(outboundDeliveryId);
+          setWebchatOutboundStatus(statusResponse.data);
+        } catch (error) {
+          setWebchatOutboundStatusError(
+            toSafeMessage(error, "Webchat outbound status is unavailable."),
+          );
+        } finally {
+          setWebchatOutboundStatusLoading(false);
         }
       }
 
@@ -670,6 +702,9 @@ function WorkspaceAppShell() {
           gmailOutboundStatus={gmailOutboundStatus}
           gmailOutboundStatusLoading={gmailOutboundStatusLoading}
           gmailOutboundStatusError={gmailOutboundStatusError}
+          webchatOutboundStatus={webchatOutboundStatus}
+          webchatOutboundStatusLoading={webchatOutboundStatusLoading}
+          webchatOutboundStatusError={webchatOutboundStatusError}
         />
 
         <CustomerSidebar

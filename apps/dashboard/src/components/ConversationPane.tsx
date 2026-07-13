@@ -1,10 +1,12 @@
 import type {
   ConversationDetail,
   GmailOutboundDeliveryStatus,
+  WebchatOutboundDeliveryStatus,
 } from "../api/types";
 import { ComposerPanel } from "./ComposerPanel";
 import { ConversationSourceBadge } from "./ConversationSourceBadge";
 import { GmailOutboundStatusPanel } from "./GmailOutboundStatusPanel";
+import { WebchatStatusPanel } from "./WebchatStatusPanel";
 
 type ConversationPaneProps = {
   conversation: ConversationDetail | null;
@@ -24,6 +26,9 @@ type ConversationPaneProps = {
   gmailOutboundStatus: GmailOutboundDeliveryStatus | null;
   gmailOutboundStatusLoading: boolean;
   gmailOutboundStatusError: string | null;
+  webchatOutboundStatus: WebchatOutboundDeliveryStatus | null;
+  webchatOutboundStatusLoading: boolean;
+  webchatOutboundStatusError: string | null;
 };
 
 function formatMessageTime(value: string): string {
@@ -123,6 +128,12 @@ export function ConversationPane(props: ConversationPaneProps) {
         status={props.gmailOutboundStatus}
         loading={props.gmailOutboundStatusLoading}
         error={props.gmailOutboundStatusError}
+      />
+
+      <WebchatStatusPanel
+        status={props.webchatOutboundStatus}
+        loading={props.webchatOutboundStatusLoading}
+        error={props.webchatOutboundStatusError}
       />
 
       <ComposerPanel

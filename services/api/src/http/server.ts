@@ -147,6 +147,8 @@ export async function createServer(
       app,
       new SimulatedWebchatChannelAdapter(),
       services.webchatInbound,
+      authProvider,
+      services.webchatReply,
     );
   }
   if (

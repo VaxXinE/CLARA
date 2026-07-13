@@ -10,6 +10,7 @@ import type {
   GmailSchedulerStatusResponse,
   MeResponse,
   ReplySendResponse,
+  WebchatOutboundDeliveryStatusResponse,
 } from "./types";
 
 export class ApiClientError extends Error {
@@ -148,6 +149,16 @@ export class ApiClient {
   ): Promise<GmailOutboundDeliveryStatusResponse> {
     return this.request<GmailOutboundDeliveryStatusResponse>(
       `/api/v1/integrations/gmail/outbound/deliveries/${encodeURIComponent(
+        deliveryId,
+      )}`,
+    );
+  }
+
+  async getWebchatOutboundDeliveryStatus(
+    deliveryId: string,
+  ): Promise<WebchatOutboundDeliveryStatusResponse> {
+    return this.request<WebchatOutboundDeliveryStatusResponse>(
+      `/api/v1/integrations/webchat/outbound/deliveries/${encodeURIComponent(
         deliveryId,
       )}`,
     );
