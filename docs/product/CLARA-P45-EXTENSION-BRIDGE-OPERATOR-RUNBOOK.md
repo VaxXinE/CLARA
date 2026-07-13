@@ -21,7 +21,7 @@ npm run test
 
 ## Operator Flow
 
-1. Open a supported provider page in the browser.
+1. Open a supported provider page in the browser: whatsapp, instagram, or tiktok.
 2. Open the active customer conversation.
 3. Confirm the extension status panel shows auto-sync state.
 4. Let the active conversation snapshot sync to CLARA.

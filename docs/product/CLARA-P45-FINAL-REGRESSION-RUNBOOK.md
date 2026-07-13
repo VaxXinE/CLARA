@@ -9,6 +9,7 @@ classification: "runbook"
 # CLARA P4.5 Final Regression Runbook
 
 This p4.5 final regression runbook closes the Extension Bridge Auto-Sync and ChatGPT Companion slice.
+The chatgpt companion remains a manual preview/copy/open helper, not an automation path.
 
 ## Scope
 
@@ -16,6 +17,7 @@ P4.5 is complete when:
 
 - backend snapshot intake requires CLARA auth;
 - extension snapshots are always `provider: extension` and `official_api: false`;
+- supported extension channels are `whatsapp`, `instagram`, and `tiktok`;
 - auto-sync is visible and limited to the active conversation;
 - unchanged snapshots are deduplicated by `snapshot_hash` with debounce/throttle behavior;
 - ChatGPT Companion context preview/copy/open is user-triggered only;
