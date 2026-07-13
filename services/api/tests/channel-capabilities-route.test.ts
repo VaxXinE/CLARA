@@ -57,7 +57,9 @@ describe("GET /api/v1/channels/capabilities", () => {
         }),
         expect.objectContaining({
           provider: "whatsapp",
-          production_status: "planned",
+          inbound_supported: true,
+          outbound_supported: false,
+          production_status: "available",
         }),
         expect.objectContaining({
           provider: "instagram",

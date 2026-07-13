@@ -30,6 +30,10 @@ const envSchema = z.object({
 
   EMAIL_CHANNEL_MODE: z.enum(["disabled", "simulated"]).optional(),
 
+  WHATSAPP_WEBHOOK_VERIFY_TOKEN: z.string().trim().optional(),
+
+  WHATSAPP_WEBHOOK_APP_SECRET: z.string().trim().optional(),
+
   DATABASE_URL: z
     .string()
     .trim()
@@ -67,6 +71,8 @@ export type Env = Omit<
   | "RATE_LIMIT_ENABLED"
   | "EMAIL_CHANNEL_MODE"
   | "DATABASE_URL"
+  | "WHATSAPP_WEBHOOK_VERIFY_TOKEN"
+  | "WHATSAPP_WEBHOOK_APP_SECRET"
   | "SUPABASE_AUTH_JWKS_URL"
   | "SUPABASE_AUTH_ISSUER"
   | "BETTER_AUTH_BASE_URL"
@@ -74,6 +80,8 @@ export type Env = Omit<
   AUTH_MODE: "mock" | "provider";
   AUTH_PROVIDER?: "supabase" | "better-auth";
   DATABASE_URL?: string;
+  WHATSAPP_WEBHOOK_VERIFY_TOKEN?: string;
+  WHATSAPP_WEBHOOK_APP_SECRET?: string;
   EMAIL_CHANNEL_MODE: "disabled" | "simulated";
   MOCK_AUTH_ENABLED: boolean;
   RATE_LIMIT_ENABLED: boolean;
@@ -184,6 +192,21 @@ export function loadEnv(input: NodeJS.ProcessEnv = process.env): Env {
 
   if (parsed.data.DATABASE_URL && parsed.data.DATABASE_URL.length > 0) {
     env.DATABASE_URL = parsed.data.DATABASE_URL;
+  }
+
+  if (
+    parsed.data.WHATSAPP_WEBHOOK_VERIFY_TOKEN &&
+    parsed.data.WHATSAPP_WEBHOOK_VERIFY_TOKEN.length > 0
+  ) {
+    env.WHATSAPP_WEBHOOK_VERIFY_TOKEN =
+      parsed.data.WHATSAPP_WEBHOOK_VERIFY_TOKEN;
+  }
+
+  if (
+    parsed.data.WHATSAPP_WEBHOOK_APP_SECRET &&
+    parsed.data.WHATSAPP_WEBHOOK_APP_SECRET.length > 0
+  ) {
+    env.WHATSAPP_WEBHOOK_APP_SECRET = parsed.data.WHATSAPP_WEBHOOK_APP_SECRET;
   }
 
   if (
