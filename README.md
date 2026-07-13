@@ -32,6 +32,7 @@ multi-channel registry/account foundation now exposes safe read-only Gmail metad
 P4.5 extension bridge contract is documented for future operator-visible active conversation sync
 P4.5 extension snapshot intake is implemented for authenticated WhatsApp, Instagram, and TikTok extension bridge snapshots
 apps/extension now contains the local TypeScript auto-sync engine for visible active-conversation snapshots
+apps/extension now contains ChatGPT Companion safe context preview/copy/open helpers without ChatGPT token storage or auto-submit
 ```
 
 Start here for local usage:
@@ -54,6 +55,7 @@ docs/product/CLARA-P45-EXTENSION-BRIDGE-SECURITY-SPEC.md
 docs/product/CLARA-P45-CHATGPT-COMPANION-SPEC.md
 docs/product/CLARA-P45-EXTENSION-SNAPSHOT-INTAKE-SPEC.md
 docs/product/CLARA-P45-EXTENSION-AUTO-SYNC-ENGINE-SPEC.md
+docs/product/CLARA-P45-CHATGPT-COMPANION-SAFE-CONTEXT-SPEC.md
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-README-RUNBOOK/
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-DEMO-SCRIPT/
 docs/product/CLARA-P3-EMAIL-PROVIDER-INTEGRATION-DECISION.md
