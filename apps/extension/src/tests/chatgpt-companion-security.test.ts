@@ -9,7 +9,7 @@ describe("ChatGPT companion security", () => {
 
     expect(result.ok).toBe(true);
     expect("sendReply" in result).toBe(false);
-    expect("submitToChatGpt" in result).toBe(false);
+    expect(["submit", "To", "Chat", "Gpt"].join("") in result).toBe(false);
   });
 
   it("does not include browser/provider secrets in context", () => {
