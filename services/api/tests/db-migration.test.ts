@@ -116,6 +116,14 @@ const whatsappInboundMigrationSql = readFileSync(
   whatsappInboundMigrationPath,
   "utf8",
 );
+const whatsappOutboundMigrationPath = path.resolve(
+  __dirname,
+  "../drizzle/0016_p4_whatsapp_outbound_deliveries.sql",
+);
+const whatsappOutboundMigrationSql = readFileSync(
+  whatsappOutboundMigrationPath,
+  "utf8",
+);
 
 function migrationForTable(tableName: string): string {
   if (tableName === "audit_logs") return auditLogMigrationSql;
@@ -137,6 +145,8 @@ function migrationForTable(tableName: string): string {
     return webchatOutboundMigrationSql;
   if (tableName === "whatsapp_inbound_messages")
     return whatsappInboundMigrationSql;
+  if (tableName === "whatsapp_outbound_deliveries")
+    return whatsappOutboundMigrationSql;
   return migrationSql;
 }
 
@@ -164,6 +174,7 @@ describe("initial database migration", () => {
       "webchat_inbound_messages",
       "webchat_outbound_deliveries",
       "whatsapp_inbound_messages",
+      "whatsapp_outbound_deliveries",
     ]) {
       const source = migrationForTable(tableName);
 
@@ -189,6 +200,7 @@ describe("initial database migration", () => {
       "webchat_inbound_messages",
       "webchat_outbound_deliveries",
       "whatsapp_inbound_messages",
+      "whatsapp_outbound_deliveries",
     ]) {
       const source = migrationForTable(tableName);
       const tableBlock = source

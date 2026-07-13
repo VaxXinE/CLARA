@@ -21,7 +21,7 @@ export const channelCapabilities: ChannelCapability[] = [
     channel_type: "messaging",
     display_name: "WhatsApp",
     inbound_supported: true,
-    outbound_supported: false,
+    outbound_supported: true,
     oauth_supported: false,
     manual_sync_supported: false,
     scheduler_supported: false,
@@ -29,7 +29,7 @@ export const channelCapabilities: ChannelCapability[] = [
     dashboard_status_supported: false,
     production_status: "available",
     safe_notes:
-      "Official WhatsApp webhook inbound boundary is available; outbound send is not implemented.",
+      "Official WhatsApp webhook inbound and simulated outbound boundaries are available; real provider send is not implemented.",
   },
   {
     provider: "instagram",
