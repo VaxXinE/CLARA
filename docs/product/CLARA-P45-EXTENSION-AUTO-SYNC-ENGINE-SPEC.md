@@ -16,6 +16,8 @@ This is the p4.5 extension auto-sync readiness checkpoint for the local browser-
 
 The engine reads only the currently open conversation, creates a safe bounded snapshot, deduplicates by `snapshot_hash`, and posts changed snapshots to the CLARA backend snapshot intake route.
 
+Repeated unchanged snapshots are suppressed through hash deduplication plus debounce/throttle timing.
+
 ## Implemented
 
 - `apps/extension` TypeScript package.
