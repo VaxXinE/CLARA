@@ -28,6 +28,10 @@ import { DrizzleWebchatOutboundDeliveryRepository } from "../channels/webchat/we
 import { FixtureWebchatOutboundDeliveryRepository } from "../channels/webchat/webchat-outbound-delivery-repository";
 import { WebchatReplySendService } from "../channels/webchat/webchat-reply-send-service";
 import { SimulatedWebchatReplyAdapter } from "../channels/webchat/simulated-webchat-reply-adapter";
+import { DrizzleWhatsappInboundRepository } from "../channels/whatsapp/whatsapp-inbound-db-repository";
+import { WhatsappInboundMaterializationService } from "../channels/whatsapp/whatsapp-inbound-materialization-service";
+import { WhatsappInboundPersistenceService } from "../channels/whatsapp/whatsapp-inbound-persistence-service";
+import { FixtureWhatsappInboundRepository } from "../channels/whatsapp/whatsapp-inbound-repository";
 import { createDatabase } from "../db/client";
 import { createFixtureAppStore } from "../db/fixtures/fixture-store";
 import { FixtureConversationRepository } from "../conversations/conversation-repository";
@@ -51,6 +55,7 @@ export type AppServices = {
   channelAccounts?: ChannelAccountService;
   webchatInbound?: WebchatInboundMaterializationService;
   webchatReply?: WebchatReplySendService;
+  whatsappInbound?: WhatsappInboundMaterializationService;
 };
 
 export type AuthServices = {
@@ -112,6 +117,12 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
           ),
         ),
         webchatReply,
+        whatsappInbound: new WhatsappInboundMaterializationService(
+          channelAccountRepository,
+          new WhatsappInboundPersistenceService(
+            new DrizzleWhatsappInboundRepository(db),
+          ),
+        ),
       },
       auth: {
         workspaceMemberships: new WorkspaceMembershipService(
@@ -181,6 +192,12 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         ),
       ),
       webchatReply,
+      whatsappInbound: new WhatsappInboundMaterializationService(
+        channelAccountRepository,
+        new WhatsappInboundPersistenceService(
+          new FixtureWhatsappInboundRepository(fixtureStore),
+        ),
+      ),
     },
     auth: {
       workspaceMemberships: new WorkspaceMembershipService(

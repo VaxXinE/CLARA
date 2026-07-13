@@ -49,7 +49,7 @@ Current multi-channel foundation:
 
 ```text
 generic channel capabilities and channel account read APIs now exist
-Gmail and Webchat inbound are marked available; WhatsApp, Instagram, and TikTok are planned metadata only
+Gmail, Webchat inbound, and WhatsApp official webhook inbound are marked available; Instagram and TikTok are planned metadata only
 channel account reads are scoped by backend AuthContext and never trust client-provided organization_id or workspace_id
 responses never include provider secrets, tokens, Authorization headers, raw provider payloads, or raw provider errors
 ```
@@ -65,6 +65,18 @@ webchat inbound materializes safe customer, conversation, message, activity, and
 webchat reply can use the simulated Webchat outbound boundary when POST /reply targets a Webchat conversation
 webchat outbound delivery status is exposed through a scoped read-only API for dashboard visibility
 no webchat public widget frontend, resend/retry, real provider call, or AI draft generation exists in this PR
+```
+
+WhatsApp official inbound baseline:
+
+```text
+GET /api/v1/whatsapp/webhook verifies the provider challenge with the configured verify token
+POST /api/v1/whatsapp/webhook accepts signed text message callbacks only
+organization_id and workspace_id are resolved from the server-side WhatsApp channel account mapping
+provider message ids are idempotent inside organization/workspace scope
+raw provider payloads, access tokens, refresh tokens, Authorization headers, cookies, client secrets, and provider raw errors are not returned
+this boundary does not implement WhatsApp outbound send, templates, media download/storage, contact sync, groups, interactive messages, or AI auto-send
+production WhatsApp work must use the official provider path; scraping, QR hijacking, session-cookie reuse, and unofficial WhatsApp Web clients are rejected
 ```
 
 Gmail inbound fetch boundary notes:
@@ -122,6 +134,8 @@ GET /api/v1/channels/accounts/:channelAccountId
 GET /api/v1/channels/accounts/:channelAccountId/health
 POST /api/v1/webchat/inbound/messages
 GET /api/v1/integrations/webchat/outbound/deliveries/:deliveryId
+GET /api/v1/whatsapp/webhook
+POST /api/v1/whatsapp/webhook
 POST /api/v1/integrations/gmail/oauth/connect
 GET /api/v1/integrations/gmail/oauth/callback
 GET /api/v1/integrations/gmail/accounts/:providerAccountId/health
@@ -195,6 +209,8 @@ docker compose -f docker-compose.prod.example.yml config
 | `REPLY_SEND_RATE_LIMIT_MAX`             |                                       No | `30`                                             | Stricter per-identity cap for `POST /reply`                                                  |
 | `REQUEST_BODY_LIMIT_BYTES`              |                                       No | `1048576`                                        | Global Fastify request body limit in bytes                                                   |
 | `EMAIL_CHANNEL_MODE`                    |                                       No | `disabled`                                       | Email channel skeleton mode: `disabled` or `simulated`                                       |
+| `WHATSAPP_WEBHOOK_VERIFY_TOKEN`         |              WhatsApp webhook verify only | none                                             | Local/platform-provided verify token for WhatsApp webhook challenge validation                |
+| `WHATSAPP_WEBHOOK_APP_SECRET`           |             WhatsApp inbound webhook only | none                                             | WhatsApp app secret used for webhook signature validation; keep in secret manager             |
 | `GMAIL_PROVIDER_ENABLED`                |                                       No | `false`                                          | Enables the Gmail provider auth boundary skeleton only                                       |
 | `GMAIL_TOKEN_VAULT_MODE`                |                                       No | `mock`                                           | Gmail token vault mode: `mock` or future `encrypted`                                         |
 | `GMAIL_OAUTH_CLIENT_ID`                 |                                       No | none                                             | Placeholder client id boundary for future Gmail OAuth                                        |

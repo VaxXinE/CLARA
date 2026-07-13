@@ -51,6 +51,7 @@ describe("database schema", () => {
       "channelAccounts",
       "webchatInboundMessages",
       "webchatOutboundDeliveries",
+      "whatsappInboundMessages",
     ]);
   });
 
@@ -72,6 +73,7 @@ describe("database schema", () => {
       "channelAccounts",
       "webchatInboundMessages",
       "webchatOutboundDeliveries",
+      "whatsappInboundMessages",
     ] as const) {
       const columns = Object.keys(dbSchema[tableName]);
 
@@ -174,6 +176,7 @@ describe("database schema", () => {
       "conversation_status_changed",
       "email_received",
       "webchat_received",
+      "whatsapp_received",
     ]);
   });
 });

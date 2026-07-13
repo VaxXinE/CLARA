@@ -5,12 +5,18 @@ import {
   activityEvents,
   auditLogs,
   aiDraftEvents,
+  channelAccounts,
   conversations,
   customers,
+  emailInboundRecords,
+  emailOutboundDeliveries,
   messages,
   organizations,
   replyDrafts,
   users,
+  webchatInboundMessages,
+  webchatOutboundDeliveries,
+  whatsappInboundMessages,
   workspaceMemberships,
   workspaces,
 } from "../schema";
@@ -58,10 +64,46 @@ async function run(): Promise<void> {
         .insert(activityEvents)
         .values(demoSeedData.activityEvents)
         .onConflictDoNothing();
+      if (demoSeedData.auditLogs.length > 0) {
+        await tx
+          .insert(auditLogs)
+          .values(demoSeedData.auditLogs)
+          .onConflictDoNothing();
+      }
       await tx
-        .insert(auditLogs)
-        .values(demoSeedData.auditLogs)
+        .insert(channelAccounts)
+        .values(demoSeedData.channelAccounts)
         .onConflictDoNothing();
+      if (demoSeedData.emailInboundRecords.length > 0) {
+        await tx
+          .insert(emailInboundRecords)
+          .values(demoSeedData.emailInboundRecords)
+          .onConflictDoNothing();
+      }
+      if (demoSeedData.emailOutboundDeliveries.length > 0) {
+        await tx
+          .insert(emailOutboundDeliveries)
+          .values(demoSeedData.emailOutboundDeliveries)
+          .onConflictDoNothing();
+      }
+      if (demoSeedData.webchatInboundMessages.length > 0) {
+        await tx
+          .insert(webchatInboundMessages)
+          .values(demoSeedData.webchatInboundMessages)
+          .onConflictDoNothing();
+      }
+      if (demoSeedData.webchatOutboundDeliveries.length > 0) {
+        await tx
+          .insert(webchatOutboundDeliveries)
+          .values(demoSeedData.webchatOutboundDeliveries)
+          .onConflictDoNothing();
+      }
+      if (demoSeedData.whatsappInboundMessages.length > 0) {
+        await tx
+          .insert(whatsappInboundMessages)
+          .values(demoSeedData.whatsappInboundMessages)
+          .onConflictDoNothing();
+      }
     });
   } finally {
     await pool.end();

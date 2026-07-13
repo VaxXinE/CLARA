@@ -12,6 +12,7 @@ import {
   replyDrafts,
   webchatInboundMessages,
   webchatOutboundDeliveries,
+  whatsappInboundMessages,
 } from "../schema";
 import {
   demoActivityEvents,
@@ -26,6 +27,7 @@ import {
   demoReplyDrafts,
   demoWebchatInboundMessages,
   demoWebchatOutboundDeliveries,
+  demoWhatsappInboundMessages,
 } from "./demo-data";
 
 type ConversationInsert = InferInsertModel<typeof conversations>;
@@ -46,6 +48,9 @@ type WebchatInboundMessageInsert = InferInsertModel<
 type WebchatOutboundDeliveryInsert = InferInsertModel<
   typeof webchatOutboundDeliveries
 >;
+type WhatsappInboundMessageInsert = InferInsertModel<
+  typeof whatsappInboundMessages
+>;
 
 export type FixtureAppStore = {
   customers: CustomerInsert[];
@@ -60,6 +65,7 @@ export type FixtureAppStore = {
   emailOutboundDeliveries: EmailOutboundDeliveryInsert[];
   webchatInboundMessages: WebchatInboundMessageInsert[];
   webchatOutboundDeliveries: WebchatOutboundDeliveryInsert[];
+  whatsappInboundMessages: WhatsappInboundMessageInsert[];
 };
 
 function cloneRows<T>(rows: T[]): T[] {
@@ -80,5 +86,6 @@ export function createFixtureAppStore(): FixtureAppStore {
     emailOutboundDeliveries: cloneRows(demoEmailOutboundDeliveries),
     webchatInboundMessages: cloneRows(demoWebchatInboundMessages),
     webchatOutboundDeliveries: cloneRows(demoWebchatOutboundDeliveries),
+    whatsappInboundMessages: cloneRows(demoWhatsappInboundMessages),
   };
 }

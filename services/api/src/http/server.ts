@@ -1,4 +1,8 @@
-import fastify, { LogController, type FastifyInstance } from "fastify";
+import fastify, {
+  LogController,
+  type FastifyInstance,
+  type FastifyRequest,
+} from "fastify";
 import helmet from "@fastify/helmet";
 import { createAuthProvider, type AuthProvider } from "../auth/auth-provider";
 import type { Env } from "../config/env";
@@ -25,6 +29,7 @@ import { registerAiDraftRoutes } from "./routes/ai-drafts";
 import { registerReplyRoutes } from "./routes/replies";
 import { registerChannelRoutes } from "./routes/channels";
 import { registerWebchatRoutes } from "./routes/webchat";
+import { registerWhatsappRoutes } from "./routes/whatsapp";
 import type { GmailOAuthConnectService } from "../channels/email/gmail-oauth-connect-service";
 import type { GmailOAuthCallbackService } from "../channels/email/gmail-oauth-callback-service";
 import type { GmailConnectionHealthService } from "../channels/email/gmail-connection-health-service";
@@ -36,6 +41,8 @@ import type { EmailOutboundDeliveryService } from "../channels/email/email-outbo
 import type { AuditLogService } from "../audit/audit-log-service";
 import { registerGmailIntegrationRoutes } from "./routes/gmail-integrations";
 import { SimulatedWebchatChannelAdapter } from "../channels/webchat/simulated-webchat-channel-adapter";
+import { readWhatsappProviderConfig } from "../channels/whatsapp/whatsapp-provider-config";
+import { WhatsappWebhookVerificationService } from "../channels/whatsapp/whatsapp-webhook-verification-service";
 
 export type CreateServerOptions = {
   env: Env;
@@ -66,6 +73,31 @@ export type CreateServerOptions = {
     "recordGmailSchedulerOperatorAction"
   >;
 };
+
+export type RequestWithRawBody = FastifyRequest & {
+  rawBody?: string;
+};
+
+function registerJsonRawBodyParser(app: FastifyInstance): void {
+  app.removeContentTypeParser("application/json");
+  app.addContentTypeParser(
+    "application/json",
+    {
+      parseAs: "string",
+    },
+    (request, body, done) => {
+      const rawBody = typeof body === "string" ? body : body.toString("utf8");
+
+      (request as RequestWithRawBody).rawBody = rawBody;
+
+      try {
+        done(null, rawBody.length > 0 ? JSON.parse(rawBody) : {});
+      } catch (error) {
+        done(error as Error, undefined);
+      }
+    },
+  );
+}
 
 export async function createServer(
   options: CreateServerOptions,
@@ -112,6 +144,7 @@ export async function createServer(
     contentSecurityPolicy: false,
   });
 
+  registerJsonRawBodyParser(app);
   registerCorrelationIdHook(app);
   registerRequestLogging(app);
   registerErrorHandlers(app, options.env);
@@ -149,6 +182,15 @@ export async function createServer(
       services.webchatInbound,
       authProvider,
       services.webchatReply,
+    );
+  }
+  if (services.whatsappInbound) {
+    await registerWhatsappRoutes(
+      app,
+      new WhatsappWebhookVerificationService(
+        readWhatsappProviderConfig(options.env),
+      ),
+      services.whatsappInbound,
     );
   }
   if (

@@ -24,6 +24,7 @@ export const workspaceMembershipStatuses = ["active", "inactive"] as const;
 export const customerSources = [
   "demo",
   "whatsapp_demo",
+  "whatsapp",
   "web_chat_demo",
   "email",
   "webchat",
@@ -54,6 +55,7 @@ export const activityEventTypes = [
   "conversation_status_changed",
   "email_received",
   "webchat_received",
+  "whatsapp_received",
 ] as const;
 export const auditLogActions = [
   "ai_draft.generated",
@@ -1312,6 +1314,78 @@ export const webchatOutboundDeliveries = pgTable(
   ],
 );
 
+export const whatsappInboundMessages = pgTable(
+  "whatsapp_inbound_messages",
+  {
+    id: text("id").primaryKey(),
+    organizationId: text("organization_id")
+      .notNull()
+      .references(() => organizations.id),
+    workspaceId: text("workspace_id")
+      .notNull()
+      .references(() => workspaces.id),
+    channelAccountId: text("channel_account_id")
+      .notNull()
+      .references(() => channelAccounts.id),
+    externalMessageId: text("external_message_id").notNull(),
+    externalConversationId: text("external_conversation_id"),
+    senderExternalId: text("sender_external_id").notNull(),
+    senderDisplayName: text("sender_display_name"),
+    customerId: text("customer_id")
+      .notNull()
+      .references(() => customers.id),
+    conversationId: text("conversation_id")
+      .notNull()
+      .references(() => conversations.id),
+    messageId: text("message_id")
+      .notNull()
+      .references(() => messages.id),
+    activityId: text("activity_id")
+      .notNull()
+      .references(() => activityEvents.id),
+    messageText: text("message_text").notNull(),
+    metadata: jsonb("metadata").notNull().default({}),
+    receivedAt: timestamp("received_at", { withTimezone: true }).notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    check(
+      "whatsapp_inbound_messages_external_message_id_not_empty",
+      sql`char_length(trim(${table.externalMessageId})) > 0`,
+    ),
+    check(
+      "whatsapp_inbound_messages_sender_external_id_not_empty",
+      sql`char_length(trim(${table.senderExternalId})) > 0`,
+    ),
+    check(
+      "whatsapp_inbound_messages_message_text_not_empty",
+      sql`char_length(trim(${table.messageText})) > 0`,
+    ),
+    check(
+      "whatsapp_inbound_messages_metadata_is_object",
+      sql`jsonb_typeof(${table.metadata}) = 'object'`,
+    ),
+    uniqueIndex("whatsapp_inbound_messages_scope_external_message_unique").on(
+      table.organizationId,
+      table.workspaceId,
+      table.externalMessageId,
+    ),
+    index("idx_whatsapp_inbound_messages_scope_sender").on(
+      table.organizationId,
+      table.workspaceId,
+      table.channelAccountId,
+      table.senderExternalId,
+    ),
+    index("idx_whatsapp_inbound_messages_scope_conversation").on(
+      table.organizationId,
+      table.workspaceId,
+      table.conversationId,
+    ),
+  ],
+);
+
 export const dbSchema = {
   organizations,
   workspaces,
@@ -1333,6 +1407,7 @@ export const dbSchema = {
   channelAccounts,
   webchatInboundMessages,
   webchatOutboundDeliveries,
+  whatsappInboundMessages,
 };
 
 export type Organization = typeof organizations.$inferSelect;
@@ -1360,6 +1435,8 @@ export type WebchatInboundMessageRow =
   typeof webchatInboundMessages.$inferSelect;
 export type WebchatOutboundDeliveryRow =
   typeof webchatOutboundDeliveries.$inferSelect;
+export type WhatsappInboundMessageRow =
+  typeof whatsappInboundMessages.$inferSelect;
 
 export type JsonObject = Record<string, string | number | boolean | null>;
 export type ActivityMetadata = JsonObject;

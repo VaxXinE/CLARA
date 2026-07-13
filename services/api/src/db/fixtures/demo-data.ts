@@ -14,6 +14,7 @@ import {
   users,
   webchatInboundMessages,
   webchatOutboundDeliveries,
+  whatsappInboundMessages,
   workspaceMemberships,
   workspaces,
 } from "../schema";
@@ -39,6 +40,9 @@ type WebchatInboundMessageInsert = InferInsertModel<
 >;
 type WebchatOutboundDeliveryInsert = InferInsertModel<
   typeof webchatOutboundDeliveries
+>;
+type WhatsappInboundMessageInsert = InferInsertModel<
+  typeof whatsappInboundMessages
 >;
 
 function at(value: string): Date {
@@ -476,6 +480,24 @@ export const demoChannelAccounts: ChannelAccountInsert[] = [
     updatedAt: now,
   },
   {
+    id: "channel_account_demo_whatsapp",
+    organizationId: "org_demo",
+    workspaceId: "wks_demo_sales",
+    provider: "whatsapp",
+    channelType: "messaging",
+    displayName: "Demo WhatsApp Business",
+    externalAccountId: "wa_phone_demo",
+    status: "connected",
+    healthStatus: "healthy",
+    lastHealthCheckedAt: now,
+    metadata: {
+      source: "demo_fixture",
+      safe_note: "Safe demo WhatsApp channel account.",
+    },
+    createdAt: now,
+    updatedAt: now,
+  },
+  {
     id: "channel_account_demo_webchat",
     organizationId: "org_demo",
     workspaceId: "wks_demo_sales",
@@ -500,6 +522,7 @@ export const demoEmailOutboundDeliveries: EmailOutboundDeliveryInsert[] = [];
 export const demoWebchatInboundMessages: WebchatInboundMessageInsert[] = [];
 export const demoWebchatOutboundDeliveries: WebchatOutboundDeliveryInsert[] =
   [];
+export const demoWhatsappInboundMessages: WhatsappInboundMessageInsert[] = [];
 
 export const demoSeedData = {
   organizations: demoOrganizations,
@@ -518,4 +541,5 @@ export const demoSeedData = {
   emailOutboundDeliveries: demoEmailOutboundDeliveries,
   webchatInboundMessages: demoWebchatInboundMessages,
   webchatOutboundDeliveries: demoWebchatOutboundDeliveries,
+  whatsappInboundMessages: demoWhatsappInboundMessages,
 };
