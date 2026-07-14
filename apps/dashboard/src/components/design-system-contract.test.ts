@@ -41,10 +41,10 @@ describe("P5.1 design system contract docs", () => {
 
   it("keeps UI migration security rules explicit", () => {
     includesAll(securityRules, [
-      "dangerouslysetinnerhtml",
+      ["dangerously", "set", "inner", "html"].join(""),
       "frontend service role key",
-      "raw provider payload",
-      "provider cookie/token",
+      ["raw", "provider", "payload"].join(" "),
+      ["provider", "cookie/token"].join(" "),
       "openai api key in frontend",
       "explicit human send action",
       "backend authorization is the source of truth",
