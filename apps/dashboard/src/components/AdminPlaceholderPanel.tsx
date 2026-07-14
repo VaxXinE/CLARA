@@ -1,5 +1,13 @@
+import type { RoleManagementReadiness, WorkspaceMember } from "../api/types";
+import { UserRoleManagementReadinessPanel } from "./UserRoleManagementReadinessPanel";
+
 type AdminPlaceholderPanelProps = {
   readOnly: boolean;
+  currentRole?: string;
+  readiness?: RoleManagementReadiness | null;
+  members?: WorkspaceMember[];
+  readinessLoading?: boolean;
+  readinessError?: string | null;
 };
 
 const adminItems = [
@@ -37,6 +45,14 @@ export function AdminPlaceholderPanel(props: AdminPlaceholderPanelProps) {
       <button className="secondary-button" disabled type="button">
         Access changes disabled
       </button>
+
+      <UserRoleManagementReadinessPanel
+        currentRole={props.currentRole ?? "unknown"}
+        readiness={props.readiness ?? null}
+        members={props.members ?? []}
+        loading={props.readinessLoading ?? false}
+        error={props.readinessError ?? null}
+      />
     </section>
   );
 }

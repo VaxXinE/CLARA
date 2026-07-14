@@ -237,4 +237,87 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("Authorization");
     expect(JSON.stringify(response)).not.toContain("raw_provider");
   });
+
+  it("loads user role management readiness safely", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        data: {
+          status: "readiness_only",
+          workspace_id: "wks_demo_sales",
+          current_user: {
+            id: "usr_demo_owner",
+            role: "owner",
+          },
+          policy: {
+            role: "owner",
+            can_read_members: true,
+            can_read_readiness: true,
+            can_invite_users: false,
+            can_update_roles: false,
+            can_delete_users: false,
+            mutation_status: "not_implemented",
+          },
+          disabled_controls: ["invite_user", "update_role", "delete_user"],
+          message: "Backend authorization remains the source of truth.",
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({
+      baseUrl: "http://127.0.0.1:3000",
+    });
+
+    const response = await client.getRoleManagementReadiness();
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/workspace/roles/readiness",
+      expect.any(Object),
+    );
+    expect(response.data.policy.can_update_roles).toBe(false);
+    expect(JSON.stringify(response)).not.toContain("access_token");
+    expect(JSON.stringify(response)).not.toContain("refresh_token");
+    expect(JSON.stringify(response)).not.toContain("Authorization");
+  });
+
+  it("loads workspace members safely", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        data: {
+          members: [
+            {
+              user_id: "usr_demo_owner",
+              display_name: "Owner Demo",
+              email: "owner@example.test",
+              role: "owner",
+              status: "active",
+              created_at: "2026-01-01T00:00:00.000Z",
+              updated_at: "2026-01-01T00:00:00.000Z",
+            },
+          ],
+        },
+        permissions: {
+          can_read_members: true,
+          can_invite_users: false,
+          can_update_roles: false,
+          can_delete_users: false,
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({
+      baseUrl: "http://127.0.0.1:3000",
+    });
+
+    const response = await client.listWorkspaceMembers();
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/workspace/members",
+      expect.any(Object),
+    );
+    expect(response.data.members[0]?.role).toBe("owner");
+    expect(response.permissions.can_invite_users).toBe(false);
+    expect(JSON.stringify(response)).not.toContain("access_token");
+    expect(JSON.stringify(response)).not.toContain("refresh_token");
+    expect(JSON.stringify(response)).not.toContain("Authorization");
+  });
 });

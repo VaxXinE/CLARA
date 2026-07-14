@@ -16,6 +16,11 @@ import {
   FixtureWorkspaceMembershipRepository,
 } from "../auth/workspace-membership-repository";
 import { WorkspaceMembershipService } from "../auth/workspace-membership-service";
+import {
+  DrizzleUserRoleManagementRepository,
+  FixtureUserRoleManagementRepository,
+} from "../auth/user-role-management-repository";
+import { UserRoleManagementService } from "../auth/user-role-management-service";
 import { ChannelAccountService } from "../channels/channel-account-service";
 import { DrizzleChannelAccountRepository } from "../channels/channel-account-db-repository";
 import { FixtureChannelAccountRepository } from "../channels/channel-account-repository";
@@ -65,6 +70,7 @@ export type AppServices = {
   whatsappInbound?: WhatsappInboundMaterializationService;
   whatsappReply?: WhatsappReplySendService;
   extensionSnapshots?: ExtensionSnapshotPersistenceService;
+  userRoleManagement?: UserRoleManagementService;
 };
 
 export type AuthServices = {
@@ -144,6 +150,9 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         extensionSnapshots: new ExtensionSnapshotPersistenceService(
           new DrizzleExtensionSnapshotRepository(db),
           auditLogs,
+        ),
+        userRoleManagement: new UserRoleManagementService(
+          new DrizzleUserRoleManagementRepository(db),
         ),
       },
       auth: {
@@ -232,6 +241,9 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
       extensionSnapshots: new ExtensionSnapshotPersistenceService(
         new FixtureExtensionSnapshotRepository(),
         auditLogs,
+      ),
+      userRoleManagement: new UserRoleManagementService(
+        new FixtureUserRoleManagementRepository(),
       ),
     },
     auth: {

@@ -11,7 +11,9 @@ import type {
   GmailOutboundDeliveryStatus,
   GmailSchedulerStatus,
   MeResponse,
+  RoleManagementReadiness,
   WebchatOutboundDeliveryStatus,
+  WorkspaceMember,
 } from "./api/types";
 import { AuthProvider } from "./auth/AuthProvider";
 import {
@@ -130,6 +132,11 @@ function WorkspaceAppShell() {
     useState<GmailOutboundDeliveryStatus | null>(null);
   const [webchatOutboundStatus, setWebchatOutboundStatus] =
     useState<WebchatOutboundDeliveryStatus | null>(null);
+  const [roleManagementReadiness, setRoleManagementReadiness] =
+    useState<RoleManagementReadiness | null>(null);
+  const [workspaceMembers, setWorkspaceMembers] = useState<WorkspaceMember[]>(
+    [],
+  );
   const [composerValue, setComposerValue] = useState("");
   const [draftId, setDraftId] = useState<string | null>(null);
   const [aiDraftLabel, setAiDraftLabel] = useState<string | null>(null);
@@ -163,6 +170,10 @@ function WorkspaceAppShell() {
   const [webchatOutboundStatusError, setWebchatOutboundStatusError] = useState<
     string | null
   >(null);
+  const [roleManagementLoading, setRoleManagementLoading] = useState(false);
+  const [roleManagementError, setRoleManagementError] = useState<string | null>(
+    null,
+  );
   const [composerError, setComposerError] = useState<string | null>(null);
   const [isGeneratingDraft, setIsGeneratingDraft] = useState(false);
   const [isSendingReply, setIsSendingReply] = useState(false);
@@ -191,6 +202,9 @@ function WorkspaceAppShell() {
       setGmailOutboundStatusError(null);
       setWebchatOutboundStatus(null);
       setWebchatOutboundStatusError(null);
+      setRoleManagementReadiness(null);
+      setWorkspaceMembers([]);
+      setRoleManagementError(null);
       setComposerValue("");
       setDraftId(null);
       setAiDraftLabel(null);
@@ -264,6 +278,9 @@ function WorkspaceAppShell() {
           setConversationDetail(null);
           setCustomer(null);
           setActivityItems([]);
+          setRoleManagementReadiness(null);
+          setWorkspaceMembers([]);
+          setRoleManagementError(null);
           setShellError(null);
           setListError(null);
           setWorkspaceAccessRequired(
@@ -297,6 +314,65 @@ function WorkspaceAppShell() {
     deferredSearch,
     selectedRole,
     statusFilter,
+  ]);
+
+  useEffect(() => {
+    if (auth.status !== "authenticated" || !me || me.user.role !== "owner") {
+      setRoleManagementReadiness(null);
+      setWorkspaceMembers([]);
+      setRoleManagementLoading(false);
+      setRoleManagementError(null);
+      return;
+    }
+
+    let cancelled = false;
+
+    async function loadRoleManagementReadiness() {
+      const client = buildClient({
+        authMode: auth.config.mode,
+        role: selectedRole,
+        accessToken: auth.session?.accessToken ?? null,
+      });
+
+      setRoleManagementLoading(true);
+      setRoleManagementError(null);
+
+      try {
+        const [readinessResponse, membersResponse] = await Promise.all([
+          client.getRoleManagementReadiness(),
+          client.listWorkspaceMembers(),
+        ]);
+
+        if (!cancelled) {
+          setRoleManagementReadiness(readinessResponse.data);
+          setWorkspaceMembers(membersResponse.data.members);
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setRoleManagementReadiness(null);
+          setWorkspaceMembers([]);
+          setRoleManagementError(
+            toSafeMessage(error, "Access readiness is unavailable."),
+          );
+        }
+      } finally {
+        if (!cancelled) {
+          setRoleManagementLoading(false);
+        }
+      }
+    }
+
+    void loadRoleManagementReadiness();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [
+    auth.config.mode,
+    auth.session?.accessToken,
+    auth.status,
+    me,
+    selectedRole,
   ]);
 
   useEffect(() => {
@@ -751,6 +827,13 @@ function WorkspaceAppShell() {
           activity: activityItems,
           activityLoading,
           activityError,
+        }}
+        admin={{
+          currentRole: me?.user.role ?? navigationRole,
+          roleManagementReadiness,
+          workspaceMembers,
+          roleManagementLoading,
+          roleManagementError,
         }}
       />
     </WorkspaceShell>

@@ -8,7 +8,16 @@ describe("AdminPlaceholderPanel", () => {
   });
 
   it("renders access control, role management, audit, and auth reminders", () => {
-    render(<AdminPlaceholderPanel readOnly={false} />);
+    render(
+      <AdminPlaceholderPanel
+        readOnly={false}
+        currentRole="owner"
+        readiness={null}
+        members={[]}
+        readinessLoading={false}
+        readinessError={null}
+      />,
+    );
 
     expect(screen.getByText("Access Control")).toBeInTheDocument();
     expect(screen.getByText("Role management readiness")).toBeInTheDocument();
@@ -20,7 +29,16 @@ describe("AdminPlaceholderPanel", () => {
   });
 
   it("keeps access changes disabled", () => {
-    render(<AdminPlaceholderPanel readOnly />);
+    render(
+      <AdminPlaceholderPanel
+        readOnly
+        currentRole="viewer"
+        readiness={null}
+        members={[]}
+        readinessLoading={false}
+        readinessError={null}
+      />,
+    );
 
     expect(screen.getByText("read-only")).toBeInTheDocument();
     expect(
