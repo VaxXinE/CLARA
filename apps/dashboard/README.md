@@ -241,3 +241,5 @@ Production-like local compose example:
 ```text
 docker-compose.prod.example.yml
 ```
+
+P5.1 upgrades the dashboard toward a premium dark/gold workspace shell inspired by project_Clara.
