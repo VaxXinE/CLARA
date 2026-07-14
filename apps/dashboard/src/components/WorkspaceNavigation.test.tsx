@@ -7,13 +7,13 @@ describe("WorkspaceNavigation", () => {
     cleanup();
   });
 
-  it("renders grouped operator navigation", () => {
-    render(<WorkspaceNavigation />);
+  it("renders owner administration navigation", () => {
+    render(<WorkspaceNavigation role="owner" />);
 
     expect(screen.getByText("Workspace")).toBeInTheDocument();
     expect(screen.getByText("Oversight")).toBeInTheDocument();
     expect(screen.getByText("Administration")).toBeInTheDocument();
-    expect(screen.getByText("Chat Masuk / Queue")).toBeInTheDocument();
+    expect(screen.getByText("Queue / Chat Masuk")).toBeInTheDocument();
     expect(screen.getByText("CRM / Leads")).toBeInTheDocument();
     expect(screen.getByText("Customers")).toBeInTheDocument();
     expect(screen.getByText("Follow-up / Action Center")).toBeInTheDocument();
@@ -27,13 +27,33 @@ describe("WorkspaceNavigation", () => {
     expect(screen.getByText("Access Control")).toBeInTheDocument();
   });
 
+  it("hides administration from agent role", () => {
+    render(<WorkspaceNavigation role="agent" />);
+
+    expect(screen.getByText("Follow-up / Action Center")).toBeInTheDocument();
+    expect(screen.queryByText("Administration")).not.toBeInTheDocument();
+    expect(screen.queryByText("Access Control")).not.toBeInTheDocument();
+  });
+
+  it("keeps viewer navigation read-only", () => {
+    render(<WorkspaceNavigation role="viewer" />);
+
+    expect(screen.getByText("Workspace / Beranda")).toBeInTheDocument();
+    expect(screen.getByText("Queue / Chat Masuk")).toBeInTheDocument();
+    expect(
+      screen.queryByText("Follow-up / Action Center"),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByText("Access Control")).not.toBeInTheDocument();
+  });
+
   it("marks the current workspace item and planned items safely", () => {
-    render(<WorkspaceNavigation />);
+    render(<WorkspaceNavigation activeItemId="queue" role="owner" />);
 
     expect(screen.getByRole("button", { current: "page" })).toHaveTextContent(
-      "Beranda / Workspace",
+      "Queue / Chat Masuk",
     );
     expect(screen.getAllByText("planned").length).toBeGreaterThan(0);
+    expect(screen.getByRole("button", { name: /CRM \/ Leads/ })).toBeDisabled();
     expect(screen.getByRole("navigation")).toHaveAttribute(
       "aria-label",
       "Workspace navigation",

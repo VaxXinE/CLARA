@@ -126,6 +126,8 @@ P5.1 UI direction:
 CLARA v2 is the production-ready upgrade of project_Clara.
 The legacy repo is UX/product reference only.
 The current shell preserves the operator-first dark/gold workspace, sidebar, topbar, grouped navigation, and role-aware labels.
+P5.1-PR-03 adds the typed role-aware navigation model for owner, agent, viewer, and future sales/manager/head/superadmin compatibility.
+Planned route entries are visible only where they fit the current role and do not perform full route navigation yet.
 Backend authorization remains the source of truth.
 ```
 

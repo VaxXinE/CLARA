@@ -27,6 +27,7 @@ import { InboxPanel } from "./components/InboxPanel";
 import { LoginPanel } from "./components/LoginPanel";
 import { RoleSwitcher } from "./components/RoleSwitcher";
 import { WorkspaceShell } from "./components/WorkspaceShell";
+import type { WorkspaceNavigationRole } from "./navigation/workspace-navigation";
 
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL?.trim() || "http://127.0.0.1:3000";
@@ -601,6 +602,7 @@ function WorkspaceAppShell() {
         </span>
       </div>
     ) : null;
+  const navigationRole: WorkspaceNavigationRole = me?.user.role ?? selectedRole;
 
   if (auth.config.mode === "provider" && auth.status === "loading") {
     return (
@@ -608,6 +610,7 @@ function WorkspaceAppShell() {
         title="Conversation workspace"
         authSlot={authSlot}
         metaSlot={metaSlot}
+        navigationRole={navigationRole}
       >
         <section className="login-shell">
           <div className="login-card">
@@ -624,6 +627,7 @@ function WorkspaceAppShell() {
         title="Conversation workspace"
         authSlot={authSlot}
         metaSlot={metaSlot}
+        navigationRole={navigationRole}
       >
         <LoginPanel
           loading={auth.status === "loading"}
@@ -639,6 +643,7 @@ function WorkspaceAppShell() {
       title="Conversation workspace"
       authSlot={authSlot}
       metaSlot={metaSlot}
+      navigationRole={navigationRole}
     >
       {shellError ? (
         <div className="global-alert">
