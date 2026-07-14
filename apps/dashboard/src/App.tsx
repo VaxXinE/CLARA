@@ -26,6 +26,7 @@ import { GmailSchedulerStatusPanel } from "./components/GmailSchedulerStatusPane
 import { InboxPanel } from "./components/InboxPanel";
 import { LoginPanel } from "./components/LoginPanel";
 import { RoleSwitcher } from "./components/RoleSwitcher";
+import { WorkspaceShell } from "./components/WorkspaceShell";
 
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL?.trim() || "http://127.0.0.1:3000";
@@ -561,95 +562,84 @@ function WorkspaceAppShell() {
     await auth.signIn(input);
   }
 
+  const authSlot =
+    auth.config.mode === "demo" ? (
+      <div className="meta-cluster">
+        <span className="environment-badge">Demo auth</span>
+        <RoleSwitcher
+          profiles={demoProfiles}
+          value={selectedRole}
+          onChange={setSelectedRole}
+        />
+      </div>
+    ) : (
+      <div className="meta-cluster">
+        <span className="environment-badge">Provider auth</span>
+        {auth.status === "authenticated" ? (
+          <button
+            type="button"
+            className="secondary-button"
+            onClick={() => {
+              void auth.signOut();
+            }}
+          >
+            Log Out
+          </button>
+        ) : null}
+      </div>
+    );
+
+  const metaSlot =
+    auth.status === "authenticated" ? (
+      <div className="meta-cluster">
+        <span className="workspace-pill">
+          Workspace: {me?.workspace.id ?? "loading"}
+        </span>
+        <span className="workspace-pill">
+          User: {me?.user.id ?? auth.session?.email ?? "loading"} (
+          {me?.user.role ?? "..."})
+        </span>
+      </div>
+    ) : null;
+
   if (auth.config.mode === "provider" && auth.status === "loading") {
     return (
-      <div className="app-shell">
-        <header className="topbar">
-          <div>
-            <p className="eyebrow">CLARA Workspace</p>
-            <h1>Conversation workspace</h1>
-          </div>
-          <div className="topbar-meta">
-            <span className="environment-badge">Provider auth</span>
-          </div>
-        </header>
-
-        <main className="login-shell">
+      <WorkspaceShell
+        title="Conversation workspace"
+        authSlot={authSlot}
+        metaSlot={metaSlot}
+      >
+        <section className="login-shell">
           <div className="login-card">
             <p>Checking your session...</p>
           </div>
-        </main>
-      </div>
+        </section>
+      </WorkspaceShell>
     );
   }
 
   if (auth.config.mode === "provider" && auth.status !== "authenticated") {
     return (
-      <div className="app-shell">
-        <header className="topbar">
-          <div>
-            <p className="eyebrow">CLARA Workspace</p>
-            <h1>Conversation workspace</h1>
-          </div>
-          <div className="topbar-meta">
-            <span className="environment-badge">Provider auth</span>
-          </div>
-        </header>
-
+      <WorkspaceShell
+        title="Conversation workspace"
+        authSlot={authSlot}
+        metaSlot={metaSlot}
+      >
         <LoginPanel
           loading={auth.status === "loading"}
           error={auth.error}
           onSubmit={handleProviderLogin}
         />
-      </div>
+      </WorkspaceShell>
     );
   }
 
   return (
-    <div className="app-shell">
-      <header className="topbar">
-        <div>
-          <p className="eyebrow">CLARA Workspace</p>
-          <h1>Conversation workspace</h1>
-        </div>
-
-        <div className="topbar-meta">
-          {auth.config.mode === "demo" ? (
-            <div className="meta-cluster">
-              <span className="environment-badge">Demo auth</span>
-              <RoleSwitcher
-                profiles={demoProfiles}
-                value={selectedRole}
-                onChange={setSelectedRole}
-              />
-            </div>
-          ) : (
-            <div className="meta-cluster">
-              <span className="environment-badge">Provider auth</span>
-              <button
-                type="button"
-                className="secondary-button"
-                onClick={() => {
-                  void auth.signOut();
-                }}
-              >
-                Log Out
-              </button>
-            </div>
-          )}
-
-          <div className="meta-cluster">
-            <span className="workspace-pill">
-              Workspace: {me?.workspace.id ?? "loading"}
-            </span>
-            <span className="workspace-pill">
-              User: {me?.user.id ?? auth.session?.email ?? "loading"} (
-              {me?.user.role ?? "..."})
-            </span>
-          </div>
-        </div>
-      </header>
-
+    <WorkspaceShell
+      title="Conversation workspace"
+      authSlot={authSlot}
+      metaSlot={metaSlot}
+    >
       {shellError ? (
         <div className="global-alert">
           <strong>Something went wrong.</strong>
@@ -657,7 +647,7 @@ function WorkspaceAppShell() {
         </div>
       ) : null}
 
-      <main className="workspace-grid">
+      <div className="workspace-grid">
         <GmailSchedulerStatusPanel
           status={gmailSchedulerStatus}
           loading={gmailSchedulerLoading}
@@ -715,8 +705,8 @@ function WorkspaceAppShell() {
           activityLoading={activityLoading}
           activityError={activityError}
         />
-      </main>
-    </div>
+      </div>
+    </WorkspaceShell>
   );
 }
 

@@ -36,6 +36,7 @@ apps/extension now contains ChatGPT Companion safe context preview/copy/open hel
 P4.5 Extension Bridge final regression/runbook coverage is now documented for operator-assisted active-conversation workflows
 P5 production auth foundation is now documented as the next fail-closed provider-mode contract before real login/workspace UX
 P5.1 now positions CLARA v2 as the production-ready upgrade of project_Clara and documents the legacy UI audit, route map, role/navigation map, design system contract, and UI migration security rules
+P5.1 Workspace Shell Upgrade now gives the dashboard a dark/gold operator shell with left sidebar, topbar, grouped navigation, and mobile menu behavior
 ```
 
 Start here for local usage:

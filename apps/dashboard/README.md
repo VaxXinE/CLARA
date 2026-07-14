@@ -25,7 +25,7 @@ AI draft generation
 explicit human reply send
 viewer read-only UX
 loading, empty, and error states
-P5.1 legacy UI upgrade direction documented for the future dark workspace shell, gold accent, left sidebar, grouped navigation, topbar, and role-aware navigation
+P5.1 Workspace Shell Upgrade adds the dark/gold shell, left sidebar, grouped navigation, topbar, and role-aware navigation labels
 ```
 
 ## Local Setup
@@ -125,7 +125,7 @@ P5.1 UI direction:
 ```text
 CLARA v2 is the production-ready upgrade of project_Clara.
 The legacy repo is UX/product reference only.
-Future shell work should preserve the operator-first dark/gold workspace, sidebar, topbar, grouped navigation, and role-aware labels.
+The current shell preserves the operator-first dark/gold workspace, sidebar, topbar, grouped navigation, and role-aware labels.
 Backend authorization remains the source of truth.
 ```
 
@@ -160,7 +160,7 @@ docker compose -f docker-compose.prod.example.yml config
 - AI drafts are visibly labeled as drafts and require human review.
 - Send action always requires explicit human click.
 - Viewer role does not see enabled AI draft or send controls.
-- API errors are rendered as plain text only and should never expose raw provider payloads.
+- API errors are rendered as plain text only and should never expose unfiltered provider response bodies.
 
 ## Local Validation
 
@@ -241,3 +241,5 @@ Production-like local compose example:
 ```text
 docker-compose.prod.example.yml
 ```
+
+P5.1 upgrades the dashboard toward a premium dark/gold workspace shell inspired by project_Clara.
