@@ -108,6 +108,7 @@ P4.5 final regression runbook, operator runbook, security checklist, and final b
 P5 production auth foundation docs now define provider-mode, dashboard auth UX, workspace membership, and owner bootstrap contracts before full login/workspace UI implementation
 P5.1 legacy UI upgrade track is now started with project_Clara positioning, legacy UI audit, route migration map, role/navigation map, design system contract, shell acceptance criteria, and UI migration security rules
 P5.1-PR-02 now adds the first dashboard workspace shell upgrade with dark/gold visual language, left sidebar, topbar, grouped navigation, and mobile menu behavior while preserving existing conversation workspace functionality
+P5.1-PR-03 now adds a typed role-aware dashboard navigation model with owner, agent, viewer, and future sales/manager/head/superadmin compatibility while keeping backend authorization as the source of truth
 ```
 
 ---
@@ -152,8 +153,8 @@ Not production-ready:
 
 ```text
 no production authentication provider UI or workspace switcher yet; P5 now documents the fail-closed provider-mode and membership contract
-no P5.1 production dashboard shell implementation yet; the legacy dark/gold operator workspace, sidebar, topbar, route migration, and role-aware navigation are documented as contracts before UI porting
-P5.1 still has no real route pages for CRM, customers, follow-up, approvals, manager insights, knowledge, KPI, or admin access; the current shell exposes planned navigation only
+no P5.1 full production dashboard route system yet; the dark/gold operator shell and role-aware navigation are implemented as a single-page dashboard shell
+P5.1 still has no real route pages for CRM, customers, follow-up, approvals, manager insights, knowledge, KPI, or admin access; the current role-aware shell exposes planned navigation only
 no real session/token lifecycle
 no real outbound channel adapter
 no webhook ingestion or delivery status reconciliation

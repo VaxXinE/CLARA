@@ -273,6 +273,10 @@ describe("App", () => {
     ).not.toBeInTheDocument();
     expect(screen.getByText(/Workspace: wks_demo_sales/)).toBeInTheDocument();
     expect(screen.getByText(/usr_demo_viewer/)).toBeInTheDocument();
+    expect(
+      screen.queryByText("Follow-up / Action Center"),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByText("Access Control")).not.toBeInTheDocument();
   });
 
   it("renders a login shell in provider mode when no session exists", async () => {

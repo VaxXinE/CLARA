@@ -1,11 +1,13 @@
 import { useState, type ReactNode } from "react";
 import { WorkspaceNavigation } from "./WorkspaceNavigation";
+import type { WorkspaceNavigationRole } from "../navigation/workspace-navigation";
 
 export function WorkspaceShell(props: {
   eyebrow?: string;
   title: string;
   authSlot?: ReactNode;
   metaSlot?: ReactNode;
+  navigationRole?: WorkspaceNavigationRole;
   children: ReactNode;
 }) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -20,7 +22,10 @@ export function WorkspaceShell(props: {
             <strong>Operator OS</strong>
           </div>
         </div>
-        <WorkspaceNavigation onNavigate={() => setMobileNavOpen(false)} />
+        <WorkspaceNavigation
+          role={props.navigationRole}
+          onNavigate={() => setMobileNavOpen(false)}
+        />
       </aside>
 
       {mobileNavOpen ? (

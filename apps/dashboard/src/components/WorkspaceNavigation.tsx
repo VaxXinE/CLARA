@@ -1,36 +1,18 @@
-type NavItem = {
-  label: string;
-  status?: "active" | "planned";
-};
+import {
+  buildWorkspaceNavigation,
+  type WorkspaceNavigationRole,
+} from "../navigation/workspace-navigation";
 
-const navGroups: Array<{ label: string; items: NavItem[] }> = [
-  {
-    label: "Workspace",
-    items: [
-      { label: "Beranda / Workspace", status: "active" },
-      { label: "Chat Masuk / Queue" },
-      { label: "CRM / Leads", status: "planned" },
-      { label: "Customers", status: "planned" },
-      { label: "Follow-up / Action Center", status: "planned" },
-    ],
-  },
-  {
-    label: "Oversight",
-    items: [
-      { label: "Notifications / Alert Center", status: "planned" },
-      { label: "Approvals / Chat Review", status: "planned" },
-      { label: "Manager Insights", status: "planned" },
-      { label: "Knowledge", status: "planned" },
-      { label: "KPI", status: "planned" },
-    ],
-  },
-  {
-    label: "Administration",
-    items: [{ label: "Access Control", status: "planned" }],
-  },
-];
+export function WorkspaceNavigation(props: {
+  activeItemId?: string;
+  onNavigate?: () => void;
+  role?: WorkspaceNavigationRole;
+}) {
+  const navGroups = buildWorkspaceNavigation({
+    activeItemId: props.activeItemId,
+    role: props.role ?? "viewer",
+  });
 
-export function WorkspaceNavigation(props: { onNavigate?: () => void }) {
   return (
     <nav aria-label="Workspace navigation" className="workspace-navigation">
       {navGroups.map((group) => (
@@ -41,14 +23,18 @@ export function WorkspaceNavigation(props: { onNavigate?: () => void }) {
               <button
                 aria-current={item.status === "active" ? "page" : undefined}
                 className={`nav-item ${item.status === "active" ? "is-active" : ""}`}
-                disabled={item.status === "planned"}
-                key={item.label}
+                disabled={
+                  item.status === "planned" || item.status === "disabled"
+                }
+                key={item.id}
                 onClick={props.onNavigate}
                 type="button"
               >
                 <span>{item.label}</span>
-                {item.status === "planned" ? (
-                  <small aria-label={`${item.label} planned`}>planned</small>
+                {item.status === "planned" || item.status === "disabled" ? (
+                  <small aria-label={`${item.label} ${item.status}`}>
+                    {item.status}
+                  </small>
                 ) : null}
               </button>
             ))}
