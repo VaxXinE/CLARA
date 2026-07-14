@@ -24,6 +24,7 @@ read-only Gmail outbound delivery status visibility after a send response includ
 read-only Webchat outbound delivery status visibility after a Webchat reply send response includes an outbound delivery id
 read-only user/role management readiness panel for owner sessions
 P6 final observability remains documentation/policy only; dashboard does not expose provider tokens, raw payloads, or analytics charts
+P7 AI assistant safety scope is documentation/policy only; dashboard does not add AI automation UI or auto-send behavior
 AI draft generation
 explicit human reply send
 viewer read-only UX
@@ -80,12 +81,12 @@ docs/product/CLARA-P51-UI-MIGRATION-SECURITY-RULES.md
 
 ## Environment
 
-| Name                     |                 Required | Default                 | Description                                                 |
-| ------------------------ | -----------------------: | ----------------------- | ----------------------------------------------------------- |
-| `VITE_API_BASE_URL`      |                       No | `http://127.0.0.1:3000` | CLARA API base URL                                          |
-| `VITE_AUTH_MODE`         |                       No | `demo`                  | Dashboard auth mode: `demo` or `provider`                   |
-| `VITE_SUPABASE_URL`      | Required in provider mode | none                    | Supabase project URL for browser session handling           |
-| `VITE_SUPABASE_ANON_KEY` | Required in provider mode | none                    | Supabase anon key only. Never use a service role key here.  |
+| Name                     |                  Required | Default                 | Description                                                |
+| ------------------------ | ------------------------: | ----------------------- | ---------------------------------------------------------- |
+| `VITE_API_BASE_URL`      |                        No | `http://127.0.0.1:3000` | CLARA API base URL                                         |
+| `VITE_AUTH_MODE`         |                        No | `demo`                  | Dashboard auth mode: `demo` or `provider`                  |
+| `VITE_SUPABASE_URL`      | Required in provider mode | none                    | Supabase project URL for browser session handling          |
+| `VITE_SUPABASE_ANON_KEY` | Required in provider mode | none                    | Supabase anon key only. Never use a service role key here. |
 
 Deployment config runbook:
 
