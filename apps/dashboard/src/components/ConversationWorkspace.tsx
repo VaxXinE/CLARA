@@ -11,6 +11,7 @@ type ConversationWorkspaceProps = {
   inbox: ComponentProps<typeof InboxPanel>;
   conversation: ComponentProps<typeof ConversationPane>;
   customer: ComponentProps<typeof CustomerSidebar>;
+  admin?: Omit<ComponentProps<typeof ActionInsightAdminWorkspace>, "readOnly">;
 };
 
 export function ConversationWorkspace(props: ConversationWorkspaceProps) {
@@ -50,7 +51,7 @@ export function ConversationWorkspace(props: ConversationWorkspaceProps) {
       </div>
 
       <div className="workspace-action-column">
-        <ActionInsightAdminWorkspace readOnly={readOnly} />
+        <ActionInsightAdminWorkspace readOnly={readOnly} {...props.admin} />
       </div>
     </section>
   );

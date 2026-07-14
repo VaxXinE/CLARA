@@ -108,6 +108,7 @@ P4.5 final regression runbook, operator runbook, security checklist, and final b
 P5 production auth foundation docs now define provider-mode, dashboard auth UX, workspace membership, and owner bootstrap contracts before full login/workspace UI implementation
 P5-PR-02 now implements the dashboard-side provider login/session flow: provider mode blocks protected product data before a real session, attaches bearer tokens only from the auth client, supports provider sign out, and keeps demo mock mode local-only
 P5-PR-03 now enforces `/me` as the dashboard membership gate, blocks provider-authenticated users without active CLARA membership before product data loads, and adds an explicit audited owner bootstrap CLI instead of a public self-escalation endpoint
+P5-PR-04 now adds owner-only read APIs for workspace members and role-management readiness plus a read-only dashboard access-control panel; invite, role update, delete, and workspace switch mutations remain intentionally unimplemented
 P5.1 legacy UI upgrade track is now started with project_Clara positioning, legacy UI audit, route migration map, role/navigation map, design system contract, shell acceptance criteria, and UI migration security rules
 P5.1-PR-02 now adds the first dashboard workspace shell upgrade with dark/gold visual language, left sidebar, topbar, grouped navigation, and mobile menu behavior while preserving existing conversation workspace functionality
 P5.1-PR-03 now adds a typed role-aware dashboard navigation model with owner, agent, viewer, and future sales/manager/head/superadmin compatibility while keeping backend authorization as the source of truth
@@ -160,6 +161,7 @@ Not production-ready:
 ```text
 no production authentication provider UI or workspace switcher yet; P5 now documents the fail-closed provider-mode and membership contract
 no invite flow or public owner self-service exists; first owner setup uses the explicit backend bootstrap command only
+no user invite, role update, member deletion, or workspace switch mutation exists yet; P5-PR-04 only exposes owner-readiness visibility
 no P5.1 full production dashboard route system yet; the dark/gold operator shell and role-aware navigation are implemented as a single-page dashboard shell
 P5.1 still has no real route pages for CRM, customers, follow-up, approvals, manager insights, knowledge, KPI, or admin access; the current role-aware shell exposes planned navigation only
 no real session/token lifecycle

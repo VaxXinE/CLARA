@@ -229,6 +229,52 @@ export type GmailSchedulerStatusResponse = {
   data: GmailSchedulerStatus;
 };
 
+export type WorkspaceMember = {
+  user_id: string;
+  display_name: string;
+  email: string;
+  role: "owner" | "agent" | "viewer" | string;
+  status: "active" | "inactive";
+  created_at: string;
+  updated_at: string;
+};
+
+export type WorkspaceMembersResponse = {
+  data: {
+    members: WorkspaceMember[];
+  };
+  permissions: {
+    can_read_members: boolean;
+    can_invite_users: false;
+    can_update_roles: false;
+    can_delete_users: false;
+  };
+};
+
+export type RoleManagementReadiness = {
+  status: "readiness_only";
+  workspace_id: string;
+  current_user: {
+    id: string;
+    role: string;
+  };
+  policy: {
+    role: string;
+    can_read_members: boolean;
+    can_read_readiness: boolean;
+    can_invite_users: false;
+    can_update_roles: false;
+    can_delete_users: false;
+    mutation_status: "not_implemented";
+  };
+  disabled_controls: ["invite_user", "update_role", "delete_user"];
+  message: string;
+};
+
+export type RoleManagementReadinessResponse = {
+  data: RoleManagementReadiness;
+};
+
 export type DemoRole = "owner" | "agent" | "viewer";
 
 export type DemoAuthProfile = {

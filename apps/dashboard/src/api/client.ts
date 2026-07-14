@@ -10,7 +10,9 @@ import type {
   GmailSchedulerStatusResponse,
   MeResponse,
   ReplySendResponse,
+  RoleManagementReadinessResponse,
   WebchatOutboundDeliveryStatusResponse,
+  WorkspaceMembersResponse,
 } from "./types";
 
 export class ApiClientError extends Error {
@@ -142,6 +144,16 @@ export class ApiClient {
     return this.request<GmailSchedulerStatusResponse>(
       "/api/v1/integrations/gmail/scheduler/status",
     );
+  }
+
+  async getRoleManagementReadiness(): Promise<RoleManagementReadinessResponse> {
+    return this.request<RoleManagementReadinessResponse>(
+      "/api/v1/workspace/roles/readiness",
+    );
+  }
+
+  async listWorkspaceMembers(): Promise<WorkspaceMembersResponse> {
+    return this.request<WorkspaceMembersResponse>("/api/v1/workspace/members");
   }
 
   async getGmailOutboundDeliveryStatus(

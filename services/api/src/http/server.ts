@@ -31,6 +31,7 @@ import { registerChannelRoutes } from "./routes/channels";
 import { registerWebchatRoutes } from "./routes/webchat";
 import { registerWhatsappRoutes } from "./routes/whatsapp";
 import { registerExtensionRoutes } from "./routes/extension";
+import { registerUserRoleManagementRoutes } from "./routes/user-role-management";
 import type { GmailOAuthConnectService } from "../channels/email/gmail-oauth-connect-service";
 import type { GmailOAuthCallbackService } from "../channels/email/gmail-oauth-callback-service";
 import type { GmailConnectionHealthService } from "../channels/email/gmail-connection-health-service";
@@ -258,6 +259,13 @@ export async function createServer(
       app,
       authProvider,
       services.extensionSnapshots,
+    );
+  }
+  if (services.userRoleManagement) {
+    await registerUserRoleManagementRoutes(
+      app,
+      authProvider,
+      services.userRoleManagement,
     );
   }
   const gmailIntegrationServices: {

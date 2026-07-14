@@ -21,6 +21,7 @@ activity timeline
 read-only Gmail scheduler status visibility
 read-only Gmail outbound delivery status visibility after a send response includes an outbound delivery id
 read-only Webchat outbound delivery status visibility after a Webchat reply send response includes an outbound delivery id
+read-only user/role management readiness panel for owner sessions
 AI draft generation
 explicit human reply send
 viewer read-only UX
@@ -109,6 +110,18 @@ owner  -> can read, generate AI draft, and send reply
 agent  -> can read, generate AI draft, and send reply
 viewer -> read-only; AI draft and send controls are not enabled
 ```
+
+User/role management readiness:
+
+```text
+owner  -> dashboard can read safe member/readiness metadata from backend
+agent  -> no role-management readiness request from dashboard
+viewer -> no role-management readiness request from dashboard
+```
+
+Invite user, update role, remove member, workspace switch, and public
+self-escalation controls are intentionally disabled/not implemented. Backend
+authorization remains the source of truth.
 
 Provider mode behavior:
 

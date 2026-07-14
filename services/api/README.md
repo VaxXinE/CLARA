@@ -163,6 +163,8 @@ GET /api/v1/channels/capabilities
 GET /api/v1/channels/accounts
 GET /api/v1/channels/accounts/:channelAccountId
 GET /api/v1/channels/accounts/:channelAccountId/health
+GET /api/v1/workspace/members
+GET /api/v1/workspace/roles/readiness
 POST /api/v1/webchat/inbound/messages
 GET /api/v1/integrations/webchat/outbound/deliveries/:deliveryId
 GET /api/v1/whatsapp/webhook
@@ -177,6 +179,20 @@ POST /api/v1/integrations/gmail/accounts/:providerAccountId/inbound-smoke
 POST /api/v1/integrations/gmail/outbound/send
 GET /api/v1/integrations/gmail/outbound/deliveries/:deliveryId
 POST /api/v1/extension/:channel/snapshots
+```
+
+Workspace user/role readiness:
+
+```text
+GET /api/v1/workspace/members
+owner only; returns safe workspace member metadata from AuthContext scope
+
+GET /api/v1/workspace/roles/readiness
+owner only; returns read-only readiness policy and disabled planned controls
+
+No invite, role update, delete, workspace switch, or public self-escalation API
+exists yet. Agent/viewer requests are rejected safely, and organization_id /
+workspace_id from request input is not trusted.
 ```
 
 ## Local Setup

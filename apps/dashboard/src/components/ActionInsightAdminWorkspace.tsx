@@ -1,9 +1,15 @@
 import { ActionCenterPanel } from "./ActionCenterPanel";
 import { AdminPlaceholderPanel } from "./AdminPlaceholderPanel";
 import { InsightWorkspacePanel } from "./InsightWorkspacePanel";
+import type { RoleManagementReadiness, WorkspaceMember } from "../api/types";
 
 type ActionInsightAdminWorkspaceProps = {
   readOnly: boolean;
+  currentRole?: string;
+  roleManagementReadiness?: RoleManagementReadiness | null;
+  workspaceMembers?: WorkspaceMember[];
+  roleManagementLoading?: boolean;
+  roleManagementError?: string | null;
 };
 
 export function ActionInsightAdminWorkspace(
@@ -16,7 +22,14 @@ export function ActionInsightAdminWorkspace(
     >
       <ActionCenterPanel readOnly={props.readOnly} />
       <InsightWorkspacePanel />
-      <AdminPlaceholderPanel readOnly={props.readOnly} />
+      <AdminPlaceholderPanel
+        readOnly={props.readOnly}
+        currentRole={props.currentRole}
+        readiness={props.roleManagementReadiness ?? null}
+        members={props.workspaceMembers ?? []}
+        readinessLoading={props.roleManagementLoading ?? false}
+        readinessError={props.roleManagementError ?? null}
+      />
     </section>
   );
 }
