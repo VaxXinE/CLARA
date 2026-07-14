@@ -273,10 +273,11 @@ describe("App", () => {
     ).not.toBeInTheDocument();
     expect(screen.getByText(/Workspace: wks_demo_sales/)).toBeInTheDocument();
     expect(screen.getByText(/usr_demo_viewer/)).toBeInTheDocument();
+    expect(screen.getByText("Follow-up workspace preview")).toBeInTheDocument();
+    expect(screen.getByText("Access Control")).toBeInTheDocument();
     expect(
-      screen.queryByText("Follow-up / Action Center"),
-    ).not.toBeInTheDocument();
-    expect(screen.queryByText("Access Control")).not.toBeInTheDocument();
+      screen.getByRole("button", { name: "Access changes disabled" }),
+    ).toBeDisabled();
   });
 
   it("renders a login shell in provider mode when no session exists", async () => {

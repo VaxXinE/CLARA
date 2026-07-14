@@ -275,35 +275,45 @@ button {
   grid-column: 1 / -1;
 }
 
-.workspace-crm-column {
+.workspace-crm-column,
+.workspace-action-column {
   grid-column: 1 / -1;
 }
 
 .workspace-queue-column,
 .workspace-conversation-column,
 .workspace-customer-column,
-.workspace-crm-column {
+.workspace-crm-column,
+.workspace-action-column {
   min-width: 0;
 }
 
-.crm-customer-workspace {
+.crm-customer-workspace,
+.action-insight-admin-workspace {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 20px;
 }
 
-.crm-skeleton-panel {
+.action-insight-admin-workspace {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.crm-skeleton-panel,
+.placeholder-workspace-panel {
   min-height: auto;
 }
 
-.crm-facts-grid {
+.crm-facts-grid,
+.placeholder-card-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
   margin: 0 0 14px;
 }
 
-.crm-facts-grid div {
+.crm-facts-grid div,
+.placeholder-card-grid article {
   border: 1px solid var(--border);
   background: rgba(255, 255, 255, 0.62);
   border-radius: 16px;
@@ -726,6 +736,7 @@ button {
   }
 
   .crm-customer-workspace,
+  .action-insight-admin-workspace,
   .crm-facts-grid {
     grid-template-columns: 1fr;
   }
