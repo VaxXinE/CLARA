@@ -163,6 +163,13 @@ npm run test
 npm audit --omit=dev --audit-level=high
 ```
 
+Production config doctor:
+
+```bash
+cd ../..
+bash scripts/validate-production-runtime-config.sh
+```
+
 Docker validation:
 
 ```bash
