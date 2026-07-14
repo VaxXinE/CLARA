@@ -275,10 +275,50 @@ button {
   grid-column: 1 / -1;
 }
 
+.workspace-crm-column {
+  grid-column: 1 / -1;
+}
+
 .workspace-queue-column,
 .workspace-conversation-column,
-.workspace-customer-column {
+.workspace-customer-column,
+.workspace-crm-column {
   min-width: 0;
+}
+
+.crm-customer-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px;
+}
+
+.crm-skeleton-panel {
+  min-height: auto;
+}
+
+.crm-facts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0 0 14px;
+}
+
+.crm-facts-grid div {
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.62);
+  border-radius: 16px;
+  padding: 12px;
+}
+
+.crm-facts-grid dt {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.crm-facts-grid dd {
+  margin: 4px 0 0;
 }
 
 .gmail-status-panel {
@@ -682,6 +722,11 @@ button {
   }
 
   .conversation-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .crm-customer-workspace,
+  .crm-facts-grid {
     grid-template-columns: 1fr;
   }
 

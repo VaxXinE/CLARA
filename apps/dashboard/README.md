@@ -129,6 +129,7 @@ The current shell preserves the operator-first dark/gold workspace, sidebar, top
 P5.1-PR-03 adds the typed role-aware navigation model for owner, agent, viewer, and future sales/manager/head/superadmin compatibility.
 Planned route entries are visible only where they fit the current role and do not perform full route navigation yet.
 P5.1-PR-04 moves the authenticated conversation workspace into a dedicated presentational layout for queue, active conversation, customer context, composer, and status visibility.
+P5.1-PR-05 adds safe CRM and Customer Intelligence skeleton panels using existing conversation/customer data only; no CRUD or new API calls.
 Backend authorization remains the source of truth.
 ```
 
