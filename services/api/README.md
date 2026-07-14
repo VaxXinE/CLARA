@@ -213,6 +213,7 @@ npm run db:check
 npm run db:generate
 npm run db:migrate
 npm run db:seed
+npm run db:bootstrap-owner
 npm run db:studio
 npm run db:ready
 npm audit --omit=dev --audit-level=high
@@ -301,6 +302,24 @@ Supabase provider mode now verifies JWT signature and issuer through JWKS before
 Better Auth provider mode remains a safe placeholder and is not implemented yet
 trusted provider identity must map to a CLARA user + exactly one active workspace membership before AuthContext is created
 ```
+
+Owner bootstrap:
+
+```bash
+BOOTSTRAP_ORGANIZATION_ID=org_prod \
+BOOTSTRAP_ORGANIZATION_NAME="CLARA Production" \
+BOOTSTRAP_WORKSPACE_ID=wks_prod \
+BOOTSTRAP_WORKSPACE_NAME="Default Workspace" \
+BOOTSTRAP_OWNER_PROVIDER_SUBJECT=provider-subject-from-auth-provider \
+BOOTSTRAP_OWNER_EMAIL=owner@example.test \
+BOOTSTRAP_OWNER_DISPLAY_NAME="Workspace Owner" \
+npm run db:bootstrap-owner
+```
+
+The bootstrap command is explicit and audited. It creates or links the first
+workspace owner only when there is no conflicting active owner. There is no
+public self-assign owner endpoint, and provider tokens/cookies/raw provider
+payloads are never stored.
 
 Provider-mode middleware behavior today:
 

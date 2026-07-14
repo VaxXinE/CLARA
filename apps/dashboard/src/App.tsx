@@ -23,6 +23,7 @@ import { useAuth } from "./auth/useAuth";
 import { ConversationWorkspace } from "./components/ConversationWorkspace";
 import { LoginPanel } from "./components/LoginPanel";
 import { RoleSwitcher } from "./components/RoleSwitcher";
+import { WorkspaceAccessRequiredPanel } from "./components/WorkspaceAccessRequiredPanel";
 import { WorkspaceShell } from "./components/WorkspaceShell";
 import type { WorkspaceNavigationRole } from "./navigation/workspace-navigation";
 
@@ -137,6 +138,9 @@ function WorkspaceAppShell() {
   const deferredSearch = useDeferredValue(search);
 
   const [shellError, setShellError] = useState<string | null>(null);
+  const [workspaceAccessRequired, setWorkspaceAccessRequired] = useState<
+    string | null
+  >(null);
   const [listLoading, setListLoading] = useState(true);
   const [listError, setListError] = useState<string | null>(null);
   const [detailLoading, setDetailLoading] = useState(false);
@@ -180,6 +184,7 @@ function WorkspaceAppShell() {
       setConversationDetail(null);
       setCustomer(null);
       setActivityItems([]);
+      setWorkspaceAccessRequired(null);
       setGmailSchedulerStatus(null);
       setGmailSchedulerError(null);
       setGmailOutboundStatus(null);
@@ -206,6 +211,7 @@ function WorkspaceAppShell() {
         accessToken: auth.session?.accessToken ?? null,
       });
       setShellError(null);
+      setWorkspaceAccessRequired(null);
       setListError(null);
       setListLoading(true);
       setSelectedConversationId(null);
@@ -217,20 +223,24 @@ function WorkspaceAppShell() {
       setAiDraftLabel(null);
 
       try {
-        const [meResponse, listResponse] = await Promise.all([
-          client.getMe(),
-          client.listConversations({
-            limit: 20,
-            status: statusFilter || undefined,
-            search: deferredSearch || undefined,
-          }),
-        ]);
+        const meResponse = await client.getMe();
 
         if (cancelled) {
           return;
         }
 
         setMe(meResponse);
+
+        const listResponse = await client.listConversations({
+          limit: 20,
+          status: statusFilter || undefined,
+          search: deferredSearch || undefined,
+        });
+
+        if (cancelled) {
+          return;
+        }
+
         setConversations(listResponse.data);
         setConversationPermissions(listResponse.permissions);
 
@@ -239,6 +249,26 @@ function WorkspaceAppShell() {
         });
       } catch (error) {
         if (cancelled) {
+          return;
+        }
+
+        if (
+          auth.config.mode === "provider" &&
+          error instanceof ApiClientError &&
+          error.statusCode === 403
+        ) {
+          setMe(null);
+          setConversations([]);
+          setConversationPermissions(null);
+          setSelectedConversationId(null);
+          setConversationDetail(null);
+          setCustomer(null);
+          setActivityItems([]);
+          setShellError(null);
+          setListError(null);
+          setWorkspaceAccessRequired(
+            toSafeMessage(error, "Workspace access required."),
+          );
           return;
         }
 
@@ -270,7 +300,7 @@ function WorkspaceAppShell() {
   ]);
 
   useEffect(() => {
-    if (auth.status !== "authenticated" || me?.user.role === "viewer") {
+    if (auth.status !== "authenticated" || !me || me.user.role === "viewer") {
       setGmailSchedulerStatus(null);
       setGmailSchedulerLoading(false);
       setGmailSchedulerError(null);
@@ -599,7 +629,9 @@ function WorkspaceAppShell() {
         </span>
       </div>
     ) : null;
-  const navigationRole: WorkspaceNavigationRole = me?.user.role ?? selectedRole;
+  const navigationRole: WorkspaceNavigationRole =
+    me?.user.role ??
+    (auth.config.mode === "provider" ? "viewer" : selectedRole);
 
   if (auth.config.mode === "provider" && auth.status === "loading") {
     return (
@@ -630,6 +662,24 @@ function WorkspaceAppShell() {
           loading={auth.status === "loading"}
           error={auth.error}
           onSubmit={handleProviderLogin}
+        />
+      </WorkspaceShell>
+    );
+  }
+
+  if (auth.config.mode === "provider" && workspaceAccessRequired) {
+    return (
+      <WorkspaceShell
+        title="Conversation workspace"
+        authSlot={authSlot}
+        metaSlot={metaSlot}
+        navigationRole={navigationRole}
+      >
+        <WorkspaceAccessRequiredPanel
+          message={workspaceAccessRequired}
+          onSignOut={() => {
+            void auth.signOut();
+          }}
         />
       </WorkspaceShell>
     );

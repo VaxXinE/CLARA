@@ -366,8 +366,78 @@ describe("App", () => {
     expect(screen.getByText(/usr_demo_agent/)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Log Out" })).toBeInTheDocument();
     expect(screen.getByText("Gmail scheduler")).toBeInTheDocument();
-    expect(screen.getByText("completed")).toBeInTheDocument();
+    expect(await screen.findByText("completed")).toBeInTheDocument();
     expect(screen.getAllByText("WhatsApp").length).toBeGreaterThan(0);
+  });
+
+  it("blocks provider users without workspace membership before loading product data", async () => {
+    const signOut = vi.fn(async () => {});
+    const authClient: DashboardAuthClient = {
+      getSession: vi.fn(async () => ({
+        accessToken: "atk",
+        userId: "provider-user-no-membership",
+        email: "blocked@example.test",
+      })),
+      signIn: vi.fn(async () => {}),
+      signOut,
+      subscribe: vi.fn(() => () => {}),
+    };
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+
+      if (url.includes("/api/v1/me")) {
+        return jsonResponse(
+          {
+            error: {
+              code: "FORBIDDEN",
+              message: "You do not have access to this workspace.",
+              correlation_id: "corr_blocked",
+            },
+          },
+          403,
+        );
+      }
+
+      throw new Error(`Product data should not be loaded before /me: ${url}`);
+    });
+
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(
+      <App
+        authConfig={{
+          mode: "provider",
+          provider: "supabase",
+          supabaseUrl: "https://example.supabase.test",
+          supabaseAnonKey: "example-anon-key",
+        }}
+        authClient={authClient}
+      />,
+    );
+
+    expect(
+      await screen.findByRole("heading", {
+        name: "Workspace access required",
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/active workspace membership/)).toBeInTheDocument();
+    expect(screen.queryByText("Conversations")).not.toBeInTheDocument();
+    expect(fetchMock).toHaveBeenCalled();
+    expect(
+      fetchMock.mock.calls.every((call) => {
+        const input = call[0];
+        const url = input instanceof Request ? input.url : String(input);
+
+        return url.includes("/api/v1/me");
+      }),
+    ).toBe(true);
+    expect(document.body.textContent).not.toContain("access_token");
+    expect(document.body.textContent).not.toContain("refresh_token");
+    expect(document.body.textContent).not.toContain("raw_provider_payload");
+
+    await userEvent.click(screen.getByRole("button", { name: "Sign Out" }));
+
+    expect(signOut).toHaveBeenCalledTimes(1);
   });
 
   it("submits provider login from the login shell", async () => {

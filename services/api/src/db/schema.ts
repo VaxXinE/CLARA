@@ -60,6 +60,7 @@ export const activityEventTypes = [
   "extension_snapshot_received",
 ] as const;
 export const auditLogActions = [
+  "workspace.owner_bootstrap",
   "ai_draft.generated",
   "reply.send_attempted",
   "reply.sent",
@@ -82,6 +83,7 @@ export const auditLogActions = [
 ] as const;
 export const auditLogOutcomes = ["success", "failure"] as const;
 export const auditLogResourceTypes = [
+  "workspace",
   "conversation",
   "reply_draft",
   "message",

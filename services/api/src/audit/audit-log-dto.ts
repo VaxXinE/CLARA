@@ -4,6 +4,7 @@ export type AuditLogScalar = string | number | boolean | null;
 export type AuditLogMetadata = Record<string, AuditLogScalar>;
 
 export type AuditLogAction =
+  | "workspace.owner_bootstrap"
   | "ai_draft.generated"
   | "reply.send_attempted"
   | "reply.sent"
@@ -27,6 +28,7 @@ export type AuditLogAction =
 export type AuditLogOutcome = "success" | "failure";
 
 export type AuditLogResourceType =
+  | "workspace"
   | "conversation"
   | "reply_draft"
   | "message"

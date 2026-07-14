@@ -98,6 +98,7 @@ describe("database schema", () => {
     expect(messageDirections).toEqual(["inbound", "outbound", "internal"]);
     expect(aiDraftStatuses).toEqual(["succeeded", "failed"]);
     expect(auditLogActions).toEqual([
+      "workspace.owner_bootstrap",
       "ai_draft.generated",
       "reply.send_attempted",
       "reply.sent",

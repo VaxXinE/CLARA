@@ -132,6 +132,14 @@ const extensionSnapshotsMigrationSql = readFileSync(
   extensionSnapshotsMigrationPath,
   "utf8",
 );
+const ownerBootstrapAuditMigrationPath = path.resolve(
+  __dirname,
+  "../drizzle/0018_p5_owner_bootstrap_audit.sql",
+);
+const ownerBootstrapAuditMigrationSql = readFileSync(
+  ownerBootstrapAuditMigrationPath,
+  "utf8",
+);
 
 function migrationForTable(tableName: string): string {
   if (tableName === "audit_logs") return auditLogMigrationSql;
@@ -313,6 +321,13 @@ describe("initial database migration", () => {
     expect(gmailOutboundAuditMigrationSql).toContain(
       "'gmail.reply_send.succeeded'",
     );
+  });
+
+  it("adds owner bootstrap audit action", () => {
+    expect(ownerBootstrapAuditMigrationSql).toContain(
+      "'workspace.owner_bootstrap'",
+    );
+    expect(ownerBootstrapAuditMigrationSql).toContain("'workspace'");
   });
 
   it("adds generic channel account schema", () => {

@@ -16,6 +16,7 @@
     "db:generate": "drizzle-kit generate --config=drizzle.config.ts",
     "db:migrate": "node --import tsx src/db/scripts/migrate.ts",
     "db:seed": "node --import tsx src/db/scripts/seed.ts",
+    "db:bootstrap-owner": "node --import tsx src/db/scripts/bootstrap-owner.ts",
     "db:studio": "drizzle-kit studio --config=drizzle.config.ts",
     "db:check": "node --import tsx src/db/scripts/check.ts",
     "db:ready": "node --import tsx src/db/scripts/ready.ts",
