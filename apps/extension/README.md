@@ -56,4 +56,10 @@ npm run build
 npm audit --omit=dev --audit-level=high
 ```
 
+Final P5 security audit from repo root:
+
+```bash
+bash scripts/validate-p5-final-security-audit.sh
+```
+
 Build artifacts are intentionally not committed.

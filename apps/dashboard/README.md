@@ -168,6 +168,7 @@ Production config doctor:
 ```bash
 cd ../..
 bash scripts/validate-production-runtime-config.sh
+bash scripts/validate-p5-final-security-audit.sh
 ```
 
 Docker validation:
@@ -223,7 +224,7 @@ npm run test -- --run src/App.test.tsx src/auth/AuthProvider.test.tsx src/api/cl
 
 ```text
 demo role switcher is for local/mock auth only
-provider login UI is only a shell; no OAuth callback UI or workspace switcher UI yet
+provider login UI depends on provider SDK session state; no workspace switcher UI yet
 provider users without CLARA workspace membership are blocked before product data is loaded
 mock AI draft provider only
 simulated reply send provider only
