@@ -214,6 +214,30 @@ export class AuditLogService {
     });
   }
 
+  async recordWorkspaceOwnerBootstrap(input: {
+    organizationId: string;
+    workspaceId: string;
+    actorUserId: string;
+    correlationId: string;
+    created: boolean;
+  }): Promise<boolean> {
+    return this.write({
+      organizationId: input.organizationId,
+      workspaceId: input.workspaceId,
+      actorUserId: input.actorUserId,
+      actorRole: "owner",
+      action: "workspace.owner_bootstrap",
+      resourceType: "workspace",
+      resourceId: input.workspaceId,
+      outcome: "success",
+      metadata: compactMetadata({
+        bootstrap_type: "owner",
+        created: input.created,
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
   async recordGmailOutboundSendRequested(input: {
     actor: GmailAuditActorInput;
     correlationId: string;

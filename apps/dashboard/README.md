@@ -115,12 +115,14 @@ Provider mode behavior:
 ```text
 provider session shell renders a login form when no session exists
 dashboard does not load conversation data until a provider session exists
+dashboard now waits for GET /api/v1/me membership resolution before loading product data
+provider-authenticated users without active workspace membership see a safe blocked state with sign out
 frontend only sends provider access_token as a bearer token
 frontend never invents a bearer token when no session exists
 sign out is delegated to the provider auth client abstraction
 misconfigured provider auth fails closed instead of falling back to demo mode
 backend still decides role, organization, and workspace from authenticated context
-P5-PR-02 implements the dashboard-side provider login/session flow; workspace switcher and membership bootstrap are later work
+workspace switcher and invite management are later work
 ```
 
 P5.1 UI direction:
@@ -202,6 +204,7 @@ npm run test -- --run src/App.test.tsx src/auth/AuthProvider.test.tsx src/api/cl
 ```text
 demo role switcher is for local/mock auth only
 provider login UI is only a shell; no OAuth callback UI or workspace switcher UI yet
+provider users without CLARA workspace membership are blocked before product data is loaded
 mock AI draft provider only
 simulated reply send provider only
 provider mode still depends on backend membership resolution before any product data is allowed
