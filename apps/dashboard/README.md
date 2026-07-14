@@ -26,6 +26,7 @@ explicit human reply send
 viewer read-only UX
 loading, empty, and error states
 P5.1 Workspace Shell Upgrade adds the dark/gold shell, left sidebar, grouped navigation, topbar, and role-aware navigation labels
+P5.1 final UI regression, accessibility, security, and QA signoff coverage closes the UI upgrade track
 ```
 
 ## Local Setup
@@ -131,6 +132,7 @@ Planned route entries are visible only where they fit the current role and do no
 P5.1-PR-04 moves the authenticated conversation workspace into a dedicated presentational layout for queue, active conversation, customer context, composer, and status visibility.
 P5.1-PR-05 adds safe CRM and Customer Intelligence skeleton panels using existing conversation/customer data only; no CRUD or new API calls.
 P5.1-PR-06 adds safe Action Center, Insight, and Administration placeholder panels with disabled planned controls only.
+P5.1-PR-07 adds final UI regression, accessibility, and security guardrail tests plus QA signoff docs.
 Backend authorization remains the source of truth.
 ```
 

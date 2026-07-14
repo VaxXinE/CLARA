@@ -112,6 +112,7 @@ P5.1-PR-03 now adds a typed role-aware dashboard navigation model with owner, ag
 P5.1-PR-04 now adds a dedicated conversation workspace layout component for queue, active conversation, customer context, composer, and status visibility while keeping App state and backend authorization unchanged
 P5.1-PR-05 now adds presentational CRM and Customer Intelligence skeleton panels with lead stage, owner, follow-up, account category, temperature, and planned route placeholders without new backend APIs or write actions
 P5.1-PR-06 now adds presentational Action Center, Insight, Knowledge, KPI, and Administration placeholder panels with disabled planned controls only and no backend/API changes
+P5.1-PR-07 now closes the P5.1 UI upgrade track with final dashboard regression, accessibility, security guardrail, and QA signoff coverage; P5.1 remains a UI/UX upgrade and does not complete production auth/provider login
 ```
 
 ---
