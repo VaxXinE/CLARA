@@ -190,4 +190,35 @@ describe("AuthProvider", () => {
     });
     expect(screen.getByText("Session: agent@example.test")).toBeInTheDocument();
   });
+
+  it("shows a safe error state when provider session lookup fails", async () => {
+    const client: DashboardAuthClient = {
+      getSession: vi.fn(async () => {
+        throw new Error("Provider unavailable.");
+      }),
+      signIn: vi.fn(async () => {}),
+      signOut: vi.fn(async () => {}),
+      subscribe: vi.fn(() => () => {}),
+    };
+
+    render(
+      <AuthProvider
+        config={{
+          mode: "provider",
+          provider: "supabase",
+          supabaseUrl: "https://example.supabase.test",
+          supabaseAnonKey: "example-anon-key",
+        }}
+        client={client}
+      >
+        <AuthProbe />
+      </AuthProvider>,
+    );
+
+    expect(await screen.findByText("Status: error")).toBeInTheDocument();
+    expect(
+      screen.getByText("Error: Provider unavailable."),
+    ).toBeInTheDocument();
+    expect(screen.getByText("Session: none")).toBeInTheDocument();
+  });
 });

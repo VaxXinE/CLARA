@@ -7,7 +7,7 @@ type LoginPanelProps = {
 };
 
 export function LoginPanel({ loading, error, onSubmit }: LoginPanelProps) {
-  const [email, setEmail] = useState("agent@example.test");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -25,7 +25,8 @@ export function LoginPanel({ loading, error, onSubmit }: LoginPanelProps) {
         <h2>Sign in to CLARA</h2>
         <p className="login-copy">
           Provider mode uses Supabase session handling. The backend still
-          decides workspace access and role permissions.
+          decides workspace access, role permissions, and workspace membership.
+          No product data is loaded before a provider session exists.
         </p>
 
         <form className="login-form" onSubmit={handleSubmit}>
