@@ -35,6 +35,7 @@ Instagram and TikTok readers are safe placeholders in this PR. They detect the h
 - Does not auto-send replies.
 - Does not auto-submit context to ChatGPT.
 - Does not read or store ChatGPT cookies, localStorage, sessionStorage, or tokens.
+- P6 final observability/audit handoff keeps the extension bridge user-assisted and excludes provider cookies, raw DOM/HTML, and auto-send behavior.
 
 ## ChatGPT Companion Config
 
@@ -67,6 +68,12 @@ P6 provider readiness policy from repo root:
 
 ```bash
 bash scripts/validate-p6-provider-readiness-policy.sh
+```
+
+P6 final observability/audit validation from repo root:
+
+```bash
+bash scripts/validate-p6-final-observability-audit-runbook.sh
 ```
 
 Build artifacts are intentionally not committed.

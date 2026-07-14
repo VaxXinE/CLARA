@@ -19,7 +19,7 @@ It contains the documentation, architecture, standards, templates, governance, i
 ```text
 Status: MVP slice runnable locally
 Current focus: conversation workspace MVP hardening and runbook accuracy
-Next focus: P5.1 legacy UI upgrade track and production auth rollout
+Next focus: P7 AI Assistant / Automation Layer
 ```
 
 Current MVP implementation:
@@ -46,6 +46,7 @@ P5.1 final UI regression, accessibility, security, and QA signoff coverage now c
 P6 Provider Readiness Matrix and Official Channel Policy now define production-hardening status for Gmail, Webchat, WhatsApp, Instagram, TikTok, Browser Extension Bridge, and ChatGPT Companion before further provider work
 P6 Gmail credential boundary and channel health now expose safe workspace-scoped provider readiness without tokens, secrets, Authorization headers, raw provider payloads, or credential mutation UI
 P6 webhook/outbox hardening now defines fail-closed webhook verification, workspace-scoped dedup/replay, bounded outbound retry, idempotency, and dead_letter behavior before real provider expansion
+P6 final observability, audit trail, production provider runbook, go-live checklist, and P7 handoff now close the production provider/channel hardening phase
 ```
 
 Start here for local usage:
@@ -103,6 +104,12 @@ docs/product/CLARA-P6-CHANNEL-HEALTH-RUNBOOK.md
 docs/product/CLARA-P6-WEBHOOK-HARDENING-SPEC.md
 docs/product/CLARA-P6-OUTBOX-RETRY-IDEMPOTENCY-SPEC.md
 docs/product/CLARA-P6-WEBHOOK-OUTBOX-RUNBOOK.md
+docs/product/CLARA-P6-OBSERVABILITY-SPEC.md
+docs/product/CLARA-P6-AUDIT-TRAIL-SPEC.md
+docs/product/CLARA-P6-FINAL-SECURITY-AUDIT.md
+docs/product/CLARA-P6-PRODUCTION-PROVIDER-RUNBOOK.md
+docs/product/CLARA-P6-GO-LIVE-CHECKLIST.md
+docs/product/CLARA-P6-TO-P7-HANDOFF.md
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-README-RUNBOOK/
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-DEMO-SCRIPT/
 docs/product/CLARA-P3-EMAIL-PROVIDER-INTEGRATION-DECISION.md

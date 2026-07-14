@@ -23,6 +23,7 @@ read-only channel/provider health visibility for Gmail, Webchat, WhatsApp, Insta
 read-only Gmail outbound delivery status visibility after a send response includes an outbound delivery id
 read-only Webchat outbound delivery status visibility after a Webchat reply send response includes an outbound delivery id
 read-only user/role management readiness panel for owner sessions
+P6 final observability remains documentation/policy only; dashboard does not expose provider tokens, raw payloads, or analytics charts
 AI draft generation
 explicit human reply send
 viewer read-only UX
