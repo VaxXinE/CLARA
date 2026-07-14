@@ -229,6 +229,35 @@ export type GmailSchedulerStatusResponse = {
   data: GmailSchedulerStatus;
 };
 
+export type ChannelHealthStatus =
+  | "connected"
+  | "disconnected"
+  | "degraded"
+  | "auth_required"
+  | "rate_limited"
+  | "error"
+  | "simulated_only"
+  | "unsupported";
+
+export type ChannelHealthItem = {
+  channel: string;
+  provider: string;
+  status: ChannelHealthStatus;
+  readinessLevel: "production" | "simulated" | "planned";
+  workspaceId: string;
+  accountId: string | null;
+  safeSummary: string;
+  safeReasonCode: string;
+  lastCheckedAt: string | null;
+  nextRecommendedAction: string;
+};
+
+export type ChannelHealthResponse = {
+  data: {
+    items: ChannelHealthItem[];
+  };
+};
+
 export type WorkspaceMember = {
   user_id: string;
   display_name: string;

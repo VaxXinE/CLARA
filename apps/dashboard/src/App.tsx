@@ -3,6 +3,7 @@ import { ApiClient, ApiClientError } from "./api/client";
 import type {
   ActivityResponse,
   AiDraftResponse,
+  ChannelHealthItem,
   ConversationDetailResponse,
   ConversationListResponse,
   CustomerProfileResponse,
@@ -128,6 +129,9 @@ function WorkspaceAppShell() {
   >([]);
   const [gmailSchedulerStatus, setGmailSchedulerStatus] =
     useState<GmailSchedulerStatus | null>(null);
+  const [channelHealthItems, setChannelHealthItems] = useState<
+    ChannelHealthItem[]
+  >([]);
   const [gmailOutboundStatus, setGmailOutboundStatus] =
     useState<GmailOutboundDeliveryStatus | null>(null);
   const [webchatOutboundStatus, setWebchatOutboundStatus] =
@@ -158,6 +162,10 @@ function WorkspaceAppShell() {
   const [activityError, setActivityError] = useState<string | null>(null);
   const [gmailSchedulerLoading, setGmailSchedulerLoading] = useState(false);
   const [gmailSchedulerError, setGmailSchedulerError] = useState<string | null>(
+    null,
+  );
+  const [channelHealthLoading, setChannelHealthLoading] = useState(false);
+  const [channelHealthError, setChannelHealthError] = useState<string | null>(
     null,
   );
   const [gmailOutboundStatusLoading, setGmailOutboundStatusLoading] =
@@ -198,6 +206,8 @@ function WorkspaceAppShell() {
       setWorkspaceAccessRequired(null);
       setGmailSchedulerStatus(null);
       setGmailSchedulerError(null);
+      setChannelHealthItems([]);
+      setChannelHealthError(null);
       setGmailOutboundStatus(null);
       setGmailOutboundStatusError(null);
       setWebchatOutboundStatus(null);
@@ -425,6 +435,59 @@ function WorkspaceAppShell() {
     auth.session?.accessToken,
     auth.status,
     me?.user.role,
+    selectedRole,
+  ]);
+
+  useEffect(() => {
+    if (auth.status !== "authenticated" || !me) {
+      setChannelHealthItems([]);
+      setChannelHealthLoading(false);
+      setChannelHealthError(null);
+      return;
+    }
+
+    let cancelled = false;
+
+    async function loadChannelHealth() {
+      const client = buildClient({
+        authMode: auth.config.mode,
+        role: selectedRole,
+        accessToken: auth.session?.accessToken ?? null,
+      });
+
+      setChannelHealthLoading(true);
+      setChannelHealthError(null);
+
+      try {
+        const response = await client.getChannelHealth();
+
+        if (!cancelled) {
+          setChannelHealthItems(response.data.items);
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setChannelHealthItems([]);
+          setChannelHealthError(
+            toSafeMessage(error, "Channel health is unavailable."),
+          );
+        }
+      } finally {
+        if (!cancelled) {
+          setChannelHealthLoading(false);
+        }
+      }
+    }
+
+    void loadChannelHealth();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [
+    auth.config.mode,
+    auth.session?.accessToken,
+    auth.status,
+    me,
     selectedRole,
   ]);
 
@@ -780,6 +843,11 @@ function WorkspaceAppShell() {
           status: gmailSchedulerStatus,
           loading: gmailSchedulerLoading,
           error: gmailSchedulerError,
+        }}
+        channelHealth={{
+          items: channelHealthItems,
+          loading: channelHealthLoading,
+          error: channelHealthError,
         }}
         inbox={{
           conversations,

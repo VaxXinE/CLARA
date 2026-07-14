@@ -138,6 +138,25 @@ const gmailSchedulerStatusResponse = {
   },
 };
 
+const channelHealthResponse = {
+  data: {
+    items: [
+      {
+        channel: "email",
+        provider: "gmail",
+        status: "connected",
+        readinessLevel: "production",
+        workspaceId: "wks_demo_sales",
+        accountId: "channel_account_demo_gmail",
+        safeSummary: "Demo Gmail is connected.",
+        safeReasonCode: "connected",
+        lastCheckedAt: null,
+        nextRecommendedAction: "No action required.",
+      },
+    ],
+  },
+};
+
 function jsonResponse(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {
     status,
@@ -225,6 +244,10 @@ describe("App", () => {
 
       if (url.includes("/api/v1/me")) {
         return jsonResponse(meResponse({ role: "viewer", method: "mock" }));
+      }
+
+      if (url.includes("/api/v1/channels/health")) {
+        return jsonResponse(channelHealthResponse);
       }
 
       if (url.includes("/api/v1/conversations/conv_demo_budi_stock/activity")) {
@@ -318,6 +341,10 @@ describe("App", () => {
 
         if (url.includes("/api/v1/integrations/gmail/scheduler/status")) {
           return jsonResponse(gmailSchedulerStatusResponse);
+        }
+
+        if (url.includes("/api/v1/channels/health")) {
+          return jsonResponse(channelHealthResponse);
         }
 
         if (

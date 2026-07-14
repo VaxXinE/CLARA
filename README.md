@@ -44,6 +44,7 @@ P5.1 now positions CLARA v2 as the production-ready upgrade of project_Clara and
 P5.1 Workspace Shell Upgrade now gives the dashboard a dark/gold operator shell with left sidebar, topbar, grouped navigation, and mobile menu behavior
 P5.1 final UI regression, accessibility, security, and QA signoff coverage now closes the UI upgrade track
 P6 Provider Readiness Matrix and Official Channel Policy now define production-hardening status for Gmail, Webchat, WhatsApp, Instagram, TikTok, Browser Extension Bridge, and ChatGPT Companion before further provider work
+P6 Gmail credential boundary and channel health now expose safe workspace-scoped provider readiness without tokens, secrets, Authorization headers, raw provider payloads, or credential mutation UI
 ```
 
 Start here for local usage:
@@ -95,6 +96,9 @@ docs/product/CLARA-P6-PROVIDER-HARDENING-PLAN.md
 docs/product/CLARA-P6-PROVIDER-READINESS-MATRIX.md
 docs/product/CLARA-P6-OFFICIAL-CHANNEL-POLICY.md
 docs/product/CLARA-P6-EXTENSION-BRIDGE-BOUNDARY.md
+docs/product/CLARA-P6-GMAIL-CREDENTIAL-BOUNDARY-SPEC.md
+docs/product/CLARA-P6-CHANNEL-HEALTH-SPEC.md
+docs/product/CLARA-P6-CHANNEL-HEALTH-RUNBOOK.md
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-README-RUNBOOK/
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-DEMO-SCRIPT/
 docs/product/CLARA-P3-EMAIL-PROVIDER-INTEGRATION-DECISION.md
