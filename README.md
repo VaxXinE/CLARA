@@ -38,6 +38,7 @@ P5 production auth foundation is now documented as the next fail-closed provider
 P5 dashboard provider login flow now fails closed without a real provider session and keeps demo mock mode local-only
 P5 workspace membership bootstrap now gates provider-authenticated users through backend CLARA membership before product data loads
 P5 user/role management readiness now exposes owner-only read APIs and a read-only dashboard panel for future access control without invite/update/delete mutations
+P5 runtime config doctor and production smoke scripts now validate dangerous production config without deploying or printing secrets
 P5.1 now positions CLARA v2 as the production-ready upgrade of project_Clara and documents the legacy UI audit, route map, role/navigation map, design system contract, and UI migration security rules
 P5.1 Workspace Shell Upgrade now gives the dashboard a dark/gold operator shell with left sidebar, topbar, grouped navigation, and mobile menu behavior
 P5.1 final UI regression, accessibility, security, and QA signoff coverage now closes the UI upgrade track
@@ -71,6 +72,8 @@ docs/product/CLARA-P5-PRODUCTION-AUTH-FOUNDATION-SPEC.md
 docs/product/CLARA-P5-DASHBOARD-PROVIDER-AUTH-UX-SPEC.md
 docs/product/CLARA-P5-WORKSPACE-MEMBERSHIP-BOOTSTRAP-SPEC.md
 docs/product/CLARA-P5-USER-ROLE-MANAGEMENT-READINESS-SPEC.md
+docs/product/CLARA-P5-RUNTIME-CONFIG-DOCTOR-SPEC.md
+docs/product/CLARA-P5-PRODUCTION-DEPLOYMENT-SMOKE-RUNBOOK.md
 docs/product/CLARA-P51-LEGACY-UI-UPGRADE-POSITIONING.md
 docs/product/CLARA-P51-LEGACY-UI-AUDIT.md
 docs/product/CLARA-P51-DESIGN-SYSTEM-CONTRACT.md

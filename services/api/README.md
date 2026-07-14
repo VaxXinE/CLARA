@@ -235,6 +235,19 @@ npm run db:ready
 npm audit --omit=dev --audit-level=high
 ```
 
+Production config doctor:
+
+```bash
+node --import tsx src/config/runtime-config-doctor-cli.ts
+```
+
+Repo-level production smoke:
+
+```bash
+bash scripts/validate-production-runtime-config.sh
+bash scripts/production-smoke-check.sh
+```
+
 Docker validation:
 
 ```bash
