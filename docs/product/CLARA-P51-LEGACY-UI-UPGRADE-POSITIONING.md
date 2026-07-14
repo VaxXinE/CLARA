@@ -12,7 +12,7 @@ P5.1 starts the Legacy UI Upgrade Track.
 
 `project_Clara` is a product and UX reference only. CLARA v2 is the production-ready upgrade that keeps the current API, security, auth, test, audit, and provider-boundary foundation.
 
-The p51 legacy ui gate is documentation and contract only; shell implementation comes later.
+The p5.1 legacy ui gate is documentation and contract only; shell implementation comes later.
 
 ## Product Position
 
