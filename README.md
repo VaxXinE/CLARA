@@ -47,6 +47,7 @@ P6 Provider Readiness Matrix and Official Channel Policy now define production-h
 P6 Gmail credential boundary and channel health now expose safe workspace-scoped provider readiness without tokens, secrets, Authorization headers, raw provider payloads, or credential mutation UI
 P6 webhook/outbox hardening now defines fail-closed webhook verification, workspace-scoped dedup/replay, bounded outbound retry, idempotency, and dead_letter behavior before real provider expansion
 P6 final observability, audit trail, production provider runbook, go-live checklist, and P7 handoff now close the production provider/channel hardening phase
+P7 AI Assistant / Automation Layer is now started with docs and tests for assistant scope, safety, data access, prompt injection, human approval, audit policy, and implementation roadmap
 ```
 
 Start here for local usage:
@@ -110,6 +111,13 @@ docs/product/CLARA-P6-FINAL-SECURITY-AUDIT.md
 docs/product/CLARA-P6-PRODUCTION-PROVIDER-RUNBOOK.md
 docs/product/CLARA-P6-GO-LIVE-CHECKLIST.md
 docs/product/CLARA-P6-TO-P7-HANDOFF.md
+docs/product/CLARA-P7-AI-ASSISTANT-SCOPE.md
+docs/product/CLARA-P7-AI-SAFETY-POLICY.md
+docs/product/CLARA-P7-AI-DATA-ACCESS-POLICY.md
+docs/product/CLARA-P7-PROMPT-INJECTION-POLICY.md
+docs/product/CLARA-P7-HUMAN-APPROVAL-POLICY.md
+docs/product/CLARA-P7-AI-AUDIT-POLICY.md
+docs/product/CLARA-P7-IMPLEMENTATION-ROADMAP.md
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-README-RUNBOOK/
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-DEMO-SCRIPT/
 docs/product/CLARA-P3-EMAIL-PROVIDER-INTEGRATION-DECISION.md
