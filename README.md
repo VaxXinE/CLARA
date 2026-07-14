@@ -37,6 +37,7 @@ P4.5 Extension Bridge final regression/runbook coverage is now documented for op
 P5 production auth foundation is now documented as the next fail-closed provider-mode contract before real login/workspace UX
 P5.1 now positions CLARA v2 as the production-ready upgrade of project_Clara and documents the legacy UI audit, route map, role/navigation map, design system contract, and UI migration security rules
 P5.1 Workspace Shell Upgrade now gives the dashboard a dark/gold operator shell with left sidebar, topbar, grouped navigation, and mobile menu behavior
+P5.1 final UI regression, accessibility, security, and QA signoff coverage now closes the UI upgrade track
 ```
 
 Start here for local usage:
@@ -73,6 +74,10 @@ docs/product/CLARA-P51-ROUTE-MIGRATION-MAP.md
 docs/product/CLARA-P51-ROLE-NAVIGATION-MIGRATION-MAP.md
 docs/product/CLARA-P51-UI-MIGRATION-SECURITY-RULES.md
 docs/product/CLARA-P51-DASHBOARD-SHELL-ACCEPTANCE-CRITERIA.md
+docs/product/CLARA-P51-FINAL-UI-REGRESSION-RUNBOOK.md
+docs/product/CLARA-P51-FINAL-ACCESSIBILITY-CHECKLIST.md
+docs/product/CLARA-P51-FINAL-SECURITY-CHECKLIST.md
+docs/product/CLARA-P51-FINAL-QA-SIGNOFF.md
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-README-RUNBOOK/
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-DEMO-SCRIPT/
 docs/product/CLARA-P3-EMAIL-PROVIDER-INTEGRATION-DECISION.md
