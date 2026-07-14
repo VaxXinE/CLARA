@@ -105,6 +105,7 @@ multi-channel registry and channel account read foundation now exposes safe Gmai
 P4.5 extension auto-sync engine now exists as a local TypeScript package for visible active-conversation snapshot sync to the backend intake route
 P4.5 ChatGPT Companion safe context builder now exists as extension-side bounded preview/copy/open helpers without ChatGPT token storage or auto-submit
 P4.5 final regression runbook, operator runbook, security checklist, and final backend/extension regression tests now mark Extension Bridge complete for operator-assisted active-conversation workflows
+P5 production auth foundation docs now define provider-mode, dashboard auth UX, workspace membership, and owner bootstrap contracts before full login/workspace UI implementation
 ```
 
 ---
@@ -148,7 +149,7 @@ It does not yet prove real-world provider behavior, delivery reliability, or pro
 Not production-ready:
 
 ```text
-no production authentication provider
+no production authentication provider UI or workspace switcher yet; P5 now documents the fail-closed provider-mode and membership contract
 no real session/token lifecycle
 no real outbound channel adapter
 no webhook ingestion or delivery status reconciliation

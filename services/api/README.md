@@ -20,6 +20,7 @@ Current auth baseline:
 AUTH_MODE=mock for local/demo/test
 AUTH_MODE=provider for production-auth validation and fail-closed smoke checks
 backend remains the source of truth for authorization
+P5 production auth foundation now documents provider-mode, workspace membership, owner bootstrap, and dashboard contract boundaries
 ```
 
 Current Gmail provider baseline:
@@ -729,6 +730,7 @@ viewer -> read-only; cannot generate AI draft or send reply
 ```
 
 Mock auth is for local/demo/test only and must not be treated as a production auth solution.
+P5 auth foundation reference: `docs/product/CLARA-P5-PRODUCTION-AUTH-FOUNDATION-SPEC.md`.
 
 Provider mode is now the production-auth foundation path:
 
