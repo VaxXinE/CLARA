@@ -873,6 +873,7 @@ From repo root:
 
 ```bash
 bash scripts/validate-repo-structure.sh
+bash scripts/validate-p5-final-security-audit.sh
 ```
 
 Together with the dashboard:
@@ -890,5 +891,5 @@ mock auth only
 mock AI draft provider only
 simulated reply send provider only
 no real WhatsApp/Instagram/TikTok/email integration yet
-provider auth verification not implemented yet
+production provider auth requires configured issuer/JWKS plus active CLARA workspace membership
 ```
