@@ -56,6 +56,7 @@ P6 Provider Readiness Matrix clarifies that Gmail/Webchat/WhatsApp still require
 P6 Official Channel Policy blocks scraping, session-cookie reuse, browser automation, QR/session hijacking, and unofficial provider clients as production strategies
 P6 Gmail credential boundary keeps access tokens, refresh tokens, client secrets, Authorization headers, and raw provider payloads behind backend-only boundaries
 P6 channel health exposes read-only workspace-scoped connected/disconnected/degraded/auth_required/rate_limited statuses for operator visibility
+P6 webhook/outbox hardening defines fail-closed webhook verification, workspace-scoped dedup/replay, bounded Retry, Idempotency, no raw provider payload handling, no double-send, and `dead_letter` lifecycle behavior
 channel account reads are scoped by backend AuthContext and never trust client-provided organization_id or workspace_id
 responses never include provider secrets, tokens, Authorization headers, raw provider payloads, or raw provider errors
 multi-channel audit metadata is allowlisted and must not include message bodies, cookies, Authorization headers, tokens, secrets, raw provider payloads, or raw provider errors

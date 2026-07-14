@@ -120,6 +120,7 @@ P5.1-PR-06 now adds presentational Action Center, Insight, Knowledge, KPI, and A
 P5.1-PR-07 now closes the P5.1 UI upgrade track with final dashboard regression, accessibility, security guardrail, and QA signoff coverage; P5.1 remains a UI/UX upgrade and does not complete production auth/provider login
 P6-PR-01 now starts production provider/channel hardening with a Provider Readiness Matrix, Official Channel Policy, Extension Bridge Boundary, and validator; no real provider integration is added in this PR
 P6-PR-02 now adds Gmail credential boundary checks and read-only Channel Health visibility so operators can see workspace-scoped connected/disconnected/degraded/auth_required/rate_limited status without access tokens, refresh tokens, Authorization headers, raw provider payloads, or credential mutation controls
+P6-PR-03 now adds Webhook Hardening plus Outbox Retry and Idempotency policy coverage for fail-closed verification, dedup/replay, bounded retry, `dead_letter`, no raw provider payload exposure, no double-send, backend AuthContext, and workspace-scoped provider boundaries
 ```
 
 ---

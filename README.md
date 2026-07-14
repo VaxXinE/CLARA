@@ -45,6 +45,7 @@ P5.1 Workspace Shell Upgrade now gives the dashboard a dark/gold operator shell 
 P5.1 final UI regression, accessibility, security, and QA signoff coverage now closes the UI upgrade track
 P6 Provider Readiness Matrix and Official Channel Policy now define production-hardening status for Gmail, Webchat, WhatsApp, Instagram, TikTok, Browser Extension Bridge, and ChatGPT Companion before further provider work
 P6 Gmail credential boundary and channel health now expose safe workspace-scoped provider readiness without tokens, secrets, Authorization headers, raw provider payloads, or credential mutation UI
+P6 webhook/outbox hardening now defines fail-closed webhook verification, workspace-scoped dedup/replay, bounded outbound retry, idempotency, and dead_letter behavior before real provider expansion
 ```
 
 Start here for local usage:
@@ -99,6 +100,9 @@ docs/product/CLARA-P6-EXTENSION-BRIDGE-BOUNDARY.md
 docs/product/CLARA-P6-GMAIL-CREDENTIAL-BOUNDARY-SPEC.md
 docs/product/CLARA-P6-CHANNEL-HEALTH-SPEC.md
 docs/product/CLARA-P6-CHANNEL-HEALTH-RUNBOOK.md
+docs/product/CLARA-P6-WEBHOOK-HARDENING-SPEC.md
+docs/product/CLARA-P6-OUTBOX-RETRY-IDEMPOTENCY-SPEC.md
+docs/product/CLARA-P6-WEBHOOK-OUTBOX-RUNBOOK.md
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-README-RUNBOOK/
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-DEMO-SCRIPT/
 docs/product/CLARA-P3-EMAIL-PROVIDER-INTEGRATION-DECISION.md
