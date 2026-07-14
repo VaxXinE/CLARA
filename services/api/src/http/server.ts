@@ -234,6 +234,7 @@ export async function createServer(
       authProvider,
       services.channelRegistry,
       services.channelAccounts,
+      services.channelHealth,
     );
   }
   if (services.webchatInbound) {

@@ -163,6 +163,48 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("refresh_token");
   });
 
+  it("loads channel health safely", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        data: {
+          items: [
+            {
+              channel: "email",
+              provider: "gmail",
+              status: "connected",
+              readinessLevel: "production",
+              workspaceId: "wks_demo_sales",
+              accountId: "channel_account_demo_gmail",
+              safeSummary: "Demo Gmail is connected.",
+              safeReasonCode: "connected",
+              lastCheckedAt: null,
+              nextRecommendedAction: "No action required.",
+            },
+          ],
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({
+      baseUrl: "http://127.0.0.1:3000",
+    });
+
+    const response = await client.getChannelHealth();
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/channels/health",
+      expect.any(Object),
+    );
+    expect(response.data.items[0]).toMatchObject({
+      provider: "gmail",
+      safeReasonCode: "connected",
+    });
+    expect(JSON.stringify(response)).not.toContain("access_token");
+    expect(JSON.stringify(response)).not.toContain("refresh_token");
+    expect(JSON.stringify(response)).not.toContain("Authorization");
+    expect(JSON.stringify(response)).not.toContain("raw_provider_payload");
+  });
+
   it("loads Gmail outbound delivery status safely", async () => {
     const fetchMock = vi.fn(async () =>
       jsonResponse({

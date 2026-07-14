@@ -2,6 +2,7 @@ import type {
   ActivityResponse,
   AiDraftResponse,
   ApiErrorResponse,
+  ChannelHealthResponse,
   ConversationDetailResponse,
   ConversationListResponse,
   CustomerProfileResponse,
@@ -144,6 +145,10 @@ export class ApiClient {
     return this.request<GmailSchedulerStatusResponse>(
       "/api/v1/integrations/gmail/scheduler/status",
     );
+  }
+
+  async getChannelHealth(): Promise<ChannelHealthResponse> {
+    return this.request<ChannelHealthResponse>("/api/v1/channels/health");
   }
 
   async getRoleManagementReadiness(): Promise<RoleManagementReadinessResponse> {

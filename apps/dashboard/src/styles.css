@@ -273,6 +273,8 @@ button {
 
 .workspace-status-strip {
   grid-column: 1 / -1;
+  display: grid;
+  gap: 20px;
 }
 
 .workspace-crm-column,

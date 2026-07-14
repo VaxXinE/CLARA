@@ -24,6 +24,7 @@ import { UserRoleManagementService } from "../auth/user-role-management-service"
 import { ChannelAccountService } from "../channels/channel-account-service";
 import { DrizzleChannelAccountRepository } from "../channels/channel-account-db-repository";
 import { FixtureChannelAccountRepository } from "../channels/channel-account-repository";
+import { ChannelHealthService } from "../channels/channel-health-service";
 import { ChannelRegistryService } from "../channels/channel-registry-service";
 import { DrizzleWebchatInboundRepository } from "../channels/webchat/webchat-inbound-db-repository";
 import { WebchatInboundMaterializationService } from "../channels/webchat/webchat-inbound-materialization-service";
@@ -65,6 +66,7 @@ export type AppServices = {
   replies: ReplyService;
   channelRegistry?: ChannelRegistryService;
   channelAccounts?: ChannelAccountService;
+  channelHealth?: ChannelHealthService;
   webchatInbound?: WebchatInboundMaterializationService;
   webchatReply?: WebchatReplySendService;
   whatsappInbound?: WhatsappInboundMaterializationService;
@@ -133,6 +135,9 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         ),
         channelRegistry: new ChannelRegistryService(),
         channelAccounts: new ChannelAccountService(channelAccountRepository),
+        channelHealth: new ChannelHealthService(
+          new ChannelAccountService(channelAccountRepository),
+        ),
         webchatInbound: new WebchatInboundMaterializationService(
           channelAccountRepository,
           new WebchatInboundPersistenceService(
@@ -224,6 +229,9 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
       ),
       channelRegistry: new ChannelRegistryService(),
       channelAccounts: new ChannelAccountService(channelAccountRepository),
+      channelHealth: new ChannelHealthService(
+        new ChannelAccountService(channelAccountRepository),
+      ),
       webchatInbound: new WebchatInboundMaterializationService(
         channelAccountRepository,
         new WebchatInboundPersistenceService(

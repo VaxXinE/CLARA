@@ -19,6 +19,7 @@ conversation source badge for email/Gmail/channel labels
 customer profile sidebar
 activity timeline
 read-only Gmail scheduler status visibility
+read-only channel/provider health visibility for Gmail, Webchat, WhatsApp, Instagram, and TikTok
 read-only Gmail outbound delivery status visibility after a send response includes an outbound delivery id
 read-only Webchat outbound delivery status visibility after a Webchat reply send response includes an outbound delivery id
 read-only user/role management readiness panel for owner sessions

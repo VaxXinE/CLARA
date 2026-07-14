@@ -3,11 +3,13 @@ import { ActionInsightAdminWorkspace } from "./ActionInsightAdminWorkspace";
 import { ConversationPane } from "./ConversationPane";
 import { CrmCustomerWorkspace } from "./CrmCustomerWorkspace";
 import { CustomerSidebar } from "./CustomerSidebar";
+import { ChannelHealthPanel } from "./ChannelHealthPanel";
 import { GmailSchedulerStatusPanel } from "./GmailSchedulerStatusPanel";
 import { InboxPanel } from "./InboxPanel";
 
 type ConversationWorkspaceProps = {
   scheduler: ComponentProps<typeof GmailSchedulerStatusPanel>;
+  channelHealth?: ComponentProps<typeof ChannelHealthPanel>;
   inbox: ComponentProps<typeof InboxPanel>;
   conversation: ComponentProps<typeof ConversationPane>;
   customer: ComponentProps<typeof CustomerSidebar>;
@@ -25,6 +27,11 @@ export function ConversationWorkspace(props: ConversationWorkspaceProps) {
     >
       <div className="workspace-status-strip">
         <GmailSchedulerStatusPanel {...props.scheduler} />
+        <ChannelHealthPanel
+          items={props.channelHealth?.items ?? []}
+          loading={props.channelHealth?.loading ?? false}
+          error={props.channelHealth?.error ?? null}
+        />
       </div>
 
       <div className="workspace-queue-column" aria-label="Queue inbox">

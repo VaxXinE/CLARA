@@ -5,6 +5,7 @@ import { getAuthContext } from "../../auth/auth-context";
 import { requireAuth } from "../../auth/require-auth";
 import { ValidationError } from "../../errors/app-error";
 import type { ChannelAccountService } from "../../channels/channel-account-service";
+import type { ChannelHealthService } from "../../channels/channel-health-service";
 import type { ChannelRegistryService } from "../../channels/channel-registry-service";
 
 const channelAccountIdSchema = z
@@ -35,6 +36,7 @@ export async function registerChannelRoutes(
   authProvider: AuthProvider,
   registry: ChannelRegistryService,
   accounts: ChannelAccountService,
+  health?: ChannelHealthService,
 ): Promise<void> {
   app.get("/api/v1/channels/capabilities", {
     preHandler: requireAuth(authProvider),
@@ -52,6 +54,16 @@ export async function registerChannelRoutes(
         auth: getAuthContext(request),
       }),
   });
+
+  if (health) {
+    app.get("/api/v1/channels/health", {
+      preHandler: requireAuth(authProvider),
+      handler: async (request) =>
+        health.listHealth({
+          auth: getAuthContext(request),
+        }),
+    });
+  }
 
   app.get<{ Params: { channelAccountId: string } }>(
     "/api/v1/channels/accounts/:channelAccountId",
