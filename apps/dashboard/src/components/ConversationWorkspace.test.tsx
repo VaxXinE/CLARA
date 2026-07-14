@@ -157,6 +157,9 @@ describe("ConversationWorkspace", () => {
     expect(screen.getByText("Reply composer")).toBeInTheDocument();
     expect(screen.getByText("Lead workspace preview")).toBeInTheDocument();
     expect(screen.getByText("Customer workspace preview")).toBeInTheDocument();
+    expect(screen.getByText("Follow-up workspace preview")).toBeInTheDocument();
+    expect(screen.getByText("Insight workspace preview")).toBeInTheDocument();
+    expect(screen.getByText("Access workspace preview")).toBeInTheDocument();
   });
 
   it("renders loading, empty, and error states without fetching data", () => {

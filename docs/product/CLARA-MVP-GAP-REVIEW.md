@@ -111,6 +111,7 @@ P5.1-PR-02 now adds the first dashboard workspace shell upgrade with dark/gold v
 P5.1-PR-03 now adds a typed role-aware dashboard navigation model with owner, agent, viewer, and future sales/manager/head/superadmin compatibility while keeping backend authorization as the source of truth
 P5.1-PR-04 now adds a dedicated conversation workspace layout component for queue, active conversation, customer context, composer, and status visibility while keeping App state and backend authorization unchanged
 P5.1-PR-05 now adds presentational CRM and Customer Intelligence skeleton panels with lead stage, owner, follow-up, account category, temperature, and planned route placeholders without new backend APIs or write actions
+P5.1-PR-06 now adds presentational Action Center, Insight, Knowledge, KPI, and Administration placeholder panels with disabled planned controls only and no backend/API changes
 ```
 
 ---

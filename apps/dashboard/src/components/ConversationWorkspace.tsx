@@ -1,4 +1,5 @@
 import type { ComponentProps } from "react";
+import { ActionInsightAdminWorkspace } from "./ActionInsightAdminWorkspace";
 import { ConversationPane } from "./ConversationPane";
 import { CrmCustomerWorkspace } from "./CrmCustomerWorkspace";
 import { CustomerSidebar } from "./CustomerSidebar";
@@ -13,6 +14,9 @@ type ConversationWorkspaceProps = {
 };
 
 export function ConversationWorkspace(props: ConversationWorkspaceProps) {
+  const readOnly =
+    !props.conversation.canGenerateDraft && !props.conversation.canSendReply;
+
   return (
     <section
       className="conversation-workspace"
@@ -41,11 +45,12 @@ export function ConversationWorkspace(props: ConversationWorkspaceProps) {
         <CrmCustomerWorkspace
           conversation={props.conversation.conversation}
           customer={props.customer.customer}
-          readOnly={
-            !props.conversation.canGenerateDraft &&
-            !props.conversation.canSendReply
-          }
+          readOnly={readOnly}
         />
+      </div>
+
+      <div className="workspace-action-column">
+        <ActionInsightAdminWorkspace readOnly={readOnly} />
       </div>
     </section>
   );
