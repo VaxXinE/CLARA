@@ -94,6 +94,9 @@ describe("ApiClient auth headers", () => {
 
     expect(headers.authorization).toBe("Bearer provider-access-token");
     expect(headers["x-mock-user-id"]).toBeUndefined();
+    expect(headers["x-mock-organization-id"]).toBeUndefined();
+    expect(headers["x-mock-workspace-id"]).toBeUndefined();
+    expect(headers["x-mock-role"]).toBeUndefined();
   });
 
   it("does not attach fake bearer headers when the token provider returns empty", async () => {

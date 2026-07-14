@@ -117,8 +117,10 @@ provider session shell renders a login form when no session exists
 dashboard does not load conversation data until a provider session exists
 frontend only sends provider access_token as a bearer token
 frontend never invents a bearer token when no session exists
+sign out is delegated to the provider auth client abstraction
+misconfigured provider auth fails closed instead of falling back to demo mode
 backend still decides role, organization, and workspace from authenticated context
-P5 keeps this as a contract only; full login UX and workspace switcher are later work
+P5-PR-02 implements the dashboard-side provider login/session flow; workspace switcher and membership bootstrap are later work
 ```
 
 P5.1 UI direction:
@@ -163,6 +165,8 @@ docker compose -f docker-compose.prod.example.yml config
 - Backend authorization remains the source of truth.
 - Mock auth in the dashboard is for local/demo only.
 - Provider auth in the dashboard is a session shell only; backend still decides authorization.
+- Provider mode must not load protected product data before a real provider session exists.
+- Provider mode must not invent bearer tokens or send client-provided role/workspace authority.
 - Customer/user-generated content is rendered as plain text only.
 - AI drafts are visibly labeled as drafts and require human review.
 - Send action always requires explicit human click.

@@ -33,4 +33,33 @@ describe("dashboard auth config", () => {
     expect(serialized).not.toContain(privilegedKeyLabel);
     expect(serialized).not.toContain(["client", "secret"].join("_"));
   });
+
+  it("rejects privileged provider key names in frontend config", () => {
+    const privilegedKeyName = ["VITE_SUPABASE", "SERVICE", "ROLE", "KEY"].join(
+      "_",
+    );
+
+    expect(() =>
+      readDashboardAuthConfig({
+        VITE_AUTH_MODE: "provider",
+        VITE_SUPABASE_URL: "https://example.supabase.test",
+        VITE_SUPABASE_ANON_KEY: "public-anon-key-only",
+        [privilegedKeyName]: "not-allowed",
+      }),
+    ).toThrow("privileged provider keys are not allowed");
+  });
+
+  it("rejects privileged provider key values in frontend config", () => {
+    const privilegedKeyValue = ["example", "service", "role", "value"].join(
+      "_",
+    );
+
+    expect(() =>
+      readDashboardAuthConfig({
+        VITE_AUTH_MODE: "provider",
+        VITE_SUPABASE_URL: "https://example.supabase.test",
+        VITE_SUPABASE_ANON_KEY: privilegedKeyValue,
+      }),
+    ).toThrow("privileged provider keys are not allowed");
+  });
 });

@@ -17,7 +17,8 @@ import {
   type LoginInput,
 } from "./supabase-auth-client";
 
-export type AuthStatus = "loading" | "authenticated" | "unauthenticated";
+export type AuthStatus =
+  "loading" | "authenticated" | "unauthenticated" | "error";
 
 export type AuthContextValue = {
   config: DashboardAuthConfig;
@@ -96,7 +97,7 @@ export function AuthProvider({
         }
 
         setSession(null);
-        setStatus("unauthenticated");
+        setStatus("error");
         setError(toSafeAuthMessage(loadError));
       }
     }
@@ -133,7 +134,7 @@ export function AuthProvider({
       setStatus(nextSession ? "authenticated" : "unauthenticated");
     } catch (signInError) {
       setSession(null);
-      setStatus("unauthenticated");
+      setStatus("error");
       setError(toSafeAuthMessage(signInError));
       throw signInError;
     }
@@ -151,6 +152,7 @@ export function AuthProvider({
       setSession(null);
       setStatus("unauthenticated");
     } catch (signOutError) {
+      setStatus("error");
       setError(toSafeAuthMessage(signOutError));
       throw signOutError;
     }
