@@ -20,10 +20,7 @@ import {
 } from "./auth/auth-config";
 import type { DashboardAuthClient } from "./auth/supabase-auth-client";
 import { useAuth } from "./auth/useAuth";
-import { ConversationPane } from "./components/ConversationPane";
-import { CustomerSidebar } from "./components/CustomerSidebar";
-import { GmailSchedulerStatusPanel } from "./components/GmailSchedulerStatusPanel";
-import { InboxPanel } from "./components/InboxPanel";
+import { ConversationWorkspace } from "./components/ConversationWorkspace";
 import { LoginPanel } from "./components/LoginPanel";
 import { RoleSwitcher } from "./components/RoleSwitcher";
 import { WorkspaceShell } from "./components/WorkspaceShell";
@@ -652,65 +649,60 @@ function WorkspaceAppShell() {
         </div>
       ) : null}
 
-      <div className="workspace-grid">
-        <GmailSchedulerStatusPanel
-          status={gmailSchedulerStatus}
-          loading={gmailSchedulerLoading}
-          error={gmailSchedulerError}
-        />
-
-        <InboxPanel
-          conversations={conversations}
-          selectedConversationId={selectedConversationId}
-          statusFilter={statusFilter}
-          search={search}
-          loading={listLoading}
-          error={listError}
-          onSearchChange={setSearch}
-          onStatusChange={setStatusFilter}
-          onSelectConversation={(conversationId) =>
+      <ConversationWorkspace
+        scheduler={{
+          status: gmailSchedulerStatus,
+          loading: gmailSchedulerLoading,
+          error: gmailSchedulerError,
+        }}
+        inbox={{
+          conversations,
+          selectedConversationId,
+          statusFilter,
+          search,
+          loading: listLoading,
+          error: listError,
+          onSearchChange: setSearch,
+          onStatusChange: setStatusFilter,
+          onSelectConversation: (conversationId) =>
             startTransition(() => {
               setSelectedConversationId(conversationId);
-            })
-          }
-        />
-
-        <ConversationPane
-          conversation={conversationDetail}
-          loading={detailLoading}
-          error={detailError}
-          composerValue={composerValue}
-          onComposerChange={setComposerValue}
-          onGenerateDraft={handleGenerateDraft}
-          onSendReply={handleSendReply}
-          canGenerateDraft={canGenerateDraft}
-          canSendReply={canSendReply}
-          isGeneratingDraft={isGeneratingDraft}
-          isSendingReply={isSendingReply}
-          composerError={composerError}
-          aiDraftLabel={aiDraftLabel}
-          readOnlyMessage={
+            }),
+        }}
+        conversation={{
+          conversation: conversationDetail,
+          loading: detailLoading,
+          error: detailError,
+          composerValue,
+          onComposerChange: setComposerValue,
+          onGenerateDraft: handleGenerateDraft,
+          onSendReply: handleSendReply,
+          canGenerateDraft,
+          canSendReply,
+          isGeneratingDraft,
+          isSendingReply,
+          composerError,
+          aiDraftLabel,
+          readOnlyMessage:
             me?.user.role === "viewer"
               ? "You have view-only access to this conversation."
-              : null
-          }
-          gmailOutboundStatus={gmailOutboundStatus}
-          gmailOutboundStatusLoading={gmailOutboundStatusLoading}
-          gmailOutboundStatusError={gmailOutboundStatusError}
-          webchatOutboundStatus={webchatOutboundStatus}
-          webchatOutboundStatusLoading={webchatOutboundStatusLoading}
-          webchatOutboundStatusError={webchatOutboundStatusError}
-        />
-
-        <CustomerSidebar
-          customer={customer}
-          customerLoading={customerLoading}
-          customerError={customerError}
-          activity={activityItems}
-          activityLoading={activityLoading}
-          activityError={activityError}
-        />
-      </div>
+              : null,
+          gmailOutboundStatus,
+          gmailOutboundStatusLoading,
+          gmailOutboundStatusError,
+          webchatOutboundStatus,
+          webchatOutboundStatusLoading,
+          webchatOutboundStatusError,
+        }}
+        customer={{
+          customer,
+          customerLoading,
+          customerError,
+          activity: activityItems,
+          activityLoading,
+          activityError,
+        }}
+      />
     </WorkspaceShell>
   );
 }
