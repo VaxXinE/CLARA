@@ -43,6 +43,7 @@ P5 final security audit now closes the production auth/security foundation with 
 P5.1 now positions CLARA v2 as the production-ready upgrade of project_Clara and documents the legacy UI audit, route map, role/navigation map, design system contract, and UI migration security rules
 P5.1 Workspace Shell Upgrade now gives the dashboard a dark/gold operator shell with left sidebar, topbar, grouped navigation, and mobile menu behavior
 P5.1 final UI regression, accessibility, security, and QA signoff coverage now closes the UI upgrade track
+P6 Provider Readiness Matrix and Official Channel Policy now define production-hardening status for Gmail, Webchat, WhatsApp, Instagram, TikTok, Browser Extension Bridge, and ChatGPT Companion before further provider work
 ```
 
 Start here for local usage:
@@ -90,6 +91,10 @@ docs/product/CLARA-P51-FINAL-UI-REGRESSION-RUNBOOK.md
 docs/product/CLARA-P51-FINAL-ACCESSIBILITY-CHECKLIST.md
 docs/product/CLARA-P51-FINAL-SECURITY-CHECKLIST.md
 docs/product/CLARA-P51-FINAL-QA-SIGNOFF.md
+docs/product/CLARA-P6-PROVIDER-HARDENING-PLAN.md
+docs/product/CLARA-P6-PROVIDER-READINESS-MATRIX.md
+docs/product/CLARA-P6-OFFICIAL-CHANNEL-POLICY.md
+docs/product/CLARA-P6-EXTENSION-BRIDGE-BOUNDARY.md
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-README-RUNBOOK/
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-DEMO-SCRIPT/
 docs/product/CLARA-P3-EMAIL-PROVIDER-INTEGRATION-DECISION.md

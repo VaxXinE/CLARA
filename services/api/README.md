@@ -52,6 +52,8 @@ Current multi-channel foundation:
 generic channel capabilities and channel account read APIs now exist
 Gmail, Webchat inbound/reply, and WhatsApp official inbound plus simulated outbound are marked available
 Instagram and TikTok are decision-only planned metadata and require official API/compliance review before implementation
+P6 Provider Readiness Matrix clarifies that Gmail/Webchat/WhatsApp still require production hardening before production provider use
+P6 Official Channel Policy blocks scraping, session-cookie reuse, browser automation, QR/session hijacking, and unofficial provider clients as production strategies
 channel account reads are scoped by backend AuthContext and never trust client-provided organization_id or workspace_id
 responses never include provider secrets, tokens, Authorization headers, raw provider payloads, or raw provider errors
 multi-channel audit metadata is allowlisted and must not include message bodies, cookies, Authorization headers, tokens, secrets, raw provider payloads, or raw provider errors

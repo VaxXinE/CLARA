@@ -27,6 +27,7 @@ Instagram and TikTok readers are safe placeholders in this PR. They detect the h
 ## Security Rules
 
 - Uses CLARA auth only.
+- Browser Extension Bridge is user-assisted only and is not an official provider replacement.
 - Does not read provider cookies, localStorage, sessionStorage, or tokens.
 - Does not send provider auth headers.
 - Does not persist raw DOM, raw HTML, media blobs, or attachment files.
@@ -60,6 +61,12 @@ Final P5 security audit from repo root:
 
 ```bash
 bash scripts/validate-p5-final-security-audit.sh
+```
+
+P6 provider readiness policy from repo root:
+
+```bash
+bash scripts/validate-p6-provider-readiness-policy.sh
 ```
 
 Build artifacts are intentionally not committed.

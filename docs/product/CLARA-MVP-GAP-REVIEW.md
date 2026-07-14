@@ -118,6 +118,7 @@ P5.1-PR-04 now adds a dedicated conversation workspace layout component for queu
 P5.1-PR-05 now adds presentational CRM and Customer Intelligence skeleton panels with lead stage, owner, follow-up, account category, temperature, and planned route placeholders without new backend APIs or write actions
 P5.1-PR-06 now adds presentational Action Center, Insight, Knowledge, KPI, and Administration placeholder panels with disabled planned controls only and no backend/API changes
 P5.1-PR-07 now closes the P5.1 UI upgrade track with final dashboard regression, accessibility, security guardrail, and QA signoff coverage; P5.1 remains a UI/UX upgrade and does not complete production auth/provider login
+P6-PR-01 now starts production provider/channel hardening with a Provider Readiness Matrix, Official Channel Policy, Extension Bridge Boundary, and validator; no real provider integration is added in this PR
 ```
 
 ---
@@ -175,6 +176,7 @@ no production deployment configuration
 no production secret management integration
 no production observability baseline such as metrics, alerts, or SLO evidence
 no real background job or queue model for provider work
+P6-PR-01 documents that Gmail, Webchat, and WhatsApp are production-hardening-required, while Instagram/TikTok are planned-official-api-only and extension/ChatGPT flows are user-assisted only
 ```
 
 Production-readiness blockers:
