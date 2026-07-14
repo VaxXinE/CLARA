@@ -109,6 +109,7 @@ P5 production auth foundation docs now define provider-mode, dashboard auth UX, 
 P5.1 legacy UI upgrade track is now started with project_Clara positioning, legacy UI audit, route migration map, role/navigation map, design system contract, shell acceptance criteria, and UI migration security rules
 P5.1-PR-02 now adds the first dashboard workspace shell upgrade with dark/gold visual language, left sidebar, topbar, grouped navigation, and mobile menu behavior while preserving existing conversation workspace functionality
 P5.1-PR-03 now adds a typed role-aware dashboard navigation model with owner, agent, viewer, and future sales/manager/head/superadmin compatibility while keeping backend authorization as the source of truth
+P5.1-PR-04 now adds a dedicated conversation workspace layout component for queue, active conversation, customer context, composer, and status visibility while keeping App state and backend authorization unchanged
 ```
 
 ---

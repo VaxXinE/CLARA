@@ -128,6 +128,7 @@ The legacy repo is UX/product reference only.
 The current shell preserves the operator-first dark/gold workspace, sidebar, topbar, grouped navigation, and role-aware labels.
 P5.1-PR-03 adds the typed role-aware navigation model for owner, agent, viewer, and future sales/manager/head/superadmin compatibility.
 Planned route entries are visible only where they fit the current role and do not perform full route navigation yet.
+P5.1-PR-04 moves the authenticated conversation workspace into a dedicated presentational layout for queue, active conversation, customer context, composer, and status visibility.
 Backend authorization remains the source of truth.
 ```
 
