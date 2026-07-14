@@ -19,7 +19,7 @@ It contains the documentation, architecture, standards, templates, governance, i
 ```text
 Status: MVP slice runnable locally
 Current focus: conversation workspace MVP hardening and runbook accuracy
-Next focus: production auth and real provider integrations
+Next focus: P5.1 legacy UI upgrade track and production auth rollout
 ```
 
 Current MVP implementation:
@@ -35,6 +35,7 @@ apps/extension now contains the local TypeScript auto-sync engine for visible ac
 apps/extension now contains ChatGPT Companion safe context preview/copy/open helpers without ChatGPT token storage or auto-submit
 P4.5 Extension Bridge final regression/runbook coverage is now documented for operator-assisted active-conversation workflows
 P5 production auth foundation is now documented as the next fail-closed provider-mode contract before real login/workspace UX
+P5.1 now positions CLARA v2 as the production-ready upgrade of project_Clara and documents the legacy UI audit, route map, role/navigation map, design system contract, and UI migration security rules
 ```
 
 Start here for local usage:
@@ -64,6 +65,13 @@ docs/product/CLARA-P45-EXTENSION-BRIDGE-OPERATOR-RUNBOOK.md
 docs/product/CLARA-P5-PRODUCTION-AUTH-FOUNDATION-SPEC.md
 docs/product/CLARA-P5-DASHBOARD-PROVIDER-AUTH-UX-SPEC.md
 docs/product/CLARA-P5-WORKSPACE-MEMBERSHIP-BOOTSTRAP-SPEC.md
+docs/product/CLARA-P51-LEGACY-UI-UPGRADE-POSITIONING.md
+docs/product/CLARA-P51-LEGACY-UI-AUDIT.md
+docs/product/CLARA-P51-DESIGN-SYSTEM-CONTRACT.md
+docs/product/CLARA-P51-ROUTE-MIGRATION-MAP.md
+docs/product/CLARA-P51-ROLE-NAVIGATION-MIGRATION-MAP.md
+docs/product/CLARA-P51-UI-MIGRATION-SECURITY-RULES.md
+docs/product/CLARA-P51-DASHBOARD-SHELL-ACCEPTANCE-CRITERIA.md
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-README-RUNBOOK/
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-DEMO-SCRIPT/
 docs/product/CLARA-P3-EMAIL-PROVIDER-INTEGRATION-DECISION.md

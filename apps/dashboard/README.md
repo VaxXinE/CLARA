@@ -25,6 +25,7 @@ AI draft generation
 explicit human reply send
 viewer read-only UX
 loading, empty, and error states
+P5.1 legacy UI upgrade direction documented for the future dark workspace shell, gold accent, left sidebar, grouped navigation, topbar, and role-aware navigation
 ```
 
 ## Local Setup
@@ -68,6 +69,9 @@ Auth smoke-test reference:
 ```text
 docs/product/CLARA-P2-AUTH-SMOKE-TEST-RUNBOOK.md
 docs/product/CLARA-P5-DASHBOARD-PROVIDER-AUTH-UX-SPEC.md
+docs/product/CLARA-P51-DESIGN-SYSTEM-CONTRACT.md
+docs/product/CLARA-P51-ROUTE-MIGRATION-MAP.md
+docs/product/CLARA-P51-UI-MIGRATION-SECURITY-RULES.md
 ```
 
 ## Environment
@@ -114,6 +118,15 @@ frontend only sends provider access_token as a bearer token
 frontend never invents a bearer token when no session exists
 backend still decides role, organization, and workspace from authenticated context
 P5 keeps this as a contract only; full login UX and workspace switcher are later work
+```
+
+P5.1 UI direction:
+
+```text
+CLARA v2 is the production-ready upgrade of project_Clara.
+The legacy repo is UX/product reference only.
+Future shell work should preserve the operator-first dark/gold workspace, sidebar, topbar, grouped navigation, and role-aware labels.
+Backend authorization remains the source of truth.
 ```
 
 ## Commands
