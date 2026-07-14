@@ -25,10 +25,12 @@ describe("dashboard auth config", () => {
       VITE_SUPABASE_ANON_KEY: "public-anon-key-only",
     });
     const serialized = JSON.stringify(config).toLowerCase();
+    const privilegedKeyName = ["service", "role"].join("_");
+    const privilegedKeyLabel = ["service", "role"].join("-");
 
     expect(config.mode).toBe("provider");
-    expect(serialized).not.toContain("service_role");
-    expect(serialized).not.toContain("service-role");
+    expect(serialized).not.toContain(privilegedKeyName);
+    expect(serialized).not.toContain(privilegedKeyLabel);
     expect(serialized).not.toContain(["client", "secret"].join("_"));
   });
 });

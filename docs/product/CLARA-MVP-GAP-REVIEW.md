@@ -106,6 +106,7 @@ P4.5 extension auto-sync engine now exists as a local TypeScript package for vis
 P4.5 ChatGPT Companion safe context builder now exists as extension-side bounded preview/copy/open helpers without ChatGPT token storage or auto-submit
 P4.5 final regression runbook, operator runbook, security checklist, and final backend/extension regression tests now mark Extension Bridge complete for operator-assisted active-conversation workflows
 P5 production auth foundation docs now define provider-mode, dashboard auth UX, workspace membership, and owner bootstrap contracts before full login/workspace UI implementation
+P5.1 legacy UI upgrade track is now started with project_Clara positioning, legacy UI audit, route migration map, role/navigation map, design system contract, shell acceptance criteria, and UI migration security rules
 ```
 
 ---
@@ -150,6 +151,7 @@ Not production-ready:
 
 ```text
 no production authentication provider UI or workspace switcher yet; P5 now documents the fail-closed provider-mode and membership contract
+no P5.1 production dashboard shell implementation yet; the legacy dark/gold operator workspace, sidebar, topbar, route migration, and role-aware navigation are documented as contracts before UI porting
 no real session/token lifecycle
 no real outbound channel adapter
 no webhook ingestion or delivery status reconciliation
