@@ -1,5 +1,6 @@
 import type { ComponentProps } from "react";
 import { ConversationPane } from "./ConversationPane";
+import { CrmCustomerWorkspace } from "./CrmCustomerWorkspace";
 import { CustomerSidebar } from "./CustomerSidebar";
 import { GmailSchedulerStatusPanel } from "./GmailSchedulerStatusPanel";
 import { InboxPanel } from "./InboxPanel";
@@ -34,6 +35,17 @@ export function ConversationWorkspace(props: ConversationWorkspaceProps) {
 
       <div className="workspace-customer-column" aria-label="Customer context">
         <CustomerSidebar {...props.customer} />
+      </div>
+
+      <div className="workspace-crm-column">
+        <CrmCustomerWorkspace
+          conversation={props.conversation.conversation}
+          customer={props.customer.customer}
+          readOnly={
+            !props.conversation.canGenerateDraft &&
+            !props.conversation.canSendReply
+          }
+        />
       </div>
     </section>
   );
