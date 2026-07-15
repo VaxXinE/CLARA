@@ -20,6 +20,7 @@ const phraseRules: Array<{ phrase: string; flag: string }> = [
   { phrase: "hide action", flag: "hidden_action" },
   { phrase: "pretend sent", flag: "false_completion" },
   { phrase: "claim completed", flag: "false_completion" },
+  { phrase: "claim note updated", flag: "false_completion" },
   { phrase: "change role", flag: "admin_mutation" },
   { phrase: "invite user", flag: "admin_mutation" },
   { phrase: "delete user", flag: "admin_mutation" },

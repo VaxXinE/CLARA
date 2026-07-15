@@ -78,6 +78,15 @@ Security review is required for changes involving:
 - Production access.
 - Audit logs.
 - Sensitive data handling.
+
+## P7 AI Assistant Security Closure
+
+P7 complete means the AI layer remains suggestion-only, review-only, and
+evaluation-only. It uses backend AuthContext, workspace-scoped data access,
+`requiresHumanApproval`, no real LLM provider, no AI SDK, no auto-send, no
+automatic customer note write, no automatic task creation, no automatic
+scheduler, no access token, no refresh token, no cookies, no raw provider
+payload, no raw webhook payload, no raw DOM, and no raw HTML.
 - Billing/entitlements.
 - Admin/superadmin workflows.
 - Data export/import.

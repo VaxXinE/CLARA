@@ -51,6 +51,7 @@ P7 AI Assistant / Automation Layer is now started with docs and tests for assist
 P7 AI Context Builder and Prompt Contract now add pure backend context minimization, untrusted customer content separation, budget enforcement, and prompt contract tests without real AI provider calls
 P7 AI Follow-up Recommendation now adds recommendation-only mock-provider guidance with human approval, no auto-send, no automatic task creation, and no automatic scheduler
 P7 AI Conversation Summary and AI Customer Note Suggestion now add review-only/suggestion-only mock-provider assistance with human approval, no automatic customer note write, and no CRM/customer mutation
+P7 Final AI Assistant Audit now closes the assistant layer with final regression tests, runbooks, incident response, go-live checklist, no real LLM provider, no AI SDK, no auto-send, and a P8 CRM & Workflow Intelligence handoff
 ```
 
 Start here for local usage:
@@ -408,6 +409,11 @@ docs/product/CLARA-P7-AI-DRAFT-REVIEW-SECURITY-RUNBOOK.md
 docs/product/CLARA-P7-AI-AUTOMATION-GUARDRAILS-SPEC.md
 docs/product/CLARA-P7-AI-AUTOMATION-ABUSE-TESTS.md
 docs/product/CLARA-P7-AI-AUTOMATION-SECURITY-RUNBOOK.md
+docs/product/CLARA-P7-FINAL-AI-ASSISTANT-AUDIT.md
+docs/product/CLARA-P7-FINAL-AI-ASSISTANT-RUNBOOK.md
+docs/product/CLARA-P7-AI-INCIDENT-RESPONSE-RUNBOOK.md
+docs/product/CLARA-P7-AI-GO-LIVE-CHECKLIST.md
+docs/product/CLARA-P7-AI-SECURITY-REVIEW.md
 ```
 
 ---
