@@ -1,6 +1,7 @@
 import type {
   ConversationDetail,
   GmailOutboundDeliveryStatus,
+  AiReplySuggestionResponse,
   WebchatOutboundDeliveryStatus,
 } from "../api/types";
 import { ComposerPanel } from "./ComposerPanel";
@@ -23,6 +24,10 @@ type ConversationPaneProps = {
   composerError: string | null;
   aiDraftLabel: string | null;
   readOnlyMessage: string | null;
+  aiReplySuggestion?: AiReplySuggestionResponse["data"]["suggestion"] | null;
+  isGeneratingSuggestion?: boolean;
+  suggestionError?: string | null;
+  onGenerateSuggestion?: () => void;
   gmailOutboundStatus: GmailOutboundDeliveryStatus | null;
   gmailOutboundStatusLoading: boolean;
   gmailOutboundStatusError: string | null;
@@ -148,6 +153,10 @@ export function ConversationPane(props: ConversationPaneProps) {
         error={props.composerError}
         aiDraftLabel={props.aiDraftLabel}
         readOnlyMessage={props.readOnlyMessage}
+        aiReplySuggestion={props.aiReplySuggestion}
+        isGeneratingSuggestion={props.isGeneratingSuggestion}
+        suggestionError={props.suggestionError}
+        onGenerateSuggestion={props.onGenerateSuggestion}
       />
     </section>
   );

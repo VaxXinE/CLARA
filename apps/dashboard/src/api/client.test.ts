@@ -163,6 +163,76 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("refresh_token");
   });
 
+  it("creates an AI reply suggestion without sending a reply", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse(
+        {
+          data: {
+            suggestion: {
+              suggestionId: "ai_suggestion_demo",
+              type: "reply_suggestion",
+              conversationId: "conv_demo",
+              customerId: "cust_demo",
+              suggestedText: "Thanks for reaching out.",
+              summary: "Safe preview.",
+              recommendedNextAction: "Review before sending.",
+              safetyFlags: [],
+              requiresHumanApproval: true,
+              blockedReason: null,
+              safeReasonCode: "ai_suggestion_generated",
+              contextBudgetSummary: {
+                maxMessages: 12,
+                maxMessageChars: 1200,
+                maxSnippetChars: 1200,
+                includedMessages: 1,
+                truncatedMessages: 0,
+                includedSnippets: 0,
+                truncatedSnippets: 0,
+              },
+              policyVersion: "p7-ai-context-v1",
+              createdAt: "2026-01-01T00:00:00.000Z",
+            },
+            ai: {
+              provider: "mock",
+              model: "mock-clara-reply-suggestion-v1",
+            },
+          },
+        },
+        201,
+      ),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({
+      baseUrl: "http://127.0.0.1:3000",
+    });
+
+    const response = await client.createAiReplySuggestion({
+      conversationId: "conv_demo",
+      customerId: "cust_demo",
+      tone: "friendly",
+    });
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/ai/reply-suggestions",
+      expect.objectContaining({
+        method: "POST",
+      }),
+    );
+    const fetchCall = fetchMock.mock.calls[0] as unknown as [
+      string,
+      RequestInit,
+    ];
+    const init = fetchCall[1];
+
+    expect(fetchCall[0]).not.toContain("/reply/");
+    expect(String(init.body)).not.toContain("send");
+    expect(response.data.suggestion.requiresHumanApproval).toBe(true);
+    expect(JSON.stringify(response)).not.toContain("access_token");
+    expect(JSON.stringify(response)).not.toContain("refresh_token");
+    expect(JSON.stringify(response)).not.toContain("Authorization");
+    expect(JSON.stringify(response)).not.toContain("rawHtml");
+  });
+
   it("loads channel health safely", async () => {
     const fetchMock = vi.fn(async () =>
       jsonResponse({

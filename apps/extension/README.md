@@ -38,6 +38,7 @@ Instagram and TikTok readers are safe placeholders in this PR. They detect the h
 - P6 final observability/audit handoff keeps the extension bridge user-assisted and excludes provider cookies, raw DOM/HTML, and auto-send behavior.
 - P7 AI assistant safety scope keeps ChatGPT Companion preview/copy/manual only and does not add auto-submit, auto-send, raw DOM/HTML capture, or provider token access.
 - P7 AI context boundary keeps extension-provided context bounded, manual, and free of cookies, tokens, raw DOM, and raw HTML.
+- P7 AI Reply Suggestion keeps ChatGPT Companion preview/copy/manual only; it does not add auto-submit, auto-send, cookies, tokens, raw DOM, or raw HTML.
 
 ## ChatGPT Companion Config
 
@@ -88,6 +89,13 @@ P7 AI context builder validation from repo root:
 
 ```bash
 bash scripts/validate-p7-ai-context-builder-prompt-contract.sh
+```
+
+P7 AI Reply Suggestion extension boundary:
+
+```bash
+cd apps/extension
+npm run test -- p7-ai-reply-suggestion
 ```
 
 Build artifacts are intentionally not committed.

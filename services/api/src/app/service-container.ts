@@ -11,6 +11,8 @@ import { FixtureAiDraftRepository } from "../ai-drafts/ai-draft-repository";
 import { DrizzleAiDraftRepository } from "../ai-drafts/ai-draft-db-repository";
 import { MockAiDraftProvider } from "../ai-drafts/mock-ai-draft-provider";
 import { AiDraftService } from "../ai-drafts/ai-draft-service";
+import { AiReplySuggestionService } from "../ai/ai-reply-suggestion-service";
+import { MockAiReplySuggestionProvider } from "../ai/mock-ai-reply-suggestion-provider";
 import {
   DrizzleWorkspaceMembershipRepository,
   FixtureWorkspaceMembershipRepository,
@@ -63,6 +65,7 @@ export type AppServices = {
   customers: CustomerQueryService;
   activity: ActivityQueryService;
   aiDrafts: AiDraftService;
+  aiReplySuggestions?: AiReplySuggestionService;
   replies: ReplyService;
   channelRegistry?: ChannelRegistryService;
   channelAccounts?: ChannelAccountService;
@@ -118,6 +121,11 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
           conversationRepository,
           new DrizzleAiDraftRepository(db),
           new MockAiDraftProvider(),
+          auditLogs,
+        ),
+        aiReplySuggestions: new AiReplySuggestionService(
+          conversationRepository,
+          new MockAiReplySuggestionProvider(),
           auditLogs,
         ),
         replies: new ReplyService(
@@ -212,6 +220,11 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         conversationRepository,
         new FixtureAiDraftRepository(fixtureStore),
         new MockAiDraftProvider(),
+        auditLogs,
+      ),
+      aiReplySuggestions: new AiReplySuggestionService(
+        conversationRepository,
+        new MockAiReplySuggestionProvider(),
         auditLogs,
       ),
       replies: new ReplyService(

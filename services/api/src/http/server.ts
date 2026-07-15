@@ -26,6 +26,7 @@ import { registerConversationRoutes } from "./routes/conversations";
 import { registerCustomerRoutes } from "./routes/customers";
 import { registerActivityRoutes } from "./routes/activity";
 import { registerAiDraftRoutes } from "./routes/ai-drafts";
+import { registerAiReplySuggestionRoutes } from "./routes/ai-reply-suggestions";
 import { registerReplyRoutes } from "./routes/replies";
 import { registerChannelRoutes } from "./routes/channels";
 import { registerWebchatRoutes } from "./routes/webchat";
@@ -227,6 +228,14 @@ export async function createServer(
     services.aiDrafts,
     options.env,
   );
+  if (services.aiReplySuggestions) {
+    await registerAiReplySuggestionRoutes(
+      app,
+      authProvider,
+      services.aiReplySuggestions,
+      options.env,
+    );
+  }
   await registerReplyRoutes(app, authProvider, services.replies, options.env);
   if (services.channelRegistry && services.channelAccounts) {
     await registerChannelRoutes(

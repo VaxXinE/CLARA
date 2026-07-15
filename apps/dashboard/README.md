@@ -237,6 +237,28 @@ Gmail scheduler plus Gmail/Webchat outbound delivery status are read-only; no da
 no frontend secrets or provider API keys should exist in this app
 ```
 
+## AI Reply Suggestion
+
+The dashboard can request `POST /api/v1/ai/reply-suggestions` and display a
+preview in the composer. The panel is suggestion-only:
+
+```text
+requiresHumanApproval=true
+no auto-send
+no provider send
+no token display
+no raw provider payload
+no raw DOM
+no raw HTML
+```
+
+Validation:
+
+```bash
+cd apps/dashboard
+npm run test -- AiReplySuggestionPanel client
+```
+
 ## Docker Production Build
 
 Dashboard Docker baseline:

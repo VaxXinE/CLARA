@@ -829,9 +829,11 @@ Current MVP provider behavior:
 
 ```text
 AI draft uses a mock provider only
+AI Reply Suggestion uses a mock provider only and returns suggestion-only output with requiresHumanApproval=true
 reply send uses simulated providers only; Gmail-sourced conversations can use the simulated Gmail outbound boundary when explicitly wired
 WhatsApp-sourced conversations can use the simulated WhatsApp outbound boundary through the existing explicit human reply endpoint
 AI draft creates a draft row and activity but does not send any message
+AI Reply Suggestion does not create a send action and does not auto-send
 reply send requires an explicit human API request
 ```
 
@@ -862,6 +864,7 @@ background delivery workers
 - Demo seed data is fake only and uses `.test` or clearly dummy identifiers.
 - Conversation, customer, and activity read APIs are server-side scoped by authenticated organization/workspace only.
 - AI draft creation stores editable drafts only and never sends replies automatically.
+- AI Reply Suggestion uses the Prompt Contract and AI Context Builder, treats untrusted customer content as untrusted, and never sends replies automatically.
 - Reply send is explicit human-triggered API input only; AI draft endpoint does not send messages.
 - AI draft responses do not expose hidden prompts or raw provider payloads.
 - Provider failures return safe error envelopes and must not leak raw upstream errors or stack traces.
@@ -874,6 +877,7 @@ cd services/api
 npx --yes prettier "src/**/*.ts" "tests/**/*.ts" --write
 npm run typecheck
 npm run test
+npm run test -- ai-reply-suggestion
 npm run build
 npm audit --omit=dev --audit-level=high
 ```
