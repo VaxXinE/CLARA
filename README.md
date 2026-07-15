@@ -19,7 +19,7 @@ It contains the documentation, architecture, standards, templates, governance, i
 ```text
 Status: MVP slice runnable locally
 Current focus: conversation workspace MVP hardening and runbook accuracy
-Next focus: P7 AI Assistant / Automation Layer
+Next focus: P8 CRM & Workflow Intelligence
 ```
 
 Current MVP implementation:
@@ -52,6 +52,7 @@ P7 AI Context Builder and Prompt Contract now add pure backend context minimizat
 P7 AI Follow-up Recommendation now adds recommendation-only mock-provider guidance with human approval, no auto-send, no automatic task creation, and no automatic scheduler
 P7 AI Conversation Summary and AI Customer Note Suggestion now add review-only/suggestion-only mock-provider assistance with human approval, no automatic customer note write, and no CRM/customer mutation
 P7 Final AI Assistant Audit now closes the assistant layer with final regression tests, runbooks, incident response, go-live checklist, no real LLM provider, no AI SDK, no auto-send, and a P8 CRM & Workflow Intelligence handoff
+P8 CRM & Workflow Intelligence is now started with CRM Mutation Policy, Workflow Intelligence Policy, Backend AuthContext, workspace-scoped access, human approval, audit log, no autonomous CRM mutation, no auto-write customer note, no auto-create task, and P9 Analytics / Reporting / KPI deferral
 ```
 
 Start here for local usage:
@@ -414,6 +415,11 @@ docs/product/CLARA-P7-FINAL-AI-ASSISTANT-RUNBOOK.md
 docs/product/CLARA-P7-AI-INCIDENT-RESPONSE-RUNBOOK.md
 docs/product/CLARA-P7-AI-GO-LIVE-CHECKLIST.md
 docs/product/CLARA-P7-AI-SECURITY-REVIEW.md
+docs/product/CLARA-P8-CRM-WORKFLOW-INTELLIGENCE-SCOPE.md
+docs/product/CLARA-P8-CRM-MUTATION-POLICY.md
+docs/product/CLARA-P8-WORKFLOW-INTELLIGENCE-POLICY.md
+docs/product/CLARA-P8-IMPLEMENTATION-ROADMAP.md
+docs/product/CLARA-P8-SECURITY-RUNBOOK.md
 ```
 
 ---

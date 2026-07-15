@@ -126,6 +126,8 @@ P7-PR-01 now starts the AI Assistant / Automation Layer with AI Assistant scope,
 P7-PR-02 now adds the AI Context Builder and Prompt Contract with backend AuthContext workspace scope, minimized safe context, untrusted customer content labeling, prompt sections, budget enforcement, and no real AI provider or reply suggestion generation
 P7-PR-03, P7-PR-04, and P7-PR-05 now add mock-provider AI Reply Suggestion, AI Draft Review, and AI Follow-up Recommendation. Follow-up is recommendation-only, requiresHumanApproval, no auto-send, no automatic task creation, no automatic scheduler, and no CRM/customer mutation.
 P7-PR-06 now adds AI Conversation Summary and AI Customer Note Suggestion as review-only/suggestion-only mock-provider assistance with no automatic customer note write and no CRM/customer mutation.
+P7 complete after P7-PR-08 with final AI assistant audit, runbook, incident response, go-live checklist, no real LLM provider, no AI SDK, and P8 CRM & Workflow Intelligence handoff.
+P8-PR-01 now starts CRM & Workflow Intelligence with CRM Mutation Policy, Workflow Intelligence Policy, Backend AuthContext, workspace-scoped access, human approval, audit log, no autonomous CRM mutation, no auto-write customer note, no auto-create task, no cross-workspace CRM mutation, and P9 Analytics / Reporting / KPI deferral.
 ```
 
 ---
@@ -550,8 +552,9 @@ P7-PR-04 done
 P7-PR-05 done
 P7-PR-06 done
 P7-PR-07 done
-P7-PR-08 in progress for this branch
-P7 complete after final validator passes
+P7-PR-08 done
+P7 complete
+P8-PR-01 in progress for this branch
 ```
 
 P7 remains:
@@ -578,4 +581,5 @@ no raw DOM
 no raw HTML
 ```
 
-Next phase: P8 CRM & Workflow Intelligence.
+Current phase: P8 CRM & Workflow Intelligence.
+Next phase: P9 Analytics / Reporting / KPI.

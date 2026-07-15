@@ -43,6 +43,8 @@ Instagram and TikTok readers are safe placeholders in this PR. They detect the h
 - P7 AI Follow-up Recommendation keeps the extension boundary preview/copy/manual only. The extension does not create tasks, schedule reminders, send messages, read tokens, read cookies, capture raw DOM, or capture raw HTML.
 - P7 AI Conversation Summary and AI Customer Note Suggestion keep the extension boundary preview/copy/manual only. The extension does not auto-write notes, mutate customer records, read tokens, read cookies, capture raw DOM, or capture raw HTML.
 - P7 Final AI Assistant Audit keeps ChatGPT Companion preview/copy/manual only. The extension does not auto-send, auto-submit, auto-write customer notes, capture cookies, capture access token, capture refresh token, capture raw provider payload, capture raw webhook payload, capture raw DOM, or capture raw HTML.
+- P8 CRM & Workflow Intelligence keeps extension handoff manual. The extension does not perform autonomous CRM mutation, auto-write customer note, auto-create task, auto-assign owner, read tokens, read cookies, capture raw DOM, or capture raw HTML.
+- P8 extension guardrails: no autonomous CRM mutation, no auto-write customer note, no auto-create task, no auto-assign owner.
 
 ## ChatGPT Companion Config
 
