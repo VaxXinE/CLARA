@@ -25,6 +25,7 @@ read-only Webchat outbound delivery status visibility after a Webchat reply send
 read-only user/role management readiness panel for owner sessions
 P6 final observability remains documentation/policy only; dashboard does not expose provider tokens, raw payloads, or analytics charts
 P7 AI assistant safety scope is documentation/policy only; dashboard does not add AI automation UI or auto-send behavior
+P7 AI Follow-up Recommendation adds a read-only recommendation-only panel. It shows requiresHumanApproval and does not add send, task, schedule, or reminder automation.
 AI draft generation
 explicit human reply send
 viewer read-only UX

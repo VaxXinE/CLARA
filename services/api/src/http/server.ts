@@ -28,6 +28,7 @@ import { registerActivityRoutes } from "./routes/activity";
 import { registerAiDraftRoutes } from "./routes/ai-drafts";
 import { registerAiDraftReviewRoutes } from "./routes/ai-draft-reviews";
 import { registerAiReplySuggestionRoutes } from "./routes/ai-reply-suggestions";
+import { registerAiFollowUpRecommendationRoutes } from "./routes/ai-follow-up-recommendations";
 import { registerReplyRoutes } from "./routes/replies";
 import { registerChannelRoutes } from "./routes/channels";
 import { registerWebchatRoutes } from "./routes/webchat";
@@ -242,6 +243,14 @@ export async function createServer(
       app,
       authProvider,
       services.aiReplySuggestions,
+      options.env,
+    );
+  }
+  if (services.aiFollowUpRecommendations) {
+    await registerAiFollowUpRecommendationRoutes(
+      app,
+      authProvider,
+      services.aiFollowUpRecommendations,
       options.env,
     );
   }

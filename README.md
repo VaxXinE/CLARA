@@ -49,6 +49,7 @@ P6 webhook/outbox hardening now defines fail-closed webhook verification, worksp
 P6 final observability, audit trail, production provider runbook, go-live checklist, and P7 handoff now close the production provider/channel hardening phase
 P7 AI Assistant / Automation Layer is now started with docs and tests for assistant scope, safety, data access, prompt injection, human approval, audit policy, and implementation roadmap
 P7 AI Context Builder and Prompt Contract now add pure backend context minimization, untrusted customer content separation, budget enforcement, and prompt contract tests without real AI provider calls
+P7 AI Follow-up Recommendation now adds recommendation-only mock-provider guidance with human approval, no auto-send, no automatic task creation, and no automatic scheduler
 ```
 
 Start here for local usage:
@@ -122,6 +123,8 @@ docs/product/CLARA-P7-IMPLEMENTATION-ROADMAP.md
 docs/product/CLARA-P7-AI-CONTEXT-BUILDER-SPEC.md
 docs/product/CLARA-P7-AI-PROMPT-CONTRACT.md
 docs/product/CLARA-P7-AI-CONTEXT-SECURITY-RUNBOOK.md
+docs/product/CLARA-P7-AI-FOLLOW-UP-RECOMMENDATION-SPEC.md
+docs/product/CLARA-P7-AI-FOLLOW-UP-RECOMMENDATION-SECURITY-RUNBOOK.md
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-README-RUNBOOK/
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-DEMO-SCRIPT/
 docs/product/CLARA-P3-EMAIL-PROVIDER-INTEGRATION-DECISION.md

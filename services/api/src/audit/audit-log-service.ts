@@ -201,6 +201,93 @@ export class AuditLogService {
     });
   }
 
+  async recordAiFollowUpRecommendationRequested(
+    input: AuditContextInput & {
+      conversationId: string;
+      customerId: string;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: "ai_follow_up_recommendation_requested",
+      resourceType: "conversation",
+      resourceId: input.conversationId,
+      outcome: "success",
+      metadata: compactMetadata({
+        conversation_id: input.conversationId,
+        customer_id: input.customerId,
+        suggestion_type: "follow_up_recommendation",
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
+  async recordAiFollowUpRecommendationGenerated(
+    input: AuditContextInput & {
+      conversationId: string;
+      customerId: string;
+      recommendationId: string;
+      safeReasonCode: string;
+      recommendationCount: number;
+      modelProvider: string;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: "ai_follow_up_recommendation_generated",
+      resourceType: "ai_reply_suggestion",
+      resourceId: input.recommendationId,
+      outcome: "success",
+      metadata: compactMetadata({
+        conversation_id: input.conversationId,
+        customer_id: input.customerId,
+        suggestion_type: "follow_up_recommendation",
+        safe_reason_code: input.safeReasonCode,
+        recommendation_count: input.recommendationCount,
+        model_provider: input.modelProvider,
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
+  async recordAiFollowUpRecommendationBlocked(
+    input: AuditContextInput & {
+      conversationId: string;
+      customerId: string;
+      safeReasonCode: string;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: "ai_follow_up_recommendation_blocked",
+      resourceType: "conversation",
+      resourceId: input.conversationId,
+      outcome: "failure",
+      metadata: compactMetadata({
+        conversation_id: input.conversationId,
+        customer_id: input.customerId,
+        suggestion_type: "follow_up_recommendation",
+        safe_reason_code: input.safeReasonCode,
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
   async recordAiDraftReviewCreated(
     input: AuditContextInput & {
       conversationId: string;

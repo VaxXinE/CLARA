@@ -1,6 +1,7 @@
 import type {
   ConversationDetail,
   AiDraftReview,
+  AiFollowUpRecommendationResponse,
   GmailOutboundDeliveryStatus,
   AiReplySuggestionResponse,
   WebchatOutboundDeliveryStatus,
@@ -26,6 +27,11 @@ type ConversationPaneProps = {
   aiDraftLabel: string | null;
   readOnlyMessage: string | null;
   aiReplySuggestion?: AiReplySuggestionResponse["data"]["suggestion"] | null;
+  aiFollowUpRecommendation?:
+    AiFollowUpRecommendationResponse["data"]["recommendation"] | null;
+  isGeneratingFollowUp?: boolean;
+  followUpError?: string | null;
+  onGenerateFollowUp?: () => void;
   aiDraftReview?: AiDraftReview | null;
   aiDraftReviewLoading?: boolean;
   aiDraftReviewError?: string | null;
@@ -161,6 +167,10 @@ export function ConversationPane(props: ConversationPaneProps) {
         aiDraftLabel={props.aiDraftLabel}
         readOnlyMessage={props.readOnlyMessage}
         aiReplySuggestion={props.aiReplySuggestion}
+        aiFollowUpRecommendation={props.aiFollowUpRecommendation}
+        isGeneratingFollowUp={props.isGeneratingFollowUp}
+        followUpError={props.followUpError}
+        onGenerateFollowUp={props.onGenerateFollowUp}
         aiDraftReview={props.aiDraftReview}
         aiDraftReviewLoading={props.aiDraftReviewLoading}
         aiDraftReviewError={props.aiDraftReviewError}

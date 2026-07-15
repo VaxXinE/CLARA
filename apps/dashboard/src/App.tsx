@@ -4,6 +4,7 @@ import type {
   ActivityResponse,
   AiDraftResponse,
   AiDraftReview,
+  AiFollowUpRecommendationResponse,
   AiReplySuggestionResponse,
   ChannelHealthItem,
   ConversationDetailResponse,
@@ -149,6 +150,9 @@ function WorkspaceAppShell() {
   const [aiReplySuggestion, setAiReplySuggestion] = useState<
     AiReplySuggestionResponse["data"]["suggestion"] | null
   >(null);
+  const [aiFollowUpRecommendation, setAiFollowUpRecommendation] = useState<
+    AiFollowUpRecommendationResponse["data"]["recommendation"] | null
+  >(null);
   const [aiDraftReview, setAiDraftReview] = useState<AiDraftReview | null>(
     null,
   );
@@ -193,7 +197,9 @@ function WorkspaceAppShell() {
   const [composerError, setComposerError] = useState<string | null>(null);
   const [isGeneratingDraft, setIsGeneratingDraft] = useState(false);
   const [isGeneratingSuggestion, setIsGeneratingSuggestion] = useState(false);
+  const [isGeneratingFollowUp, setIsGeneratingFollowUp] = useState(false);
   const [suggestionError, setSuggestionError] = useState<string | null>(null);
+  const [followUpError, setFollowUpError] = useState<string | null>(null);
   const [aiDraftReviewError, setAiDraftReviewError] = useState<string | null>(
     null,
   );
@@ -233,9 +239,11 @@ function WorkspaceAppShell() {
       setDraftId(null);
       setAiDraftLabel(null);
       setAiReplySuggestion(null);
+      setAiFollowUpRecommendation(null);
       setAiDraftReview(null);
       setAiDraftReviewError(null);
       setSuggestionError(null);
+      setFollowUpError(null);
       setGmailOutboundStatus(null);
       setGmailOutboundStatusError(null);
       setWebchatOutboundStatus(null);
@@ -264,9 +272,11 @@ function WorkspaceAppShell() {
       setDraftId(null);
       setAiDraftLabel(null);
       setAiReplySuggestion(null);
+      setAiFollowUpRecommendation(null);
       setAiDraftReview(null);
       setAiDraftReviewError(null);
       setSuggestionError(null);
+      setFollowUpError(null);
 
       try {
         const meResponse = await client.getMe();
@@ -726,6 +736,37 @@ function WorkspaceAppShell() {
     }
   }
 
+  async function handleGenerateFollowUp() {
+    if (!selectedConversationId || !conversationDetail || !canGenerateDraft) {
+      return;
+    }
+
+    const client = buildClient({
+      authMode: auth.config.mode,
+      role: selectedRole,
+      accessToken: auth.session?.accessToken ?? null,
+    });
+    setIsGeneratingFollowUp(true);
+    setFollowUpError(null);
+
+    try {
+      const response = await client.createAiFollowUpRecommendation({
+        conversationId: selectedConversationId,
+        customerId: conversationDetail.customer.id,
+        urgency: "normal",
+        maxRecommendations: 3,
+      });
+
+      setAiFollowUpRecommendation(response.data.recommendation);
+    } catch (error) {
+      setFollowUpError(
+        toSafeMessage(error, "AI follow-up recommendation is unavailable."),
+      );
+    } finally {
+      setIsGeneratingFollowUp(false);
+    }
+  }
+
   async function handleEditDraftReview(draftText: string) {
     if (!aiDraftReview) {
       return;
@@ -835,9 +876,11 @@ function WorkspaceAppShell() {
       setDraftId(null);
       setAiDraftLabel(null);
       setAiReplySuggestion(null);
+      setAiFollowUpRecommendation(null);
       setAiDraftReview(null);
       setAiDraftReviewError(null);
       setSuggestionError(null);
+      setFollowUpError(null);
       setGmailOutboundStatus(null);
       setGmailOutboundStatusError(null);
       setWebchatOutboundStatus(null);
@@ -1049,6 +1092,10 @@ function WorkspaceAppShell() {
               ? "You have view-only access to this conversation."
               : null,
           aiReplySuggestion,
+          aiFollowUpRecommendation,
+          isGeneratingFollowUp,
+          followUpError,
+          onGenerateFollowUp: handleGenerateFollowUp,
           aiDraftReview,
           aiDraftReviewLoading,
           aiDraftReviewError,

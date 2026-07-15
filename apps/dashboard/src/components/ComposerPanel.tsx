@@ -1,5 +1,10 @@
-import type { AiDraftReview, AiReplySuggestionResponse } from "../api/types";
+import type {
+  AiDraftReview,
+  AiFollowUpRecommendationResponse,
+  AiReplySuggestionResponse,
+} from "../api/types";
 import { AiDraftReviewPanel } from "./AiDraftReviewPanel";
+import { AiFollowUpRecommendationPanel } from "./AiFollowUpRecommendationPanel";
 import { AiReplySuggestionPanel } from "./AiReplySuggestionPanel";
 
 type ComposerPanelProps = {
@@ -15,6 +20,11 @@ type ComposerPanelProps = {
   aiDraftLabel: string | null;
   readOnlyMessage: string | null;
   aiReplySuggestion?: AiReplySuggestionResponse["data"]["suggestion"] | null;
+  aiFollowUpRecommendation?:
+    AiFollowUpRecommendationResponse["data"]["recommendation"] | null;
+  isGeneratingFollowUp?: boolean;
+  followUpError?: string | null;
+  onGenerateFollowUp?: () => void;
   aiDraftReview?: AiDraftReview | null;
   aiDraftReviewLoading?: boolean;
   aiDraftReviewError?: string | null;
@@ -61,6 +71,14 @@ export function ComposerPanel(props: ComposerPanelProps) {
         error={props.suggestionError ?? null}
         canGenerate={props.canGenerateDraft}
         onGenerate={props.onGenerateSuggestion ?? (() => {})}
+      />
+
+      <AiFollowUpRecommendationPanel
+        recommendation={props.aiFollowUpRecommendation ?? null}
+        loading={props.isGeneratingFollowUp ?? false}
+        error={props.followUpError ?? null}
+        canGenerate={props.canGenerateDraft}
+        onGenerate={props.onGenerateFollowUp ?? (() => {})}
       />
 
       <AiDraftReviewPanel
