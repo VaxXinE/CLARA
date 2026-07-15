@@ -138,6 +138,11 @@ function renderWorkspace(
       activityLoading: false,
       activityError: null,
     },
+    customerIntelligence: {
+      customerIntelligence: null,
+      customerIntelligenceLoading: false,
+      customerIntelligenceError: null,
+    },
   };
 
   return render(<ConversationWorkspace {...props} {...overrides} />);

@@ -128,6 +128,7 @@ P7-PR-03, P7-PR-04, and P7-PR-05 now add mock-provider AI Reply Suggestion, AI D
 P7-PR-06 now adds AI Conversation Summary and AI Customer Note Suggestion as review-only/suggestion-only mock-provider assistance with no automatic customer note write and no CRM/customer mutation.
 P7 complete after P7-PR-08 with final AI assistant audit, runbook, incident response, go-live checklist, no real LLM provider, no AI SDK, and P8 CRM & Workflow Intelligence handoff.
 P8-PR-01 now starts CRM & Workflow Intelligence with CRM Mutation Policy, Workflow Intelligence Policy, Backend AuthContext, workspace-scoped access, human approval, audit log, no autonomous CRM mutation, no auto-write customer note, no auto-create task, no cross-workspace CRM mutation, and P9 Analytics / Reporting / KPI deferral.
+P8-PR-02 now adds Customer Profile Intelligence as a read-only workspace-scoped API and dashboard panel with safe profile/activity/relationship/follow-up signals, no CRM mutation, no task creation, no owner/status/lifecycle update, and no token/raw provider payload exposure.
 ```
 
 ---
@@ -554,7 +555,7 @@ P7-PR-06 done
 P7-PR-07 done
 P7-PR-08 done
 P7 complete
-P8-PR-01 in progress for this branch
+P8-PR-02 in progress for this branch
 ```
 
 P7 remains:

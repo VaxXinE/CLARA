@@ -63,6 +63,7 @@ P7 AI context builder and prompt contract are pure backend logic only: workspace
 P7 AI Follow-up Recommendation is recommendation-only: mock provider only, requiresHumanApproval=true, no auto-send, no automatic task creation, no automatic scheduler, and no CRM/customer mutation
 P7 AI Conversation Summary and AI Customer Note Suggestion are review-only/suggestion-only: mock provider only, requiresHumanApproval=true, actionStatus=suggestion_only for notes, no auto-write, no automatic customer note write, and no CRM/customer mutation from AI summary/note
 P8 CRM & Workflow Intelligence is policy/test-only in P8-PR-01: CRM Mutation Policy and Workflow Intelligence Policy require Backend AuthContext, workspace-scoped access, human approval, audit log coverage, no autonomous CRM mutation, no auto-write customer note, no auto-create task, and no cross-workspace CRM mutation
+P8 Customer Profile Intelligence adds GET /api/v1/customers/:customerId/intelligence as a read-only workspace-scoped read model with no CRM mutation, no task creation, no owner/status/lifecycle update, and no token/raw provider payload exposure
 channel account reads are scoped by backend AuthContext and never trust client-provided organization_id or workspace_id
 responses never include provider secrets, tokens, Authorization headers, raw provider payloads, or raw provider errors
 multi-channel audit metadata is allowlisted and must not include message bodies, cookies, Authorization headers, tokens, secrets, raw provider payloads, or raw provider errors
@@ -964,14 +965,24 @@ no raw HTML
 
 ## P8 CRM & Workflow Intelligence
 
-P8-PR-01 is documentation, tests, and validation only. It defines CRM workflow
-readiness, allowed/restricted/blocked CRM actions, human approval requirements,
-audit log requirements, and workspace-scoped Backend AuthContext boundaries.
+P8-PR-01 defines CRM workflow readiness, allowed/restricted/blocked CRM
+actions, human approval requirements, audit log requirements, and
+workspace-scoped Backend AuthContext boundaries.
 
-It does not add CRM mutation routes, task creation APIs, customer-note write
-APIs, autonomous CRM mutation, auto-write customer note, auto-create task,
-provider mutation, billing/admin/user/role mutation, or P9 Analytics /
-Reporting / KPI.
+P8-PR-02 adds read-only customer profile intelligence:
+
+```text
+GET /api/v1/customers/:customerId/intelligence
+```
+
+The endpoint requires auth, derives organization/workspace from AuthContext,
+returns safe profile/activity/relationship/follow-up signals, and always marks
+the response as read-only.
+
+P8 still does not add CRM mutation routes, task creation APIs,
+customer-note write APIs, autonomous CRM mutation, auto-write customer note,
+auto-create task, provider mutation, billing/admin/user/role mutation, or P9
+Analytics / Reporting / KPI.
 
 ## P7 Final AI Assistant Audit
 

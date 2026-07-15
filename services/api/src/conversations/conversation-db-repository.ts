@@ -249,6 +249,77 @@ export class DrizzleConversationRepository implements ConversationRepository {
     };
   }
 
+  async listByCustomerScoped(
+    scope: WorkspaceScope,
+    customerId: string,
+  ): Promise<ConversationListItemRecord[]> {
+    const sortTimestamp = sql<Date>`coalesce(${conversations.lastMessageAt}, ${conversations.createdAt})`;
+
+    const rows = await this.db
+      .select({
+        id: conversations.id,
+        source: conversations.source,
+        status: conversations.status,
+        lastMessageAt: conversations.lastMessageAt,
+        createdAt: conversations.createdAt,
+        updatedAt: conversations.updatedAt,
+        customerId: customers.id,
+        customerDisplayName: customers.displayName,
+        customerContactIdentifier: customers.contactIdentifier,
+        customerSource: customers.source,
+        customerStatus: customers.status,
+        assignedUserId: users.id,
+        assignedUserDisplayName: users.displayName,
+      })
+      .from(conversations)
+      .innerJoin(customers, eq(conversations.customerId, customers.id))
+      .leftJoin(
+        users,
+        and(
+          eq(conversations.assignedUserId, users.id),
+          eq(users.organizationId, scope.organizationId),
+        ),
+      )
+      .where(
+        and(
+          eq(conversations.organizationId, scope.organizationId),
+          eq(conversations.workspaceId, scope.workspaceId),
+          eq(conversations.customerId, customerId),
+          eq(customers.organizationId, scope.organizationId),
+          eq(customers.workspaceId, scope.workspaceId),
+          eq(customers.id, customerId),
+        ),
+      )
+      .orderBy(desc(sortTimestamp), desc(conversations.id))
+      .limit(500);
+
+    const conversationIds = rows.map((row) => row.id);
+    let latestMessageMap = new Map<string, string | null>();
+
+    if (conversationIds.length > 0) {
+      const latestMessageRows = await this.db
+        .select({
+          conversationId: messages.conversationId,
+          body: messages.body,
+        })
+        .from(messages)
+        .where(
+          and(
+            eq(messages.organizationId, scope.organizationId),
+            eq(messages.workspaceId, scope.workspaceId),
+            inArray(messages.conversationId, conversationIds),
+          ),
+        )
+        .orderBy(desc(messages.sentAt), desc(messages.id));
+
+      latestMessageMap = buildLatestMessageMap(latestMessageRows);
+    }
+
+    return rows.map((row) =>
+      toConversationListItemRecord(row, latestMessageMap),
+    );
+  }
+
   async findByIdScoped(
     scope: WorkspaceScope,
     conversationId: string,

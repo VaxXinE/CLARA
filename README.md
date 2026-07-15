@@ -53,6 +53,7 @@ P7 AI Follow-up Recommendation now adds recommendation-only mock-provider guidan
 P7 AI Conversation Summary and AI Customer Note Suggestion now add review-only/suggestion-only mock-provider assistance with human approval, no automatic customer note write, and no CRM/customer mutation
 P7 Final AI Assistant Audit now closes the assistant layer with final regression tests, runbooks, incident response, go-live checklist, no real LLM provider, no AI SDK, no auto-send, and a P8 CRM & Workflow Intelligence handoff
 P8 CRM & Workflow Intelligence is now started with CRM Mutation Policy, Workflow Intelligence Policy, Backend AuthContext, workspace-scoped access, human approval, audit log, no autonomous CRM mutation, no auto-write customer note, no auto-create task, and P9 Analytics / Reporting / KPI deferral
+P8 Customer Profile Intelligence now adds a read-only customer intelligence API and dashboard panel with workspace-scoped Backend AuthContext, no CRM mutation, no task creation, no owner/status/lifecycle update, and no token/raw provider payload exposure
 ```
 
 Start here for local usage:
@@ -420,6 +421,7 @@ docs/product/CLARA-P8-CRM-MUTATION-POLICY.md
 docs/product/CLARA-P8-WORKFLOW-INTELLIGENCE-POLICY.md
 docs/product/CLARA-P8-IMPLEMENTATION-ROADMAP.md
 docs/product/CLARA-P8-SECURITY-RUNBOOK.md
+docs/product/CLARA-P8-CUSTOMER-PROFILE-INTELLIGENCE-SPEC.md
 ```
 
 ---

@@ -24,6 +24,7 @@ import { registerHealthRoutes } from "./routes/health";
 import { registerMeRoutes } from "./routes/me";
 import { registerConversationRoutes } from "./routes/conversations";
 import { registerCustomerRoutes } from "./routes/customers";
+import { registerCustomerIntelligenceRoutes } from "./routes/customer-intelligence";
 import { registerActivityRoutes } from "./routes/activity";
 import { registerAiDraftRoutes } from "./routes/ai-drafts";
 import { registerAiDraftReviewRoutes } from "./routes/ai-draft-reviews";
@@ -226,6 +227,13 @@ export async function createServer(
   await registerMeRoutes(app, authProvider);
   await registerConversationRoutes(app, authProvider, services.conversations);
   await registerCustomerRoutes(app, authProvider, services.customers);
+  if (services.customerIntelligence) {
+    await registerCustomerIntelligenceRoutes(
+      app,
+      authProvider,
+      services.customerIntelligence,
+    );
+  }
   await registerActivityRoutes(app, authProvider, services.activity);
   await registerAiDraftRoutes(
     app,

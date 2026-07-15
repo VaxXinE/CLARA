@@ -163,6 +163,64 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("refresh_token");
   });
 
+  it("loads customer profile intelligence safely", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        customerId: "cust_demo_budi",
+        workspaceId: "wks_demo_sales",
+        generatedAt: "2026-01-10T00:00:00.000Z",
+        profileHealth: {
+          level: "needs_attention",
+          reasons: ["Customer has open conversations to review."],
+        },
+        activitySignals: {
+          lastConversationAt: "2026-01-09T00:00:00.000Z",
+          lastReplyAt: null,
+          openConversationCount: 1,
+          totalConversationCount: 1,
+          recentActivityCount: 1,
+        },
+        relationshipSignals: {
+          lifecycleSuggestion: "active_customer",
+          lifecycleReason:
+            "Recent workspace-scoped conversation activity exists.",
+          statusSuggestion: "needs_follow_up",
+          statusReason: "Open conversations require human review.",
+        },
+        followUpSignals: {
+          recommendedAction: "follow_up",
+          urgency: "high",
+          reason: "Review-only recommendation.",
+        },
+        safety: {
+          readOnly: true,
+          mutationAllowed: false,
+          requiresHumanApprovalForMutation: true,
+          policyVersion: "customer-profile-intelligence-read-model-v1",
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({
+      baseUrl: "http://127.0.0.1:3000",
+    });
+
+    const response =
+      await client.getCustomerProfileIntelligence("cust_demo_budi");
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/customers/cust_demo_budi/intelligence",
+      expect.any(Object),
+    );
+    expect(response.safety).toMatchObject({
+      readOnly: true,
+      mutationAllowed: false,
+    });
+    expect(JSON.stringify(response)).not.toContain("access_token");
+    expect(JSON.stringify(response)).not.toContain("refresh_token");
+    expect(JSON.stringify(response)).not.toContain("Authorization");
+  });
+
   it("creates an AI reply suggestion without sending a reply", async () => {
     const fetchMock = vi.fn(async () =>
       jsonResponse(

@@ -28,6 +28,7 @@ P7 AI assistant safety scope is documentation/policy only; dashboard does not ad
 P7 AI Follow-up Recommendation adds a read-only recommendation-only panel. It shows requiresHumanApproval and does not add send, task, schedule, or reminder automation.
 P7 AI Conversation Summary and AI Customer Note Suggestion add review-only/suggestion-only panels. They show requiresHumanApproval and do not auto-write customer notes or mutate CRM/customer records.
 P8 CRM & Workflow Intelligence starts as workflow readiness policy only. Dashboard must not add autonomous CRM mutation, auto-write customer note, auto-create task, auto-assign owner, unsafe HTML rendering, or client-side workspace authority.
+P8 Customer Profile Intelligence adds a read-only customer profile signals panel backed by the API read model. It does not add Apply, Save, Create Task, Assign Owner, Change Status, Update Lifecycle, raw HTML rendering, token display, or provider raw payload display.
 P8 dashboard guardrails: no autonomous CRM mutation, no auto-write customer note, no auto-create task, no auto-assign owner.
 AI draft generation
 explicit human reply send
@@ -308,6 +309,10 @@ Dashboard P8-PR-01 readiness is documentation/test-only. Future CRM workflow UI
 may show proposals and workflow readiness, but persistent changes require
 Backend AuthContext, workspace-scoped authorization, role permission, human
 approval, and audit log coverage. P9 Analytics / Reporting / KPI remains later.
+
+P8-PR-02 adds read-only customer profile intelligence visibility. The panel
+shows profile health, activity, lifecycle/status suggestions, and follow-up
+recommendation labels only.
 
 No autonomous CRM mutation, no auto-write customer note, no auto-create task,
 no auto-assign owner, and no `dangerouslySetInnerHTML` are added in this PR.

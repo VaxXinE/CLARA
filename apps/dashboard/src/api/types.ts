@@ -115,6 +115,47 @@ export type CustomerProfileResponse = {
   permissions: ApiPermissionHints;
 };
 
+export type CustomerProfileIntelligenceResponse = {
+  customerId: string;
+  workspaceId: string;
+  generatedAt: string;
+  profileHealth: {
+    level: "healthy" | "needs_attention" | "incomplete" | "unknown";
+    reasons: string[];
+  };
+  activitySignals: {
+    lastConversationAt: string | null;
+    lastReplyAt: string | null;
+    openConversationCount: number;
+    totalConversationCount: number;
+    recentActivityCount: number;
+  };
+  relationshipSignals: {
+    lifecycleSuggestion:
+      "lead" | "active_customer" | "at_risk" | "inactive" | "unknown";
+    lifecycleReason: string;
+    statusSuggestion:
+      "new" | "engaged" | "needs_follow_up" | "dormant" | "unknown";
+    statusReason: string;
+  };
+  followUpSignals: {
+    recommendedAction:
+      | "none"
+      | "review_customer"
+      | "follow_up"
+      | "update_profile_review"
+      | "assign_owner_review";
+    urgency: "low" | "medium" | "high";
+    reason: string;
+  };
+  safety: {
+    readOnly: true;
+    mutationAllowed: false;
+    requiresHumanApprovalForMutation: true;
+    policyVersion: string;
+  };
+};
+
 export type ActivityResponse = {
   data: {
     conversation_id: string;
