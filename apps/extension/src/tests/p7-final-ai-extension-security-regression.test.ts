@@ -26,9 +26,10 @@ describe("P7 final AI extension security regression", () => {
       syncScope: "active_conversation_only",
       sendMode: "manual_assisted",
     });
-    expect(["browser", "automation", "provider", "session"].join("_") in extensionBackground).toBe(
-      false,
-    );
+    expect(
+      ["browser", "automation", "provider", "session"].join("_") in
+        extensionBackground,
+    ).toBe(false);
     expect(["auto", "submit"].join("-") in extensionBackground).toBe(false);
     expect(["auto", "send"].join("-") in extensionBackground).toBe(false);
     expect(["auto", "writeCustomerNote"].join("-") in extensionBackground).toBe(
