@@ -61,6 +61,7 @@ import { FixtureCustomerRepository } from "../customers/customer-repository";
 import { DrizzleCustomerRepository } from "../customers/customer-db-repository";
 import { CustomerQueryService } from "../customers/customer-service";
 import { CustomerActionProposalService } from "../customers/customer-action-proposal-service";
+import { CustomerFollowUpProposalService } from "../customers/customer-follow-up-proposal-service";
 import { CustomerProfileIntelligenceService } from "../customers/customer-intelligence-service";
 import { CustomerTimelineIntelligenceService } from "../customers/customer-timeline-intelligence-service";
 import { DrizzleExtensionSnapshotRepository } from "../extension/extension-snapshot-db-repository";
@@ -75,6 +76,7 @@ export type AppServices = {
   conversations: ConversationQueryService;
   customers: CustomerQueryService;
   customerActionProposals?: CustomerActionProposalService;
+  customerFollowUpProposals?: CustomerFollowUpProposalService;
   customerIntelligence?: CustomerProfileIntelligenceService;
   customerTimelineIntelligence?: CustomerTimelineIntelligenceService;
   activity: ActivityQueryService;
@@ -140,6 +142,9 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         conversations: new ConversationQueryService(conversationRepository),
         customers: new CustomerQueryService(customerRepository),
         customerActionProposals: new CustomerActionProposalService(
+          customerRepository,
+        ),
+        customerFollowUpProposals: new CustomerFollowUpProposalService(
           customerRepository,
         ),
         customerIntelligence: new CustomerProfileIntelligenceService(
@@ -273,6 +278,9 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
       conversations: new ConversationQueryService(conversationRepository),
       customers: new CustomerQueryService(customerRepository),
       customerActionProposals: new CustomerActionProposalService(
+        customerRepository,
+      ),
+      customerFollowUpProposals: new CustomerFollowUpProposalService(
         customerRepository,
       ),
       customerIntelligence: new CustomerProfileIntelligenceService(

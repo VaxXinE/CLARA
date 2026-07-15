@@ -14,6 +14,7 @@ import type {
   CustomerProfileIntelligenceResponse,
   CustomerProfileResponse,
   CustomerActionProposalResponse,
+  CustomerFollowUpProposalResponse,
   CustomerTimelineIntelligenceResponse,
   DemoAuthProfile,
   GmailOutboundDeliveryStatusResponse,
@@ -181,6 +182,33 @@ export class ApiClient {
       `/api/v1/customers/${encodeURIComponent(
         customerId,
       )}/action-proposals/review`,
+      {
+        method: "POST",
+        body: JSON.stringify(payload),
+      },
+    );
+  }
+
+  async reviewCustomerFollowUpProposal(
+    customerId: string,
+    payload: {
+      source:
+        | "operator"
+        | "customer_profile_intelligence"
+        | "customer_timeline_intelligence"
+        | "action_proposal_review"
+        | "ai_suggestion_review"
+        | "system_review";
+      proposalIntent: CustomerFollowUpProposalResponse["followUp"]["intent"];
+      operatorInstruction?: string;
+      suggestedPayload?: Record<string, unknown>;
+      clientWorkspaceId?: string;
+    },
+  ): Promise<CustomerFollowUpProposalResponse> {
+    return this.request<CustomerFollowUpProposalResponse>(
+      `/api/v1/customers/${encodeURIComponent(
+        customerId,
+      )}/follow-up-proposals/review`,
       {
         method: "POST",
         body: JSON.stringify(payload),

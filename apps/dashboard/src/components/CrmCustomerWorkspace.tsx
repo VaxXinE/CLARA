@@ -1,11 +1,13 @@
 import type {
   ConversationDetail,
   CustomerActionProposalResponse,
+  CustomerFollowUpProposalResponse,
   CustomerProfileIntelligenceResponse,
   CustomerProfileResponse,
   CustomerTimelineIntelligenceResponse,
 } from "../api/types";
 import { CustomerActionProposalPanel } from "./CustomerActionProposalPanel";
+import { CustomerFollowUpProposalPanel } from "./CustomerFollowUpProposalPanel";
 import { CustomerProfileIntelligencePanel } from "./CustomerProfileIntelligencePanel";
 import { CustomerTimelineIntelligencePanel } from "./CustomerTimelineIntelligencePanel";
 import { CustomerWorkspacePanel } from "./CustomerWorkspacePanel";
@@ -23,6 +25,9 @@ type CrmCustomerWorkspaceProps = {
   customerActionProposal: CustomerActionProposalResponse | null;
   customerActionProposalLoading: boolean;
   customerActionProposalError: string | null;
+  customerFollowUpProposal: CustomerFollowUpProposalResponse | null;
+  customerFollowUpProposalLoading: boolean;
+  customerFollowUpProposalError: string | null;
   readOnly: boolean;
 };
 
@@ -51,6 +56,11 @@ export function CrmCustomerWorkspace(props: CrmCustomerWorkspaceProps) {
         proposal={props.customerActionProposal}
         loading={props.customerActionProposalLoading}
         error={props.customerActionProposalError}
+      />
+      <CustomerFollowUpProposalPanel
+        proposal={props.customerFollowUpProposal}
+        loading={props.customerFollowUpProposalLoading}
+        error={props.customerFollowUpProposalError}
       />
     </section>
   );

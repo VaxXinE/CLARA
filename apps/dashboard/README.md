@@ -329,6 +329,15 @@ task, no auto-write customer note, no owner assignment mutation, no
 lifecycle/status mutation, token display, cookies, raw provider payload, raw
 webhook payload, raw DOM, raw HTML, or unsafe HTML rendering.
 
+P8-PR-05 adds Task / Follow-up Workflow Proposal visibility. The panel is
+proposal-only and review-only, displays `taskCreated=false` and
+`actionExecuted=false`, and does not add Execute, Apply, Save, Create Task,
+Schedule Task, Assign Owner, Change Status, Update Lifecycle, Send Message,
+Write Note, hidden auto-submit, no CRM mutation, no task creation, no
+auto-create task, no outbound send, no scheduler, token display, cookies, raw
+provider payload, raw webhook payload, raw DOM, raw HTML, or unsafe HTML
+rendering.
+
 No autonomous CRM mutation, no auto-write customer note, no auto-create task,
 no auto-assign owner, and no `dangerouslySetInnerHTML` are added in this PR.
 

@@ -256,6 +256,56 @@ export type CustomerActionProposalResponse = {
   };
 };
 
+export type CustomerFollowUpProposalResponse = {
+  proposalId: string;
+  customerId: string;
+  workspaceId: string;
+  generatedAt: string;
+  title: string;
+  summary: string;
+  followUp: {
+    intent:
+      | "review_customer"
+      | "follow_up_customer"
+      | "request_more_context"
+      | "update_profile_review"
+      | "re_engage_customer"
+      | "no_op";
+    recommendedChannel: "email" | "webchat" | "whatsapp" | "manual" | "unknown";
+    urgency: "low" | "medium" | "high";
+    dueWindow: "none" | "today" | "next_24h" | "next_48h" | "this_week";
+    reason: string;
+  };
+  proposedTask: {
+    taskTitle: string;
+    taskDescription: string;
+    executionStatus: "review_only";
+    taskCreated: false;
+    requiresHumanApproval: true;
+    requiredPermission: string;
+  };
+  risk: {
+    level: "low" | "medium" | "high" | "critical";
+    reasons: string[];
+    blocked: boolean;
+    blockedReason: string | null;
+  };
+  review: {
+    reviewLabel: string;
+    nextStep: string;
+    warnings: string[];
+  };
+  safety: {
+    readOnly: true;
+    proposalOnly: true;
+    taskCreated: false;
+    mutationAllowed: false;
+    actionExecuted: false;
+    requiresHumanApprovalForMutation: true;
+    policyVersion: string;
+  };
+};
+
 export type ActivityResponse = {
   data: {
     conversation_id: string;
