@@ -47,7 +47,7 @@ bash scripts/validate-p7-ai-draft-review-human-approval.sh
 - AI draft review responses include `requiresHumanApproval=true`.
 - no access token appears in API responses.
 - no refresh token appears in API responses.
-- No cookies appear in API responses.
+- no cookies appear in API responses.
 - no Authorization header appears in API responses.
 - no raw provider payload appears in API responses or audit metadata.
 - no raw webhook payload appears in API responses or audit metadata.
