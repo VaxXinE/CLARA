@@ -26,6 +26,7 @@ import { registerConversationRoutes } from "./routes/conversations";
 import { registerCustomerRoutes } from "./routes/customers";
 import { registerActivityRoutes } from "./routes/activity";
 import { registerAiDraftRoutes } from "./routes/ai-drafts";
+import { registerAiDraftReviewRoutes } from "./routes/ai-draft-reviews";
 import { registerAiReplySuggestionRoutes } from "./routes/ai-reply-suggestions";
 import { registerReplyRoutes } from "./routes/replies";
 import { registerChannelRoutes } from "./routes/channels";
@@ -228,6 +229,14 @@ export async function createServer(
     services.aiDrafts,
     options.env,
   );
+  if (services.aiDraftReviews) {
+    await registerAiDraftReviewRoutes(
+      app,
+      authProvider,
+      services.aiDraftReviews,
+      options.env,
+    );
+  }
   if (services.aiReplySuggestions) {
     await registerAiReplySuggestionRoutes(
       app,

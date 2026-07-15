@@ -3,6 +3,7 @@ import { ApiClient, ApiClientError } from "./api/client";
 import type {
   ActivityResponse,
   AiDraftResponse,
+  AiDraftReview,
   AiReplySuggestionResponse,
   ChannelHealthItem,
   ConversationDetailResponse,
@@ -148,6 +149,9 @@ function WorkspaceAppShell() {
   const [aiReplySuggestion, setAiReplySuggestion] = useState<
     AiReplySuggestionResponse["data"]["suggestion"] | null
   >(null);
+  const [aiDraftReview, setAiDraftReview] = useState<AiDraftReview | null>(
+    null,
+  );
   const [statusFilter, setStatusFilter] = useState("");
   const [search, setSearch] = useState("");
   const deferredSearch = useDeferredValue(search);
@@ -190,6 +194,10 @@ function WorkspaceAppShell() {
   const [isGeneratingDraft, setIsGeneratingDraft] = useState(false);
   const [isGeneratingSuggestion, setIsGeneratingSuggestion] = useState(false);
   const [suggestionError, setSuggestionError] = useState<string | null>(null);
+  const [aiDraftReviewError, setAiDraftReviewError] = useState<string | null>(
+    null,
+  );
+  const [aiDraftReviewLoading, setAiDraftReviewLoading] = useState(false);
   const [isSendingReply, setIsSendingReply] = useState(false);
 
   useEffect(() => {
@@ -225,6 +233,8 @@ function WorkspaceAppShell() {
       setDraftId(null);
       setAiDraftLabel(null);
       setAiReplySuggestion(null);
+      setAiDraftReview(null);
+      setAiDraftReviewError(null);
       setSuggestionError(null);
       setGmailOutboundStatus(null);
       setGmailOutboundStatusError(null);
@@ -254,6 +264,8 @@ function WorkspaceAppShell() {
       setDraftId(null);
       setAiDraftLabel(null);
       setAiReplySuggestion(null);
+      setAiDraftReview(null);
+      setAiDraftReviewError(null);
       setSuggestionError(null);
 
       try {
@@ -528,6 +540,8 @@ function WorkspaceAppShell() {
       setDraftId(null);
       setAiDraftLabel(null);
       setAiReplySuggestion(null);
+      setAiDraftReview(null);
+      setAiDraftReviewError(null);
       setSuggestionError(null);
       setComposerValue("");
       setGmailOutboundStatus(null);
@@ -648,6 +662,10 @@ function WorkspaceAppShell() {
 
       setComposerValue(response.data.draft.body);
       setDraftId(response.data.draft.id);
+      const reviewResponse = await client.getAiDraftReview(
+        response.data.draft.id,
+      );
+      setAiDraftReview(reviewResponse.data.review);
       setAiDraftLabel("AI-assisted draft · Review before sending");
       await refreshConversationWorkspace(selectedConversationId);
     } catch (error) {
@@ -686,8 +704,17 @@ function WorkspaceAppShell() {
       setAiReplySuggestion(response.data.suggestion);
 
       if (response.data.suggestion.suggestedText) {
-        setComposerValue(response.data.suggestion.suggestedText);
-        setDraftId(null);
+        const reviewResponse = await client.createAiDraftReview({
+          conversationId: selectedConversationId,
+          customerId: conversationDetail.customer.id,
+          suggestionId: response.data.suggestion.suggestionId,
+          draftText: response.data.suggestion.suggestedText,
+          safetyFlags: response.data.suggestion.safetyFlags,
+        });
+
+        setComposerValue(reviewResponse.data.review.draftText);
+        setDraftId(reviewResponse.data.review.draftId);
+        setAiDraftReview(reviewResponse.data.review);
         setAiDraftLabel("AI suggestion · Review before sending");
       }
     } catch (error) {
@@ -699,8 +726,95 @@ function WorkspaceAppShell() {
     }
   }
 
+  async function handleEditDraftReview(draftText: string) {
+    if (!aiDraftReview) {
+      return;
+    }
+
+    const client = buildClient({
+      authMode: auth.config.mode,
+      role: selectedRole,
+      accessToken: auth.session?.accessToken ?? null,
+    });
+    setAiDraftReviewLoading(true);
+    setAiDraftReviewError(null);
+
+    try {
+      const response = await client.editAiDraftReview(aiDraftReview.draftId, {
+        draftText,
+      });
+      setAiDraftReview(response.data.review);
+      setComposerValue(
+        response.data.review.editedText ?? response.data.review.draftText,
+      );
+      setDraftId(response.data.review.draftId);
+    } catch (error) {
+      setAiDraftReviewError(
+        toSafeMessage(error, "AI draft review could not be edited."),
+      );
+    } finally {
+      setAiDraftReviewLoading(false);
+    }
+  }
+
+  async function handleApproveDraftReview() {
+    if (!aiDraftReview) {
+      return;
+    }
+
+    const client = buildClient({
+      authMode: auth.config.mode,
+      role: selectedRole,
+      accessToken: auth.session?.accessToken ?? null,
+    });
+    setAiDraftReviewLoading(true);
+    setAiDraftReviewError(null);
+
+    try {
+      const response = await client.approveAiDraftReview(aiDraftReview.draftId);
+      setAiDraftReview(response.data.review);
+      setDraftId(response.data.review.draftId);
+    } catch (error) {
+      setAiDraftReviewError(
+        toSafeMessage(error, "AI draft review could not be approved."),
+      );
+    } finally {
+      setAiDraftReviewLoading(false);
+    }
+  }
+
+  async function handleRejectDraftReview() {
+    if (!aiDraftReview) {
+      return;
+    }
+
+    const client = buildClient({
+      authMode: auth.config.mode,
+      role: selectedRole,
+      accessToken: auth.session?.accessToken ?? null,
+    });
+    setAiDraftReviewLoading(true);
+    setAiDraftReviewError(null);
+
+    try {
+      const response = await client.rejectAiDraftReview(aiDraftReview.draftId);
+      setAiDraftReview(response.data.review);
+    } catch (error) {
+      setAiDraftReviewError(
+        toSafeMessage(error, "AI draft review could not be rejected."),
+      );
+    } finally {
+      setAiDraftReviewLoading(false);
+    }
+  }
+
   async function handleSendReply() {
     if (!selectedConversationId || !canSendReply) {
+      return;
+    }
+
+    if (aiDraftReview && aiDraftReview.status !== "approved") {
+      setComposerError("AI draft requires explicit human approval first.");
       return;
     }
 
@@ -721,6 +835,8 @@ function WorkspaceAppShell() {
       setDraftId(null);
       setAiDraftLabel(null);
       setAiReplySuggestion(null);
+      setAiDraftReview(null);
+      setAiDraftReviewError(null);
       setSuggestionError(null);
       setGmailOutboundStatus(null);
       setGmailOutboundStatusError(null);
@@ -933,6 +1049,12 @@ function WorkspaceAppShell() {
               ? "You have view-only access to this conversation."
               : null,
           aiReplySuggestion,
+          aiDraftReview,
+          aiDraftReviewLoading,
+          aiDraftReviewError,
+          onEditDraftReview: handleEditDraftReview,
+          onApproveDraftReview: handleApproveDraftReview,
+          onRejectDraftReview: handleRejectDraftReview,
           isGeneratingSuggestion,
           suggestionError,
           onGenerateSuggestion: handleGenerateSuggestion,

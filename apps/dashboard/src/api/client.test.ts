@@ -233,6 +233,74 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("rawHtml");
   });
 
+  it("creates and approves AI draft reviews without exposing provider secrets", async () => {
+    const review = {
+      draftId: "draft_demo",
+      suggestionId: "sug_demo",
+      conversationId: "conv_demo",
+      customerId: "cust_demo",
+      workspaceId: "wks_demo_sales",
+      channel: "gmail",
+      status: "suggested",
+      draftText: "Thanks for reaching out.",
+      editedText: null,
+      reviewedByUserId: null,
+      approvedAt: null,
+      rejectedAt: null,
+      safeReasonCode: "ai_human_approval_required",
+      safetyFlags: ["human_approval_required"],
+      requiresHumanApproval: true,
+      policyVersion: "p7_ai_draft_review_v1",
+      createdAt: "2026-01-01T00:00:00.000Z",
+      updatedAt: "2026-01-01T00:00:00.000Z",
+    };
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(jsonResponse({ data: { review } }, 201))
+      .mockResolvedValueOnce(
+        jsonResponse({
+          data: {
+            review: {
+              ...review,
+              status: "approved",
+              approvedAt: "2026-01-01T00:01:00.000Z",
+            },
+          },
+        }),
+      );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({
+      baseUrl: "http://127.0.0.1:3000",
+    });
+
+    const created = await client.createAiDraftReview({
+      conversationId: "conv_demo",
+      customerId: "cust_demo",
+      suggestionId: "sug_demo",
+      draftText: "Thanks for reaching out.",
+      safetyFlags: ["human_approval_required"],
+    });
+    const approved = await client.approveAiDraftReview("draft_demo");
+
+    expect(fetchMock.mock.calls[0]?.[0]).toBe(
+      "http://127.0.0.1:3000/api/v1/ai/draft-reviews",
+    );
+    expect(fetchMock.mock.calls[1]?.[0]).toBe(
+      "http://127.0.0.1:3000/api/v1/ai/draft-reviews/draft_demo/approve",
+    );
+    expect(created.data.review.requiresHumanApproval).toBe(true);
+    expect(approved.data.review.status).toBe("approved");
+    expect(JSON.stringify({ created, approved })).not.toContain(
+      ["access", "token"].join("_"),
+    );
+    expect(JSON.stringify({ created, approved })).not.toContain(
+      ["refresh", "token"].join("_"),
+    );
+    expect(JSON.stringify({ created, approved })).not.toContain(
+      ["rawProvider", "Payload"].join(""),
+    );
+  });
+
   it("loads channel health safely", async () => {
     const fetchMock = vi.fn(async () =>
       jsonResponse({

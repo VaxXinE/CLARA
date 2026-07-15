@@ -386,11 +386,18 @@ It uses the backend AuthContext, workspace-scoped data access, Prompt Contract,
 and AI Context Builder. It does not add real AI providers, provider send,
 autonomous provider actions, or auto-send.
 
+P7 also adds AI Draft Review and Human Approval. AI-created draft content starts
+as `suggested`, can be edited, approved, or rejected by an authorized human, and
+approval does not equal send. Reply send remains a separate explicit human
+action.
+
 See:
 
 ```text
 docs/product/CLARA-P7-AI-REPLY-SUGGESTION-SPEC.md
 docs/product/CLARA-P7-AI-REPLY-SUGGESTION-SECURITY-RUNBOOK.md
+docs/product/CLARA-P7-AI-DRAFT-REVIEW-HUMAN-APPROVAL-SPEC.md
+docs/product/CLARA-P7-AI-DRAFT-REVIEW-SECURITY-RUNBOOK.md
 ```
 
 ---

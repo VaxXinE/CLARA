@@ -1,5 +1,6 @@
 import type {
   ConversationDetail,
+  AiDraftReview,
   GmailOutboundDeliveryStatus,
   AiReplySuggestionResponse,
   WebchatOutboundDeliveryStatus,
@@ -25,6 +26,12 @@ type ConversationPaneProps = {
   aiDraftLabel: string | null;
   readOnlyMessage: string | null;
   aiReplySuggestion?: AiReplySuggestionResponse["data"]["suggestion"] | null;
+  aiDraftReview?: AiDraftReview | null;
+  aiDraftReviewLoading?: boolean;
+  aiDraftReviewError?: string | null;
+  onEditDraftReview?: (draftText: string) => void;
+  onApproveDraftReview?: () => void;
+  onRejectDraftReview?: () => void;
   isGeneratingSuggestion?: boolean;
   suggestionError?: string | null;
   onGenerateSuggestion?: () => void;
@@ -154,6 +161,12 @@ export function ConversationPane(props: ConversationPaneProps) {
         aiDraftLabel={props.aiDraftLabel}
         readOnlyMessage={props.readOnlyMessage}
         aiReplySuggestion={props.aiReplySuggestion}
+        aiDraftReview={props.aiDraftReview}
+        aiDraftReviewLoading={props.aiDraftReviewLoading}
+        aiDraftReviewError={props.aiDraftReviewError}
+        onEditDraftReview={props.onEditDraftReview}
+        onApproveDraftReview={props.onApproveDraftReview}
+        onRejectDraftReview={props.onRejectDraftReview}
         isGeneratingSuggestion={props.isGeneratingSuggestion}
         suggestionError={props.suggestionError}
         onGenerateSuggestion={props.onGenerateSuggestion}

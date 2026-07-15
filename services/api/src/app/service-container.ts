@@ -13,6 +13,7 @@ import { MockAiDraftProvider } from "../ai-drafts/mock-ai-draft-provider";
 import { AiDraftService } from "../ai-drafts/ai-draft-service";
 import { AiReplySuggestionService } from "../ai/ai-reply-suggestion-service";
 import { MockAiReplySuggestionProvider } from "../ai/mock-ai-reply-suggestion-provider";
+import { AiDraftReviewService } from "../ai/ai-draft-review-service";
 import {
   DrizzleWorkspaceMembershipRepository,
   FixtureWorkspaceMembershipRepository,
@@ -65,6 +66,7 @@ export type AppServices = {
   customers: CustomerQueryService;
   activity: ActivityQueryService;
   aiDrafts: AiDraftService;
+  aiDraftReviews?: AiDraftReviewService;
   aiReplySuggestions?: AiReplySuggestionService;
   replies: ReplyService;
   channelRegistry?: ChannelRegistryService;
@@ -108,6 +110,12 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
       new SimulatedWhatsappOutboundSendClient(),
     );
     const auditLogs = new AuditLogService(new DrizzleAuditLogRepository(db));
+    const aiDraftRepository = new DrizzleAiDraftRepository(db);
+    const aiDraftReviews = new AiDraftReviewService(
+      conversationRepository,
+      aiDraftRepository,
+      auditLogs,
+    );
 
     return {
       services: {
@@ -119,10 +127,11 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         ),
         aiDrafts: new AiDraftService(
           conversationRepository,
-          new DrizzleAiDraftRepository(db),
+          aiDraftRepository,
           new MockAiDraftProvider(),
           auditLogs,
         ),
+        aiDraftReviews,
         aiReplySuggestions: new AiReplySuggestionService(
           conversationRepository,
           new MockAiReplySuggestionProvider(),
@@ -140,6 +149,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
           {
             service: whatsappReply,
           },
+          aiDraftReviews,
         ),
         channelRegistry: new ChannelRegistryService(),
         channelAccounts: new ChannelAccountService(channelAccountRepository),
@@ -205,6 +215,12 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
   const auditLogs = new AuditLogService(
     new FixtureAuditLogRepository(fixtureStore),
   );
+  const aiDraftRepository = new FixtureAiDraftRepository(fixtureStore);
+  const aiDraftReviews = new AiDraftReviewService(
+    conversationRepository,
+    aiDraftRepository,
+    auditLogs,
+  );
 
   return {
     services: {
@@ -218,10 +234,11 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
       ),
       aiDrafts: new AiDraftService(
         conversationRepository,
-        new FixtureAiDraftRepository(fixtureStore),
+        aiDraftRepository,
         new MockAiDraftProvider(),
         auditLogs,
       ),
+      aiDraftReviews,
       aiReplySuggestions: new AiReplySuggestionService(
         conversationRepository,
         new MockAiReplySuggestionProvider(),
@@ -239,6 +256,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         {
           service: whatsappReply,
         },
+        aiDraftReviews,
       ),
       channelRegistry: new ChannelRegistryService(),
       channelAccounts: new ChannelAccountService(channelAccountRepository),

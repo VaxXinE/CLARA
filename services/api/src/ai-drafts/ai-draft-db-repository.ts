@@ -9,8 +9,10 @@ import {
 import { NotFoundError } from "../errors/app-error";
 import type { CreatedAiDraftRecord } from "./ai-draft-dto";
 import type {
+  AiDraftReviewRecord,
   AiDraftRepository,
   CreateAiDraftArtifactsInput,
+  UpdateAiDraftReviewInput,
 } from "./ai-draft-repository";
 import {
   buildActivityEventRow,
@@ -80,5 +82,54 @@ export class DrizzleAiDraftRepository implements AiDraftRepository {
         model: input.model,
       });
     });
+  }
+
+  async findDraftByIdScoped(
+    scope: CreateAiDraftArtifactsInput["scope"],
+    draftId: string,
+  ): Promise<AiDraftReviewRecord | null> {
+    const rows = await this.db
+      .select()
+      .from(replyDrafts)
+      .where(
+        and(
+          eq(replyDrafts.id, draftId),
+          eq(replyDrafts.organizationId, scope.organizationId),
+          eq(replyDrafts.workspaceId, scope.workspaceId),
+        ),
+      )
+      .limit(1);
+
+    return rows[0] ?? null;
+  }
+
+  async updateDraftReview(
+    input: UpdateAiDraftReviewInput,
+  ): Promise<AiDraftReviewRecord | null> {
+    const updates: Partial<typeof replyDrafts.$inferInsert> = {
+      updatedAt: new Date(),
+    };
+
+    if (input.draftBody !== undefined) {
+      updates.draftBody = input.draftBody;
+    }
+
+    if (input.status !== undefined) {
+      updates.status = input.status;
+    }
+
+    const rows = await this.db
+      .update(replyDrafts)
+      .set(updates)
+      .where(
+        and(
+          eq(replyDrafts.id, input.draftId),
+          eq(replyDrafts.organizationId, input.scope.organizationId),
+          eq(replyDrafts.workspaceId, input.scope.workspaceId),
+        ),
+      )
+      .returning();
+
+    return rows[0] ?? null;
   }
 }

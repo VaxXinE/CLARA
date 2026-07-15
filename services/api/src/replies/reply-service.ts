@@ -6,6 +6,7 @@ import { AppError, NotFoundError, ValidationError } from "../errors/app-error";
 import { getWorkspaceScopeFromAuth } from "../workspace/workspace-scope";
 import { ChannelRoutingService } from "../channels/channel-routing-service";
 import type { GmailOutboundSendService } from "../channels/email/gmail-outbound-send-service";
+import type { AiDraftReviewService } from "../ai/ai-draft-review-service";
 import type { WebchatReplySendService } from "../channels/webchat/webchat-reply-send-service";
 import type { WhatsappReplySendService } from "../channels/whatsapp/whatsapp-reply-send-service";
 import { toReplySendResponseDto, type ReplySendResponseDto } from "./reply-dto";
@@ -90,6 +91,10 @@ export class ReplyService {
     private readonly gmailReply?: GmailReplySendIntegration,
     private readonly webchatReply?: WebchatReplySendIntegration,
     private readonly whatsappReply?: WhatsappReplySendIntegration,
+    private readonly aiDraftApproval?: Pick<
+      AiDraftReviewService,
+      "assertDraftApproved"
+    >,
   ) {}
 
   async sendReply(input: SendReplyRequest): Promise<ReplySendResponseDto> {
@@ -103,6 +108,14 @@ export class ReplyService {
 
     if (!conversation) {
       throw new NotFoundError("Conversation not found.");
+    }
+
+    if (input.draftId && this.aiDraftApproval) {
+      await this.aiDraftApproval.assertDraftApproved({
+        auth: input.auth,
+        correlationId: input.correlationId,
+        draftId: input.draftId,
+      });
     }
 
     let validatedBody: string;
