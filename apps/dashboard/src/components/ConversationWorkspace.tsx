@@ -5,6 +5,7 @@ import { CrmCustomerWorkspace } from "./CrmCustomerWorkspace";
 import { CustomerSidebar } from "./CustomerSidebar";
 import { ChannelHealthPanel } from "./ChannelHealthPanel";
 import { GmailSchedulerStatusPanel } from "./GmailSchedulerStatusPanel";
+import { AiAutomationGuardrailsPanel } from "./AiAutomationGuardrailsPanel";
 import { InboxPanel } from "./InboxPanel";
 
 type ConversationWorkspaceProps = {
@@ -13,6 +14,7 @@ type ConversationWorkspaceProps = {
   inbox: ComponentProps<typeof InboxPanel>;
   conversation: ComponentProps<typeof ConversationPane>;
   customer: ComponentProps<typeof CustomerSidebar>;
+  automationGuardrails?: ComponentProps<typeof AiAutomationGuardrailsPanel>;
   admin?: Omit<ComponentProps<typeof ActionInsightAdminWorkspace>, "readOnly">;
 };
 
@@ -58,6 +60,13 @@ export function ConversationWorkspace(props: ConversationWorkspaceProps) {
       </div>
 
       <div className="workspace-action-column">
+        <AiAutomationGuardrailsPanel
+          decision={props.automationGuardrails?.decision ?? null}
+          loading={props.automationGuardrails?.loading ?? false}
+          error={props.automationGuardrails?.error ?? null}
+          canEvaluate={props.automationGuardrails?.canEvaluate ?? false}
+          onEvaluate={props.automationGuardrails?.onEvaluate ?? (() => {})}
+        />
         <ActionInsightAdminWorkspace readOnly={readOnly} {...props.admin} />
       </div>
     </section>

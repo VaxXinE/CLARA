@@ -18,6 +18,17 @@ type GmailAuditActorInput = {
 
 type SafeAuditError = AppError | Error | unknown;
 
+type AiAutomationAuditEventInput = AuditContextInput & {
+  decisionId: string;
+  actionType: string;
+  decision: string;
+  riskLevel: string;
+  safeReasonCode: string;
+  sourceFeature: string;
+  conversationId?: string;
+  customerId?: string;
+};
+
 function compactMetadata(
   metadata: Record<string, string | number | boolean | null | undefined>,
 ): AuditLogMetadata | null {
@@ -198,6 +209,86 @@ export class AuditLogService {
         safe_reason_code: input.safeReasonCode,
       }),
       correlationId: input.correlationId,
+    });
+  }
+
+  private async recordAiAutomationEvent(
+    input: AiAutomationAuditEventInput & {
+      action:
+        | "ai_automation_guardrail_evaluated"
+        | "ai_automation_action_blocked"
+        | "ai_automation_human_approval_required"
+        | "ai_automation_abuse_detected"
+        | "ai_policy_blocked";
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: input.action,
+      resourceType: "ai_automation_guardrail",
+      resourceId: input.decisionId,
+      outcome: input.decision === "blocked" ? "failure" : "success",
+      metadata: compactMetadata({
+        decision_id: input.decisionId,
+        action_type: input.actionType,
+        decision: input.decision,
+        risk_level: input.riskLevel,
+        safe_reason_code: input.safeReasonCode,
+        source_feature: input.sourceFeature,
+        conversation_id: input.conversationId,
+        customer_id: input.customerId,
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
+  async recordAiAutomationGuardrailEvaluated(
+    input: AiAutomationAuditEventInput,
+  ): Promise<boolean> {
+    return this.recordAiAutomationEvent({
+      ...input,
+      action: "ai_automation_guardrail_evaluated",
+    });
+  }
+
+  async recordAiAutomationActionBlocked(
+    input: AiAutomationAuditEventInput,
+  ): Promise<boolean> {
+    return this.recordAiAutomationEvent({
+      ...input,
+      action: "ai_automation_action_blocked",
+    });
+  }
+
+  async recordAiAutomationHumanApprovalRequired(
+    input: AiAutomationAuditEventInput,
+  ): Promise<boolean> {
+    return this.recordAiAutomationEvent({
+      ...input,
+      action: "ai_automation_human_approval_required",
+    });
+  }
+
+  async recordAiAutomationAbuseDetected(
+    input: AiAutomationAuditEventInput,
+  ): Promise<boolean> {
+    return this.recordAiAutomationEvent({
+      ...input,
+      action: "ai_automation_abuse_detected",
+    });
+  }
+
+  async recordAiPolicyBlocked(
+    input: AiAutomationAuditEventInput,
+  ): Promise<boolean> {
+    return this.recordAiAutomationEvent({
+      ...input,
+      action: "ai_policy_blocked",
     });
   }
 

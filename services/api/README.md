@@ -931,3 +931,32 @@ simulated reply send provider only
 no real WhatsApp/Instagram/TikTok/email integration yet
 production provider auth requires configured issuer/JWKS plus active CLARA workspace membership
 ```
+
+## P7 AI Automation Guardrails
+
+```text
+POST /api/v1/ai/automation-guardrails/evaluate
+```
+
+The endpoint is evaluation-only. It classifies requested AI actions, returns a
+safe decision, and records sanitized audit events. It does not execute provider,
+customer, task, scheduler, billing, or role/user mutations.
+
+Security requirements:
+
+```text
+backend AuthContext only
+workspace-scoped
+requiresHumanApproval for restricted actions
+no auto-send
+no automatic task creation
+no automatic scheduler
+no automatic customer note write
+no access token
+no refresh token
+no cookies
+no raw provider payload
+no raw webhook payload
+no raw DOM
+no raw HTML
+```

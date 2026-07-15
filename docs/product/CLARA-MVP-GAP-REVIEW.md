@@ -512,3 +512,28 @@ reply send remains explicit human action
 backend AuthContext provides workspace scope
 no access token, refresh token, cookies, raw provider payload, raw webhook payload, raw DOM, or raw HTML in responses
 ```
+
+## P7 AI Automation Guardrails Progress
+
+P7 adds AI Automation Guardrails and Abuse Tests as an evaluation-only safety
+layer:
+
+```text
+backend AuthContext required
+workspace-scoped
+requiresHumanApproval for restricted actions
+ai_automation_guardrail_evaluated audit event
+ai_automation_action_blocked audit event
+ai_automation_abuse_detected audit event
+no auto-send
+no automatic task creation
+no automatic scheduler
+no automatic customer note write
+no access token
+no refresh token
+no cookies
+no raw provider payload
+no raw webhook payload
+no raw DOM
+no raw HTML
+```
