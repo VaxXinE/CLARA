@@ -46,6 +46,7 @@ Instagram and TikTok readers are safe placeholders in this PR. They detect the h
 - P8 CRM & Workflow Intelligence keeps extension handoff manual. The extension does not perform autonomous CRM mutation, auto-write customer note, auto-create task, auto-assign owner, read tokens, read cookies, capture raw DOM, or capture raw HTML.
 - P8 extension guardrails: no autonomous CRM mutation, no auto-write customer note, no auto-create task, no auto-assign owner.
 - P8 Customer Profile Intelligence stays in the backend/dashboard read model. The extension does not compute intelligence, mutate CRM data, create tasks, assign owners, read tokens, capture raw provider payloads, capture raw DOM, or capture raw HTML.
+- P8 Customer Timeline Intelligence stays in the backend/dashboard read model. The extension does not mutate CRM data, create tasks, assign owners, auto-write customer note, change lifecycle/status, read access token, read refresh token, read cookies, capture raw provider payload, capture raw webhook payload, capture raw DOM, or capture raw HTML.
 
 ## ChatGPT Companion Config
 

@@ -13,6 +13,7 @@ import type {
   ConversationListResponse,
   CustomerProfileIntelligenceResponse,
   CustomerProfileResponse,
+  CustomerTimelineIntelligenceResponse,
   DemoAuthProfile,
   GmailOutboundDeliveryStatusResponse,
   GmailSchedulerStatusResponse,
@@ -147,6 +148,16 @@ export class ApiClient {
   ): Promise<CustomerProfileIntelligenceResponse> {
     return this.request<CustomerProfileIntelligenceResponse>(
       `/api/v1/customers/${encodeURIComponent(customerId)}/intelligence`,
+    );
+  }
+
+  async getCustomerTimelineIntelligence(
+    customerId: string,
+  ): Promise<CustomerTimelineIntelligenceResponse> {
+    return this.request<CustomerTimelineIntelligenceResponse>(
+      `/api/v1/customers/${encodeURIComponent(
+        customerId,
+      )}/timeline/intelligence`,
     );
   }
 

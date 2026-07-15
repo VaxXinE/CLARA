@@ -14,6 +14,7 @@ import type {
   ConversationListResponse,
   CustomerProfileIntelligenceResponse,
   CustomerProfileResponse,
+  CustomerTimelineIntelligenceResponse,
   DemoAuthProfile,
   DemoRole,
   GmailOutboundDeliveryStatus,
@@ -133,6 +134,8 @@ function WorkspaceAppShell() {
   >(null);
   const [customerIntelligence, setCustomerIntelligence] =
     useState<CustomerProfileIntelligenceResponse | null>(null);
+  const [customerTimelineIntelligence, setCustomerTimelineIntelligence] =
+    useState<CustomerTimelineIntelligenceResponse | null>(null);
   const [activityItems, setActivityItems] = useState<
     ActivityResponse["data"]["items"]
   >([]);
@@ -189,6 +192,14 @@ function WorkspaceAppShell() {
   const [customerIntelligenceError, setCustomerIntelligenceError] = useState<
     string | null
   >(null);
+  const [
+    customerTimelineIntelligenceLoading,
+    setCustomerTimelineIntelligenceLoading,
+  ] = useState(false);
+  const [
+    customerTimelineIntelligenceError,
+    setCustomerTimelineIntelligenceError,
+  ] = useState<string | null>(null);
   const [activityLoading, setActivityLoading] = useState(false);
   const [activityError, setActivityError] = useState<string | null>(null);
   const [gmailSchedulerLoading, setGmailSchedulerLoading] = useState(false);
@@ -254,6 +265,7 @@ function WorkspaceAppShell() {
       setConversationDetail(null);
       setCustomer(null);
       setCustomerIntelligence(null);
+      setCustomerTimelineIntelligence(null);
       setActivityItems([]);
       setWorkspaceAccessRequired(null);
       setGmailSchedulerStatus(null);
@@ -306,6 +318,7 @@ function WorkspaceAppShell() {
       setConversationDetail(null);
       setCustomer(null);
       setCustomerIntelligence(null);
+      setCustomerTimelineIntelligence(null);
       setActivityItems([]);
       setComposerValue("");
       setDraftId(null);
@@ -365,6 +378,7 @@ function WorkspaceAppShell() {
           setConversationDetail(null);
           setCustomer(null);
           setCustomerIntelligence(null);
+          setCustomerTimelineIntelligence(null);
           setActivityItems([]);
           setRoleManagementReadiness(null);
           setWorkspaceMembers([]);
@@ -574,6 +588,9 @@ function WorkspaceAppShell() {
       setConversationDetail(null);
       setCustomer(null);
       setCustomerIntelligence(null);
+      setCustomerTimelineIntelligence(null);
+      setCustomerTimelineIntelligenceLoading(false);
+      setCustomerTimelineIntelligenceError(null);
       setActivityItems([]);
       return;
     }
@@ -595,6 +612,8 @@ function WorkspaceAppShell() {
       setCustomerError(null);
       setCustomerIntelligenceLoading(true);
       setCustomerIntelligenceError(null);
+      setCustomerTimelineIntelligenceLoading(true);
+      setCustomerTimelineIntelligenceError(null);
       setComposerError(null);
       setDraftId(null);
       setAiDraftLabel(null);
@@ -625,11 +644,15 @@ function WorkspaceAppShell() {
         setActivityItems(activityResponse.data.items);
 
         const customerId = detailResponse.conversation.customer.id;
-        const [customerResponse, customerIntelligenceResponse] =
-          await Promise.all([
-            client.getCustomer(customerId),
-            client.getCustomerProfileIntelligence(customerId),
-          ]);
+        const [
+          customerResponse,
+          customerIntelligenceResponse,
+          customerTimelineIntelligenceResponse,
+        ] = await Promise.all([
+          client.getCustomer(customerId),
+          client.getCustomerProfileIntelligence(customerId),
+          client.getCustomerTimelineIntelligence(customerId),
+        ]);
 
         if (cancelled) {
           return;
@@ -637,6 +660,7 @@ function WorkspaceAppShell() {
 
         setCustomer(customerResponse.customer);
         setCustomerIntelligence(customerIntelligenceResponse);
+        setCustomerTimelineIntelligence(customerTimelineIntelligenceResponse);
       } catch (error) {
         if (cancelled) {
           return;
@@ -650,12 +674,14 @@ function WorkspaceAppShell() {
         setActivityError(message);
         setCustomerError(message);
         setCustomerIntelligenceError(message);
+        setCustomerTimelineIntelligenceError(message);
       } finally {
         if (!cancelled) {
           setDetailLoading(false);
           setActivityLoading(false);
           setCustomerLoading(false);
           setCustomerIntelligenceLoading(false);
+          setCustomerTimelineIntelligenceLoading(false);
         }
       }
     }
@@ -696,9 +722,14 @@ function WorkspaceAppShell() {
       client.getActivity(conversationId),
     ]);
     const customerId = detailResponse.conversation.customer.id;
-    const [customerResponse, customerIntelligenceResponse] = await Promise.all([
+    const [
+      customerResponse,
+      customerIntelligenceResponse,
+      customerTimelineIntelligenceResponse,
+    ] = await Promise.all([
       client.getCustomer(customerId),
       client.getCustomerProfileIntelligence(customerId),
+      client.getCustomerTimelineIntelligence(customerId),
     ]);
 
     setConversations(listResponse.data);
@@ -707,6 +738,7 @@ function WorkspaceAppShell() {
     setActivityItems(activityResponse.data.items);
     setCustomer(customerResponse.customer);
     setCustomerIntelligence(customerIntelligenceResponse);
+    setCustomerTimelineIntelligence(customerTimelineIntelligenceResponse);
   }
 
   async function handleGenerateDraft() {
@@ -1289,6 +1321,9 @@ function WorkspaceAppShell() {
           customerIntelligence,
           customerIntelligenceLoading,
           customerIntelligenceError,
+          customerTimelineIntelligence,
+          customerTimelineIntelligenceLoading,
+          customerTimelineIntelligenceError,
         }}
         automationGuardrails={{
           decision: aiAutomationGuardrail,

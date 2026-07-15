@@ -11,8 +11,8 @@ classification: "roadmap"
 ## P8 PR Plan
 
 - P8-PR-01 CRM & Workflow Intelligence Scope + Mutation Policy — complete
-- P8-PR-02 Customer Profile Intelligence Read Model — in progress
-- P8-PR-03 customer timeline intelligence
+- P8-PR-02 Customer Profile Intelligence Read Model — complete
+- P8-PR-03 Customer Timeline Intelligence — in progress
 - P8-PR-04 reviewable CRM action proposal contract
 - P8-PR-05 task/follow-up workflow proposal
 - P8-PR-06 owner assignment readiness

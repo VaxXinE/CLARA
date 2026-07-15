@@ -50,6 +50,9 @@ describe("CrmCustomerWorkspace", () => {
         customerIntelligence={null}
         customerIntelligenceLoading={false}
         customerIntelligenceError={null}
+        customerTimelineIntelligence={null}
+        customerTimelineIntelligenceLoading={false}
+        customerTimelineIntelligenceError={null}
         readOnly={false}
       />,
     );
@@ -72,6 +75,9 @@ describe("CrmCustomerWorkspace", () => {
         customerIntelligence={null}
         customerIntelligenceLoading={false}
         customerIntelligenceError={null}
+        customerTimelineIntelligence={null}
+        customerTimelineIntelligenceLoading={false}
+        customerTimelineIntelligenceError={null}
         readOnly
       />,
     );

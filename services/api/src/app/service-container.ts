@@ -61,6 +61,7 @@ import { FixtureCustomerRepository } from "../customers/customer-repository";
 import { DrizzleCustomerRepository } from "../customers/customer-db-repository";
 import { CustomerQueryService } from "../customers/customer-service";
 import { CustomerProfileIntelligenceService } from "../customers/customer-intelligence-service";
+import { CustomerTimelineIntelligenceService } from "../customers/customer-timeline-intelligence-service";
 import { DrizzleExtensionSnapshotRepository } from "../extension/extension-snapshot-db-repository";
 import { ExtensionSnapshotPersistenceService } from "../extension/extension-snapshot-persistence-service";
 import { FixtureExtensionSnapshotRepository } from "../extension/extension-snapshot-repository";
@@ -73,6 +74,7 @@ export type AppServices = {
   conversations: ConversationQueryService;
   customers: CustomerQueryService;
   customerIntelligence?: CustomerProfileIntelligenceService;
+  customerTimelineIntelligence?: CustomerTimelineIntelligenceService;
   activity: ActivityQueryService;
   aiDrafts: AiDraftService;
   aiDraftReviews?: AiDraftReviewService;
@@ -136,6 +138,10 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         conversations: new ConversationQueryService(conversationRepository),
         customers: new CustomerQueryService(customerRepository),
         customerIntelligence: new CustomerProfileIntelligenceService(
+          customerRepository,
+          conversationRepository,
+        ),
+        customerTimelineIntelligence: new CustomerTimelineIntelligenceService(
           customerRepository,
           conversationRepository,
         ),
@@ -262,6 +268,10 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
       conversations: new ConversationQueryService(conversationRepository),
       customers: new CustomerQueryService(customerRepository),
       customerIntelligence: new CustomerProfileIntelligenceService(
+        customerRepository,
+        conversationRepository,
+      ),
+      customerTimelineIntelligence: new CustomerTimelineIntelligenceService(
         customerRepository,
         conversationRepository,
       ),

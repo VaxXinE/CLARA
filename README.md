@@ -422,7 +422,14 @@ docs/product/CLARA-P8-WORKFLOW-INTELLIGENCE-POLICY.md
 docs/product/CLARA-P8-IMPLEMENTATION-ROADMAP.md
 docs/product/CLARA-P8-SECURITY-RUNBOOK.md
 docs/product/CLARA-P8-CUSTOMER-PROFILE-INTELLIGENCE-SPEC.md
+docs/product/CLARA-P8-CUSTOMER-TIMELINE-INTELLIGENCE-SPEC.md
 ```
+
+P8-PR-03 adds Customer Timeline Intelligence as a read-only, review-only
+workspace-scoped timeline. It uses Backend AuthContext, has no CRM mutation, no
+auto-create task, no auto-write customer note, no raw provider payload, no raw
+webhook payload, no access token, no refresh token, and no cookies in the
+timeline contract.
 
 ---
 
