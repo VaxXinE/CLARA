@@ -45,15 +45,15 @@ bash scripts/validate-p7-ai-draft-review-human-approval.sh
 - Client `organization_id`, `workspace_id`, and `role` are not trusted.
 - Cross-workspace access returns safe not-found behavior.
 - AI draft review responses include `requiresHumanApproval=true`.
-- No access token appears in API responses.
-- No refresh token appears in API responses.
+- no access token appears in API responses.
+- no refresh token appears in API responses.
 - No cookies appear in API responses.
-- No Authorization header appears in API responses.
-- No raw provider payload appears in API responses or audit metadata.
-- No raw webhook payload appears in API responses or audit metadata.
-- No raw DOM appears in API responses.
-- No raw HTML appears in API responses.
-- No provider raw error is exposed to clients.
+- no Authorization header appears in API responses.
+- no raw provider payload appears in API responses or audit metadata.
+- no raw webhook payload appears in API responses or audit metadata.
+- no raw DOM appears in API responses.
+- no raw HTML appears in API responses.
+- no provider raw error is exposed to clients.
 - Audit events use safe IDs, statuses, and reason codes only.
 
 ## Troubleshooting
