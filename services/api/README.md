@@ -62,6 +62,7 @@ P7 AI assistant safety policy is documentation/test-only for now: no real AI pro
 P7 AI context builder and prompt contract are pure backend logic only: workspace-scoped, backend AuthContext-derived, minimized, untrusted customer content-labeled, and provider-token/raw-payload-free
 P7 AI Follow-up Recommendation is recommendation-only: mock provider only, requiresHumanApproval=true, no auto-send, no automatic task creation, no automatic scheduler, and no CRM/customer mutation
 P7 AI Conversation Summary and AI Customer Note Suggestion are review-only/suggestion-only: mock provider only, requiresHumanApproval=true, actionStatus=suggestion_only for notes, no auto-write, no automatic customer note write, and no CRM/customer mutation from AI summary/note
+P8 CRM & Workflow Intelligence is policy/test-only in P8-PR-01: CRM Mutation Policy and Workflow Intelligence Policy require Backend AuthContext, workspace-scoped access, human approval, audit log coverage, no autonomous CRM mutation, no auto-write customer note, no auto-create task, and no cross-workspace CRM mutation
 channel account reads are scoped by backend AuthContext and never trust client-provided organization_id or workspace_id
 responses never include provider secrets, tokens, Authorization headers, raw provider payloads, or raw provider errors
 multi-channel audit metadata is allowlisted and must not include message bodies, cookies, Authorization headers, tokens, secrets, raw provider payloads, or raw provider errors
@@ -960,6 +961,17 @@ no raw webhook payload
 no raw DOM
 no raw HTML
 ```
+
+## P8 CRM & Workflow Intelligence
+
+P8-PR-01 is documentation, tests, and validation only. It defines CRM workflow
+readiness, allowed/restricted/blocked CRM actions, human approval requirements,
+audit log requirements, and workspace-scoped Backend AuthContext boundaries.
+
+It does not add CRM mutation routes, task creation APIs, customer-note write
+APIs, autonomous CRM mutation, auto-write customer note, auto-create task,
+provider mutation, billing/admin/user/role mutation, or P9 Analytics /
+Reporting / KPI.
 
 ## P7 Final AI Assistant Audit
 

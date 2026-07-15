@@ -87,6 +87,15 @@ evaluation-only. It uses backend AuthContext, workspace-scoped data access,
 automatic customer note write, no automatic task creation, no automatic
 scheduler, no access token, no refresh token, no cookies, no raw provider
 payload, no raw webhook payload, no raw DOM, and no raw HTML.
+
+## P8 CRM Workflow Security Baseline
+
+P8 CRM & Workflow Intelligence starts with policy only. CRM Mutation Policy and
+Workflow Intelligence Policy require Backend AuthContext, workspace-scoped
+authorization, human approval for risky actions, audit log coverage, no
+autonomous CRM mutation, no auto-write customer note, no auto-create task, no
+cross-workspace CRM mutation, no raw provider payload, no raw webhook payload,
+no raw DOM, and no raw HTML. P9 Analytics / Reporting / KPI remains later work.
 - Billing/entitlements.
 - Admin/superadmin workflows.
 - Data export/import.
