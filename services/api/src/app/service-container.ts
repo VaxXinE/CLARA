@@ -60,6 +60,7 @@ import { ConversationQueryService } from "../conversations/conversation-service"
 import { FixtureCustomerRepository } from "../customers/customer-repository";
 import { DrizzleCustomerRepository } from "../customers/customer-db-repository";
 import { CustomerQueryService } from "../customers/customer-service";
+import { CustomerProfileIntelligenceService } from "../customers/customer-intelligence-service";
 import { DrizzleExtensionSnapshotRepository } from "../extension/extension-snapshot-db-repository";
 import { ExtensionSnapshotPersistenceService } from "../extension/extension-snapshot-persistence-service";
 import { FixtureExtensionSnapshotRepository } from "../extension/extension-snapshot-repository";
@@ -71,6 +72,7 @@ import { SimulatedReplySendProvider } from "../replies/simulated-reply-send-prov
 export type AppServices = {
   conversations: ConversationQueryService;
   customers: CustomerQueryService;
+  customerIntelligence?: CustomerProfileIntelligenceService;
   activity: ActivityQueryService;
   aiDrafts: AiDraftService;
   aiDraftReviews?: AiDraftReviewService;
@@ -109,6 +111,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
   if (shouldUseDatabaseRepositories(env)) {
     const { db, pool } = createDatabase(env);
     const conversationRepository = new DrizzleConversationRepository(db);
+    const customerRepository = new DrizzleCustomerRepository(db);
     const channelAccountRepository = new DrizzleChannelAccountRepository(db);
     const webchatReply = new WebchatReplySendService(
       channelAccountRepository,
@@ -131,7 +134,11 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
     return {
       services: {
         conversations: new ConversationQueryService(conversationRepository),
-        customers: new CustomerQueryService(new DrizzleCustomerRepository(db)),
+        customers: new CustomerQueryService(customerRepository),
+        customerIntelligence: new CustomerProfileIntelligenceService(
+          customerRepository,
+          conversationRepository,
+        ),
         activity: new ActivityQueryService(
           new DrizzleActivityRepository(db),
           conversationRepository,
@@ -226,6 +233,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
   const conversationRepository = new FixtureConversationRepository(
     fixtureStore,
   );
+  const customerRepository = new FixtureCustomerRepository(fixtureStore);
   const channelAccountRepository = new FixtureChannelAccountRepository(
     fixtureStore,
   );
@@ -252,8 +260,10 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
   return {
     services: {
       conversations: new ConversationQueryService(conversationRepository),
-      customers: new CustomerQueryService(
-        new FixtureCustomerRepository(fixtureStore),
+      customers: new CustomerQueryService(customerRepository),
+      customerIntelligence: new CustomerProfileIntelligenceService(
+        customerRepository,
+        conversationRepository,
       ),
       activity: new ActivityQueryService(
         new FixtureActivityRepository(fixtureStore),

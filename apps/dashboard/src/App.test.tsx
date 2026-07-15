@@ -6,6 +6,7 @@ import type {
   ActivityResponse,
   ConversationDetailResponse,
   ConversationListResponse,
+  CustomerProfileIntelligenceResponse,
   CustomerProfileResponse,
   MeResponse,
 } from "./api/types";
@@ -104,6 +105,41 @@ const customerResponse: CustomerProfileResponse = {
     can_view_activity: true,
     can_generate_ai_draft: true,
     can_send_reply: true,
+  },
+};
+
+const customerIntelligenceResponse: CustomerProfileIntelligenceResponse = {
+  customerId: "cust_demo_budi",
+  workspaceId: "wks_demo_sales",
+  generatedAt: "2026-01-10T00:00:00.000Z",
+  profileHealth: {
+    level: "needs_attention",
+    reasons: ["Customer has open conversations to review."],
+  },
+  activitySignals: {
+    lastConversationAt: "2026-01-01T00:00:00.000Z",
+    lastReplyAt: null,
+    openConversationCount: 1,
+    totalConversationCount: 1,
+    recentActivityCount: 1,
+  },
+  relationshipSignals: {
+    lifecycleSuggestion: "active_customer",
+    lifecycleReason: "Recent workspace-scoped conversation activity exists.",
+    statusSuggestion: "needs_follow_up",
+    statusReason: "Open conversations require human review.",
+  },
+  followUpSignals: {
+    recommendedAction: "follow_up",
+    urgency: "high",
+    reason:
+      "Recommended action is review-only and must be approved by a human.",
+  },
+  safety: {
+    readOnly: true,
+    mutationAllowed: false,
+    requiresHumanApprovalForMutation: true,
+    policyVersion: "customer-profile-intelligence-read-model-v1",
   },
 };
 
@@ -265,6 +301,10 @@ describe("App", () => {
         } satisfies ConversationDetailResponse);
       }
 
+      if (url.includes("/api/v1/customers/cust_demo_budi/intelligence")) {
+        return jsonResponse(customerIntelligenceResponse);
+      }
+
       if (url.includes("/api/v1/customers/cust_demo_budi")) {
         return jsonResponse(customerResponse);
       }
@@ -355,6 +395,10 @@ describe("App", () => {
 
         if (url.includes("/api/v1/conversations/conv_demo_budi_stock")) {
           return jsonResponse(conversationDetailResponse);
+        }
+
+        if (url.includes("/api/v1/customers/cust_demo_budi/intelligence")) {
+          return jsonResponse(customerIntelligenceResponse);
         }
 
         if (url.includes("/api/v1/customers/cust_demo_budi")) {

@@ -144,6 +144,11 @@ function renderConversationWorkspace(input?: { readOnly?: boolean }) {
         activityLoading: false,
         activityError: null,
       }}
+      customerIntelligence={{
+        customerIntelligence: null,
+        customerIntelligenceLoading: false,
+        customerIntelligenceError: null,
+      }}
     />,
   );
 }
@@ -205,6 +210,9 @@ describe("P5.1 final UI regression", () => {
       <CrmCustomerWorkspace
         conversation={conversation}
         customer={customer}
+        customerIntelligence={null}
+        customerIntelligenceLoading={false}
+        customerIntelligenceError={null}
         readOnly
       />,
     );

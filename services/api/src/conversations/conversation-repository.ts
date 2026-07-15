@@ -273,6 +273,17 @@ export class FixtureConversationRepository implements ConversationRepository {
     };
   }
 
+  async listByCustomerScoped(
+    scope: WorkspaceScope,
+    customerId: string,
+  ): Promise<ConversationListItemRecord[]> {
+    const result = await this.listScoped(scope, {
+      limit: 500,
+    });
+
+    return result.items.filter((item) => item.customer.id === customerId);
+  }
+
   async findByIdScoped(
     scope: WorkspaceScope,
     conversationId: string,

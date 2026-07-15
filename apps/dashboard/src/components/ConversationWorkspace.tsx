@@ -14,6 +14,10 @@ type ConversationWorkspaceProps = {
   inbox: ComponentProps<typeof InboxPanel>;
   conversation: ComponentProps<typeof ConversationPane>;
   customer: ComponentProps<typeof CustomerSidebar>;
+  customerIntelligence: Omit<
+    ComponentProps<typeof CrmCustomerWorkspace>,
+    "conversation" | "customer" | "readOnly"
+  >;
   automationGuardrails?: ComponentProps<typeof AiAutomationGuardrailsPanel>;
   admin?: Omit<ComponentProps<typeof ActionInsightAdminWorkspace>, "readOnly">;
 };
@@ -56,6 +60,7 @@ export function ConversationWorkspace(props: ConversationWorkspaceProps) {
           conversation={props.conversation.conversation}
           customer={props.customer.customer}
           readOnly={readOnly}
+          {...props.customerIntelligence}
         />
       </div>
 

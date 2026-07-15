@@ -47,6 +47,9 @@ describe("CrmCustomerWorkspace", () => {
       <CrmCustomerWorkspace
         conversation={conversation}
         customer={customer}
+        customerIntelligence={null}
+        customerIntelligenceLoading={false}
+        customerIntelligenceError={null}
         readOnly={false}
       />,
     );
@@ -63,7 +66,14 @@ describe("CrmCustomerWorkspace", () => {
 
   it("renders placeholders safely without fetching or mutation", () => {
     render(
-      <CrmCustomerWorkspace conversation={null} customer={null} readOnly />,
+      <CrmCustomerWorkspace
+        conversation={null}
+        customer={null}
+        customerIntelligence={null}
+        customerIntelligenceLoading={false}
+        customerIntelligenceError={null}
+        readOnly
+      />,
     );
 
     expect(screen.getByText("No active lead")).toBeInTheDocument();
