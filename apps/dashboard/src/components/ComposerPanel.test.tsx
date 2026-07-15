@@ -1,8 +1,12 @@
-import { render, screen } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { cleanup, render, screen } from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { ComposerPanel } from "./ComposerPanel";
 
 describe("ComposerPanel", () => {
+  afterEach(() => {
+    cleanup();
+  });
+
   it("shows a read-only notice for viewer state", () => {
     render(
       <ComposerPanel
@@ -53,5 +57,45 @@ describe("ComposerPanel", () => {
       screen.getByRole("button", { name: "Generate AI Draft" }),
     ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Send Reply" })).toBeEnabled();
+  });
+
+  it("blocks reply send when an AI draft review is not approved", () => {
+    render(
+      <ComposerPanel
+        value="Hi Budi, thanks for reaching out."
+        onChange={vi.fn()}
+        onGenerateDraft={vi.fn()}
+        onSendReply={vi.fn()}
+        canGenerateDraft={true}
+        canSendReply={true}
+        isGeneratingDraft={false}
+        isSendingReply={false}
+        error={null}
+        aiDraftLabel="AI-assisted draft · Review before sending"
+        readOnlyMessage={null}
+        aiDraftReview={{
+          draftId: "draft_demo",
+          suggestionId: null,
+          conversationId: "conv_demo",
+          customerId: "cust_demo",
+          workspaceId: "wks_demo_sales",
+          channel: "gmail",
+          status: "suggested",
+          draftText: "Hi Budi, thanks for reaching out.",
+          editedText: null,
+          reviewedByUserId: null,
+          approvedAt: null,
+          rejectedAt: null,
+          safeReasonCode: "ai_human_approval_required",
+          safetyFlags: [],
+          requiresHumanApproval: true,
+          policyVersion: "p7_ai_draft_review_v1",
+          createdAt: "2026-01-01T00:00:00.000Z",
+          updatedAt: "2026-01-01T00:00:00.000Z",
+        }}
+      />,
+    );
+
+    expect(screen.getByRole("button", { name: "Send Reply" })).toBeDisabled();
   });
 });

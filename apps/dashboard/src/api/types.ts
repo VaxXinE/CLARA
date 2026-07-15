@@ -183,6 +183,36 @@ export type AiReplySuggestionResponse = {
   };
 };
 
+export type AiDraftReviewStatus =
+  "suggested" | "editing" | "approved" | "rejected" | "expired" | "blocked";
+
+export type AiDraftReview = {
+  draftId: string;
+  suggestionId: string | null;
+  conversationId: string;
+  customerId: string | null;
+  workspaceId: string;
+  channel: string;
+  status: AiDraftReviewStatus;
+  draftText: string;
+  editedText: string | null;
+  reviewedByUserId: string | null;
+  approvedAt: string | null;
+  rejectedAt: string | null;
+  safeReasonCode: string;
+  safetyFlags: string[];
+  requiresHumanApproval: true;
+  policyVersion: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type AiDraftReviewResponse = {
+  data: {
+    review: AiDraftReview;
+  };
+};
+
 export type ReplySendResponse = {
   data: {
     message?: {

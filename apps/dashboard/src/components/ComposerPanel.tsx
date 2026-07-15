@@ -1,4 +1,5 @@
-import type { AiReplySuggestionResponse } from "../api/types";
+import type { AiDraftReview, AiReplySuggestionResponse } from "../api/types";
+import { AiDraftReviewPanel } from "./AiDraftReviewPanel";
 import { AiReplySuggestionPanel } from "./AiReplySuggestionPanel";
 
 type ComposerPanelProps = {
@@ -14,6 +15,12 @@ type ComposerPanelProps = {
   aiDraftLabel: string | null;
   readOnlyMessage: string | null;
   aiReplySuggestion?: AiReplySuggestionResponse["data"]["suggestion"] | null;
+  aiDraftReview?: AiDraftReview | null;
+  aiDraftReviewLoading?: boolean;
+  aiDraftReviewError?: string | null;
+  onEditDraftReview?: (draftText: string) => void;
+  onApproveDraftReview?: () => void;
+  onRejectDraftReview?: () => void;
   isGeneratingSuggestion?: boolean;
   suggestionError?: string | null;
   onGenerateSuggestion?: () => void;
@@ -56,6 +63,16 @@ export function ComposerPanel(props: ComposerPanelProps) {
         onGenerate={props.onGenerateSuggestion ?? (() => {})}
       />
 
+      <AiDraftReviewPanel
+        review={props.aiDraftReview ?? null}
+        loading={props.aiDraftReviewLoading ?? false}
+        error={props.aiDraftReviewError ?? null}
+        canReview={props.canGenerateDraft}
+        onEdit={props.onEditDraftReview ?? (() => {})}
+        onApprove={props.onApproveDraftReview ?? (() => {})}
+        onReject={props.onRejectDraftReview ?? (() => {})}
+      />
+
       <label className="field">
         <span className="field-label">Message draft</span>
         <textarea
@@ -86,7 +103,13 @@ export function ComposerPanel(props: ComposerPanelProps) {
               type="button"
               className="primary-button"
               onClick={props.onSendReply}
-              disabled={props.isSendingReply || props.value.trim().length === 0}
+              disabled={
+                props.isSendingReply ||
+                props.value.trim().length === 0 ||
+                (props.aiDraftReview
+                  ? props.aiDraftReview.status !== "approved"
+                  : false)
+              }
             >
               {props.isSendingReply ? "Sending..." : "Send Reply"}
             </button>

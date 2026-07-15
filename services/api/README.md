@@ -834,8 +834,29 @@ reply send uses simulated providers only; Gmail-sourced conversations can use th
 WhatsApp-sourced conversations can use the simulated WhatsApp outbound boundary through the existing explicit human reply endpoint
 AI draft creates a draft row and activity but does not send any message
 AI Reply Suggestion does not create a send action and does not auto-send
+AI Draft Review requires explicit human approval and approval does not equal send
 reply send requires an explicit human API request
 ```
+
+## AI Draft Review
+
+P7 AI Draft Review endpoints:
+
+```text
+POST /api/v1/ai/draft-reviews
+GET /api/v1/ai/draft-reviews/:draftId
+POST /api/v1/ai/draft-reviews/:draftId/edit
+POST /api/v1/ai/draft-reviews/:draftId/approve
+POST /api/v1/ai/draft-reviews/:draftId/reject
+```
+
+Draft review is workspace-scoped from backend AuthContext. The API rejects or
+ignores client-supplied organization/workspace/role authority. Viewer is
+read-only. Blocked, rejected, and expired drafts cannot be approved.
+
+Responses and audit metadata must not include access token, refresh token,
+cookies, Authorization header, raw provider payload, raw webhook payload, raw
+DOM, raw HTML, or client secret.
 
 Not implemented yet:
 

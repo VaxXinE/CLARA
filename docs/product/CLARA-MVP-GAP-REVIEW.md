@@ -491,7 +491,22 @@ Remaining production blockers:
 ```text
 real AI provider gateway
 model safety evaluation
-human approval workflow persistence
+human approval workflow hardening beyond the P7 draft review baseline
 operator feedback loop
 production monitoring for AI policy blocks
+```
+
+## P7 AI Draft Review Progress
+
+P7 adds the AI Draft Review and Human Approval baseline:
+
+```text
+AI-created content starts suggested
+operators can edit, approve, or reject
+blocked/rejected/expired drafts cannot be approved
+requiresHumanApproval remains true
+approval does not equal send
+reply send remains explicit human action
+backend AuthContext provides workspace scope
+no access token, refresh token, cookies, raw provider payload, raw webhook payload, raw DOM, or raw HTML in responses
 ```

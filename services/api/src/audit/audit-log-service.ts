@@ -201,6 +201,144 @@ export class AuditLogService {
     });
   }
 
+  async recordAiDraftReviewCreated(
+    input: AuditContextInput & {
+      conversationId: string;
+      customerId: string;
+      draftId: string;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: "ai_draft_review_created",
+      resourceType: "reply_draft",
+      resourceId: input.draftId,
+      outcome: "success",
+      metadata: compactMetadata({
+        conversation_id: input.conversationId,
+        customer_id: input.customerId,
+        status: "suggested",
+        safe_reason_code: "ai_human_approval_required",
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
+  async recordAiDraftEdited(
+    input: AuditContextInput & {
+      conversationId: string;
+      customerId: string;
+      draftId: string;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: "ai_draft_edited",
+      resourceType: "reply_draft",
+      resourceId: input.draftId,
+      outcome: "success",
+      metadata: compactMetadata({
+        conversation_id: input.conversationId,
+        customer_id: input.customerId,
+        status: "editing",
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
+  async recordAiDraftApproved(
+    input: AuditContextInput & {
+      conversationId: string;
+      customerId: string;
+      draftId: string;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: "ai_draft_approved",
+      resourceType: "reply_draft",
+      resourceId: input.draftId,
+      outcome: "success",
+      metadata: compactMetadata({
+        conversation_id: input.conversationId,
+        customer_id: input.customerId,
+        status: "approved",
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
+  async recordAiDraftRejected(
+    input: AuditContextInput & {
+      conversationId: string;
+      customerId: string;
+      draftId: string;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: "ai_draft_rejected",
+      resourceType: "reply_draft",
+      resourceId: input.draftId,
+      outcome: "success",
+      metadata: compactMetadata({
+        conversation_id: input.conversationId,
+        customer_id: input.customerId,
+        status: "rejected",
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
+  async recordAiDraftBlocked(
+    input: AuditContextInput & {
+      conversationId: string;
+      customerId: string;
+      draftId: string;
+      safeReasonCode: string;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: "ai_draft_blocked",
+      resourceType: "reply_draft",
+      resourceId: input.draftId,
+      outcome: "failure",
+      metadata: compactMetadata({
+        conversation_id: input.conversationId,
+        customer_id: input.customerId,
+        status: "blocked",
+        safe_reason_code: input.safeReasonCode,
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
   async recordReplySendAttempted(
     input: AuditContextInput & {
       conversationId: string;

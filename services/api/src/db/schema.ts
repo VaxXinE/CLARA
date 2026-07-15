@@ -46,7 +46,15 @@ export const deliveryStatuses = [
   "failed",
 ] as const;
 export const replyDraftSources = ["manual", "ai"] as const;
-export const replyDraftStatuses = ["draft", "sent", "discarded"] as const;
+export const replyDraftStatuses = [
+  "draft",
+  "sent",
+  "discarded",
+  "approved",
+  "rejected",
+  "expired",
+  "blocked",
+] as const;
 export const aiDraftStatuses = ["succeeded", "failed"] as const;
 export const activityEventTypes = [
   "ai_draft_generated",

@@ -259,6 +259,26 @@ cd apps/dashboard
 npm run test -- AiReplySuggestionPanel client
 ```
 
+## AI Draft Review
+
+The dashboard can display AI Draft Review status and provide human-only
+review controls:
+
+```text
+edit draft text
+approve draft
+reject draft
+no auto-send
+approval does not equal send
+no token display
+no raw provider payload display
+no raw DOM or raw HTML rendering
+```
+
+The send button is disabled for an AI draft review until the backend marks the
+review as `approved`. Frontend checks are UX only; backend authorization and
+workspace scope remain the source of truth.
+
 ## Docker Production Build
 
 Dashboard Docker baseline:

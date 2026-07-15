@@ -39,6 +39,7 @@ Instagram and TikTok readers are safe placeholders in this PR. They detect the h
 - P7 AI assistant safety scope keeps ChatGPT Companion preview/copy/manual only and does not add auto-submit, auto-send, raw DOM/HTML capture, or provider token access.
 - P7 AI context boundary keeps extension-provided context bounded, manual, and free of cookies, tokens, raw DOM, and raw HTML.
 - P7 AI Reply Suggestion keeps ChatGPT Companion preview/copy/manual only; it does not add auto-submit, auto-send, cookies, tokens, raw DOM, or raw HTML.
+- P7 AI Draft Review keeps the extension boundary preview/copy/manual only. The extension does not approve drafts, reject drafts, send replies, read tokens, read cookies, capture raw DOM, capture raw HTML, or auto-send.
 
 ## ChatGPT Companion Config
 

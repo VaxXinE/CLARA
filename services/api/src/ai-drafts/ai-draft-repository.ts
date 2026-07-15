@@ -21,10 +21,37 @@ export type CreateAiDraftArtifactsInput = {
   latencyMs: number | null;
 };
 
+export type AiDraftReviewRecord = {
+  id: string;
+  organizationId: string;
+  workspaceId: string;
+  conversationId: string;
+  createdByUserId: string;
+  draftBody: string;
+  source: string;
+  status: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type UpdateAiDraftReviewInput = {
+  scope: WorkspaceScope;
+  draftId: string;
+  draftBody?: string;
+  status?: string;
+};
+
 export interface AiDraftRepository {
   createDraftArtifacts(
     input: CreateAiDraftArtifactsInput,
   ): Promise<CreatedAiDraftRecord>;
+  findDraftByIdScoped(
+    scope: WorkspaceScope,
+    draftId: string,
+  ): Promise<AiDraftReviewRecord | null>;
+  updateDraftReview(
+    input: UpdateAiDraftReviewInput,
+  ): Promise<AiDraftReviewRecord | null>;
 }
 
 export function createPrefixedId(prefix: string): string {
@@ -116,6 +143,23 @@ export function toCreatedAiDraftRecord(input: {
   };
 }
 
+function toAiDraftReviewRecord(
+  draft: ReplyDraftInsert,
+): AiDraftReviewRecord {
+  return {
+    id: draft.id,
+    organizationId: draft.organizationId,
+    workspaceId: draft.workspaceId,
+    conversationId: draft.conversationId,
+    createdByUserId: draft.createdByUserId,
+    draftBody: draft.draftBody,
+    source: draft.source,
+    status: draft.status,
+    createdAt: draft.createdAt ?? new Date(),
+    updatedAt: draft.updatedAt ?? draft.createdAt ?? new Date(),
+  };
+}
+
 export class FixtureAiDraftRepository implements AiDraftRepository {
   private readonly store: FixtureAppStore;
 
@@ -147,6 +191,49 @@ export class FixtureAiDraftRepository implements AiDraftRepository {
       provider: input.provider,
       model: input.model,
     });
+  }
+
+  async findDraftByIdScoped(
+    scope: WorkspaceScope,
+    draftId: string,
+  ): Promise<AiDraftReviewRecord | null> {
+    const draft = this.store.replyDrafts.find((candidate) => {
+      return (
+        candidate.id === draftId &&
+        candidate.organizationId === scope.organizationId &&
+        candidate.workspaceId === scope.workspaceId
+      );
+    });
+
+    return draft ? toAiDraftReviewRecord(draft) : null;
+  }
+
+  async updateDraftReview(
+    input: UpdateAiDraftReviewInput,
+  ): Promise<AiDraftReviewRecord | null> {
+    const draft = this.store.replyDrafts.find((candidate) => {
+      return (
+        candidate.id === input.draftId &&
+        candidate.organizationId === input.scope.organizationId &&
+        candidate.workspaceId === input.scope.workspaceId
+      );
+    });
+
+    if (!draft) {
+      return null;
+    }
+
+    if (input.draftBody !== undefined) {
+      draft.draftBody = input.draftBody;
+    }
+
+    if (input.status !== undefined) {
+      draft.status = input.status;
+    }
+
+    draft.updatedAt = new Date();
+
+    return toAiDraftReviewRecord(draft);
   }
 
   getState(): FixtureAppStore {

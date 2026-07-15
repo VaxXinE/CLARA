@@ -1,6 +1,7 @@
 import type {
   ActivityResponse,
   AiDraftResponse,
+  AiDraftReviewResponse,
   AiReplySuggestionResponse,
   ApiErrorResponse,
   ChannelHealthResponse,
@@ -217,6 +218,66 @@ export class ApiClient {
           maxLength: payload.maxLength,
           operatorInstruction: payload.operatorInstruction,
         }),
+      },
+    );
+  }
+
+  async createAiDraftReview(payload: {
+    conversationId: string;
+    customerId?: string;
+    suggestionId?: string;
+    draftText: string;
+    safetyFlags?: string[];
+  }): Promise<AiDraftReviewResponse> {
+    return this.request<AiDraftReviewResponse>("/api/v1/ai/draft-reviews", {
+      method: "POST",
+      body: JSON.stringify({
+        conversationId: payload.conversationId,
+        customerId: payload.customerId,
+        suggestionId: payload.suggestionId,
+        draftText: payload.draftText,
+        safetyFlags: payload.safetyFlags,
+      }),
+    });
+  }
+
+  async getAiDraftReview(draftId: string): Promise<AiDraftReviewResponse> {
+    return this.request<AiDraftReviewResponse>(
+      `/api/v1/ai/draft-reviews/${encodeURIComponent(draftId)}`,
+    );
+  }
+
+  async editAiDraftReview(
+    draftId: string,
+    payload: {
+      draftText: string;
+    },
+  ): Promise<AiDraftReviewResponse> {
+    return this.request<AiDraftReviewResponse>(
+      `/api/v1/ai/draft-reviews/${encodeURIComponent(draftId)}/edit`,
+      {
+        method: "POST",
+        body: JSON.stringify(payload),
+      },
+    );
+  }
+
+  async approveAiDraftReview(draftId: string): Promise<AiDraftReviewResponse> {
+    return this.request<AiDraftReviewResponse>(
+      `/api/v1/ai/draft-reviews/${encodeURIComponent(draftId)}/approve`,
+      {
+        method: "POST",
+        body: JSON.stringify({}),
+      },
+    );
+  }
+
+  async rejectAiDraftReview(draftId: string): Promise<AiDraftReviewResponse> {
+    return this.request<AiDraftReviewResponse>(
+      `/api/v1/ai/draft-reviews/${encodeURIComponent(draftId)}/reject`,
+      {
+        method: "POST",
+        body: JSON.stringify({}),
       },
     );
   }
