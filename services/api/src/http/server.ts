@@ -31,6 +31,7 @@ import { registerAiReplySuggestionRoutes } from "./routes/ai-reply-suggestions";
 import { registerAiFollowUpRecommendationRoutes } from "./routes/ai-follow-up-recommendations";
 import { registerAiConversationSummaryRoutes } from "./routes/ai-conversation-summaries";
 import { registerAiCustomerNoteSuggestionRoutes } from "./routes/ai-customer-note-suggestions";
+import { registerAiAutomationGuardrailRoutes } from "./routes/ai-automation-guardrails";
 import { registerReplyRoutes } from "./routes/replies";
 import { registerChannelRoutes } from "./routes/channels";
 import { registerWebchatRoutes } from "./routes/webchat";
@@ -269,6 +270,14 @@ export async function createServer(
       app,
       authProvider,
       services.aiCustomerNoteSuggestions,
+      options.env,
+    );
+  }
+  if (services.aiAutomationGuardrails) {
+    await registerAiAutomationGuardrailRoutes(
+      app,
+      authProvider,
+      services.aiAutomationGuardrails,
       options.env,
     );
   }

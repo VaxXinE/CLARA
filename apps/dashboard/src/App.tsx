@@ -4,6 +4,7 @@ import type {
   ActivityResponse,
   AiConversationSummaryResponse,
   AiCustomerNoteSuggestionResponse,
+  AiAutomationGuardrail,
   AiDraftResponse,
   AiDraftReview,
   AiFollowUpRecommendationResponse,
@@ -164,6 +165,8 @@ function WorkspaceAppShell() {
   const [aiDraftReview, setAiDraftReview] = useState<AiDraftReview | null>(
     null,
   );
+  const [aiAutomationGuardrail, setAiAutomationGuardrail] =
+    useState<AiAutomationGuardrail | null>(null);
   const [statusFilter, setStatusFilter] = useState("");
   const [search, setSearch] = useState("");
   const deferredSearch = useDeferredValue(search);
@@ -219,6 +222,11 @@ function WorkspaceAppShell() {
     null,
   );
   const [aiDraftReviewLoading, setAiDraftReviewLoading] = useState(false);
+  const [aiAutomationGuardrailLoading, setAiAutomationGuardrailLoading] =
+    useState(false);
+  const [aiAutomationGuardrailError, setAiAutomationGuardrailError] = useState<
+    string | null
+  >(null);
   const [isSendingReply, setIsSendingReply] = useState(false);
 
   useEffect(() => {
@@ -259,6 +267,8 @@ function WorkspaceAppShell() {
       setAiCustomerNoteSuggestion(null);
       setAiDraftReview(null);
       setAiDraftReviewError(null);
+      setAiAutomationGuardrail(null);
+      setAiAutomationGuardrailError(null);
       setSuggestionError(null);
       setFollowUpError(null);
       setSummaryError(null);
@@ -296,6 +306,8 @@ function WorkspaceAppShell() {
       setAiCustomerNoteSuggestion(null);
       setAiDraftReview(null);
       setAiDraftReviewError(null);
+      setAiAutomationGuardrail(null);
+      setAiAutomationGuardrailError(null);
       setSuggestionError(null);
       setFollowUpError(null);
       setSummaryError(null);
@@ -575,6 +587,8 @@ function WorkspaceAppShell() {
       setAiReplySuggestion(null);
       setAiDraftReview(null);
       setAiDraftReviewError(null);
+      setAiAutomationGuardrail(null);
+      setAiAutomationGuardrailError(null);
       setSuggestionError(null);
       setComposerValue("");
       setGmailOutboundStatus(null);
@@ -932,6 +946,37 @@ function WorkspaceAppShell() {
     }
   }
 
+  async function handleEvaluateAutomationGuardrail() {
+    if (!selectedConversationId || !conversationDetail) {
+      return;
+    }
+
+    const client = buildClient({
+      authMode: auth.config.mode,
+      role: selectedRole,
+      accessToken: auth.session?.accessToken ?? null,
+    });
+    setAiAutomationGuardrailLoading(true);
+    setAiAutomationGuardrailError(null);
+
+    try {
+      const response = await client.evaluateAiAutomationGuardrail({
+        requestedAction: "suggest_reply",
+        sourceFeature: "future_automation",
+        conversationId: selectedConversationId,
+        customerId: conversationDetail.customer.id,
+      });
+
+      setAiAutomationGuardrail(response.data.guardrail);
+    } catch (error) {
+      setAiAutomationGuardrailError(
+        toSafeMessage(error, "AI guardrail check is unavailable."),
+      );
+    } finally {
+      setAiAutomationGuardrailLoading(false);
+    }
+  }
+
   async function handleSendReply() {
     if (!selectedConversationId || !canSendReply) {
       return;
@@ -964,6 +1009,8 @@ function WorkspaceAppShell() {
       setAiCustomerNoteSuggestion(null);
       setAiDraftReview(null);
       setAiDraftReviewError(null);
+      setAiAutomationGuardrail(null);
+      setAiAutomationGuardrailError(null);
       setSuggestionError(null);
       setFollowUpError(null);
       setSummaryError(null);
@@ -1214,6 +1261,15 @@ function WorkspaceAppShell() {
           activity: activityItems,
           activityLoading,
           activityError,
+        }}
+        automationGuardrails={{
+          decision: aiAutomationGuardrail,
+          loading: aiAutomationGuardrailLoading,
+          error: aiAutomationGuardrailError,
+          canEvaluate: Boolean(
+            conversationDetail && me?.user.role !== "viewer",
+          ),
+          onEvaluate: handleEvaluateAutomationGuardrail,
         }}
         admin={{
           currentRole: me?.user.role ?? navigationRole,

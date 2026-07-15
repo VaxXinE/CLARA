@@ -281,6 +281,16 @@ The send button is disabled for an AI draft review until the backend marks the
 review as `approved`. Frontend checks are UX only; backend authorization and
 workspace scope remain the source of truth.
 
+## AI Automation Guardrails
+
+The dashboard includes a read-only P7 guardrail readiness panel. It can request
+an evaluation-only decision from the API, but it does not add execution controls,
+automatic scheduler controls, automatic task creation, automatic customer note
+write, or auto-send behavior.
+
+The panel must not render access token, refresh token, cookies, Authorization
+headers, raw provider payload, raw webhook payload, raw DOM, or raw HTML.
+
 ## Docker Production Build
 
 Dashboard Docker baseline:

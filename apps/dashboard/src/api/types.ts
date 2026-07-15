@@ -322,6 +322,29 @@ export type AiDraftReviewResponse = {
   };
 };
 
+export type AiAutomationGuardrailDecision =
+  "allowed" | "requires_human_approval" | "blocked";
+
+export type AiAutomationGuardrail = {
+  decisionId: string;
+  decision: AiAutomationGuardrailDecision;
+  actionType: string;
+  riskLevel: "low" | "medium" | "high" | "critical";
+  blockedReason: string | null;
+  safeReasonCode: string;
+  safetyFlags: string[];
+  requiresHumanApproval: boolean;
+  actionStatus: "evaluation_only";
+  policyVersion: string;
+  createdAt: string;
+};
+
+export type AiAutomationGuardrailResponse = {
+  data: {
+    guardrail: AiAutomationGuardrail;
+  };
+};
+
 export type ReplySendResponse = {
   data: {
     message?: {

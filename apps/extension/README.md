@@ -101,4 +101,9 @@ cd apps/extension
 npm run test -- p7-ai-reply-suggestion
 ```
 
+P7 AI Automation Guardrails keep the extension preview/copy/manual only. Abuse
+Tests cover no auto-send, no automatic task creation, no automatic scheduler,
+no automatic customer note write, no access token, no refresh token, no cookies,
+no raw provider payload, no raw webhook payload, no raw DOM, and no raw HTML.
+
 Build artifacts are intentionally not committed.

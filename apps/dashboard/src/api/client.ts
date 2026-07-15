@@ -2,6 +2,7 @@ import type {
   ActivityResponse,
   AiDraftResponse,
   AiDraftReviewResponse,
+  AiAutomationGuardrailResponse,
   AiConversationSummaryResponse,
   AiCustomerNoteSuggestionResponse,
   AiFollowUpRecommendationResponse,
@@ -350,6 +351,27 @@ export class ApiClient {
       {
         method: "POST",
         body: JSON.stringify({}),
+      },
+    );
+  }
+
+  async evaluateAiAutomationGuardrail(payload: {
+    requestedAction: string;
+    conversationId?: string;
+    customerId?: string;
+    sourceFeature:
+      | "reply_suggestion"
+      | "draft_review"
+      | "follow_up_recommendation"
+      | "conversation_summary"
+      | "customer_note_suggestion"
+      | "future_automation";
+  }): Promise<AiAutomationGuardrailResponse> {
+    return this.request<AiAutomationGuardrailResponse>(
+      "/api/v1/ai/automation-guardrails/evaluate",
+      {
+        method: "POST",
+        body: JSON.stringify(payload),
       },
     );
   }

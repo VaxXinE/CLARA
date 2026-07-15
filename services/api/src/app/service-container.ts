@@ -20,6 +20,7 @@ import { AiConversationSummaryService } from "../ai/ai-conversation-summary-serv
 import { MockAiConversationSummaryProvider } from "../ai/mock-ai-conversation-summary-provider";
 import { AiCustomerNoteSuggestionService } from "../ai/ai-customer-note-suggestion-service";
 import { MockAiCustomerNoteSuggestionProvider } from "../ai/mock-ai-customer-note-suggestion-provider";
+import { AiAutomationGuardrailService } from "../ai/ai-automation-guardrail-service";
 import {
   DrizzleWorkspaceMembershipRepository,
   FixtureWorkspaceMembershipRepository,
@@ -77,6 +78,7 @@ export type AppServices = {
   aiFollowUpRecommendations?: AiFollowUpRecommendationService;
   aiConversationSummaries?: AiConversationSummaryService;
   aiCustomerNoteSuggestions?: AiCustomerNoteSuggestionService;
+  aiAutomationGuardrails?: AiAutomationGuardrailService;
   replies: ReplyService;
   channelRegistry?: ChannelRegistryService;
   channelAccounts?: ChannelAccountService;
@@ -161,6 +163,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
           new MockAiCustomerNoteSuggestionProvider(),
           auditLogs,
         ),
+        aiAutomationGuardrails: new AiAutomationGuardrailService(auditLogs),
         replies: new ReplyService(
           conversationRepository,
           new DrizzleReplyRepository(db),
@@ -283,6 +286,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         new MockAiCustomerNoteSuggestionProvider(),
         auditLogs,
       ),
+      aiAutomationGuardrails: new AiAutomationGuardrailService(auditLogs),
       replies: new ReplyService(
         conversationRepository,
         new FixtureReplyRepository(fixtureStore),

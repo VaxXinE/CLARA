@@ -233,6 +233,53 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("rawHtml");
   });
 
+  it("evaluates AI automation guardrails without executing an action", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        data: {
+          guardrail: {
+            decisionId: "ai_auto_decision_demo",
+            decision: "allowed",
+            actionType: "suggest_reply",
+            riskLevel: "low",
+            blockedReason: null,
+            safeReasonCode: "ai_automation_allowed",
+            safetyFlags: [],
+            requiresHumanApproval: false,
+            actionStatus: "evaluation_only",
+            policyVersion: "p7-ai-automation-guardrails-v1",
+            createdAt: "2026-01-01T00:00:00.000Z",
+          },
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({
+      baseUrl: "http://127.0.0.1:3000",
+    });
+
+    const response = await client.evaluateAiAutomationGuardrail({
+      requestedAction: "suggest_reply",
+      sourceFeature: "future_automation",
+      conversationId: "conv_demo",
+      customerId: "cust_demo",
+    });
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/ai/automation-guardrails/evaluate",
+      expect.objectContaining({
+        method: "POST",
+      }),
+    );
+    expect(response.data.guardrail).toMatchObject({
+      actionStatus: "evaluation_only",
+      decision: "allowed",
+    });
+    expect(JSON.stringify(response)).not.toContain("access_token");
+    expect(JSON.stringify(response)).not.toContain("refresh_token");
+    expect(JSON.stringify(response)).not.toContain("Authorization");
+  });
+
   it("creates an AI follow-up recommendation without task or schedule automation", async () => {
     const fetchMock = vi.fn(async () =>
       jsonResponse(
