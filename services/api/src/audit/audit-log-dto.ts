@@ -6,6 +6,10 @@ export type AuditLogMetadata = Record<string, AuditLogScalar>;
 export type AuditLogAction =
   | "workspace.owner_bootstrap"
   | "ai_draft.generated"
+  | "ai_suggestion_requested"
+  | "ai_suggestion_generated"
+  | "ai_policy_blocked"
+  | "ai_human_approval_required"
   | "reply.send_attempted"
   | "reply.sent"
   | "reply.failed"
@@ -30,6 +34,7 @@ export type AuditLogOutcome = "success" | "failure";
 export type AuditLogResourceType =
   | "workspace"
   | "conversation"
+  | "ai_reply_suggestion"
   | "reply_draft"
   | "message"
   | "gmail_scheduler"

@@ -379,6 +379,22 @@ docs/BOOK-06-Security-Governance-and-Compliance/
 
 ---
 
+# Current Implementation Snapshot
+
+P7 adds AI Reply Suggestion v1 as a suggestion-only, mock-provider workflow.
+It uses the backend AuthContext, workspace-scoped data access, Prompt Contract,
+and AI Context Builder. It does not add real AI providers, provider send,
+autonomous provider actions, or auto-send.
+
+See:
+
+```text
+docs/product/CLARA-P7-AI-REPLY-SUGGESTION-SPEC.md
+docs/product/CLARA-P7-AI-REPLY-SUGGESTION-SECURITY-RUNBOOK.md
+```
+
+---
+
 # Final Principle
 
 Clara is built through shared understanding first, then production code.

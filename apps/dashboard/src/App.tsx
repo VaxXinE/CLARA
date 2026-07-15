@@ -3,6 +3,7 @@ import { ApiClient, ApiClientError } from "./api/client";
 import type {
   ActivityResponse,
   AiDraftResponse,
+  AiReplySuggestionResponse,
   ChannelHealthItem,
   ConversationDetailResponse,
   ConversationListResponse,
@@ -144,6 +145,9 @@ function WorkspaceAppShell() {
   const [composerValue, setComposerValue] = useState("");
   const [draftId, setDraftId] = useState<string | null>(null);
   const [aiDraftLabel, setAiDraftLabel] = useState<string | null>(null);
+  const [aiReplySuggestion, setAiReplySuggestion] = useState<
+    AiReplySuggestionResponse["data"]["suggestion"] | null
+  >(null);
   const [statusFilter, setStatusFilter] = useState("");
   const [search, setSearch] = useState("");
   const deferredSearch = useDeferredValue(search);
@@ -184,6 +188,8 @@ function WorkspaceAppShell() {
   );
   const [composerError, setComposerError] = useState<string | null>(null);
   const [isGeneratingDraft, setIsGeneratingDraft] = useState(false);
+  const [isGeneratingSuggestion, setIsGeneratingSuggestion] = useState(false);
+  const [suggestionError, setSuggestionError] = useState<string | null>(null);
   const [isSendingReply, setIsSendingReply] = useState(false);
 
   useEffect(() => {
@@ -218,6 +224,8 @@ function WorkspaceAppShell() {
       setComposerValue("");
       setDraftId(null);
       setAiDraftLabel(null);
+      setAiReplySuggestion(null);
+      setSuggestionError(null);
       setGmailOutboundStatus(null);
       setGmailOutboundStatusError(null);
       setWebchatOutboundStatus(null);
@@ -245,6 +253,8 @@ function WorkspaceAppShell() {
       setComposerValue("");
       setDraftId(null);
       setAiDraftLabel(null);
+      setAiReplySuggestion(null);
+      setSuggestionError(null);
 
       try {
         const meResponse = await client.getMe();
@@ -517,6 +527,8 @@ function WorkspaceAppShell() {
       setComposerError(null);
       setDraftId(null);
       setAiDraftLabel(null);
+      setAiReplySuggestion(null);
+      setSuggestionError(null);
       setComposerValue("");
       setGmailOutboundStatus(null);
       setGmailOutboundStatusError(null);
@@ -650,6 +662,43 @@ function WorkspaceAppShell() {
     }
   }
 
+  async function handleGenerateSuggestion() {
+    if (!selectedConversationId || !conversationDetail || !canGenerateDraft) {
+      return;
+    }
+
+    const client = buildClient({
+      authMode: auth.config.mode,
+      role: selectedRole,
+      accessToken: auth.session?.accessToken ?? null,
+    });
+    setIsGeneratingSuggestion(true);
+    setSuggestionError(null);
+
+    try {
+      const response = await client.createAiReplySuggestion({
+        conversationId: selectedConversationId,
+        customerId: conversationDetail.customer.id,
+        tone: "friendly",
+        maxLength: 800,
+      });
+
+      setAiReplySuggestion(response.data.suggestion);
+
+      if (response.data.suggestion.suggestedText) {
+        setComposerValue(response.data.suggestion.suggestedText);
+        setDraftId(null);
+        setAiDraftLabel("AI suggestion · Review before sending");
+      }
+    } catch (error) {
+      setSuggestionError(
+        toSafeMessage(error, "AI suggestion is unavailable right now."),
+      );
+    } finally {
+      setIsGeneratingSuggestion(false);
+    }
+  }
+
   async function handleSendReply() {
     if (!selectedConversationId || !canSendReply) {
       return;
@@ -671,6 +720,8 @@ function WorkspaceAppShell() {
       setComposerValue("");
       setDraftId(null);
       setAiDraftLabel(null);
+      setAiReplySuggestion(null);
+      setSuggestionError(null);
       setGmailOutboundStatus(null);
       setGmailOutboundStatusError(null);
       setWebchatOutboundStatus(null);
@@ -881,6 +932,10 @@ function WorkspaceAppShell() {
             me?.user.role === "viewer"
               ? "You have view-only access to this conversation."
               : null,
+          aiReplySuggestion,
+          isGeneratingSuggestion,
+          suggestionError,
+          onGenerateSuggestion: handleGenerateSuggestion,
           gmailOutboundStatus,
           gmailOutboundStatusLoading,
           gmailOutboundStatusError,

@@ -469,3 +469,29 @@ Short version:
 Phase next: real auth + provider foundation + operational hardening.
 Avoid building more simulated features before those three are addressed.
 ```
+
+## P7 AI Reply Suggestion Progress
+
+P7 adds AI Reply Suggestion v1 as a safe preview-only path:
+
+```text
+mock provider only
+Prompt Contract required
+AI Context Builder required
+backend AuthContext required
+workspace-scoped conversation lookup
+requiresHumanApproval=true
+no auto-send
+no real AI provider
+no autonomous provider action
+```
+
+Remaining production blockers:
+
+```text
+real AI provider gateway
+model safety evaluation
+human approval workflow persistence
+operator feedback loop
+production monitoring for AI policy blocks
+```

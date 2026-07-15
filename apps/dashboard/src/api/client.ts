@@ -1,6 +1,7 @@
 import type {
   ActivityResponse,
   AiDraftResponse,
+  AiReplySuggestionResponse,
   ApiErrorResponse,
   ChannelHealthResponse,
   ConversationDetailResponse,
@@ -193,6 +194,29 @@ export class ApiClient {
       {
         method: "POST",
         body: JSON.stringify(payload),
+      },
+    );
+  }
+
+  async createAiReplySuggestion(payload: {
+    conversationId: string;
+    customerId?: string;
+    tone?: "professional" | "friendly" | "concise" | "empathetic";
+    maxLength?: number;
+    operatorInstruction?: string;
+  }): Promise<AiReplySuggestionResponse> {
+    return this.request<AiReplySuggestionResponse>(
+      "/api/v1/ai/reply-suggestions",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          conversationId: payload.conversationId,
+          customerId: payload.customerId,
+          taskType: "reply_suggestion",
+          tone: payload.tone,
+          maxLength: payload.maxLength,
+          operatorInstruction: payload.operatorInstruction,
+        }),
       },
     );
   }

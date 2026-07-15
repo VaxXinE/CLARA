@@ -1,3 +1,6 @@
+import type { AiReplySuggestionResponse } from "../api/types";
+import { AiReplySuggestionPanel } from "./AiReplySuggestionPanel";
+
 type ComposerPanelProps = {
   value: string;
   onChange: (value: string) => void;
@@ -10,6 +13,10 @@ type ComposerPanelProps = {
   error: string | null;
   aiDraftLabel: string | null;
   readOnlyMessage: string | null;
+  aiReplySuggestion?: AiReplySuggestionResponse["data"]["suggestion"] | null;
+  isGeneratingSuggestion?: boolean;
+  suggestionError?: string | null;
+  onGenerateSuggestion?: () => void;
 };
 
 export function ComposerPanel(props: ComposerPanelProps) {
@@ -40,6 +47,14 @@ export function ComposerPanel(props: ComposerPanelProps) {
           <p>{props.error}</p>
         </div>
       ) : null}
+
+      <AiReplySuggestionPanel
+        suggestion={props.aiReplySuggestion ?? null}
+        loading={props.isGeneratingSuggestion ?? false}
+        error={props.suggestionError ?? null}
+        canGenerate={props.canGenerateDraft}
+        onGenerate={props.onGenerateSuggestion ?? (() => {})}
+      />
 
       <label className="field">
         <span className="field-label">Message draft</span>

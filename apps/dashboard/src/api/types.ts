@@ -150,6 +150,39 @@ export type AiDraftResponse = {
   };
 };
 
+export type AiReplySuggestionResponse = {
+  data: {
+    suggestion: {
+      suggestionId: string;
+      type: "reply_suggestion";
+      conversationId: string;
+      customerId: string | null;
+      suggestedText: string | null;
+      summary: string | null;
+      recommendedNextAction: string | null;
+      safetyFlags: string[];
+      requiresHumanApproval: true;
+      blockedReason: string | null;
+      safeReasonCode: string;
+      contextBudgetSummary: {
+        maxMessages: number;
+        maxMessageChars: number;
+        maxSnippetChars: number;
+        includedMessages: number;
+        truncatedMessages: number;
+        includedSnippets: number;
+        truncatedSnippets: number;
+      };
+      policyVersion: string;
+      createdAt: string;
+    };
+    ai: {
+      provider: "mock";
+      model: string;
+    };
+  };
+};
+
 export type ReplySendResponse = {
   data: {
     message?: {

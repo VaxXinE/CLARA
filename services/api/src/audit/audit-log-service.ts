@@ -88,6 +88,119 @@ export class AuditLogService {
     });
   }
 
+  async recordAiSuggestionRequested(
+    input: AuditContextInput & {
+      conversationId: string;
+      customerId: string;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: "ai_suggestion_requested",
+      resourceType: "conversation",
+      resourceId: input.conversationId,
+      outcome: "success",
+      metadata: compactMetadata({
+        conversation_id: input.conversationId,
+        customer_id: input.customerId,
+        suggestion_type: "reply_suggestion",
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
+  async recordAiSuggestionGenerated(
+    input: AuditContextInput & {
+      conversationId: string;
+      customerId: string;
+      suggestionId: string;
+      safeReasonCode: string;
+      modelProvider: string;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: "ai_suggestion_generated",
+      resourceType: "ai_reply_suggestion",
+      resourceId: input.suggestionId,
+      outcome: "success",
+      metadata: compactMetadata({
+        conversation_id: input.conversationId,
+        customer_id: input.customerId,
+        suggestion_type: "reply_suggestion",
+        safe_reason_code: input.safeReasonCode,
+        model_provider: input.modelProvider,
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
+  async recordAiSuggestionBlocked(
+    input: AuditContextInput & {
+      conversationId: string;
+      customerId: string;
+      safeReasonCode: string;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: "ai_policy_blocked",
+      resourceType: "conversation",
+      resourceId: input.conversationId,
+      outcome: "failure",
+      metadata: compactMetadata({
+        conversation_id: input.conversationId,
+        customer_id: input.customerId,
+        suggestion_type: "reply_suggestion",
+        safe_reason_code: input.safeReasonCode,
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
+  async recordAiHumanApprovalRequired(
+    input: AuditContextInput & {
+      conversationId: string;
+      customerId: string;
+      safeReasonCode: string;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: "ai_human_approval_required",
+      resourceType: "conversation",
+      resourceId: input.conversationId,
+      outcome: "success",
+      metadata: compactMetadata({
+        conversation_id: input.conversationId,
+        customer_id: input.customerId,
+        suggestion_type: "reply_suggestion",
+        safe_reason_code: input.safeReasonCode,
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
   async recordReplySendAttempted(
     input: AuditContextInput & {
       conversationId: string;
