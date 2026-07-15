@@ -277,6 +277,73 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("Authorization");
   });
 
+  it("requests reviewable CRM action proposals without mutation fields", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        proposalId: "crm_proposal_follow_up_task_review_cust_demo_budi",
+        customerId: "cust_demo_budi",
+        workspaceId: "wks_demo_sales",
+        generatedAt: "2026-01-10T00:00:00.000Z",
+        proposalType: "follow_up_task_review",
+        title: "Review follow-up task proposal",
+        summary: "Review-only proposal.",
+        proposedAction: {
+          actionKind: "create_task",
+          executionStatus: "review_only",
+          mutationExecuted: false,
+          requiresHumanApproval: true,
+          requiredPermission: "task:create",
+        },
+        risk: {
+          level: "medium",
+          reasons: ["Human review required."],
+          blocked: false,
+          blockedReason: null,
+        },
+        review: {
+          reviewLabel: "Ready for human review",
+          nextStep: "Review only.",
+          warnings: ["No CRM mutation was executed."],
+        },
+        safety: {
+          readOnly: true,
+          proposalOnly: true,
+          mutationAllowed: false,
+          actionExecuted: false,
+          requiresHumanApprovalForMutation: true,
+          policyVersion: "reviewable-crm-action-proposal-v1",
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({
+      baseUrl: "http://127.0.0.1:3000",
+    });
+
+    const response = await client.reviewCustomerActionProposal(
+      "cust_demo_budi",
+      {
+        proposalType: "follow_up_task_review",
+        source: "operator",
+        operatorInstruction: "Review follow-up.",
+      },
+    );
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/customers/cust_demo_budi/action-proposals/review",
+      expect.objectContaining({
+        method: "POST",
+      }),
+    );
+    expect(response.proposedAction).toMatchObject({
+      executionStatus: "review_only",
+      mutationExecuted: false,
+    });
+    expect(JSON.stringify(response)).not.toContain("access_token");
+    expect(JSON.stringify(response)).not.toContain("refresh_token");
+    expect(JSON.stringify(response)).not.toContain("Authorization");
+  });
+
   it("creates an AI reply suggestion without sending a reply", async () => {
     const fetchMock = vi.fn(async () =>
       jsonResponse(

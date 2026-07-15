@@ -207,6 +207,55 @@ export type CustomerTimelineIntelligenceResponse = {
   };
 };
 
+export type CustomerActionProposalResponse = {
+  proposalId: string;
+  customerId: string;
+  workspaceId: string;
+  generatedAt: string;
+  proposalType:
+    | "follow_up_task_review"
+    | "customer_note_review"
+    | "status_change_review"
+    | "lifecycle_change_review"
+    | "owner_assignment_review"
+    | "needs_attention_review";
+  title: string;
+  summary: string;
+  proposedAction: {
+    actionKind:
+      | "create_task"
+      | "save_note"
+      | "update_status"
+      | "update_lifecycle"
+      | "assign_owner"
+      | "mark_needs_attention"
+      | "no_op";
+    executionStatus: "review_only";
+    mutationExecuted: false;
+    requiresHumanApproval: true;
+    requiredPermission: string;
+  };
+  risk: {
+    level: "low" | "medium" | "high" | "critical";
+    reasons: string[];
+    blocked: boolean;
+    blockedReason: string | null;
+  };
+  review: {
+    reviewLabel: string;
+    nextStep: string;
+    warnings: string[];
+  };
+  safety: {
+    readOnly: true;
+    proposalOnly: true;
+    mutationAllowed: false;
+    actionExecuted: false;
+    requiresHumanApprovalForMutation: true;
+    policyVersion: string;
+  };
+};
+
 export type ActivityResponse = {
   data: {
     conversation_id: string;

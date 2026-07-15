@@ -321,6 +321,14 @@ review-only and does not add CRM mutation, auto-create task, auto-write
 customer note, token display, cookies, raw provider payload, raw webhook
 payload, raw DOM, raw HTML, or unsafe HTML rendering.
 
+P8-PR-04 adds Reviewable CRM Action Proposal visibility. The panel is
+proposal-only and review-only, displays `mutationExecuted=false`, and does not
+add Execute, Apply, Save, Create Task, Assign Owner, Change Status, Update
+Lifecycle, Write Note, hidden auto-submit, no CRM mutation, no auto-create
+task, no auto-write customer note, no owner assignment mutation, no
+lifecycle/status mutation, token display, cookies, raw provider payload, raw
+webhook payload, raw DOM, raw HTML, or unsafe HTML rendering.
+
 No autonomous CRM mutation, no auto-write customer note, no auto-create task,
 no auto-assign owner, and no `dangerouslySetInnerHTML` are added in this PR.
 

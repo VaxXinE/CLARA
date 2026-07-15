@@ -13,6 +13,7 @@ import type {
   ConversationListResponse,
   CustomerProfileIntelligenceResponse,
   CustomerProfileResponse,
+  CustomerActionProposalResponse,
   CustomerTimelineIntelligenceResponse,
   DemoAuthProfile,
   GmailOutboundDeliveryStatusResponse,
@@ -158,6 +159,32 @@ export class ApiClient {
       `/api/v1/customers/${encodeURIComponent(
         customerId,
       )}/timeline/intelligence`,
+    );
+  }
+
+  async reviewCustomerActionProposal(
+    customerId: string,
+    payload: {
+      proposalType: CustomerActionProposalResponse["proposalType"];
+      source:
+        | "operator"
+        | "customer_profile_intelligence"
+        | "customer_timeline_intelligence"
+        | "ai_suggestion_review"
+        | "system_review";
+      operatorInstruction?: string;
+      suggestedPayload?: Record<string, unknown>;
+      clientWorkspaceId?: string;
+    },
+  ): Promise<CustomerActionProposalResponse> {
+    return this.request<CustomerActionProposalResponse>(
+      `/api/v1/customers/${encodeURIComponent(
+        customerId,
+      )}/action-proposals/review`,
+      {
+        method: "POST",
+        body: JSON.stringify(payload),
+      },
     );
   }
 

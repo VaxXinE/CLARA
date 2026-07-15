@@ -151,6 +151,9 @@ function renderConversationWorkspace(input?: { readOnly?: boolean }) {
         customerTimelineIntelligence: null,
         customerTimelineIntelligenceLoading: false,
         customerTimelineIntelligenceError: null,
+        customerActionProposal: null,
+        customerActionProposalLoading: false,
+        customerActionProposalError: null,
       }}
     />,
   );
@@ -219,6 +222,9 @@ describe("P5.1 final UI regression", () => {
         customerTimelineIntelligence={null}
         customerTimelineIntelligenceLoading={false}
         customerTimelineIntelligenceError={null}
+        customerActionProposal={null}
+        customerActionProposalLoading={false}
+        customerActionProposalError={null}
         readOnly
       />,
     );

@@ -557,7 +557,8 @@ P7-PR-08 done
 P7 complete
 P8-PR-01 complete
 P8-PR-02 complete
-P8-PR-03 in progress for this branch
+P8-PR-03 complete
+P8-PR-04 in progress for this branch
 ```
 
 P8 Customer Timeline Intelligence adds a read-only, review-only customer
@@ -565,6 +566,13 @@ timeline read model. It is Backend AuthContext based, workspace-scoped, and has
 no CRM mutation, no auto-create task, no auto-write customer note, no raw
 provider payload, no raw webhook payload, no access token, no refresh token,
 and no cookies in API or dashboard output.
+
+P8 Reviewable CRM Action Proposal adds a proposal-only, review-only API and
+dashboard display contract. It returns `mutationExecuted=false`, uses Backend
+AuthContext, stays workspace-scoped, and has no CRM mutation, no auto-create
+task, no auto-write customer note, no owner assignment mutation, no
+lifecycle/status mutation, no raw provider payload, no raw webhook payload, no
+access token, no refresh token, and no cookies.
 
 P7 remains:
 

@@ -1324,6 +1324,9 @@ function WorkspaceAppShell() {
           customerTimelineIntelligence,
           customerTimelineIntelligenceLoading,
           customerTimelineIntelligenceError,
+          customerActionProposal: null,
+          customerActionProposalLoading: false,
+          customerActionProposalError: null,
         }}
         automationGuardrails={{
           decision: aiAutomationGuardrail,
