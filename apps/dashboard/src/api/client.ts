@@ -2,6 +2,8 @@ import type {
   ActivityResponse,
   AiDraftResponse,
   AiDraftReviewResponse,
+  AiConversationSummaryResponse,
+  AiCustomerNoteSuggestionResponse,
   AiFollowUpRecommendationResponse,
   AiReplySuggestionResponse,
   ApiErrorResponse,
@@ -240,6 +242,52 @@ export class ApiClient {
           taskType: "follow_up_suggestion",
           urgency: payload.urgency,
           maxRecommendations: payload.maxRecommendations,
+          operatorInstruction: payload.operatorInstruction,
+        }),
+      },
+    );
+  }
+
+  async createAiConversationSummary(payload: {
+    conversationId: string;
+    customerId?: string;
+    summaryStyle?: "brief" | "detailed" | "bullet_points";
+    maxLength?: number;
+    operatorInstruction?: string;
+  }): Promise<AiConversationSummaryResponse> {
+    return this.request<AiConversationSummaryResponse>(
+      "/api/v1/ai/conversation-summaries",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          conversationId: payload.conversationId,
+          customerId: payload.customerId,
+          taskType: "conversation_summary",
+          summaryStyle: payload.summaryStyle,
+          maxLength: payload.maxLength,
+          operatorInstruction: payload.operatorInstruction,
+        }),
+      },
+    );
+  }
+
+  async createAiCustomerNoteSuggestion(payload: {
+    conversationId: string;
+    customerId: string;
+    noteStyle?: "short_note" | "sales_context" | "support_context";
+    maxLength?: number;
+    operatorInstruction?: string;
+  }): Promise<AiCustomerNoteSuggestionResponse> {
+    return this.request<AiCustomerNoteSuggestionResponse>(
+      "/api/v1/ai/customer-note-suggestions",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          conversationId: payload.conversationId,
+          customerId: payload.customerId,
+          taskType: "customer_note_summary",
+          noteStyle: payload.noteStyle,
+          maxLength: payload.maxLength,
           operatorInstruction: payload.operatorInstruction,
         }),
       },

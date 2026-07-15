@@ -224,6 +224,74 @@ export type AiFollowUpRecommendationResponse = {
   };
 };
 
+export type AiConversationSummaryResponse = {
+  data: {
+    summary: {
+      summaryId: string;
+      type: "conversation_summary";
+      conversationId: string;
+      customerId: string | null;
+      summaryText: string | null;
+      keyPoints: string[];
+      openQuestions: string[];
+      riskFlags: string[];
+      safetyFlags: string[];
+      requiresHumanApproval: true;
+      blockedReason: string | null;
+      safeReasonCode: string;
+      contextBudgetSummary: {
+        maxMessages: number;
+        maxMessageChars: number;
+        maxSnippetChars: number;
+        includedMessages: number;
+        truncatedMessages: number;
+        includedSnippets: number;
+        truncatedSnippets: number;
+      };
+      policyVersion: string;
+      createdAt: string;
+    };
+    ai: {
+      provider: "mock";
+      model: string;
+    };
+  };
+};
+
+export type AiCustomerNoteSuggestionResponse = {
+  data: {
+    noteSuggestion: {
+      noteSuggestionId: string;
+      type: "customer_note_suggestion";
+      conversationId: string;
+      customerId: string;
+      suggestedNote: string | null;
+      suggestedTags: string[];
+      confidenceLevel: "low" | "medium" | "high";
+      safetyFlags: string[];
+      requiresHumanApproval: true;
+      actionStatus: "suggestion_only";
+      blockedReason: string | null;
+      safeReasonCode: string;
+      contextBudgetSummary: {
+        maxMessages: number;
+        maxMessageChars: number;
+        maxSnippetChars: number;
+        includedMessages: number;
+        truncatedMessages: number;
+        includedSnippets: number;
+        truncatedSnippets: number;
+      };
+      policyVersion: string;
+      createdAt: string;
+    };
+    ai: {
+      provider: "mock";
+      model: string;
+    };
+  };
+};
+
 export type AiDraftReviewStatus =
   "suggested" | "editing" | "approved" | "rejected" | "expired" | "blocked";
 

@@ -288,6 +288,176 @@ export class AuditLogService {
     });
   }
 
+  async recordAiConversationSummaryRequested(
+    input: AuditContextInput & {
+      conversationId: string;
+      customerId: string;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: "ai_conversation_summary_requested",
+      resourceType: "conversation",
+      resourceId: input.conversationId,
+      outcome: "success",
+      metadata: compactMetadata({
+        conversation_id: input.conversationId,
+        customer_id: input.customerId,
+        suggestion_type: "conversation_summary",
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
+  async recordAiConversationSummaryGenerated(
+    input: AuditContextInput & {
+      conversationId: string;
+      customerId: string;
+      summaryId: string;
+      safeReasonCode: string;
+      modelProvider: string;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: "ai_conversation_summary_generated",
+      resourceType: "ai_conversation_summary",
+      resourceId: input.summaryId,
+      outcome: "success",
+      metadata: compactMetadata({
+        conversation_id: input.conversationId,
+        customer_id: input.customerId,
+        suggestion_type: "conversation_summary",
+        safe_reason_code: input.safeReasonCode,
+        model_provider: input.modelProvider,
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
+  async recordAiConversationSummaryBlocked(
+    input: AuditContextInput & {
+      conversationId: string;
+      customerId: string;
+      safeReasonCode: string;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: "ai_conversation_summary_blocked",
+      resourceType: "conversation",
+      resourceId: input.conversationId,
+      outcome: "failure",
+      metadata: compactMetadata({
+        conversation_id: input.conversationId,
+        customer_id: input.customerId,
+        suggestion_type: "conversation_summary",
+        safe_reason_code: input.safeReasonCode,
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
+  async recordAiCustomerNoteSuggestionRequested(
+    input: AuditContextInput & {
+      conversationId: string;
+      customerId: string;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: "ai_customer_note_suggestion_requested",
+      resourceType: "conversation",
+      resourceId: input.conversationId,
+      outcome: "success",
+      metadata: compactMetadata({
+        conversation_id: input.conversationId,
+        customer_id: input.customerId,
+        suggestion_type: "customer_note_suggestion",
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
+  async recordAiCustomerNoteSuggestionGenerated(
+    input: AuditContextInput & {
+      conversationId: string;
+      customerId: string;
+      noteSuggestionId: string;
+      safeReasonCode: string;
+      modelProvider: string;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: "ai_customer_note_suggestion_generated",
+      resourceType: "ai_customer_note_suggestion",
+      resourceId: input.noteSuggestionId,
+      outcome: "success",
+      metadata: compactMetadata({
+        conversation_id: input.conversationId,
+        customer_id: input.customerId,
+        suggestion_type: "customer_note_suggestion",
+        safe_reason_code: input.safeReasonCode,
+        model_provider: input.modelProvider,
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
+  async recordAiCustomerNoteSuggestionBlocked(
+    input: AuditContextInput & {
+      conversationId: string;
+      customerId: string;
+      safeReasonCode: string;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: "ai_customer_note_suggestion_blocked",
+      resourceType: "conversation",
+      resourceId: input.conversationId,
+      outcome: "failure",
+      metadata: compactMetadata({
+        conversation_id: input.conversationId,
+        customer_id: input.customerId,
+        suggestion_type: "customer_note_suggestion",
+        safe_reason_code: input.safeReasonCode,
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
   async recordAiDraftReviewCreated(
     input: AuditContextInput & {
       conversationId: string;

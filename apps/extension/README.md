@@ -41,6 +41,7 @@ Instagram and TikTok readers are safe placeholders in this PR. They detect the h
 - P7 AI Reply Suggestion keeps ChatGPT Companion preview/copy/manual only; it does not add auto-submit, auto-send, cookies, tokens, raw DOM, or raw HTML.
 - P7 AI Draft Review keeps the extension boundary preview/copy/manual only. The extension does not approve drafts, reject drafts, send replies, read tokens, read cookies, capture raw DOM, capture raw HTML, or auto-send.
 - P7 AI Follow-up Recommendation keeps the extension boundary preview/copy/manual only. The extension does not create tasks, schedule reminders, send messages, read tokens, read cookies, capture raw DOM, or capture raw HTML.
+- P7 AI Conversation Summary and AI Customer Note Suggestion keep the extension boundary preview/copy/manual only. The extension does not auto-write notes, mutate customer records, read tokens, read cookies, capture raw DOM, or capture raw HTML.
 
 ## ChatGPT Companion Config
 

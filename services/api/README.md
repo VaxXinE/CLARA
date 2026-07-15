@@ -61,6 +61,7 @@ P6 final observability and audit trail policies define safe provider/channel dia
 P7 AI assistant safety policy is documentation/test-only for now: no real AI provider calls, no auto-send, no autonomous provider action, and no secret/raw payload access
 P7 AI context builder and prompt contract are pure backend logic only: workspace-scoped, backend AuthContext-derived, minimized, untrusted customer content-labeled, and provider-token/raw-payload-free
 P7 AI Follow-up Recommendation is recommendation-only: mock provider only, requiresHumanApproval=true, no auto-send, no automatic task creation, no automatic scheduler, and no CRM/customer mutation
+P7 AI Conversation Summary and AI Customer Note Suggestion are review-only/suggestion-only: mock provider only, requiresHumanApproval=true, actionStatus=suggestion_only for notes, no auto-write, no automatic customer note write, and no CRM/customer mutation from AI summary/note
 channel account reads are scoped by backend AuthContext and never trust client-provided organization_id or workspace_id
 responses never include provider secrets, tokens, Authorization headers, raw provider payloads, or raw provider errors
 multi-channel audit metadata is allowlisted and must not include message bodies, cookies, Authorization headers, tokens, secrets, raw provider payloads, or raw provider errors
@@ -189,6 +190,8 @@ POST /api/v1/integrations/gmail/accounts/:providerAccountId/inbound-smoke
 POST /api/v1/integrations/gmail/outbound/send
 GET /api/v1/integrations/gmail/outbound/deliveries/:deliveryId
 POST /api/v1/extension/:channel/snapshots
+POST /api/v1/ai/conversation-summaries
+POST /api/v1/ai/customer-note-suggestions
 ```
 
 Workspace user/role readiness:

@@ -50,6 +50,7 @@ P6 final observability, audit trail, production provider runbook, go-live checkl
 P7 AI Assistant / Automation Layer is now started with docs and tests for assistant scope, safety, data access, prompt injection, human approval, audit policy, and implementation roadmap
 P7 AI Context Builder and Prompt Contract now add pure backend context minimization, untrusted customer content separation, budget enforcement, and prompt contract tests without real AI provider calls
 P7 AI Follow-up Recommendation now adds recommendation-only mock-provider guidance with human approval, no auto-send, no automatic task creation, and no automatic scheduler
+P7 AI Conversation Summary and AI Customer Note Suggestion now add review-only/suggestion-only mock-provider assistance with human approval, no automatic customer note write, and no CRM/customer mutation
 ```
 
 Start here for local usage:
@@ -125,6 +126,9 @@ docs/product/CLARA-P7-AI-PROMPT-CONTRACT.md
 docs/product/CLARA-P7-AI-CONTEXT-SECURITY-RUNBOOK.md
 docs/product/CLARA-P7-AI-FOLLOW-UP-RECOMMENDATION-SPEC.md
 docs/product/CLARA-P7-AI-FOLLOW-UP-RECOMMENDATION-SECURITY-RUNBOOK.md
+docs/product/CLARA-P7-AI-CONVERSATION-SUMMARY-SPEC.md
+docs/product/CLARA-P7-AI-CUSTOMER-NOTE-SUGGESTION-SPEC.md
+docs/product/CLARA-P7-AI-SUMMARY-NOTES-SECURITY-RUNBOOK.md
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-README-RUNBOOK/
 docs/product/CLARA-MVP-FIRST-PRODUCT-SLICE-DEMO-SCRIPT/
 docs/product/CLARA-P3-EMAIL-PROVIDER-INTEGRATION-DECISION.md

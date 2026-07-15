@@ -1,8 +1,12 @@
 import type {
   AiDraftReview,
+  AiConversationSummaryResponse,
+  AiCustomerNoteSuggestionResponse,
   AiFollowUpRecommendationResponse,
   AiReplySuggestionResponse,
 } from "../api/types";
+import { AiConversationSummaryPanel } from "./AiConversationSummaryPanel";
+import { AiCustomerNoteSuggestionPanel } from "./AiCustomerNoteSuggestionPanel";
 import { AiDraftReviewPanel } from "./AiDraftReviewPanel";
 import { AiFollowUpRecommendationPanel } from "./AiFollowUpRecommendationPanel";
 import { AiReplySuggestionPanel } from "./AiReplySuggestionPanel";
@@ -22,9 +26,19 @@ type ComposerPanelProps = {
   aiReplySuggestion?: AiReplySuggestionResponse["data"]["suggestion"] | null;
   aiFollowUpRecommendation?:
     AiFollowUpRecommendationResponse["data"]["recommendation"] | null;
+  aiConversationSummary?:
+    AiConversationSummaryResponse["data"]["summary"] | null;
+  aiCustomerNoteSuggestion?:
+    AiCustomerNoteSuggestionResponse["data"]["noteSuggestion"] | null;
   isGeneratingFollowUp?: boolean;
+  isGeneratingSummary?: boolean;
+  isGeneratingNoteSuggestion?: boolean;
   followUpError?: string | null;
+  summaryError?: string | null;
+  noteSuggestionError?: string | null;
   onGenerateFollowUp?: () => void;
+  onGenerateSummary?: () => void;
+  onGenerateNoteSuggestion?: () => void;
   aiDraftReview?: AiDraftReview | null;
   aiDraftReviewLoading?: boolean;
   aiDraftReviewError?: string | null;
@@ -79,6 +93,22 @@ export function ComposerPanel(props: ComposerPanelProps) {
         error={props.followUpError ?? null}
         canGenerate={props.canGenerateDraft}
         onGenerate={props.onGenerateFollowUp ?? (() => {})}
+      />
+
+      <AiConversationSummaryPanel
+        summary={props.aiConversationSummary ?? null}
+        loading={props.isGeneratingSummary ?? false}
+        error={props.summaryError ?? null}
+        canGenerate={props.canGenerateDraft}
+        onGenerate={props.onGenerateSummary ?? (() => {})}
+      />
+
+      <AiCustomerNoteSuggestionPanel
+        noteSuggestion={props.aiCustomerNoteSuggestion ?? null}
+        loading={props.isGeneratingNoteSuggestion ?? false}
+        error={props.noteSuggestionError ?? null}
+        canGenerate={props.canGenerateDraft}
+        onGenerate={props.onGenerateNoteSuggestion ?? (() => {})}
       />
 
       <AiDraftReviewPanel

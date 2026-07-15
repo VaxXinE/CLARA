@@ -580,4 +580,116 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("refresh_token");
     expect(JSON.stringify(response)).not.toContain("Authorization");
   });
+
+  it("creates an AI conversation summary without persisting customer notes", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse(
+        {
+          data: {
+            summary: {
+              summaryId: "ai_summary_demo",
+              type: "conversation_summary",
+              conversationId: "conv_demo",
+              customerId: "cust_demo",
+              summaryText: "Review-only summary.",
+              keyPoints: [],
+              openQuestions: [],
+              riskFlags: [],
+              safetyFlags: [],
+              requiresHumanApproval: true,
+              blockedReason: null,
+              safeReasonCode: "ai_conversation_summary_generated",
+              contextBudgetSummary: {
+                maxMessages: 12,
+                maxMessageChars: 1200,
+                maxSnippetChars: 1200,
+                includedMessages: 1,
+                truncatedMessages: 0,
+                includedSnippets: 0,
+                truncatedSnippets: 0,
+              },
+              policyVersion: "p7-ai-context-v1",
+              createdAt: "2026-01-01T00:00:00.000Z",
+            },
+            ai: { provider: "mock", model: "mock" },
+          },
+        },
+        201,
+      ),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({ baseUrl: "http://127.0.0.1:3000" });
+
+    const response = await client.createAiConversationSummary({
+      conversationId: "conv_demo",
+      customerId: "cust_demo",
+    });
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/ai/conversation-summaries",
+      expect.objectContaining({ method: "POST" }),
+    );
+    const fetchCall = fetchMock.mock.calls[0] as unknown as [
+      string,
+      RequestInit,
+    ];
+    expect(String(fetchCall[1].body)).not.toContain("save");
+    expect(response.data.summary.requiresHumanApproval).toBe(true);
+  });
+
+  it("creates an AI customer note suggestion without CRM mutation", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse(
+        {
+          data: {
+            noteSuggestion: {
+              noteSuggestionId: "ai_note_demo",
+              type: "customer_note_suggestion",
+              conversationId: "conv_demo",
+              customerId: "cust_demo",
+              suggestedNote: "Review-only note.",
+              suggestedTags: [],
+              confidenceLevel: "medium",
+              safetyFlags: [],
+              requiresHumanApproval: true,
+              actionStatus: "suggestion_only",
+              blockedReason: null,
+              safeReasonCode: "ai_customer_note_suggestion_generated",
+              contextBudgetSummary: {
+                maxMessages: 12,
+                maxMessageChars: 1200,
+                maxSnippetChars: 1200,
+                includedMessages: 1,
+                truncatedMessages: 0,
+                includedSnippets: 0,
+                truncatedSnippets: 0,
+              },
+              policyVersion: "p7-ai-context-v1",
+              createdAt: "2026-01-01T00:00:00.000Z",
+            },
+            ai: { provider: "mock", model: "mock" },
+          },
+        },
+        201,
+      ),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({ baseUrl: "http://127.0.0.1:3000" });
+
+    const response = await client.createAiCustomerNoteSuggestion({
+      conversationId: "conv_demo",
+      customerId: "cust_demo",
+    });
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/ai/customer-note-suggestions",
+      expect.objectContaining({ method: "POST" }),
+    );
+    const fetchCall = fetchMock.mock.calls[0] as unknown as [
+      string,
+      RequestInit,
+    ];
+    expect(String(fetchCall[1].body)).not.toContain("mutate");
+    expect(response.data.noteSuggestion.actionStatus).toBe("suggestion_only");
+  });
 });
