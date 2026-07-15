@@ -221,6 +221,62 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("Authorization");
   });
 
+  it("loads customer timeline intelligence safely", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        customerId: "cust_demo_budi",
+        workspaceId: "wks_demo_sales",
+        generatedAt: "2026-01-10T00:00:00.000Z",
+        timeline: {
+          events: [
+            {
+              id: "event_1",
+              occurredAt: "2026-01-09T00:00:00.000Z",
+              type: "inbound_message",
+              source: "conversation",
+              title: "Inbound message received",
+              summary: "Safe summary.",
+              channel: "gmail",
+              severity: "info",
+              safeMetadata: {},
+            },
+          ],
+        },
+        intelligence: {
+          keyMoments: ["Timeline event found."],
+          recentSignals: ["Recent safe signal found."],
+          riskFlags: [],
+          followUpHints: ["Review only."],
+        },
+        safety: {
+          readOnly: true,
+          mutationAllowed: false,
+          requiresHumanApprovalForMutation: true,
+          policyVersion: "customer-timeline-intelligence-read-model-v1",
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({
+      baseUrl: "http://127.0.0.1:3000",
+    });
+
+    const response =
+      await client.getCustomerTimelineIntelligence("cust_demo_budi");
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/customers/cust_demo_budi/timeline/intelligence",
+      expect.any(Object),
+    );
+    expect(response.safety).toMatchObject({
+      readOnly: true,
+      mutationAllowed: false,
+    });
+    expect(JSON.stringify(response)).not.toContain("access_token");
+    expect(JSON.stringify(response)).not.toContain("refresh_token");
+    expect(JSON.stringify(response)).not.toContain("Authorization");
+  });
+
   it("creates an AI reply suggestion without sending a reply", async () => {
     const fetchMock = vi.fn(async () =>
       jsonResponse(

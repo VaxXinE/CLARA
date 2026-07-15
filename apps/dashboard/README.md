@@ -314,6 +314,13 @@ P8-PR-02 adds read-only customer profile intelligence visibility. The panel
 shows profile health, activity, lifecycle/status suggestions, and follow-up
 recommendation labels only.
 
+P8-PR-03 adds read-only Customer Timeline Intelligence visibility. The panel
+shows safe timeline events, key moments, recent signals, risk flags, and
+follow-up hints from the Backend AuthContext workspace-scoped API. It is
+review-only and does not add CRM mutation, auto-create task, auto-write
+customer note, token display, cookies, raw provider payload, raw webhook
+payload, raw DOM, raw HTML, or unsafe HTML rendering.
+
 No autonomous CRM mutation, no auto-write customer note, no auto-create task,
 no auto-assign owner, and no `dangerouslySetInnerHTML` are added in this PR.
 

@@ -25,6 +25,7 @@ import { registerMeRoutes } from "./routes/me";
 import { registerConversationRoutes } from "./routes/conversations";
 import { registerCustomerRoutes } from "./routes/customers";
 import { registerCustomerIntelligenceRoutes } from "./routes/customer-intelligence";
+import { registerCustomerTimelineIntelligenceRoutes } from "./routes/customer-timeline-intelligence";
 import { registerActivityRoutes } from "./routes/activity";
 import { registerAiDraftRoutes } from "./routes/ai-drafts";
 import { registerAiDraftReviewRoutes } from "./routes/ai-draft-reviews";
@@ -232,6 +233,13 @@ export async function createServer(
       app,
       authProvider,
       services.customerIntelligence,
+    );
+  }
+  if (services.customerTimelineIntelligence) {
+    await registerCustomerTimelineIntelligenceRoutes(
+      app,
+      authProvider,
+      services.customerTimelineIntelligence,
     );
   }
   await registerActivityRoutes(app, authProvider, services.activity);

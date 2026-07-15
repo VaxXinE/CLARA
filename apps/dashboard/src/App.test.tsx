@@ -8,6 +8,7 @@ import type {
   ConversationListResponse,
   CustomerProfileIntelligenceResponse,
   CustomerProfileResponse,
+  CustomerTimelineIntelligenceResponse,
   MeResponse,
 } from "./api/types";
 import type { DashboardAuthClient } from "./auth/supabase-auth-client";
@@ -142,6 +143,43 @@ const customerIntelligenceResponse: CustomerProfileIntelligenceResponse = {
     policyVersion: "customer-profile-intelligence-read-model-v1",
   },
 };
+
+const customerTimelineIntelligenceResponse: CustomerTimelineIntelligenceResponse =
+  {
+    customerId: "cust_demo_budi",
+    workspaceId: "wks_demo_sales",
+    generatedAt: "2026-01-10T00:00:00.000Z",
+    timeline: {
+      events: [
+        {
+          id: "event_demo_inbound",
+          occurredAt: "2026-01-01T00:00:00.000Z",
+          type: "inbound_message",
+          source: "conversation",
+          title: "Inbound message received",
+          summary: "Need help with my order",
+          channel: "whatsapp",
+          conversationId: "conv_demo_budi_stock",
+          severity: "attention",
+          safeMetadata: {
+            delivery_status: "received",
+          },
+        },
+      ],
+    },
+    intelligence: {
+      keyMoments: ["1 workspace-scoped conversation found."],
+      recentSignals: ["1 open conversation needs review."],
+      riskFlags: ["Open conversation requires human follow-up review."],
+      followUpHints: ["Review open conversations before proposing action."],
+    },
+    safety: {
+      readOnly: true,
+      mutationAllowed: false,
+      requiresHumanApprovalForMutation: true,
+      policyVersion: "customer-timeline-intelligence-read-model-v1",
+    },
+  };
 
 const activityResponse: ActivityResponse = {
   data: {
@@ -301,6 +339,12 @@ describe("App", () => {
         } satisfies ConversationDetailResponse);
       }
 
+      if (
+        url.includes("/api/v1/customers/cust_demo_budi/timeline/intelligence")
+      ) {
+        return jsonResponse(customerTimelineIntelligenceResponse);
+      }
+
       if (url.includes("/api/v1/customers/cust_demo_budi/intelligence")) {
         return jsonResponse(customerIntelligenceResponse);
       }
@@ -395,6 +439,12 @@ describe("App", () => {
 
         if (url.includes("/api/v1/conversations/conv_demo_budi_stock")) {
           return jsonResponse(conversationDetailResponse);
+        }
+
+        if (
+          url.includes("/api/v1/customers/cust_demo_budi/timeline/intelligence")
+        ) {
+          return jsonResponse(customerTimelineIntelligenceResponse);
         }
 
         if (url.includes("/api/v1/customers/cust_demo_budi/intelligence")) {

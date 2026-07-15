@@ -979,6 +979,19 @@ The endpoint requires auth, derives organization/workspace from AuthContext,
 returns safe profile/activity/relationship/follow-up signals, and always marks
 the response as read-only.
 
+P8-PR-03 adds read-only customer timeline intelligence:
+
+```text
+GET /api/v1/customers/:customerId/timeline/intelligence
+```
+
+The endpoint requires auth, derives organization/workspace from Backend
+AuthContext, is workspace-scoped, returns safe timeline events and review-only
+signals, and never performs CRM mutation. It does not auto-create task,
+auto-write customer note, assign owner, change lifecycle/status, expose raw
+provider payload, expose raw webhook payload, expose access token, expose
+refresh token, or expose cookies.
+
 P8 still does not add CRM mutation routes, task creation APIs,
 customer-note write APIs, autonomous CRM mutation, auto-write customer note,
 auto-create task, provider mutation, billing/admin/user/role mutation, or P9

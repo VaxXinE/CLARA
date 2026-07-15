@@ -156,6 +156,57 @@ export type CustomerProfileIntelligenceResponse = {
   };
 };
 
+export type CustomerTimelineIntelligenceResponse = {
+  customerId: string;
+  workspaceId: string;
+  generatedAt: string;
+  timeline: {
+    events: Array<{
+      id: string;
+      occurredAt: string;
+      type:
+        | "customer_created"
+        | "conversation_started"
+        | "conversation_updated"
+        | "inbound_message"
+        | "outbound_reply"
+        | "channel_event"
+        | "activity_event"
+        | "ai_suggestion"
+        | "customer_profile_signal"
+        | "unknown";
+      source:
+        | "customer"
+        | "conversation"
+        | "reply"
+        | "activity"
+        | "channel"
+        | "ai_read_model"
+        | "system";
+      title: string;
+      summary: string;
+      channel: string | null;
+      conversationId?: string;
+      activityId?: string;
+      replyId?: string;
+      severity: "info" | "attention" | "risk" | "success";
+      safeMetadata: Record<string, string | number | boolean | null>;
+    }>;
+  };
+  intelligence: {
+    keyMoments: string[];
+    recentSignals: string[];
+    riskFlags: string[];
+    followUpHints: string[];
+  };
+  safety: {
+    readOnly: true;
+    mutationAllowed: false;
+    requiresHumanApprovalForMutation: true;
+    policyVersion: string;
+  };
+};
+
 export type ActivityResponse = {
   data: {
     conversation_id: string;

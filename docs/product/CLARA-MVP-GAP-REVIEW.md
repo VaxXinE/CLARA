@@ -555,8 +555,16 @@ P7-PR-06 done
 P7-PR-07 done
 P7-PR-08 done
 P7 complete
-P8-PR-02 in progress for this branch
+P8-PR-01 complete
+P8-PR-02 complete
+P8-PR-03 in progress for this branch
 ```
+
+P8 Customer Timeline Intelligence adds a read-only, review-only customer
+timeline read model. It is Backend AuthContext based, workspace-scoped, and has
+no CRM mutation, no auto-create task, no auto-write customer note, no raw
+provider payload, no raw webhook payload, no access token, no refresh token,
+and no cookies in API or dashboard output.
 
 P7 remains:
 
