@@ -291,6 +291,15 @@ write, or auto-send behavior.
 The panel must not render access token, refresh token, cookies, Authorization
 headers, raw provider payload, raw webhook payload, raw DOM, or raw HTML.
 
+## P7 Final AI Assistant Audit
+
+Dashboard final coverage confirms AI surfaces render as suggestion-only,
+review-only, or evaluation-only, keep `requiresHumanApproval` visible where
+needed, and do not add auto-send, automatic task creation, automatic scheduler,
+automatic customer note write, unsafe HTML rendering, token display, cookie
+display, raw provider payload display, raw webhook payload display, raw DOM
+display, or raw HTML display.
+
 ## Docker Production Build
 
 Dashboard Docker baseline:

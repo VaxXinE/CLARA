@@ -960,3 +960,29 @@ no raw webhook payload
 no raw DOM
 no raw HTML
 ```
+
+## P7 Final AI Assistant Audit
+
+Final API regression coverage verifies:
+
+```text
+suggestion-only
+review-only
+evaluation-only
+requiresHumanApproval
+backend AuthContext
+workspace-scoped
+no real LLM provider
+no AI SDK
+no auto-send
+no automatic customer note write
+no automatic task creation
+no automatic scheduler
+no access token
+no refresh token
+no cookies
+no raw provider payload
+no raw webhook payload
+no raw DOM
+no raw HTML
+```
