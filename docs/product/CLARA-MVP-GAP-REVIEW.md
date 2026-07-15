@@ -123,6 +123,7 @@ P6-PR-02 now adds Gmail credential boundary checks and read-only Channel Health 
 P6-PR-03 now adds Webhook Hardening plus Outbox Retry and Idempotency policy coverage for fail-closed verification, dedup/replay, bounded retry, `dead_letter`, no raw provider payload exposure, no double-send, backend AuthContext, and workspace-scoped provider boundaries
 P6-PR-04 now closes P6 with safe Observability, Audit Trail taxonomy, final security audit, production provider runbook, go-live checklist, and P7 handoff; the next phase is P7 AI Assistant / Automation Layer
 P7-PR-01 now starts the AI Assistant / Automation Layer with AI Assistant scope, Safety Policy, Data Access Policy, Prompt Injection policy, Human Approval policy, AI audit policy, and implementation roadmap; no real AI provider, context builder, reply generation, autonomous execution, or auto-send is implemented
+P7-PR-02 now adds the AI Context Builder and Prompt Contract with backend AuthContext workspace scope, minimized safe context, untrusted customer content labeling, prompt sections, budget enforcement, and no real AI provider or reply suggestion generation
 ```
 
 ---
