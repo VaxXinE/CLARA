@@ -145,6 +145,9 @@ function renderWorkspace(
       customerTimelineIntelligence: null,
       customerTimelineIntelligenceLoading: false,
       customerTimelineIntelligenceError: null,
+      customerActionProposal: null,
+      customerActionProposalLoading: false,
+      customerActionProposalError: null,
     },
   };
 

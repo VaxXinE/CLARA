@@ -60,6 +60,7 @@ import { ConversationQueryService } from "../conversations/conversation-service"
 import { FixtureCustomerRepository } from "../customers/customer-repository";
 import { DrizzleCustomerRepository } from "../customers/customer-db-repository";
 import { CustomerQueryService } from "../customers/customer-service";
+import { CustomerActionProposalService } from "../customers/customer-action-proposal-service";
 import { CustomerProfileIntelligenceService } from "../customers/customer-intelligence-service";
 import { CustomerTimelineIntelligenceService } from "../customers/customer-timeline-intelligence-service";
 import { DrizzleExtensionSnapshotRepository } from "../extension/extension-snapshot-db-repository";
@@ -73,6 +74,7 @@ import { SimulatedReplySendProvider } from "../replies/simulated-reply-send-prov
 export type AppServices = {
   conversations: ConversationQueryService;
   customers: CustomerQueryService;
+  customerActionProposals?: CustomerActionProposalService;
   customerIntelligence?: CustomerProfileIntelligenceService;
   customerTimelineIntelligence?: CustomerTimelineIntelligenceService;
   activity: ActivityQueryService;
@@ -137,6 +139,9 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
       services: {
         conversations: new ConversationQueryService(conversationRepository),
         customers: new CustomerQueryService(customerRepository),
+        customerActionProposals: new CustomerActionProposalService(
+          customerRepository,
+        ),
         customerIntelligence: new CustomerProfileIntelligenceService(
           customerRepository,
           conversationRepository,
@@ -267,6 +272,9 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
     services: {
       conversations: new ConversationQueryService(conversationRepository),
       customers: new CustomerQueryService(customerRepository),
+      customerActionProposals: new CustomerActionProposalService(
+        customerRepository,
+      ),
       customerIntelligence: new CustomerProfileIntelligenceService(
         customerRepository,
         conversationRepository,

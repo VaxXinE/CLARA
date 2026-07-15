@@ -54,6 +54,7 @@ P7 AI Conversation Summary and AI Customer Note Suggestion now add review-only/s
 P7 Final AI Assistant Audit now closes the assistant layer with final regression tests, runbooks, incident response, go-live checklist, no real LLM provider, no AI SDK, no auto-send, and a P8 CRM & Workflow Intelligence handoff
 P8 CRM & Workflow Intelligence is now started with CRM Mutation Policy, Workflow Intelligence Policy, Backend AuthContext, workspace-scoped access, human approval, audit log, no autonomous CRM mutation, no auto-write customer note, no auto-create task, and P9 Analytics / Reporting / KPI deferral
 P8 Customer Profile Intelligence now adds a read-only customer intelligence API and dashboard panel with workspace-scoped Backend AuthContext, no CRM mutation, no task creation, no owner/status/lifecycle update, and no token/raw provider payload exposure
+P8 Reviewable CRM Action Proposal now adds a proposal-only, review-only API and dashboard display contract with mutationExecuted=false, workspace-scoped Backend AuthContext, no CRM mutation, no auto-create task, no auto-write customer note, no owner assignment mutation, no lifecycle/status mutation, no raw provider payload, no raw webhook payload, no access token, no refresh token, and no cookies
 ```
 
 Start here for local usage:
@@ -423,6 +424,7 @@ docs/product/CLARA-P8-IMPLEMENTATION-ROADMAP.md
 docs/product/CLARA-P8-SECURITY-RUNBOOK.md
 docs/product/CLARA-P8-CUSTOMER-PROFILE-INTELLIGENCE-SPEC.md
 docs/product/CLARA-P8-CUSTOMER-TIMELINE-INTELLIGENCE-SPEC.md
+docs/product/CLARA-P8-REVIEWABLE-CRM-ACTION-PROPOSAL-SPEC.md
 ```
 
 P8-PR-03 adds Customer Timeline Intelligence as a read-only, review-only

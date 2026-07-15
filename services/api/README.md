@@ -992,6 +992,19 @@ auto-write customer note, assign owner, change lifecycle/status, expose raw
 provider payload, expose raw webhook payload, expose access token, expose
 refresh token, or expose cookies.
 
+P8-PR-04 adds Reviewable CRM Action Proposal:
+
+```text
+POST /api/v1/customers/:customerId/action-proposals/review
+```
+
+The endpoint requires auth, derives organization/workspace from Backend
+AuthContext, is workspace-scoped, and returns proposal-only, review-only CRM
+guidance with `mutationExecuted=false`. It has no CRM mutation, no auto-create
+task, no auto-write customer note, no owner assignment mutation, no
+lifecycle/status mutation, no raw provider payload, no raw webhook payload, no
+access token, no refresh token, and no cookies.
+
 P8 still does not add CRM mutation routes, task creation APIs,
 customer-note write APIs, autonomous CRM mutation, auto-write customer note,
 auto-create task, provider mutation, billing/admin/user/role mutation, or P9

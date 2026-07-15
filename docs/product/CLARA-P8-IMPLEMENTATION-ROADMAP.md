@@ -12,12 +12,13 @@ classification: "roadmap"
 
 - P8-PR-01 CRM & Workflow Intelligence Scope + Mutation Policy — complete
 - P8-PR-02 Customer Profile Intelligence Read Model — complete
-- P8-PR-03 Customer Timeline Intelligence — in progress
-- P8-PR-04 reviewable CRM action proposal contract
+- P8-PR-03 Customer Timeline Intelligence — complete
+- P8-PR-04 Reviewable CRM Action Proposal — in progress
 - P8-PR-05 task/follow-up workflow proposal
 - P8-PR-06 owner assignment readiness
 - P8-PR-07 lifecycle/status update flow with approval
-- P8-PR-08 final P8 security regression, runbook, and P9 handoff
+- P8-PR-08 CRM activity audit hardening
+- P8-PR-09 final P8 security regression, runbook, and P9 handoff
 
 ## Build Order
 

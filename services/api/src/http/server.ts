@@ -23,6 +23,7 @@ import { registerErrorHandlers } from "../errors/error-handler";
 import { registerHealthRoutes } from "./routes/health";
 import { registerMeRoutes } from "./routes/me";
 import { registerConversationRoutes } from "./routes/conversations";
+import { registerCustomerActionProposalRoutes } from "./routes/customer-action-proposals";
 import { registerCustomerRoutes } from "./routes/customers";
 import { registerCustomerIntelligenceRoutes } from "./routes/customer-intelligence";
 import { registerCustomerTimelineIntelligenceRoutes } from "./routes/customer-timeline-intelligence";
@@ -228,6 +229,13 @@ export async function createServer(
   await registerMeRoutes(app, authProvider);
   await registerConversationRoutes(app, authProvider, services.conversations);
   await registerCustomerRoutes(app, authProvider, services.customers);
+  if (services.customerActionProposals) {
+    await registerCustomerActionProposalRoutes(
+      app,
+      authProvider,
+      services.customerActionProposals,
+    );
+  }
   if (services.customerIntelligence) {
     await registerCustomerIntelligenceRoutes(
       app,
