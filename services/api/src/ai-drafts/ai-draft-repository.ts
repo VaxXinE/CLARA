@@ -143,9 +143,7 @@ export function toCreatedAiDraftRecord(input: {
   };
 }
 
-function toAiDraftReviewRecord(
-  draft: ReplyDraftInsert,
-): AiDraftReviewRecord {
+function toAiDraftReviewRecord(draft: ReplyDraftInsert): AiDraftReviewRecord {
   return {
     id: draft.id,
     organizationId: draft.organizationId,

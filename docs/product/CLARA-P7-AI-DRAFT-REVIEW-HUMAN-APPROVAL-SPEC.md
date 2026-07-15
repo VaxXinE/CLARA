@@ -97,7 +97,8 @@ payload, raw DOM, raw HTML, tokens, cookies, or client secrets.
 
 Approval does not equal send. Approved draft state only means the draft passed
 human review. Reply send still requires the existing explicit human reply API
-request. AI does not auto-send.
+request. This is a strict no auto-send boundary: AI does not send, schedule,
+or trigger provider delivery.
 
 When a reply send request includes a draft id, the backend verifies that the
 draft is approved in the authenticated workspace before using it.
