@@ -95,7 +95,7 @@ payload, raw DOM, raw HTML, tokens, cookies, or client secrets.
 
 ## Send Boundary
 
-Approval does not equal send. Approved draft state only means the draft passed
+approval does not equal send. Approved draft state only means the draft passed
 human review. Reply send still requires the existing explicit human reply API
 request. This is a strict no auto-send boundary: AI does not send, schedule,
 or trigger provider delivery.
