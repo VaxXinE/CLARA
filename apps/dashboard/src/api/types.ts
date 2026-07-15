@@ -183,6 +183,47 @@ export type AiReplySuggestionResponse = {
   };
 };
 
+export type AiFollowUpRecommendationResponse = {
+  data: {
+    recommendation: {
+      recommendationId: string;
+      type: "follow_up_recommendation";
+      conversationId: string;
+      customerId: string | null;
+      recommendations: Array<{
+        recommendationType: string;
+        title: string;
+        rationale: string;
+        suggestedTiming: string | null;
+        suggestedMessage: string | null;
+        priority: "low" | "normal" | "high";
+        requiresHumanApproval: true;
+        actionStatus: "recommendation_only";
+      }>;
+      summary: string | null;
+      safetyFlags: string[];
+      requiresHumanApproval: true;
+      blockedReason: string | null;
+      safeReasonCode: string;
+      contextBudgetSummary: {
+        maxMessages: number;
+        maxMessageChars: number;
+        maxSnippetChars: number;
+        includedMessages: number;
+        truncatedMessages: number;
+        includedSnippets: number;
+        truncatedSnippets: number;
+      };
+      policyVersion: string;
+      createdAt: string;
+    };
+    ai: {
+      provider: "mock";
+      model: string;
+    };
+  };
+};
+
 export type AiDraftReviewStatus =
   "suggested" | "editing" | "approved" | "rejected" | "expired" | "blocked";
 

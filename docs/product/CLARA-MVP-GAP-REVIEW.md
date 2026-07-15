@@ -124,6 +124,7 @@ P6-PR-03 now adds Webhook Hardening plus Outbox Retry and Idempotency policy cov
 P6-PR-04 now closes P6 with safe Observability, Audit Trail taxonomy, final security audit, production provider runbook, go-live checklist, and P7 handoff; the next phase is P7 AI Assistant / Automation Layer
 P7-PR-01 now starts the AI Assistant / Automation Layer with AI Assistant scope, Safety Policy, Data Access Policy, Prompt Injection policy, Human Approval policy, AI audit policy, and implementation roadmap; no real AI provider, context builder, reply generation, autonomous execution, or auto-send is implemented
 P7-PR-02 now adds the AI Context Builder and Prompt Contract with backend AuthContext workspace scope, minimized safe context, untrusted customer content labeling, prompt sections, budget enforcement, and no real AI provider or reply suggestion generation
+P7-PR-03, P7-PR-04, and P7-PR-05 now add mock-provider AI Reply Suggestion, AI Draft Review, and AI Follow-up Recommendation. Follow-up is recommendation-only, requiresHumanApproval, no auto-send, no automatic task creation, no automatic scheduler, and no CRM/customer mutation.
 ```
 
 ---

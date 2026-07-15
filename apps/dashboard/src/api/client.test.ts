@@ -233,6 +233,86 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("rawHtml");
   });
 
+  it("creates an AI follow-up recommendation without task or schedule automation", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse(
+        {
+          data: {
+            recommendation: {
+              recommendationId: "ai_follow_up_demo",
+              type: "follow_up_recommendation",
+              conversationId: "conv_demo",
+              customerId: "cust_demo",
+              recommendations: [
+                {
+                  recommendationType: "follow_up_later",
+                  title: "Follow up later",
+                  rationale: "Human should review next step.",
+                  suggestedTiming: "Next business day",
+                  suggestedMessage: "I will follow up soon.",
+                  priority: "normal",
+                  requiresHumanApproval: true,
+                  actionStatus: "recommendation_only",
+                },
+              ],
+              summary: "Safe follow-up recommendation.",
+              safetyFlags: [],
+              requiresHumanApproval: true,
+              blockedReason: null,
+              safeReasonCode: "ai_follow_up_recommendation_generated",
+              contextBudgetSummary: {
+                maxMessages: 12,
+                maxMessageChars: 1200,
+                maxSnippetChars: 1200,
+                includedMessages: 1,
+                truncatedMessages: 0,
+                includedSnippets: 0,
+                truncatedSnippets: 0,
+              },
+              policyVersion: "p7-ai-context-v1",
+              createdAt: "2026-01-01T00:00:00.000Z",
+            },
+            ai: {
+              provider: "mock",
+              model: "mock-clara-follow-up-recommendation-v1",
+            },
+          },
+        },
+        201,
+      ),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({
+      baseUrl: "http://127.0.0.1:3000",
+    });
+
+    const response = await client.createAiFollowUpRecommendation({
+      conversationId: "conv_demo",
+      customerId: "cust_demo",
+      urgency: "normal",
+    });
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/ai/follow-up-recommendations",
+      expect.objectContaining({
+        method: "POST",
+      }),
+    );
+    const fetchCall = fetchMock.mock.calls[0] as unknown as [
+      string,
+      RequestInit,
+    ];
+    const body = String(fetchCall[1].body);
+    expect(body).toContain("follow_up_suggestion");
+    expect(body).not.toContain("workspaceId");
+    expect(response.data.recommendation.requiresHumanApproval).toBe(true);
+    expect(JSON.stringify(response)).toContain("recommendation_only");
+    expect(JSON.stringify(response)).not.toContain("access_token");
+    expect(JSON.stringify(response)).not.toContain("refresh_token");
+    expect(JSON.stringify(response)).not.toContain("Authorization");
+    expect(JSON.stringify(response)).not.toContain("rawHtml");
+  });
+
   it("creates and approves AI draft reviews without exposing provider secrets", async () => {
     const review = {
       draftId: "draft_demo",

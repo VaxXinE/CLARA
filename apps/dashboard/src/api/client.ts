@@ -2,6 +2,7 @@ import type {
   ActivityResponse,
   AiDraftResponse,
   AiDraftReviewResponse,
+  AiFollowUpRecommendationResponse,
   AiReplySuggestionResponse,
   ApiErrorResponse,
   ChannelHealthResponse,
@@ -216,6 +217,29 @@ export class ApiClient {
           taskType: "reply_suggestion",
           tone: payload.tone,
           maxLength: payload.maxLength,
+          operatorInstruction: payload.operatorInstruction,
+        }),
+      },
+    );
+  }
+
+  async createAiFollowUpRecommendation(payload: {
+    conversationId: string;
+    customerId?: string;
+    urgency?: "low" | "normal" | "high";
+    maxRecommendations?: number;
+    operatorInstruction?: string;
+  }): Promise<AiFollowUpRecommendationResponse> {
+    return this.request<AiFollowUpRecommendationResponse>(
+      "/api/v1/ai/follow-up-recommendations",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          conversationId: payload.conversationId,
+          customerId: payload.customerId,
+          taskType: "follow_up_suggestion",
+          urgency: payload.urgency,
+          maxRecommendations: payload.maxRecommendations,
           operatorInstruction: payload.operatorInstruction,
         }),
       },
