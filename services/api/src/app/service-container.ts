@@ -16,6 +16,10 @@ import { MockAiReplySuggestionProvider } from "../ai/mock-ai-reply-suggestion-pr
 import { AiDraftReviewService } from "../ai/ai-draft-review-service";
 import { AiFollowUpRecommendationService } from "../ai/ai-follow-up-recommendation-service";
 import { MockAiFollowUpRecommendationProvider } from "../ai/mock-ai-follow-up-recommendation-provider";
+import { AiConversationSummaryService } from "../ai/ai-conversation-summary-service";
+import { MockAiConversationSummaryProvider } from "../ai/mock-ai-conversation-summary-provider";
+import { AiCustomerNoteSuggestionService } from "../ai/ai-customer-note-suggestion-service";
+import { MockAiCustomerNoteSuggestionProvider } from "../ai/mock-ai-customer-note-suggestion-provider";
 import {
   DrizzleWorkspaceMembershipRepository,
   FixtureWorkspaceMembershipRepository,
@@ -71,6 +75,8 @@ export type AppServices = {
   aiDraftReviews?: AiDraftReviewService;
   aiReplySuggestions?: AiReplySuggestionService;
   aiFollowUpRecommendations?: AiFollowUpRecommendationService;
+  aiConversationSummaries?: AiConversationSummaryService;
+  aiCustomerNoteSuggestions?: AiCustomerNoteSuggestionService;
   replies: ReplyService;
   channelRegistry?: ChannelRegistryService;
   channelAccounts?: ChannelAccountService;
@@ -143,6 +149,16 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         aiFollowUpRecommendations: new AiFollowUpRecommendationService(
           conversationRepository,
           new MockAiFollowUpRecommendationProvider(),
+          auditLogs,
+        ),
+        aiConversationSummaries: new AiConversationSummaryService(
+          conversationRepository,
+          new MockAiConversationSummaryProvider(),
+          auditLogs,
+        ),
+        aiCustomerNoteSuggestions: new AiCustomerNoteSuggestionService(
+          conversationRepository,
+          new MockAiCustomerNoteSuggestionProvider(),
           auditLogs,
         ),
         replies: new ReplyService(
@@ -255,6 +271,16 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
       aiFollowUpRecommendations: new AiFollowUpRecommendationService(
         conversationRepository,
         new MockAiFollowUpRecommendationProvider(),
+        auditLogs,
+      ),
+      aiConversationSummaries: new AiConversationSummaryService(
+        conversationRepository,
+        new MockAiConversationSummaryProvider(),
+        auditLogs,
+      ),
+      aiCustomerNoteSuggestions: new AiCustomerNoteSuggestionService(
+        conversationRepository,
+        new MockAiCustomerNoteSuggestionProvider(),
         auditLogs,
       ),
       replies: new ReplyService(

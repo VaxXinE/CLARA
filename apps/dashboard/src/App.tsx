@@ -2,6 +2,8 @@ import { startTransition, useDeferredValue, useEffect, useState } from "react";
 import { ApiClient, ApiClientError } from "./api/client";
 import type {
   ActivityResponse,
+  AiConversationSummaryResponse,
+  AiCustomerNoteSuggestionResponse,
   AiDraftResponse,
   AiDraftReview,
   AiFollowUpRecommendationResponse,
@@ -153,6 +155,12 @@ function WorkspaceAppShell() {
   const [aiFollowUpRecommendation, setAiFollowUpRecommendation] = useState<
     AiFollowUpRecommendationResponse["data"]["recommendation"] | null
   >(null);
+  const [aiConversationSummary, setAiConversationSummary] = useState<
+    AiConversationSummaryResponse["data"]["summary"] | null
+  >(null);
+  const [aiCustomerNoteSuggestion, setAiCustomerNoteSuggestion] = useState<
+    AiCustomerNoteSuggestionResponse["data"]["noteSuggestion"] | null
+  >(null);
   const [aiDraftReview, setAiDraftReview] = useState<AiDraftReview | null>(
     null,
   );
@@ -198,8 +206,15 @@ function WorkspaceAppShell() {
   const [isGeneratingDraft, setIsGeneratingDraft] = useState(false);
   const [isGeneratingSuggestion, setIsGeneratingSuggestion] = useState(false);
   const [isGeneratingFollowUp, setIsGeneratingFollowUp] = useState(false);
+  const [isGeneratingSummary, setIsGeneratingSummary] = useState(false);
+  const [isGeneratingNoteSuggestion, setIsGeneratingNoteSuggestion] =
+    useState(false);
   const [suggestionError, setSuggestionError] = useState<string | null>(null);
   const [followUpError, setFollowUpError] = useState<string | null>(null);
+  const [summaryError, setSummaryError] = useState<string | null>(null);
+  const [noteSuggestionError, setNoteSuggestionError] = useState<string | null>(
+    null,
+  );
   const [aiDraftReviewError, setAiDraftReviewError] = useState<string | null>(
     null,
   );
@@ -240,10 +255,14 @@ function WorkspaceAppShell() {
       setAiDraftLabel(null);
       setAiReplySuggestion(null);
       setAiFollowUpRecommendation(null);
+      setAiConversationSummary(null);
+      setAiCustomerNoteSuggestion(null);
       setAiDraftReview(null);
       setAiDraftReviewError(null);
       setSuggestionError(null);
       setFollowUpError(null);
+      setSummaryError(null);
+      setNoteSuggestionError(null);
       setGmailOutboundStatus(null);
       setGmailOutboundStatusError(null);
       setWebchatOutboundStatus(null);
@@ -273,10 +292,14 @@ function WorkspaceAppShell() {
       setAiDraftLabel(null);
       setAiReplySuggestion(null);
       setAiFollowUpRecommendation(null);
+      setAiConversationSummary(null);
+      setAiCustomerNoteSuggestion(null);
       setAiDraftReview(null);
       setAiDraftReviewError(null);
       setSuggestionError(null);
       setFollowUpError(null);
+      setSummaryError(null);
+      setNoteSuggestionError(null);
 
       try {
         const meResponse = await client.getMe();
@@ -767,6 +790,66 @@ function WorkspaceAppShell() {
     }
   }
 
+  async function handleGenerateSummary() {
+    if (!selectedConversationId || !conversationDetail || !canGenerateDraft) {
+      return;
+    }
+
+    const client = buildClient({
+      authMode: auth.config.mode,
+      role: selectedRole,
+      accessToken: auth.session?.accessToken ?? null,
+    });
+    setIsGeneratingSummary(true);
+    setSummaryError(null);
+
+    try {
+      const response = await client.createAiConversationSummary({
+        conversationId: selectedConversationId,
+        customerId: conversationDetail.customer.id,
+        summaryStyle: "brief",
+        maxLength: 600,
+      });
+
+      setAiConversationSummary(response.data.summary);
+    } catch (error) {
+      setSummaryError(toSafeMessage(error, "AI summary is unavailable."));
+    } finally {
+      setIsGeneratingSummary(false);
+    }
+  }
+
+  async function handleGenerateNoteSuggestion() {
+    if (!selectedConversationId || !conversationDetail || !canGenerateDraft) {
+      return;
+    }
+
+    const client = buildClient({
+      authMode: auth.config.mode,
+      role: selectedRole,
+      accessToken: auth.session?.accessToken ?? null,
+    });
+    setIsGeneratingNoteSuggestion(true);
+    setNoteSuggestionError(null);
+
+    try {
+      const response = await client.createAiCustomerNoteSuggestion({
+        conversationId: selectedConversationId,
+        customerId: conversationDetail.customer.id,
+        noteStyle: "short_note",
+        maxLength: 400,
+      });
+
+      setAiCustomerNoteSuggestion(response.data.noteSuggestion);
+    } catch (error) {
+      setNoteSuggestionError(
+        toSafeMessage(error, "AI note suggestion is unavailable."),
+      );
+    } finally {
+      setIsGeneratingNoteSuggestion(false);
+    }
+  }
+
   async function handleEditDraftReview(draftText: string) {
     if (!aiDraftReview) {
       return;
@@ -877,10 +960,14 @@ function WorkspaceAppShell() {
       setAiDraftLabel(null);
       setAiReplySuggestion(null);
       setAiFollowUpRecommendation(null);
+      setAiConversationSummary(null);
+      setAiCustomerNoteSuggestion(null);
       setAiDraftReview(null);
       setAiDraftReviewError(null);
       setSuggestionError(null);
       setFollowUpError(null);
+      setSummaryError(null);
+      setNoteSuggestionError(null);
       setGmailOutboundStatus(null);
       setGmailOutboundStatusError(null);
       setWebchatOutboundStatus(null);
@@ -1093,9 +1180,17 @@ function WorkspaceAppShell() {
               : null,
           aiReplySuggestion,
           aiFollowUpRecommendation,
+          aiConversationSummary,
+          aiCustomerNoteSuggestion,
           isGeneratingFollowUp,
+          isGeneratingSummary,
+          isGeneratingNoteSuggestion,
           followUpError,
+          summaryError,
+          noteSuggestionError,
           onGenerateFollowUp: handleGenerateFollowUp,
+          onGenerateSummary: handleGenerateSummary,
+          onGenerateNoteSuggestion: handleGenerateNoteSuggestion,
           aiDraftReview,
           aiDraftReviewLoading,
           aiDraftReviewError,

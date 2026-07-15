@@ -1,5 +1,7 @@
 import type {
   ConversationDetail,
+  AiConversationSummaryResponse,
+  AiCustomerNoteSuggestionResponse,
   AiDraftReview,
   AiFollowUpRecommendationResponse,
   GmailOutboundDeliveryStatus,
@@ -29,9 +31,19 @@ type ConversationPaneProps = {
   aiReplySuggestion?: AiReplySuggestionResponse["data"]["suggestion"] | null;
   aiFollowUpRecommendation?:
     AiFollowUpRecommendationResponse["data"]["recommendation"] | null;
+  aiConversationSummary?:
+    AiConversationSummaryResponse["data"]["summary"] | null;
+  aiCustomerNoteSuggestion?:
+    AiCustomerNoteSuggestionResponse["data"]["noteSuggestion"] | null;
   isGeneratingFollowUp?: boolean;
+  isGeneratingSummary?: boolean;
+  isGeneratingNoteSuggestion?: boolean;
   followUpError?: string | null;
+  summaryError?: string | null;
+  noteSuggestionError?: string | null;
   onGenerateFollowUp?: () => void;
+  onGenerateSummary?: () => void;
+  onGenerateNoteSuggestion?: () => void;
   aiDraftReview?: AiDraftReview | null;
   aiDraftReviewLoading?: boolean;
   aiDraftReviewError?: string | null;
@@ -168,9 +180,17 @@ export function ConversationPane(props: ConversationPaneProps) {
         readOnlyMessage={props.readOnlyMessage}
         aiReplySuggestion={props.aiReplySuggestion}
         aiFollowUpRecommendation={props.aiFollowUpRecommendation}
+        aiConversationSummary={props.aiConversationSummary}
+        aiCustomerNoteSuggestion={props.aiCustomerNoteSuggestion}
         isGeneratingFollowUp={props.isGeneratingFollowUp}
+        isGeneratingSummary={props.isGeneratingSummary}
+        isGeneratingNoteSuggestion={props.isGeneratingNoteSuggestion}
         followUpError={props.followUpError}
+        summaryError={props.summaryError}
+        noteSuggestionError={props.noteSuggestionError}
         onGenerateFollowUp={props.onGenerateFollowUp}
+        onGenerateSummary={props.onGenerateSummary}
+        onGenerateNoteSuggestion={props.onGenerateNoteSuggestion}
         aiDraftReview={props.aiDraftReview}
         aiDraftReviewLoading={props.aiDraftReviewLoading}
         aiDraftReviewError={props.aiDraftReviewError}

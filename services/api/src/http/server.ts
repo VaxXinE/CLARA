@@ -29,6 +29,8 @@ import { registerAiDraftRoutes } from "./routes/ai-drafts";
 import { registerAiDraftReviewRoutes } from "./routes/ai-draft-reviews";
 import { registerAiReplySuggestionRoutes } from "./routes/ai-reply-suggestions";
 import { registerAiFollowUpRecommendationRoutes } from "./routes/ai-follow-up-recommendations";
+import { registerAiConversationSummaryRoutes } from "./routes/ai-conversation-summaries";
+import { registerAiCustomerNoteSuggestionRoutes } from "./routes/ai-customer-note-suggestions";
 import { registerReplyRoutes } from "./routes/replies";
 import { registerChannelRoutes } from "./routes/channels";
 import { registerWebchatRoutes } from "./routes/webchat";
@@ -251,6 +253,22 @@ export async function createServer(
       app,
       authProvider,
       services.aiFollowUpRecommendations,
+      options.env,
+    );
+  }
+  if (services.aiConversationSummaries) {
+    await registerAiConversationSummaryRoutes(
+      app,
+      authProvider,
+      services.aiConversationSummaries,
+      options.env,
+    );
+  }
+  if (services.aiCustomerNoteSuggestions) {
+    await registerAiCustomerNoteSuggestionRoutes(
+      app,
+      authProvider,
+      services.aiCustomerNoteSuggestions,
       options.env,
     );
   }
