@@ -59,6 +59,7 @@ P6 channel health exposes read-only workspace-scoped connected/disconnected/degr
 P6 webhook/outbox hardening defines fail-closed webhook verification, workspace-scoped dedup/replay, bounded Retry, Idempotency, no raw provider payload handling, no double-send, and `dead_letter` lifecycle behavior
 P6 final observability and audit trail policies define safe provider/channel diagnostics, audit taxonomy, runbook, go-live checklist, and P7 handoff without adding a metrics product
 P7 AI assistant safety policy is documentation/test-only for now: no real AI provider calls, no auto-send, no autonomous provider action, and no secret/raw payload access
+P7 AI context builder and prompt contract are pure backend logic only: workspace-scoped, backend AuthContext-derived, minimized, untrusted customer content-labeled, and provider-token/raw-payload-free
 channel account reads are scoped by backend AuthContext and never trust client-provided organization_id or workspace_id
 responses never include provider secrets, tokens, Authorization headers, raw provider payloads, or raw provider errors
 multi-channel audit metadata is allowlisted and must not include message bodies, cookies, Authorization headers, tokens, secrets, raw provider payloads, or raw provider errors
