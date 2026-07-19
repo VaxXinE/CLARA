@@ -35,7 +35,7 @@ export function CrmActivityAuditReadinessPanel() {
       <p className="muted-copy">
         mutationExecuted=false. actionExecuted=false. reviewOnly=true. No CRM
         mutation, task creation, note write, owner assignment, lifecycle/status
-        update, outbound send, or scheduler execution is available here.
+        update, outbound send, or scheduled job run is available here.
       </p>
     </section>
   );

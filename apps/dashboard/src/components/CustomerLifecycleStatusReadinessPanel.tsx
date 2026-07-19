@@ -23,7 +23,7 @@ export function CustomerLifecycleStatusReadinessPanel(
           <span className="eyebrow">Lifecycle status</span>
           <h2>Status readiness</h2>
         </div>
-        <span className="badge">review-only</span>
+        <span className="badge">readiness-only</span>
       </div>
 
       {props.loading ? <p>Loading lifecycle/status readiness...</p> : null}

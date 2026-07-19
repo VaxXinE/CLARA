@@ -58,7 +58,7 @@ describe("CustomerOwnerAssignmentReadinessPanel", () => {
     );
 
     expect(screen.getByText("Assignment readiness")).toBeInTheDocument();
-    expect(screen.getByText("review-only")).toBeInTheDocument();
+    expect(screen.getByText("readiness-only")).toBeInTheDocument();
     expect(screen.getByText(/ownerAssigned=false/)).toBeInTheDocument();
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
   });
