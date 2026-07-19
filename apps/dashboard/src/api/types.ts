@@ -994,6 +994,45 @@ export type KpiDashboardResponse = {
     drilldownEnabled: false;
     mutationAllowed: false;
   };
+  appliedFilters?: AnalyticsReportingFilterSummary["appliedFilters"];
+  rejectedFilters?: AnalyticsReportingFilterSummary["rejectedFilters"];
+  filterSafety?: AnalyticsReportingFilterSummary["filterSafety"];
+  audit?: AnalyticsAuditEvent;
+};
+
+export type AnalyticsReportingFilterSummary = {
+  appliedFilters: {
+    timeWindow: "today" | "last_7_days" | "last_30_days";
+    channel: "all" | "email" | "webchat" | "whatsapp";
+    category?: AnalyticsMetricCategory;
+    operatorScoped: boolean;
+  };
+  rejectedFilters: Array<{
+    key: string;
+    reasonCode: string;
+  }>;
+  filterSafety: {
+    workspaceScoped: true;
+    clientWorkspaceIdIgnored: true;
+    customerLevelDrilldown: false;
+    reportExported: false;
+    rawPayloadIncluded: false;
+    rawCustomerMessagesIncluded: false;
+  };
+};
+
+export type AnalyticsAuditEvent = {
+  eventName: string;
+  workspaceId: string;
+  actorId: string;
+  timestamp: string;
+  safeFilterSummary: {
+    timeWindow: string;
+    channel: string;
+    category: string;
+    operatorScoped: boolean;
+  };
+  reasonCode: string;
 };
 
 export type DemoRole = "owner" | "agent" | "viewer";

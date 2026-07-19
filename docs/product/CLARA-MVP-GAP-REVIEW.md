@@ -638,3 +638,18 @@ no raw HTML
 
 Current phase: P8 CRM & Workflow Intelligence.
 Next phase: P9 Analytics / Reporting / KPI.
+
+## P9 Analytics / Reporting / KPI Update
+
+P9-PR-04 is complete with CRM Workflow Metrics and KPI Dashboard Cards.
+P9-PR-05 is in progress with Reporting Filters and Analytics Audit Privacy
+Hardening.
+
+The current P9 reporting layer remains Backend AuthContext driven,
+workspace-scoped, aggregate-first, and read-only. It supports safe filters for
+time window, channel, category, and owner-gated operator scope. It still has no
+scheduled aggregation, no report export, no customer-level drilldown, no CRM
+mutation, no task creation, no owner/status/lifecycle mutation, no outbound
+send, no real AI provider, no raw customer messages, no raw provider payload,
+no raw webhook payload, no raw audit metadata, no access token, no refresh
+token, no cookies, no auth headers, no raw DOM, no raw HTML, and no raw prompts.

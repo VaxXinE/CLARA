@@ -428,3 +428,10 @@ workspace-scoped cards only. It does not add report export, customer-level
 drilldown, CRM mutation, task creation, outbound send, raw customer messages,
 raw provider payload, raw webhook payload, raw audit metadata, access token,
 refresh token, cookies, or unsafe HTML rendering.
+
+P9-PR-05 adds read-only Reporting Filters and Analytics Audit Privacy panels.
+The dashboard displays safe aggregate filter and audit summaries from the API.
+It does not add report export, customer-level drilldown, CRM mutation, task
+creation, outbound send, raw customer messages, raw provider payload, raw
+webhook payload, raw audit metadata, access token, refresh token, cookies, or
+unsafe HTML rendering.

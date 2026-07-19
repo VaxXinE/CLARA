@@ -3,7 +3,10 @@ import type { AuthProvider } from "../../auth/auth-provider";
 import { getAuthContext } from "../../auth/auth-context";
 import { requireAuth } from "../../auth/require-auth";
 import { KpiDashboardCardService } from "../../analytics/kpi-dashboard-card-service";
-import { parseKpiDashboardQuery } from "../../analytics/kpi-dashboard-card-policy";
+import {
+  prepareAnalyticsReporting,
+  toKpiDashboardQuery,
+} from "../../analytics/analytics-reporting-route-support";
 
 export async function registerAnalyticsKpiDashboardRoutes(
   app: FastifyInstance,
@@ -16,10 +19,18 @@ export async function registerAnalyticsKpiDashboardRoutes(
       preHandler: requireAuth(authProvider),
     },
     async (request) => {
-      return service.getDashboard({
-        auth: getAuthContext(request),
-        query: parseKpiDashboardQuery(request.query as Record<string, unknown>),
+      const auth = getAuthContext(request);
+      const reporting = prepareAnalyticsReporting({
+        auth,
+        query: request.query as Record<string, unknown>,
+        eventName: "p9_kpi_dashboard_viewed",
       });
+      const response = await service.getDashboard({
+        auth,
+        query: toKpiDashboardQuery(reporting.filters),
+      });
+
+      return { ...response, ...reporting };
     },
   );
 }

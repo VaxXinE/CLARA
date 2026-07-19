@@ -2,6 +2,8 @@ import type {
   CrmWorkflowMetricsResponse,
   KpiDashboardResponse,
 } from "../api/types";
+import { AnalyticsAuditPrivacyPanel } from "./AnalyticsAuditPrivacyPanel";
+import { AnalyticsReportingFiltersPanel } from "./AnalyticsReportingFiltersPanel";
 import { CrmWorkflowMetricsPanel } from "./CrmWorkflowMetricsPanel";
 import { KpiDashboardCardsPanel } from "./KpiDashboardCardsPanel";
 
@@ -17,6 +19,18 @@ export function AnalyticsDashboardWorkspace(
 ) {
   return (
     <main aria-label="Analytics Dashboard Workspace">
+      <AnalyticsReportingFiltersPanel
+        filters={
+          props.kpiDashboard?.appliedFilters && props.kpiDashboard.filterSafety
+            ? {
+                appliedFilters: props.kpiDashboard.appliedFilters,
+                rejectedFilters: props.kpiDashboard.rejectedFilters ?? [],
+                filterSafety: props.kpiDashboard.filterSafety,
+              }
+            : null
+        }
+      />
+      <AnalyticsAuditPrivacyPanel audit={props.kpiDashboard?.audit ?? null} />
       <KpiDashboardCardsPanel
         dashboard={props.kpiDashboard}
         loading={props.loading}

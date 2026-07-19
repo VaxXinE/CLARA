@@ -5,7 +5,10 @@ import { requireAuth } from "../../auth/require-auth";
 import { ChannelPerformanceMetricsService } from "../../analytics/channel-performance-metrics-service";
 import { ConversationVolumeMetricsService } from "../../analytics/conversation-volume-metrics-service";
 import { getCoreOperationalMetricsSafety } from "../../analytics/conversation-volume-metrics-dto";
-import { parseCoreOperationalMetricsQuery } from "../../analytics/core-operational-metrics-policy";
+import {
+  prepareAnalyticsReporting,
+  toCoreOperationalQuery,
+} from "../../analytics/analytics-reporting-route-support";
 import { ResponseTimeSlaMetricsService } from "../../analytics/response-time-sla-metrics-service";
 import type { CoreOperationalMetricsQuery } from "../../analytics/analytics-operational-metric-types";
 
@@ -40,9 +43,17 @@ export async function registerAnalyticsOverviewRoutes(
     },
     async (request) => {
       const auth = getAuthContext(request);
-      const query = parseCoreOperationalMetricsQuery(
-        request.query as Record<string, unknown>,
-      );
+      const reporting = prepareAnalyticsReporting({
+        auth,
+        query: request.query as Record<string, unknown>,
+        eventName: "p9_analytics_overview_viewed",
+        allowedCategories: [
+          "operational",
+          "channel_performance",
+          "sla_readiness",
+        ],
+      });
+      const query = toCoreOperationalQuery(reporting.filters);
       const sectionQuery = withoutCategory(query);
       const [conversationVolume, responseTimeSla, channelPerformance] =
         await Promise.all([
@@ -62,6 +73,7 @@ export async function registerAnalyticsOverviewRoutes(
           channelPerformance,
         },
         safety: getCoreOperationalMetricsSafety(),
+        ...reporting,
       };
     },
   );
