@@ -23,7 +23,7 @@ export function CustomerOwnerAssignmentReadinessPanel(
           <span className="eyebrow">Owner assignment</span>
           <h2>Assignment readiness</h2>
         </div>
-        <span className="badge">review-only</span>
+        <span className="badge">readiness-only</span>
       </div>
 
       {props.loading ? <p>Loading owner assignment readiness...</p> : null}

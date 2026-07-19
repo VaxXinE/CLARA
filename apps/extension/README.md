@@ -52,6 +52,12 @@ Instagram and TikTok readers are safe placeholders in this PR. They detect the h
 - P8 Owner Assignment Readiness stays in the backend/dashboard read-only model. The extension does not assign owners, execute CRM workflow, mutate CRM data, create tasks, write notes, change status/lifecycle, read access token, read refresh token, read cookies, capture raw provider payload, capture raw webhook payload, capture raw DOM, or capture raw HTML.
 - P8 Lifecycle / Status Update Readiness stays in the backend/dashboard readiness-only model. The extension does not update lifecycle, update status, execute CRM workflow, mutate CRM data, create tasks, send outbound messages, run a scheduler, read access token, read refresh token, read cookies, capture raw provider payload, capture raw webhook payload, capture raw DOM, or capture raw HTML.
 - P8 CRM Activity Audit Hardening stays in the backend audit boundary. The extension does not read CRM audit internals, write CRM audit events directly, bypass audit policy, execute CRM actions, read access token, read refresh token, read cookies, capture raw provider payload, capture raw webhook payload, capture raw DOM, or capture raw HTML.
+- P8-PR-09 closes P8 extension boundary regression. P8 complete keeps extension
+  behavior manual-assisted only: no CRM mutation, no task creation, no owner
+  assignment mutation, no lifecycle mutation, no status mutation, no outbound
+  send, no real AI provider, no raw provider payload, no raw webhook payload,
+  no access token, no refresh token, and no cookies. P9 Analytics / Reporting /
+  KPI remains outside the extension.
 
 ## ChatGPT Companion Config
 

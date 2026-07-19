@@ -67,7 +67,7 @@ describe("CustomerLifecycleStatusReadinessPanel", () => {
     );
 
     expect(screen.getByText("Status readiness")).toBeInTheDocument();
-    expect(screen.getByText("review-only")).toBeInTheDocument();
+    expect(screen.getByText("readiness-only")).toBeInTheDocument();
     expect(screen.getByText(/lifecycleUpdated=false/)).toBeInTheDocument();
     expect(screen.getByText(/statusUpdated=false/)).toBeInTheDocument();
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
