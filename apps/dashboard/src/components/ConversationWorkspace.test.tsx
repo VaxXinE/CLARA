@@ -151,6 +151,9 @@ function renderWorkspace(
       customerFollowUpProposal: null,
       customerFollowUpProposalLoading: false,
       customerFollowUpProposalError: null,
+      customerOwnerAssignmentReadiness: null,
+      customerOwnerAssignmentReadinessLoading: false,
+      customerOwnerAssignmentReadinessError: null,
     },
   };
 

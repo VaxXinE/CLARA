@@ -306,6 +306,57 @@ export type CustomerFollowUpProposalResponse = {
   };
 };
 
+export type CustomerOwnerAssignmentReadinessResponse = {
+  customerId: string;
+  workspaceId: string;
+  generatedAt: string;
+  readiness: {
+    level:
+      | "ready_for_review"
+      | "needs_more_context"
+      | "already_owned"
+      | "blocked"
+      | "unknown";
+    reasons: string[];
+  };
+  currentOwnership: {
+    hasOwner: boolean;
+    ownerId: string | null;
+    ownerRole: string | null;
+    ownershipSource: "existing_customer_record" | "unknown";
+  };
+  suggestedAssignment: {
+    recommendedRole:
+      "sales" | "support" | "admin_review" | "owner_review" | "unknown";
+    recommendedAction:
+      | "no_op"
+      | "review_assignment"
+      | "assign_owner_review"
+      | "escalate_to_admin_review"
+      | "request_more_context";
+    reason: string;
+    executionStatus: "review_only";
+    ownerAssigned: false;
+    requiresHumanApproval: true;
+    requiredPermission: string;
+  };
+  risk: {
+    level: "low" | "medium" | "high" | "critical";
+    reasons: string[];
+    blocked: boolean;
+    blockedReason: string | null;
+  };
+  safety: {
+    readOnly: true;
+    proposalOnly: true;
+    ownerAssigned: false;
+    mutationAllowed: false;
+    actionExecuted: false;
+    requiresHumanApprovalForMutation: true;
+    policyVersion: string;
+  };
+};
+
 export type ActivityResponse = {
   data: {
     conversation_id: string;

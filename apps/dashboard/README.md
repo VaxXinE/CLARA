@@ -29,6 +29,7 @@ P7 AI Follow-up Recommendation adds a read-only recommendation-only panel. It sh
 P7 AI Conversation Summary and AI Customer Note Suggestion add review-only/suggestion-only panels. They show requiresHumanApproval and do not auto-write customer notes or mutate CRM/customer records.
 P8 CRM & Workflow Intelligence starts as workflow readiness policy only. Dashboard must not add autonomous CRM mutation, auto-write customer note, auto-create task, auto-assign owner, unsafe HTML rendering, or client-side workspace authority.
 P8 Customer Profile Intelligence adds a read-only customer profile signals panel backed by the API read model. It does not add Apply, Save, Create Task, Assign Owner, Change Status, Update Lifecycle, raw HTML rendering, token display, or provider raw payload display.
+P8 Owner Assignment Readiness adds a read-only customer owner assignment panel backed by the API readiness model. It does not add Execute, Apply, Save, Assign Owner, Change Owner, Create Task, Schedule Task, Send Message, Change Status, Update Lifecycle, Write Note, raw HTML rendering, token display, or provider raw payload display.
 P8 dashboard guardrails: no autonomous CRM mutation, no auto-write customer note, no auto-create task, no auto-assign owner.
 AI draft generation
 explicit human reply send

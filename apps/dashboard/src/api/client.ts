@@ -12,6 +12,7 @@ import type {
   ConversationDetailResponse,
   ConversationListResponse,
   CustomerProfileIntelligenceResponse,
+  CustomerOwnerAssignmentReadinessResponse,
   CustomerProfileResponse,
   CustomerActionProposalResponse,
   CustomerFollowUpProposalResponse,
@@ -213,6 +214,16 @@ export class ApiClient {
         method: "POST",
         body: JSON.stringify(payload),
       },
+    );
+  }
+
+  async getCustomerOwnerAssignmentReadiness(
+    customerId: string,
+  ): Promise<CustomerOwnerAssignmentReadinessResponse> {
+    return this.request<CustomerOwnerAssignmentReadinessResponse>(
+      `/api/v1/customers/${encodeURIComponent(
+        customerId,
+      )}/owner-assignment/readiness`,
     );
   }
 

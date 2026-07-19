@@ -7,6 +7,7 @@ import type {
   ConversationDetailResponse,
   ConversationListResponse,
   CustomerProfileIntelligenceResponse,
+  CustomerOwnerAssignmentReadinessResponse,
   CustomerProfileResponse,
   CustomerTimelineIntelligenceResponse,
   MeResponse,
@@ -181,6 +182,47 @@ const customerTimelineIntelligenceResponse: CustomerTimelineIntelligenceResponse
     },
   };
 
+const customerOwnerAssignmentReadinessResponse: CustomerOwnerAssignmentReadinessResponse =
+  {
+    customerId: "cust_demo_budi",
+    workspaceId: "wks_demo_sales",
+    generatedAt: "2026-01-10T00:00:00.000Z",
+    readiness: {
+      level: "ready_for_review",
+      reasons: ["Owner assignment readiness is review-only."],
+    },
+    currentOwnership: {
+      hasOwner: false,
+      ownerId: null,
+      ownerRole: null,
+      ownershipSource: "unknown",
+    },
+    suggestedAssignment: {
+      recommendedRole: "sales",
+      recommendedAction: "assign_owner_review",
+      reason: "Review owner handoff.",
+      executionStatus: "review_only",
+      ownerAssigned: false,
+      requiresHumanApproval: true,
+      requiredPermission: "customer:assign_owner",
+    },
+    risk: {
+      level: "medium",
+      reasons: ["Future owner changes require explicit human approval."],
+      blocked: false,
+      blockedReason: null,
+    },
+    safety: {
+      readOnly: true,
+      proposalOnly: true,
+      ownerAssigned: false,
+      mutationAllowed: false,
+      actionExecuted: false,
+      requiresHumanApprovalForMutation: true,
+      policyVersion: "owner-assignment-readiness-v1",
+    },
+  };
+
 const activityResponse: ActivityResponse = {
   data: {
     conversation_id: "conv_demo_budi_stock",
@@ -349,6 +391,14 @@ describe("App", () => {
         return jsonResponse(customerIntelligenceResponse);
       }
 
+      if (
+        url.includes(
+          "/api/v1/customers/cust_demo_budi/owner-assignment/readiness",
+        )
+      ) {
+        return jsonResponse(customerOwnerAssignmentReadinessResponse);
+      }
+
       if (url.includes("/api/v1/customers/cust_demo_budi")) {
         return jsonResponse(customerResponse);
       }
@@ -449,6 +499,14 @@ describe("App", () => {
 
         if (url.includes("/api/v1/customers/cust_demo_budi/intelligence")) {
           return jsonResponse(customerIntelligenceResponse);
+        }
+
+        if (
+          url.includes(
+            "/api/v1/customers/cust_demo_budi/owner-assignment/readiness",
+          )
+        ) {
+          return jsonResponse(customerOwnerAssignmentReadinessResponse);
         }
 
         if (url.includes("/api/v1/customers/cust_demo_budi")) {
