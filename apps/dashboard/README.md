@@ -439,3 +439,12 @@ unsafe HTML rendering.
 P9-PR-06 adds final dashboard security, UI regression, and accessibility
 coverage for Analytics / Reporting / KPI. P9 COMPLETE after P9-PR-06 merge and
 handoff moves to P10 Enterprise Hardening / Compliance.
+
+P10-PR-01 adds a read-only Enterprise Compliance Readiness panel for tenant
+isolation, access control, data classification, audit readiness, retention
+readiness, incident response readiness, and evidence readiness. The panel
+clearly labels the work as compliance readiness, not certification. It does
+not add export/download, execute/apply, task creation, owner assignment,
+status update, note write, outbound send, raw customer messages, raw provider
+payload, raw webhook payload, raw audit metadata, access token, refresh token,
+cookies, auth headers, API keys, secrets, or unsafe HTML rendering.

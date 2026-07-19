@@ -158,3 +158,9 @@ token, cookies, or analytics secrets.
 P9-PR-06 adds final extension boundary and security regression coverage for
 Analytics / Reporting / KPI. P9 COMPLETE after P9-PR-06 merge and handoff moves
 to P10 Enterprise Hardening / Compliance.
+
+P10-PR-01 keeps Enterprise Hardening / Compliance internals out of the
+extension runtime. The extension does not read compliance evidence, audit
+evidence, tenant isolation internals, raw customer messages, raw provider
+payload, raw webhook payload, raw DOM, raw HTML, raw prompts, access token,
+refresh token, cookies, auth headers, API keys, or secrets.
