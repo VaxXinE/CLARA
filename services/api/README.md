@@ -993,6 +993,22 @@ regression acceptance checklist, and validator script.
 P9 COMPLETE after P9-PR-06 merge. Next phase: P10 Enterprise Hardening /
 Compliance.
 
+## P10-PR-01 Enterprise Hardening + Compliance Scope Policy
+
+P10-PR-01 starts Enterprise Hardening / Compliance with policy-only API helpers
+under `src/enterprise`. The policies define compliance readiness, not
+certification, for tenant isolation, least privilege access control, data
+classification, audit readiness, retention readiness, incident response
+readiness, and evidence readiness.
+
+The API adds no new route, DB migration, SSO, MFA, billing, report export, data
+deletion job, backup automation, provider integration, CRM mutation, task
+creation, outbound send, or real AI provider call. Enterprise policy surfaces
+must remain Backend AuthContext aligned, workspace-scoped, and free of raw
+customer messages, raw provider payload, raw webhook payload, raw audit
+metadata, access token, refresh token, cookies, auth headers, API keys, and
+secrets.
+
 ## P8 CRM & Workflow Intelligence
 
 P8-PR-01 defines CRM workflow readiness, allowed/restricted/blocked CRM

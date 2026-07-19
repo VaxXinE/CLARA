@@ -636,8 +636,8 @@ no raw DOM
 no raw HTML
 ```
 
-Current phase: P8 CRM & Workflow Intelligence.
-Next phase: P9 Analytics / Reporting / KPI.
+Current phase: P10 Enterprise Hardening / Compliance.
+Next phase: P10 tenant isolation and permission audit hardening.
 
 ## P9 Analytics / Reporting / KPI Update
 
@@ -655,6 +655,20 @@ send, no real AI provider, no raw customer messages, no raw provider payload,
 no raw webhook payload, no raw audit metadata, no access token, no refresh
 token, no cookies, no auth headers, no raw DOM, no raw HTML, and no raw prompts.
 
-P9 COMPLETE after P9-PR-06 merge. Remaining production hardening moves to P10
-Enterprise Hardening / Compliance, then later P11/P12 work as defined by the
-final roadmap.
+P9 COMPLETE after P9-PR-06 merge. P10 Enterprise Hardening / Compliance now
+starts with P10-PR-01 policy-first compliance readiness, not certification.
+
+## P10 Enterprise Hardening / Compliance Update
+
+P10-PR-01 defines enterprise hardening scope, compliance readiness baseline,
+data classification, tenant isolation, audit readiness, retention readiness,
+incident response readiness, and evidence readiness. It keeps Backend
+AuthContext as the source of truth, keeps access workspace-scoped, and uses
+least privilege as the enterprise baseline.
+
+This phase does not claim SOC 2, ISO 27001, GDPR, HIPAA, or PCI certification.
+It also does not add SSO, MFA, billing, report export, data deletion jobs,
+backup automation, provider integration, CRM mutation, task creation, outbound
+send, customer-level drilldown, raw customer messages, raw provider payload,
+raw webhook payload, raw audit metadata, access token, refresh token, cookies,
+auth headers, or real AI provider calls.

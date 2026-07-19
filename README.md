@@ -18,8 +18,8 @@ It contains the documentation, architecture, standards, templates, governance, i
 
 ```text
 Status: MVP slice runnable locally
-Current focus: P9 Analytics / Reporting / KPI
-Next focus: P9 core operational metrics pack
+Current focus: P10 Enterprise Hardening / Compliance
+Next focus: P10 tenant isolation and permission audit hardening
 ```
 
 Current MVP implementation:
@@ -64,6 +64,8 @@ P9 Analytics / Reporting / KPI now starts with P9-PR-01 Analytics & Reporting Sc
 P9-PR-02 now adds the Analytics Read Model and Metric Foundation with authenticated readiness and metric catalog endpoints, a safe metric registry, dashboard foundation visibility, extension boundary regression, Backend AuthContext workspace scope, aggregate-first contracts, no raw customer messages, no raw provider payload, no raw webhook payload, no access token, no refresh token, no cookies, no CRM mutation, no task creation, no outbound send, no scheduled aggregation, no report export, and no real AI provider
 P9-PR-03 now adds the Core Operational Metrics Pack with Conversation Volume Metrics, Response Time / SLA, Channel Performance Metrics, authenticated analytics overview, dashboard read-only visibility, extension boundary regression, Backend AuthContext workspace scope, aggregate-first output, no raw customer messages, no raw provider payload, no raw webhook payload, no access token, no refresh token, no cookies, no CRM mutation, no task creation, no outbound send, no report export, no customer-level drilldown, and no real AI provider
 P9-PR-04 now adds CRM Workflow Metrics and KPI Dashboard Cards with authenticated analytics endpoints, dashboard read-only cards, extension boundary regression, Backend AuthContext workspace scope, aggregate-first output, no raw customer messages, no raw provider payload, no raw webhook payload, no raw audit metadata, no access token, no refresh token, no cookies, no CRM mutation, no task creation, no outbound send, no report export, no customer-level drilldown, and no real AI provider
+P9 COMPLETE after P9-PR-06 with Final P9 Audit, Production Runbook, Security Checklist, Operator QA Checklist, regression acceptance coverage, and validator coverage
+P10 Enterprise Hardening / Compliance now starts with compliance readiness, not certification, Backend AuthContext, workspace-scoped tenant isolation, least privilege, data classification, audit readiness, retention readiness, incident response readiness, no raw customer messages, no raw provider payload, no raw webhook payload, no raw audit metadata, no access token, no refresh token, no cookies, no CRM mutation, no outbound send, and no real AI provider
 ```
 
 Start here for local usage:
@@ -153,6 +155,11 @@ docs/product/CLARA-P9-ANALYTICS-REPORTING-KPI-SCOPE-POLICY.md
 docs/product/CLARA-P9-ANALYTICS-READ-MODEL-METRIC-FOUNDATION-SPEC.md
 docs/product/CLARA-P9-CORE-OPERATIONAL-METRICS-PACK-SPEC.md
 docs/product/CLARA-P9-IMPLEMENTATION-ROADMAP.md
+docs/product/CLARA-P10-IMPLEMENTATION-ROADMAP.md
+docs/product/CLARA-P10-ENTERPRISE-HARDENING-COMPLIANCE-SCOPE-POLICY.md
+docs/product/CLARA-P10-COMPLIANCE-READINESS-BASELINE.md
+docs/product/CLARA-P10-DATA-CLASSIFICATION-POLICY.md
+docs/product/CLARA-P10-TENANT-ISOLATION-POLICY.md
 ```
 
 ---
@@ -474,3 +481,11 @@ P9-PR-06 closes P9 with Final P9 Audit, Production Runbook, Security Checklist,
 Operator QA Checklist, regression acceptance coverage, and validator coverage.
 P9 COMPLETE after P9-PR-06 merge. Next phase: P10 Enterprise Hardening /
 Compliance.
+
+P10-PR-01 starts P10 Enterprise Hardening / Compliance with policy-first
+compliance readiness, not certification. It defines enterprise hardening scope,
+tenant isolation, least privilege, data classification, audit readiness,
+retention readiness, incident response readiness, and evidence readiness. It
+adds no SSO, MFA, billing, report export, data deletion jobs, backup
+automation, provider integration, CRM mutation, task creation, outbound send,
+or real AI provider.
