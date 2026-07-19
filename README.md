@@ -459,3 +459,13 @@ timeline contract.
 Clara is built through shared understanding first, then production code.
 
 This repository preserves that understanding.
+
+P9-PR-05 adds Reporting Filters and Analytics Audit Privacy Hardening. Existing
+P9 analytics endpoints now accept safe aggregate filters for time window,
+channel, category, and owner-gated operator scope. Responses include safe filter
+and audit summaries only. They remain Backend AuthContext driven,
+workspace-scoped, aggregate-first, read-only, and include no raw customer
+messages, no raw provider payload, no raw webhook payload, no raw audit
+metadata, no access token, no refresh token, no cookies, no CRM mutation, no
+task creation, no outbound send, no report export, no customer-level drilldown,
+and no real AI provider.

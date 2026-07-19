@@ -147,3 +147,10 @@ dashboard cards, cross-workspace analytics, raw metric data, raw provider
 payload, raw webhook payload, raw audit metadata, raw DOM, raw HTML, access
 token, refresh token, cookies, customer-level drilldown data, or analytics
 secrets.
+
+P9-PR-05 keeps Reporting Filters and Analytics Audit Privacy internals out of
+the extension runtime. The extension does not request reporting filters,
+operator analytics filters, analytics audit events, report export data,
+customer-level drilldown, cross-workspace analytics, raw provider payload, raw
+webhook payload, raw audit metadata, raw DOM, raw HTML, access token, refresh
+token, cookies, or analytics secrets.

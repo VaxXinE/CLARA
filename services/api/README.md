@@ -971,6 +971,19 @@ no raw DOM
 no raw HTML
 ```
 
+## P9-PR-05 Reporting Filters + Analytics Audit Privacy
+
+P9-PR-05 adds safe Reporting Filters and Analytics Audit Privacy Hardening to
+the existing P9 analytics routes. Supported filters are `timeWindow`, `channel`,
+`category`, and owner-gated `operatorId`. Backend AuthContext remains
+authoritative for organization/workspace scope.
+
+The API returns aggregate-first filter and audit summaries only: no raw customer
+messages, no raw provider payload, no raw webhook payload, no raw audit
+metadata, no access token, no refresh token, no cookies, no report export, no
+customer-level drilldown, no CRM mutation, no task creation, no outbound send,
+and no real AI provider.
+
 ## P8 CRM & Workflow Intelligence
 
 P8-PR-01 defines CRM workflow readiness, allowed/restricted/blocked CRM
