@@ -55,6 +55,7 @@ P7 Final AI Assistant Audit now closes the assistant layer with final regression
 P8 CRM & Workflow Intelligence is now started with CRM Mutation Policy, Workflow Intelligence Policy, Backend AuthContext, workspace-scoped access, human approval, audit log, no autonomous CRM mutation, no auto-write customer note, no auto-create task, and P9 Analytics / Reporting / KPI deferral
 P8 Customer Profile Intelligence now adds a read-only customer intelligence API and dashboard panel with workspace-scoped Backend AuthContext, no CRM mutation, no task creation, no owner/status/lifecycle update, and no token/raw provider payload exposure
 P8 Reviewable CRM Action Proposal now adds a proposal-only, review-only API and dashboard display contract with mutationExecuted=false, workspace-scoped Backend AuthContext, no CRM mutation, no auto-create task, no auto-write customer note, no owner assignment mutation, no lifecycle/status mutation, no raw provider payload, no raw webhook payload, no access token, no refresh token, and no cookies
+P8 Task / Follow-up Workflow Proposal now adds a proposal-only, review-only task follow-up API and dashboard display contract with taskCreated=false, actionExecuted=false, workspace-scoped Backend AuthContext, no CRM mutation, no task creation, no auto-create task, no outbound send, no scheduler, no raw provider payload, no raw webhook payload, no access token, no refresh token, and no cookies
 ```
 
 Start here for local usage:

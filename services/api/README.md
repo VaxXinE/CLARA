@@ -1010,6 +1010,19 @@ customer-note write APIs, autonomous CRM mutation, auto-write customer note,
 auto-create task, provider mutation, billing/admin/user/role mutation, or P9
 Analytics / Reporting / KPI.
 
+P8-PR-05 adds Task / Follow-up Workflow Proposal:
+
+```text
+POST /api/v1/customers/:customerId/follow-up-proposals/review
+```
+
+The endpoint requires auth, derives organization/workspace from Backend
+AuthContext, is workspace-scoped, and returns proposal-only, review-only task
+follow-up guidance with `taskCreated=false` and `actionExecuted=false`. It has
+no CRM mutation, no task creation, no auto-create task, no outbound send, no
+scheduler, no raw provider payload, no raw webhook payload, no access token, no
+refresh token, and no cookies.
+
 ## P7 Final AI Assistant Audit
 
 Final API regression coverage verifies:

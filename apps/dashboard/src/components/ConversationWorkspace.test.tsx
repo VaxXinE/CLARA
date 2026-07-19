@@ -148,6 +148,9 @@ function renderWorkspace(
       customerActionProposal: null,
       customerActionProposalLoading: false,
       customerActionProposalError: null,
+      customerFollowUpProposal: null,
+      customerFollowUpProposalLoading: false,
+      customerFollowUpProposalError: null,
     },
   };
 

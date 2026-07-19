@@ -344,6 +344,81 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("Authorization");
   });
 
+  it("requests reviewable follow-up proposals without task creation fields", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        proposalId: "follow_up_proposal_follow_up_customer_cust_demo_budi",
+        customerId: "cust_demo_budi",
+        workspaceId: "wks_demo_sales",
+        generatedAt: "2026-01-10T00:00:00.000Z",
+        title: "Review task / follow-up workflow proposal",
+        summary: "Review-only follow-up proposal.",
+        followUp: {
+          intent: "follow_up_customer",
+          recommendedChannel: "email",
+          urgency: "medium",
+          dueWindow: "next_24h",
+          reason: "Review before task creation.",
+        },
+        proposedTask: {
+          taskTitle: "Review follow-up task",
+          taskDescription: "Review whether a task should be created.",
+          executionStatus: "review_only",
+          taskCreated: false,
+          requiresHumanApproval: true,
+          requiredPermission: "task:create",
+        },
+        risk: {
+          level: "medium",
+          reasons: ["Human review required."],
+          blocked: false,
+          blockedReason: null,
+        },
+        review: {
+          reviewLabel: "Ready for human review",
+          nextStep: "Review only.",
+          warnings: ["No task was created."],
+        },
+        safety: {
+          readOnly: true,
+          proposalOnly: true,
+          taskCreated: false,
+          mutationAllowed: false,
+          actionExecuted: false,
+          requiresHumanApprovalForMutation: true,
+          policyVersion: "task-follow-up-workflow-proposal-v1",
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({
+      baseUrl: "http://127.0.0.1:3000",
+    });
+
+    const response = await client.reviewCustomerFollowUpProposal(
+      "cust_demo_budi",
+      {
+        source: "operator",
+        proposalIntent: "follow_up_customer",
+        operatorInstruction: "Review follow-up.",
+      },
+    );
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/customers/cust_demo_budi/follow-up-proposals/review",
+      expect.objectContaining({
+        method: "POST",
+      }),
+    );
+    expect(response.proposedTask).toMatchObject({
+      executionStatus: "review_only",
+      taskCreated: false,
+    });
+    expect(JSON.stringify(response)).not.toContain("access_token");
+    expect(JSON.stringify(response)).not.toContain("refresh_token");
+    expect(JSON.stringify(response)).not.toContain("Authorization");
+  });
+
   it("creates an AI reply suggestion without sending a reply", async () => {
     const fetchMock = vi.fn(async () =>
       jsonResponse(
