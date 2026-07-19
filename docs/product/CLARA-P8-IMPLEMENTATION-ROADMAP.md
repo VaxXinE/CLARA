@@ -15,8 +15,8 @@ classification: "roadmap"
 - P8-PR-03 Customer Timeline Intelligence — complete
 - P8-PR-04 Reviewable CRM Action Proposal — complete
 - P8-PR-05 Task / Follow-up Workflow Proposal — complete
-- P8-PR-06 owner assignment readiness — in progress
-- P8-PR-07 lifecycle/status update flow with approval
+- P8-PR-06 owner assignment readiness — complete
+- P8-PR-07 lifecycle/status update readiness — in progress
 - P8-PR-08 CRM activity audit hardening
 - P8-PR-09 final P8 security regression, runbook, and P9 handoff
 

@@ -13,6 +13,7 @@ import type {
   ConversationDetailResponse,
   ConversationListResponse,
   CustomerProfileIntelligenceResponse,
+  CustomerLifecycleStatusReadinessResponse,
   CustomerOwnerAssignmentReadinessResponse,
   CustomerProfileResponse,
   CustomerTimelineIntelligenceResponse,
@@ -141,6 +142,10 @@ function WorkspaceAppShell() {
     customerOwnerAssignmentReadiness,
     setCustomerOwnerAssignmentReadiness,
   ] = useState<CustomerOwnerAssignmentReadinessResponse | null>(null);
+  const [
+    customerLifecycleStatusReadiness,
+    setCustomerLifecycleStatusReadiness,
+  ] = useState<CustomerLifecycleStatusReadinessResponse | null>(null);
   const [activityItems, setActivityItems] = useState<
     ActivityResponse["data"]["items"]
   >([]);
@@ -212,6 +217,14 @@ function WorkspaceAppShell() {
   const [
     customerOwnerAssignmentReadinessError,
     setCustomerOwnerAssignmentReadinessError,
+  ] = useState<string | null>(null);
+  const [
+    customerLifecycleStatusReadinessLoading,
+    setCustomerLifecycleStatusReadinessLoading,
+  ] = useState(false);
+  const [
+    customerLifecycleStatusReadinessError,
+    setCustomerLifecycleStatusReadinessError,
   ] = useState<string | null>(null);
   const [activityLoading, setActivityLoading] = useState(false);
   const [activityError, setActivityError] = useState<string | null>(null);
@@ -610,6 +623,9 @@ function WorkspaceAppShell() {
       setCustomerOwnerAssignmentReadiness(null);
       setCustomerOwnerAssignmentReadinessLoading(false);
       setCustomerOwnerAssignmentReadinessError(null);
+      setCustomerLifecycleStatusReadiness(null);
+      setCustomerLifecycleStatusReadinessLoading(false);
+      setCustomerLifecycleStatusReadinessError(null);
       setActivityItems([]);
       return;
     }
@@ -635,6 +651,8 @@ function WorkspaceAppShell() {
       setCustomerTimelineIntelligenceError(null);
       setCustomerOwnerAssignmentReadinessLoading(true);
       setCustomerOwnerAssignmentReadinessError(null);
+      setCustomerLifecycleStatusReadinessLoading(true);
+      setCustomerLifecycleStatusReadinessError(null);
       setComposerError(null);
       setDraftId(null);
       setAiDraftLabel(null);
@@ -670,11 +688,13 @@ function WorkspaceAppShell() {
           customerIntelligenceResponse,
           customerTimelineIntelligenceResponse,
           customerOwnerAssignmentReadinessResponse,
+          customerLifecycleStatusReadinessResponse,
         ] = await Promise.all([
           client.getCustomer(customerId),
           client.getCustomerProfileIntelligence(customerId),
           client.getCustomerTimelineIntelligence(customerId),
           client.getCustomerOwnerAssignmentReadiness(customerId),
+          client.getCustomerLifecycleStatusReadiness(customerId),
         ]);
 
         if (cancelled) {
@@ -686,6 +706,9 @@ function WorkspaceAppShell() {
         setCustomerTimelineIntelligence(customerTimelineIntelligenceResponse);
         setCustomerOwnerAssignmentReadiness(
           customerOwnerAssignmentReadinessResponse,
+        );
+        setCustomerLifecycleStatusReadiness(
+          customerLifecycleStatusReadinessResponse,
         );
       } catch (error) {
         if (cancelled) {
@@ -702,6 +725,7 @@ function WorkspaceAppShell() {
         setCustomerIntelligenceError(message);
         setCustomerTimelineIntelligenceError(message);
         setCustomerOwnerAssignmentReadinessError(message);
+        setCustomerLifecycleStatusReadinessError(message);
       } finally {
         if (!cancelled) {
           setDetailLoading(false);
@@ -710,6 +734,7 @@ function WorkspaceAppShell() {
           setCustomerIntelligenceLoading(false);
           setCustomerTimelineIntelligenceLoading(false);
           setCustomerOwnerAssignmentReadinessLoading(false);
+          setCustomerLifecycleStatusReadinessLoading(false);
         }
       }
     }
@@ -755,11 +780,13 @@ function WorkspaceAppShell() {
       customerIntelligenceResponse,
       customerTimelineIntelligenceResponse,
       customerOwnerAssignmentReadinessResponse,
+      customerLifecycleStatusReadinessResponse,
     ] = await Promise.all([
       client.getCustomer(customerId),
       client.getCustomerProfileIntelligence(customerId),
       client.getCustomerTimelineIntelligence(customerId),
       client.getCustomerOwnerAssignmentReadiness(customerId),
+      client.getCustomerLifecycleStatusReadiness(customerId),
     ]);
 
     setConversations(listResponse.data);
@@ -771,6 +798,9 @@ function WorkspaceAppShell() {
     setCustomerTimelineIntelligence(customerTimelineIntelligenceResponse);
     setCustomerOwnerAssignmentReadiness(
       customerOwnerAssignmentReadinessResponse,
+    );
+    setCustomerLifecycleStatusReadiness(
+      customerLifecycleStatusReadinessResponse,
     );
   }
 
@@ -1366,6 +1396,9 @@ function WorkspaceAppShell() {
           customerOwnerAssignmentReadiness,
           customerOwnerAssignmentReadinessLoading,
           customerOwnerAssignmentReadinessError,
+          customerLifecycleStatusReadiness,
+          customerLifecycleStatusReadinessLoading,
+          customerLifecycleStatusReadinessError,
         }}
         automationGuardrails={{
           decision: aiAutomationGuardrail,

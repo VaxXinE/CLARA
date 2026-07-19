@@ -277,6 +277,80 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("Authorization");
   });
 
+  it("loads customer lifecycle/status readiness safely", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        customerId: "cust_demo_budi",
+        workspaceId: "wks_demo_sales",
+        generatedAt: "2026-01-10T00:00:00.000Z",
+        currentState: {
+          lifecycle: "active_customer",
+          status: "engaged",
+          source: "existing_customer_record",
+        },
+        readiness: {
+          level: "no_change_recommended",
+          reasons: ["No lifecycle/status change is recommended."],
+        },
+        suggestedChange: {
+          recommendedLifecycle: "no_change",
+          recommendedStatus: "no_change",
+          recommendedAction: "no_op",
+          reason: "Current lifecycle/status does not need a change.",
+          executionStatus: "review_only",
+          lifecycleUpdated: false,
+          statusUpdated: false,
+          requiresHumanApproval: true,
+          requiredPermission: "customer:read",
+        },
+        transitionPolicy: {
+          allowedForReview: true,
+          blockedReason: null,
+          warnings: ["Human approval is required before any future change."],
+        },
+        risk: {
+          level: "low",
+          reasons: [
+            "Future lifecycle/status changes require explicit human approval.",
+          ],
+          blocked: false,
+          blockedReason: null,
+        },
+        safety: {
+          readOnly: true,
+          proposalOnly: true,
+          lifecycleUpdated: false,
+          statusUpdated: false,
+          mutationAllowed: false,
+          actionExecuted: false,
+          requiresHumanApprovalForMutation: true,
+          policyVersion: "lifecycle-status-update-readiness-v1",
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({
+      baseUrl: "http://127.0.0.1:3000",
+    });
+
+    const response =
+      await client.getCustomerLifecycleStatusReadiness("cust_demo_budi");
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/customers/cust_demo_budi/lifecycle-status/readiness",
+      expect.any(Object),
+    );
+    expect(response.safety).toMatchObject({
+      readOnly: true,
+      lifecycleUpdated: false,
+      statusUpdated: false,
+      actionExecuted: false,
+    });
+    expect(JSON.stringify(response)).not.toContain("access_token");
+    expect(JSON.stringify(response)).not.toContain("refresh_token");
+    expect(JSON.stringify(response)).not.toContain("Authorization");
+  });
+
   it("requests reviewable CRM action proposals without mutation fields", async () => {
     const fetchMock = vi.fn(async () =>
       jsonResponse({
