@@ -18,8 +18,8 @@ It contains the documentation, architecture, standards, templates, governance, i
 
 ```text
 Status: MVP slice runnable locally
-Current focus: P8 CRM & Workflow Intelligence closure
-Next focus: P9 Analytics / Reporting / KPI
+Current focus: P9 Analytics / Reporting / KPI
+Next focus: P9 analytics read model foundation
 ```
 
 Current MVP implementation:
@@ -60,6 +60,7 @@ P8 Owner Assignment Readiness now adds a read-only owner handoff readiness API a
 P8 Lifecycle / Status Update Readiness now adds a readiness-only, review-only lifecycle/status API and dashboard display contract with lifecycleUpdated=false, statusUpdated=false, actionExecuted=false, workspace-scoped Backend AuthContext, no CRM mutation, no lifecycle mutation, no status mutation, no auto-change lifecycle/status, no task creation, no outbound send, no scheduler, no raw provider payload, no raw webhook payload, no access token, no refresh token, and no cookies
 P8 CRM Activity Audit Hardening now adds audit-only safe metadata and redaction coverage for P8 intelligence/readiness/proposal flows with Backend AuthContext, workspace-scoped audit writes, mutationExecuted=false, actionExecuted=false, reviewOnly=true, no CRM mutation, no lifecycle mutation, no status mutation, no owner assignment mutation, no task creation, no outbound send, no raw provider payload, no raw webhook payload, no access token, no refresh token, and no cookies
 P8 complete after P8-PR-09 with Final CRM & Workflow Intelligence Audit, production runbook, security checklist, operator QA checklist, final API/dashboard/extension regression coverage, no CRM mutation, no task creation, no owner assignment mutation, no lifecycle mutation, no status mutation, no outbound send, no real AI provider, and a P9 Analytics / Reporting / KPI handoff
+P9 Analytics / Reporting / KPI now starts with P9-PR-01 Analytics & Reporting Scope + KPI Policy, Backend AuthContext, workspace-scoped metrics, aggregate-first output, no raw provider payload, no raw webhook payload, no raw customer messages, no raw audit metadata, no tokens/cookies/auth headers/secrets, no CRM mutation, no task creation, no outbound send, no scheduled aggregation jobs, no report export, and no real AI provider
 ```
 
 Start here for local usage:
@@ -145,6 +146,8 @@ docs/product/CLARA-P8-FINAL-CRM-WORKFLOW-INTELLIGENCE-AUDIT.md
 docs/product/CLARA-P8-PRODUCTION-RUNBOOK.md
 docs/product/CLARA-P8-SECURITY-CHECKLIST.md
 docs/product/CLARA-P8-OPERATOR-QA-CHECKLIST.md
+docs/product/CLARA-P9-ANALYTICS-REPORTING-KPI-SCOPE-POLICY.md
+docs/product/CLARA-P9-IMPLEMENTATION-ROADMAP.md
 ```
 
 ---
