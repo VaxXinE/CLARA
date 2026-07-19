@@ -134,3 +134,9 @@ extension runtime. The extension does not read metric registry internals,
 request metric catalog data, request cross-workspace analytics, receive raw
 metric data, capture raw provider payload, raw webhook payload, raw DOM, raw
 HTML, access token, refresh token, cookies, or analytics secrets.
+
+P9-PR-03 keeps the Core Operational Metrics Pack out of the extension runtime.
+The extension does not request analytics overview, Conversation Volume Metrics,
+Response Time / SLA, Channel Performance Metrics, cross-workspace analytics,
+raw provider payload, raw webhook payload, raw DOM, raw HTML, access token,
+refresh token, cookies, customer-level drilldown data, or analytics secrets.

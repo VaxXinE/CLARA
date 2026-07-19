@@ -43,6 +43,13 @@ import { registerChannelRoutes } from "./routes/channels";
 import { AnalyticsReadModelService } from "../analytics/analytics-read-model-service";
 import { registerAnalyticsReadinessRoutes } from "./routes/analytics-readiness";
 import { registerAnalyticsMetricCatalogRoutes } from "./routes/analytics-metric-catalog";
+import { ConversationVolumeMetricsService } from "../analytics/conversation-volume-metrics-service";
+import { ResponseTimeSlaMetricsService } from "../analytics/response-time-sla-metrics-service";
+import { ChannelPerformanceMetricsService } from "../analytics/channel-performance-metrics-service";
+import { registerAnalyticsConversationVolumeRoutes } from "./routes/analytics-conversation-volume";
+import { registerAnalyticsResponseTimeSlaRoutes } from "./routes/analytics-response-time-sla";
+import { registerAnalyticsChannelPerformanceRoutes } from "./routes/analytics-channel-performance";
+import { registerAnalyticsOverviewRoutes } from "./routes/analytics-overview";
 import { registerWebchatRoutes } from "./routes/webchat";
 import { registerWhatsappRoutes } from "./routes/whatsapp";
 import { registerExtensionRoutes } from "./routes/extension";
@@ -346,6 +353,38 @@ export async function createServer(
     authProvider,
     analyticsReadModelService,
   );
+  if (services.channelHealth) {
+    const conversationVolumeMetrics = new ConversationVolumeMetricsService(
+      services.conversations,
+    );
+    const responseTimeSlaMetrics = new ResponseTimeSlaMetricsService(
+      services.conversations,
+    );
+    const channelPerformanceMetrics = new ChannelPerformanceMetricsService(
+      services.channelHealth,
+    );
+
+    await registerAnalyticsConversationVolumeRoutes(
+      app,
+      authProvider,
+      conversationVolumeMetrics,
+    );
+    await registerAnalyticsResponseTimeSlaRoutes(
+      app,
+      authProvider,
+      responseTimeSlaMetrics,
+    );
+    await registerAnalyticsChannelPerformanceRoutes(
+      app,
+      authProvider,
+      channelPerformanceMetrics,
+    );
+    await registerAnalyticsOverviewRoutes(app, authProvider, {
+      conversationVolume: conversationVolumeMetrics,
+      responseTimeSla: responseTimeSlaMetrics,
+      channelPerformance: channelPerformanceMetrics,
+    });
+  }
   if (services.channelRegistry && services.channelAccounts) {
     await registerChannelRoutes(
       app,

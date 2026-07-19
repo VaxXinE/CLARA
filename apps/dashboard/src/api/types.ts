@@ -875,6 +875,54 @@ export type AnalyticsMetricCatalogResponse = {
   }>;
 };
 
+export type CoreOperationalMetricsResponse = {
+  workspaceId: string;
+  generatedAt: string;
+  timeWindow: "today" | "last_7_days" | "last_30_days";
+  channel: "all" | "email" | "webchat" | "whatsapp";
+  category: AnalyticsMetricCategory;
+  metrics: Array<{
+    metricKey: string;
+    label: string;
+    description: string;
+    value: number | string;
+    valueType: "count" | "percentage" | "duration_ms" | "ratio" | "status";
+    aggregationLevel: "workspace" | "channel";
+    implementationStatus: "implemented";
+    privacy: {
+      aggregated: true;
+      rawPayloadIncluded: false;
+      rawCustomerMessagesIncluded: false;
+      workspaceScoped: true;
+      piiMinimized: true;
+      policyVersion: string;
+    };
+  }>;
+  safety: {
+    readOnly: true;
+    mutationAllowed: false;
+    actionExecuted: false;
+    crmMutationExecuted: false;
+    taskCreated: false;
+    outboundSent: false;
+    customerLevelDrilldown: false;
+    reportExported: false;
+  };
+};
+
+export type AnalyticsOverviewResponse = {
+  workspaceId: string;
+  generatedAt: string;
+  timeWindow: "today" | "last_7_days" | "last_30_days";
+  channel: "all" | "email" | "webchat" | "whatsapp";
+  sections: {
+    conversationVolume: CoreOperationalMetricsResponse;
+    responseTimeSla: CoreOperationalMetricsResponse;
+    channelPerformance: CoreOperationalMetricsResponse;
+  };
+  safety: CoreOperationalMetricsResponse["safety"];
+};
+
 export type DemoRole = "owner" | "agent" | "viewer";
 
 export type DemoAuthProfile = {

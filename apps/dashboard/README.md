@@ -410,3 +410,13 @@ rules. It does not add charts, export/download controls, scheduled aggregation,
 report export, CRM mutation, task creation, outbound send, raw customer
 messages, raw provider payload, raw webhook payload, access token, refresh
 token, cookies, or unsafe HTML rendering.
+
+P9-PR-03 adds a read-only Core Operational Metrics Pack component and dashboard
+API client support for `GET /api/v1/analytics/overview`,
+`GET /api/v1/analytics/conversations/volume`,
+`GET /api/v1/analytics/response-time-sla`, and
+`GET /api/v1/analytics/channels/performance`. It displays Conversation Volume
+Metrics, Response Time / SLA, and Channel Performance Metrics safely. It does
+not add mutation controls, report export, customer-level drilldown, outbound
+send, raw customer messages, raw provider payload, raw webhook payload, access
+token, refresh token, cookies, or unsafe HTML rendering.

@@ -8,11 +8,13 @@ import type {
   AiFollowUpRecommendationResponse,
   AiReplySuggestionResponse,
   AnalyticsMetricCatalogResponse,
+  AnalyticsOverviewResponse,
   AnalyticsReadinessResponse,
   ApiErrorResponse,
   ChannelHealthResponse,
   ConversationDetailResponse,
   ConversationListResponse,
+  CoreOperationalMetricsResponse,
   CustomerProfileIntelligenceResponse,
   CustomerLifecycleStatusReadinessResponse,
   CustomerOwnerAssignmentReadinessResponse,
@@ -271,6 +273,30 @@ export class ApiClient {
   async getAnalyticsMetricCatalog(): Promise<AnalyticsMetricCatalogResponse> {
     return this.request<AnalyticsMetricCatalogResponse>(
       "/api/v1/analytics/metric-catalog",
+    );
+  }
+
+  async getAnalyticsOverview(): Promise<AnalyticsOverviewResponse> {
+    return this.request<AnalyticsOverviewResponse>(
+      "/api/v1/analytics/overview",
+    );
+  }
+
+  async getConversationVolumeMetrics(): Promise<CoreOperationalMetricsResponse> {
+    return this.request<CoreOperationalMetricsResponse>(
+      "/api/v1/analytics/conversations/volume",
+    );
+  }
+
+  async getResponseTimeSlaMetrics(): Promise<CoreOperationalMetricsResponse> {
+    return this.request<CoreOperationalMetricsResponse>(
+      "/api/v1/analytics/response-time-sla",
+    );
+  }
+
+  async getChannelPerformanceMetrics(): Promise<CoreOperationalMetricsResponse> {
+    return this.request<CoreOperationalMetricsResponse>(
+      "/api/v1/analytics/channels/performance",
     );
   }
 
