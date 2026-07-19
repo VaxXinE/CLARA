@@ -22,8 +22,8 @@ before any heavy runtime dashboard or scheduled aggregation work.
 | P9-PR-02 | complete | Analytics Read Model + Metric Foundation |
 | P9-PR-03 | complete | Core Operational Metrics Pack |
 | P9-PR-04 | complete | CRM Workflow Metrics + KPI Dashboard Cards |
-| P9-PR-05 | in progress | Reporting Filters + Analytics Audit Privacy Hardening |
-| P9-PR-06 | planned | Final P9 Audit / Runbook |
+| P9-PR-05 | complete | Reporting Filters + Analytics Audit Privacy Hardening |
+| P9-PR-06 | in progress | Final P9 Audit / Runbook |
 
 ## Phase Guardrails
 
@@ -45,3 +45,11 @@ before any heavy runtime dashboard or scheduled aggregation work.
 - P9 runtime metrics remain read-only. No scheduled aggregation, no report
   export, no customer-level drilldown, no outbound send, no CRM mutation, no
   task creation, and no real AI provider remain explicit guardrails.
+
+## Completion Gate
+
+P9 COMPLETE after P9-PR-06 merge. The phase closes with Final P9 Audit,
+Production Runbook, Security Checklist, Operator QA Checklist, regression
+acceptance coverage, and validator script.
+
+Next phase: P10 Enterprise Hardening / Compliance.

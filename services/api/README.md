@@ -984,6 +984,15 @@ metadata, no access token, no refresh token, no cookies, no report export, no
 customer-level drilldown, no CRM mutation, no task creation, no outbound send,
 and no real AI provider.
 
+## P9-PR-06 Final Analytics Audit / Runbook
+
+P9-PR-06 closes P9 Analytics / Reporting / KPI with final API regression tests,
+Final P9 Audit, Production Runbook, Security Checklist, Operator QA Checklist,
+regression acceptance checklist, and validator script.
+
+P9 COMPLETE after P9-PR-06 merge. Next phase: P10 Enterprise Hardening /
+Compliance.
+
 ## P8 CRM & Workflow Intelligence
 
 P8-PR-01 defines CRM workflow readiness, allowed/restricted/blocked CRM
