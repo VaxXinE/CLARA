@@ -123,3 +123,8 @@ no automatic customer note write, no access token, no refresh token, no cookies,
 no raw provider payload, no raw webhook payload, no raw DOM, and no raw HTML.
 
 Build artifacts are intentionally not committed.
+
+P9-PR-01 keeps Analytics / Reporting / KPI out of the extension. The extension
+does not read analytics internals, request cross-workspace metrics, receive raw
+KPI data, capture analytics secrets/tokens, capture raw provider payload, raw
+webhook payload, raw DOM, or raw HTML.

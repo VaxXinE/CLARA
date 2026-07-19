@@ -396,3 +396,8 @@ docker-compose.prod.example.yml
 ```
 
 P5.1 upgrades the dashboard toward a premium dark/gold workspace shell inspired by project_Clara.
+
+P9-PR-01 adds an Analytics Reporting Readiness panel and tests only. It shows
+allowed KPI categories and privacy rules, clearly labels KPI dashboards as not
+implemented yet, and does not add charts, export, execute/apply controls, raw
+payload rendering, token display, unsafe HTML rendering, or dashboard mutation.

@@ -1056,6 +1056,14 @@ mutation, no status mutation, no outbound send, no real AI provider, no raw
 provider payload, no raw webhook payload, no access token, no refresh token,
 and no cookies.
 
+P9-PR-01 starts Analytics / Reporting / KPI with policy and tests only. The API
+now defines allowed metric keys, KPI categories, aggregate-first output shape,
+privacy defaults, and Backend AuthContext workspace boundary rules. It does not
+add analytics routes, scheduled aggregation jobs, report export, CRM mutation,
+task creation, owner/status/lifecycle mutation, outbound send, real AI provider
+calls, raw provider payload, raw webhook payload, raw customer messages, raw
+audit metadata, access token, refresh token, cookies, or auth headers.
+
 ## P7 Final AI Assistant Audit
 
 Final API regression coverage verifies:

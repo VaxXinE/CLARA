@@ -134,6 +134,13 @@ P8-PR-06 is complete with Owner Assignment Readiness as a read-only readiness fl
 P8-PR-07 is complete with Lifecycle / Status Update Readiness as a readiness-only, review-only flow with lifecycleUpdated=false, statusUpdated=false, actionExecuted=false, Backend AuthContext, workspace-scoped access, no CRM mutation, no lifecycle mutation, no status mutation, no auto-change lifecycle/status, no task creation, no outbound send, no scheduler, and no token/raw provider payload exposure.
 P8-PR-08 is complete with CRM Activity Audit Hardening as audit-only, safe metadata, redaction, Backend AuthContext, workspace-scoped coverage for P8 intelligence/readiness/proposal flows, mutationExecuted=false, actionExecuted=false, reviewOnly=true, no CRM mutation, no lifecycle mutation, no status mutation, no owner assignment mutation, no task creation, no outbound send, no raw provider payload, no raw webhook payload, no access token, no refresh token, and no cookies.
 P8 complete after P8-PR-09 with Final CRM & Workflow Intelligence Audit, final API/dashboard/extension regression coverage, production runbook, security checklist, operator QA checklist, no real AI provider, no analytics/KPI dashboards, and P9 Analytics / Reporting / KPI as the next phase.
+
+P9 is now started with P9-PR-01 Analytics & Reporting Scope + KPI Policy. P9
+starts with policy, metric contracts, privacy boundaries, Backend AuthContext,
+workspace-scoped analytics, aggregate-first output, no raw provider payload, no
+raw webhook payload, no raw customer messages, no CRM mutation, no task
+creation, no outbound send, no scheduled aggregation jobs, no report export,
+and no real AI provider.
 ```
 
 ---
