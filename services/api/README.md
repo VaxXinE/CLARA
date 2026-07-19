@@ -182,6 +182,10 @@ GET /api/v1/workspace/members
 GET /api/v1/workspace/roles/readiness
 GET /api/v1/analytics/readiness
 GET /api/v1/analytics/metric-catalog
+GET /api/v1/analytics/overview
+GET /api/v1/analytics/conversations/volume
+GET /api/v1/analytics/response-time-sla
+GET /api/v1/analytics/channels/performance
 POST /api/v1/webchat/inbound/messages
 GET /api/v1/integrations/webchat/outbound/deliveries/:deliveryId
 GET /api/v1/whatsapp/webhook
@@ -1074,6 +1078,18 @@ scheduled aggregation, no report export, no customer-level drilldown, no CRM
 mutation, no task creation, no outbound send, no real AI provider, no raw
 customer messages, no raw provider payload, no raw webhook payload, no access
 token, no refresh token, and no cookies.
+
+P9-PR-03 adds the Core Operational Metrics Pack. The API now exposes
+authenticated, workspace-scoped `GET /api/v1/analytics/overview`,
+`GET /api/v1/analytics/conversations/volume`,
+`GET /api/v1/analytics/response-time-sla`, and
+`GET /api/v1/analytics/channels/performance`. These endpoints return
+Conversation Volume Metrics, Response Time / SLA, and Channel Performance
+Metrics as aggregate-first data only. They perform no CRM mutation, no task
+creation, no outbound send, no report export, no customer-level drilldown, and
+no real AI provider call, and they return no raw customer messages, no raw
+provider payload, no raw webhook payload, no access token, no refresh token,
+and no cookies.
 
 ## P7 Final AI Assistant Audit
 

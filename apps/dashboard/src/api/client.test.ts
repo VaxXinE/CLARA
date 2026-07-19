@@ -1136,4 +1136,39 @@ describe("ApiClient auth headers", () => {
     expect(String(fetchCall[1].body)).not.toContain("mutate");
     expect(response.data.noteSuggestion.actionStatus).toBe("suggestion_only");
   });
+
+  it("fetches P9 core operational analytics without sending mutation requests", async () => {
+    const responseBody = {
+      workspaceId: "wks_demo_sales",
+      generatedAt: "2026-07-07T10:00:00.000Z",
+      timeWindow: "last_7_days",
+      channel: "all",
+      sections: {
+        conversationVolume: { metrics: [] },
+        responseTimeSla: { metrics: [] },
+        channelPerformance: { metrics: [] },
+      },
+      safety: {
+        readOnly: true,
+        mutationAllowed: false,
+        actionExecuted: false,
+        crmMutationExecuted: false,
+        taskCreated: false,
+        outboundSent: false,
+        customerLevelDrilldown: false,
+        reportExported: false,
+      },
+    };
+    const fetchMock = vi.fn(async () => jsonResponse(responseBody));
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({ baseUrl: "http://127.0.0.1:3000" });
+
+    const response = await client.getAnalyticsOverview();
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/analytics/overview",
+      expect.objectContaining({ headers: expect.any(Object) }),
+    );
+    expect(response.safety.outboundSent).toBe(false);
+  });
 });

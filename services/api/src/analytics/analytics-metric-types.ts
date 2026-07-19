@@ -68,6 +68,13 @@ export const analyticsMetricContracts = {
     aggregationLevel: "channel",
     description: "Conversation volume grouped by channel.",
   },
+  conversation_needs_attention: {
+    category: "operational",
+    label: "Needs attention conversations",
+    valueType: "count",
+    aggregationLevel: "workspace",
+    description: "Open or pending conversations that need operator attention.",
+  },
   first_response_time_avg: {
     category: "sla_readiness",
     label: "Average first response time",
@@ -89,12 +96,26 @@ export const analyticsMetricContracts = {
     aggregationLevel: "workspace",
     description: "95th percentile time to first human response.",
   },
+  last_response_age: {
+    category: "sla_readiness",
+    label: "Last response age",
+    valueType: "duration_ms",
+    aggregationLevel: "workspace",
+    description: "Age of the oldest unresolved conversation response gap.",
+  },
   sla_risk_count: {
     category: "sla_readiness",
     label: "SLA risk count",
     valueType: "count",
     aggregationLevel: "workspace",
     description: "Conversations at risk of missing SLA expectations.",
+  },
+  unanswered_conversation_count: {
+    category: "sla_readiness",
+    label: "Unanswered conversations",
+    valueType: "count",
+    aggregationLevel: "workspace",
+    description: "Conversations with inbound messages and no outbound reply.",
   },
   channel_connected_count: {
     category: "channel_performance",
@@ -109,6 +130,13 @@ export const analyticsMetricContracts = {
     valueType: "count",
     aggregationLevel: "channel",
     description: "Provider/channel accounts reporting degraded status.",
+  },
+  channel_disabled_count: {
+    category: "channel_performance",
+    label: "Disabled channels",
+    valueType: "count",
+    aggregationLevel: "channel",
+    description: "Provider/channel accounts that are disabled or unavailable.",
   },
   inbound_sync_success_count: {
     category: "channel_performance",
@@ -137,6 +165,13 @@ export const analyticsMetricContracts = {
     valueType: "count",
     aggregationLevel: "channel",
     description: "Failed outbound delivery attempts.",
+  },
+  provider_health_status: {
+    category: "channel_performance",
+    label: "Provider health status",
+    valueType: "status",
+    aggregationLevel: "channel",
+    description: "Overall safe provider health status for the workspace.",
   },
   crm_profile_intelligence_view_count: {
     category: "crm_workflow",
