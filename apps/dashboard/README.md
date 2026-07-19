@@ -401,3 +401,12 @@ P9-PR-01 adds an Analytics Reporting Readiness panel and tests only. It shows
 allowed KPI categories and privacy rules, clearly labels KPI dashboards as not
 implemented yet, and does not add charts, export, execute/apply controls, raw
 payload rendering, token display, unsafe HTML rendering, or dashboard mutation.
+
+P9-PR-02 adds an Analytics Read Model Foundation panel and API client methods
+for `GET /api/v1/analytics/readiness` and
+`GET /api/v1/analytics/metric-catalog`. The panel is read-only and shows Metric
+Foundation readiness, allowed categories, metric catalog status, and safety
+rules. It does not add charts, export/download controls, scheduled aggregation,
+report export, CRM mutation, task creation, outbound send, raw customer
+messages, raw provider payload, raw webhook payload, access token, refresh
+token, cookies, or unsafe HTML rendering.

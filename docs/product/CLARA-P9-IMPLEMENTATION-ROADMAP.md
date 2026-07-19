@@ -18,16 +18,12 @@ before any heavy runtime dashboard or scheduled aggregation work.
 
 | PR | Status | Scope |
 |---|---|---|
-| P9-PR-01 | in progress | Analytics & Reporting Scope + KPI Policy |
-| P9-PR-02 | planned | Analytics Read Model Foundation |
-| P9-PR-03 | planned | Conversation Volume Metrics |
-| P9-PR-04 | planned | Response Time / SLA Metrics |
-| P9-PR-05 | planned | Channel Performance Metrics |
-| P9-PR-06 | planned | CRM Workflow Metrics |
-| P9-PR-07 | planned | Dashboard KPI Cards |
-| P9-PR-08 | planned | Reporting Filters / Time Windows |
-| P9-PR-09 | planned | Analytics Audit + Privacy Hardening |
-| P9-PR-10 | planned | Final P9 Audit / Runbook |
+| P9-PR-01 | complete | Analytics & Reporting Scope + KPI Policy |
+| P9-PR-02 | in progress | Analytics Read Model + Metric Foundation |
+| P9-PR-03 | planned | Core Operational Metrics Pack |
+| P9-PR-04 | planned | CRM Workflow Metrics + KPI Dashboard Cards |
+| P9-PR-05 | planned | Reporting Filters + Analytics Audit Privacy Hardening |
+| P9-PR-06 | planned | Final P9 Audit / Runbook |
 
 ## Phase Guardrails
 
@@ -37,6 +33,7 @@ before any heavy runtime dashboard or scheduled aggregation work.
 - No raw provider payload, raw webhook payload, raw customer messages, raw
   audit metadata, tokens, cookies, auth headers, secrets, raw DOM, raw HTML, or
   raw prompts.
-- P9-PR-01 does not add report export, scheduled aggregation jobs, outbound
-  send, CRM mutation, task creation, customer note writes, owner assignment,
-  lifecycle/status mutation, or real AI provider integration.
+- P9-PR-02 adds the Analytics Read Model and Metric Foundation only. Runtime
+  metrics, no scheduled aggregation, no report export, no customer-level
+  drilldown, no outbound send, no CRM mutation, no task creation, and no real
+  AI provider remain explicit guardrails.

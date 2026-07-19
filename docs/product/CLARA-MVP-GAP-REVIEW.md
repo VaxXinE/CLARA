@@ -141,6 +141,13 @@ workspace-scoped analytics, aggregate-first output, no raw provider payload, no
 raw webhook payload, no raw customer messages, no CRM mutation, no task
 creation, no outbound send, no scheduled aggregation jobs, no report export,
 and no real AI provider.
+
+P9-PR-02 is now in progress with the Analytics Read Model and Metric Foundation.
+It adds workspace-scoped readiness and metric catalog endpoints, a safe metric
+registry, dashboard foundation visibility, and extension boundary regression.
+P9 runtime metrics are introduced progressively in later PRs; P9-PR-02 still
+does not add scheduled aggregation, report export, customer-level drilldown,
+CRM mutation, task creation, outbound send, or a real AI provider.
 ```
 
 ---
