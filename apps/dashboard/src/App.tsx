@@ -13,6 +13,7 @@ import type {
   ConversationDetailResponse,
   ConversationListResponse,
   CustomerProfileIntelligenceResponse,
+  CustomerOwnerAssignmentReadinessResponse,
   CustomerProfileResponse,
   CustomerTimelineIntelligenceResponse,
   DemoAuthProfile,
@@ -136,6 +137,10 @@ function WorkspaceAppShell() {
     useState<CustomerProfileIntelligenceResponse | null>(null);
   const [customerTimelineIntelligence, setCustomerTimelineIntelligence] =
     useState<CustomerTimelineIntelligenceResponse | null>(null);
+  const [
+    customerOwnerAssignmentReadiness,
+    setCustomerOwnerAssignmentReadiness,
+  ] = useState<CustomerOwnerAssignmentReadinessResponse | null>(null);
   const [activityItems, setActivityItems] = useState<
     ActivityResponse["data"]["items"]
   >([]);
@@ -199,6 +204,14 @@ function WorkspaceAppShell() {
   const [
     customerTimelineIntelligenceError,
     setCustomerTimelineIntelligenceError,
+  ] = useState<string | null>(null);
+  const [
+    customerOwnerAssignmentReadinessLoading,
+    setCustomerOwnerAssignmentReadinessLoading,
+  ] = useState(false);
+  const [
+    customerOwnerAssignmentReadinessError,
+    setCustomerOwnerAssignmentReadinessError,
   ] = useState<string | null>(null);
   const [activityLoading, setActivityLoading] = useState(false);
   const [activityError, setActivityError] = useState<string | null>(null);
@@ -266,6 +279,7 @@ function WorkspaceAppShell() {
       setCustomer(null);
       setCustomerIntelligence(null);
       setCustomerTimelineIntelligence(null);
+      setCustomerOwnerAssignmentReadiness(null);
       setActivityItems([]);
       setWorkspaceAccessRequired(null);
       setGmailSchedulerStatus(null);
@@ -319,6 +333,7 @@ function WorkspaceAppShell() {
       setCustomer(null);
       setCustomerIntelligence(null);
       setCustomerTimelineIntelligence(null);
+      setCustomerOwnerAssignmentReadiness(null);
       setActivityItems([]);
       setComposerValue("");
       setDraftId(null);
@@ -379,6 +394,7 @@ function WorkspaceAppShell() {
           setCustomer(null);
           setCustomerIntelligence(null);
           setCustomerTimelineIntelligence(null);
+          setCustomerOwnerAssignmentReadiness(null);
           setActivityItems([]);
           setRoleManagementReadiness(null);
           setWorkspaceMembers([]);
@@ -591,6 +607,9 @@ function WorkspaceAppShell() {
       setCustomerTimelineIntelligence(null);
       setCustomerTimelineIntelligenceLoading(false);
       setCustomerTimelineIntelligenceError(null);
+      setCustomerOwnerAssignmentReadiness(null);
+      setCustomerOwnerAssignmentReadinessLoading(false);
+      setCustomerOwnerAssignmentReadinessError(null);
       setActivityItems([]);
       return;
     }
@@ -614,6 +633,8 @@ function WorkspaceAppShell() {
       setCustomerIntelligenceError(null);
       setCustomerTimelineIntelligenceLoading(true);
       setCustomerTimelineIntelligenceError(null);
+      setCustomerOwnerAssignmentReadinessLoading(true);
+      setCustomerOwnerAssignmentReadinessError(null);
       setComposerError(null);
       setDraftId(null);
       setAiDraftLabel(null);
@@ -648,10 +669,12 @@ function WorkspaceAppShell() {
           customerResponse,
           customerIntelligenceResponse,
           customerTimelineIntelligenceResponse,
+          customerOwnerAssignmentReadinessResponse,
         ] = await Promise.all([
           client.getCustomer(customerId),
           client.getCustomerProfileIntelligence(customerId),
           client.getCustomerTimelineIntelligence(customerId),
+          client.getCustomerOwnerAssignmentReadiness(customerId),
         ]);
 
         if (cancelled) {
@@ -661,6 +684,9 @@ function WorkspaceAppShell() {
         setCustomer(customerResponse.customer);
         setCustomerIntelligence(customerIntelligenceResponse);
         setCustomerTimelineIntelligence(customerTimelineIntelligenceResponse);
+        setCustomerOwnerAssignmentReadiness(
+          customerOwnerAssignmentReadinessResponse,
+        );
       } catch (error) {
         if (cancelled) {
           return;
@@ -675,6 +701,7 @@ function WorkspaceAppShell() {
         setCustomerError(message);
         setCustomerIntelligenceError(message);
         setCustomerTimelineIntelligenceError(message);
+        setCustomerOwnerAssignmentReadinessError(message);
       } finally {
         if (!cancelled) {
           setDetailLoading(false);
@@ -682,6 +709,7 @@ function WorkspaceAppShell() {
           setCustomerLoading(false);
           setCustomerIntelligenceLoading(false);
           setCustomerTimelineIntelligenceLoading(false);
+          setCustomerOwnerAssignmentReadinessLoading(false);
         }
       }
     }
@@ -726,10 +754,12 @@ function WorkspaceAppShell() {
       customerResponse,
       customerIntelligenceResponse,
       customerTimelineIntelligenceResponse,
+      customerOwnerAssignmentReadinessResponse,
     ] = await Promise.all([
       client.getCustomer(customerId),
       client.getCustomerProfileIntelligence(customerId),
       client.getCustomerTimelineIntelligence(customerId),
+      client.getCustomerOwnerAssignmentReadiness(customerId),
     ]);
 
     setConversations(listResponse.data);
@@ -739,6 +769,9 @@ function WorkspaceAppShell() {
     setCustomer(customerResponse.customer);
     setCustomerIntelligence(customerIntelligenceResponse);
     setCustomerTimelineIntelligence(customerTimelineIntelligenceResponse);
+    setCustomerOwnerAssignmentReadiness(
+      customerOwnerAssignmentReadinessResponse,
+    );
   }
 
   async function handleGenerateDraft() {
@@ -1330,6 +1363,9 @@ function WorkspaceAppShell() {
           customerFollowUpProposal: null,
           customerFollowUpProposalLoading: false,
           customerFollowUpProposalError: null,
+          customerOwnerAssignmentReadiness,
+          customerOwnerAssignmentReadinessLoading,
+          customerOwnerAssignmentReadinessError,
         }}
         automationGuardrails={{
           decision: aiAutomationGuardrail,

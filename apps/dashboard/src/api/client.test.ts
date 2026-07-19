@@ -419,6 +419,73 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("Authorization");
   });
 
+  it("loads customer owner assignment readiness without mutation fields", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        customerId: "cust_demo_budi",
+        workspaceId: "wks_demo_sales",
+        generatedAt: "2026-01-10T00:00:00.000Z",
+        readiness: {
+          level: "ready_for_review",
+          reasons: ["Owner assignment readiness is review-only."],
+        },
+        currentOwnership: {
+          hasOwner: false,
+          ownerId: null,
+          ownerRole: null,
+          ownershipSource: "unknown",
+        },
+        suggestedAssignment: {
+          recommendedRole: "sales",
+          recommendedAction: "assign_owner_review",
+          reason: "Review owner handoff.",
+          executionStatus: "review_only",
+          ownerAssigned: false,
+          requiresHumanApproval: true,
+          requiredPermission: "customer:assign_owner",
+        },
+        risk: {
+          level: "medium",
+          reasons: ["Human approval required."],
+          blocked: false,
+          blockedReason: null,
+        },
+        safety: {
+          readOnly: true,
+          proposalOnly: true,
+          ownerAssigned: false,
+          mutationAllowed: false,
+          actionExecuted: false,
+          requiresHumanApprovalForMutation: true,
+          policyVersion: "owner-assignment-readiness-v1",
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({
+      baseUrl: "http://127.0.0.1:3000",
+    });
+
+    const response =
+      await client.getCustomerOwnerAssignmentReadiness("cust_demo_budi");
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/customers/cust_demo_budi/owner-assignment/readiness",
+      expect.objectContaining({
+        headers: expect.objectContaining({
+          "content-type": "application/json",
+        }),
+      }),
+    );
+    expect(response.suggestedAssignment).toMatchObject({
+      executionStatus: "review_only",
+      ownerAssigned: false,
+    });
+    expect(JSON.stringify(response)).not.toContain("access_token");
+    expect(JSON.stringify(response)).not.toContain("refresh_token");
+    expect(JSON.stringify(response)).not.toContain("Authorization");
+  });
+
   it("creates an AI reply suggestion without sending a reply", async () => {
     const fetchMock = vi.fn(async () =>
       jsonResponse(

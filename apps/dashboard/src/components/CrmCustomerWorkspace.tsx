@@ -2,12 +2,14 @@ import type {
   ConversationDetail,
   CustomerActionProposalResponse,
   CustomerFollowUpProposalResponse,
+  CustomerOwnerAssignmentReadinessResponse,
   CustomerProfileIntelligenceResponse,
   CustomerProfileResponse,
   CustomerTimelineIntelligenceResponse,
 } from "../api/types";
 import { CustomerActionProposalPanel } from "./CustomerActionProposalPanel";
 import { CustomerFollowUpProposalPanel } from "./CustomerFollowUpProposalPanel";
+import { CustomerOwnerAssignmentReadinessPanel } from "./CustomerOwnerAssignmentReadinessPanel";
 import { CustomerProfileIntelligencePanel } from "./CustomerProfileIntelligencePanel";
 import { CustomerTimelineIntelligencePanel } from "./CustomerTimelineIntelligencePanel";
 import { CustomerWorkspacePanel } from "./CustomerWorkspacePanel";
@@ -28,6 +30,9 @@ type CrmCustomerWorkspaceProps = {
   customerFollowUpProposal: CustomerFollowUpProposalResponse | null;
   customerFollowUpProposalLoading: boolean;
   customerFollowUpProposalError: string | null;
+  customerOwnerAssignmentReadiness: CustomerOwnerAssignmentReadinessResponse | null;
+  customerOwnerAssignmentReadinessLoading: boolean;
+  customerOwnerAssignmentReadinessError: string | null;
   readOnly: boolean;
 };
 
@@ -61,6 +66,11 @@ export function CrmCustomerWorkspace(props: CrmCustomerWorkspaceProps) {
         proposal={props.customerFollowUpProposal}
         loading={props.customerFollowUpProposalLoading}
         error={props.customerFollowUpProposalError}
+      />
+      <CustomerOwnerAssignmentReadinessPanel
+        readiness={props.customerOwnerAssignmentReadiness}
+        loading={props.customerOwnerAssignmentReadinessLoading}
+        error={props.customerOwnerAssignmentReadinessError}
       />
     </section>
   );

@@ -25,6 +25,7 @@ import { registerMeRoutes } from "./routes/me";
 import { registerConversationRoutes } from "./routes/conversations";
 import { registerCustomerActionProposalRoutes } from "./routes/customer-action-proposals";
 import { registerCustomerFollowUpProposalRoutes } from "./routes/customer-follow-up-proposals";
+import { registerCustomerOwnerAssignmentReadinessRoutes } from "./routes/customer-owner-assignment-readiness";
 import { registerCustomerRoutes } from "./routes/customers";
 import { registerCustomerIntelligenceRoutes } from "./routes/customer-intelligence";
 import { registerCustomerTimelineIntelligenceRoutes } from "./routes/customer-timeline-intelligence";
@@ -242,6 +243,13 @@ export async function createServer(
       app,
       authProvider,
       services.customerFollowUpProposals,
+    );
+  }
+  if (services.customerOwnerAssignmentReadiness) {
+    await registerCustomerOwnerAssignmentReadinessRoutes(
+      app,
+      authProvider,
+      services.customerOwnerAssignmentReadiness,
     );
   }
   if (services.customerIntelligence) {
