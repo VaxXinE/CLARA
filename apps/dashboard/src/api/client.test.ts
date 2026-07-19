@@ -163,6 +163,83 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("refresh_token");
   });
 
+  it("loads CRM workflow metrics safely", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        workspaceId: "wks_demo_sales",
+        generatedAt: "2026-07-20T01:00:00.000Z",
+        timeWindow: "last_7_days",
+        category: "crm_workflow",
+        metrics: [],
+        safety: {
+          readOnly: true,
+          mutationAllowed: false,
+          actionExecuted: false,
+          crmMutationExecuted: false,
+          taskCreated: false,
+          outboundSent: false,
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({ baseUrl: "http://127.0.0.1:3000" });
+
+    const response = await client.getCrmWorkflowMetrics();
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/analytics/crm-workflow",
+      expect.any(Object),
+    );
+    expect(response.workspaceId).toBe("wks_demo_sales");
+    expect(JSON.stringify(response)).not.toContain("access_token");
+  });
+
+  it("loads KPI dashboard cards safely", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        workspaceId: "wks_demo_sales",
+        generatedAt: "2026-07-20T01:00:00.000Z",
+        timeWindow: "last_7_days",
+        cards: [
+          {
+            cardKey: "total_conversations",
+            label: "Total conversations",
+            description: "Aggregate workspace conversation volume.",
+            value: 3,
+            valueType: "count",
+            category: "operational",
+            severity: "neutral",
+            source: "core_operational_metrics",
+            privacy: {
+              aggregated: true,
+              workspaceScoped: true,
+              rawPayloadIncluded: false,
+              rawCustomerMessagesIncluded: false,
+              piiMinimized: true,
+            },
+          },
+        ],
+        safety: {
+          readOnly: true,
+          exportEnabled: false,
+          drilldownEnabled: false,
+          mutationAllowed: false,
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({ baseUrl: "http://127.0.0.1:3000" });
+
+    const response = await client.getKpiDashboard();
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/analytics/kpi-dashboard",
+      expect.any(Object),
+    );
+    expect(response.cards[0].cardKey).toBe("total_conversations");
+    expect(JSON.stringify(response)).not.toContain("refresh_token");
+  });
+
   it("loads customer profile intelligence safely", async () => {
     const fetchMock = vi.fn(async () =>
       jsonResponse({

@@ -46,10 +46,14 @@ import { registerAnalyticsMetricCatalogRoutes } from "./routes/analytics-metric-
 import { ConversationVolumeMetricsService } from "../analytics/conversation-volume-metrics-service";
 import { ResponseTimeSlaMetricsService } from "../analytics/response-time-sla-metrics-service";
 import { ChannelPerformanceMetricsService } from "../analytics/channel-performance-metrics-service";
+import { CrmWorkflowMetricsService } from "../analytics/crm-workflow-metrics-service";
+import { KpiDashboardCardService } from "../analytics/kpi-dashboard-card-service";
 import { registerAnalyticsConversationVolumeRoutes } from "./routes/analytics-conversation-volume";
 import { registerAnalyticsResponseTimeSlaRoutes } from "./routes/analytics-response-time-sla";
 import { registerAnalyticsChannelPerformanceRoutes } from "./routes/analytics-channel-performance";
 import { registerAnalyticsOverviewRoutes } from "./routes/analytics-overview";
+import { registerAnalyticsCrmWorkflowRoutes } from "./routes/analytics-crm-workflow";
+import { registerAnalyticsKpiDashboardRoutes } from "./routes/analytics-kpi-dashboard";
 import { registerWebchatRoutes } from "./routes/webchat";
 import { registerWhatsappRoutes } from "./routes/whatsapp";
 import { registerExtensionRoutes } from "./routes/extension";
@@ -363,6 +367,13 @@ export async function createServer(
     const channelPerformanceMetrics = new ChannelPerformanceMetricsService(
       services.channelHealth,
     );
+    const crmWorkflowMetrics = new CrmWorkflowMetricsService();
+    const kpiDashboardCards = new KpiDashboardCardService(
+      conversationVolumeMetrics,
+      responseTimeSlaMetrics,
+      channelPerformanceMetrics,
+      crmWorkflowMetrics,
+    );
 
     await registerAnalyticsConversationVolumeRoutes(
       app,
@@ -384,6 +395,16 @@ export async function createServer(
       responseTimeSla: responseTimeSlaMetrics,
       channelPerformance: channelPerformanceMetrics,
     });
+    await registerAnalyticsCrmWorkflowRoutes(
+      app,
+      authProvider,
+      crmWorkflowMetrics,
+    );
+    await registerAnalyticsKpiDashboardRoutes(
+      app,
+      authProvider,
+      kpiDashboardCards,
+    );
   }
   if (services.channelRegistry && services.channelAccounts) {
     await registerChannelRoutes(

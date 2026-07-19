@@ -923,6 +923,79 @@ export type AnalyticsOverviewResponse = {
   safety: CoreOperationalMetricsResponse["safety"];
 };
 
+export type CrmWorkflowMetricsResponse = {
+  workspaceId: string;
+  generatedAt: string;
+  timeWindow: "today" | "last_7_days" | "last_30_days";
+  category: AnalyticsMetricCategory;
+  metrics: Array<{
+    metricKey: string;
+    label: string;
+    description: string;
+    value: number | string;
+    valueType: "count" | "percentage" | "duration_ms" | "ratio" | "status";
+    aggregationLevel: "workspace";
+    implementationStatus: "implemented";
+    privacy: {
+      aggregated: true;
+      rawPayloadIncluded: false;
+      rawCustomerMessagesIncluded: false;
+      rawProviderPayloadIncluded: false;
+      rawWebhookPayloadIncluded: false;
+      rawAuditMetadataIncluded: false;
+      workspaceScoped: true;
+      piiMinimized: true;
+      policyVersion: string;
+    };
+  }>;
+  safety: {
+    readOnly: true;
+    mutationAllowed: false;
+    actionExecuted: false;
+    crmMutationExecuted: false;
+    taskCreated: false;
+    customerNoteWritten: false;
+    ownerAssigned: false;
+    lifecycleStatusUpdated: false;
+    outboundSent: false;
+    customerLevelDrilldown: false;
+    reportExported: false;
+  };
+};
+
+export type KpiDashboardResponse = {
+  workspaceId: string;
+  generatedAt: string;
+  timeWindow: "today" | "last_7_days" | "last_30_days";
+  cards: Array<{
+    cardKey: string;
+    label: string;
+    description: string;
+    value: number | string;
+    valueType: "count" | "percentage" | "duration_ms" | "ratio" | "status";
+    category: AnalyticsMetricCategory;
+    severity: "neutral" | "good" | "warning" | "critical";
+    source:
+      | "core_operational_metrics"
+      | "crm_workflow_metrics"
+      | "channel_performance_metrics"
+      | "sla_readiness_metrics";
+    privacy: {
+      aggregated: true;
+      workspaceScoped: true;
+      rawPayloadIncluded: false;
+      rawCustomerMessagesIncluded: false;
+      piiMinimized: true;
+    };
+  }>;
+  safety: {
+    readOnly: true;
+    exportEnabled: false;
+    drilldownEnabled: false;
+    mutationAllowed: false;
+  };
+};
+
 export type DemoRole = "owner" | "agent" | "viewer";
 
 export type DemoAuthProfile = {
