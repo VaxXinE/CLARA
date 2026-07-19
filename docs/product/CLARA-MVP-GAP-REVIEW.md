@@ -642,8 +642,9 @@ Next phase: P9 Analytics / Reporting / KPI.
 ## P9 Analytics / Reporting / KPI Update
 
 P9-PR-04 is complete with CRM Workflow Metrics and KPI Dashboard Cards.
-P9-PR-05 is in progress with Reporting Filters and Analytics Audit Privacy
-Hardening.
+P9-PR-05 is complete with Reporting Filters and Analytics Audit Privacy
+Hardening. P9-PR-06 closes the phase with Final P9 Audit, Production Runbook,
+Security Checklist, Operator QA Checklist, and regression acceptance coverage.
 
 The current P9 reporting layer remains Backend AuthContext driven,
 workspace-scoped, aggregate-first, and read-only. It supports safe filters for
@@ -653,3 +654,7 @@ mutation, no task creation, no owner/status/lifecycle mutation, no outbound
 send, no real AI provider, no raw customer messages, no raw provider payload,
 no raw webhook payload, no raw audit metadata, no access token, no refresh
 token, no cookies, no auth headers, no raw DOM, no raw HTML, and no raw prompts.
+
+P9 COMPLETE after P9-PR-06 merge. Remaining production hardening moves to P10
+Enterprise Hardening / Compliance, then later P11/P12 work as defined by the
+final roadmap.

@@ -154,3 +154,7 @@ operator analytics filters, analytics audit events, report export data,
 customer-level drilldown, cross-workspace analytics, raw provider payload, raw
 webhook payload, raw audit metadata, raw DOM, raw HTML, access token, refresh
 token, cookies, or analytics secrets.
+
+P9-PR-06 adds final extension boundary and security regression coverage for
+Analytics / Reporting / KPI. P9 COMPLETE after P9-PR-06 merge and handoff moves
+to P10 Enterprise Hardening / Compliance.

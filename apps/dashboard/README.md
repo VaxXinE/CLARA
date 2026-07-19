@@ -435,3 +435,7 @@ It does not add report export, customer-level drilldown, CRM mutation, task
 creation, outbound send, raw customer messages, raw provider payload, raw
 webhook payload, raw audit metadata, access token, refresh token, cookies, or
 unsafe HTML rendering.
+
+P9-PR-06 adds final dashboard security, UI regression, and accessibility
+coverage for Analytics / Reporting / KPI. P9 COMPLETE after P9-PR-06 merge and
+handoff moves to P10 Enterprise Hardening / Compliance.
