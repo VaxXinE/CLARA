@@ -36,6 +36,8 @@ describe("P9 analytics metric registry", () => {
       "crm_lifecycle_status_readiness_view_count",
       "crm_audit_coverage_count",
       "blocked_crm_action_count",
+      "crm_readiness_surface_count",
+      "crm_review_only_action_count",
     ]);
   });
 

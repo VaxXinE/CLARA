@@ -1091,6 +1091,15 @@ no real AI provider call, and they return no raw customer messages, no raw
 provider payload, no raw webhook payload, no access token, no refresh token,
 and no cookies.
 
+P9-PR-04 adds CRM Workflow Metrics and KPI Dashboard Cards. The API now exposes
+authenticated, workspace-scoped `GET /api/v1/analytics/crm-workflow` and
+`GET /api/v1/analytics/kpi-dashboard`. These endpoints are Backend AuthContext
+driven, aggregate-first, and read-only. They return no raw customer messages,
+no raw provider payload, no raw webhook payload, no raw audit metadata, no
+access token, no refresh token, and no cookies, and they perform no CRM
+mutation, no task creation, no outbound send, no report export, no
+customer-level drilldown, and no real AI provider call.
+
 ## P7 Final AI Assistant Audit
 
 Final API regression coverage verifies:

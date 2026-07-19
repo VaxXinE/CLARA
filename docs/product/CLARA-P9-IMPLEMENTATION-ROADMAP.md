@@ -20,8 +20,8 @@ before any heavy runtime dashboard or scheduled aggregation work.
 |---|---|---|
 | P9-PR-01 | complete | Analytics & Reporting Scope + KPI Policy |
 | P9-PR-02 | complete | Analytics Read Model + Metric Foundation |
-| P9-PR-03 | in progress | Core Operational Metrics Pack |
-| P9-PR-04 | planned | CRM Workflow Metrics + KPI Dashboard Cards |
+| P9-PR-03 | complete | Core Operational Metrics Pack |
+| P9-PR-04 | in progress | CRM Workflow Metrics + KPI Dashboard Cards |
 | P9-PR-05 | planned | Reporting Filters + Analytics Audit Privacy Hardening |
 | P9-PR-06 | planned | Final P9 Audit / Runbook |
 
@@ -36,6 +36,8 @@ before any heavy runtime dashboard or scheduled aggregation work.
 - P9-PR-02 adds the Analytics Read Model and Metric Foundation.
 - P9-PR-03 adds the Core Operational Metrics Pack with Conversation Volume
   Metrics, Response Time / SLA, and Channel Performance Metrics.
+- P9-PR-04 adds CRM Workflow Metrics and KPI Dashboard Cards as
+  Backend AuthContext, workspace-scoped, aggregate-first, read-only analytics.
 - P9 runtime metrics remain read-only. No scheduled aggregation, no report
   export, no customer-level drilldown, no outbound send, no CRM mutation, no
   task creation, and no real AI provider remain explicit guardrails.

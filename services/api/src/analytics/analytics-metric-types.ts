@@ -229,6 +229,20 @@ export const analyticsMetricContracts = {
     aggregationLevel: "workspace",
     description: "CRM actions blocked by review-only policy.",
   },
+  crm_readiness_surface_count: {
+    category: "crm_workflow",
+    label: "CRM readiness surfaces",
+    valueType: "count",
+    aggregationLevel: "workspace",
+    description: "Read-only CRM readiness surfaces available to operators.",
+  },
+  crm_review_only_action_count: {
+    category: "crm_workflow",
+    label: "Review-only CRM actions",
+    valueType: "count",
+    aggregationLevel: "workspace",
+    description: "CRM workflow actions kept in review-only mode.",
+  },
 } as const;
 
 export type AnalyticsMetricCategory =

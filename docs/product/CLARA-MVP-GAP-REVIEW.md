@@ -146,13 +146,20 @@ P9-PR-02 is complete with the Analytics Read Model and Metric Foundation. It
 adds workspace-scoped readiness and metric catalog endpoints, a safe metric
 registry, dashboard foundation visibility, and extension boundary regression.
 
-P9-PR-03 is now in progress with the Core Operational Metrics Pack. It adds
+P9-PR-03 is complete with the Core Operational Metrics Pack. It adds
 Conversation Volume Metrics, Response Time / SLA, and Channel Performance
 Metrics as Backend AuthContext-driven, workspace-scoped, aggregate-first
 runtime metrics. It still returns no raw customer messages, no raw provider
 payload, no raw webhook payload, no access token, no refresh token, and no
 cookies, and it performs no CRM mutation, no task creation, no outbound send,
 no report export, no customer-level drilldown, and no real AI provider call.
+
+P9-PR-04 is now in progress with CRM Workflow Metrics and KPI Dashboard Cards.
+It adds aggregate-only KPI cards for total conversations, unresolved
+conversations, SLA risk, channel health, CRM workflow reviews, CRM audit
+coverage, blocked sensitive actions, and outbound delivery health. These cards
+are not report export, customer-level drilldown, scheduled aggregation, CRM
+mutation, task creation, outbound send, or real AI provider features.
 ```
 
 ---

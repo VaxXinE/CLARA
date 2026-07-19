@@ -140,3 +140,10 @@ The extension does not request analytics overview, Conversation Volume Metrics,
 Response Time / SLA, Channel Performance Metrics, cross-workspace analytics,
 raw provider payload, raw webhook payload, raw DOM, raw HTML, access token,
 refresh token, cookies, customer-level drilldown data, or analytics secrets.
+
+P9-PR-04 keeps CRM Workflow Metrics and KPI Dashboard Cards out of the
+extension runtime. The extension does not request CRM workflow analytics, KPI
+dashboard cards, cross-workspace analytics, raw metric data, raw provider
+payload, raw webhook payload, raw audit metadata, raw DOM, raw HTML, access
+token, refresh token, cookies, customer-level drilldown data, or analytics
+secrets.

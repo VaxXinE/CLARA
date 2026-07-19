@@ -15,6 +15,7 @@ import type {
   ConversationDetailResponse,
   ConversationListResponse,
   CoreOperationalMetricsResponse,
+  CrmWorkflowMetricsResponse,
   CustomerProfileIntelligenceResponse,
   CustomerLifecycleStatusReadinessResponse,
   CustomerOwnerAssignmentReadinessResponse,
@@ -25,6 +26,7 @@ import type {
   DemoAuthProfile,
   GmailOutboundDeliveryStatusResponse,
   GmailSchedulerStatusResponse,
+  KpiDashboardResponse,
   MeResponse,
   ReplySendResponse,
   RoleManagementReadinessResponse,
@@ -297,6 +299,18 @@ export class ApiClient {
   async getChannelPerformanceMetrics(): Promise<CoreOperationalMetricsResponse> {
     return this.request<CoreOperationalMetricsResponse>(
       "/api/v1/analytics/channels/performance",
+    );
+  }
+
+  async getCrmWorkflowMetrics(): Promise<CrmWorkflowMetricsResponse> {
+    return this.request<CrmWorkflowMetricsResponse>(
+      "/api/v1/analytics/crm-workflow",
+    );
+  }
+
+  async getKpiDashboard(): Promise<KpiDashboardResponse> {
+    return this.request<KpiDashboardResponse>(
+      "/api/v1/analytics/kpi-dashboard",
     );
   }
 

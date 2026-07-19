@@ -420,3 +420,11 @@ Metrics, Response Time / SLA, and Channel Performance Metrics safely. It does
 not add mutation controls, report export, customer-level drilldown, outbound
 send, raw customer messages, raw provider payload, raw webhook payload, access
 token, refresh token, cookies, or unsafe HTML rendering.
+
+P9-PR-04 adds read-only KPI Dashboard Cards and CRM Workflow Metrics components
+with API client support for `GET /api/v1/analytics/crm-workflow` and
+`GET /api/v1/analytics/kpi-dashboard`. The dashboard displays aggregate-first,
+workspace-scoped cards only. It does not add report export, customer-level
+drilldown, CRM mutation, task creation, outbound send, raw customer messages,
+raw provider payload, raw webhook payload, raw audit metadata, access token,
+refresh token, cookies, or unsafe HTML rendering.
