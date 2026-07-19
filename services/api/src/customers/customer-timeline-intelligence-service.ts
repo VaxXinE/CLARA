@@ -6,6 +6,7 @@ import type {
 import { NotFoundError } from "../errors/app-error";
 import { getWorkspaceScopeFromAuth } from "../workspace/workspace-scope";
 import type { WorkspaceScope } from "../workspace/workspace-scope";
+import type { CustomerCrmActivityAuditService } from "./customer-crm-activity-audit-service";
 import type { CustomerRepository } from "./customer-repository";
 import {
   sortTimelineEvents,
@@ -100,6 +101,10 @@ export class CustomerTimelineIntelligenceService {
     private readonly customers: CustomerRepository,
     private readonly conversations: CustomerTimelineConversationRepository,
     private readonly now: () => Date = () => new Date(),
+    private readonly crmActivityAudits?: Pick<
+      CustomerCrmActivityAuditService,
+      "record"
+    >,
   ) {}
 
   async getCustomerTimelineIntelligence(
@@ -169,7 +174,7 @@ export class CustomerTimelineIntelligenceService {
       ...details.flatMap((detail) => (detail ? messageEvents(detail) : [])),
     ]).slice(0, maxEvents);
 
-    return {
+    const result: GetCustomerTimelineIntelligenceResult = {
       customerId: customer.id,
       workspaceId: scope.workspaceId,
       generatedAt: this.now().toISOString(),
@@ -206,5 +211,23 @@ export class CustomerTimelineIntelligenceService {
         policyVersion: customerTimelineIntelligencePolicyVersion,
       },
     };
+
+    await this.crmActivityAudits?.record({
+      auth: input.auth,
+      eventType: "p8_customer_timeline_intelligence_viewed",
+      customerId: customer.id,
+      source: "customer_timeline_intelligence",
+      outcome: "viewed",
+      riskLevel: openConversations.length > 0 ? "medium" : "low",
+      policyVersion: customerTimelineIntelligencePolicyVersion,
+      safeMetadata: {
+        readinessLevel:
+          openConversations.length > 0 ? "needs_review" : "low_risk",
+        recommendedAction:
+          openConversations.length > 0 ? "review_customer" : "no_op",
+      },
+    });
+
+    return result;
   }
 }

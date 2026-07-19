@@ -1039,6 +1039,13 @@ lifecycle mutation, no status mutation, no auto-change lifecycle/status, no task
 creation, no outbound send, no scheduler, no raw provider payload, no raw
 webhook payload, no access token, no refresh token, and no cookies.
 
+P8-PR-08 adds CRM Activity Audit Hardening. P8 intelligence/readiness/proposal
+services now write audit-only, workspace-scoped events through Backend
+AuthContext with safe metadata, redaction, `mutationExecuted=false`,
+`actionExecuted=false`, and `reviewOnly=true`. Audit coverage must not mutate
+customers, lifecycle/status, owners, tasks, notes, outbound send state, or
+scheduler state.
+
 ## P7 Final AI Assistant Audit
 
 Final API regression coverage verifies:

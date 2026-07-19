@@ -3,6 +3,7 @@ import type { ConversationListItemRecord } from "../conversations/conversation-r
 import { NotFoundError } from "../errors/app-error";
 import { getWorkspaceScopeFromAuth } from "../workspace/workspace-scope";
 import type { WorkspaceScope } from "../workspace/workspace-scope";
+import type { CustomerCrmActivityAuditService } from "./customer-crm-activity-audit-service";
 import type { CustomerRepository } from "./customer-repository";
 import {
   customerProfileIntelligencePolicyVersion,
@@ -40,6 +41,10 @@ export class CustomerProfileIntelligenceService {
     private readonly customers: CustomerRepository,
     private readonly conversations: CustomerIntelligenceConversationRepository,
     private readonly now: () => Date = () => new Date(),
+    private readonly crmActivityAudits?: Pick<
+      CustomerCrmActivityAuditService,
+      "record"
+    >,
   ) {}
 
   async getCustomerProfileIntelligence(
@@ -119,7 +124,7 @@ export class CustomerProfileIntelligenceService {
             ? "review_customer"
             : "none";
 
-    return {
+    const result: GetCustomerProfileIntelligenceResult = {
       customerId: customer.id,
       workspaceId: scope.workspaceId,
       generatedAt: generatedAt.toISOString(),
@@ -163,5 +168,21 @@ export class CustomerProfileIntelligenceService {
         policyVersion: customerProfileIntelligencePolicyVersion,
       },
     };
+
+    await this.crmActivityAudits?.record({
+      auth: input.auth,
+      eventType: "p8_customer_profile_intelligence_viewed",
+      customerId: customer.id,
+      source: "customer_profile_intelligence",
+      outcome: "viewed",
+      riskLevel: result.profileHealth.level === "healthy" ? "low" : "medium",
+      policyVersion: customerProfileIntelligencePolicyVersion,
+      safeMetadata: {
+        readinessLevel: result.profileHealth.level,
+        recommendedAction: result.followUpSignals.recommendedAction,
+      },
+    });
+
+    return result;
   }
 }

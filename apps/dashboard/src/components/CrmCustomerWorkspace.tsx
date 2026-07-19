@@ -15,6 +15,7 @@ import { CustomerOwnerAssignmentReadinessPanel } from "./CustomerOwnerAssignment
 import { CustomerProfileIntelligencePanel } from "./CustomerProfileIntelligencePanel";
 import { CustomerTimelineIntelligencePanel } from "./CustomerTimelineIntelligencePanel";
 import { CustomerWorkspacePanel } from "./CustomerWorkspacePanel";
+import { CrmActivityAuditReadinessPanel } from "./CrmActivityAuditReadinessPanel";
 import { LeadWorkspacePanel } from "./LeadWorkspacePanel";
 
 type CrmCustomerWorkspaceProps = {
@@ -82,6 +83,7 @@ export function CrmCustomerWorkspace(props: CrmCustomerWorkspaceProps) {
         loading={props.customerLifecycleStatusReadinessLoading}
         error={props.customerLifecycleStatusReadinessError}
       />
+      <CrmActivityAuditReadinessPanel />
     </section>
   );
 }
