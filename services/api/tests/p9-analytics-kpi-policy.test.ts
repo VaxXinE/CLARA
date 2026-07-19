@@ -10,7 +10,7 @@ import {
 
 describe("P9 analytics KPI policy", () => {
   it("allows only known metric keys and categories", () => {
-    expect(isAllowedAnalyticsMetricKey("conversation_volume")).toBe(true);
+    expect(isAllowedAnalyticsMetricKey("conversation_total")).toBe(true);
     expect(isAllowedAnalyticsMetricKey("raw_customer_message_export")).toBe(
       false,
     );
@@ -32,17 +32,21 @@ describe("P9 analytics KPI policy", () => {
   });
 
   it("maps required KPI categories to allowlisted contracts", () => {
-    expect(getAnalyticsMetricContract("reply_volume")).toMatchObject({
-      category: "customer_engagement",
+    expect(getAnalyticsMetricContract("conversation_by_channel")).toMatchObject(
+      {
+        category: "channel_performance",
+        valueType: "count",
+      },
+    );
+    expect(
+      getAnalyticsMetricContract("crm_audit_coverage_count"),
+    ).toMatchObject({
+      category: "audit_compliance",
       valueType: "count",
     });
-    expect(getAnalyticsMetricContract("audit_coverage_rate")).toMatchObject({
-      category: "audit_compliance",
-      valueType: "percentage",
-    });
-    expect(getAnalyticsMetricContract("sla_readiness_status")).toMatchObject({
+    expect(getAnalyticsMetricContract("sla_risk_count")).toMatchObject({
       category: "sla_readiness",
-      valueType: "status",
+      valueType: "count",
     });
   });
 });

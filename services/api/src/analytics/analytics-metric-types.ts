@@ -33,65 +33,166 @@ export const analyticsTimeWindows = [
 ] as const;
 
 export const analyticsMetricContracts = {
-  conversation_volume: {
+  conversation_total: {
     category: "operational",
-    label: "Conversation volume",
+    label: "Total conversations",
     valueType: "count",
     aggregationLevel: "workspace",
+    description: "Total workspace conversations in the selected time window.",
   },
-  reply_volume: {
-    category: "customer_engagement",
-    label: "Reply volume",
+  conversation_open: {
+    category: "operational",
+    label: "Open conversations",
     valueType: "count",
     aggregationLevel: "workspace",
+    description: "Open workspace conversations in the selected time window.",
   },
-  average_response_time_ms: {
-    category: "sla_readiness",
-    label: "Average response time",
-    valueType: "duration_ms",
-    aggregationLevel: "workspace",
-  },
-  channel_health_status: {
-    category: "channel_performance",
-    label: "Channel health",
-    valueType: "status",
-    aggregationLevel: "channel",
-  },
-  follow_up_proposal_count: {
-    category: "crm_workflow",
-    label: "Follow-up proposals",
+  conversation_closed: {
+    category: "operational",
+    label: "Closed conversations",
     valueType: "count",
     aggregationLevel: "workspace",
+    description: "Closed workspace conversations in the selected time window.",
   },
-  crm_readiness_coverage: {
-    category: "crm_workflow",
-    label: "CRM readiness coverage",
-    valueType: "percentage",
-    aggregationLevel: "workspace",
-  },
-  audit_coverage_rate: {
-    category: "audit_compliance",
-    label: "Audit coverage",
-    valueType: "percentage",
-    aggregationLevel: "workspace",
-  },
-  operator_workload_count: {
-    category: "operator_productivity",
-    label: "Operator workload",
-    valueType: "count",
-    aggregationLevel: "operator",
-  },
-  unresolved_conversation_count: {
+  conversation_unresolved: {
     category: "operational",
     label: "Unresolved conversations",
     valueType: "count",
     aggregationLevel: "workspace",
+    description: "Unresolved workspace conversations.",
   },
-  sla_readiness_status: {
+  conversation_by_channel: {
+    category: "channel_performance",
+    label: "Conversations by channel",
+    valueType: "count",
+    aggregationLevel: "channel",
+    description: "Conversation volume grouped by channel.",
+  },
+  first_response_time_avg: {
     category: "sla_readiness",
-    label: "SLA readiness",
-    valueType: "status",
+    label: "Average first response time",
+    valueType: "duration_ms",
     aggregationLevel: "workspace",
+    description: "Average time to first human response.",
+  },
+  first_response_time_p50: {
+    category: "sla_readiness",
+    label: "Median first response time",
+    valueType: "duration_ms",
+    aggregationLevel: "workspace",
+    description: "Median time to first human response.",
+  },
+  first_response_time_p95: {
+    category: "sla_readiness",
+    label: "P95 first response time",
+    valueType: "duration_ms",
+    aggregationLevel: "workspace",
+    description: "95th percentile time to first human response.",
+  },
+  sla_risk_count: {
+    category: "sla_readiness",
+    label: "SLA risk count",
+    valueType: "count",
+    aggregationLevel: "workspace",
+    description: "Conversations at risk of missing SLA expectations.",
+  },
+  channel_connected_count: {
+    category: "channel_performance",
+    label: "Connected channels",
+    valueType: "count",
+    aggregationLevel: "channel",
+    description: "Connected provider/channel accounts.",
+  },
+  channel_degraded_count: {
+    category: "channel_performance",
+    label: "Degraded channels",
+    valueType: "count",
+    aggregationLevel: "channel",
+    description: "Provider/channel accounts reporting degraded status.",
+  },
+  inbound_sync_success_count: {
+    category: "channel_performance",
+    label: "Inbound sync successes",
+    valueType: "count",
+    aggregationLevel: "channel",
+    description: "Successful inbound sync runs.",
+  },
+  inbound_sync_failure_count: {
+    category: "channel_performance",
+    label: "Inbound sync failures",
+    valueType: "count",
+    aggregationLevel: "channel",
+    description: "Failed inbound sync runs.",
+  },
+  outbound_delivery_success_rate: {
+    category: "channel_performance",
+    label: "Outbound delivery success rate",
+    valueType: "percentage",
+    aggregationLevel: "channel",
+    description: "Successful outbound deliveries divided by attempts.",
+  },
+  outbound_delivery_failure_count: {
+    category: "channel_performance",
+    label: "Outbound delivery failures",
+    valueType: "count",
+    aggregationLevel: "channel",
+    description: "Failed outbound delivery attempts.",
+  },
+  crm_profile_intelligence_view_count: {
+    category: "crm_workflow",
+    label: "Profile intelligence views",
+    valueType: "count",
+    aggregationLevel: "workspace",
+    description: "Read-only customer profile intelligence views.",
+  },
+  crm_timeline_intelligence_view_count: {
+    category: "crm_workflow",
+    label: "Timeline intelligence views",
+    valueType: "count",
+    aggregationLevel: "workspace",
+    description: "Read-only customer timeline intelligence views.",
+  },
+  crm_action_proposal_review_count: {
+    category: "crm_workflow",
+    label: "Action proposal reviews",
+    valueType: "count",
+    aggregationLevel: "workspace",
+    description: "Review-only CRM action proposal views.",
+  },
+  crm_follow_up_proposal_review_count: {
+    category: "crm_workflow",
+    label: "Follow-up proposal reviews",
+    valueType: "count",
+    aggregationLevel: "workspace",
+    description: "Review-only follow-up proposal views.",
+  },
+  crm_owner_assignment_readiness_view_count: {
+    category: "crm_workflow",
+    label: "Owner assignment readiness views",
+    valueType: "count",
+    aggregationLevel: "workspace",
+    description: "Read-only owner assignment readiness views.",
+  },
+  crm_lifecycle_status_readiness_view_count: {
+    category: "crm_workflow",
+    label: "Lifecycle status readiness views",
+    valueType: "count",
+    aggregationLevel: "workspace",
+    description: "Read-only lifecycle/status readiness views.",
+  },
+  crm_audit_coverage_count: {
+    category: "audit_compliance",
+    label: "CRM audit coverage count",
+    valueType: "count",
+    aggregationLevel: "workspace",
+    description: "Audit-covered CRM intelligence/readiness events.",
+  },
+  blocked_crm_action_count: {
+    category: "audit_compliance",
+    label: "Blocked CRM actions",
+    valueType: "count",
+    aggregationLevel: "workspace",
+    description: "CRM actions blocked by review-only policy.",
   },
 } as const;
 
@@ -116,6 +217,7 @@ export type AnalyticsMetricOutput = {
   privacy: {
     aggregated: true;
     rawPayloadIncluded: false;
+    rawCustomerMessagesIncluded: false;
     piiMinimized: true;
     workspaceScoped: true;
     policyVersion: typeof analyticsPolicyVersion;

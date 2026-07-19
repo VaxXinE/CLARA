@@ -128,3 +128,9 @@ P9-PR-01 keeps Analytics / Reporting / KPI out of the extension. The extension
 does not read analytics internals, request cross-workspace metrics, receive raw
 KPI data, capture analytics secrets/tokens, capture raw provider payload, raw
 webhook payload, raw DOM, or raw HTML.
+
+P9-PR-02 keeps the Analytics Read Model and Metric Foundation out of the
+extension runtime. The extension does not read metric registry internals,
+request metric catalog data, request cross-workspace analytics, receive raw
+metric data, capture raw provider payload, raw webhook payload, raw DOM, raw
+HTML, access token, refresh token, cookies, or analytics secrets.

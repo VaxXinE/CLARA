@@ -34,7 +34,7 @@ describe("P9 analytics scope policy", () => {
   it("derives workspace scope from Backend AuthContext", () => {
     expect(
       evaluateAnalyticsMetricRequest({
-        metricKey: "conversation_volume",
+        metricKey: "conversation_total",
         authWorkspaceId: "wks_auth",
         clientWorkspaceId: "wks_other",
       }),
@@ -42,7 +42,7 @@ describe("P9 analytics scope policy", () => {
 
     expect(
       evaluateAnalyticsMetricRequest({
-        metricKey: "conversation_volume",
+        metricKey: "conversation_total",
         authWorkspaceId: "wks_auth",
       }),
     ).toMatchObject({ allowed: true, workspaceId: "wks_auth" });

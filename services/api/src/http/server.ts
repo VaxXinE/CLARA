@@ -40,6 +40,9 @@ import { registerAiCustomerNoteSuggestionRoutes } from "./routes/ai-customer-not
 import { registerAiAutomationGuardrailRoutes } from "./routes/ai-automation-guardrails";
 import { registerReplyRoutes } from "./routes/replies";
 import { registerChannelRoutes } from "./routes/channels";
+import { AnalyticsReadModelService } from "../analytics/analytics-read-model-service";
+import { registerAnalyticsReadinessRoutes } from "./routes/analytics-readiness";
+import { registerAnalyticsMetricCatalogRoutes } from "./routes/analytics-metric-catalog";
 import { registerWebchatRoutes } from "./routes/webchat";
 import { registerWhatsappRoutes } from "./routes/whatsapp";
 import { registerExtensionRoutes } from "./routes/extension";
@@ -86,6 +89,7 @@ export type CreateServerOptions = {
     AuditLogService,
     "recordGmailSchedulerOperatorAction"
   >;
+  analyticsReadModelService?: AnalyticsReadModelService;
 };
 
 export type RequestWithRawBody = FastifyRequest & {
@@ -330,6 +334,18 @@ export async function createServer(
     );
   }
   await registerReplyRoutes(app, authProvider, services.replies, options.env);
+  const analyticsReadModelService =
+    options.analyticsReadModelService ?? new AnalyticsReadModelService();
+  await registerAnalyticsReadinessRoutes(
+    app,
+    authProvider,
+    analyticsReadModelService,
+  );
+  await registerAnalyticsMetricCatalogRoutes(
+    app,
+    authProvider,
+    analyticsReadModelService,
+  );
   if (services.channelRegistry && services.channelAccounts) {
     await registerChannelRoutes(
       app,

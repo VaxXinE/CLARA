@@ -811,6 +811,70 @@ export type RoleManagementReadinessResponse = {
   data: RoleManagementReadiness;
 };
 
+export type AnalyticsMetricCategory =
+  | "operational"
+  | "customer_engagement"
+  | "channel_performance"
+  | "crm_workflow"
+  | "audit_compliance"
+  | "operator_productivity"
+  | "sla_readiness";
+
+export type AnalyticsReadinessResponse = {
+  workspaceId: string;
+  generatedAt: string;
+  phase: "p9";
+  readiness: {
+    analyticsFoundationReady: boolean;
+    metricRegistryReady: boolean;
+    metricContractReady: boolean;
+    runtimeMetricsImplemented: false;
+    scheduledAggregationImplemented: false;
+    reportExportImplemented: false;
+  };
+  allowedCategories: AnalyticsMetricCategory[];
+  blockedCategories: string[];
+  privacy: {
+    workspaceScoped: true;
+    aggregateFirst: true;
+    rawPayloadIncluded: false;
+    rawCustomerMessagesIncluded: false;
+    piiMinimized: true;
+    policyVersion: string;
+  };
+  safety: {
+    readOnly: true;
+    mutationAllowed: false;
+    actionExecuted: false;
+    crmMutationExecuted: false;
+    taskCreated: false;
+    outboundSent: false;
+  };
+};
+
+export type AnalyticsMetricCatalogResponse = {
+  workspaceId: string;
+  generatedAt: string;
+  categories: AnalyticsMetricCategory[];
+  metrics: Array<{
+    metricKey: string;
+    category: AnalyticsMetricCategory;
+    label: string;
+    description: string;
+    valueType: "count" | "percentage" | "duration_ms" | "ratio" | "status";
+    aggregationLevel: "workspace" | "channel" | "operator" | "customer_segment";
+    implementationStatus:
+      "policy_defined" | "foundation_ready" | "not_implemented_yet";
+    privacy: {
+      aggregated: true;
+      rawPayloadIncluded: false;
+      rawCustomerMessagesIncluded: false;
+      workspaceScoped: true;
+      piiMinimized: true;
+    };
+  }>;
+};
+
 export type DemoRole = "owner" | "agent" | "viewer";
 
 export type DemoAuthProfile = {

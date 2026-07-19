@@ -180,6 +180,8 @@ GET /api/v1/channels/accounts/:channelAccountId
 GET /api/v1/channels/accounts/:channelAccountId/health
 GET /api/v1/workspace/members
 GET /api/v1/workspace/roles/readiness
+GET /api/v1/analytics/readiness
+GET /api/v1/analytics/metric-catalog
 POST /api/v1/webchat/inbound/messages
 GET /api/v1/integrations/webchat/outbound/deliveries/:deliveryId
 GET /api/v1/whatsapp/webhook
@@ -1063,6 +1065,15 @@ add analytics routes, scheduled aggregation jobs, report export, CRM mutation,
 task creation, owner/status/lifecycle mutation, outbound send, real AI provider
 calls, raw provider payload, raw webhook payload, raw customer messages, raw
 audit metadata, access token, refresh token, cookies, or auth headers.
+
+P9-PR-02 adds the Analytics Read Model and Metric Foundation. The API now
+exposes authenticated, workspace-scoped `GET /api/v1/analytics/readiness` and
+`GET /api/v1/analytics/metric-catalog` endpoints backed by a safe metric
+registry and query policy. The foundation is aggregate-first and still has no
+scheduled aggregation, no report export, no customer-level drilldown, no CRM
+mutation, no task creation, no outbound send, no real AI provider, no raw
+customer messages, no raw provider payload, no raw webhook payload, no access
+token, no refresh token, and no cookies.
 
 ## P7 Final AI Assistant Audit
 

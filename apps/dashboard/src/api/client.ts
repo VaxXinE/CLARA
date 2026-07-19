@@ -7,6 +7,8 @@ import type {
   AiCustomerNoteSuggestionResponse,
   AiFollowUpRecommendationResponse,
   AiReplySuggestionResponse,
+  AnalyticsMetricCatalogResponse,
+  AnalyticsReadinessResponse,
   ApiErrorResponse,
   ChannelHealthResponse,
   ConversationDetailResponse,
@@ -257,6 +259,18 @@ export class ApiClient {
   async getRoleManagementReadiness(): Promise<RoleManagementReadinessResponse> {
     return this.request<RoleManagementReadinessResponse>(
       "/api/v1/workspace/roles/readiness",
+    );
+  }
+
+  async getAnalyticsReadiness(): Promise<AnalyticsReadinessResponse> {
+    return this.request<AnalyticsReadinessResponse>(
+      "/api/v1/analytics/readiness",
+    );
+  }
+
+  async getAnalyticsMetricCatalog(): Promise<AnalyticsMetricCatalogResponse> {
+    return this.request<AnalyticsMetricCatalogResponse>(
+      "/api/v1/analytics/metric-catalog",
     );
   }
 
