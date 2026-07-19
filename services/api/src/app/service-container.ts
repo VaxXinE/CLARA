@@ -62,6 +62,7 @@ import { DrizzleCustomerRepository } from "../customers/customer-db-repository";
 import { CustomerQueryService } from "../customers/customer-service";
 import { CustomerActionProposalService } from "../customers/customer-action-proposal-service";
 import { CustomerFollowUpProposalService } from "../customers/customer-follow-up-proposal-service";
+import { CustomerCrmActivityAuditService } from "../customers/customer-crm-activity-audit-service";
 import { CustomerLifecycleStatusReadinessService } from "../customers/customer-lifecycle-status-readiness-service";
 import { CustomerOwnerAssignmentReadinessService } from "../customers/customer-owner-assignment-readiness-service";
 import { CustomerProfileIntelligenceService } from "../customers/customer-intelligence-service";
@@ -134,6 +135,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
       new SimulatedWhatsappOutboundSendClient(),
     );
     const auditLogs = new AuditLogService(new DrizzleAuditLogRepository(db));
+    const crmActivityAudits = new CustomerCrmActivityAuditService(auditLogs);
     const aiDraftRepository = new DrizzleAiDraftRepository(db);
     const aiDraftReviews = new AiDraftReviewService(
       conversationRepository,
@@ -147,21 +149,37 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         customers: new CustomerQueryService(customerRepository),
         customerActionProposals: new CustomerActionProposalService(
           customerRepository,
+          undefined,
+          crmActivityAudits,
         ),
         customerFollowUpProposals: new CustomerFollowUpProposalService(
           customerRepository,
+          undefined,
+          crmActivityAudits,
         ),
         customerLifecycleStatusReadiness:
-          new CustomerLifecycleStatusReadinessService(customerRepository),
+          new CustomerLifecycleStatusReadinessService(
+            customerRepository,
+            undefined,
+            crmActivityAudits,
+          ),
         customerOwnerAssignmentReadiness:
-          new CustomerOwnerAssignmentReadinessService(customerRepository),
+          new CustomerOwnerAssignmentReadinessService(
+            customerRepository,
+            undefined,
+            crmActivityAudits,
+          ),
         customerIntelligence: new CustomerProfileIntelligenceService(
           customerRepository,
           conversationRepository,
+          undefined,
+          crmActivityAudits,
         ),
         customerTimelineIntelligence: new CustomerTimelineIntelligenceService(
           customerRepository,
           conversationRepository,
+          undefined,
+          crmActivityAudits,
         ),
         activity: new ActivityQueryService(
           new DrizzleActivityRepository(db),
@@ -274,6 +292,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
   const auditLogs = new AuditLogService(
     new FixtureAuditLogRepository(fixtureStore),
   );
+  const crmActivityAudits = new CustomerCrmActivityAuditService(auditLogs);
   const aiDraftRepository = new FixtureAiDraftRepository(fixtureStore);
   const aiDraftReviews = new AiDraftReviewService(
     conversationRepository,
@@ -287,21 +306,37 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
       customers: new CustomerQueryService(customerRepository),
       customerActionProposals: new CustomerActionProposalService(
         customerRepository,
+        undefined,
+        crmActivityAudits,
       ),
       customerFollowUpProposals: new CustomerFollowUpProposalService(
         customerRepository,
+        undefined,
+        crmActivityAudits,
       ),
       customerLifecycleStatusReadiness:
-        new CustomerLifecycleStatusReadinessService(customerRepository),
+        new CustomerLifecycleStatusReadinessService(
+          customerRepository,
+          undefined,
+          crmActivityAudits,
+        ),
       customerOwnerAssignmentReadiness:
-        new CustomerOwnerAssignmentReadinessService(customerRepository),
+        new CustomerOwnerAssignmentReadinessService(
+          customerRepository,
+          undefined,
+          crmActivityAudits,
+        ),
       customerIntelligence: new CustomerProfileIntelligenceService(
         customerRepository,
         conversationRepository,
+        undefined,
+        crmActivityAudits,
       ),
       customerTimelineIntelligence: new CustomerTimelineIntelligenceService(
         customerRepository,
         conversationRepository,
+        undefined,
+        crmActivityAudits,
       ),
       activity: new ActivityQueryService(
         new FixtureActivityRepository(fixtureStore),

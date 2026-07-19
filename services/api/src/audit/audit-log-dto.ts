@@ -43,6 +43,15 @@ export type AuditLogAction =
   | "gmail.reply_send.requested"
   | "gmail.reply_send.succeeded"
   | "gmail.reply_send.failed"
+  | "p8_customer_profile_intelligence_viewed"
+  | "p8_customer_timeline_intelligence_viewed"
+  | "p8_customer_action_proposal_reviewed"
+  | "p8_customer_follow_up_proposal_reviewed"
+  | "p8_owner_assignment_readiness_viewed"
+  | "p8_lifecycle_status_readiness_viewed"
+  | "p8_crm_readiness_policy_blocked"
+  | "p8_crm_readiness_cross_workspace_blocked"
+  | "p8_crm_readiness_sensitive_payload_redacted"
   | "extension.snapshot.accepted"
   | "extension.snapshot.duplicate"
   | "extension.snapshot.rejected";
@@ -58,6 +67,7 @@ export type AuditLogResourceType =
   | "ai_automation_guardrail"
   | "reply_draft"
   | "message"
+  | "customer"
   | "gmail_scheduler"
   | "extension_snapshot";
 

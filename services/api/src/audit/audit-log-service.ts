@@ -1,7 +1,7 @@
 import type { AuthContext } from "../auth/auth-context";
 import { getWorkspaceScopeFromAuth } from "../workspace/workspace-scope";
 import type { AppError } from "../errors/app-error";
-import type { AuditLogMetadata } from "./audit-log-dto";
+import type { AuditLogAction, AuditLogMetadata } from "./audit-log-dto";
 import type { AuditLogRepository } from "./audit-log-repository";
 
 type AuditContextInput = {
@@ -95,6 +95,30 @@ export class AuditLogService {
         prompt_version: input.promptVersion,
         latency_ms: input.latencyMs,
       }),
+      correlationId: input.correlationId,
+    });
+  }
+
+  async recordCrmActivityAudit(input: {
+    auth: AuthContext;
+    correlationId: string;
+    eventType: Extract<AuditLogAction, `p8_${string}`>;
+    customerId: string;
+    outcome: "success" | "failure";
+    metadata: AuditLogMetadata;
+  }): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: input.eventType,
+      resourceType: "customer",
+      resourceId: input.customerId,
+      outcome: input.outcome,
+      metadata: input.metadata,
       correlationId: input.correlationId,
     });
   }

@@ -1,6 +1,7 @@
 import { assertPermission } from "../auth/permissions";
 import { NotFoundError } from "../errors/app-error";
 import { getWorkspaceScopeFromAuth } from "../workspace/workspace-scope";
+import type { CustomerCrmActivityAuditService } from "./customer-crm-activity-audit-service";
 import { recommendOwnerRole } from "./customer-owner-assignment-readiness-dto";
 import {
   containsUnsafeOwnerAssignmentInput,
@@ -16,6 +17,10 @@ export class CustomerOwnerAssignmentReadinessService {
   constructor(
     private readonly customers: CustomerRepository,
     private readonly now: () => Date = () => new Date(),
+    private readonly crmActivityAudits?: Pick<
+      CustomerCrmActivityAuditService,
+      "record"
+    >,
   ) {}
 
   async getReadiness(
@@ -43,7 +48,7 @@ export class CustomerOwnerAssignmentReadinessService {
         }
       : recommendOwnerRole(customer);
 
-    return {
+    const result: CustomerOwnerAssignmentReadinessResult = {
       customerId: customer.id,
       workspaceId: scope.workspaceId,
       generatedAt: this.now().toISOString(),
@@ -85,5 +90,24 @@ export class CustomerOwnerAssignmentReadinessService {
         policyVersion: customerOwnerAssignmentReadinessPolicyVersion,
       },
     };
+
+    await this.crmActivityAudits?.record({
+      auth: input.auth,
+      eventType: unsafe
+        ? "p8_crm_readiness_policy_blocked"
+        : "p8_owner_assignment_readiness_viewed",
+      customerId: customer.id,
+      source: unsafe ? "policy" : "owner_assignment_readiness",
+      outcome: unsafe ? "blocked" : "viewed",
+      riskLevel: result.risk.level,
+      policyVersion: customerOwnerAssignmentReadinessPolicyVersion,
+      safeMetadata: {
+        readinessLevel: result.readiness.level,
+        recommendedAction: result.suggestedAssignment.recommendedAction,
+        blockedReason: result.risk.blockedReason,
+      },
+    });
+
+    return result;
   }
 }

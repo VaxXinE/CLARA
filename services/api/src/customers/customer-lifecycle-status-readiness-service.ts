@@ -1,6 +1,7 @@
 import { assertPermission } from "../auth/permissions";
 import { NotFoundError } from "../errors/app-error";
 import { getWorkspaceScopeFromAuth } from "../workspace/workspace-scope";
+import type { CustomerCrmActivityAuditService } from "./customer-crm-activity-audit-service";
 import {
   inferLifecycleStatus,
   recommendLifecycleStatusChange,
@@ -19,6 +20,10 @@ export class CustomerLifecycleStatusReadinessService {
   constructor(
     private readonly customers: CustomerRepository,
     private readonly now: () => Date = () => new Date(),
+    private readonly crmActivityAudits?: Pick<
+      CustomerCrmActivityAuditService,
+      "record"
+    >,
   ) {}
 
   async getReadiness(
@@ -49,7 +54,7 @@ export class CustomerLifecycleStatusReadinessService {
       : recommendLifecycleStatusChange(currentState);
     const noChange = recommendation.recommendedAction === "no_op";
 
-    return {
+    const result: CustomerLifecycleStatusReadinessResult = {
       customerId: customer.id,
       workspaceId: scope.workspaceId,
       generatedAt: this.now().toISOString(),
@@ -107,5 +112,24 @@ export class CustomerLifecycleStatusReadinessService {
         policyVersion: customerLifecycleStatusReadinessPolicyVersion,
       },
     };
+
+    await this.crmActivityAudits?.record({
+      auth: input.auth,
+      eventType: unsafe
+        ? "p8_crm_readiness_policy_blocked"
+        : "p8_lifecycle_status_readiness_viewed",
+      customerId: customer.id,
+      source: unsafe ? "policy" : "lifecycle_status_readiness",
+      outcome: unsafe ? "blocked" : "viewed",
+      riskLevel: result.risk.level,
+      policyVersion: customerLifecycleStatusReadinessPolicyVersion,
+      safeMetadata: {
+        readinessLevel: result.readiness.level,
+        recommendedAction: result.suggestedChange.recommendedAction,
+        blockedReason: result.risk.blockedReason,
+      },
+    });
+
+    return result;
   }
 }

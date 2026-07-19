@@ -31,6 +31,7 @@ P8 CRM & Workflow Intelligence starts as workflow readiness policy only. Dashboa
 P8 Customer Profile Intelligence adds a read-only customer profile signals panel backed by the API read model. It does not add Apply, Save, Create Task, Assign Owner, Change Status, Update Lifecycle, raw HTML rendering, token display, or provider raw payload display.
 P8 Owner Assignment Readiness adds a read-only customer owner assignment panel backed by the API readiness model. It does not add Execute, Apply, Save, Assign Owner, Change Owner, Create Task, Schedule Task, Send Message, Change Status, Update Lifecycle, Write Note, raw HTML rendering, token display, or provider raw payload display.
 P8 Lifecycle / Status Update Readiness adds a read-only lifecycle/status panel backed by the API readiness model. It does not add Execute, Apply, Save, Change Status, Update Lifecycle, Create Task, Schedule Task, Send Message, Write Note, raw HTML rendering, token display, or provider raw payload display.
+P8 CRM Activity Audit Hardening adds an audit-only readiness panel for P8 CRM coverage. It shows compliance/readiness visibility only and does not add Execute, Apply, Save, Create Task, Assign Owner, Update Status, Update Lifecycle, Send Message, Write Note, analytics/KPI charts, raw audit payload display, token display, or provider raw payload display.
 P8 dashboard guardrails: no autonomous CRM mutation, no auto-write customer note, no auto-create task, no auto-assign owner.
 AI draft generation
 explicit human reply send

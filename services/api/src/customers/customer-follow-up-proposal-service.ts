@@ -1,6 +1,7 @@
 import { assertPermission } from "../auth/permissions";
 import { NotFoundError } from "../errors/app-error";
 import { getWorkspaceScopeFromAuth } from "../workspace/workspace-scope";
+import type { CustomerCrmActivityAuditService } from "./customer-crm-activity-audit-service";
 import type { CustomerRepository } from "./customer-repository";
 import {
   toSafeFollowUpPayloadSummary,
@@ -20,6 +21,10 @@ export class CustomerFollowUpProposalService {
   constructor(
     private readonly customers: CustomerRepository,
     private readonly now: () => Date = () => new Date(),
+    private readonly crmActivityAudits?: Pick<
+      CustomerCrmActivityAuditService,
+      "record"
+    >,
   ) {}
 
   async reviewFollowUpProposal(
@@ -50,7 +55,7 @@ export class CustomerFollowUpProposalService {
       ? "Unsafe content blocked before any follow-up workflow."
       : (instruction ?? "Review customer context before creating any task.");
 
-    return {
+    const result: ReviewCustomerFollowUpProposalResult = {
       proposalId: `follow_up_proposal_${input.proposalIntent}_${customer.id}`,
       customerId: customer.id,
       workspaceId: scope.workspaceId,
@@ -123,5 +128,24 @@ export class CustomerFollowUpProposalService {
         policyVersion: customerFollowUpProposalPolicyVersion,
       },
     };
+
+    await this.crmActivityAudits?.record({
+      auth: input.auth,
+      eventType: unsafeIntent
+        ? "p8_crm_readiness_policy_blocked"
+        : "p8_customer_follow_up_proposal_reviewed",
+      customerId: customer.id,
+      source: unsafeIntent ? "policy" : "follow_up_proposal",
+      outcome: unsafeIntent ? "blocked" : "proposed",
+      riskLevel: result.risk.level,
+      policyVersion: customerFollowUpProposalPolicyVersion,
+      safeMetadata: {
+        proposalType: result.followUp.intent,
+        recommendedAction: result.followUp.recommendedChannel,
+        blockedReason: result.risk.blockedReason,
+      },
+    });
+
+    return result;
   }
 }

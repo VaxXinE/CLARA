@@ -58,6 +58,7 @@ P8 Reviewable CRM Action Proposal now adds a proposal-only, review-only API and 
 P8 Task / Follow-up Workflow Proposal now adds a proposal-only, review-only task follow-up API and dashboard display contract with taskCreated=false, actionExecuted=false, workspace-scoped Backend AuthContext, no CRM mutation, no task creation, no auto-create task, no outbound send, no scheduler, no raw provider payload, no raw webhook payload, no access token, no refresh token, and no cookies
 P8 Owner Assignment Readiness now adds a read-only owner handoff readiness API and dashboard display contract with ownerAssigned=false, actionExecuted=false, workspace-scoped Backend AuthContext, no owner assignment mutation, no CRM mutation, no task creation, no lifecycle/status update, no raw provider payload, no raw webhook payload, no access token, no refresh token, and no cookies
 P8 Lifecycle / Status Update Readiness now adds a readiness-only, review-only lifecycle/status API and dashboard display contract with lifecycleUpdated=false, statusUpdated=false, actionExecuted=false, workspace-scoped Backend AuthContext, no CRM mutation, no lifecycle mutation, no status mutation, no auto-change lifecycle/status, no task creation, no outbound send, no scheduler, no raw provider payload, no raw webhook payload, no access token, no refresh token, and no cookies
+P8 CRM Activity Audit Hardening now adds audit-only safe metadata and redaction coverage for P8 intelligence/readiness/proposal flows with Backend AuthContext, workspace-scoped audit writes, mutationExecuted=false, actionExecuted=false, reviewOnly=true, no CRM mutation, no lifecycle mutation, no status mutation, no owner assignment mutation, no task creation, no outbound send, no raw provider payload, no raw webhook payload, no access token, no refresh token, and no cookies
 ```
 
 Start here for local usage:
@@ -429,6 +430,7 @@ docs/product/CLARA-P8-CUSTOMER-PROFILE-INTELLIGENCE-SPEC.md
 docs/product/CLARA-P8-CUSTOMER-TIMELINE-INTELLIGENCE-SPEC.md
 docs/product/CLARA-P8-REVIEWABLE-CRM-ACTION-PROPOSAL-SPEC.md
 docs/product/CLARA-P8-LIFECYCLE-STATUS-UPDATE-READINESS-SPEC.md
+docs/product/CLARA-P8-CRM-ACTIVITY-AUDIT-HARDENING-SPEC.md
 ```
 
 P8-PR-03 adds Customer Timeline Intelligence as a read-only, review-only

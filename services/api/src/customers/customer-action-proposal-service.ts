@@ -1,6 +1,7 @@
 import { assertPermission } from "../auth/permissions";
 import { NotFoundError } from "../errors/app-error";
 import { getWorkspaceScopeFromAuth } from "../workspace/workspace-scope";
+import type { CustomerCrmActivityAuditService } from "./customer-crm-activity-audit-service";
 import type { CustomerRepository } from "./customer-repository";
 import {
   toSafePayloadSummary,
@@ -20,6 +21,10 @@ export class CustomerActionProposalService {
   constructor(
     private readonly customers: CustomerRepository,
     private readonly now: () => Date = () => new Date(),
+    private readonly crmActivityAudits?: Pick<
+      CustomerCrmActivityAuditService,
+      "record"
+    >,
   ) {}
 
   async reviewActionProposal(
@@ -47,7 +52,7 @@ export class CustomerActionProposalService {
       ? "Proposal contains unsafe or non-reviewable content."
       : null;
 
-    return {
+    const result: GetCustomerActionProposalResult = {
       proposalId: `crm_proposal_${input.proposalType}_${customer.id}`,
       customerId: customer.id,
       workspaceId: scope.workspaceId,
@@ -99,5 +104,24 @@ export class CustomerActionProposalService {
         policyVersion: customerActionProposalPolicyVersion,
       },
     };
+
+    await this.crmActivityAudits?.record({
+      auth: input.auth,
+      eventType: unsafeIntent
+        ? "p8_crm_readiness_policy_blocked"
+        : "p8_customer_action_proposal_reviewed",
+      customerId: customer.id,
+      source: unsafeIntent ? "policy" : "action_proposal",
+      outcome: unsafeIntent ? "blocked" : "proposed",
+      riskLevel: result.risk.level,
+      policyVersion: customerActionProposalPolicyVersion,
+      safeMetadata: {
+        proposalType: result.proposalType,
+        recommendedAction: result.proposedAction.actionKind,
+        blockedReason: result.risk.blockedReason,
+      },
+    });
+
+    return result;
   }
 }
