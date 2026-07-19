@@ -65,6 +65,7 @@ P7 AI Conversation Summary and AI Customer Note Suggestion are review-only/sugge
 P8 CRM & Workflow Intelligence is policy/test-only in P8-PR-01: CRM Mutation Policy and Workflow Intelligence Policy require Backend AuthContext, workspace-scoped access, human approval, audit log coverage, no autonomous CRM mutation, no auto-write customer note, no auto-create task, and no cross-workspace CRM mutation
 P8 Customer Profile Intelligence adds GET /api/v1/customers/:customerId/intelligence as a read-only workspace-scoped read model with no CRM mutation, no task creation, no owner/status/lifecycle update, and no token/raw provider payload exposure
 P8 Owner Assignment Readiness adds GET /api/v1/customers/:customerId/owner-assignment/readiness as a read-only workspace-scoped readiness model with ownerAssigned=false, actionExecuted=false, no CRM mutation, no task creation, no owner/status/lifecycle update, and no token/raw provider payload exposure
+P8 Lifecycle / Status Update Readiness adds GET /api/v1/customers/:customerId/lifecycle-status/readiness as a readiness-only workspace-scoped review model with lifecycleUpdated=false, statusUpdated=false, actionExecuted=false, no CRM mutation, no lifecycle mutation, no status mutation, no task creation, no outbound send, no scheduler, and no token/raw provider payload exposure
 channel account reads are scoped by backend AuthContext and never trust client-provided organization_id or workspace_id
 responses never include provider secrets, tokens, Authorization headers, raw provider payloads, or raw provider errors
 multi-channel audit metadata is allowlisted and must not include message bodies, cookies, Authorization headers, tokens, secrets, raw provider payloads, or raw provider errors
@@ -1023,6 +1024,20 @@ follow-up guidance with `taskCreated=false` and `actionExecuted=false`. It has
 no CRM mutation, no task creation, no auto-create task, no outbound send, no
 scheduler, no raw provider payload, no raw webhook payload, no access token, no
 refresh token, and no cookies.
+
+P8-PR-07 adds Lifecycle / Status Update Readiness:
+
+```text
+GET /api/v1/customers/:customerId/lifecycle-status/readiness
+```
+
+The endpoint requires auth, derives organization/workspace from Backend
+AuthContext, is workspace-scoped, and returns readiness-only, review-only
+lifecycle/status guidance with `lifecycleUpdated=false`,
+`statusUpdated=false`, and `actionExecuted=false`. It has no CRM mutation, no
+lifecycle mutation, no status mutation, no auto-change lifecycle/status, no task
+creation, no outbound send, no scheduler, no raw provider payload, no raw
+webhook payload, no access token, no refresh token, and no cookies.
 
 ## P7 Final AI Assistant Audit
 

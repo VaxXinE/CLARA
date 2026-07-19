@@ -154,6 +154,9 @@ function renderWorkspace(
       customerOwnerAssignmentReadiness: null,
       customerOwnerAssignmentReadinessLoading: false,
       customerOwnerAssignmentReadinessError: null,
+      customerLifecycleStatusReadiness: null,
+      customerLifecycleStatusReadinessLoading: false,
+      customerLifecycleStatusReadinessError: null,
     },
   };
 

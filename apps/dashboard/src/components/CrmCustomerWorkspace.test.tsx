@@ -62,6 +62,9 @@ describe("CrmCustomerWorkspace", () => {
         customerOwnerAssignmentReadiness={null}
         customerOwnerAssignmentReadinessLoading={false}
         customerOwnerAssignmentReadinessError={null}
+        customerLifecycleStatusReadiness={null}
+        customerLifecycleStatusReadinessLoading={false}
+        customerLifecycleStatusReadinessError={null}
         readOnly={false}
       />,
     );
@@ -96,6 +99,9 @@ describe("CrmCustomerWorkspace", () => {
         customerOwnerAssignmentReadiness={null}
         customerOwnerAssignmentReadinessLoading={false}
         customerOwnerAssignmentReadinessError={null}
+        customerLifecycleStatusReadiness={null}
+        customerLifecycleStatusReadinessLoading={false}
+        customerLifecycleStatusReadinessError={null}
         readOnly
       />,
     );

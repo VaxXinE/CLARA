@@ -130,7 +130,8 @@ P7 complete after P7-PR-08 with final AI assistant audit, runbook, incident resp
 P8-PR-01 now starts CRM & Workflow Intelligence with CRM Mutation Policy, Workflow Intelligence Policy, Backend AuthContext, workspace-scoped access, human approval, audit log, no autonomous CRM mutation, no auto-write customer note, no auto-create task, no cross-workspace CRM mutation, and P9 Analytics / Reporting / KPI deferral.
 P8-PR-02 now adds Customer Profile Intelligence as a read-only workspace-scoped API and dashboard panel with safe profile/activity/relationship/follow-up signals, no CRM mutation, no task creation, no owner/status/lifecycle update, and no token/raw provider payload exposure.
 P8-PR-03, P8-PR-04, and P8-PR-05 now add Customer Timeline Intelligence, Reviewable CRM Action Proposal, and Task / Follow-up Workflow Proposal as read-only or proposal-only flows with Backend AuthContext, workspace scope, human approval, no CRM mutation, no task creation, and no token/raw provider payload exposure.
-P8-PR-06 is in progress with Owner Assignment Readiness as a read-only readiness flow with ownerAssigned=false, actionExecuted=false, no owner assignment mutation, no CRM mutation, no task creation, no lifecycle/status update, and no token/raw provider payload exposure.
+P8-PR-06 is complete with Owner Assignment Readiness as a read-only readiness flow with ownerAssigned=false, actionExecuted=false, no owner assignment mutation, no CRM mutation, no task creation, no lifecycle/status update, and no token/raw provider payload exposure.
+P8-PR-07 is in progress with Lifecycle / Status Update Readiness as a readiness-only, review-only flow with lifecycleUpdated=false, statusUpdated=false, actionExecuted=false, Backend AuthContext, workspace-scoped access, no CRM mutation, no lifecycle mutation, no status mutation, no auto-change lifecycle/status, no task creation, no outbound send, no scheduler, and no token/raw provider payload exposure.
 ```
 
 ---

@@ -160,6 +160,9 @@ function renderConversationWorkspace(input?: { readOnly?: boolean }) {
         customerOwnerAssignmentReadiness: null,
         customerOwnerAssignmentReadinessLoading: false,
         customerOwnerAssignmentReadinessError: null,
+        customerLifecycleStatusReadiness: null,
+        customerLifecycleStatusReadinessLoading: false,
+        customerLifecycleStatusReadinessError: null,
       }}
     />,
   );
@@ -237,6 +240,9 @@ describe("P5.1 final UI regression", () => {
         customerOwnerAssignmentReadiness={null}
         customerOwnerAssignmentReadinessLoading={false}
         customerOwnerAssignmentReadinessError={null}
+        customerLifecycleStatusReadiness={null}
+        customerLifecycleStatusReadinessLoading={false}
+        customerLifecycleStatusReadinessError={null}
         readOnly
       />,
     );

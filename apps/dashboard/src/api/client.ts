@@ -12,6 +12,7 @@ import type {
   ConversationDetailResponse,
   ConversationListResponse,
   CustomerProfileIntelligenceResponse,
+  CustomerLifecycleStatusReadinessResponse,
   CustomerOwnerAssignmentReadinessResponse,
   CustomerProfileResponse,
   CustomerActionProposalResponse,
@@ -224,6 +225,16 @@ export class ApiClient {
       `/api/v1/customers/${encodeURIComponent(
         customerId,
       )}/owner-assignment/readiness`,
+    );
+  }
+
+  async getCustomerLifecycleStatusReadiness(
+    customerId: string,
+  ): Promise<CustomerLifecycleStatusReadinessResponse> {
+    return this.request<CustomerLifecycleStatusReadinessResponse>(
+      `/api/v1/customers/${encodeURIComponent(
+        customerId,
+      )}/lifecycle-status/readiness`,
     );
   }
 

@@ -357,6 +357,76 @@ export type CustomerOwnerAssignmentReadinessResponse = {
   };
 };
 
+export type CustomerLifecycleStatusReadinessResponse = {
+  customerId: string;
+  workspaceId: string;
+  generatedAt: string;
+  currentState: {
+    lifecycle: "lead" | "active_customer" | "at_risk" | "inactive" | "unknown";
+    status: "new" | "engaged" | "needs_follow_up" | "dormant" | "unknown";
+    source: "existing_customer_record" | "inferred_read_model" | "unknown";
+  };
+  readiness: {
+    level:
+      | "ready_for_review"
+      | "needs_more_context"
+      | "blocked"
+      | "no_change_recommended"
+      | "unknown";
+    reasons: string[];
+  };
+  suggestedChange: {
+    recommendedLifecycle:
+      | "lead"
+      | "active_customer"
+      | "at_risk"
+      | "inactive"
+      | "unknown"
+      | "no_change";
+    recommendedStatus:
+      | "new"
+      | "engaged"
+      | "needs_follow_up"
+      | "dormant"
+      | "unknown"
+      | "no_change";
+    recommendedAction:
+      | "no_op"
+      | "review_lifecycle_status"
+      | "update_lifecycle_review"
+      | "update_status_review"
+      | "request_more_context"
+      | "escalate_to_admin_review";
+    reason: string;
+    executionStatus: "review_only";
+    lifecycleUpdated: false;
+    statusUpdated: false;
+    requiresHumanApproval: true;
+    requiredPermission: string;
+  };
+  transitionPolicy: {
+    allowedForReview: boolean;
+    blockedReason: string | null;
+    warnings: string[];
+  };
+  risk: {
+    level: "low" | "medium" | "high" | "critical";
+    reasons: string[];
+    blocked: boolean;
+    blockedReason: string | null;
+  };
+  safety: {
+    readOnly: true;
+    proposalOnly: true;
+    lifecycleUpdated: false;
+    statusUpdated: false;
+    mutationAllowed: false;
+    actionExecuted: false;
+    requiresHumanApprovalForMutation: true;
+    policyVersion: string;
+  };
+};
+
 export type ActivityResponse = {
   data: {
     conversation_id: string;
