@@ -66,6 +66,7 @@ import { IncidentResponseReadinessService } from "../enterprise/incident-respons
 import { RedactionHardeningService } from "../enterprise/redaction-hardening-service";
 import { SessionPolicyReadinessService } from "../enterprise/session-policy-readiness-service";
 import { registerReliabilityQueueJobReadinessRoutes } from "./routes/reliability-queue-job-readiness";
+import { registerRateLimitQuotaUsageReadinessRoutes } from "./routes/rate-limit-quota-usage-readiness";
 import { registerEnterpriseAdminSecurityControlsReadinessRoutes } from "./routes/enterprise-admin-security-controls-readiness";
 import { registerEnterpriseAuditRetentionReadinessRoutes } from "./routes/enterprise-audit-retention-readiness";
 import { registerEnterpriseBackupRestoreReadinessRoutes } from "./routes/enterprise-backup-restore-readiness";
@@ -454,6 +455,7 @@ export async function createServer(
     options.evidenceReadinessService ?? new EvidenceReadinessService(),
   );
   await registerReliabilityQueueJobReadinessRoutes(app, authProvider);
+  await registerRateLimitQuotaUsageReadinessRoutes(app, authProvider);
   if (services.channelHealth) {
     const conversationVolumeMetrics = new ConversationVolumeMetricsService(
       services.conversations,

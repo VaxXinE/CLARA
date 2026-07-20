@@ -37,3 +37,28 @@ P11-PR-01 explicitly adds:
 
 Backend AuthContext remains required. Billing and usage readiness must not trust
 client-provided organization_id, workspace_id, role, user_id, or plan data.
+
+## P11-PR-03 Rate Limit Quota Usage Metering Readiness
+
+P11-PR-03 keeps Usage Metering aggregate-first and workspace-scoped. It adds
+safe billing readiness metadata only and remains readiness not billing launch.
+
+It explicitly keeps:
+
+- no raw usage events
+- no raw customer messages
+- no raw provider payload
+- no raw webhook payload
+- no access token
+- no refresh token
+- no cookies
+- no payment provider integration
+- no charging customers
+- no invoice creation
+- no subscription mutation
+- no plan mutation
+- no entitlement mutation
+- no quota enforcement
+- no CRM mutation
+- no outbound send
+- no real AI provider

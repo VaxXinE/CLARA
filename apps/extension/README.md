@@ -223,3 +223,12 @@ replay, purge, raw job payload, raw customer messages, raw provider payload,
 raw webhook payload, access token, refresh token, cookies, auth headers,
 payment provider integration, charging customers, subscription mutation, or
 real AI provider behavior.
+
+P11-PR-03 keeps Rate Limit, Quota, Usage Metering, and billing metadata
+internals out of the extension runtime. The extension does not request quota
+internals, usage metering internals, raw usage data, raw usage events, raw
+customer messages, raw provider payload, raw webhook payload, raw audit
+metadata, access token, refresh token, cookies, auth headers, API keys,
+secrets, payment provider integration, charging customers, invoice creation,
+subscription mutation, plan mutation, entitlement mutation, CRM mutation,
+outbound send, or real AI provider behavior.

@@ -743,6 +743,15 @@ payload, no raw webhook payload, no access token, no refresh token, no cookies,
 no payment provider integration, no charging customers, and no subscription
 mutation.
 
+P11-PR-03 adds Rate Limit, Quota, and Usage Metering readiness with a
+workspace-scoped read-only endpoint and dashboard panel. It remains readiness
+not billing launch: no quota enforcement, no payment provider integration, no
+charging customers, no invoice creation, no subscription mutation, no plan
+mutation, no entitlement mutation, no raw usage events, no raw customer
+messages, no raw provider payload, no raw webhook payload, no access token, no
+refresh token, no cookies, no CRM mutation, no outbound send, and no real AI
+provider. Usage Metering output remains aggregate-first and workspace-scoped.
+
 This phase does not claim SOC 2, ISO 27001, GDPR, HIPAA, or PCI certification.
 It also does not add SSO, MFA, billing, report export, data deletion jobs,
 backup automation, provider integration, CRM mutation, task creation, outbound
