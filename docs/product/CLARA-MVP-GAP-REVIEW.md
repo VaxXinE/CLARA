@@ -725,6 +725,15 @@ revocation, force logout, CRM mutation, task creation, customer note write,
 owner assignment, lifecycle/status update, outbound send, workflow automation,
 report generation, customer-level drilldown, or real AI provider.
 
+P11-PR-01 starts P11 Scale / Reliability / Billing with SLO readiness,
+reliability baseline, capacity/performance target policy, usage metering
+readiness, billing readiness boundary, dashboard readiness visibility,
+extension boundary regression, and validator coverage. P11-PR-01 is readiness
+not launch: no payment provider integration, no charging customers, no invoice
+creation, no subscription mutation, no quota enforcement, no CRM mutation, no
+outbound send, no real AI provider, and no heavy load test execution in normal
+validation.
+
 This phase does not claim SOC 2, ISO 27001, GDPR, HIPAA, or PCI certification.
 It also does not add SSO, MFA, billing, report export, data deletion jobs,
 backup automation, provider integration, CRM mutation, task creation, outbound

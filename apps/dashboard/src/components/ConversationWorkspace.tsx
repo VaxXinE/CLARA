@@ -10,6 +10,7 @@ import { DataClassificationReadinessPanel } from "./DataClassificationReadinessP
 import { EnterpriseComplianceReadinessPanel } from "./EnterpriseComplianceReadinessPanel";
 import { PermissionAuditReadinessPanel } from "./PermissionAuditReadinessPanel";
 import { RedactionHardeningReadinessPanel } from "./RedactionHardeningReadinessPanel";
+import { ScaleReliabilityBillingReadinessPanel } from "./ScaleReliabilityBillingReadinessPanel";
 import { TenantIsolationReadinessPanel } from "./TenantIsolationReadinessPanel";
 import { AiAutomationGuardrailsPanel } from "./AiAutomationGuardrailsPanel";
 import { InboxPanel } from "./InboxPanel";
@@ -121,6 +122,7 @@ export function ConversationWorkspace(props: ConversationWorkspaceProps) {
           loading={props.channelHealth?.loading ?? false}
           error={props.channelHealth?.error ?? null}
         />
+        <ScaleReliabilityBillingReadinessPanel />
       </div>
 
       <div className="workspace-queue-column" aria-label="Queue inbox">
