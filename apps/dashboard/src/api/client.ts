@@ -7,6 +7,7 @@ import type {
   AiCustomerNoteSuggestionResponse,
   AiFollowUpRecommendationResponse,
   AiReplySuggestionResponse,
+  AuditRetentionReadinessResponse,
   AnalyticsMetricCatalogResponse,
   AnalyticsOverviewResponse,
   AnalyticsReadinessResponse,
@@ -23,12 +24,14 @@ import type {
   CustomerActionProposalResponse,
   CustomerFollowUpProposalResponse,
   CustomerTimelineIntelligenceResponse,
+  DataClassificationReadinessResponse,
   DemoAuthProfile,
   GmailOutboundDeliveryStatusResponse,
   GmailSchedulerStatusResponse,
   KpiDashboardResponse,
   MeResponse,
   PermissionAuditReadinessResponse,
+  RedactionHardeningReadinessResponse,
   ReplySendResponse,
   RoleManagementReadinessResponse,
   TenantIsolationReadinessResponse,
@@ -283,6 +286,24 @@ export class ApiClient {
   async getPermissionAuditReadiness(): Promise<PermissionAuditReadinessResponse> {
     return this.request<PermissionAuditReadinessResponse>(
       "/api/v1/enterprise/permission-audit/readiness",
+    );
+  }
+
+  async getAuditRetentionReadiness(): Promise<AuditRetentionReadinessResponse> {
+    return this.request<AuditRetentionReadinessResponse>(
+      "/api/v1/enterprise/audit-retention/readiness",
+    );
+  }
+
+  async getDataClassificationReadiness(): Promise<DataClassificationReadinessResponse> {
+    return this.request<DataClassificationReadinessResponse>(
+      "/api/v1/enterprise/data-classification/readiness",
+    );
+  }
+
+  async getRedactionHardeningReadiness(): Promise<RedactionHardeningReadinessResponse> {
+    return this.request<RedactionHardeningReadinessResponse>(
+      "/api/v1/enterprise/redaction-hardening/readiness",
     );
   }
 

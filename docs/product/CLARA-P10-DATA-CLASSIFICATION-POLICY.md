@@ -31,3 +31,10 @@ classification: "security-policy"
 
 P10 Enterprise Hardening / Compliance uses classification to decide redaction,
 audit metadata allowlists, retention readiness, and incident response handling.
+
+P10-PR-03 adds runtime compliance readiness for Data Classification and
+Redaction Hardening. Backend AuthContext remains required, client workspaceId
+is never authority, output stays workspace-scoped, and readiness surfaces
+contain safe audit metadata only: no raw customer messages, no raw provider
+payload, no raw webhook payload, no raw audit metadata, no access token, no
+refresh token, no cookies, and no secrets.

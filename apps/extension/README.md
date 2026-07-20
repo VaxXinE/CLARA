@@ -171,3 +171,12 @@ workspace, user, role, tenant isolation, permission audit, audit evidence, role
 mutation, permission mutation, raw customer messages, raw provider payload, raw
 webhook payload, raw audit metadata, access token, refresh token, cookies, auth
 headers, API keys, or secrets.
+
+P10-PR-03 keeps Audit Retention, Data Classification, Redaction Hardening,
+Sensitive Field Classifier, and raw compliance data out of the extension
+runtime. The extension does not request cross-workspace enterprise data and
+does not capture access token, refresh token, cookies, auth headers, raw
+provider payload, raw webhook payload, raw audit metadata, raw DOM, raw HTML,
+raw prompts, API keys, secrets, permission mutation, role mutation, CRM
+mutation, outbound send, deletion automation, legal hold automation, or report
+export behavior.

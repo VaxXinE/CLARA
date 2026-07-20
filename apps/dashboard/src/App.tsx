@@ -9,6 +9,7 @@ import type {
   AiDraftReview,
   AiFollowUpRecommendationResponse,
   AiReplySuggestionResponse,
+  AuditRetentionReadinessResponse,
   ChannelHealthItem,
   ConversationDetailResponse,
   ConversationListResponse,
@@ -17,12 +18,14 @@ import type {
   CustomerOwnerAssignmentReadinessResponse,
   CustomerProfileResponse,
   CustomerTimelineIntelligenceResponse,
+  DataClassificationReadinessResponse,
   DemoAuthProfile,
   DemoRole,
   GmailOutboundDeliveryStatus,
   GmailSchedulerStatus,
   MeResponse,
   PermissionAuditReadinessResponse,
+  RedactionHardeningReadinessResponse,
   RoleManagementReadiness,
   TenantIsolationReadinessResponse,
   WebchatOutboundDeliveryStatus,
@@ -166,6 +169,12 @@ function WorkspaceAppShell() {
     useState<TenantIsolationReadinessResponse | null>(null);
   const [permissionAuditReadiness, setPermissionAuditReadiness] =
     useState<PermissionAuditReadinessResponse | null>(null);
+  const [auditRetentionReadiness, setAuditRetentionReadiness] =
+    useState<AuditRetentionReadinessResponse | null>(null);
+  const [dataClassificationReadiness, setDataClassificationReadiness] =
+    useState<DataClassificationReadinessResponse | null>(null);
+  const [redactionHardeningReadiness, setRedactionHardeningReadiness] =
+    useState<RedactionHardeningReadinessResponse | null>(null);
   const [workspaceMembers, setWorkspaceMembers] = useState<WorkspaceMember[]>(
     [],
   );
@@ -262,6 +271,20 @@ function WorkspaceAppShell() {
   >(null);
   const [permissionAuditLoading, setPermissionAuditLoading] = useState(false);
   const [permissionAuditError, setPermissionAuditError] = useState<
+    string | null
+  >(null);
+  const [auditRetentionLoading, setAuditRetentionLoading] = useState(false);
+  const [auditRetentionError, setAuditRetentionError] = useState<string | null>(
+    null,
+  );
+  const [dataClassificationLoading, setDataClassificationLoading] =
+    useState(false);
+  const [dataClassificationError, setDataClassificationError] = useState<
+    string | null
+  >(null);
+  const [redactionHardeningLoading, setRedactionHardeningLoading] =
+    useState(false);
+  const [redactionHardeningError, setRedactionHardeningError] = useState<
     string | null
   >(null);
   const [composerError, setComposerError] = useState<string | null>(null);
@@ -524,10 +547,19 @@ function WorkspaceAppShell() {
     if (auth.status !== "authenticated" || !me) {
       setTenantIsolationReadiness(null);
       setPermissionAuditReadiness(null);
+      setAuditRetentionReadiness(null);
+      setDataClassificationReadiness(null);
+      setRedactionHardeningReadiness(null);
       setTenantIsolationLoading(false);
       setPermissionAuditLoading(false);
+      setAuditRetentionLoading(false);
+      setDataClassificationLoading(false);
+      setRedactionHardeningLoading(false);
       setTenantIsolationError(null);
       setPermissionAuditError(null);
+      setAuditRetentionError(null);
+      setDataClassificationError(null);
+      setRedactionHardeningError(null);
       return;
     }
 
@@ -542,34 +574,61 @@ function WorkspaceAppShell() {
 
       setTenantIsolationLoading(true);
       setPermissionAuditLoading(true);
+      setAuditRetentionLoading(true);
+      setDataClassificationLoading(true);
+      setRedactionHardeningLoading(true);
       setTenantIsolationError(null);
       setPermissionAuditError(null);
+      setAuditRetentionError(null);
+      setDataClassificationError(null);
+      setRedactionHardeningError(null);
 
       try {
-        const [tenantResponse, permissionResponse] = await Promise.all([
+        const [
+          tenantResponse,
+          permissionResponse,
+          auditRetentionResponse,
+          dataClassificationResponse,
+          redactionHardeningResponse,
+        ] = await Promise.all([
           client.getTenantIsolationReadiness(),
           client.getPermissionAuditReadiness(),
+          client.getAuditRetentionReadiness(),
+          client.getDataClassificationReadiness(),
+          client.getRedactionHardeningReadiness(),
         ]);
 
         if (!cancelled) {
           setTenantIsolationReadiness(tenantResponse);
           setPermissionAuditReadiness(permissionResponse);
+          setAuditRetentionReadiness(auditRetentionResponse);
+          setDataClassificationReadiness(dataClassificationResponse);
+          setRedactionHardeningReadiness(redactionHardeningResponse);
         }
       } catch (error) {
         if (!cancelled) {
           setTenantIsolationReadiness(null);
           setPermissionAuditReadiness(null);
+          setAuditRetentionReadiness(null);
+          setDataClassificationReadiness(null);
+          setRedactionHardeningReadiness(null);
           const message = toSafeMessage(
             error,
             "Enterprise readiness is unavailable.",
           );
           setTenantIsolationError(message);
           setPermissionAuditError(message);
+          setAuditRetentionError(message);
+          setDataClassificationError(message);
+          setRedactionHardeningError(message);
         }
       } finally {
         if (!cancelled) {
           setTenantIsolationLoading(false);
           setPermissionAuditLoading(false);
+          setAuditRetentionLoading(false);
+          setDataClassificationLoading(false);
+          setRedactionHardeningLoading(false);
         }
       }
     }
@@ -1396,6 +1455,21 @@ function WorkspaceAppShell() {
           readiness: permissionAuditReadiness,
           loading: permissionAuditLoading,
           error: permissionAuditError,
+        }}
+        auditRetention={{
+          readiness: auditRetentionReadiness,
+          loading: auditRetentionLoading,
+          error: auditRetentionError,
+        }}
+        dataClassification={{
+          readiness: dataClassificationReadiness,
+          loading: dataClassificationLoading,
+          error: dataClassificationError,
+        }}
+        redactionHardening={{
+          readiness: redactionHardeningReadiness,
+          loading: redactionHardeningLoading,
+          error: redactionHardeningError,
         }}
         channelHealth={{
           items: channelHealthItems,

@@ -925,6 +925,102 @@ export type PermissionAuditReadinessResponse = {
   };
 };
 
+export type AuditRetentionReadinessResponse = {
+  workspaceId: string;
+  generatedAt: string;
+  phase: "p10";
+  retentionReadiness: {
+    auditRetentionPolicyDefined: true;
+    safeAuditMetadataOnly: true;
+    rawSecretsProhibited: true;
+    rawProviderPayloadProhibited: true;
+    rawWebhookPayloadProhibited: true;
+    deletionAutomationImplemented: false;
+    legalHoldAutomationImplemented: false;
+    retentionJobImplemented: false;
+    exportImplemented: false;
+  };
+  categories: Array<{
+    categoryKey: string;
+    label: string;
+    description: string;
+    retentionIntent:
+      "retain_for_audit" | "minimize" | "future_retention_review";
+    dataClassification:
+      "public" | "internal" | "confidential" | "restricted" | "secret";
+    rawSensitiveDataAllowed: false;
+    redactionRequired: true;
+  }>;
+  safety: {
+    readOnly: true;
+    mutationAllowed: false;
+    deletionExecuted: false;
+    legalHoldExecuted: false;
+    exportExecuted: false;
+    rawAuditMetadataIncluded: false;
+    secretsIncluded: false;
+  };
+};
+
+export type DataClassificationReadinessResponse = {
+  workspaceId: string;
+  generatedAt: string;
+  phase: "p10";
+  classifications: Array<
+    "public" | "internal" | "confidential" | "restricted" | "secret"
+  >;
+  dataClasses: Array<{
+    dataClassKey: string;
+    label: string;
+    classification:
+      "public" | "internal" | "confidential" | "restricted" | "secret";
+    examples: string[];
+    handlingRules: string[];
+    redactionRequired: boolean;
+    auditSafe: boolean;
+    dashboardSafe: boolean;
+    extensionSafe: boolean;
+  }>;
+  safety: {
+    readOnly: true;
+    rawSensitiveExamplesIncluded: false;
+    secretsIncluded: false;
+    rawCustomerMessagesIncluded: false;
+    rawProviderPayloadIncluded: false;
+    rawWebhookPayloadIncluded: false;
+    rawAuditMetadataIncluded: false;
+  };
+};
+
+export type RedactionHardeningReadinessResponse = {
+  workspaceId: string;
+  generatedAt: string;
+  phase: "p10";
+  redaction: {
+    tokenRedactionRequired: true;
+    cookieRedactionRequired: true;
+    authHeaderRedactionRequired: true;
+    apiKeyRedactionRequired: true;
+    providerPayloadRedactionRequired: true;
+    webhookPayloadRedactionRequired: true;
+    auditMetadataRedactionRequired: true;
+    customerMessageRedactionRequiredForComplianceViews: true;
+  };
+  classifiers: Array<{
+    classifierKey: string;
+    label: string;
+    detects: string[];
+    action: "redact" | "block" | "classify";
+    severity: "info" | "warning" | "critical";
+  }>;
+  safety: {
+    readOnly: true;
+    mutationAllowed: false;
+    rawBeforeAfterSamplesIncluded: false;
+    secretsIncluded: false;
+  };
+};
+
 export type AnalyticsMetricCatalogResponse = {
   workspaceId: string;
   generatedAt: string;

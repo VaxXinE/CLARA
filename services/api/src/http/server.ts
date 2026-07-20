@@ -56,7 +56,13 @@ import { registerAnalyticsCrmWorkflowRoutes } from "./routes/analytics-crm-workf
 import { registerAnalyticsKpiDashboardRoutes } from "./routes/analytics-kpi-dashboard";
 import { PermissionAuditReadinessService } from "../enterprise/permission-audit-service";
 import { TenantIsolationReadinessService } from "../enterprise/tenant-isolation-readiness-service";
+import { AuditRetentionReadinessService } from "../enterprise/audit-retention-readiness-service";
+import { DataClassificationRuntimeService } from "../enterprise/data-classification-runtime-service";
+import { RedactionHardeningService } from "../enterprise/redaction-hardening-service";
+import { registerEnterpriseAuditRetentionReadinessRoutes } from "./routes/enterprise-audit-retention-readiness";
+import { registerEnterpriseDataClassificationReadinessRoutes } from "./routes/enterprise-data-classification-readiness";
 import { registerEnterprisePermissionAuditReadinessRoutes } from "./routes/enterprise-permission-audit-readiness";
+import { registerEnterpriseRedactionHardeningReadinessRoutes } from "./routes/enterprise-redaction-hardening-readiness";
 import { registerEnterpriseTenantIsolationReadinessRoutes } from "./routes/enterprise-tenant-isolation-readiness";
 import { registerWebchatRoutes } from "./routes/webchat";
 import { registerWhatsappRoutes } from "./routes/whatsapp";
@@ -107,6 +113,9 @@ export type CreateServerOptions = {
   analyticsReadModelService?: AnalyticsReadModelService;
   tenantIsolationReadinessService?: TenantIsolationReadinessService;
   permissionAuditReadinessService?: PermissionAuditReadinessService;
+  auditRetentionReadinessService?: AuditRetentionReadinessService;
+  dataClassificationRuntimeService?: DataClassificationRuntimeService;
+  redactionHardeningService?: RedactionHardeningService;
 };
 
 export type RequestWithRawBody = FastifyRequest & {
@@ -374,6 +383,23 @@ export async function createServer(
     authProvider,
     options.permissionAuditReadinessService ??
       new PermissionAuditReadinessService(),
+  );
+  await registerEnterpriseAuditRetentionReadinessRoutes(
+    app,
+    authProvider,
+    options.auditRetentionReadinessService ??
+      new AuditRetentionReadinessService(),
+  );
+  await registerEnterpriseDataClassificationReadinessRoutes(
+    app,
+    authProvider,
+    options.dataClassificationRuntimeService ??
+      new DataClassificationRuntimeService(),
+  );
+  await registerEnterpriseRedactionHardeningReadinessRoutes(
+    app,
+    authProvider,
+    options.redactionHardeningService ?? new RedactionHardeningService(),
   );
   if (services.channelHealth) {
     const conversationVolumeMetrics = new ConversationVolumeMetricsService(

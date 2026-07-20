@@ -1154,6 +1154,24 @@ no auth headers, no API keys, and no secrets. They add no role mutation,
 no permission mutation, no CRM mutation, task creation, outbound send, report
 export, or real AI provider.
 
+## P10-PR-03 Audit Retention + Data Classification + Redaction Hardening
+
+P10-PR-03 adds compliance readiness only, not certification:
+
+```text
+GET /api/v1/enterprise/audit-retention/readiness
+GET /api/v1/enterprise/data-classification/readiness
+GET /api/v1/enterprise/redaction-hardening/readiness
+```
+
+All endpoints require Backend AuthContext, are workspace-scoped, reject
+client-supplied workspaceId authority, and return safe audit metadata summaries
+only. Responses include no raw customer messages, no raw provider payload, no
+raw webhook payload, no raw audit metadata, no access token, no refresh token,
+no cookies, no auth headers, no permission mutation, no role mutation, no CRM
+mutation, no outbound send, no real AI provider, no deletion automation, no
+legal hold automation, and no report export.
+
 ## P7 Final AI Assistant Audit
 
 Final API regression coverage verifies:
