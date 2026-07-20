@@ -1,5 +1,6 @@
 import type {
   ActivityResponse,
+  AdminSecurityControlsReadinessResponse,
   AiDraftResponse,
   AiDraftReviewResponse,
   AiAutomationGuardrailResponse,
@@ -13,6 +14,7 @@ import type {
   AnalyticsReadinessResponse,
   ApiErrorResponse,
   ChannelHealthResponse,
+  ComplianceDashboardResponse,
   ConversationDetailResponse,
   ConversationListResponse,
   CoreOperationalMetricsResponse,
@@ -34,6 +36,7 @@ import type {
   RedactionHardeningReadinessResponse,
   ReplySendResponse,
   RoleManagementReadinessResponse,
+  SessionPolicyReadinessResponse,
   TenantIsolationReadinessResponse,
   WebchatOutboundDeliveryStatusResponse,
   WorkspaceMembersResponse,
@@ -304,6 +307,24 @@ export class ApiClient {
   async getRedactionHardeningReadiness(): Promise<RedactionHardeningReadinessResponse> {
     return this.request<RedactionHardeningReadinessResponse>(
       "/api/v1/enterprise/redaction-hardening/readiness",
+    );
+  }
+
+  async getAdminSecurityControlsReadiness(): Promise<AdminSecurityControlsReadinessResponse> {
+    return this.request<AdminSecurityControlsReadinessResponse>(
+      "/api/v1/enterprise/admin-security-controls/readiness",
+    );
+  }
+
+  async getSessionPolicyReadiness(): Promise<SessionPolicyReadinessResponse> {
+    return this.request<SessionPolicyReadinessResponse>(
+      "/api/v1/enterprise/session-policy/readiness",
+    );
+  }
+
+  async getComplianceDashboard(): Promise<ComplianceDashboardResponse> {
+    return this.request<ComplianceDashboardResponse>(
+      "/api/v1/enterprise/compliance-dashboard",
     );
   }
 

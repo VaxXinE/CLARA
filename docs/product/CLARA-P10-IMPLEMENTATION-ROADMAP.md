@@ -20,8 +20,8 @@ readiness only, not certification.
 |---|---|---|
 | P10-PR-01 | complete | Enterprise Hardening + Compliance Scope Policy |
 | P10-PR-02 | complete | Tenant Isolation + Permission Audit Hardening |
-| P10-PR-03 | in progress | Audit Retention + Data Classification + Redaction Hardening |
-| P10-PR-04 | planned | Admin Security Controls + Session Policy + Compliance Dashboard |
+| P10-PR-03 | complete | Audit Retention + Data Classification + Redaction Hardening |
+| P10-PR-04 | in progress | Admin Security Controls + Session Policy + Compliance Dashboard |
 | P10-PR-05 | planned | Backup / Restore + Incident Response + Evidence Readiness |
 | P10-PR-06 | planned | Final P10 Audit / Runbook |
 
@@ -46,6 +46,11 @@ readiness only, not certification.
   dashboard readiness visibility. It adds no deletion automation, legal hold
   automation, retention job execution, report export, permission mutation, role
   mutation, CRM mutation, outbound send, or real AI provider.
+- P10-PR-04 adds only read-only Admin Security Controls, Session Policy, and
+  Compliance Dashboard readiness. It adds no SSO implementation, no MFA
+  implementation, no session revocation, no force logout, no permission
+  mutation, no role mutation, no CRM mutation, no outbound send, no real AI
+  provider, and no evidence export.
 
 ## Completion Gate
 

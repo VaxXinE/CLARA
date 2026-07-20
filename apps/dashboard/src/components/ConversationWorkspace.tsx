@@ -7,6 +7,7 @@ import { ChannelHealthPanel } from "./ChannelHealthPanel";
 import { GmailSchedulerStatusPanel } from "./GmailSchedulerStatusPanel";
 import { AuditRetentionReadinessPanel } from "./AuditRetentionReadinessPanel";
 import { DataClassificationReadinessPanel } from "./DataClassificationReadinessPanel";
+import { EnterpriseComplianceReadinessPanel } from "./EnterpriseComplianceReadinessPanel";
 import { PermissionAuditReadinessPanel } from "./PermissionAuditReadinessPanel";
 import { RedactionHardeningReadinessPanel } from "./RedactionHardeningReadinessPanel";
 import { TenantIsolationReadinessPanel } from "./TenantIsolationReadinessPanel";
@@ -20,6 +21,9 @@ type ConversationWorkspaceProps = {
   auditRetention?: ComponentProps<typeof AuditRetentionReadinessPanel>;
   dataClassification?: ComponentProps<typeof DataClassificationReadinessPanel>;
   redactionHardening?: ComponentProps<typeof RedactionHardeningReadinessPanel>;
+  enterpriseCompliance?: ComponentProps<
+    typeof EnterpriseComplianceReadinessPanel
+  >;
   channelHealth?: ComponentProps<typeof ChannelHealthPanel>;
   inbox: ComponentProps<typeof InboxPanel>;
   conversation: ComponentProps<typeof ConversationPane>;
@@ -67,6 +71,29 @@ export function ConversationWorkspace(props: ConversationWorkspaceProps) {
           readiness={props.redactionHardening?.readiness ?? null}
           loading={props.redactionHardening?.loading ?? false}
           error={props.redactionHardening?.error ?? null}
+        />
+        <EnterpriseComplianceReadinessPanel
+          adminSecurityControls={
+            props.enterpriseCompliance?.adminSecurityControls ?? {
+              readiness: null,
+              loading: false,
+              error: null,
+            }
+          }
+          sessionPolicy={
+            props.enterpriseCompliance?.sessionPolicy ?? {
+              readiness: null,
+              loading: false,
+              error: null,
+            }
+          }
+          complianceDashboard={
+            props.enterpriseCompliance?.complianceDashboard ?? {
+              readiness: null,
+              loading: false,
+              error: null,
+            }
+          }
         />
         <ChannelHealthPanel
           items={props.channelHealth?.items ?? []}

@@ -28,6 +28,11 @@ workspace, user, and role.
   AuthContext scoped API responses.
 - P10-PR-02 permission audit readiness reports role boundary evidence only; it
   does not mutate roles or permissions.
+- P10-PR-04 Admin Security Controls, Session Policy, and Compliance Dashboard
+  readiness remain workspace-scoped through Backend AuthContext. Client
+  workspaceId is never authority, and readiness output does not mutate roles,
+  permissions, sessions, CRM records, tasks, owners, lifecycle, status, notes,
+  or outbound messages.
 
 ## Non-Goals
 

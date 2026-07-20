@@ -1021,6 +1021,112 @@ export type RedactionHardeningReadinessResponse = {
   };
 };
 
+export type AdminSecurityControlsReadinessResponse = {
+  workspaceId: string;
+  generatedAt: string;
+  phase: "p10";
+  adminSecurity: {
+    backendAuthorizationRequired: true;
+    leastPrivilegeRequired: true;
+    privilegedActionAuditRequired: true;
+    frontendRoleGuardIsUxOnly: true;
+    roleMutationImplemented: false;
+    permissionMutationImplemented: false;
+    ssoImplemented: false;
+    mfaImplemented: false;
+    emergencyAccessPolicyDefined: true;
+    adminActionReviewRequired: true;
+  };
+  controls: Array<{
+    controlKey: string;
+    label: string;
+    description: string;
+    status: "ready" | "planned" | "blocked";
+    severity: "info" | "warning" | "critical";
+    evidenceType:
+      "policy" | "test" | "runtime_guardrail" | "dashboard_boundary";
+  }>;
+  safety: {
+    readOnly: true;
+    mutationAllowed: false;
+    roleMutationAllowed: false;
+    permissionMutationAllowed: false;
+    rawPermissionInternalsIncluded: false;
+    secretsIncluded: false;
+  };
+};
+
+export type SessionPolicyReadinessResponse = {
+  workspaceId: string;
+  generatedAt: string;
+  phase: "p10";
+  sessionPolicy: {
+    secureCookieRequired: true;
+    tokenStorageBoundaryRequired: true;
+    sessionTimeoutPolicyDefined: true;
+    idleTimeoutPolicyDefined: true;
+    refreshTokenRotationPolicyDefined: true;
+    revocationReadinessDefined: true;
+    forceLogoutImplemented: false;
+    sessionRevocationImplemented: false;
+    mfaStepUpImplemented: false;
+  };
+  controls: Array<{
+    controlKey: string;
+    label: string;
+    description: string;
+    status: "ready" | "planned" | "blocked";
+    severity: "info" | "warning" | "critical";
+  }>;
+  safety: {
+    readOnly: true;
+    mutationAllowed: false;
+    sessionRevoked: false;
+    forceLogoutExecuted: false;
+    tokensIncluded: false;
+    cookiesIncluded: false;
+    authHeadersIncluded: false;
+    secretsIncluded: false;
+  };
+};
+
+export type ComplianceDashboardResponse = {
+  workspaceId: string;
+  generatedAt: string;
+  phase: "p10";
+  readinessSummary: {
+    enterpriseScopeReady: true;
+    tenantIsolationReady: true;
+    permissionAuditReady: true;
+    auditRetentionReady: true;
+    dataClassificationReady: true;
+    redactionHardeningReady: true;
+    adminSecurityControlsReady: true;
+    sessionPolicyReady: true;
+    evidenceReadinessImplemented: false;
+    incidentResponseImplemented: false;
+    backupRestoreImplemented: false;
+    finalP10AuditImplemented: false;
+  };
+  categories: Array<{
+    categoryKey: string;
+    label: string;
+    description: string;
+    status: "ready" | "in_progress" | "planned" | "blocked";
+    riskLevel: "low" | "medium" | "high" | "critical";
+    safeEvidenceSummary: string;
+  }>;
+  safety: {
+    readOnly: true;
+    exportEnabled: false;
+    evidenceDownloadEnabled: false;
+    rawEvidenceIncluded: false;
+    rawAuditMetadataIncluded: false;
+    secretsIncluded: false;
+    certificationClaimed: false;
+  };
+};
+
 export type AnalyticsMetricCatalogResponse = {
   workspaceId: string;
   generatedAt: string;

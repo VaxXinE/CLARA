@@ -57,12 +57,18 @@ import { registerAnalyticsKpiDashboardRoutes } from "./routes/analytics-kpi-dash
 import { PermissionAuditReadinessService } from "../enterprise/permission-audit-service";
 import { TenantIsolationReadinessService } from "../enterprise/tenant-isolation-readiness-service";
 import { AuditRetentionReadinessService } from "../enterprise/audit-retention-readiness-service";
+import { AdminSecurityControlsService } from "../enterprise/admin-security-controls-service";
+import { ComplianceDashboardService } from "../enterprise/compliance-dashboard-service";
 import { DataClassificationRuntimeService } from "../enterprise/data-classification-runtime-service";
 import { RedactionHardeningService } from "../enterprise/redaction-hardening-service";
+import { SessionPolicyReadinessService } from "../enterprise/session-policy-readiness-service";
+import { registerEnterpriseAdminSecurityControlsReadinessRoutes } from "./routes/enterprise-admin-security-controls-readiness";
 import { registerEnterpriseAuditRetentionReadinessRoutes } from "./routes/enterprise-audit-retention-readiness";
+import { registerEnterpriseComplianceDashboardRoutes } from "./routes/enterprise-compliance-dashboard";
 import { registerEnterpriseDataClassificationReadinessRoutes } from "./routes/enterprise-data-classification-readiness";
 import { registerEnterprisePermissionAuditReadinessRoutes } from "./routes/enterprise-permission-audit-readiness";
 import { registerEnterpriseRedactionHardeningReadinessRoutes } from "./routes/enterprise-redaction-hardening-readiness";
+import { registerEnterpriseSessionPolicyReadinessRoutes } from "./routes/enterprise-session-policy-readiness";
 import { registerEnterpriseTenantIsolationReadinessRoutes } from "./routes/enterprise-tenant-isolation-readiness";
 import { registerWebchatRoutes } from "./routes/webchat";
 import { registerWhatsappRoutes } from "./routes/whatsapp";
@@ -116,6 +122,9 @@ export type CreateServerOptions = {
   auditRetentionReadinessService?: AuditRetentionReadinessService;
   dataClassificationRuntimeService?: DataClassificationRuntimeService;
   redactionHardeningService?: RedactionHardeningService;
+  adminSecurityControlsService?: AdminSecurityControlsService;
+  sessionPolicyReadinessService?: SessionPolicyReadinessService;
+  complianceDashboardService?: ComplianceDashboardService;
 };
 
 export type RequestWithRawBody = FastifyRequest & {
@@ -400,6 +409,22 @@ export async function createServer(
     app,
     authProvider,
     options.redactionHardeningService ?? new RedactionHardeningService(),
+  );
+  await registerEnterpriseAdminSecurityControlsReadinessRoutes(
+    app,
+    authProvider,
+    options.adminSecurityControlsService ?? new AdminSecurityControlsService(),
+  );
+  await registerEnterpriseSessionPolicyReadinessRoutes(
+    app,
+    authProvider,
+    options.sessionPolicyReadinessService ??
+      new SessionPolicyReadinessService(),
+  );
+  await registerEnterpriseComplianceDashboardRoutes(
+    app,
+    authProvider,
+    options.complianceDashboardService ?? new ComplianceDashboardService(),
   );
   if (services.channelHealth) {
     const conversationVolumeMetrics = new ConversationVolumeMetricsService(

@@ -637,7 +637,7 @@ no raw HTML
 ```
 
 Current phase: P10 Enterprise Hardening / Compliance.
-Next phase: P10 tenant isolation and permission audit hardening.
+Next phase: P10 backup / restore, incident response, and evidence readiness.
 
 ## P9 Analytics / Reporting / KPI Update
 
@@ -676,7 +676,7 @@ creation, outbound send, report export, raw customer messages, raw provider
 payload, raw webhook payload, raw audit metadata, access token, refresh token,
 cookies, auth headers, API keys, secrets, or real AI provider calls.
 
-P10-PR-03 is in progress with Audit Retention + Data Classification +
+P10-PR-03 is complete with Audit Retention + Data Classification +
 Redaction Hardening readiness. The API adds authenticated, Backend
 AuthContext-scoped, workspace-scoped readiness endpoints for audit retention,
 data classification, and redaction hardening. The work adds safe audit metadata
@@ -686,6 +686,19 @@ hold automation, no report export, no permission mutation, no role mutation, no
 CRM mutation, no outbound send, no raw customer messages, no raw provider
 payload, no raw webhook payload, no raw audit metadata, no access token, no
 refresh token, no cookies, and no real AI provider.
+
+P10-PR-04 is in progress with Admin Security Controls + Session Policy +
+Compliance Dashboard readiness. The API adds authenticated, Backend
+AuthContext-scoped, workspace-scoped readiness endpoints for admin security,
+session policy, and compliance dashboard. Dashboard panels show compliance
+readiness, not certification, and extension regression keeps admin/session/
+compliance internals out of the browser extension. Client workspaceId is never
+authority, frontend role guard is UX-only, and the work adds no permission
+mutation, no role mutation, no session revocation, no force logout, no SSO
+implementation, no MFA implementation, no CRM mutation, no outbound send, no
+evidence export, no raw customer messages, no raw provider payload, no raw
+webhook payload, no raw audit metadata, no access token, no refresh token, no
+cookies, and no real AI provider.
 
 This phase does not claim SOC 2, ISO 27001, GDPR, HIPAA, or PCI certification.
 It also does not add SSO, MFA, billing, report export, data deletion jobs,
