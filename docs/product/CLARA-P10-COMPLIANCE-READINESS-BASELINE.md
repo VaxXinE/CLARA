@@ -77,6 +77,24 @@ permission mutation, no role mutation, no session revocation, no force logout,
 no SSO implementation, no MFA implementation, no CRM mutation, no outbound
 send, no real AI provider, and no evidence export.
 
+## P10-PR-05 Readiness Evidence
+
+P10-PR-05 adds compliance readiness evidence for Backup / Restore, Incident
+Response, Evidence Readiness, and Operational Resilience:
+
+- `GET /api/v1/enterprise/backup-restore/readiness`
+- `GET /api/v1/enterprise/incident-response/readiness`
+- `GET /api/v1/enterprise/evidence/readiness`
+
+These endpoints are authenticated, workspace-scoped through Backend
+AuthContext, read-only, and not certification. Client workspaceId is never
+authority. They return safe evidence summary only and include no raw evidence,
+no raw customer messages, no raw provider payload, no raw webhook payload, no
+raw audit metadata, no access token, no refresh token, no cookies, no auth
+headers, no API keys, and no secrets. They execute no backup, no restore, no
+data deletion automation, no legal hold automation, no evidence export, no CRM
+mutation, no outbound send, no report generation, and no real AI provider.
+
 ## Prohibited Claims
 
 Do not claim CLARA is certified, compliant, audited, attested, or production

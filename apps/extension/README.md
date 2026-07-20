@@ -190,3 +190,13 @@ access token, refresh token, cookies, auth headers, API keys, secrets, raw DOM,
 raw HTML, raw prompts, permission mutation, role mutation, session revocation,
 force logout, CRM mutation, outbound send, evidence export, SSO implementation,
 MFA implementation, or real AI provider behavior.
+
+P10-PR-05 keeps Backup / Restore, Incident Response, Evidence Readiness, and
+Operational Resilience internals out of the extension runtime. The extension
+does not request backup/restore internals, incident response internals,
+evidence internals, raw compliance evidence, cross-workspace enterprise data,
+raw customer messages, raw provider payload, raw webhook payload, raw audit
+metadata, raw evidence, raw DOM, raw HTML, raw prompts, access token, refresh
+token, cookies, auth headers, API keys, secrets, backup execution, restore
+execution, data deletion automation, legal hold automation, evidence export,
+CRM mutation, outbound send, or real AI provider behavior.

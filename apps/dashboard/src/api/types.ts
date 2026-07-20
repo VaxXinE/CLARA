@@ -1103,9 +1103,9 @@ export type ComplianceDashboardResponse = {
     redactionHardeningReady: true;
     adminSecurityControlsReady: true;
     sessionPolicyReady: true;
-    evidenceReadinessImplemented: false;
-    incidentResponseImplemented: false;
-    backupRestoreImplemented: false;
+    evidenceReadinessImplemented: true;
+    incidentResponseImplemented: true;
+    backupRestoreImplemented: true;
     finalP10AuditImplemented: false;
   };
   categories: Array<{
@@ -1120,6 +1120,118 @@ export type ComplianceDashboardResponse = {
     readOnly: true;
     exportEnabled: false;
     evidenceDownloadEnabled: false;
+    rawEvidenceIncluded: false;
+    rawAuditMetadataIncluded: false;
+    secretsIncluded: false;
+    certificationClaimed: false;
+  };
+};
+
+export type BackupRestoreReadinessResponse = {
+  workspaceId: string;
+  generatedAt: string;
+  phase: "p10";
+  backupRestore: {
+    backupPolicyDefined: true;
+    restorePolicyDefined: true;
+    recoveryObjectiveDefined: true;
+    restoreTestReadinessDefined: true;
+    backupJobImplemented: false;
+    restoreJobImplemented: false;
+    automatedBackupImplemented: false;
+    automatedRestoreImplemented: false;
+    destructiveOperationAllowed: false;
+  };
+  controls: Array<{
+    controlKey: string;
+    label: string;
+    description: string;
+    status: "ready" | "planned" | "blocked";
+    severity: "info" | "warning" | "critical";
+    evidenceType:
+      "policy" | "checklist" | "runbook" | "test" | "dashboard_boundary";
+  }>;
+  safety: {
+    readOnly: true;
+    mutationAllowed: false;
+    backupExecuted: false;
+    restoreExecuted: false;
+    dataDeleted: false;
+    secretsIncluded: false;
+    rawEvidenceIncluded: false;
+  };
+};
+
+export type IncidentResponseReadinessResponse = {
+  workspaceId: string;
+  generatedAt: string;
+  phase: "p10";
+  incidentResponse: {
+    severityModelDefined: true;
+    escalationPolicyDefined: true;
+    communicationPolicyDefined: true;
+    containmentChecklistDefined: true;
+    evidencePreservationDefined: true;
+    postIncidentReviewDefined: true;
+    automatedIncidentExecutionImplemented: false;
+    legalHoldAutomationImplemented: false;
+    dataDeletionAutomationImplemented: false;
+  };
+  severityLevels: Array<"sev1" | "sev2" | "sev3" | "sev4">;
+  controls: Array<{
+    controlKey: string;
+    label: string;
+    description: string;
+    status: "ready" | "planned" | "blocked";
+    severity: "info" | "warning" | "critical";
+    safeEvidenceSummary: string;
+  }>;
+  safety: {
+    readOnly: true;
+    mutationAllowed: false;
+    incidentCreated: false;
+    escalationExecuted: false;
+    notificationSent: false;
+    legalHoldExecuted: false;
+    dataDeleted: false;
+    rawEvidenceIncluded: false;
+    secretsIncluded: false;
+  };
+};
+
+export type EvidenceReadinessResponse = {
+  workspaceId: string;
+  generatedAt: string;
+  phase: "p10";
+  evidenceReadiness: {
+    evidenceCategoriesDefined: true;
+    safeEvidenceSummaryOnly: true;
+    rawEvidenceBrowsingImplemented: false;
+    evidenceExportImplemented: false;
+    evidenceDownloadImplemented: false;
+    certificationClaimed: false;
+    auditTrailLinked: true;
+    retentionPolicyLinked: true;
+  };
+  categories: Array<{
+    categoryKey: string;
+    label: string;
+    description: string;
+    classification: "internal" | "confidential" | "restricted";
+    evidenceSource:
+      | "policy"
+      | "test_result"
+      | "runbook"
+      | "runtime_guardrail"
+      | "dashboard_boundary"
+      | "extension_boundary";
+    rawEvidenceIncluded: false;
+    exportAllowed: false;
+  }>;
+  safety: {
+    readOnly: true;
+    exportEnabled: false;
+    downloadEnabled: false;
     rawEvidenceIncluded: false;
     rawAuditMetadataIncluded: false;
     secretsIncluded: false;

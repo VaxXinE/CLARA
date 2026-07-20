@@ -21,8 +21,8 @@ readiness only, not certification.
 | P10-PR-01 | complete | Enterprise Hardening + Compliance Scope Policy |
 | P10-PR-02 | complete | Tenant Isolation + Permission Audit Hardening |
 | P10-PR-03 | complete | Audit Retention + Data Classification + Redaction Hardening |
-| P10-PR-04 | in progress | Admin Security Controls + Session Policy + Compliance Dashboard |
-| P10-PR-05 | planned | Backup / Restore + Incident Response + Evidence Readiness |
+| P10-PR-04 | complete | Admin Security Controls + Session Policy + Compliance Dashboard |
+| P10-PR-05 | in progress | Backup / Restore + Incident Response + Evidence Readiness |
 | P10-PR-06 | planned | Final P10 Audit / Runbook |
 
 ## Guardrails
@@ -51,6 +51,11 @@ readiness only, not certification.
   implementation, no session revocation, no force logout, no permission
   mutation, no role mutation, no CRM mutation, no outbound send, no real AI
   provider, and no evidence export.
+- P10-PR-05 adds only read-only Backup / Restore, Incident Response, Evidence
+  Readiness, and Operational Resilience readiness. It adds no backup execution,
+  no restore execution, no data deletion automation, no legal hold automation,
+  no evidence export, no evidence download, no CRM mutation, no outbound send,
+  no report generation, and no real AI provider.
 
 ## Completion Gate
 

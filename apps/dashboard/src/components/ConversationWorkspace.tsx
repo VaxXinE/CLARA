@@ -94,6 +94,27 @@ export function ConversationWorkspace(props: ConversationWorkspaceProps) {
               error: null,
             }
           }
+          backupRestore={
+            props.enterpriseCompliance?.backupRestore ?? {
+              readiness: null,
+              loading: false,
+              error: null,
+            }
+          }
+          incidentResponse={
+            props.enterpriseCompliance?.incidentResponse ?? {
+              readiness: null,
+              loading: false,
+              error: null,
+            }
+          }
+          evidence={
+            props.enterpriseCompliance?.evidence ?? {
+              readiness: null,
+              loading: false,
+              error: null,
+            }
+          }
         />
         <ChannelHealthPanel
           items={props.channelHealth?.items ?? []}

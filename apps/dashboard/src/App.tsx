@@ -11,6 +11,7 @@ import type {
   AiFollowUpRecommendationResponse,
   AiReplySuggestionResponse,
   AuditRetentionReadinessResponse,
+  BackupRestoreReadinessResponse,
   ChannelHealthItem,
   ComplianceDashboardResponse,
   ConversationDetailResponse,
@@ -23,8 +24,10 @@ import type {
   DataClassificationReadinessResponse,
   DemoAuthProfile,
   DemoRole,
+  EvidenceReadinessResponse,
   GmailOutboundDeliveryStatus,
   GmailSchedulerStatus,
+  IncidentResponseReadinessResponse,
   MeResponse,
   PermissionAuditReadinessResponse,
   RedactionHardeningReadinessResponse,
@@ -184,6 +187,12 @@ function WorkspaceAppShell() {
     useState<SessionPolicyReadinessResponse | null>(null);
   const [complianceDashboard, setComplianceDashboard] =
     useState<ComplianceDashboardResponse | null>(null);
+  const [backupRestoreReadiness, setBackupRestoreReadiness] =
+    useState<BackupRestoreReadinessResponse | null>(null);
+  const [incidentResponseReadiness, setIncidentResponseReadiness] =
+    useState<IncidentResponseReadinessResponse | null>(null);
+  const [evidenceReadiness, setEvidenceReadiness] =
+    useState<EvidenceReadinessResponse | null>(null);
   const [workspaceMembers, setWorkspaceMembers] = useState<WorkspaceMember[]>(
     [],
   );
@@ -310,6 +319,16 @@ function WorkspaceAppShell() {
   const [complianceDashboardError, setComplianceDashboardError] = useState<
     string | null
   >(null);
+  const [backupRestoreLoading, setBackupRestoreLoading] = useState(false);
+  const [backupRestoreError, setBackupRestoreError] = useState<string | null>(
+    null,
+  );
+  const [incidentResponseLoading, setIncidentResponseLoading] = useState(false);
+  const [incidentResponseError, setIncidentResponseError] = useState<
+    string | null
+  >(null);
+  const [evidenceLoading, setEvidenceLoading] = useState(false);
+  const [evidenceError, setEvidenceError] = useState<string | null>(null);
   const [composerError, setComposerError] = useState<string | null>(null);
   const [isGeneratingDraft, setIsGeneratingDraft] = useState(false);
   const [isGeneratingSuggestion, setIsGeneratingSuggestion] = useState(false);
@@ -576,6 +595,9 @@ function WorkspaceAppShell() {
       setAdminSecurityControlsReadiness(null);
       setSessionPolicyReadiness(null);
       setComplianceDashboard(null);
+      setBackupRestoreReadiness(null);
+      setIncidentResponseReadiness(null);
+      setEvidenceReadiness(null);
       setTenantIsolationLoading(false);
       setPermissionAuditLoading(false);
       setAuditRetentionLoading(false);
@@ -584,6 +606,9 @@ function WorkspaceAppShell() {
       setAdminSecurityControlsLoading(false);
       setSessionPolicyLoading(false);
       setComplianceDashboardLoading(false);
+      setBackupRestoreLoading(false);
+      setIncidentResponseLoading(false);
+      setEvidenceLoading(false);
       setTenantIsolationError(null);
       setPermissionAuditError(null);
       setAuditRetentionError(null);
@@ -592,6 +617,9 @@ function WorkspaceAppShell() {
       setAdminSecurityControlsError(null);
       setSessionPolicyError(null);
       setComplianceDashboardError(null);
+      setBackupRestoreError(null);
+      setIncidentResponseError(null);
+      setEvidenceError(null);
       return;
     }
 
@@ -612,6 +640,9 @@ function WorkspaceAppShell() {
       setAdminSecurityControlsLoading(true);
       setSessionPolicyLoading(true);
       setComplianceDashboardLoading(true);
+      setBackupRestoreLoading(true);
+      setIncidentResponseLoading(true);
+      setEvidenceLoading(true);
       setTenantIsolationError(null);
       setPermissionAuditError(null);
       setAuditRetentionError(null);
@@ -620,6 +651,9 @@ function WorkspaceAppShell() {
       setAdminSecurityControlsError(null);
       setSessionPolicyError(null);
       setComplianceDashboardError(null);
+      setBackupRestoreError(null);
+      setIncidentResponseError(null);
+      setEvidenceError(null);
 
       try {
         const [
@@ -631,6 +665,9 @@ function WorkspaceAppShell() {
           adminSecurityControlsResponse,
           sessionPolicyResponse,
           complianceDashboardResponse,
+          backupRestoreResponse,
+          incidentResponseResponse,
+          evidenceResponse,
         ] = await Promise.all([
           client.getTenantIsolationReadiness(),
           client.getPermissionAuditReadiness(),
@@ -640,6 +677,9 @@ function WorkspaceAppShell() {
           client.getAdminSecurityControlsReadiness(),
           client.getSessionPolicyReadiness(),
           client.getComplianceDashboard(),
+          client.getBackupRestoreReadiness(),
+          client.getIncidentResponseReadiness(),
+          client.getEvidenceReadiness(),
         ]);
 
         if (!cancelled) {
@@ -651,6 +691,9 @@ function WorkspaceAppShell() {
           setAdminSecurityControlsReadiness(adminSecurityControlsResponse);
           setSessionPolicyReadiness(sessionPolicyResponse);
           setComplianceDashboard(complianceDashboardResponse);
+          setBackupRestoreReadiness(backupRestoreResponse);
+          setIncidentResponseReadiness(incidentResponseResponse);
+          setEvidenceReadiness(evidenceResponse);
         }
       } catch (error) {
         if (!cancelled) {
@@ -662,6 +705,9 @@ function WorkspaceAppShell() {
           setAdminSecurityControlsReadiness(null);
           setSessionPolicyReadiness(null);
           setComplianceDashboard(null);
+          setBackupRestoreReadiness(null);
+          setIncidentResponseReadiness(null);
+          setEvidenceReadiness(null);
           const message = toSafeMessage(
             error,
             "Enterprise readiness is unavailable.",
@@ -674,6 +720,9 @@ function WorkspaceAppShell() {
           setAdminSecurityControlsError(message);
           setSessionPolicyError(message);
           setComplianceDashboardError(message);
+          setBackupRestoreError(message);
+          setIncidentResponseError(message);
+          setEvidenceError(message);
         }
       } finally {
         if (!cancelled) {
@@ -685,6 +734,9 @@ function WorkspaceAppShell() {
           setAdminSecurityControlsLoading(false);
           setSessionPolicyLoading(false);
           setComplianceDashboardLoading(false);
+          setBackupRestoreLoading(false);
+          setIncidentResponseLoading(false);
+          setEvidenceLoading(false);
         }
       }
     }
@@ -1542,6 +1594,21 @@ function WorkspaceAppShell() {
             readiness: complianceDashboard,
             loading: complianceDashboardLoading,
             error: complianceDashboardError,
+          },
+          backupRestore: {
+            readiness: backupRestoreReadiness,
+            loading: backupRestoreLoading,
+            error: backupRestoreError,
+          },
+          incidentResponse: {
+            readiness: incidentResponseReadiness,
+            loading: incidentResponseLoading,
+            error: incidentResponseError,
+          },
+          evidence: {
+            readiness: evidenceReadiness,
+            loading: evidenceLoading,
+            error: evidenceError,
           },
         }}
         channelHealth={{

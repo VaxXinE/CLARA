@@ -9,6 +9,7 @@ import type {
   AiFollowUpRecommendationResponse,
   AiReplySuggestionResponse,
   AuditRetentionReadinessResponse,
+  BackupRestoreReadinessResponse,
   AnalyticsMetricCatalogResponse,
   AnalyticsOverviewResponse,
   AnalyticsReadinessResponse,
@@ -28,8 +29,10 @@ import type {
   CustomerTimelineIntelligenceResponse,
   DataClassificationReadinessResponse,
   DemoAuthProfile,
+  EvidenceReadinessResponse,
   GmailOutboundDeliveryStatusResponse,
   GmailSchedulerStatusResponse,
+  IncidentResponseReadinessResponse,
   KpiDashboardResponse,
   MeResponse,
   PermissionAuditReadinessResponse,
@@ -325,6 +328,24 @@ export class ApiClient {
   async getComplianceDashboard(): Promise<ComplianceDashboardResponse> {
     return this.request<ComplianceDashboardResponse>(
       "/api/v1/enterprise/compliance-dashboard",
+    );
+  }
+
+  async getBackupRestoreReadiness(): Promise<BackupRestoreReadinessResponse> {
+    return this.request<BackupRestoreReadinessResponse>(
+      "/api/v1/enterprise/backup-restore/readiness",
+    );
+  }
+
+  async getIncidentResponseReadiness(): Promise<IncidentResponseReadinessResponse> {
+    return this.request<IncidentResponseReadinessResponse>(
+      "/api/v1/enterprise/incident-response/readiness",
+    );
+  }
+
+  async getEvidenceReadiness(): Promise<EvidenceReadinessResponse> {
+    return this.request<EvidenceReadinessResponse>(
+      "/api/v1/enterprise/evidence/readiness",
     );
   }
 

@@ -1,6 +1,9 @@
 import type { ComponentProps } from "react";
 import { AdminSecurityControlsReadinessPanel } from "./AdminSecurityControlsReadinessPanel";
+import { BackupRestoreReadinessPanel } from "./BackupRestoreReadinessPanel";
 import { ComplianceDashboardReadinessPanel } from "./ComplianceDashboardReadinessPanel";
+import { EvidenceReadinessPanel } from "./EvidenceReadinessPanel";
+import { IncidentResponseReadinessPanel } from "./IncidentResponseReadinessPanel";
 import { SessionPolicyReadinessPanel } from "./SessionPolicyReadinessPanel";
 
 type EnterpriseComplianceReadinessPanelProps = {
@@ -11,6 +14,9 @@ type EnterpriseComplianceReadinessPanelProps = {
   complianceDashboard?: ComponentProps<
     typeof ComplianceDashboardReadinessPanel
   >;
+  backupRestore?: ComponentProps<typeof BackupRestoreReadinessPanel>;
+  incidentResponse?: ComponentProps<typeof IncidentResponseReadinessPanel>;
+  evidence?: ComponentProps<typeof EvidenceReadinessPanel>;
 };
 
 export function EnterpriseComplianceReadinessPanel(
@@ -58,6 +64,21 @@ export function EnterpriseComplianceReadinessPanel(
       <AdminSecurityControlsReadinessPanel {...props.adminSecurityControls} />
       <SessionPolicyReadinessPanel {...props.sessionPolicy} />
       <ComplianceDashboardReadinessPanel {...props.complianceDashboard} />
+      <BackupRestoreReadinessPanel
+        readiness={props.backupRestore?.readiness ?? null}
+        loading={props.backupRestore?.loading ?? false}
+        error={props.backupRestore?.error ?? null}
+      />
+      <IncidentResponseReadinessPanel
+        readiness={props.incidentResponse?.readiness ?? null}
+        loading={props.incidentResponse?.loading ?? false}
+        error={props.incidentResponse?.error ?? null}
+      />
+      <EvidenceReadinessPanel
+        readiness={props.evidence?.readiness ?? null}
+        loading={props.evidence?.loading ?? false}
+        error={props.evidence?.error ?? null}
+      />
     </>
   );
 }

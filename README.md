@@ -19,7 +19,7 @@ It contains the documentation, architecture, standards, templates, governance, i
 ```text
 Status: MVP slice runnable locally
 Current focus: P10 Enterprise Hardening / Compliance
-Next focus: P10 backup / restore, incident response, and evidence readiness
+Next focus: P10 final audit / runbook
 ```
 
 Current MVP implementation:
@@ -68,6 +68,7 @@ P9 COMPLETE after P9-PR-06 with Final P9 Audit, Production Runbook, Security Che
 P10 Enterprise Hardening / Compliance now starts with compliance readiness, not certification, Backend AuthContext, workspace-scoped tenant isolation, least privilege, data classification, audit readiness, retention readiness, incident response readiness, no raw customer messages, no raw provider payload, no raw webhook payload, no raw audit metadata, no access token, no refresh token, no cookies, no CRM mutation, no outbound send, and no real AI provider
 P10-PR-03 adds Audit Retention, Data Classification, Redaction Hardening, Sensitive Field Classifier, and safe audit metadata readiness. It is compliance readiness, not certification. Backend AuthContext remains required, client workspaceId is never authority, output is workspace-scoped, and the work adds no permission mutation, no role mutation, no CRM mutation, no outbound send, no deletion automation, no legal hold automation, no report export, and no real AI provider.
 P10-PR-04 adds Admin Security Controls, Session Policy, and Compliance Dashboard readiness. It is compliance readiness, not certification. Backend AuthContext remains required, client workspaceId is never authority, output is workspace-scoped, frontend role guard is UX-only, and the work adds no permission mutation, no role mutation, no session revocation, no force logout, no SSO implementation, no MFA implementation, no CRM mutation, no outbound send, no evidence export, and no real AI provider.
+P10-PR-05 adds Backup / Restore, Incident Response, Evidence Readiness, and Operational Resilience readiness. It is compliance readiness, not certification. Backend AuthContext remains required, client workspaceId is never authority, output is workspace-scoped, and the work adds no backup execution, no restore execution, no data deletion automation, no legal hold automation, no evidence export, no evidence download, no CRM mutation, no outbound send, no report generation, and no real AI provider.
 ```
 
 Start here for local usage:
@@ -163,6 +164,7 @@ docs/product/CLARA-P10-COMPLIANCE-READINESS-BASELINE.md
 docs/product/CLARA-P10-DATA-CLASSIFICATION-POLICY.md
 docs/product/CLARA-P10-TENANT-ISOLATION-POLICY.md
 docs/product/CLARA-P10-AUDIT-RETENTION-DATA-CLASSIFICATION-REDACTION-HARDENING-SPEC.md
+docs/product/CLARA-P10-BACKUP-RESTORE-INCIDENT-RESPONSE-EVIDENCE-READINESS-SPEC.md
 ```
 
 ---
