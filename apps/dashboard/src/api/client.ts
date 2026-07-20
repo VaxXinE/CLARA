@@ -28,8 +28,10 @@ import type {
   GmailSchedulerStatusResponse,
   KpiDashboardResponse,
   MeResponse,
+  PermissionAuditReadinessResponse,
   ReplySendResponse,
   RoleManagementReadinessResponse,
+  TenantIsolationReadinessResponse,
   WebchatOutboundDeliveryStatusResponse,
   WorkspaceMembersResponse,
 } from "./types";
@@ -269,6 +271,18 @@ export class ApiClient {
   async getAnalyticsReadiness(): Promise<AnalyticsReadinessResponse> {
     return this.request<AnalyticsReadinessResponse>(
       "/api/v1/analytics/readiness",
+    );
+  }
+
+  async getTenantIsolationReadiness(): Promise<TenantIsolationReadinessResponse> {
+    return this.request<TenantIsolationReadinessResponse>(
+      "/api/v1/enterprise/tenant-isolation/readiness",
+    );
+  }
+
+  async getPermissionAuditReadiness(): Promise<PermissionAuditReadinessResponse> {
+    return this.request<PermissionAuditReadinessResponse>(
+      "/api/v1/enterprise/permission-audit/readiness",
     );
   }
 

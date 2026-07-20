@@ -18,14 +18,12 @@ readiness only, not certification.
 
 | PR | Status | Scope |
 |---|---|---|
-| P10-PR-01 | in progress | Enterprise Hardening + Compliance Scope Policy |
-| P10-PR-02 | planned | Tenant Isolation + Permission Audit Hardening |
-| P10-PR-03 | planned | Audit Retention + Compliance Event Policy |
-| P10-PR-04 | planned | Data Classification + Redaction Hardening |
-| P10-PR-05 | planned | Admin Security Controls + Session Policy Readiness |
-| P10-PR-06 | planned | Compliance Dashboard + Evidence Readiness |
-| P10-PR-07 | planned | Backup / Restore + Incident Response Runbook |
-| P10-PR-08 | planned | Final P10 Audit / Runbook |
+| P10-PR-01 | complete | Enterprise Hardening + Compliance Scope Policy |
+| P10-PR-02 | in progress | Tenant Isolation + Permission Audit Hardening |
+| P10-PR-03 | planned | Audit Retention + Data Classification + Redaction Hardening |
+| P10-PR-04 | planned | Admin Security Controls + Session Policy + Compliance Dashboard |
+| P10-PR-05 | planned | Backup / Restore + Incident Response + Evidence Readiness |
+| P10-PR-06 | planned | Final P10 Audit / Runbook |
 
 ## Guardrails
 
@@ -37,9 +35,15 @@ readiness only, not certification.
 - P10-PR-01 does not add SSO, MFA, billing, export, data deletion automation,
   backup automation, provider integration, CRM mutation, outbound send, or real
   AI provider calls.
+- P10-PR-02 adds only read-only tenant isolation and permission audit readiness
+  endpoints and dashboard visibility. It adds no role mutation, permission
+  mutation, CRM mutation, task creation, outbound send, report export, raw
+  customer messages, raw provider payload, raw webhook payload, raw audit
+  metadata, access token, refresh token, cookies, auth headers, API keys, or
+  secrets.
 
 ## Completion Gate
 
-P10 is complete only after P10-PR-08 merges with final audit, production
+P10 is complete only after P10-PR-06 merges with final audit, production
 runbook, incident response readiness, evidence readiness, and security
 signoff.

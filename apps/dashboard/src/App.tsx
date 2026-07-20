@@ -22,7 +22,9 @@ import type {
   GmailOutboundDeliveryStatus,
   GmailSchedulerStatus,
   MeResponse,
+  PermissionAuditReadinessResponse,
   RoleManagementReadiness,
+  TenantIsolationReadinessResponse,
   WebchatOutboundDeliveryStatus,
   WorkspaceMember,
 } from "./api/types";
@@ -160,6 +162,10 @@ function WorkspaceAppShell() {
     useState<WebchatOutboundDeliveryStatus | null>(null);
   const [roleManagementReadiness, setRoleManagementReadiness] =
     useState<RoleManagementReadiness | null>(null);
+  const [tenantIsolationReadiness, setTenantIsolationReadiness] =
+    useState<TenantIsolationReadinessResponse | null>(null);
+  const [permissionAuditReadiness, setPermissionAuditReadiness] =
+    useState<PermissionAuditReadinessResponse | null>(null);
   const [workspaceMembers, setWorkspaceMembers] = useState<WorkspaceMember[]>(
     [],
   );
@@ -250,6 +256,14 @@ function WorkspaceAppShell() {
   const [roleManagementError, setRoleManagementError] = useState<string | null>(
     null,
   );
+  const [tenantIsolationLoading, setTenantIsolationLoading] = useState(false);
+  const [tenantIsolationError, setTenantIsolationError] = useState<
+    string | null
+  >(null);
+  const [permissionAuditLoading, setPermissionAuditLoading] = useState(false);
+  const [permissionAuditError, setPermissionAuditError] = useState<
+    string | null
+  >(null);
   const [composerError, setComposerError] = useState<string | null>(null);
   const [isGeneratingDraft, setIsGeneratingDraft] = useState(false);
   const [isGeneratingSuggestion, setIsGeneratingSuggestion] = useState(false);
@@ -494,6 +508,73 @@ function WorkspaceAppShell() {
     }
 
     void loadRoleManagementReadiness();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [
+    auth.config.mode,
+    auth.session?.accessToken,
+    auth.status,
+    me,
+    selectedRole,
+  ]);
+
+  useEffect(() => {
+    if (auth.status !== "authenticated" || !me) {
+      setTenantIsolationReadiness(null);
+      setPermissionAuditReadiness(null);
+      setTenantIsolationLoading(false);
+      setPermissionAuditLoading(false);
+      setTenantIsolationError(null);
+      setPermissionAuditError(null);
+      return;
+    }
+
+    let cancelled = false;
+
+    async function loadEnterpriseReadiness() {
+      const client = buildClient({
+        authMode: auth.config.mode,
+        role: selectedRole,
+        accessToken: auth.session?.accessToken ?? null,
+      });
+
+      setTenantIsolationLoading(true);
+      setPermissionAuditLoading(true);
+      setTenantIsolationError(null);
+      setPermissionAuditError(null);
+
+      try {
+        const [tenantResponse, permissionResponse] = await Promise.all([
+          client.getTenantIsolationReadiness(),
+          client.getPermissionAuditReadiness(),
+        ]);
+
+        if (!cancelled) {
+          setTenantIsolationReadiness(tenantResponse);
+          setPermissionAuditReadiness(permissionResponse);
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setTenantIsolationReadiness(null);
+          setPermissionAuditReadiness(null);
+          const message = toSafeMessage(
+            error,
+            "Enterprise readiness is unavailable.",
+          );
+          setTenantIsolationError(message);
+          setPermissionAuditError(message);
+        }
+      } finally {
+        if (!cancelled) {
+          setTenantIsolationLoading(false);
+          setPermissionAuditLoading(false);
+        }
+      }
+    }
+
+    void loadEnterpriseReadiness();
 
     return () => {
       cancelled = true;
@@ -1305,6 +1386,16 @@ function WorkspaceAppShell() {
           status: gmailSchedulerStatus,
           loading: gmailSchedulerLoading,
           error: gmailSchedulerError,
+        }}
+        tenantIsolation={{
+          readiness: tenantIsolationReadiness,
+          loading: tenantIsolationLoading,
+          error: tenantIsolationError,
+        }}
+        permissionAudit={{
+          readiness: permissionAuditReadiness,
+          loading: permissionAuditLoading,
+          error: permissionAuditError,
         }}
         channelHealth={{
           items: channelHealthItems,

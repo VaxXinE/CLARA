@@ -852,6 +852,79 @@ export type AnalyticsReadinessResponse = {
   };
 };
 
+export type EnterpriseReadinessStatus = "ready" | "warning" | "blocked";
+
+export type TenantIsolationReadinessResponse = {
+  workspaceId: string;
+  generatedAt: string;
+  phase: "p10";
+  readiness: {
+    backendAuthContextSourceOfTruth: true;
+    clientWorkspaceIdAuthoritative: false;
+    workspaceScopedReadsRequired: true;
+    workspaceScopedWritesRequired: true;
+    crossWorkspaceAccessDenied: true;
+    safeErrorBehaviorRequired: true;
+    auditOnBoundaryViolationRequired: true;
+    dashboardUxBoundaryRequired: true;
+    extensionBoundaryRequired: true;
+  };
+  checks: Array<{
+    checkKey: string;
+    label: string;
+    description: string;
+    status: EnterpriseReadinessStatus;
+    severity: "info" | "warning" | "critical";
+    evidenceType:
+      | "policy"
+      | "test"
+      | "runtime_guardrail"
+      | "dashboard_boundary"
+      | "extension_boundary";
+  }>;
+  safety: {
+    readOnly: true;
+    mutationAllowed: false;
+    rawTenantDataIncluded: false;
+    rawCustomerMessagesIncluded: false;
+    rawProviderPayloadIncluded: false;
+    rawWebhookPayloadIncluded: false;
+    rawAuditMetadataIncluded: false;
+    secretsIncluded: false;
+  };
+};
+
+export type PermissionAuditReadinessResponse = {
+  workspaceId: string;
+  generatedAt: string;
+  phase: "p10";
+  permissionAudit: {
+    leastPrivilegeRequired: true;
+    roleBoundaryRequired: true;
+    backendAuthorizationRequired: true;
+    frontendRoleGuardIsUxOnly: true;
+    permissionDeniedEventsAuditable: true;
+    privilegedActionReviewRequired: true;
+    safeAuditMetadataOnly: true;
+  };
+  roleBoundaries: Array<{
+    role: "owner" | "agent" | "viewer";
+    allowedSurfaceKeys: string[];
+    deniedSurfaceKeys: string[];
+    auditRequiredForDeniedAccess: true;
+    mutationAllowed: false;
+  }>;
+  safety: {
+    readOnly: true;
+    mutationAllowed: false;
+    permissionMutationAllowed: false;
+    roleMutationAllowed: false;
+    rawPermissionInternalsIncluded: false;
+    rawAuditMetadataIncluded: false;
+    secretsIncluded: false;
+  };
+};
+
 export type AnalyticsMetricCatalogResponse = {
   workspaceId: string;
   generatedAt: string;

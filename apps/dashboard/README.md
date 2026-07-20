@@ -448,3 +448,12 @@ not add export/download, execute/apply, task creation, owner assignment,
 status update, note write, outbound send, raw customer messages, raw provider
 payload, raw webhook payload, raw audit metadata, access token, refresh token,
 cookies, auth headers, API keys, secrets, or unsafe HTML rendering.
+
+P10-PR-02 adds read-only Tenant Isolation Readiness and Permission Audit
+Readiness visibility. The dashboard calls only authenticated read endpoints and
+uses the backend as the authority for organization, workspace, user, and role.
+The panels show safe readiness summaries only. They do not add role mutation,
+no permission mutation, no CRM mutation, task creation, outbound send, report
+export, raw customer messages, raw provider payload, raw webhook payload, raw
+audit metadata, access token, refresh token, cookies, auth headers, API keys,
+secrets, or unsafe HTML rendering.

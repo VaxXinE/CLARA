@@ -1138,6 +1138,22 @@ access token, no refresh token, and no cookies, and they perform no CRM
 mutation, no task creation, no outbound send, no report export, no
 customer-level drilldown, and no real AI provider call.
 
+P10-PR-02 adds Tenant Isolation + Permission Audit Hardening readiness:
+
+```text
+GET /api/v1/enterprise/tenant-isolation/readiness
+GET /api/v1/enterprise/permission-audit/readiness
+```
+
+Both endpoints require auth, derive organization/workspace from Backend
+AuthContext, are workspace-scoped, and return read-only readiness summaries.
+Client-supplied organization/workspace identifiers are not authority. Responses
+include no raw customer messages, no raw provider payload, no raw webhook
+payload, no raw audit metadata, no access token, no refresh token, no cookies,
+no auth headers, no API keys, and no secrets. They add no role mutation,
+no permission mutation, no CRM mutation, task creation, outbound send, report
+export, or real AI provider.
+
 ## P7 Final AI Assistant Audit
 
 Final API regression coverage verifies:

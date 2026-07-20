@@ -666,6 +666,16 @@ incident response readiness, and evidence readiness. It keeps Backend
 AuthContext as the source of truth, keeps access workspace-scoped, and uses
 least privilege as the enterprise baseline.
 
+P10-PR-02 adds Tenant Isolation + Permission Audit Hardening readiness. The API
+now exposes authenticated, workspace-scoped, read-only tenant isolation and
+permission audit readiness endpoints. Dashboard panels show safe readiness
+summaries only, and extension regression keeps enterprise authority out of the
+browser extension. The work remains compliance readiness, not certification,
+and adds no role mutation, no permission mutation, no CRM mutation, task
+creation, outbound send, report export, raw customer messages, raw provider
+payload, raw webhook payload, raw audit metadata, access token, refresh token,
+cookies, auth headers, API keys, secrets, or real AI provider calls.
+
 This phase does not claim SOC 2, ISO 27001, GDPR, HIPAA, or PCI certification.
 It also does not add SSO, MFA, billing, report export, data deletion jobs,
 backup automation, provider integration, CRM mutation, task creation, outbound
