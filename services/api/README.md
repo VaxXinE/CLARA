@@ -246,6 +246,22 @@ token, no refresh token, no cookies, no payment provider integration, no
 charging customers, and no subscription mutation.
 ```
 
+P11-PR-03 rate limit/quota/usage metering readiness:
+
+```text
+GET /api/v1/reliability/rate-limit-quota-usage/readiness returns
+workspace-scoped Rate Limit, Quota, Usage Metering, safe billing metadata, and
+aggregate-first usage readiness. Backend AuthContext supplies the workspace
+scope, and client organization_id/workspace_id is rejected.
+
+This is readiness not billing launch: no quota enforcement, no payment provider
+integration, no charging customers, no invoice creation, no subscription
+mutation, no plan mutation, no entitlement mutation, no raw usage events, no
+raw customer messages, no raw provider payload, no raw webhook payload, no
+access token, no refresh token, no cookies, no CRM mutation, no outbound send,
+and no real AI provider.
+```
+
 Workspace user/role readiness:
 
 ```text

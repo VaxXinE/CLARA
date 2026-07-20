@@ -37,6 +37,7 @@ import type {
   MeResponse,
   PermissionAuditReadinessResponse,
   QueueJobReliabilityReadinessResponse,
+  RateLimitQuotaUsageReadinessResponse,
   RedactionHardeningReadinessResponse,
   ReplySendResponse,
   RoleManagementReadinessResponse,
@@ -353,6 +354,12 @@ export class ApiClient {
   async getQueueJobReliabilityReadiness(): Promise<QueueJobReliabilityReadinessResponse> {
     return this.request<QueueJobReliabilityReadinessResponse>(
       "/api/v1/reliability/queue-job/readiness",
+    );
+  }
+
+  async getRateLimitQuotaUsageReadiness(): Promise<RateLimitQuotaUsageReadinessResponse> {
+    return this.request<RateLimitQuotaUsageReadinessResponse>(
+      "/api/v1/reliability/rate-limit-quota-usage/readiness",
     );
   }
 

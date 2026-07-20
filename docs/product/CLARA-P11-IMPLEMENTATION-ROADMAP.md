@@ -12,7 +12,7 @@ classification: "roadmap"
 
 - P11-PR-01 Scale / Reliability / Billing Scope + SLO Policy. Complete.
 - P11-PR-02 Queue / Job Reliability + Retry / Idempotency Hardening. Complete.
-- P11-PR-03 Rate Limit + Quota + Usage Metering Readiness.
+- P11-PR-03 Rate Limit + Quota + Usage Metering Readiness. In progress.
 - P11-PR-04 Observability + SLO Dashboard + Alert Readiness.
 - P11-PR-05 Billing Readiness + Plan Entitlement Policy.
 - P11-PR-06 Performance / Load Test + Capacity Runbook.
@@ -32,3 +32,11 @@ purge, no raw job payload, no raw customer messages, no raw provider payload,
 no raw webhook payload, no access token, no refresh token, no cookies, no
 payment provider integration, no charging customers, no subscription mutation,
 and all output remains workspace-scoped.
+
+P11-PR-03 adds Rate Limit, Quota, and Usage Metering readiness. It is readiness
+not billing launch: no quota enforcement, no payment provider integration, no
+charging customers, no invoice creation, no subscription mutation, no plan
+mutation, no entitlement mutation, no raw usage events, no raw customer
+messages, no raw provider payload, no raw webhook payload, no access token, no
+refresh token, no cookies, no CRM mutation, no outbound send, and no real AI
+provider. Usage output remains aggregate-first and workspace-scoped.

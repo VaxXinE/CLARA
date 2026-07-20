@@ -1457,6 +1457,88 @@ export type QueueJobReliabilityReadinessResponse = {
   };
 };
 
+export type RateLimitQuotaUsageReadinessResponse = {
+  workspaceId: string;
+  generatedAt: string;
+  phase: "p11";
+  rateLimitReadiness: {
+    policyDefined: true;
+    perWorkspaceLimitDefined: true;
+    perUserLimitDefined: true;
+    perEndpointLimitDefined: true;
+    burstLimitPolicyDefined: true;
+    safe429BehaviorDefined: true;
+    productionQuotaBlockingImplemented: false;
+    destructiveThrottleImplemented: false;
+  };
+  quotaReadiness: {
+    quotaPolicyDefined: true;
+    softLimitPolicyDefined: true;
+    hardLimitPolicyDefined: true;
+    gracePeriodPolicyDefined: true;
+    quotaEnforcementImplemented: false;
+    entitlementMutationImplemented: false;
+    planMutationImplemented: false;
+  };
+  usageMeteringReadiness: {
+    aggregateUsageDefined: true;
+    workspaceScopedUsageDefined: true;
+    billingSafeMetadataDefined: true;
+    rawUsageEventsExposed: false;
+    customerLevelDrilldownImplemented: false;
+    invoiceCreationImplemented: false;
+    chargingImplemented: false;
+  };
+  controls: Array<{
+    controlKey: string;
+    label: string;
+    description: string;
+    status: "ready" | "planned" | "blocked";
+    severity: "info" | "warning" | "critical";
+    evidenceType:
+      | "policy"
+      | "test"
+      | "runbook"
+      | "runtime_guardrail"
+      | "dashboard_boundary"
+      | "extension_boundary";
+  }>;
+  usageSummary: {
+    aggregateOnly: true;
+    workspaceScoped: true;
+    rawUsageEventsIncluded: false;
+    rawCustomerMessagesIncluded: false;
+    rawProviderPayloadIncluded: false;
+    rawWebhookPayloadIncluded: false;
+    safeBillingMetadataOnly: true;
+  };
+  billingMetadataBoundary: {
+    providerNamesAllowed: true;
+    planCodeAllowed: true;
+    workspaceIdAllowed: true;
+    aggregateCountersAllowed: true;
+    rawUsageEventsAllowed: false;
+    rawCustomerMessagesAllowed: false;
+    rawProviderPayloadAllowed: false;
+    rawWebhookPayloadAllowed: false;
+    paymentCredentialsAllowed: false;
+  };
+  safety: {
+    readOnly: true;
+    mutationAllowed: false;
+    quotaEnforced: false;
+    quotaMutated: false;
+    usageCounterMutated: false;
+    subscriptionMutated: false;
+    planMutated: false;
+    entitlementMutated: false;
+    customerCharged: false;
+    invoiceCreated: false;
+    paymentProviderCalled: false;
+    secretsIncluded: false;
+  };
+};
+
 export type AnalyticsReportingFilterSummary = {
   appliedFilters: {
     timeWindow: "today" | "last_7_days" | "last_30_days";

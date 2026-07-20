@@ -1229,6 +1229,94 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("client_secret");
   });
 
+  it("loads rate limit quota usage readiness safely", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        workspaceId: "wks_demo_sales",
+        generatedAt: "2026-07-20T00:00:00.000Z",
+        phase: "p11",
+        rateLimitReadiness: {
+          policyDefined: true,
+          perWorkspaceLimitDefined: true,
+          perUserLimitDefined: true,
+          perEndpointLimitDefined: true,
+          burstLimitPolicyDefined: true,
+          safe429BehaviorDefined: true,
+          productionQuotaBlockingImplemented: false,
+          destructiveThrottleImplemented: false,
+        },
+        quotaReadiness: {
+          quotaPolicyDefined: true,
+          softLimitPolicyDefined: true,
+          hardLimitPolicyDefined: true,
+          gracePeriodPolicyDefined: true,
+          quotaEnforcementImplemented: false,
+          entitlementMutationImplemented: false,
+          planMutationImplemented: false,
+        },
+        usageMeteringReadiness: {
+          aggregateUsageDefined: true,
+          workspaceScopedUsageDefined: true,
+          billingSafeMetadataDefined: true,
+          rawUsageEventsExposed: false,
+          customerLevelDrilldownImplemented: false,
+          invoiceCreationImplemented: false,
+          chargingImplemented: false,
+        },
+        controls: [],
+        usageSummary: {
+          aggregateOnly: true,
+          workspaceScoped: true,
+          rawUsageEventsIncluded: false,
+          rawCustomerMessagesIncluded: false,
+          rawProviderPayloadIncluded: false,
+          rawWebhookPayloadIncluded: false,
+          safeBillingMetadataOnly: true,
+        },
+        billingMetadataBoundary: {
+          providerNamesAllowed: true,
+          planCodeAllowed: true,
+          workspaceIdAllowed: true,
+          aggregateCountersAllowed: true,
+          rawUsageEventsAllowed: false,
+          rawCustomerMessagesAllowed: false,
+          rawProviderPayloadAllowed: false,
+          rawWebhookPayloadAllowed: false,
+          paymentCredentialsAllowed: false,
+        },
+        safety: {
+          readOnly: true,
+          mutationAllowed: false,
+          quotaEnforced: false,
+          quotaMutated: false,
+          usageCounterMutated: false,
+          subscriptionMutated: false,
+          planMutated: false,
+          entitlementMutated: false,
+          customerCharged: false,
+          invoiceCreated: false,
+          paymentProviderCalled: false,
+          secretsIncluded: false,
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({
+      baseUrl: "http://127.0.0.1:3000",
+    });
+
+    const response = await client.getRateLimitQuotaUsageReadiness();
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/reliability/rate-limit-quota-usage/readiness",
+      expect.any(Object),
+    );
+    expect(response.safety.quotaEnforced).toBe(false);
+    expect(response.safety.customerCharged).toBe(false);
+    expect(JSON.stringify(response)).not.toContain("Bearer ");
+    expect(JSON.stringify(response)).not.toContain("client_secret");
+  });
+
   it("loads workspace members safely", async () => {
     const fetchMock = vi.fn(async () =>
       jsonResponse({
