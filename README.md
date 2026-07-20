@@ -19,7 +19,7 @@ It contains the documentation, architecture, standards, templates, governance, i
 ```text
 Status: MVP slice runnable locally
 Current focus: P10 Enterprise Hardening / Compliance
-Next focus: P10 final audit / runbook
+Next focus: P11 Scale / Reliability / Billing
 ```
 
 Current MVP implementation:
@@ -69,6 +69,7 @@ P10 Enterprise Hardening / Compliance now starts with compliance readiness, not 
 P10-PR-03 adds Audit Retention, Data Classification, Redaction Hardening, Sensitive Field Classifier, and safe audit metadata readiness. It is compliance readiness, not certification. Backend AuthContext remains required, client workspaceId is never authority, output is workspace-scoped, and the work adds no permission mutation, no role mutation, no CRM mutation, no outbound send, no deletion automation, no legal hold automation, no report export, and no real AI provider.
 P10-PR-04 adds Admin Security Controls, Session Policy, and Compliance Dashboard readiness. It is compliance readiness, not certification. Backend AuthContext remains required, client workspaceId is never authority, output is workspace-scoped, frontend role guard is UX-only, and the work adds no permission mutation, no role mutation, no session revocation, no force logout, no SSO implementation, no MFA implementation, no CRM mutation, no outbound send, no evidence export, and no real AI provider.
 P10-PR-05 adds Backup / Restore, Incident Response, Evidence Readiness, and Operational Resilience readiness. It is compliance readiness, not certification. Backend AuthContext remains required, client workspaceId is never authority, output is workspace-scoped, and the work adds no backup execution, no restore execution, no data deletion automation, no legal hold automation, no evidence export, no evidence download, no CRM mutation, no outbound send, no report generation, and no real AI provider.
+P10 COMPLETE after P10-PR-06 with Final P10 Enterprise Hardening / Compliance audit, production runbook, security checklist, compliance readiness evidence summary, operator/admin QA checklist, regression acceptance checklist, validator coverage, and P11 Scale / Reliability / Billing handoff. P10 remains compliance readiness, not certification, and adds no automation, export/download, mutation, outbound send, or real AI provider.
 ```
 
 Start here for local usage:
@@ -165,6 +166,13 @@ docs/product/CLARA-P10-DATA-CLASSIFICATION-POLICY.md
 docs/product/CLARA-P10-TENANT-ISOLATION-POLICY.md
 docs/product/CLARA-P10-AUDIT-RETENTION-DATA-CLASSIFICATION-REDACTION-HARDENING-SPEC.md
 docs/product/CLARA-P10-BACKUP-RESTORE-INCIDENT-RESPONSE-EVIDENCE-READINESS-SPEC.md
+docs/product/CLARA-P10-FINAL-ENTERPRISE-HARDENING-COMPLIANCE-AUDIT.md
+docs/product/CLARA-P10-PRODUCTION-RUNBOOK.md
+docs/product/CLARA-P10-SECURITY-CHECKLIST.md
+docs/product/CLARA-P10-COMPLIANCE-READINESS-EVIDENCE-SUMMARY.md
+docs/product/CLARA-P10-OPERATOR-ADMIN-QA-CHECKLIST.md
+docs/product/CLARA-P10-REGRESSION-ACCEPTANCE-CHECKLIST.md
+docs/product/CLARA-P10-P11-HANDOFF-NOTES.md
 ```
 
 ---

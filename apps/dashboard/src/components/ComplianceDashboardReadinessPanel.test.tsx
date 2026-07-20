@@ -19,7 +19,7 @@ const readiness: ComplianceDashboardResponse = {
     evidenceReadinessImplemented: true,
     incidentResponseImplemented: true,
     backupRestoreImplemented: true,
-    finalP10AuditImplemented: false,
+    finalP10AuditImplemented: true,
   },
   categories: [
     {

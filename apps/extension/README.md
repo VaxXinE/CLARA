@@ -200,3 +200,10 @@ metadata, raw evidence, raw DOM, raw HTML, raw prompts, access token, refresh
 token, cookies, auth headers, API keys, secrets, backup execution, restore
 execution, data deletion automation, legal hold automation, evidence export,
 CRM mutation, outbound send, or real AI provider behavior.
+
+P10-PR-06 closes Final P10 Enterprise Hardening / Compliance as audit/runbook
+and regression coverage only. The extension remains active-conversation-only
+and manual-assisted. It does not request enterprise readiness internals, raw
+evidence, raw permission internals, tokens, cookies, auth headers, raw provider
+payload, raw webhook payload, raw DOM, raw HTML, raw prompts, automation,
+export/download, CRM mutation, outbound send, or real AI provider behavior.

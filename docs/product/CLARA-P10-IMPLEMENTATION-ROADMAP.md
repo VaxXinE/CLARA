@@ -22,8 +22,8 @@ readiness only, not certification.
 | P10-PR-02 | complete | Tenant Isolation + Permission Audit Hardening |
 | P10-PR-03 | complete | Audit Retention + Data Classification + Redaction Hardening |
 | P10-PR-04 | complete | Admin Security Controls + Session Policy + Compliance Dashboard |
-| P10-PR-05 | in progress | Backup / Restore + Incident Response + Evidence Readiness |
-| P10-PR-06 | planned | Final P10 Audit / Runbook |
+| P10-PR-05 | complete | Backup / Restore + Incident Response + Evidence Readiness |
+| P10-PR-06 | in progress | Final P10 Audit / Runbook |
 
 ## Guardrails
 
@@ -56,6 +56,13 @@ readiness only, not certification.
   no restore execution, no data deletion automation, no legal hold automation,
   no evidence export, no evidence download, no CRM mutation, no outbound send,
   no report generation, and no real AI provider.
+- P10-PR-06 adds only Final P10 audit, production runbook, security checklist,
+  compliance readiness evidence summary, operator/admin QA checklist,
+  regression acceptance checklist, validator coverage, and P11 handoff notes.
+  It adds no SSO, MFA, billing, evidence export/download, backup execution,
+  restore execution, deletion automation, legal hold automation, incident
+  automation, role/permission mutation, CRM mutation, outbound send, report
+  generation, workflow automation, or real AI provider.
 
 ## Completion Gate
 

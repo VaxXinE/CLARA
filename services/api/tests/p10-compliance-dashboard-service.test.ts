@@ -26,7 +26,7 @@ describe("P10 compliance dashboard service", () => {
       evidenceReadinessImplemented: true,
       incidentResponseImplemented: true,
       backupRestoreImplemented: true,
-      finalP10AuditImplemented: false,
+      finalP10AuditImplemented: true,
     });
     expect(dashboard.safety).toMatchObject({
       readOnly: true,

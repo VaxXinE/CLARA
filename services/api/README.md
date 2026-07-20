@@ -207,6 +207,15 @@ GET /api/v1/enterprise/incident-response/readiness
 GET /api/v1/enterprise/evidence/readiness
 ```
 
+P10-PR-06 final enterprise hardening:
+
+```text
+Final P10 audit/runbook/checklist coverage is documentation and regression only.
+Compliance dashboard now marks finalP10AuditImplemented=true after merge.
+No enterprise readiness route executes backup, restore, evidence export,
+incident automation, CRM mutation, outbound send, or real AI provider calls.
+```
+
 Workspace user/role readiness:
 
 ```text
