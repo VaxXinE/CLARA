@@ -16,9 +16,9 @@ const readiness: ComplianceDashboardResponse = {
     redactionHardeningReady: true,
     adminSecurityControlsReady: true,
     sessionPolicyReady: true,
-    evidenceReadinessImplemented: false,
-    incidentResponseImplemented: false,
-    backupRestoreImplemented: false,
+    evidenceReadinessImplemented: true,
+    incidentResponseImplemented: true,
+    backupRestoreImplemented: true,
     finalP10AuditImplemented: false,
   },
   categories: [

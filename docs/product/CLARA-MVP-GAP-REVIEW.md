@@ -687,7 +687,7 @@ CRM mutation, no outbound send, no raw customer messages, no raw provider
 payload, no raw webhook payload, no raw audit metadata, no access token, no
 refresh token, no cookies, and no real AI provider.
 
-P10-PR-04 is in progress with Admin Security Controls + Session Policy +
+P10-PR-04 is complete with Admin Security Controls + Session Policy +
 Compliance Dashboard readiness. The API adds authenticated, Backend
 AuthContext-scoped, workspace-scoped readiness endpoints for admin security,
 session policy, and compliance dashboard. Dashboard panels show compliance
@@ -699,6 +699,20 @@ implementation, no MFA implementation, no CRM mutation, no outbound send, no
 evidence export, no raw customer messages, no raw provider payload, no raw
 webhook payload, no raw audit metadata, no access token, no refresh token, no
 cookies, and no real AI provider.
+
+P10-PR-05 is in progress with Backup / Restore + Incident Response + Evidence
+Readiness. The API adds authenticated, Backend AuthContext-scoped,
+workspace-scoped readiness endpoints for backup/restore, incident response, and
+evidence readiness. Dashboard panels show Operational Resilience and compliance
+readiness, not certification, and extension regression keeps backup/restore,
+incident response, and evidence internals out of the browser extension. Client
+workspaceId is never authority, evidence output is safe evidence summary only,
+and the work adds no backup execution, no restore execution, no data deletion
+automation, no legal hold automation, no evidence export, no evidence download,
+no CRM mutation, no outbound send, no report generation, no raw evidence, no raw
+customer messages, no raw provider payload, no raw webhook payload, no raw audit
+metadata, no access token, no refresh token, no cookies, and no real AI
+provider.
 
 This phase does not claim SOC 2, ISO 27001, GDPR, HIPAA, or PCI certification.
 It also does not add SSO, MFA, billing, report export, data deletion jobs,

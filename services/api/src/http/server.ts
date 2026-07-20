@@ -58,14 +58,20 @@ import { PermissionAuditReadinessService } from "../enterprise/permission-audit-
 import { TenantIsolationReadinessService } from "../enterprise/tenant-isolation-readiness-service";
 import { AuditRetentionReadinessService } from "../enterprise/audit-retention-readiness-service";
 import { AdminSecurityControlsService } from "../enterprise/admin-security-controls-service";
+import { BackupRestoreReadinessService } from "../enterprise/backup-restore-readiness-service";
 import { ComplianceDashboardService } from "../enterprise/compliance-dashboard-service";
 import { DataClassificationRuntimeService } from "../enterprise/data-classification-runtime-service";
+import { EvidenceReadinessService } from "../enterprise/evidence-readiness-service";
+import { IncidentResponseReadinessService } from "../enterprise/incident-response-readiness-service";
 import { RedactionHardeningService } from "../enterprise/redaction-hardening-service";
 import { SessionPolicyReadinessService } from "../enterprise/session-policy-readiness-service";
 import { registerEnterpriseAdminSecurityControlsReadinessRoutes } from "./routes/enterprise-admin-security-controls-readiness";
 import { registerEnterpriseAuditRetentionReadinessRoutes } from "./routes/enterprise-audit-retention-readiness";
+import { registerEnterpriseBackupRestoreReadinessRoutes } from "./routes/enterprise-backup-restore-readiness";
 import { registerEnterpriseComplianceDashboardRoutes } from "./routes/enterprise-compliance-dashboard";
 import { registerEnterpriseDataClassificationReadinessRoutes } from "./routes/enterprise-data-classification-readiness";
+import { registerEnterpriseEvidenceReadinessRoutes } from "./routes/enterprise-evidence-readiness";
+import { registerEnterpriseIncidentResponseReadinessRoutes } from "./routes/enterprise-incident-response-readiness";
 import { registerEnterprisePermissionAuditReadinessRoutes } from "./routes/enterprise-permission-audit-readiness";
 import { registerEnterpriseRedactionHardeningReadinessRoutes } from "./routes/enterprise-redaction-hardening-readiness";
 import { registerEnterpriseSessionPolicyReadinessRoutes } from "./routes/enterprise-session-policy-readiness";
@@ -125,6 +131,9 @@ export type CreateServerOptions = {
   adminSecurityControlsService?: AdminSecurityControlsService;
   sessionPolicyReadinessService?: SessionPolicyReadinessService;
   complianceDashboardService?: ComplianceDashboardService;
+  backupRestoreReadinessService?: BackupRestoreReadinessService;
+  incidentResponseReadinessService?: IncidentResponseReadinessService;
+  evidenceReadinessService?: EvidenceReadinessService;
 };
 
 export type RequestWithRawBody = FastifyRequest & {
@@ -425,6 +434,23 @@ export async function createServer(
     app,
     authProvider,
     options.complianceDashboardService ?? new ComplianceDashboardService(),
+  );
+  await registerEnterpriseBackupRestoreReadinessRoutes(
+    app,
+    authProvider,
+    options.backupRestoreReadinessService ??
+      new BackupRestoreReadinessService(),
+  );
+  await registerEnterpriseIncidentResponseReadinessRoutes(
+    app,
+    authProvider,
+    options.incidentResponseReadinessService ??
+      new IncidentResponseReadinessService(),
+  );
+  await registerEnterpriseEvidenceReadinessRoutes(
+    app,
+    authProvider,
+    options.evidenceReadinessService ?? new EvidenceReadinessService(),
   );
   if (services.channelHealth) {
     const conversationVolumeMetrics = new ConversationVolumeMetricsService(

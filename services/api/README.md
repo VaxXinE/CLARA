@@ -202,6 +202,9 @@ GET /api/v1/integrations/gmail/outbound/deliveries/:deliveryId
 POST /api/v1/extension/:channel/snapshots
 POST /api/v1/ai/conversation-summaries
 POST /api/v1/ai/customer-note-suggestions
+GET /api/v1/enterprise/backup-restore/readiness
+GET /api/v1/enterprise/incident-response/readiness
+GET /api/v1/enterprise/evidence/readiness
 ```
 
 Workspace user/role readiness:
@@ -1190,6 +1193,27 @@ no cookies, no auth headers, no permission mutation, no role mutation, no
 session revocation, no force logout, no SSO implementation, no MFA
 implementation, no CRM mutation, no outbound send, no real AI provider, and no
 evidence export.
+
+## P10-PR-05 Backup / Restore + Incident Response + Evidence Readiness
+
+P10-PR-05 adds compliance readiness only, not certification:
+
+```text
+GET /api/v1/enterprise/backup-restore/readiness
+GET /api/v1/enterprise/incident-response/readiness
+GET /api/v1/enterprise/evidence/readiness
+```
+
+All endpoints require Backend AuthContext, are workspace-scoped, reject
+client-supplied workspaceId authority, and return safe evidence summaries only.
+Responses include no raw evidence, no raw customer messages, no raw provider
+payload, no raw webhook payload, no raw audit metadata, no access token, no
+refresh token, no cookies, no auth headers, no API keys, and no secrets.
+
+The endpoints do not execute backup, restore, incident automation, escalation,
+notification sending, legal hold automation, data deletion automation, evidence
+export, evidence download, report generation, CRM mutation, outbound send, or
+real AI provider calls.
 
 ## P7 Final AI Assistant Audit
 

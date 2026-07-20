@@ -23,9 +23,9 @@ describe("P10 compliance dashboard service", () => {
     expect(dashboard.readinessSummary).toMatchObject({
       adminSecurityControlsReady: true,
       sessionPolicyReady: true,
-      evidenceReadinessImplemented: false,
-      incidentResponseImplemented: false,
-      backupRestoreImplemented: false,
+      evidenceReadinessImplemented: true,
+      incidentResponseImplemented: true,
+      backupRestoreImplemented: true,
       finalP10AuditImplemented: false,
     });
     expect(dashboard.safety).toMatchObject({
