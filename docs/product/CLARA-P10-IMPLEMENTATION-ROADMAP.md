@@ -19,8 +19,8 @@ readiness only, not certification.
 | PR | Status | Scope |
 |---|---|---|
 | P10-PR-01 | complete | Enterprise Hardening + Compliance Scope Policy |
-| P10-PR-02 | in progress | Tenant Isolation + Permission Audit Hardening |
-| P10-PR-03 | planned | Audit Retention + Data Classification + Redaction Hardening |
+| P10-PR-02 | complete | Tenant Isolation + Permission Audit Hardening |
+| P10-PR-03 | in progress | Audit Retention + Data Classification + Redaction Hardening |
 | P10-PR-04 | planned | Admin Security Controls + Session Policy + Compliance Dashboard |
 | P10-PR-05 | planned | Backup / Restore + Incident Response + Evidence Readiness |
 | P10-PR-06 | planned | Final P10 Audit / Runbook |
@@ -41,6 +41,11 @@ readiness only, not certification.
   customer messages, raw provider payload, raw webhook payload, raw audit
   metadata, access token, refresh token, cookies, auth headers, API keys, or
   secrets.
+- P10-PR-03 adds only read-only Audit Retention, Data Classification,
+  Redaction Hardening, Sensitive Field Classifier, safe audit metadata, and
+  dashboard readiness visibility. It adds no deletion automation, legal hold
+  automation, retention job execution, report export, permission mutation, role
+  mutation, CRM mutation, outbound send, or real AI provider.
 
 ## Completion Gate
 

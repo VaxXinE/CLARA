@@ -19,7 +19,7 @@ It contains the documentation, architecture, standards, templates, governance, i
 ```text
 Status: MVP slice runnable locally
 Current focus: P10 Enterprise Hardening / Compliance
-Next focus: P10 tenant isolation and permission audit hardening
+Next focus: P10 audit retention, data classification, and redaction hardening
 ```
 
 Current MVP implementation:
@@ -66,6 +66,7 @@ P9-PR-03 now adds the Core Operational Metrics Pack with Conversation Volume Met
 P9-PR-04 now adds CRM Workflow Metrics and KPI Dashboard Cards with authenticated analytics endpoints, dashboard read-only cards, extension boundary regression, Backend AuthContext workspace scope, aggregate-first output, no raw customer messages, no raw provider payload, no raw webhook payload, no raw audit metadata, no access token, no refresh token, no cookies, no CRM mutation, no task creation, no outbound send, no report export, no customer-level drilldown, and no real AI provider
 P9 COMPLETE after P9-PR-06 with Final P9 Audit, Production Runbook, Security Checklist, Operator QA Checklist, regression acceptance coverage, and validator coverage
 P10 Enterprise Hardening / Compliance now starts with compliance readiness, not certification, Backend AuthContext, workspace-scoped tenant isolation, least privilege, data classification, audit readiness, retention readiness, incident response readiness, no raw customer messages, no raw provider payload, no raw webhook payload, no raw audit metadata, no access token, no refresh token, no cookies, no CRM mutation, no outbound send, and no real AI provider
+P10-PR-03 adds Audit Retention, Data Classification, Redaction Hardening, Sensitive Field Classifier, and safe audit metadata readiness. It is compliance readiness, not certification. Backend AuthContext remains required, client workspaceId is never authority, output is workspace-scoped, and the work adds no permission mutation, no role mutation, no CRM mutation, no outbound send, no deletion automation, no legal hold automation, no report export, and no real AI provider.
 ```
 
 Start here for local usage:
@@ -160,6 +161,7 @@ docs/product/CLARA-P10-ENTERPRISE-HARDENING-COMPLIANCE-SCOPE-POLICY.md
 docs/product/CLARA-P10-COMPLIANCE-READINESS-BASELINE.md
 docs/product/CLARA-P10-DATA-CLASSIFICATION-POLICY.md
 docs/product/CLARA-P10-TENANT-ISOLATION-POLICY.md
+docs/product/CLARA-P10-AUDIT-RETENTION-DATA-CLASSIFICATION-REDACTION-HARDENING-SPEC.md
 ```
 
 ---
@@ -497,3 +499,10 @@ billing, report export, role mutation, no permission mutation, no CRM mutation,
 task creation, outbound send, raw customer messages, raw provider payload, raw
 webhook payload, raw audit metadata, access token, refresh token, cookies, auth
 headers, API keys, secrets, or real AI provider.
+
+P10-PR-03 adds read-only Audit Retention + Data Classification + Redaction
+Hardening readiness. The API exposes authenticated enterprise readiness routes,
+the dashboard renders safe compliance readiness panels, and extension
+regression tests keep audit retention, data classification, redaction hardening,
+raw compliance data, tokens, cookies, auth headers, raw provider payload, raw
+webhook payload, raw audit metadata, and secrets out of extension scope.

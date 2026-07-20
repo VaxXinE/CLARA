@@ -5,7 +5,10 @@ import { CrmCustomerWorkspace } from "./CrmCustomerWorkspace";
 import { CustomerSidebar } from "./CustomerSidebar";
 import { ChannelHealthPanel } from "./ChannelHealthPanel";
 import { GmailSchedulerStatusPanel } from "./GmailSchedulerStatusPanel";
+import { AuditRetentionReadinessPanel } from "./AuditRetentionReadinessPanel";
+import { DataClassificationReadinessPanel } from "./DataClassificationReadinessPanel";
 import { PermissionAuditReadinessPanel } from "./PermissionAuditReadinessPanel";
+import { RedactionHardeningReadinessPanel } from "./RedactionHardeningReadinessPanel";
 import { TenantIsolationReadinessPanel } from "./TenantIsolationReadinessPanel";
 import { AiAutomationGuardrailsPanel } from "./AiAutomationGuardrailsPanel";
 import { InboxPanel } from "./InboxPanel";
@@ -14,6 +17,9 @@ type ConversationWorkspaceProps = {
   scheduler: ComponentProps<typeof GmailSchedulerStatusPanel>;
   tenantIsolation?: ComponentProps<typeof TenantIsolationReadinessPanel>;
   permissionAudit?: ComponentProps<typeof PermissionAuditReadinessPanel>;
+  auditRetention?: ComponentProps<typeof AuditRetentionReadinessPanel>;
+  dataClassification?: ComponentProps<typeof DataClassificationReadinessPanel>;
+  redactionHardening?: ComponentProps<typeof RedactionHardeningReadinessPanel>;
   channelHealth?: ComponentProps<typeof ChannelHealthPanel>;
   inbox: ComponentProps<typeof InboxPanel>;
   conversation: ComponentProps<typeof ConversationPane>;
@@ -46,6 +52,21 @@ export function ConversationWorkspace(props: ConversationWorkspaceProps) {
           readiness={props.permissionAudit?.readiness ?? null}
           loading={props.permissionAudit?.loading ?? false}
           error={props.permissionAudit?.error ?? null}
+        />
+        <AuditRetentionReadinessPanel
+          readiness={props.auditRetention?.readiness ?? null}
+          loading={props.auditRetention?.loading ?? false}
+          error={props.auditRetention?.error ?? null}
+        />
+        <DataClassificationReadinessPanel
+          readiness={props.dataClassification?.readiness ?? null}
+          loading={props.dataClassification?.loading ?? false}
+          error={props.dataClassification?.error ?? null}
+        />
+        <RedactionHardeningReadinessPanel
+          readiness={props.redactionHardening?.readiness ?? null}
+          loading={props.redactionHardening?.loading ?? false}
+          error={props.redactionHardening?.error ?? null}
         />
         <ChannelHealthPanel
           items={props.channelHealth?.items ?? []}

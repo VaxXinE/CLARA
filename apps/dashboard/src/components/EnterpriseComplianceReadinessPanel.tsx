@@ -23,9 +23,15 @@ const readinessItems = [
   },
   {
     label: "Retention readiness",
-    status: "Planned",
+    status: "In progress",
     detail:
-      "Retention, deletion, and legal hold automation are future P10 work.",
+      "Audit retention readiness is visible without deletion, legal hold, job, or export automation.",
+  },
+  {
+    label: "Redaction hardening",
+    status: "In progress",
+    detail:
+      "Sensitive field classifier and redaction readiness are visible as safe summaries.",
   },
   {
     label: "Incident response readiness",

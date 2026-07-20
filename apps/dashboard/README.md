@@ -457,3 +457,11 @@ no permission mutation, no CRM mutation, task creation, outbound send, report
 export, raw customer messages, raw provider payload, raw webhook payload, raw
 audit metadata, access token, refresh token, cookies, auth headers, API keys,
 secrets, or unsafe HTML rendering.
+
+P10-PR-03 adds read-only Audit Retention, Data Classification, and Redaction
+Hardening readiness panels. These panels show compliance readiness, not
+certification. They do not render raw customer messages, raw provider payload,
+raw webhook payload, raw audit metadata, access token, refresh token, cookies,
+auth headers, raw DOM, raw HTML, raw prompts, API keys, secrets, permission
+mutation, role mutation, CRM mutation, outbound send, deletion automation,
+legal hold automation, or report export controls.

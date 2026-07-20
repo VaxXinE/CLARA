@@ -655,7 +655,7 @@ send, no real AI provider, no raw customer messages, no raw provider payload,
 no raw webhook payload, no raw audit metadata, no access token, no refresh
 token, no cookies, no auth headers, no raw DOM, no raw HTML, and no raw prompts.
 
-P9 COMPLETE after P9-PR-06 merge. P10 Enterprise Hardening / Compliance now
+P9 complete after P9-PR-06 merge. P10 Enterprise Hardening / Compliance now
 starts with P10-PR-01 policy-first compliance readiness, not certification.
 
 ## P10 Enterprise Hardening / Compliance Update
@@ -675,6 +675,17 @@ and adds no role mutation, no permission mutation, no CRM mutation, task
 creation, outbound send, report export, raw customer messages, raw provider
 payload, raw webhook payload, raw audit metadata, access token, refresh token,
 cookies, auth headers, API keys, secrets, or real AI provider calls.
+
+P10-PR-03 is in progress with Audit Retention + Data Classification +
+Redaction Hardening readiness. The API adds authenticated, Backend
+AuthContext-scoped, workspace-scoped readiness endpoints for audit retention,
+data classification, and redaction hardening. The work adds safe audit metadata
+policy, Sensitive Field Classifier coverage, dashboard readiness panels, and
+extension boundary regression only. It adds no deletion automation, no legal
+hold automation, no report export, no permission mutation, no role mutation, no
+CRM mutation, no outbound send, no raw customer messages, no raw provider
+payload, no raw webhook payload, no raw audit metadata, no access token, no
+refresh token, no cookies, and no real AI provider.
 
 This phase does not claim SOC 2, ISO 27001, GDPR, HIPAA, or PCI certification.
 It also does not add SSO, MFA, billing, report export, data deletion jobs,
