@@ -215,3 +215,11 @@ config, quota enforcement, raw provider payload, raw webhook payload, raw audit
 metadata, access token, refresh token, cookies, auth headers, API keys, secrets,
 CRM mutation, outbound send, job execution, load-test execution, or real AI
 provider behavior.
+
+P11-PR-02 keeps Queue / Job Reliability, Retry, Idempotency, and Dead Letter
+internals out of the extension runtime. The extension does not request queue
+internals, retry execution, idempotency internals, job enqueue, job execution,
+replay, purge, raw job payload, raw customer messages, raw provider payload,
+raw webhook payload, access token, refresh token, cookies, auth headers,
+payment provider integration, charging customers, subscription mutation, or
+real AI provider behavior.

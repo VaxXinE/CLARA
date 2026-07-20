@@ -71,6 +71,7 @@ P10-PR-04 adds Admin Security Controls, Session Policy, and Compliance Dashboard
 P10-PR-05 adds Backup / Restore, Incident Response, Evidence Readiness, and Operational Resilience readiness. It is compliance readiness, not certification. Backend AuthContext remains required, client workspaceId is never authority, output is workspace-scoped, and the work adds no backup execution, no restore execution, no data deletion automation, no legal hold automation, no evidence export, no evidence download, no CRM mutation, no outbound send, no report generation, and no real AI provider.
 P10 COMPLETE after P10-PR-06 with Final P10 Enterprise Hardening / Compliance audit, production runbook, security checklist, compliance readiness evidence summary, operator/admin QA checklist, regression acceptance checklist, validator coverage, and P11 Scale / Reliability / Billing handoff. P10 remains compliance readiness, not certification, and adds no automation, export/download, mutation, outbound send, or real AI provider.
 P11 Scale / Reliability / Billing starts with P11-PR-01 scope, SLO readiness, reliability baseline, capacity/performance target, usage metering readiness, billing readiness boundary, dashboard readiness visibility, extension boundary regression, and validator coverage. P11-PR-01 is readiness not launch: no payment provider integration, no charging customers, no invoice creation, no subscription mutation, no quota enforcement, no CRM mutation, no outbound send, and no real AI provider.
+P11-PR-02 adds Queue / Job Reliability, Retry, Idempotency, Dead Letter, and safe failure classification readiness with a workspace-scoped read-only endpoint and dashboard visibility. It is readiness not launch: no worker execution, no job execution, no job enqueue, no retry execution, no replay, no purge, no raw job payload, no raw customer messages, no raw provider payload, no raw webhook payload, no access token, no refresh token, no cookies, no payment provider integration, no charging customers, and no subscription mutation.
 ```
 
 Start here for local usage:
@@ -178,6 +179,8 @@ docs/product/CLARA-P11-SCALE-RELIABILITY-BILLING-SCOPE-SLO-POLICY.md
 docs/product/CLARA-P11-IMPLEMENTATION-ROADMAP.md
 docs/product/CLARA-P11-SLO-RELIABILITY-BASELINE.md
 docs/product/CLARA-P11-USAGE-METERING-BILLING-READINESS-POLICY.md
+docs/product/CLARA-P11-QUEUE-JOB-RETRY-IDEMPOTENCY-HARDENING-SPEC.md
+docs/product/CLARA-P11-QUEUE-JOB-RELIABILITY-RUNBOOK.md
 ```
 
 ---

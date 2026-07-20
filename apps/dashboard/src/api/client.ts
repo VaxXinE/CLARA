@@ -36,6 +36,7 @@ import type {
   KpiDashboardResponse,
   MeResponse,
   PermissionAuditReadinessResponse,
+  QueueJobReliabilityReadinessResponse,
   RedactionHardeningReadinessResponse,
   ReplySendResponse,
   RoleManagementReadinessResponse,
@@ -346,6 +347,12 @@ export class ApiClient {
   async getEvidenceReadiness(): Promise<EvidenceReadinessResponse> {
     return this.request<EvidenceReadinessResponse>(
       "/api/v1/enterprise/evidence/readiness",
+    );
+  }
+
+  async getQueueJobReliabilityReadiness(): Promise<QueueJobReliabilityReadinessResponse> {
+    return this.request<QueueJobReliabilityReadinessResponse>(
+      "/api/v1/reliability/queue-job/readiness",
     );
   }
 

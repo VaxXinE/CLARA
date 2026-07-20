@@ -1387,6 +1387,76 @@ export type KpiDashboardResponse = {
   audit?: AnalyticsAuditEvent;
 };
 
+export type QueueJobReliabilityReadinessResponse = {
+  workspaceId: string;
+  generatedAt: string;
+  phase: "p11";
+  queueJobReliability: {
+    queueReliabilityPolicyDefined: true;
+    retryPolicyDefined: true;
+    idempotencyPolicyDefined: true;
+    deadLetterReadinessDefined: true;
+    failureClassificationDefined: true;
+    workerImplemented: false;
+    jobExecutionImplemented: false;
+    autoRetryExecutionImplemented: false;
+    destructiveCleanupImplemented: false;
+  };
+  controls: Array<{
+    controlKey: string;
+    label: string;
+    description: string;
+    status: "ready" | "planned" | "blocked";
+    severity: "info" | "warning" | "critical";
+    evidenceType:
+      | "policy"
+      | "test"
+      | "runbook"
+      | "runtime_guardrail"
+      | "dashboard_boundary"
+      | "extension_boundary";
+  }>;
+  retryBackoff: {
+    boundedRetriesRequired: true;
+    exponentialBackoffRequired: true;
+    jitterRequired: true;
+    maxAttemptsRequired: true;
+    providerRateLimitRespectRequired: true;
+    retryExecutionImplemented: false;
+  };
+  idempotency: {
+    idempotencyKeyRequired: true;
+    workspaceScopedDedupRequired: true;
+    providerMessageScopedDedupRequired: true;
+    replayProtectionRequired: true;
+    replayExecutionImplemented: false;
+  };
+  deadLetter: {
+    deadLetterStateRequired: true;
+    poisonMessageClassificationRequired: true;
+    safeOperatorReviewRequired: true;
+    purgeImplemented: false;
+  };
+  safety: {
+    readOnly: true;
+    workspaceScoped: true;
+    clientScopeIgnored: true;
+    mutationAllowed: false;
+    jobEnqueueAllowed: false;
+    jobExecutionAllowed: false;
+    retryExecutionAllowed: false;
+    replayAllowed: false;
+    purgeAllowed: false;
+    rawJobPayloadIncluded: false;
+    rawCustomerMessagesIncluded: false;
+    rawProviderPayloadIncluded: false;
+    rawWebhookPayloadIncluded: false;
+    outboundSendAllowed: false;
+    billingSideEffectsAllowed: false;
+    aiProviderCallAllowed: false;
+  };
+};
+
 export type AnalyticsReportingFilterSummary = {
   appliedFilters: {
     timeWindow: "today" | "last_7_days" | "last_30_days";
