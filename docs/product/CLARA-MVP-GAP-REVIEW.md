@@ -636,8 +636,8 @@ no raw DOM
 no raw HTML
 ```
 
-Current phase: P10 Enterprise Hardening / Compliance.
-Next phase: P10 backup / restore, incident response, and evidence readiness.
+Current phase: P10 Enterprise Hardening / Compliance final audit.
+Next phase: P11 Scale / Reliability / Billing.
 
 ## P9 Analytics / Reporting / KPI Update
 
@@ -700,7 +700,7 @@ evidence export, no raw customer messages, no raw provider payload, no raw
 webhook payload, no raw audit metadata, no access token, no refresh token, no
 cookies, and no real AI provider.
 
-P10-PR-05 is in progress with Backup / Restore + Incident Response + Evidence
+P10-PR-05 is complete with Backup / Restore + Incident Response + Evidence
 Readiness. The API adds authenticated, Backend AuthContext-scoped,
 workspace-scoped readiness endpoints for backup/restore, incident response, and
 evidence readiness. Dashboard panels show Operational Resilience and compliance
@@ -713,6 +713,17 @@ no CRM mutation, no outbound send, no report generation, no raw evidence, no raw
 customer messages, no raw provider payload, no raw webhook payload, no raw audit
 metadata, no access token, no refresh token, no cookies, and no real AI
 provider.
+
+P10-PR-06 is in progress with Final P10 Enterprise Hardening / Compliance
+audit, production runbook, security checklist, compliance readiness evidence
+summary, operator/admin QA checklist, regression acceptance checklist, validator
+coverage, and P11 Scale / Reliability / Billing handoff. It is audit/runbook/
+regression only and adds no SSO, MFA, billing, evidence export/download,
+backup execution, restore execution, data deletion automation, legal hold
+automation, incident automation, role mutation, permission mutation, session
+revocation, force logout, CRM mutation, task creation, customer note write,
+owner assignment, lifecycle/status update, outbound send, workflow automation,
+report generation, customer-level drilldown, or real AI provider.
 
 This phase does not claim SOC 2, ISO 27001, GDPR, HIPAA, or PCI certification.
 It also does not add SSO, MFA, billing, report export, data deletion jobs,

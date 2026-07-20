@@ -95,6 +95,17 @@ headers, no API keys, and no secrets. They execute no backup, no restore, no
 data deletion automation, no legal hold automation, no evidence export, no CRM
 mutation, no outbound send, no report generation, and no real AI provider.
 
+## P10-PR-06 Readiness Evidence
+
+P10-PR-06 closes Final P10 Enterprise Hardening / Compliance with final audit,
+production runbook, security checklist, compliance readiness evidence summary,
+operator/admin QA checklist, regression acceptance checklist, validator
+coverage, and P11 handoff notes.
+
+This is compliance readiness, not certification. It adds no new runtime
+enterprise feature, no automation, no evidence export/download, no backup or
+restore execution, no CRM mutation, no outbound send, and no real AI provider.
+
 ## Prohibited Claims
 
 Do not claim CLARA is certified, compliant, audited, attested, or production
