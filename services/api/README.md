@@ -216,6 +216,21 @@ No enterprise readiness route executes backup, restore, evidence export,
 incident automation, CRM mutation, outbound send, or real AI provider calls.
 ```
 
+P11-PR-01 scale/reliability/billing readiness:
+
+```text
+P11 Scale / Reliability / Billing starts as readiness not launch.
+Policy code documents SLO readiness, reliability baseline, capacity/performance
+targets, usage metering readiness, and billing readiness boundary.
+No payment provider integration, charging customers, invoice creation,
+subscription mutation, quota enforcement, CRM mutation, outbound send, heavy
+load test execution, background job execution, or real AI provider call exists
+in this PR.
+Usage readiness remains workspace-scoped and aggregate-first and must not expose
+raw customer messages, raw provider payload, raw webhook payload, access token,
+refresh token, cookies, auth headers, API keys, or secrets.
+```
+
 Workspace user/role readiness:
 
 ```text

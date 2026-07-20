@@ -70,6 +70,7 @@ P10-PR-03 adds Audit Retention, Data Classification, Redaction Hardening, Sensit
 P10-PR-04 adds Admin Security Controls, Session Policy, and Compliance Dashboard readiness. It is compliance readiness, not certification. Backend AuthContext remains required, client workspaceId is never authority, output is workspace-scoped, frontend role guard is UX-only, and the work adds no permission mutation, no role mutation, no session revocation, no force logout, no SSO implementation, no MFA implementation, no CRM mutation, no outbound send, no evidence export, and no real AI provider.
 P10-PR-05 adds Backup / Restore, Incident Response, Evidence Readiness, and Operational Resilience readiness. It is compliance readiness, not certification. Backend AuthContext remains required, client workspaceId is never authority, output is workspace-scoped, and the work adds no backup execution, no restore execution, no data deletion automation, no legal hold automation, no evidence export, no evidence download, no CRM mutation, no outbound send, no report generation, and no real AI provider.
 P10 COMPLETE after P10-PR-06 with Final P10 Enterprise Hardening / Compliance audit, production runbook, security checklist, compliance readiness evidence summary, operator/admin QA checklist, regression acceptance checklist, validator coverage, and P11 Scale / Reliability / Billing handoff. P10 remains compliance readiness, not certification, and adds no automation, export/download, mutation, outbound send, or real AI provider.
+P11 Scale / Reliability / Billing starts with P11-PR-01 scope, SLO readiness, reliability baseline, capacity/performance target, usage metering readiness, billing readiness boundary, dashboard readiness visibility, extension boundary regression, and validator coverage. P11-PR-01 is readiness not launch: no payment provider integration, no charging customers, no invoice creation, no subscription mutation, no quota enforcement, no CRM mutation, no outbound send, and no real AI provider.
 ```
 
 Start here for local usage:
@@ -173,6 +174,10 @@ docs/product/CLARA-P10-COMPLIANCE-READINESS-EVIDENCE-SUMMARY.md
 docs/product/CLARA-P10-OPERATOR-ADMIN-QA-CHECKLIST.md
 docs/product/CLARA-P10-REGRESSION-ACCEPTANCE-CHECKLIST.md
 docs/product/CLARA-P10-P11-HANDOFF-NOTES.md
+docs/product/CLARA-P11-SCALE-RELIABILITY-BILLING-SCOPE-SLO-POLICY.md
+docs/product/CLARA-P11-IMPLEMENTATION-ROADMAP.md
+docs/product/CLARA-P11-SLO-RELIABILITY-BASELINE.md
+docs/product/CLARA-P11-USAGE-METERING-BILLING-READINESS-POLICY.md
 ```
 
 ---

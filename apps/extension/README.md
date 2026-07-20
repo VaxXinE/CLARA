@@ -207,3 +207,11 @@ and manual-assisted. It does not request enterprise readiness internals, raw
 evidence, raw permission internals, tokens, cookies, auth headers, raw provider
 payload, raw webhook payload, raw DOM, raw HTML, raw prompts, automation,
 export/download, CRM mutation, outbound send, or real AI provider behavior.
+
+P11-PR-01 keeps Scale / Reliability / Billing internals out of the extension
+runtime. The extension does not request reliability internals, SLO readiness,
+usage metering internals, billing readiness, raw usage data, payment provider
+config, quota enforcement, raw provider payload, raw webhook payload, raw audit
+metadata, access token, refresh token, cookies, auth headers, API keys, secrets,
+CRM mutation, outbound send, job execution, load-test execution, or real AI
+provider behavior.
