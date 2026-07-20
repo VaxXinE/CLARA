@@ -2,6 +2,7 @@ import { startTransition, useDeferredValue, useEffect, useState } from "react";
 import { ApiClient, ApiClientError } from "./api/client";
 import type {
   ActivityResponse,
+  AdminSecurityControlsReadinessResponse,
   AiConversationSummaryResponse,
   AiCustomerNoteSuggestionResponse,
   AiAutomationGuardrail,
@@ -11,6 +12,7 @@ import type {
   AiReplySuggestionResponse,
   AuditRetentionReadinessResponse,
   ChannelHealthItem,
+  ComplianceDashboardResponse,
   ConversationDetailResponse,
   ConversationListResponse,
   CustomerProfileIntelligenceResponse,
@@ -27,6 +29,7 @@ import type {
   PermissionAuditReadinessResponse,
   RedactionHardeningReadinessResponse,
   RoleManagementReadiness,
+  SessionPolicyReadinessResponse,
   TenantIsolationReadinessResponse,
   WebchatOutboundDeliveryStatus,
   WorkspaceMember,
@@ -175,6 +178,12 @@ function WorkspaceAppShell() {
     useState<DataClassificationReadinessResponse | null>(null);
   const [redactionHardeningReadiness, setRedactionHardeningReadiness] =
     useState<RedactionHardeningReadinessResponse | null>(null);
+  const [adminSecurityControlsReadiness, setAdminSecurityControlsReadiness] =
+    useState<AdminSecurityControlsReadinessResponse | null>(null);
+  const [sessionPolicyReadiness, setSessionPolicyReadiness] =
+    useState<SessionPolicyReadinessResponse | null>(null);
+  const [complianceDashboard, setComplianceDashboard] =
+    useState<ComplianceDashboardResponse | null>(null);
   const [workspaceMembers, setWorkspaceMembers] = useState<WorkspaceMember[]>(
     [],
   );
@@ -285,6 +294,20 @@ function WorkspaceAppShell() {
   const [redactionHardeningLoading, setRedactionHardeningLoading] =
     useState(false);
   const [redactionHardeningError, setRedactionHardeningError] = useState<
+    string | null
+  >(null);
+  const [adminSecurityControlsLoading, setAdminSecurityControlsLoading] =
+    useState(false);
+  const [adminSecurityControlsError, setAdminSecurityControlsError] = useState<
+    string | null
+  >(null);
+  const [sessionPolicyLoading, setSessionPolicyLoading] = useState(false);
+  const [sessionPolicyError, setSessionPolicyError] = useState<string | null>(
+    null,
+  );
+  const [complianceDashboardLoading, setComplianceDashboardLoading] =
+    useState(false);
+  const [complianceDashboardError, setComplianceDashboardError] = useState<
     string | null
   >(null);
   const [composerError, setComposerError] = useState<string | null>(null);
@@ -550,16 +573,25 @@ function WorkspaceAppShell() {
       setAuditRetentionReadiness(null);
       setDataClassificationReadiness(null);
       setRedactionHardeningReadiness(null);
+      setAdminSecurityControlsReadiness(null);
+      setSessionPolicyReadiness(null);
+      setComplianceDashboard(null);
       setTenantIsolationLoading(false);
       setPermissionAuditLoading(false);
       setAuditRetentionLoading(false);
       setDataClassificationLoading(false);
       setRedactionHardeningLoading(false);
+      setAdminSecurityControlsLoading(false);
+      setSessionPolicyLoading(false);
+      setComplianceDashboardLoading(false);
       setTenantIsolationError(null);
       setPermissionAuditError(null);
       setAuditRetentionError(null);
       setDataClassificationError(null);
       setRedactionHardeningError(null);
+      setAdminSecurityControlsError(null);
+      setSessionPolicyError(null);
+      setComplianceDashboardError(null);
       return;
     }
 
@@ -577,11 +609,17 @@ function WorkspaceAppShell() {
       setAuditRetentionLoading(true);
       setDataClassificationLoading(true);
       setRedactionHardeningLoading(true);
+      setAdminSecurityControlsLoading(true);
+      setSessionPolicyLoading(true);
+      setComplianceDashboardLoading(true);
       setTenantIsolationError(null);
       setPermissionAuditError(null);
       setAuditRetentionError(null);
       setDataClassificationError(null);
       setRedactionHardeningError(null);
+      setAdminSecurityControlsError(null);
+      setSessionPolicyError(null);
+      setComplianceDashboardError(null);
 
       try {
         const [
@@ -590,12 +628,18 @@ function WorkspaceAppShell() {
           auditRetentionResponse,
           dataClassificationResponse,
           redactionHardeningResponse,
+          adminSecurityControlsResponse,
+          sessionPolicyResponse,
+          complianceDashboardResponse,
         ] = await Promise.all([
           client.getTenantIsolationReadiness(),
           client.getPermissionAuditReadiness(),
           client.getAuditRetentionReadiness(),
           client.getDataClassificationReadiness(),
           client.getRedactionHardeningReadiness(),
+          client.getAdminSecurityControlsReadiness(),
+          client.getSessionPolicyReadiness(),
+          client.getComplianceDashboard(),
         ]);
 
         if (!cancelled) {
@@ -604,6 +648,9 @@ function WorkspaceAppShell() {
           setAuditRetentionReadiness(auditRetentionResponse);
           setDataClassificationReadiness(dataClassificationResponse);
           setRedactionHardeningReadiness(redactionHardeningResponse);
+          setAdminSecurityControlsReadiness(adminSecurityControlsResponse);
+          setSessionPolicyReadiness(sessionPolicyResponse);
+          setComplianceDashboard(complianceDashboardResponse);
         }
       } catch (error) {
         if (!cancelled) {
@@ -612,6 +659,9 @@ function WorkspaceAppShell() {
           setAuditRetentionReadiness(null);
           setDataClassificationReadiness(null);
           setRedactionHardeningReadiness(null);
+          setAdminSecurityControlsReadiness(null);
+          setSessionPolicyReadiness(null);
+          setComplianceDashboard(null);
           const message = toSafeMessage(
             error,
             "Enterprise readiness is unavailable.",
@@ -621,6 +671,9 @@ function WorkspaceAppShell() {
           setAuditRetentionError(message);
           setDataClassificationError(message);
           setRedactionHardeningError(message);
+          setAdminSecurityControlsError(message);
+          setSessionPolicyError(message);
+          setComplianceDashboardError(message);
         }
       } finally {
         if (!cancelled) {
@@ -629,6 +682,9 @@ function WorkspaceAppShell() {
           setAuditRetentionLoading(false);
           setDataClassificationLoading(false);
           setRedactionHardeningLoading(false);
+          setAdminSecurityControlsLoading(false);
+          setSessionPolicyLoading(false);
+          setComplianceDashboardLoading(false);
         }
       }
     }
@@ -1470,6 +1526,23 @@ function WorkspaceAppShell() {
           readiness: redactionHardeningReadiness,
           loading: redactionHardeningLoading,
           error: redactionHardeningError,
+        }}
+        enterpriseCompliance={{
+          adminSecurityControls: {
+            readiness: adminSecurityControlsReadiness,
+            loading: adminSecurityControlsLoading,
+            error: adminSecurityControlsError,
+          },
+          sessionPolicy: {
+            readiness: sessionPolicyReadiness,
+            loading: sessionPolicyLoading,
+            error: sessionPolicyError,
+          },
+          complianceDashboard: {
+            readiness: complianceDashboard,
+            loading: complianceDashboardLoading,
+            error: complianceDashboardError,
+          },
         }}
         channelHealth={{
           items: channelHealthItems,

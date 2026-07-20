@@ -1172,6 +1172,25 @@ no cookies, no auth headers, no permission mutation, no role mutation, no CRM
 mutation, no outbound send, no real AI provider, no deletion automation, no
 legal hold automation, and no report export.
 
+## P10-PR-04 Admin Security Controls + Session Policy + Compliance Dashboard
+
+P10-PR-04 adds compliance readiness only, not certification:
+
+```text
+GET /api/v1/enterprise/admin-security-controls/readiness
+GET /api/v1/enterprise/session-policy/readiness
+GET /api/v1/enterprise/compliance-dashboard
+```
+
+All endpoints require Backend AuthContext, are workspace-scoped, reject
+client-supplied workspaceId authority, and return safe readiness summaries
+only. Responses include no raw customer messages, no raw provider payload, no
+raw webhook payload, no raw audit metadata, no access token, no refresh token,
+no cookies, no auth headers, no permission mutation, no role mutation, no
+session revocation, no force logout, no SSO implementation, no MFA
+implementation, no CRM mutation, no outbound send, no real AI provider, and no
+evidence export.
+
 ## P7 Final AI Assistant Audit
 
 Final API regression coverage verifies:

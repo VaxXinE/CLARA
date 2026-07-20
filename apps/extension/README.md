@@ -180,3 +180,13 @@ provider payload, raw webhook payload, raw audit metadata, raw DOM, raw HTML,
 raw prompts, API keys, secrets, permission mutation, role mutation, CRM
 mutation, outbound send, deletion automation, legal hold automation, or report
 export behavior.
+
+P10-PR-04 keeps Admin Security Controls, Session Policy, and Compliance
+Dashboard internals out of the extension runtime. The extension does not read
+admin security internals, session policy internals, compliance dashboard
+internals, compliance evidence, cross-workspace enterprise data, raw customer
+messages, raw provider payload, raw webhook payload, raw audit metadata,
+access token, refresh token, cookies, auth headers, API keys, secrets, raw DOM,
+raw HTML, raw prompts, permission mutation, role mutation, session revocation,
+force logout, CRM mutation, outbound send, evidence export, SSO implementation,
+MFA implementation, or real AI provider behavior.

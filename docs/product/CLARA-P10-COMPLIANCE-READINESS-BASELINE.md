@@ -58,6 +58,25 @@ no cookies, no auth headers, no permission mutation, no role mutation, no CRM
 mutation, no outbound send, no real AI provider, no deletion automation, no
 legal hold automation, and no report export.
 
+## P10-PR-04 Readiness Evidence
+
+P10-PR-04 adds compliance readiness evidence for Admin Security Controls,
+Session Policy, and Compliance Dashboard:
+
+- `GET /api/v1/enterprise/admin-security-controls/readiness`
+- `GET /api/v1/enterprise/session-policy/readiness`
+- `GET /api/v1/enterprise/compliance-dashboard`
+
+These endpoints are authenticated, workspace-scoped through Backend
+AuthContext, read-only, and not certification. Client workspaceId is never
+authority. They enforce least privilege as a documented readiness boundary and
+make clear frontend role guard is UX-only. They include no raw customer
+messages, no raw provider payload, no raw webhook payload, no raw audit
+metadata, no access token, no refresh token, no cookies, no auth headers, no
+permission mutation, no role mutation, no session revocation, no force logout,
+no SSO implementation, no MFA implementation, no CRM mutation, no outbound
+send, no real AI provider, and no evidence export.
+
 ## Prohibited Claims
 
 Do not claim CLARA is certified, compliant, audited, attested, or production
