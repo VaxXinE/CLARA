@@ -24,9 +24,20 @@ workspace, user, and role.
 - Dashboard role/workspace display is UX only.
 - Extension surfaces cannot read tenant isolation internals or compliance
   evidence.
+- P10-PR-02 exposes read-only tenant isolation readiness only through Backend
+  AuthContext scoped API responses.
+- P10-PR-02 permission audit readiness reports role boundary evidence only; it
+  does not mutate roles or permissions.
 
 ## Non-Goals
 
 This policy does not add SSO, MFA, billing, data export, report export,
 customer-level drilldown, CRM mutation, task creation, outbound send, or real
 AI provider integration.
+
+## P10-PR-02 Runtime Evidence
+
+Tenant isolation and permission audit readiness responses include no raw
+customer messages, no raw provider payload, no raw webhook payload, no raw
+audit metadata, no access token, no refresh token, no cookies, no auth headers,
+no API keys, and no secrets.

@@ -164,3 +164,10 @@ extension runtime. The extension does not read compliance evidence, audit
 evidence, tenant isolation internals, raw customer messages, raw provider
 payload, raw webhook payload, raw DOM, raw HTML, raw prompts, access token,
 refresh token, cookies, auth headers, API keys, or secrets.
+
+P10-PR-02 keeps Tenant Isolation + Permission Audit Hardening out of the
+extension runtime. The extension does not become authority for organization,
+workspace, user, role, tenant isolation, permission audit, audit evidence, role
+mutation, permission mutation, raw customer messages, raw provider payload, raw
+webhook payload, raw audit metadata, access token, refresh token, cookies, auth
+headers, API keys, or secrets.

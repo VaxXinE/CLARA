@@ -194,6 +194,99 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("access_token");
   });
 
+  it("loads tenant isolation readiness from the enterprise read-only endpoint", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        workspaceId: "wks_demo_sales",
+        generatedAt: "2026-07-20T01:00:00.000Z",
+        phase: "p10",
+        readiness: {
+          backendAuthContextSourceOfTruth: true,
+          clientWorkspaceIdAuthoritative: false,
+          workspaceScopedReadsRequired: true,
+          workspaceScopedWritesRequired: true,
+          crossWorkspaceAccessDenied: true,
+          safeErrorBehaviorRequired: true,
+          auditOnBoundaryViolationRequired: true,
+          dashboardUxBoundaryRequired: true,
+          extensionBoundaryRequired: true,
+        },
+        checks: [],
+        safety: {
+          readOnly: true,
+          mutationAllowed: false,
+          rawTenantDataIncluded: false,
+          rawCustomerMessagesIncluded: false,
+          rawProviderPayloadIncluded: false,
+          rawWebhookPayloadIncluded: false,
+          rawAuditMetadataIncluded: false,
+          secretsIncluded: false,
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({ baseUrl: "http://127.0.0.1:3000" });
+
+    const response = await client.getTenantIsolationReadiness();
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/enterprise/tenant-isolation/readiness",
+      expect.any(Object),
+    );
+    expect(response.workspaceId).toBe("wks_demo_sales");
+    expect(JSON.stringify(response)).not.toContain("access_token");
+    expect(JSON.stringify(response)).not.toContain("refresh_token");
+  });
+
+  it("loads permission audit readiness from the enterprise read-only endpoint", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        workspaceId: "wks_demo_sales",
+        generatedAt: "2026-07-20T01:00:00.000Z",
+        phase: "p10",
+        permissionAudit: {
+          leastPrivilegeRequired: true,
+          roleBoundaryRequired: true,
+          backendAuthorizationRequired: true,
+          frontendRoleGuardIsUxOnly: true,
+          permissionDeniedEventsAuditable: true,
+          privilegedActionReviewRequired: true,
+          safeAuditMetadataOnly: true,
+        },
+        roleBoundaries: [
+          {
+            role: "viewer",
+            allowedSurfaceKeys: ["conversation_read"],
+            deniedSurfaceKeys: ["reply_send"],
+            auditRequiredForDeniedAccess: true,
+            mutationAllowed: false,
+          },
+        ],
+        safety: {
+          readOnly: true,
+          mutationAllowed: false,
+          permissionMutationAllowed: false,
+          roleMutationAllowed: false,
+          rawPermissionInternalsIncluded: false,
+          rawAuditMetadataIncluded: false,
+          secretsIncluded: false,
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({ baseUrl: "http://127.0.0.1:3000" });
+
+    const response = await client.getPermissionAuditReadiness();
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/enterprise/permission-audit/readiness",
+      expect.any(Object),
+    );
+    expect(response.roleBoundaries[0]?.role).toBe("viewer");
+    expect(JSON.stringify(response)).not.toContain("access_token");
+    expect(JSON.stringify(response)).not.toContain("refresh_token");
+  });
+
   it("loads KPI dashboard cards safely", async () => {
     const fetchMock = vi.fn(async () =>
       jsonResponse({

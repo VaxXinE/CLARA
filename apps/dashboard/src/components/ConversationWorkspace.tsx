@@ -5,11 +5,15 @@ import { CrmCustomerWorkspace } from "./CrmCustomerWorkspace";
 import { CustomerSidebar } from "./CustomerSidebar";
 import { ChannelHealthPanel } from "./ChannelHealthPanel";
 import { GmailSchedulerStatusPanel } from "./GmailSchedulerStatusPanel";
+import { PermissionAuditReadinessPanel } from "./PermissionAuditReadinessPanel";
+import { TenantIsolationReadinessPanel } from "./TenantIsolationReadinessPanel";
 import { AiAutomationGuardrailsPanel } from "./AiAutomationGuardrailsPanel";
 import { InboxPanel } from "./InboxPanel";
 
 type ConversationWorkspaceProps = {
   scheduler: ComponentProps<typeof GmailSchedulerStatusPanel>;
+  tenantIsolation?: ComponentProps<typeof TenantIsolationReadinessPanel>;
+  permissionAudit?: ComponentProps<typeof PermissionAuditReadinessPanel>;
   channelHealth?: ComponentProps<typeof ChannelHealthPanel>;
   inbox: ComponentProps<typeof InboxPanel>;
   conversation: ComponentProps<typeof ConversationPane>;
@@ -33,6 +37,16 @@ export function ConversationWorkspace(props: ConversationWorkspaceProps) {
     >
       <div className="workspace-status-strip">
         <GmailSchedulerStatusPanel {...props.scheduler} />
+        <TenantIsolationReadinessPanel
+          readiness={props.tenantIsolation?.readiness ?? null}
+          loading={props.tenantIsolation?.loading ?? false}
+          error={props.tenantIsolation?.error ?? null}
+        />
+        <PermissionAuditReadinessPanel
+          readiness={props.permissionAudit?.readiness ?? null}
+          loading={props.permissionAudit?.loading ?? false}
+          error={props.permissionAudit?.error ?? null}
+        />
         <ChannelHealthPanel
           items={props.channelHealth?.items ?? []}
           loading={props.channelHealth?.loading ?? false}

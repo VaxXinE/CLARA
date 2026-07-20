@@ -54,6 +54,10 @@ import { registerAnalyticsChannelPerformanceRoutes } from "./routes/analytics-ch
 import { registerAnalyticsOverviewRoutes } from "./routes/analytics-overview";
 import { registerAnalyticsCrmWorkflowRoutes } from "./routes/analytics-crm-workflow";
 import { registerAnalyticsKpiDashboardRoutes } from "./routes/analytics-kpi-dashboard";
+import { PermissionAuditReadinessService } from "../enterprise/permission-audit-service";
+import { TenantIsolationReadinessService } from "../enterprise/tenant-isolation-readiness-service";
+import { registerEnterprisePermissionAuditReadinessRoutes } from "./routes/enterprise-permission-audit-readiness";
+import { registerEnterpriseTenantIsolationReadinessRoutes } from "./routes/enterprise-tenant-isolation-readiness";
 import { registerWebchatRoutes } from "./routes/webchat";
 import { registerWhatsappRoutes } from "./routes/whatsapp";
 import { registerExtensionRoutes } from "./routes/extension";
@@ -101,6 +105,8 @@ export type CreateServerOptions = {
     "recordGmailSchedulerOperatorAction"
   >;
   analyticsReadModelService?: AnalyticsReadModelService;
+  tenantIsolationReadinessService?: TenantIsolationReadinessService;
+  permissionAuditReadinessService?: PermissionAuditReadinessService;
 };
 
 export type RequestWithRawBody = FastifyRequest & {
@@ -356,6 +362,18 @@ export async function createServer(
     app,
     authProvider,
     analyticsReadModelService,
+  );
+  await registerEnterpriseTenantIsolationReadinessRoutes(
+    app,
+    authProvider,
+    options.tenantIsolationReadinessService ??
+      new TenantIsolationReadinessService(),
+  );
+  await registerEnterprisePermissionAuditReadinessRoutes(
+    app,
+    authProvider,
+    options.permissionAuditReadinessService ??
+      new PermissionAuditReadinessService(),
   );
   if (services.channelHealth) {
     const conversationVolumeMetrics = new ConversationVolumeMetricsService(
