@@ -1153,6 +1153,82 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("Authorization");
   });
 
+  it("loads queue job reliability readiness safely", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        workspaceId: "wks_demo_sales",
+        generatedAt: "2026-07-20T00:00:00.000Z",
+        phase: "p11",
+        queueJobReliability: {
+          queueReliabilityPolicyDefined: true,
+          retryPolicyDefined: true,
+          idempotencyPolicyDefined: true,
+          deadLetterReadinessDefined: true,
+          failureClassificationDefined: true,
+          workerImplemented: false,
+          jobExecutionImplemented: false,
+          autoRetryExecutionImplemented: false,
+          destructiveCleanupImplemented: false,
+        },
+        controls: [],
+        retryBackoff: {
+          boundedRetriesRequired: true,
+          exponentialBackoffRequired: true,
+          jitterRequired: true,
+          maxAttemptsRequired: true,
+          providerRateLimitRespectRequired: true,
+          retryExecutionImplemented: false,
+        },
+        idempotency: {
+          idempotencyKeyRequired: true,
+          workspaceScopedDedupRequired: true,
+          providerMessageScopedDedupRequired: true,
+          replayProtectionRequired: true,
+          replayExecutionImplemented: false,
+        },
+        deadLetter: {
+          deadLetterStateRequired: true,
+          poisonMessageClassificationRequired: true,
+          safeOperatorReviewRequired: true,
+          purgeImplemented: false,
+        },
+        safety: {
+          readOnly: true,
+          workspaceScoped: true,
+          clientScopeIgnored: true,
+          mutationAllowed: false,
+          jobEnqueueAllowed: false,
+          jobExecutionAllowed: false,
+          retryExecutionAllowed: false,
+          replayAllowed: false,
+          purgeAllowed: false,
+          rawJobPayloadIncluded: false,
+          rawCustomerMessagesIncluded: false,
+          rawProviderPayloadIncluded: false,
+          rawWebhookPayloadIncluded: false,
+          outboundSendAllowed: false,
+          billingSideEffectsAllowed: false,
+          aiProviderCallAllowed: false,
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({
+      baseUrl: "http://127.0.0.1:3000",
+    });
+
+    const response = await client.getQueueJobReliabilityReadiness();
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/reliability/queue-job/readiness",
+      expect.any(Object),
+    );
+    expect(response.queueJobReliability.workerImplemented).toBe(false);
+    expect(response.safety.jobExecutionAllowed).toBe(false);
+    expect(JSON.stringify(response)).not.toContain("Bearer ");
+    expect(JSON.stringify(response)).not.toContain("client_secret");
+  });
+
   it("loads workspace members safely", async () => {
     const fetchMock = vi.fn(async () =>
       jsonResponse({

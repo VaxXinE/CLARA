@@ -231,6 +231,21 @@ raw customer messages, raw provider payload, raw webhook payload, access token,
 refresh token, cookies, auth headers, API keys, or secrets.
 ```
 
+P11-PR-02 queue/job reliability readiness:
+
+```text
+GET /api/v1/reliability/queue-job/readiness returns workspace-scoped Queue /
+Job Reliability, Retry, Idempotency, Dead Letter, and failure classification
+readiness. Backend AuthContext supplies the workspace scope, and client
+organization_id/workspace_id is rejected.
+
+This is readiness not launch: no worker execution, no job execution, no job
+enqueue, no retry execution, no replay, no purge, no raw job payload, no raw
+customer messages, no raw provider payload, no raw webhook payload, no access
+token, no refresh token, no cookies, no payment provider integration, no
+charging customers, and no subscription mutation.
+```
+
 Workspace user/role readiness:
 
 ```text

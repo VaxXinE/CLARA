@@ -10,8 +10,8 @@ classification: "roadmap"
 
 ## Roadmap
 
-- P11-PR-01 Scale / Reliability / Billing Scope + SLO Policy.
-- P11-PR-02 Queue / Job Reliability + Retry / Idempotency Hardening.
+- P11-PR-01 Scale / Reliability / Billing Scope + SLO Policy. Complete.
+- P11-PR-02 Queue / Job Reliability + Retry / Idempotency Hardening. Complete.
 - P11-PR-03 Rate Limit + Quota + Usage Metering Readiness.
 - P11-PR-04 Observability + SLO Dashboard + Alert Readiness.
 - P11-PR-05 Billing Readiness + Plan Entitlement Policy.
@@ -24,3 +24,11 @@ P11 starts with readiness, not launch. Do not add payment provider integration,
 charging customers, invoice creation, subscription mutation, quota enforcement,
 CRM mutation, outbound send, real AI provider calls, or background job execution
 until a later PR explicitly scopes and validates that behavior.
+
+P11-PR-02 adds Queue / Job Reliability, Retry, Idempotency, Dead Letter, and
+job failure classification readiness. It is readiness not launch: no worker
+execution, no job execution, no job enqueue, no retry execution, no replay, no
+purge, no raw job payload, no raw customer messages, no raw provider payload,
+no raw webhook payload, no access token, no refresh token, no cookies, no
+payment provider integration, no charging customers, no subscription mutation,
+and all output remains workspace-scoped.

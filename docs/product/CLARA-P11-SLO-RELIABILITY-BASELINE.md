@@ -30,6 +30,11 @@ The reliability baseline requires:
 - Rate limiting, request size limits, and timeout boundaries.
 - Observability linkage to logs, audit, metrics, and P10 incident response.
 
+P11-PR-02 defines Queue / Job Reliability readiness for retry, idempotency,
+Dead Letter, and failure classification. This remains readiness not launch:
+no worker execution, no job execution, no job enqueue, no retry execution, no
+replay, no purge, no destructive cleanup, and no raw job payload.
+
 ## Non-scope
 
 P11-PR-01 adds no scheduler, queue worker, destructive cleanup job, load-test
