@@ -6,6 +6,7 @@ type AiReplySuggestionPanelProps = {
   error: string | null;
   canGenerate: boolean;
   onGenerate: () => void;
+  onCopyToComposer?: (text: string) => void;
 };
 
 const unsafeResponseKeys = [
@@ -56,9 +57,22 @@ export function AiReplySuggestionPanel(props: AiReplySuggestionPanelProps) {
       ) : null}
 
       {props.suggestion?.suggestedText ? (
-        <blockquote>
-          {stripUnsafePreview(props.suggestion.suggestedText)}
-        </blockquote>
+        <>
+          <blockquote>
+            {stripUnsafePreview(props.suggestion.suggestedText)}
+          </blockquote>
+          <button
+            type="button"
+            className="secondary-button"
+            onClick={() =>
+              props.onCopyToComposer?.(
+                stripUnsafePreview(props.suggestion?.suggestedText ?? ""),
+              )
+            }
+          >
+            Copy suggestion to composer
+          </button>
+        </>
       ) : (
         <p className="helper-copy">
           Suggestions are preview-only and require human approval before

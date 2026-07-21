@@ -33,6 +33,7 @@ function suggestion(overrides = {}) {
 describe("AiReplySuggestionPanel", () => {
   it("renders preview-only suggestion and calls generate handler", () => {
     const onGenerate = vi.fn();
+    const onCopyToComposer = vi.fn();
 
     render(
       <AiReplySuggestionPanel
@@ -41,6 +42,7 @@ describe("AiReplySuggestionPanel", () => {
         error={null}
         canGenerate={true}
         onGenerate={onGenerate}
+        onCopyToComposer={onCopyToComposer}
       />,
     );
 
@@ -49,6 +51,13 @@ describe("AiReplySuggestionPanel", () => {
     );
 
     expect(onGenerate).toHaveBeenCalledOnce();
+    fireEvent.click(
+      screen.getByRole("button", { name: "Copy suggestion to composer" }),
+    );
+
+    expect(onCopyToComposer).toHaveBeenCalledWith(
+      "Please review this safe preview.",
+    );
     expect(
       screen.getByText("Please review this safe preview."),
     ).toBeInTheDocument();

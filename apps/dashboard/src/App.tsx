@@ -330,6 +330,9 @@ function WorkspaceAppShell() {
   const [evidenceLoading, setEvidenceLoading] = useState(false);
   const [evidenceError, setEvidenceError] = useState<string | null>(null);
   const [composerError, setComposerError] = useState<string | null>(null);
+  const [draftStatusMessage, setDraftStatusMessage] = useState<string | null>(
+    null,
+  );
   const [isGeneratingDraft, setIsGeneratingDraft] = useState(false);
   const [isGeneratingSuggestion, setIsGeneratingSuggestion] = useState(false);
   const [isGeneratingFollowUp, setIsGeneratingFollowUp] = useState(false);
@@ -386,6 +389,7 @@ function WorkspaceAppShell() {
       setWorkspaceMembers([]);
       setRoleManagementError(null);
       setComposerValue("");
+      setDraftStatusMessage(null);
       setDraftId(null);
       setAiDraftLabel(null);
       setAiReplySuggestion(null);
@@ -428,6 +432,7 @@ function WorkspaceAppShell() {
       setCustomerOwnerAssignmentReadiness(null);
       setActivityItems([]);
       setComposerValue("");
+      setDraftStatusMessage(null);
       setDraftId(null);
       setAiDraftLabel(null);
       setAiReplySuggestion(null);
@@ -911,6 +916,7 @@ function WorkspaceAppShell() {
       setAiAutomationGuardrailError(null);
       setSuggestionError(null);
       setComposerValue("");
+      setDraftStatusMessage(null);
       setGmailOutboundStatus(null);
       setGmailOutboundStatusError(null);
       setWebchatOutboundStatus(null);
@@ -1006,6 +1012,48 @@ function WorkspaceAppShell() {
   const canSendReply =
     conversationPermissions?.can_send_reply === true &&
     Boolean(conversationDetail);
+  const sendDisabledReason =
+    composerValue.trim().length === 0
+      ? "Type a draft before sending. Provider sends remain simulated in local demo."
+      : aiDraftReview && aiDraftReview.status !== "approved"
+        ? "Approve the AI draft review before sending."
+        : "Provider sends remain simulated in local demo.";
+
+  function handleComposerChange(value: string) {
+    setComposerValue(value);
+    setDraftStatusMessage(
+      value.trim().length > 0
+        ? "Draft saved locally in this browser session."
+        : "Local draft is editable until sent.",
+    );
+  }
+
+  async function handleCopyDraft() {
+    if (composerValue.trim().length === 0) {
+      return;
+    }
+
+    try {
+      await navigator.clipboard?.writeText(composerValue);
+      setDraftStatusMessage("Draft copied to clipboard.");
+    } catch {
+      setDraftStatusMessage(
+        "Draft is ready to copy, but clipboard permission is unavailable.",
+      );
+    }
+  }
+
+  function handleClearDraft() {
+    setComposerValue("");
+    setDraftId(null);
+    setAiDraftLabel(null);
+    setDraftStatusMessage("Draft cleared locally.");
+  }
+
+  function handleCopySuggestionToComposer(text: string) {
+    setComposerValue(text);
+    setDraftStatusMessage("Suggestion copied to composer for human review.");
+  }
 
   async function refreshConversationWorkspace(conversationId: string) {
     const client = buildClient({
@@ -1075,6 +1123,7 @@ function WorkspaceAppShell() {
 
       setComposerValue(response.data.draft.body);
       setDraftId(response.data.draft.id);
+      setDraftStatusMessage("AI draft copied into composer for human review.");
       const reviewResponse = await client.getAiDraftReview(
         response.data.draft.id,
       );
@@ -1367,6 +1416,7 @@ function WorkspaceAppShell() {
         draft_id: draftId ?? undefined,
       });
       setComposerValue("");
+      setDraftStatusMessage("Reply sent in the current safe local flow.");
       setDraftId(null);
       setAiDraftLabel(null);
       setAiReplySuggestion(null);
@@ -1635,15 +1685,20 @@ function WorkspaceAppShell() {
           loading: detailLoading,
           error: detailError,
           composerValue,
-          onComposerChange: setComposerValue,
+          onComposerChange: handleComposerChange,
           onGenerateDraft: handleGenerateDraft,
           onSendReply: handleSendReply,
+          onClearDraft: handleClearDraft,
+          onCopyDraft: handleCopyDraft,
+          onCopySuggestionToComposer: handleCopySuggestionToComposer,
           canGenerateDraft,
           canSendReply,
           isGeneratingDraft,
           isSendingReply,
           composerError,
           aiDraftLabel,
+          draftStatusMessage,
+          sendDisabledReason,
           readOnlyMessage:
             me?.user.role === "viewer"
               ? "You have view-only access to this conversation."

@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 import { WorkspaceNavigation } from "./WorkspaceNavigation";
 
@@ -55,13 +55,27 @@ describe("WorkspaceNavigation", () => {
     expect(activeItem).toHaveAttribute("data-status", "active");
     expect(screen.getAllByText("planned").length).toBeGreaterThan(0);
     expect(screen.getByRole("button", { name: /CRM \/ Leads/ })).toBeDisabled();
-    expect(screen.getByRole("button", { name: /CRM \/ Leads/ })).toHaveAttribute(
-      "data-status",
-      "planned",
-    );
+    expect(
+      screen.getByRole("button", { name: /CRM \/ Leads/ }),
+    ).toHaveAttribute("data-status", "planned");
     expect(screen.getByRole("navigation")).toHaveAttribute(
       "aria-label",
       "Workspace navigation",
     );
+  });
+
+  it("notifies parent when an available navigation item is clicked", () => {
+    const selectedItems: string[] = [];
+
+    render(
+      <WorkspaceNavigation
+        role="owner"
+        onNavigate={(item) => selectedItems.push(item.id)}
+      />,
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "Queue / Chat Masuk" }));
+
+    expect(selectedItems).toEqual(["queue"]);
   });
 });

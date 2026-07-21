@@ -21,12 +21,17 @@ type ConversationPaneProps = {
   onComposerChange: (value: string) => void;
   onGenerateDraft: () => void;
   onSendReply: () => void;
+  onClearDraft?: () => void;
+  onCopyDraft?: () => void;
+  onCopySuggestionToComposer?: (text: string) => void;
   canGenerateDraft: boolean;
   canSendReply: boolean;
   isGeneratingDraft: boolean;
   isSendingReply: boolean;
   composerError: string | null;
   aiDraftLabel: string | null;
+  draftStatusMessage?: string | null;
+  sendDisabledReason?: string | null;
   readOnlyMessage: string | null;
   aiReplySuggestion?: AiReplySuggestionResponse["data"]["suggestion"] | null;
   aiFollowUpRecommendation?:
@@ -171,12 +176,17 @@ export function ConversationPane(props: ConversationPaneProps) {
         onChange={props.onComposerChange}
         onGenerateDraft={props.onGenerateDraft}
         onSendReply={props.onSendReply}
+        onClearDraft={props.onClearDraft}
+        onCopyDraft={props.onCopyDraft}
+        onCopySuggestionToComposer={props.onCopySuggestionToComposer}
         canGenerateDraft={props.canGenerateDraft}
         canSendReply={props.canSendReply}
         isGeneratingDraft={props.isGeneratingDraft}
         isSendingReply={props.isSendingReply}
         error={props.composerError}
         aiDraftLabel={props.aiDraftLabel}
+        draftStatusMessage={props.draftStatusMessage}
+        sendDisabledReason={props.sendDisabledReason}
         readOnlyMessage={props.readOnlyMessage}
         aiReplySuggestion={props.aiReplySuggestion}
         aiFollowUpRecommendation={props.aiFollowUpRecommendation}

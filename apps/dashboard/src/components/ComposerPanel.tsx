@@ -16,12 +16,17 @@ type ComposerPanelProps = {
   onChange: (value: string) => void;
   onGenerateDraft: () => void;
   onSendReply: () => void;
+  onClearDraft?: () => void;
+  onCopyDraft?: () => void;
+  onCopySuggestionToComposer?: (text: string) => void;
   canGenerateDraft: boolean;
   canSendReply: boolean;
   isGeneratingDraft: boolean;
   isSendingReply: boolean;
   error: string | null;
   aiDraftLabel: string | null;
+  draftStatusMessage?: string | null;
+  sendDisabledReason?: string | null;
   readOnlyMessage: string | null;
   aiReplySuggestion?: AiReplySuggestionResponse["data"]["suggestion"] | null;
   aiFollowUpRecommendation?:
@@ -52,6 +57,10 @@ type ComposerPanelProps = {
 
 export function ComposerPanel(props: ComposerPanelProps) {
   const showActions = props.canGenerateDraft || props.canSendReply;
+  const sendBlocked =
+    props.isSendingReply ||
+    props.value.trim().length === 0 ||
+    (props.aiDraftReview ? props.aiDraftReview.status !== "approved" : false);
 
   return (
     <section className="composer-card">
@@ -85,6 +94,7 @@ export function ComposerPanel(props: ComposerPanelProps) {
         error={props.suggestionError ?? null}
         canGenerate={props.canGenerateDraft}
         onGenerate={props.onGenerateSuggestion ?? (() => {})}
+        onCopyToComposer={props.onCopySuggestionToComposer}
       />
 
       <AiFollowUpRecommendationPanel
@@ -133,6 +143,30 @@ export function ComposerPanel(props: ComposerPanelProps) {
         />
       </label>
 
+      <div className="composer-utility-row" aria-live="polite">
+        <span className="helper-copy">
+          {props.draftStatusMessage ?? "Local draft is editable until sent."}
+        </span>
+        <div className="composer-utility-actions">
+          <button
+            type="button"
+            className="secondary-button"
+            onClick={props.onCopyDraft}
+            disabled={props.value.trim().length === 0}
+          >
+            Copy draft
+          </button>
+          <button
+            type="button"
+            className="secondary-button"
+            onClick={props.onClearDraft}
+            disabled={props.value.length === 0}
+          >
+            Clear draft
+          </button>
+        </div>
+      </div>
+
       {showActions ? (
         <div className="composer-actions">
           {props.canGenerateDraft ? (
@@ -147,20 +181,29 @@ export function ComposerPanel(props: ComposerPanelProps) {
           ) : null}
 
           {props.canSendReply ? (
-            <button
-              type="button"
-              className="primary-button"
-              onClick={props.onSendReply}
-              disabled={
-                props.isSendingReply ||
-                props.value.trim().length === 0 ||
-                (props.aiDraftReview
-                  ? props.aiDraftReview.status !== "approved"
-                  : false)
-              }
-            >
-              {props.isSendingReply ? "Sending..." : "Send Reply"}
-            </button>
+            <div className="composer-send-group">
+              <button
+                type="button"
+                className="primary-button"
+                onClick={props.onSendReply}
+                disabled={sendBlocked}
+                aria-describedby={
+                  sendBlocked ? "composer-send-disabled-reason" : undefined
+                }
+              >
+                {props.isSendingReply ? "Sending..." : "Send Reply"}
+              </button>
+              {sendBlocked ? (
+                <p
+                  className="helper-copy"
+                  id="composer-send-disabled-reason"
+                  aria-live="polite"
+                >
+                  {props.sendDisabledReason ??
+                    "Type a draft before sending. Provider sends remain simulated in local demo."}
+                </p>
+              ) : null}
+            </div>
           ) : null}
         </div>
       ) : null}

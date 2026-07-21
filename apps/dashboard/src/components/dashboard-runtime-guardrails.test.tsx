@@ -5,11 +5,14 @@ import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { ConversationWorkspace } from "./ConversationWorkspace";
 
-const runtimeSources = import.meta.glob(["./*.ts", "./*.tsx", "../*.ts", "../*.tsx"], {
-  eager: true,
-  query: "?raw",
-  import: "default",
-}) as Record<string, string>;
+const runtimeSources = import.meta.glob(
+  ["./*.ts", "./*.tsx", "../*.ts", "../*.tsx"],
+  {
+    eager: true,
+    query: "?raw",
+    import: "default",
+  },
+) as Record<string, string>;
 
 const sourceFiles = Object.entries(runtimeSources)
   .filter(([path]) => !path.includes(".test."))
@@ -43,7 +46,11 @@ describe("dashboard runtime guardrails", () => {
         dataClassification={{ readiness: null, loading: false, error: null }}
         redactionHardening={{ readiness: null, loading: false, error: null }}
         enterpriseCompliance={{
-          adminSecurityControls: { readiness: null, loading: false, error: null },
+          adminSecurityControls: {
+            readiness: null,
+            loading: false,
+            error: null,
+          },
           sessionPolicy: { readiness: null, loading: false, error: null },
           complianceDashboard: { readiness: null, loading: false, error: null },
           backupRestore: { readiness: null, loading: false, error: null },
@@ -146,7 +153,10 @@ describe("dashboard runtime guardrails", () => {
     ];
 
     for (const element of actionableElements) {
-      const text = within(element).queryByText(/.+/)?.textContent ?? element.textContent ?? "";
+      const text =
+        within(element).queryByText(/.+/)?.textContent ??
+        element.textContent ??
+        "";
 
       for (const pattern of forbiddenActionLabels) {
         expect(text).not.toMatch(pattern);
