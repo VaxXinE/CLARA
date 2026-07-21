@@ -1,6 +1,7 @@
 import { QueueJobReliabilityReadinessPanel } from "./QueueJobReliabilityReadinessPanel";
 import { RateLimitQuotaUsageReadinessPanel } from "./RateLimitQuotaUsageReadinessPanel";
 import { ObservabilitySloAlertReadinessPanel } from "./ObservabilitySloAlertReadinessPanel";
+import { BillingPlanEntitlementReadinessPanel } from "./BillingPlanEntitlementReadinessPanel";
 
 const readinessCategories = [
   ["SLO readiness", "Targets defined; no external SLA promise yet."],
@@ -57,6 +58,7 @@ export function ScaleReliabilityBillingReadinessPanel() {
       <QueueJobReliabilityReadinessPanel />
       <RateLimitQuotaUsageReadinessPanel />
       <ObservabilitySloAlertReadinessPanel />
+      <BillingPlanEntitlementReadinessPanel />
     </>
   );
 }

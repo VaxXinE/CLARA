@@ -62,3 +62,30 @@ It explicitly keeps:
 - no CRM mutation
 - no outbound send
 - no real AI provider
+
+## P11-PR-05 Billing Readiness Plan Entitlement Policy
+
+P11-PR-05 keeps Billing Readiness aggregate-first and workspace-scoped. It adds
+Plan Entitlement, Plan Catalog, Subscription Lifecycle, Payment Provider
+Boundary, and safe billing metadata summary coverage.
+
+This remains readiness not billing launch:
+
+- no payment provider integration
+- no charging customers
+- no invoice creation
+- no checkout session
+- no subscription mutation
+- no plan mutation
+- no entitlement mutation
+- no quota enforcement
+- no raw usage events
+- no raw customer messages
+- no raw provider payload
+- no raw webhook payload
+- no access token
+- no refresh token
+- no cookies
+- no CRM mutation
+- no outbound send
+- no real AI provider

@@ -277,6 +277,22 @@ webhook payload, no access token, no refresh token, no cookies, no payment
 provider integration, no charging customers, and no subscription mutation.
 ```
 
+P11-PR-05 billing readiness/plan entitlement:
+
+```text
+GET /api/v1/billing/plan-entitlement/readiness returns authenticated,
+workspace-scoped Billing Readiness, Plan Entitlement, Plan Catalog,
+Subscription Lifecycle, Payment Provider Boundary, and safe billing metadata
+summary output.
+
+This is readiness not billing launch: no payment provider integration, no
+charging customers, no invoice creation, no checkout session, no subscription
+mutation, no plan mutation, no entitlement mutation, no quota enforcement, no
+raw usage events, no raw customer messages, no raw provider payload, no raw
+webhook payload, no access token, no refresh token, no cookies, no CRM mutation,
+no outbound send, and no real AI provider.
+```
+
 Workspace user/role readiness:
 
 ```text

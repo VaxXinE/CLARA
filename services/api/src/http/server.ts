@@ -68,6 +68,7 @@ import { SessionPolicyReadinessService } from "../enterprise/session-policy-read
 import { registerReliabilityQueueJobReadinessRoutes } from "./routes/reliability-queue-job-readiness";
 import { registerRateLimitQuotaUsageReadinessRoutes } from "./routes/rate-limit-quota-usage-readiness";
 import { registerReliabilityObservabilitySloAlertReadinessRoutes } from "./routes/reliability-observability-slo-alert-readiness";
+import { registerBillingPlanEntitlementReadinessRoutes } from "./routes/billing-plan-entitlement-readiness";
 import { registerEnterpriseAdminSecurityControlsReadinessRoutes } from "./routes/enterprise-admin-security-controls-readiness";
 import { registerEnterpriseAuditRetentionReadinessRoutes } from "./routes/enterprise-audit-retention-readiness";
 import { registerEnterpriseBackupRestoreReadinessRoutes } from "./routes/enterprise-backup-restore-readiness";
@@ -461,6 +462,7 @@ export async function createServer(
     app,
     authProvider,
   );
+  await registerBillingPlanEntitlementReadinessRoutes(app, authProvider);
   if (services.channelHealth) {
     const conversationVolumeMetrics = new ConversationVolumeMetricsService(
       services.conversations,

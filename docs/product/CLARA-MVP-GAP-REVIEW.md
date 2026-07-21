@@ -752,14 +752,25 @@ messages, no raw provider payload, no raw webhook payload, no access token, no
 refresh token, no cookies, no CRM mutation, no outbound send, and no real AI
 provider. Usage Metering output remains aggregate-first and workspace-scoped.
 
-P11-PR-04 is in progress with Observability, SLO Dashboard, Alert Readiness,
-Error Budget, safe telemetry summary, dashboard visibility, extension boundary,
-and validator coverage. It is readiness not SLA launch: no alert execution, no
+P11-PR-04 is complete with Observability, SLO Dashboard, Alert Readiness, Error
+Budget, safe telemetry summary, dashboard visibility, extension boundary, and
+validator coverage. It is readiness not SLA launch: no alert execution, no
 notification send, no vendor provider integration, no raw telemetry, no raw
 logs, no raw traces, no raw metric events, no raw customer messages, no raw
 provider payload, no raw webhook payload, no access token, no refresh token, no
 cookies, no payment provider integration, no charging customers, no
 subscription mutation, and output remains workspace-scoped.
+
+P11-PR-05 is in progress with Billing Readiness, Plan Entitlement, Plan
+Catalog, Subscription Lifecycle, Payment Provider Boundary, safe billing
+metadata summary, dashboard visibility, extension boundary, and validator
+coverage. It is readiness not billing launch: no payment provider integration,
+no charging customers, no invoice creation, no checkout session, no
+subscription mutation, no plan mutation, no entitlement mutation, no quota
+enforcement, no raw usage events, no raw customer messages, no raw provider
+payload, no raw webhook payload, no access token, no refresh token, no cookies,
+no CRM mutation, no outbound send, and no real AI provider. Output remains
+aggregate-first and workspace-scoped.
 
 This phase does not claim SOC 2, ISO 27001, GDPR, HIPAA, or PCI certification.
 It also does not add SSO, MFA, billing, report export, data deletion jobs,

@@ -1609,6 +1609,83 @@ export type ObservabilitySloAlertReadinessResponse = {
   };
 };
 
+export type BillingPlanEntitlementReadinessResponse = {
+  workspaceId: string;
+  generatedAt: string;
+  phase: "p11";
+  billingReadiness: {
+    billingPolicyDefined: true;
+    paymentProviderBoundaryDefined: true;
+    invoiceBoundaryDefined: true;
+    subscriptionBoundaryDefined: true;
+    chargingImplemented: false;
+    invoiceCreationImplemented: false;
+    paymentProviderIntegrated: false;
+    paymentMethodStorageImplemented: false;
+  };
+  planCatalogReadiness: {
+    planCatalogPolicyDefined: true;
+    planComparisonDefined: true;
+    planMutationImplemented: false;
+    upgradeImplemented: false;
+    downgradeImplemented: false;
+    cancellationImplemented: false;
+  };
+  entitlementReadiness: {
+    entitlementPolicyDefined: true;
+    featureGatePolicyDefined: true;
+    quotaLinkageDefined: true;
+    entitlementMutationImplemented: false;
+    productionQuotaBlockingImplemented: false;
+    hardEnforcementImplemented: false;
+  };
+  subscriptionLifecycleBoundary: {
+    lifecyclePolicyDefined: true;
+    checkoutImplemented: false;
+    renewalImplemented: false;
+    cancellationImplemented: false;
+    prorationImplemented: false;
+    taxLogicImplemented: false;
+  };
+  safeBillingSummary: {
+    aggregateOnly: true;
+    workspaceScoped: true;
+    rawUsageEventsIncluded: false;
+    rawCustomerMessagesIncluded: false;
+    rawProviderPayloadIncluded: false;
+    rawWebhookPayloadIncluded: false;
+    paymentDataIncluded: false;
+    secretsIncluded: false;
+  };
+  controls: Array<{
+    controlKey: string;
+    label: string;
+    description: string;
+    status: "ready" | "planned" | "blocked";
+    severity: "info" | "warning" | "critical";
+    evidenceType:
+      | "policy"
+      | "test"
+      | "runbook"
+      | "runtime_guardrail"
+      | "dashboard_boundary"
+      | "extension_boundary";
+  }>;
+  safety: {
+    readOnly: true;
+    mutationAllowed: false;
+    customerCharged: false;
+    invoiceCreated: false;
+    paymentProviderCalled: false;
+    subscriptionMutated: false;
+    planMutated: false;
+    entitlementMutated: false;
+    quotaEnforced: false;
+    usageCounterMutated: false;
+    secretsIncluded: false;
+  };
+};
+
 export type AnalyticsReportingFilterSummary = {
   appliedFilters: {
     timeWindow: "today" | "last_7_days" | "last_30_days";
