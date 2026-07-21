@@ -163,6 +163,80 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("refresh_token");
   });
 
+  it("loads observability SLO alert readiness safely", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        workspaceId: "wks_demo_sales",
+        generatedAt: "2026-07-20T01:00:00.000Z",
+        phase: "p11",
+        observabilityReadiness: {
+          structuredLoggingPolicyDefined: true,
+          correlationIdPolicyDefined: true,
+          safeRedactionPolicyDefined: true,
+          metricNamingPolicyDefined: true,
+          tracingPolicyDefined: true,
+          rawLogExposureAllowed: false,
+          rawTraceExposureAllowed: false,
+          vendorSdkIntegrated: false,
+        },
+        sloDashboardReadiness: {
+          availabilitySloDefined: true,
+          latencySloDefined: true,
+          errorRateSloDefined: true,
+          queueReliabilitySloDefined: true,
+          webhookProcessingSloDefined: true,
+          outboundDeliverySloDefined: true,
+          errorBudgetPolicyDefined: true,
+          productionSlaPromised: false,
+        },
+        alertReadiness: {
+          alertPolicyDefined: true,
+          severityModelDefined: true,
+          escalationPolicyLinked: true,
+          incidentResponseLinked: true,
+          notificationProviderIntegrated: false,
+          alertExecutionImplemented: false,
+          autoEscalationImplemented: false,
+        },
+        safeTelemetrySummary: {
+          aggregateOnly: true,
+          workspaceScoped: true,
+          rawLogsIncluded: false,
+          rawTracesIncluded: false,
+          rawMetricEventsIncluded: false,
+          rawCustomerMessagesIncluded: false,
+          rawProviderPayloadIncluded: false,
+          rawWebhookPayloadIncluded: false,
+          secretsIncluded: false,
+        },
+        controls: [],
+        safety: {
+          readOnly: true,
+          mutationAllowed: false,
+          alertSent: false,
+          notificationSent: false,
+          vendorProviderCalled: false,
+          externalExportEnabled: false,
+          rawTelemetryIncluded: false,
+          secretsIncluded: false,
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({ baseUrl: "http://127.0.0.1:3000" });
+
+    const response = await client.getObservabilitySloAlertReadiness();
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/reliability/observability-slo-alert/readiness",
+      expect.any(Object),
+    );
+    expect(response.workspaceId).toBe("wks_demo_sales");
+    expect(response.safety.alertSent).toBe(false);
+    expect(JSON.stringify(response)).not.toContain("access_token");
+    expect(JSON.stringify(response)).not.toContain("refresh_token");
+  });
+
   it("loads CRM workflow metrics safely", async () => {
     const fetchMock = vi.fn(async () =>
       jsonResponse({

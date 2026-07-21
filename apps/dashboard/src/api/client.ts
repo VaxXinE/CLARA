@@ -35,6 +35,7 @@ import type {
   IncidentResponseReadinessResponse,
   KpiDashboardResponse,
   MeResponse,
+  ObservabilitySloAlertReadinessResponse,
   PermissionAuditReadinessResponse,
   QueueJobReliabilityReadinessResponse,
   RateLimitQuotaUsageReadinessResponse,
@@ -360,6 +361,12 @@ export class ApiClient {
   async getRateLimitQuotaUsageReadiness(): Promise<RateLimitQuotaUsageReadinessResponse> {
     return this.request<RateLimitQuotaUsageReadinessResponse>(
       "/api/v1/reliability/rate-limit-quota-usage/readiness",
+    );
+  }
+
+  async getObservabilitySloAlertReadiness(): Promise<ObservabilitySloAlertReadinessResponse> {
+    return this.request<ObservabilitySloAlertReadinessResponse>(
+      "/api/v1/reliability/observability-slo-alert/readiness",
     );
   }
 

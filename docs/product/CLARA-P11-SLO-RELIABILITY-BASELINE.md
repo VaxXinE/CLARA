@@ -35,6 +35,15 @@ Dead Letter, and failure classification. This remains readiness not launch:
 no worker execution, no job execution, no job enqueue, no retry execution, no
 replay, no purge, no destructive cleanup, and no raw job payload.
 
+P11-PR-04 defines Observability and SLO Dashboard readiness for structured
+logging, correlation ID, safe redaction, metric naming, tracing policy,
+availability, latency, error rate, queue reliability, webhook processing,
+outbound delivery, and Error Budget. This is readiness not SLA launch: no alert
+execution, no notification send, no vendor provider integration, no raw
+telemetry, no raw logs, no raw traces, no raw metric events, no raw customer
+messages, no raw provider payload, no raw webhook payload, no access token, no
+refresh token, and no cookies.
+
 ## Non-scope
 
 P11-PR-01 adds no scheduler, queue worker, destructive cleanup job, load-test
