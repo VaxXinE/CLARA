@@ -18,7 +18,7 @@ export function WorkspaceAccessRequiredPanel({
           account, then sign in again.
         </p>
         {message ? <p className="panel-error">{message}</p> : null}
-        <button type="button" onClick={onSignOut}>
+        <button className="primary-button" type="button" onClick={onSignOut}>
           Sign Out
         </button>
       </div>

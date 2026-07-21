@@ -26,6 +26,9 @@ describe("P5.1 final accessibility baseline", () => {
     expect(screen.getByRole("complementary")).toBeInTheDocument();
     expect(screen.getByRole("banner")).toBeInTheDocument();
     expect(screen.getByRole("main")).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Skip to workspace content" }),
+    ).toBeInTheDocument();
     expect(screen.getByRole("navigation")).toHaveAttribute(
       "aria-label",
       "Workspace navigation",

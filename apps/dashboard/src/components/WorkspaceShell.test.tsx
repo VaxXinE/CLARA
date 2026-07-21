@@ -25,6 +25,7 @@ describe("WorkspaceShell", () => {
     expect(screen.getByText("CLARA v2")).toBeInTheDocument();
     expect(screen.getByRole("complementary")).toBeInTheDocument();
     expect(screen.getByRole("banner")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Skip to workspace content" })).toBeInTheDocument();
     expect(screen.getByRole("main")).toHaveTextContent(
       "Current dashboard content",
     );
@@ -44,6 +45,7 @@ describe("WorkspaceShell", () => {
     expect(menuButton).toHaveAttribute("aria-expanded", "false");
     await userEvent.click(menuButton);
     expect(menuButton).toHaveAttribute("aria-expanded", "true");
+    expect(screen.getByRole("main")).toHaveAttribute("id", "workspace-main");
   });
 
   it("does not use unsafe HTML or token display patterns", () => {
