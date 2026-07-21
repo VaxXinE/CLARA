@@ -13,8 +13,8 @@ classification: "roadmap"
 - P11-PR-01 Scale / Reliability / Billing Scope + SLO Policy. Complete.
 - P11-PR-02 Queue / Job Reliability + Retry / Idempotency Hardening. Complete.
 - P11-PR-03 Rate Limit + Quota + Usage Metering Readiness. Complete.
-- P11-PR-04 Observability + SLO Dashboard + Alert Readiness. In progress.
-- P11-PR-05 Billing Readiness + Plan Entitlement Policy.
+- P11-PR-04 Observability + SLO Dashboard + Alert Readiness. Complete.
+- P11-PR-05 Billing Readiness + Plan Entitlement Policy. In progress.
 - P11-PR-06 Performance / Load Test + Capacity Runbook.
 - P11-PR-07 Final P11 Audit / Runbook.
 
@@ -49,3 +49,13 @@ messages, no raw provider payload, no raw webhook payload, no access token, no
 refresh token, no cookies, no payment provider integration, no charging
 customers, and no subscription mutation. Output remains aggregate-first and
 workspace-scoped.
+
+P11-PR-05 adds Billing Readiness, Plan Entitlement, Plan Catalog,
+Subscription Lifecycle, Payment Provider Boundary, and safe billing metadata
+summary coverage. It is readiness not billing launch: no payment provider
+integration, no charging customers, no invoice creation, no checkout session,
+no subscription mutation, no plan mutation, no entitlement mutation, no quota
+enforcement, no raw usage events, no raw customer messages, no raw provider
+payload, no raw webhook payload, no access token, no refresh token, no cookies,
+no CRM mutation, no outbound send, and no real AI provider. Output remains
+aggregate-first and workspace-scoped.

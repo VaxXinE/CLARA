@@ -10,6 +10,7 @@ import type {
   AiReplySuggestionResponse,
   AuditRetentionReadinessResponse,
   BackupRestoreReadinessResponse,
+  BillingPlanEntitlementReadinessResponse,
   AnalyticsMetricCatalogResponse,
   AnalyticsOverviewResponse,
   AnalyticsReadinessResponse,
@@ -367,6 +368,12 @@ export class ApiClient {
   async getObservabilitySloAlertReadiness(): Promise<ObservabilitySloAlertReadinessResponse> {
     return this.request<ObservabilitySloAlertReadinessResponse>(
       "/api/v1/reliability/observability-slo-alert/readiness",
+    );
+  }
+
+  async getBillingPlanEntitlementReadiness(): Promise<BillingPlanEntitlementReadinessResponse> {
+    return this.request<BillingPlanEntitlementReadinessResponse>(
+      "/api/v1/billing/plan-entitlement/readiness",
     );
   }
 

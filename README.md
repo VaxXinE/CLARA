@@ -74,6 +74,7 @@ P11 Scale / Reliability / Billing starts with P11-PR-01 scope, SLO readiness, re
 P11-PR-02 adds Queue / Job Reliability, Retry, Idempotency, Dead Letter, and safe failure classification readiness with a workspace-scoped read-only endpoint and dashboard visibility. It is readiness not launch: no worker execution, no job execution, no job enqueue, no retry execution, no replay, no purge, no raw job payload, no raw customer messages, no raw provider payload, no raw webhook payload, no access token, no refresh token, no cookies, no payment provider integration, no charging customers, and no subscription mutation.
 P11-PR-03 adds Rate Limit, Quota, and Usage Metering readiness with a workspace-scoped read-only endpoint and dashboard visibility. It is readiness not billing launch: no quota enforcement, no payment provider integration, no charging customers, no invoice creation, no subscription mutation, no plan mutation, no entitlement mutation, no raw usage events, no raw customer messages, no raw provider payload, no raw webhook payload, no access token, no refresh token, no cookies, no CRM mutation, no outbound send, and no real AI provider.
 P11-PR-04 adds Observability, SLO Dashboard, Alert Readiness, Error Budget, and safe telemetry summary coverage with a workspace-scoped read-only endpoint and dashboard visibility. It is readiness not SLA launch: no alert execution, no notification send, no vendor provider integration, no raw telemetry, no raw logs, no raw traces, no raw metric events, no raw customer messages, no raw provider payload, no raw webhook payload, no access token, no refresh token, no cookies, no payment provider integration, no charging customers, and no subscription mutation.
+P11-PR-05 adds Billing Readiness, Plan Entitlement, Plan Catalog, Subscription Lifecycle, Payment Provider Boundary, and safe billing metadata summary coverage with a workspace-scoped read-only endpoint and dashboard visibility. It is readiness not billing launch: no payment provider integration, no charging customers, no invoice creation, no checkout session, no subscription mutation, no plan mutation, no entitlement mutation, no quota enforcement, no raw usage events, no raw customer messages, no raw provider payload, no raw webhook payload, no access token, no refresh token, no cookies, no CRM mutation, no outbound send, and no real AI provider.
 ```
 
 Start here for local usage:
@@ -187,6 +188,8 @@ docs/product/CLARA-P11-RATE-LIMIT-QUOTA-USAGE-METERING-READINESS-SPEC.md
 docs/product/CLARA-P11-RATE-LIMIT-QUOTA-RUNBOOK.md
 docs/product/CLARA-P11-OBSERVABILITY-SLO-DASHBOARD-ALERT-READINESS-SPEC.md
 docs/product/CLARA-P11-OBSERVABILITY-ALERT-RUNBOOK.md
+docs/product/CLARA-P11-BILLING-READINESS-PLAN-ENTITLEMENT-POLICY.md
+docs/product/CLARA-P11-BILLING-ENTITLEMENT-RUNBOOK.md
 ```
 
 ---

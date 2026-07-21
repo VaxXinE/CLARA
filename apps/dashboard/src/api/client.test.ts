@@ -237,6 +237,87 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("refresh_token");
   });
 
+  it("loads billing plan entitlement readiness safely", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        workspaceId: "wks_demo_sales",
+        generatedAt: "2026-07-21T01:00:00.000Z",
+        phase: "p11",
+        billingReadiness: {
+          billingPolicyDefined: true,
+          paymentProviderBoundaryDefined: true,
+          invoiceBoundaryDefined: true,
+          subscriptionBoundaryDefined: true,
+          chargingImplemented: false,
+          invoiceCreationImplemented: false,
+          paymentProviderIntegrated: false,
+          paymentMethodStorageImplemented: false,
+        },
+        planCatalogReadiness: {
+          planCatalogPolicyDefined: true,
+          planComparisonDefined: true,
+          planMutationImplemented: false,
+          upgradeImplemented: false,
+          downgradeImplemented: false,
+          cancellationImplemented: false,
+        },
+        entitlementReadiness: {
+          entitlementPolicyDefined: true,
+          featureGatePolicyDefined: true,
+          quotaLinkageDefined: true,
+          entitlementMutationImplemented: false,
+          productionQuotaBlockingImplemented: false,
+          hardEnforcementImplemented: false,
+        },
+        subscriptionLifecycleBoundary: {
+          lifecyclePolicyDefined: true,
+          checkoutImplemented: false,
+          renewalImplemented: false,
+          cancellationImplemented: false,
+          prorationImplemented: false,
+          taxLogicImplemented: false,
+        },
+        safeBillingSummary: {
+          aggregateOnly: true,
+          workspaceScoped: true,
+          rawUsageEventsIncluded: false,
+          rawCustomerMessagesIncluded: false,
+          rawProviderPayloadIncluded: false,
+          rawWebhookPayloadIncluded: false,
+          paymentDataIncluded: false,
+          secretsIncluded: false,
+        },
+        controls: [],
+        safety: {
+          readOnly: true,
+          mutationAllowed: false,
+          customerCharged: false,
+          invoiceCreated: false,
+          paymentProviderCalled: false,
+          subscriptionMutated: false,
+          planMutated: false,
+          entitlementMutated: false,
+          quotaEnforced: false,
+          usageCounterMutated: false,
+          secretsIncluded: false,
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({ baseUrl: "http://127.0.0.1:3000" });
+
+    const response = await client.getBillingPlanEntitlementReadiness();
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/billing/plan-entitlement/readiness",
+      expect.any(Object),
+    );
+    expect(response.workspaceId).toBe("wks_demo_sales");
+    expect(response.safety.customerCharged).toBe(false);
+    expect(JSON.stringify(response)).not.toContain("access_token");
+    expect(JSON.stringify(response)).not.toContain("refresh_token");
+  });
+
   it("loads CRM workflow metrics safely", async () => {
     const fetchMock = vi.fn(async () =>
       jsonResponse({
