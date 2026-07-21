@@ -772,7 +772,7 @@ payload, no raw webhook payload, no access token, no refresh token, no cookies,
 no CRM mutation, no outbound send, and no real AI provider. Output remains
 aggregate-first and workspace-scoped.
 
-P11-PR-06 is in progress with Performance, Load Test, Capacity, capacity
+P11-PR-06 is complete with Performance, Load Test, Capacity, capacity
 planning, safe benchmark, performance risk classification, dashboard
 visibility, extension boundary, and validator coverage. It is readiness not
 execution: no heavy load test in normal validation, no production target by
@@ -782,6 +782,21 @@ telemetry, no raw logs, no raw traces, no raw metric events, no raw customer
 messages, no raw provider payload, no raw webhook payload, no access token, no
 refresh token, no cookies, no CRM mutation, no outbound send, and no real AI
 provider. Output remains aggregate-first and workspace-scoped.
+
+P11-PR-07 is in progress with Final P11 Scale / Reliability / Billing audit,
+production runbook, reliability checklist, billing-readiness checklist,
+performance and capacity checklist, security regression checklist,
+operator/admin QA checklist, P12 Beta / GA Release Readiness handoff notes, and
+validator coverage. It is readiness not billing launch: Backend AuthContext is
+authoritative, frontend role guard is UX-only, client workspaceId is never
+authority, output remains workspace-scoped and aggregate-first, no payment
+provider integration, no charging customers, no invoice creation, no
+subscription mutation, no quota enforcement, no heavy load test in normal
+validation, no production target by default, no raw telemetry, no raw logs, no
+raw traces, no raw metric events, no raw usage events, no raw payment data, no
+raw customer messages, no raw provider payload, no raw webhook payload, no
+access token, no refresh token, no cookies, no CRM mutation, no outbound send,
+and no real AI provider.
 
 This phase does not claim SOC 2, ISO 27001, GDPR, HIPAA, or PCI certification.
 It also does not add SSO, MFA, billing, report export, data deletion jobs,

@@ -259,3 +259,16 @@ prompts, load-test execution, benchmark execution, production target behavior,
 external provider calls, payment provider integration, customer charging,
 invoice creation, subscription mutation, CRM mutation, outbound send, and real
 AI provider behavior out of the extension runtime.
+
+P11-PR-07 keeps Final P11 Scale / Reliability / Billing audit, production
+runbook, reliability checklist, billing-readiness checklist, performance and
+capacity checklist, security regression checklist, operator/admin QA checklist,
+and P12 Beta / GA Release Readiness handoff out of the extension runtime. The
+extension remains active-conversation/manual-assisted only and exposes no raw
+telemetry, no raw logs, no raw traces, no raw metric events, no raw usage
+events, no raw payment data, no raw customer messages, no raw provider payload,
+no raw webhook payload, no access token, no refresh token, no cookies, no CRM
+mutation, no outbound send, no payment provider integration, no charging
+customers, no invoice creation, no subscription mutation, no quota enforcement,
+no heavy load test in normal validation, no production target by default, and no
+real AI provider.

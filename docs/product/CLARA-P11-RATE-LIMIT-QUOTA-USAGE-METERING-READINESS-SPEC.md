@@ -112,4 +112,3 @@ prompts, API keys, or secrets.
 P11-PR-04 may add Observability + SLO Dashboard + Alert Readiness. It must keep
 this readiness boundary intact until a later PR explicitly scopes billing or
 quota enforcement.
-
