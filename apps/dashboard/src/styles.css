@@ -748,6 +748,25 @@ button {
   margin-top: 10px;
 }
 
+.composer-utility-row,
+.composer-utility-actions,
+.composer-send-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.composer-utility-row {
+  justify-content: space-between;
+  margin-top: -4px;
+}
+
+.composer-send-group {
+  align-items: flex-start;
+  flex-direction: column;
+}
+
 .primary-button,
 .secondary-button {
   border-radius: 14px;
@@ -959,5 +978,10 @@ button {
   .crm-facts-grid,
   .placeholder-card-grid {
     grid-template-columns: 1fr;
+  }
+
+  .composer-utility-row {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }

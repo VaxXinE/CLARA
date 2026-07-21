@@ -34,9 +34,19 @@ export function ActionCenterPanel(props: ActionCenterPanelProps) {
         ))}
       </div>
 
-      <button className="secondary-button" disabled type="button">
+      <button
+        aria-describedby="planned-action-reason"
+        className="secondary-button"
+        disabled
+        type="button"
+      >
         Planned action only
       </button>
+      <p className="helper-copy" id="planned-action-reason">
+        Actions are intentionally disabled before P12 because this panel is a
+        review-only preview and must not start background work, sends, exports,
+        or billing changes.
+      </p>
     </section>
   );
 }

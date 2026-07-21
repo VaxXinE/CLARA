@@ -1,17 +1,35 @@
 import {
   buildWorkspaceNavigation,
+  type WorkspaceNavigationItem,
   type WorkspaceNavigationRole,
 } from "../navigation/workspace-navigation";
 
 export function WorkspaceNavigation(props: {
   activeItemId?: string;
-  onNavigate?: () => void;
+  onNavigate?: (item: WorkspaceNavigationItem) => void;
   role?: WorkspaceNavigationRole;
 }) {
   const navGroups = buildWorkspaceNavigation({
     activeItemId: props.activeItemId,
     role: props.role ?? "viewer",
   });
+
+  function handleNavigate(item: WorkspaceNavigationItem) {
+    if (item.route.startsWith("#")) {
+      const target = document.querySelector(item.route);
+
+      if (target && "scrollIntoView" in target) {
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+
+      window.history.replaceState(null, "", item.route);
+    }
+
+    props.onNavigate?.(item);
+  }
 
   return (
     <nav aria-label="Workspace navigation" className="workspace-navigation">
@@ -28,7 +46,7 @@ export function WorkspaceNavigation(props: {
                   item.status === "planned" || item.status === "disabled"
                 }
                 key={item.id}
-                onClick={props.onNavigate}
+                onClick={() => handleNavigate(item)}
                 type="button"
               >
                 <span className="nav-item-label">{item.label}</span>

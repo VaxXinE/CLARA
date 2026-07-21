@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ComposerPanel } from "./ComposerPanel";
 
@@ -97,5 +97,62 @@ describe("ComposerPanel", () => {
     );
 
     expect(screen.getByRole("button", { name: "Send Reply" })).toBeDisabled();
+  });
+
+  it("supports local draft copy, clear, saved feedback, and disabled send reason", () => {
+    const onCopyDraft = vi.fn();
+    const onClearDraft = vi.fn();
+
+    render(
+      <ComposerPanel
+        value="Local safe draft"
+        onChange={vi.fn()}
+        onGenerateDraft={vi.fn()}
+        onSendReply={vi.fn()}
+        onClearDraft={onClearDraft}
+        onCopyDraft={onCopyDraft}
+        canGenerateDraft={true}
+        canSendReply={true}
+        isGeneratingDraft={false}
+        isSendingReply={false}
+        error={null}
+        aiDraftLabel={null}
+        draftStatusMessage="Draft saved locally in this browser session."
+        sendDisabledReason="Approve the AI draft review before sending."
+        readOnlyMessage={null}
+        aiDraftReview={{
+          draftId: "draft_demo",
+          suggestionId: null,
+          conversationId: "conv_demo",
+          customerId: "cust_demo",
+          workspaceId: "wks_demo_sales",
+          channel: "gmail",
+          status: "suggested",
+          draftText: "Local safe draft",
+          editedText: null,
+          reviewedByUserId: null,
+          approvedAt: null,
+          rejectedAt: null,
+          safeReasonCode: "ai_human_approval_required",
+          safetyFlags: [],
+          requiresHumanApproval: true,
+          policyVersion: "p7_ai_draft_review_v1",
+          createdAt: "2026-01-01T00:00:00.000Z",
+          updatedAt: "2026-01-01T00:00:00.000Z",
+        }}
+      />,
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "Copy draft" }));
+    fireEvent.click(screen.getByRole("button", { name: "Clear draft" }));
+
+    expect(onCopyDraft).toHaveBeenCalledOnce();
+    expect(onClearDraft).toHaveBeenCalledOnce();
+    expect(
+      screen.getByText("Draft saved locally in this browser session."),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("Approve the AI draft review before sending."),
+    ).toBeInTheDocument();
   });
 });

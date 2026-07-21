@@ -26,5 +26,8 @@ describe("ActionCenterPanel", () => {
     expect(
       screen.getByRole("button", { name: "Planned action only" }),
     ).toBeDisabled();
+    expect(
+      screen.getByText(/intentionally disabled before P12/i),
+    ).toBeInTheDocument();
   });
 });

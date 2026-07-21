@@ -43,6 +43,7 @@ export function ConversationWorkspace(props: ConversationWorkspaceProps) {
 
   return (
     <section
+      id="workspace"
       className="conversation-workspace"
       aria-label="Conversation workspace"
     >
@@ -125,7 +126,11 @@ export function ConversationWorkspace(props: ConversationWorkspaceProps) {
         <ScaleReliabilityBillingReadinessPanel />
       </div>
 
-      <div className="workspace-queue-column" aria-label="Queue inbox">
+      <div
+        id="queue"
+        className="workspace-queue-column"
+        aria-label="Queue inbox"
+      >
         <InboxPanel {...props.inbox} />
       </div>
 

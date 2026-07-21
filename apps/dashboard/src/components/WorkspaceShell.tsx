@@ -1,6 +1,9 @@
 import { useState, type ReactNode } from "react";
 import { WorkspaceNavigation } from "./WorkspaceNavigation";
-import type { WorkspaceNavigationRole } from "../navigation/workspace-navigation";
+import type {
+  WorkspaceNavigationItem,
+  WorkspaceNavigationRole,
+} from "../navigation/workspace-navigation";
 
 export function WorkspaceShell(props: {
   eyebrow?: string;
@@ -11,6 +14,12 @@ export function WorkspaceShell(props: {
   children: ReactNode;
 }) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [activeItemId, setActiveItemId] = useState("workspace");
+
+  function handleNavigate(item: WorkspaceNavigationItem) {
+    setActiveItemId(item.id);
+    setMobileNavOpen(false);
+  }
 
   return (
     <div className="app-shell">
@@ -30,8 +39,9 @@ export function WorkspaceShell(props: {
           </div>
         </div>
         <WorkspaceNavigation
+          activeItemId={activeItemId}
           role={props.navigationRole}
-          onNavigate={() => setMobileNavOpen(false)}
+          onNavigate={handleNavigate}
         />
       </aside>
 

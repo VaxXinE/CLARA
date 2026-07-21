@@ -25,7 +25,9 @@ describe("WorkspaceShell", () => {
     expect(screen.getByText("CLARA v2")).toBeInTheDocument();
     expect(screen.getByRole("complementary")).toBeInTheDocument();
     expect(screen.getByRole("banner")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Skip to workspace content" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Skip to workspace content" }),
+    ).toBeInTheDocument();
     expect(screen.getByRole("main")).toHaveTextContent(
       "Current dashboard content",
     );
@@ -46,6 +48,22 @@ describe("WorkspaceShell", () => {
     await userEvent.click(menuButton);
     expect(menuButton).toHaveAttribute("aria-expanded", "true");
     expect(screen.getByRole("main")).toHaveAttribute("id", "workspace-main");
+  });
+
+  it("updates navigation active state after clicking an available item", async () => {
+    render(
+      <WorkspaceShell title="Conversation workspace">
+        <section id="queue">Queue content</section>
+      </WorkspaceShell>,
+    );
+
+    await userEvent.click(
+      screen.getByRole("button", { name: "Queue / Chat Masuk" }),
+    );
+
+    expect(screen.getByRole("button", { current: "page" })).toHaveTextContent(
+      "Queue / Chat Masuk",
+    );
   });
 
   it("does not use unsafe HTML or token display patterns", () => {
