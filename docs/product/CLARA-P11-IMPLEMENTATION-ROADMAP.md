@@ -15,8 +15,8 @@ classification: "roadmap"
 - P11-PR-03 Rate Limit + Quota + Usage Metering Readiness. Complete.
 - P11-PR-04 Observability + SLO Dashboard + Alert Readiness. Complete.
 - P11-PR-05 Billing Readiness + Plan Entitlement Policy. Complete.
-- P11-PR-06 Performance / Load Test + Capacity Runbook. In progress.
-- P11-PR-07 Final P11 Audit / Runbook.
+- P11-PR-06 Performance / Load Test + Capacity Runbook. Complete.
+- P11-PR-07 Final P11 Audit / Runbook. In progress.
 
 ## Guardrails
 
@@ -69,3 +69,17 @@ telemetry, no raw logs, no raw traces, no raw metric events, no raw customer
 messages, no raw provider payload, no raw webhook payload, no access token, no
 refresh token, no cookies, no CRM mutation, no outbound send, and no real AI
 provider. Output remains aggregate-first and workspace-scoped.
+
+P11-PR-07 closes Final P11 Scale / Reliability / Billing with audit, production
+runbook, reliability checklist, billing-readiness checklist, performance and
+capacity checklist, security regression checklist, operator/admin QA checklist,
+P12 Beta / GA Release Readiness handoff notes, and final regression validation.
+It is readiness not billing launch: Backend AuthContext remains authoritative,
+frontend role guard is UX-only, client workspaceId is never authority, output
+remains workspace-scoped and aggregate-first, no payment provider integration,
+no charging customers, no invoice creation, no subscription mutation, no quota
+enforcement, no heavy load test in normal validation, no production target by
+default, no raw telemetry, no raw logs, no raw traces, no raw metric events, no
+raw usage events, no raw payment data, no raw customer messages, no raw provider
+payload, no raw webhook payload, no access token, no refresh token, no cookies,
+no CRM mutation, no outbound send, and no real AI provider.

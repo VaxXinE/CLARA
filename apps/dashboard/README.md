@@ -52,6 +52,19 @@ events, raw customer messages, raw provider payload, raw webhook payload,
 access token, refresh token, cookies, auth headers, API keys, secrets, or
 unsafe HTML.
 
+P11-PR-07 closes the dashboard side of Final P11 Scale / Reliability / Billing
+with security, UI, and accessibility regressions. It remains readiness not
+billing launch: Backend AuthContext is authoritative, frontend role guard is
+UX-only, client workspaceId is never authority, readiness data is
+workspace-scoped and aggregate-first, and the dashboard exposes no payment
+provider integration, no charging customers, no invoice creation, no
+subscription mutation, no quota enforcement, no heavy load test in normal
+validation, no production target by default, no raw telemetry, no raw logs, no
+raw traces, no raw metric events, no raw usage events, no raw payment data, no
+raw customer messages, no raw provider payload, no raw webhook payload, no
+access token, no refresh token, no cookies, no CRM mutation, no outbound send,
+and no real AI provider.
+
 P8-PR-09 closes dashboard CRM workflow coverage with final UI, security, and
 accessibility regression tests. P8 complete keeps panels read-only,
 review-only, readiness-only, or audit-only and does not add CRM mutation, task
