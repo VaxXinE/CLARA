@@ -37,6 +37,7 @@ import type {
   KpiDashboardResponse,
   MeResponse,
   ObservabilitySloAlertReadinessResponse,
+  PerformanceCapacityReadinessResponse,
   PermissionAuditReadinessResponse,
   QueueJobReliabilityReadinessResponse,
   RateLimitQuotaUsageReadinessResponse,
@@ -374,6 +375,12 @@ export class ApiClient {
   async getBillingPlanEntitlementReadiness(): Promise<BillingPlanEntitlementReadinessResponse> {
     return this.request<BillingPlanEntitlementReadinessResponse>(
       "/api/v1/billing/plan-entitlement/readiness",
+    );
+  }
+
+  async getPerformanceCapacityReadiness(): Promise<PerformanceCapacityReadinessResponse> {
+    return this.request<PerformanceCapacityReadinessResponse>(
+      "/api/v1/reliability/performance-capacity/readiness",
     );
   }
 

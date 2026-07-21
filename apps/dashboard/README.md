@@ -41,6 +41,17 @@ P11-PR-03 adds a read-only Rate Limit / Quota / Usage readiness panel. It shows 
 P11-PR-04 adds a read-only Observability / SLO / Alert readiness panel. It shows Observability, SLO Dashboard, Alert Readiness, Error Budget, safe telemetry summary, readiness not SLA launch, and no alert execution, with no notification send, no vendor provider integration, no raw telemetry, no raw logs, no raw traces, no raw metric events, no raw customer messages, no raw provider payload, no raw webhook payload, no access token, no refresh token, no cookies, no payment provider integration, no charging customers, no subscription mutation, no unsafe HTML rendering, and no dashboard mutation controls.
 P11-PR-05 adds a read-only Billing / Plan / Entitlement readiness panel. It shows Billing Readiness, Payment Provider Boundary, invoice boundary, Plan Catalog, Plan Entitlement, Subscription Lifecycle, safe billing metadata summary, readiness not billing launch, and no customer charging, with no payment provider integration, no invoice creation, no checkout session, no subscription mutation, no plan mutation, no entitlement mutation, no quota enforcement, no raw usage events, no raw customer messages, no raw provider payload, no raw webhook payload, no access token, no refresh token, no cookies, no CRM mutation, no outbound send, no real AI provider, no unsafe HTML rendering, and no dashboard mutation controls.
 
+P11-PR-06 adds a read-only Performance / Load Test / Capacity readiness panel.
+It shows performance readiness, Load Test readiness, Capacity baseline,
+capacity planning, safe benchmark summary, readiness not execution, and no
+production target by default. It does not run load tests, execute benchmarks,
+call external providers, call payment providers, charge customers, create
+invoices, mutate subscriptions, mutate CRM data, send outbound messages, call a
+real AI provider, render raw telemetry, raw logs, raw traces, raw metric
+events, raw customer messages, raw provider payload, raw webhook payload,
+access token, refresh token, cookies, auth headers, API keys, secrets, or
+unsafe HTML.
+
 P8-PR-09 closes dashboard CRM workflow coverage with final UI, security, and
 accessibility regression tests. P8 complete keeps panels read-only,
 review-only, readiness-only, or audit-only and does not add CRM mutation, task

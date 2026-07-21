@@ -250,3 +250,12 @@ integration, customer charging, invoice creation, checkout session,
 subscription mutation, plan mutation, entitlement mutation, quota enforcement,
 CRM mutation, outbound send, and real AI provider behavior out of the extension
 runtime.
+
+P11-PR-06 keeps Performance, Load Test, Capacity, capacity planning, safe
+benchmark, raw telemetry, raw logs, raw traces, raw metric events, raw customer
+messages, raw provider payload, raw webhook payload, access token, refresh
+token, cookies, auth headers, API keys, secrets, raw DOM, raw HTML, raw
+prompts, load-test execution, benchmark execution, production target behavior,
+external provider calls, payment provider integration, customer charging,
+invoice creation, subscription mutation, CRM mutation, outbound send, and real
+AI provider behavior out of the extension runtime.

@@ -761,7 +761,7 @@ provider payload, no raw webhook payload, no access token, no refresh token, no
 cookies, no payment provider integration, no charging customers, no
 subscription mutation, and output remains workspace-scoped.
 
-P11-PR-05 is in progress with Billing Readiness, Plan Entitlement, Plan
+P11-PR-05 is complete with Billing Readiness, Plan Entitlement, Plan
 Catalog, Subscription Lifecycle, Payment Provider Boundary, safe billing
 metadata summary, dashboard visibility, extension boundary, and validator
 coverage. It is readiness not billing launch: no payment provider integration,
@@ -771,6 +771,17 @@ enforcement, no raw usage events, no raw customer messages, no raw provider
 payload, no raw webhook payload, no access token, no refresh token, no cookies,
 no CRM mutation, no outbound send, and no real AI provider. Output remains
 aggregate-first and workspace-scoped.
+
+P11-PR-06 is in progress with Performance, Load Test, Capacity, capacity
+planning, safe benchmark, performance risk classification, dashboard
+visibility, extension boundary, and validator coverage. It is readiness not
+execution: no heavy load test in normal validation, no production target by
+default, no external provider call, no payment provider integration, no
+charging customers, no invoice creation, no subscription mutation, no raw
+telemetry, no raw logs, no raw traces, no raw metric events, no raw customer
+messages, no raw provider payload, no raw webhook payload, no access token, no
+refresh token, no cookies, no CRM mutation, no outbound send, and no real AI
+provider. Output remains aggregate-first and workspace-scoped.
 
 This phase does not claim SOC 2, ISO 27001, GDPR, HIPAA, or PCI certification.
 It also does not add SSO, MFA, billing, report export, data deletion jobs,

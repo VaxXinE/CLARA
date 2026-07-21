@@ -75,6 +75,7 @@ P11-PR-02 adds Queue / Job Reliability, Retry, Idempotency, Dead Letter, and saf
 P11-PR-03 adds Rate Limit, Quota, and Usage Metering readiness with a workspace-scoped read-only endpoint and dashboard visibility. It is readiness not billing launch: no quota enforcement, no payment provider integration, no charging customers, no invoice creation, no subscription mutation, no plan mutation, no entitlement mutation, no raw usage events, no raw customer messages, no raw provider payload, no raw webhook payload, no access token, no refresh token, no cookies, no CRM mutation, no outbound send, and no real AI provider.
 P11-PR-04 adds Observability, SLO Dashboard, Alert Readiness, Error Budget, and safe telemetry summary coverage with a workspace-scoped read-only endpoint and dashboard visibility. It is readiness not SLA launch: no alert execution, no notification send, no vendor provider integration, no raw telemetry, no raw logs, no raw traces, no raw metric events, no raw customer messages, no raw provider payload, no raw webhook payload, no access token, no refresh token, no cookies, no payment provider integration, no charging customers, and no subscription mutation.
 P11-PR-05 adds Billing Readiness, Plan Entitlement, Plan Catalog, Subscription Lifecycle, Payment Provider Boundary, and safe billing metadata summary coverage with a workspace-scoped read-only endpoint and dashboard visibility. It is readiness not billing launch: no payment provider integration, no charging customers, no invoice creation, no checkout session, no subscription mutation, no plan mutation, no entitlement mutation, no quota enforcement, no raw usage events, no raw customer messages, no raw provider payload, no raw webhook payload, no access token, no refresh token, no cookies, no CRM mutation, no outbound send, and no real AI provider.
+P11-PR-06 adds Performance / Load Test / Capacity readiness with safe benchmark scenarios, capacity planning, and a workspace-scoped read-only endpoint plus dashboard visibility. It is readiness not execution: no heavy load test in normal validation, no production target by default, no external provider call, no payment provider integration, no charging customers, no invoice creation, no subscription mutation, no raw telemetry, no raw logs, no raw traces, no raw metric events, no raw customer messages, no raw provider payload, no raw webhook payload, no access token, no refresh token, no cookies, no CRM mutation, no outbound send, and no real AI provider.
 ```
 
 Start here for local usage:
@@ -190,6 +191,10 @@ docs/product/CLARA-P11-OBSERVABILITY-SLO-DASHBOARD-ALERT-READINESS-SPEC.md
 docs/product/CLARA-P11-OBSERVABILITY-ALERT-RUNBOOK.md
 docs/product/CLARA-P11-BILLING-READINESS-PLAN-ENTITLEMENT-POLICY.md
 docs/product/CLARA-P11-BILLING-ENTITLEMENT-RUNBOOK.md
+docs/product/CLARA-P11-PERFORMANCE-CAPACITY-READINESS-SPEC.md
+docs/product/CLARA-P11-PERFORMANCE-LOAD-TEST-CAPACITY-RUNBOOK.md
+docs/product/CLARA-P11-LOAD-TEST-SCENARIOS.md
+docs/product/CLARA-P11-CAPACITY-PLANNING-BASELINE.md
 ```
 
 ---

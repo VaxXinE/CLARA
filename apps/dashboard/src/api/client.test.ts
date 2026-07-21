@@ -318,6 +318,90 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("refresh_token");
   });
 
+  it("loads performance capacity readiness safely", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        workspaceId: "wks_demo_sales",
+        generatedAt: "2026-07-21T02:00:00.000Z",
+        phase: "p11",
+        performanceReadiness: {
+          latencyTargetDefined: true,
+          throughputTargetDefined: true,
+          errorRateTargetDefined: true,
+          timeoutBoundaryDefined: true,
+          requestSizeBoundaryDefined: true,
+          gracefulDegradationDefined: true,
+          heavyLoadTestExecutedByDefault: false,
+          productionTargetAllowed: false,
+        },
+        loadTestReadiness: {
+          scenarioCatalogDefined: true,
+          smokeProfileDefined: true,
+          baselineProfileDefined: true,
+          stressProfileDefinedForManualUse: true,
+          soakProfileDefinedForManualUse: true,
+          ciHeavyLoadExecutionEnabled: false,
+          externalProviderCallsAllowed: false,
+        },
+        capacityPlanning: {
+          capacityBaselineDefined: true,
+          scalingAssumptionDefined: true,
+          bottleneckChecklistDefined: true,
+          databaseCapacityChecklistDefined: true,
+          queueCapacityChecklistDefined: true,
+          dashboardCapacityChecklistDefined: true,
+          providerCapacityChecklistDefined: true,
+        },
+        riskClassification: {
+          latencyRiskClassified: true,
+          throughputRiskClassified: true,
+          providerLimitRiskClassified: true,
+          databaseRiskClassified: true,
+          queueBacklogRiskClassified: true,
+          productionReadinessRisk: "medium",
+        },
+        safeBenchmarkSummary: {
+          syntheticOnly: true,
+          workspaceScoped: true,
+          aggregateOnly: true,
+          rawLogsIncluded: false,
+          rawTracesIncluded: false,
+          rawMetricEventsIncluded: false,
+          rawCustomerMessagesIncluded: false,
+          rawProviderPayloadIncluded: false,
+          rawWebhookPayloadIncluded: false,
+          secretsIncluded: false,
+        },
+        controls: [],
+        safety: {
+          readOnly: true,
+          mutationAllowed: false,
+          loadTestExecuted: false,
+          benchmarkExecuted: false,
+          productionTargeted: false,
+          providerCalled: false,
+          paymentProviderCalled: false,
+          aiProviderCalled: false,
+          outboundSent: false,
+          secretsIncluded: false,
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({ baseUrl: "http://127.0.0.1:3000" });
+
+    const response = await client.getPerformanceCapacityReadiness();
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/reliability/performance-capacity/readiness",
+      expect.any(Object),
+    );
+    expect(response.workspaceId).toBe("wks_demo_sales");
+    expect(response.safety.loadTestExecuted).toBe(false);
+    expect(JSON.stringify(response)).not.toContain("access_token");
+    expect(JSON.stringify(response)).not.toContain("refresh_token");
+  });
+
   it("loads CRM workflow metrics safely", async () => {
     const fetchMock = vi.fn(async () =>
       jsonResponse({
