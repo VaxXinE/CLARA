@@ -87,7 +87,7 @@ Allowed output shape:
     piiMinimized: true;
     workspaceScoped: true;
     policyVersion: string;
-  };
+  }
 }
 ```
 

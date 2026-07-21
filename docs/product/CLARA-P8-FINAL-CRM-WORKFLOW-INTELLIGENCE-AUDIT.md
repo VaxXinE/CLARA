@@ -19,16 +19,16 @@ read-only, review-only, readiness-only, or audit-only.
 
 ## PR-by-PR Coverage
 
-| PR | Status | Coverage |
-|---|---|---|
-| P8-PR-01 | complete | CRM mutation policy and workflow intelligence scope |
-| P8-PR-02 | complete | Customer profile intelligence read model |
-| P8-PR-03 | complete | Customer timeline intelligence read model |
-| P8-PR-04 | complete | Reviewable CRM action proposal |
-| P8-PR-05 | complete | Task / follow-up workflow proposal |
-| P8-PR-06 | complete | Owner assignment readiness |
-| P8-PR-07 | complete | Lifecycle / status update readiness |
-| P8-PR-08 | complete | CRM activity audit hardening |
+| PR       | Status   | Coverage                                             |
+| -------- | -------- | ---------------------------------------------------- |
+| P8-PR-01 | complete | CRM mutation policy and workflow intelligence scope  |
+| P8-PR-02 | complete | Customer profile intelligence read model             |
+| P8-PR-03 | complete | Customer timeline intelligence read model            |
+| P8-PR-04 | complete | Reviewable CRM action proposal                       |
+| P8-PR-05 | complete | Task / follow-up workflow proposal                   |
+| P8-PR-06 | complete | Owner assignment readiness                           |
+| P8-PR-07 | complete | Lifecycle / status update readiness                  |
+| P8-PR-08 | complete | CRM activity audit hardening                         |
 | P8-PR-09 | complete | Final audit, regression, runbook, QA, and P9 handoff |
 
 ## API Surface Summary
@@ -110,4 +110,3 @@ authorization, audit, rollback, and human approval.
 
 P9 Analytics / Reporting / KPI is the next phase. P8 intentionally did not
 implement analytics/KPI dashboards or product metrics.
-

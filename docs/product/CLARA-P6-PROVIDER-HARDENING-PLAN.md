@@ -9,12 +9,12 @@ real provider behavior.
 
 ## PR Plan
 
-| PR | Scope |
-| --- | --- |
+| PR       | Scope                                                 |
+| -------- | ----------------------------------------------------- |
 | P6-PR-01 | Provider Readiness Matrix and Official Channel Policy |
-| P6-PR-02 | Gmail Credential Boundary and Channel Health |
-| P6-PR-03 | Webhook, Outbox, Retry, and Idempotency Hardening |
-| P6-PR-04 | Observability, Audit Trail, and Final P6 Runbook |
+| P6-PR-02 | Gmail Credential Boundary and Channel Health          |
+| P6-PR-03 | Webhook, Outbox, Retry, and Idempotency Hardening     |
+| P6-PR-04 | Observability, Audit Trail, and Final P6 Runbook      |
 
 ## Rules
 

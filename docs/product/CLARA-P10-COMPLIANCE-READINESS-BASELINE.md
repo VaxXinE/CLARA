@@ -15,16 +15,16 @@ must not be presented as SOC 2, ISO 27001, GDPR, HIPAA, or PCI certification.
 
 ## Baseline Categories
 
-| Category | Readiness Evidence |
-|---|---|
-| Access control | Backend AuthContext, RBAC tests, least privilege review |
-| Audit evidence | Safe audit events, correlation IDs, operator runbooks |
-| Data protection | workspace-scoped access, data classification, redaction |
-| Privacy | no raw customer messages, no raw provider payload, no raw webhook payload |
-| Incident response | incident checklist, rollback notes, escalation owner |
-| Retention | retention readiness and deletion readiness notes |
-| Vendor boundary | provider payload minimization and secret handling |
-| Operational readiness | production config guardrails and smoke validation |
+| Category              | Readiness Evidence                                                        |
+| --------------------- | ------------------------------------------------------------------------- |
+| Access control        | Backend AuthContext, RBAC tests, least privilege review                   |
+| Audit evidence        | Safe audit events, correlation IDs, operator runbooks                     |
+| Data protection       | workspace-scoped access, data classification, redaction                   |
+| Privacy               | no raw customer messages, no raw provider payload, no raw webhook payload |
+| Incident response     | incident checklist, rollback notes, escalation owner                      |
+| Retention             | retention readiness and deletion readiness notes                          |
+| Vendor boundary       | provider payload minimization and secret handling                         |
+| Operational readiness | production config guardrails and smoke validation                         |
 
 ## P10-PR-02 Readiness Evidence
 

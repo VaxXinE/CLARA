@@ -33,13 +33,13 @@ All routes require authentication. Viewer, agent, and owner can read. No route a
 
 ## Providers
 
-| Provider | Channel type | Status |
-| --- | --- | --- |
-| Gmail | email | available |
-| WhatsApp | messaging | available |
-| Instagram | social | planned |
-| TikTok | social | planned |
-| Webchat | webchat | available |
+| Provider  | Channel type | Status    |
+| --------- | ------------ | --------- |
+| Gmail     | email        | available |
+| WhatsApp  | messaging    | available |
+| Instagram | social       | planned   |
+| TikTok    | social       | planned   |
+| Webchat   | webchat      | available |
 
 Instagram and TikTok planned providers are metadata only. They have no webhook, OAuth, send, sync, or dashboard mutation behavior in this phase.
 

@@ -16,7 +16,6 @@ source_of_truth:
   - "docs/BOOK-09-Product-Operations-Growth-and-Continuous-Improvement/"
 ---
 
-
 # CLARA MVP First Product Slice PRD
 
 ## Product Requirements Document
@@ -215,23 +214,23 @@ flowchart TD
 
 # 10. Product Requirements Summary
 
-| ID | Requirement | Priority |
-|---|---|---|
-| PRD-001 | User can access authenticated CLARA dashboard | P0 |
-| PRD-002 | User can see conversation inbox | P0 |
-| PRD-003 | User can filter basic conversation status | P1 |
-| PRD-004 | User can open conversation detail | P0 |
-| PRD-005 | User can see customer profile/context | P0 |
-| PRD-006 | User can generate AI reply draft | P0 |
-| PRD-007 | User can edit AI draft before send | P0 |
-| PRD-008 | AI draft cannot be sent automatically | P0 |
-| PRD-009 | User can send final reply manually | P0 |
-| PRD-010 | Activity/audit event is recorded | P0 |
-| PRD-011 | User only sees authorized conversations | P0 |
-| PRD-012 | System avoids exposing secrets/sensitive internals | P0 |
-| PRD-013 | Error states are safe and understandable | P1 |
-| PRD-014 | MVP can run in local/dev environment | P0 |
-| PRD-015 | MVP supports future channel adapters | P1 |
+| ID      | Requirement                                        | Priority |
+| ------- | -------------------------------------------------- | -------- |
+| PRD-001 | User can access authenticated CLARA dashboard      | P0       |
+| PRD-002 | User can see conversation inbox                    | P0       |
+| PRD-003 | User can filter basic conversation status          | P1       |
+| PRD-004 | User can open conversation detail                  | P0       |
+| PRD-005 | User can see customer profile/context              | P0       |
+| PRD-006 | User can generate AI reply draft                   | P0       |
+| PRD-007 | User can edit AI draft before send                 | P0       |
+| PRD-008 | AI draft cannot be sent automatically              | P0       |
+| PRD-009 | User can send final reply manually                 | P0       |
+| PRD-010 | Activity/audit event is recorded                   | P0       |
+| PRD-011 | User only sees authorized conversations            | P0       |
+| PRD-012 | System avoids exposing secrets/sensitive internals | P0       |
+| PRD-013 | Error states are safe and understandable           | P1       |
+| PRD-014 | MVP can run in local/dev environment               | P0       |
+| PRD-015 | MVP supports future channel adapters               | P1       |
 
 ---
 

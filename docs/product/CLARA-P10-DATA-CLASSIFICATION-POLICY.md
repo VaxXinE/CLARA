@@ -10,13 +10,13 @@ classification: "security-policy"
 
 ## Data Classes
 
-| Class | Meaning | Example |
-|---|---|---|
-| Public | Safe to publish | public documentation |
-| Internal | CLARA operational data | workspace metadata, analytics aggregates |
-| Confidential | Business/customer metadata | user profile metadata, customer profile data |
-| Restricted | Sensitive business/security data | customer message content, provider payloads, webhook payloads, audit logs, AI prompt/context material |
-| Secret | Credential material | tokens, cookies, auth headers, API keys, secrets |
+| Class        | Meaning                          | Example                                                                                               |
+| ------------ | -------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Public       | Safe to publish                  | public documentation                                                                                  |
+| Internal     | CLARA operational data           | workspace metadata, analytics aggregates                                                              |
+| Confidential | Business/customer metadata       | user profile metadata, customer profile data                                                          |
+| Restricted   | Sensitive business/security data | customer message content, provider payloads, webhook payloads, audit logs, AI prompt/context material |
+| Secret       | Credential material              | tokens, cookies, auth headers, API keys, secrets                                                      |
 
 ## Handling Rules
 

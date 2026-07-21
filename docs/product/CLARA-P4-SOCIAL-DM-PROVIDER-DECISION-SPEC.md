@@ -18,10 +18,10 @@ Future implementation must use official provider APIs, platform approval, and a 
 
 ## Provider Status
 
-| Provider | Status | Production available | Notes |
-| --- | --- | --- | --- |
-| Instagram | planned | no | Official API required before implementation |
-| TikTok | planned | no | Official API required before implementation |
+| Provider  | Status  | Production available | Notes                                       |
+| --------- | ------- | -------------------- | ------------------------------------------- |
+| Instagram | planned | no                   | Official API required before implementation |
+| TikTok    | planned | no                   | Official API required before implementation |
 
 ## Rejected Strategies
 

@@ -67,4 +67,3 @@ or integrate a real AI provider.
 A later approval/execution PR may add owner assignment mutation only with
 Backend AuthContext authorization, workspace scope, explicit human approval,
 role permission checks, audit logging, and rollback guidance.
-

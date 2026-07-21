@@ -20,12 +20,12 @@ calls.
 
 ## Supported Filters
 
-| Filter | Allowed Values | Notes |
-|---|---|---|
-| `timeWindow` | `today`, `last_7_days`, `last_30_days` | Custom date ranges are not supported in this PR. |
-| `channel` | `all`, `email`, `webchat`, `whatsapp` | Unsupported social/provider channels are rejected. |
-| `category` | `operational`, `channel_performance`, `sla_readiness`, `crm_workflow`, `audit_compliance` | Routes may restrict categories to their metric family. |
-| `operatorId` | server-validated id string | Role-gated to owner access only. |
+| Filter       | Allowed Values                                                                            | Notes                                                  |
+| ------------ | ----------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| `timeWindow` | `today`, `last_7_days`, `last_30_days`                                                    | Custom date ranges are not supported in this PR.       |
+| `channel`    | `all`, `email`, `webchat`, `whatsapp`                                                     | Unsupported social/provider channels are rejected.     |
+| `category`   | `operational`, `channel_performance`, `sla_readiness`, `crm_workflow`, `audit_compliance` | Routes may restrict categories to their metric family. |
+| `operatorId` | server-validated id string                                                                | Role-gated to owner access only.                       |
 
 `organization_id`, `workspace_id`, and role from client input are not used as
 authorization truth. Backend AuthContext remains the source of truth.
