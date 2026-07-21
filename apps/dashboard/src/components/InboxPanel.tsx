@@ -58,21 +58,21 @@ export function InboxPanel(props: InboxPanelProps) {
       </label>
 
       {props.loading ? (
-        <div className="state-card">
+        <div className="state-card" role="status">
           <strong>Loading conversations...</strong>
           <p>Fetching workspace inbox.</p>
         </div>
       ) : null}
 
       {props.error ? (
-        <div className="state-card is-error">
+        <div className="state-card is-error" role="alert">
           <strong>Unable to load conversations.</strong>
           <p>{props.error}</p>
         </div>
       ) : null}
 
       {!props.loading && !props.error && props.conversations.length === 0 ? (
-        <div className="state-card">
+        <div className="state-card" role="status">
           <strong>No conversations yet.</strong>
           <p>Import demo data or connect your first channel to start.</p>
         </div>

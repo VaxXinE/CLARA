@@ -19,6 +19,8 @@ describe("P5.1 design system contract docs", () => {
       "left sidebar",
       "topbar",
       "grouped navigation",
+      "responsive mobile sidebar",
+      "card-based workspace surfaces",
       "role-aware navigation",
       "backend authorization source of truth",
     ]);

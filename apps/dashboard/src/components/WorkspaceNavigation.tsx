@@ -23,6 +23,7 @@ export function WorkspaceNavigation(props: {
               <button
                 aria-current={item.status === "active" ? "page" : undefined}
                 className={`nav-item ${item.status === "active" ? "is-active" : ""}`}
+                data-status={item.status}
                 disabled={
                   item.status === "planned" || item.status === "disabled"
                 }
@@ -30,9 +31,12 @@ export function WorkspaceNavigation(props: {
                 onClick={props.onNavigate}
                 type="button"
               >
-                <span>{item.label}</span>
+                <span className="nav-item-label">{item.label}</span>
                 {item.status === "planned" || item.status === "disabled" ? (
-                  <small aria-label={`${item.label} ${item.status}`}>
+                  <small
+                    aria-label={`${item.label} ${item.status}`}
+                    className="nav-item-status"
+                  >
                     {item.status}
                   </small>
                 ) : null}

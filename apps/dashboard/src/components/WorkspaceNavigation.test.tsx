@@ -49,11 +49,16 @@ describe("WorkspaceNavigation", () => {
   it("marks the current workspace item and planned items safely", () => {
     render(<WorkspaceNavigation activeItemId="queue" role="owner" />);
 
-    expect(screen.getByRole("button", { current: "page" })).toHaveTextContent(
-      "Queue / Chat Masuk",
-    );
+    const activeItem = screen.getByRole("button", { current: "page" });
+
+    expect(activeItem).toHaveTextContent("Queue / Chat Masuk");
+    expect(activeItem).toHaveAttribute("data-status", "active");
     expect(screen.getAllByText("planned").length).toBeGreaterThan(0);
     expect(screen.getByRole("button", { name: /CRM \/ Leads/ })).toBeDisabled();
+    expect(screen.getByRole("button", { name: /CRM \/ Leads/ })).toHaveAttribute(
+      "data-status",
+      "planned",
+    );
     expect(screen.getByRole("navigation")).toHaveAttribute(
       "aria-label",
       "Workspace navigation",

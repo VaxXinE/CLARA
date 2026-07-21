@@ -14,7 +14,14 @@ export function WorkspaceShell(props: {
 
   return (
     <div className="app-shell">
-      <aside className={`workspace-sidebar ${mobileNavOpen ? "is-open" : ""}`}>
+      <a className="skip-link" href="#workspace-main">
+        Skip to workspace content
+      </a>
+
+      <aside
+        aria-label="Workspace sidebar"
+        className={`workspace-sidebar ${mobileNavOpen ? "is-open" : ""}`}
+      >
         <div className="sidebar-brand">
           <span className="brand-mark">C</span>
           <div>
@@ -49,18 +56,20 @@ export function WorkspaceShell(props: {
             Menu
           </button>
 
-          <div>
+          <div className="topbar-copy">
             <p className="eyebrow">{props.eyebrow ?? "CLARA Workspace"}</p>
             <h1>{props.title}</h1>
           </div>
 
-          <div className="topbar-meta">
+          <div aria-label="Workspace context" className="topbar-meta">
             {props.authSlot}
             {props.metaSlot}
           </div>
         </header>
 
-        <main className="workspace-main">{props.children}</main>
+        <main className="workspace-main" id="workspace-main">
+          <div className="workspace-main-inner">{props.children}</div>
+        </main>
       </div>
     </div>
   );
