@@ -1539,6 +1539,76 @@ export type RateLimitQuotaUsageReadinessResponse = {
   };
 };
 
+export type ObservabilitySloAlertReadinessResponse = {
+  workspaceId: string;
+  generatedAt: string;
+  phase: "p11";
+  observabilityReadiness: {
+    structuredLoggingPolicyDefined: true;
+    correlationIdPolicyDefined: true;
+    safeRedactionPolicyDefined: true;
+    metricNamingPolicyDefined: true;
+    tracingPolicyDefined: true;
+    rawLogExposureAllowed: false;
+    rawTraceExposureAllowed: false;
+    vendorSdkIntegrated: false;
+  };
+  sloDashboardReadiness: {
+    availabilitySloDefined: true;
+    latencySloDefined: true;
+    errorRateSloDefined: true;
+    queueReliabilitySloDefined: true;
+    webhookProcessingSloDefined: true;
+    outboundDeliverySloDefined: true;
+    errorBudgetPolicyDefined: true;
+    productionSlaPromised: false;
+  };
+  alertReadiness: {
+    alertPolicyDefined: true;
+    severityModelDefined: true;
+    escalationPolicyLinked: true;
+    incidentResponseLinked: true;
+    notificationProviderIntegrated: false;
+    alertExecutionImplemented: false;
+    autoEscalationImplemented: false;
+  };
+  safeTelemetrySummary: {
+    aggregateOnly: true;
+    workspaceScoped: true;
+    rawLogsIncluded: false;
+    rawTracesIncluded: false;
+    rawMetricEventsIncluded: false;
+    rawCustomerMessagesIncluded: false;
+    rawProviderPayloadIncluded: false;
+    rawWebhookPayloadIncluded: false;
+    secretsIncluded: false;
+  };
+  controls: Array<{
+    controlKey: string;
+    label: string;
+    description: string;
+    status: "ready" | "planned" | "blocked";
+    severity: "info" | "warning" | "critical";
+    evidenceType:
+      | "policy"
+      | "test"
+      | "runbook"
+      | "runtime_guardrail"
+      | "dashboard_boundary"
+      | "extension_boundary";
+  }>;
+  safety: {
+    readOnly: true;
+    mutationAllowed: false;
+    alertSent: false;
+    notificationSent: false;
+    vendorProviderCalled: false;
+    externalExportEnabled: false;
+    rawTelemetryIncluded: false;
+    secretsIncluded: false;
+  };
+};
+
 export type AnalyticsReportingFilterSummary = {
   appliedFilters: {
     timeWindow: "today" | "last_7_days" | "last_30_days";

@@ -232,3 +232,11 @@ metadata, access token, refresh token, cookies, auth headers, API keys,
 secrets, payment provider integration, charging customers, invoice creation,
 subscription mutation, plan mutation, entitlement mutation, CRM mutation,
 outbound send, or real AI provider behavior.
+
+P11-PR-04 keeps Observability, SLO Dashboard, Alert Readiness, Error Budget,
+safe telemetry summary, alert execution, notification send, vendor provider
+integration, raw telemetry, raw logs, raw traces, raw metric events, raw
+customer messages, raw provider payload, raw webhook payload, access token,
+refresh token, cookies, auth headers, API keys, secrets, payment provider
+integration, charging customers, and subscription mutation out of the extension
+runtime.

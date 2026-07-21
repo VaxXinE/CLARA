@@ -262,6 +262,21 @@ access token, no refresh token, no cookies, no CRM mutation, no outbound send,
 and no real AI provider.
 ```
 
+P11-PR-04 observability/SLO/alert readiness:
+
+```text
+GET /api/v1/reliability/observability-slo-alert/readiness returns
+workspace-scoped Observability, SLO Dashboard, Alert Readiness, Error Budget,
+and safe telemetry summary output. Backend AuthContext supplies the workspace
+scope, and client organization_id/workspace_id is rejected.
+
+This is readiness not SLA launch: no alert execution, no notification send, no
+vendor provider integration, no raw telemetry, no raw logs, no raw traces, no
+raw metric events, no raw customer messages, no raw provider payload, no raw
+webhook payload, no access token, no refresh token, no cookies, no payment
+provider integration, no charging customers, and no subscription mutation.
+```
+
 Workspace user/role readiness:
 
 ```text
