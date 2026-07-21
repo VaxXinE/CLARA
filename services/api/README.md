@@ -293,6 +293,22 @@ webhook payload, no access token, no refresh token, no cookies, no CRM mutation,
 no outbound send, and no real AI provider.
 ```
 
+P11-PR-06 performance/load test/capacity readiness:
+
+```text
+GET /api/v1/reliability/performance-capacity/readiness returns authenticated,
+workspace-scoped Performance, Load Test, Capacity, capacity planning, safe
+benchmark, and risk classification readiness output.
+
+This is readiness not execution: no heavy load test in normal validation, no
+production target by default, no external provider call, no payment provider
+integration, no charging customers, no invoice creation, no subscription
+mutation, no raw telemetry, no raw logs, no raw traces, no raw metric events,
+no raw customer messages, no raw provider payload, no raw webhook payload, no
+access token, no refresh token, no cookies, no CRM mutation, no outbound send,
+and no real AI provider.
+```
+
 Workspace user/role readiness:
 
 ```text

@@ -14,8 +14,8 @@ classification: "roadmap"
 - P11-PR-02 Queue / Job Reliability + Retry / Idempotency Hardening. Complete.
 - P11-PR-03 Rate Limit + Quota + Usage Metering Readiness. Complete.
 - P11-PR-04 Observability + SLO Dashboard + Alert Readiness. Complete.
-- P11-PR-05 Billing Readiness + Plan Entitlement Policy. In progress.
-- P11-PR-06 Performance / Load Test + Capacity Runbook.
+- P11-PR-05 Billing Readiness + Plan Entitlement Policy. Complete.
+- P11-PR-06 Performance / Load Test + Capacity Runbook. In progress.
 - P11-PR-07 Final P11 Audit / Runbook.
 
 ## Guardrails
@@ -59,3 +59,13 @@ enforcement, no raw usage events, no raw customer messages, no raw provider
 payload, no raw webhook payload, no access token, no refresh token, no cookies,
 no CRM mutation, no outbound send, and no real AI provider. Output remains
 aggregate-first and workspace-scoped.
+
+P11-PR-06 adds Performance, Load Test, Capacity, capacity planning, safe
+benchmark, and performance risk classification readiness. It is readiness not
+execution: no heavy load test in normal validation, no production target by
+default, no external provider call, no payment provider integration, no
+charging customers, no invoice creation, no subscription mutation, no raw
+telemetry, no raw logs, no raw traces, no raw metric events, no raw customer
+messages, no raw provider payload, no raw webhook payload, no access token, no
+refresh token, no cookies, no CRM mutation, no outbound send, and no real AI
+provider. Output remains aggregate-first and workspace-scoped.
