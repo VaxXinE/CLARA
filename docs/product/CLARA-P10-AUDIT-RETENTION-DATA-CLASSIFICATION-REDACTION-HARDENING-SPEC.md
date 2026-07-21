@@ -16,11 +16,11 @@ is P10 Enterprise Hardening / Compliance readiness, not certification.
 
 ## Scope
 
-| Endpoint | Behavior |
-|---|---|
-| `GET /api/v1/enterprise/audit-retention/readiness` | Audit Retention readiness and safe audit metadata policy summary. |
+| Endpoint                                               | Behavior                                                                                       |
+| ------------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
+| `GET /api/v1/enterprise/audit-retention/readiness`     | Audit Retention readiness and safe audit metadata policy summary.                              |
 | `GET /api/v1/enterprise/data-classification/readiness` | Data Classification readiness for public, internal, confidential, restricted, and secret data. |
-| `GET /api/v1/enterprise/redaction-hardening/readiness` | Redaction Hardening and Sensitive Field Classifier readiness. |
+| `GET /api/v1/enterprise/redaction-hardening/readiness` | Redaction Hardening and Sensitive Field Classifier readiness.                                  |
 
 All endpoints require Backend AuthContext. Client workspaceId is never
 authority. Responses are workspace-scoped from server-side auth context.

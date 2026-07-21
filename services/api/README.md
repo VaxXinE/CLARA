@@ -5,14 +5,28 @@ CLARA API service.
 ## Status
 
 ```text
-PR-10 Security and QA Hardening
+P1-P11 complete; P12 Beta / GA Release Readiness next
 ```
 
-This service currently provides runtime foundation, database schema/migrations, mock auth, read-only conversation/customer/activity APIs, AI draft creation, and simulated reply send for local/test flows.
+This service currently provides the CLARA API through P11: auth/workspace scope,
+conversation/customer/activity, channel foundations, Gmail/email boundaries,
+CRM readiness, analytics readiness, enterprise hardening readiness, and
+scale/reliability/billing readiness.
 
 Use this together with `apps/dashboard` for the full local MVP flow.
 
 For a production-like local PostgreSQL runtime, use `infra/local/docker-compose.yml`.
+
+P12 Beta / GA Release Readiness is next. P12 is release readiness, not feature
+expansion, not billing launch, and not GA-ready yet.
+
+Core security boundaries: Backend AuthContext is the source of truth,
+workspace-scoped access is mandatory, frontend role guard is UX-only, client
+workspaceId is never authority, no raw customer/provider/webhook/audit/usage/
+payment/telemetry exposure, no token/cookie/auth header/API key/secret
+exposure, no unauthorized workspace access, no real AI provider call unless a
+future approved provider integration exists, and no billing/payment side
+effects.
 
 Current auth baseline:
 

@@ -21,13 +21,13 @@ AI provider execution.
 
 ## PR-by-PR Coverage
 
-| PR | Status | Coverage |
-|---|---|---|
-| P9-PR-01 | complete | Analytics & Reporting Scope + KPI Policy |
-| P9-PR-02 | complete | Analytics Read Model + Metric Foundation |
-| P9-PR-03 | complete | Core Operational Metrics Pack |
-| P9-PR-04 | complete | CRM Workflow Metrics + KPI Dashboard Cards |
-| P9-PR-05 | complete | Reporting Filters + Analytics Audit Privacy Hardening |
+| PR       | Status               | Coverage                                                                                      |
+| -------- | -------------------- | --------------------------------------------------------------------------------------------- |
+| P9-PR-01 | complete             | Analytics & Reporting Scope + KPI Policy                                                      |
+| P9-PR-02 | complete             | Analytics Read Model + Metric Foundation                                                      |
+| P9-PR-03 | complete             | Core Operational Metrics Pack                                                                 |
+| P9-PR-04 | complete             | CRM Workflow Metrics + KPI Dashboard Cards                                                    |
+| P9-PR-05 | complete             | Reporting Filters + Analytics Audit Privacy Hardening                                         |
 | P9-PR-06 | complete after merge | Final audit, runbook, security checklist, operator QA, regression acceptance, and P10 handoff |
 
 ## Implemented API Endpoints
@@ -109,13 +109,13 @@ outbound send, workflow automation, or real AI provider integration.
 
 ## Production Risks And Mitigations
 
-| Risk | Mitigation |
-|---|---|
-| Operators expect row-level drilldown | Keep dashboard copy aggregate-first and no customer-level drilldown. |
-| Client attempts workspace spoofing | Backend AuthContext scope and validation reject/ignore client workspace authority. |
-| Sensitive metric request is attempted | Sensitive request policy rejects unsafe filters. |
-| Dashboard accidentally exposes raw payload fields | Final dashboard security tests and validator scan runtime components. |
-| Extension tries to consume analytics internals | Extension boundary regression tests keep analytics out of extension runtime. |
+| Risk                                              | Mitigation                                                                         |
+| ------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Operators expect row-level drilldown              | Keep dashboard copy aggregate-first and no customer-level drilldown.               |
+| Client attempts workspace spoofing                | Backend AuthContext scope and validation reject/ignore client workspace authority. |
+| Sensitive metric request is attempted             | Sensitive request policy rejects unsafe filters.                                   |
+| Dashboard accidentally exposes raw payload fields | Final dashboard security tests and validator scan runtime components.              |
+| Extension tries to consume analytics internals    | Extension boundary regression tests keep analytics out of extension runtime.       |
 
 ## P10 Handoff
 

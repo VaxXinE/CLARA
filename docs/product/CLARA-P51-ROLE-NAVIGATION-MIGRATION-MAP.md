@@ -8,12 +8,12 @@ classification: "role-navigation-map"
 
 # CLARA P5.1 Role Navigation Migration Map
 
-| Legacy Role | CLARA v2 Mapping | Notes |
-| --- | --- | --- |
-| `sales` | `agent` | operator who handles conversations and replies |
-| `manager` | future `manager` or current `owner`/`agent` with scoped permissions | coaching and queue oversight |
-| `head` | future `admin`/`manager` layer | cross-team review and intervention |
-| `superadmin` | `owner` plus future platform admin boundary | must remain server-authorized |
+| Legacy Role  | CLARA v2 Mapping                                                    | Notes                                          |
+| ------------ | ------------------------------------------------------------------- | ---------------------------------------------- |
+| `sales`      | `agent`                                                             | operator who handles conversations and replies |
+| `manager`    | future `manager` or current `owner`/`agent` with scoped permissions | coaching and queue oversight                   |
+| `head`       | future `admin`/`manager` layer                                      | cross-team review and intervention             |
+| `superadmin` | `owner` plus future platform admin boundary                         | must remain server-authorized                  |
 
 ## Navigation Rule
 

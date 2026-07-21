@@ -14,12 +14,12 @@ Webhook Hardening defines the minimum safe boundary for provider callbacks befor
 
 ## Provider Rules
 
-| Provider | Boundary | Required Check |
-| --- | --- | --- |
-| WhatsApp | official provider webhook | verify token on challenge and provider signature on inbound POST |
-| Webchat | CLARA public widget boundary | channel public key resolves organization/workspace server-side |
-| Extension bridge | authenticated CLARA bridge | backend AuthContext and role checks required |
-| Unsupported providers | blocked | fail closed with `unsupported_provider` |
+| Provider              | Boundary                     | Required Check                                                   |
+| --------------------- | ---------------------------- | ---------------------------------------------------------------- |
+| WhatsApp              | official provider webhook    | verify token on challenge and provider signature on inbound POST |
+| Webchat               | CLARA public widget boundary | channel public key resolves organization/workspace server-side   |
+| Extension bridge      | authenticated CLARA bridge   | backend AuthContext and role checks required                     |
+| Unsupported providers | blocked                      | fail closed with `unsupported_provider`                          |
 
 ## Dedup And Replay
 

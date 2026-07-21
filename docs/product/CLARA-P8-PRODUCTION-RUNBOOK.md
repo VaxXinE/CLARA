@@ -97,4 +97,3 @@ destroyed casually.
 Escalate immediately if any P8 surface exposes access token, refresh token,
 cookies, Authorization header, raw provider payload, raw webhook payload, raw
 DOM, raw HTML, raw prompt, API key/secret, or performs CRM/customer mutation.
-

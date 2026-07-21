@@ -5,10 +5,14 @@ CLARA browser extension auto-sync engine for operator-visible active conversatio
 ## Status
 
 ```text
-P4.5-PR-03 Extension Auto-Sync Engine
+P1-P11 complete; P12 Beta / GA Release Readiness next
 ```
 
 ## Scope
+
+The extension boundary is current through P11. P12 extension work is release
+readiness only: no background crawling, no billing/reliability/internal access,
+no production deployment in this docs refresh, and CLARA is not GA-ready yet.
 
 This package contains a small TypeScript implementation for:
 
@@ -33,6 +37,12 @@ Instagram and TikTok readers are safe placeholders in this PR. They detect the h
 - Does not persist raw DOM, raw HTML, media blobs, or attachment files.
 - Does not crawl inbox lists or background conversations.
 - Does not auto-send replies.
+- Does not capture cookie/token/auth header material.
+- Does not export raw DOM, raw HTML, raw prompt, raw provider payload, raw
+  webhook payload, raw customer messages, raw usage events, raw payment data, or
+  raw telemetry.
+- Does not access billing/reliability internals.
+- Does not call a real AI provider.
 - Does not auto-submit context to ChatGPT.
 - Does not read or store ChatGPT cookies, localStorage, sessionStorage, or tokens.
 - P6 final observability/audit handoff keeps the extension bridge user-assisted and excludes provider cookies, raw DOM/HTML, and auto-send behavior.

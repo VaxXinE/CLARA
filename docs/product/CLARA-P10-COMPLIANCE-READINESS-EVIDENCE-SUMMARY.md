@@ -16,21 +16,21 @@ attestation.
 
 ## Evidence Map
 
-| Area | Evidence |
-|---|---|
-| Enterprise scope | Scope policy, compliance baseline, final audit |
-| Tenant isolation | Readiness endpoint, route tests, spoofing regression |
-| Permission audit | Readiness endpoint, policy tests, no-mutation tests |
-| Retention | Audit retention readiness and policy docs |
-| Data classification | Data classification readiness and classifier tests |
-| Redaction | Redaction hardening service and privacy tests |
-| Admin controls | Admin security readiness and no-mutation tests |
-| Session policy | Session policy readiness and no-revocation tests |
-| Dashboard | Compliance dashboard and read-only UI tests |
-| Backup / restore | Readiness endpoint and runbook |
-| Incident response | Readiness endpoint and runbook |
-| Evidence | Readiness endpoint and checklist |
-| Operational resilience | Safe summary service and regression tests |
+| Area                   | Evidence                                             |
+| ---------------------- | ---------------------------------------------------- |
+| Enterprise scope       | Scope policy, compliance baseline, final audit       |
+| Tenant isolation       | Readiness endpoint, route tests, spoofing regression |
+| Permission audit       | Readiness endpoint, policy tests, no-mutation tests  |
+| Retention              | Audit retention readiness and policy docs            |
+| Data classification    | Data classification readiness and classifier tests   |
+| Redaction              | Redaction hardening service and privacy tests        |
+| Admin controls         | Admin security readiness and no-mutation tests       |
+| Session policy         | Session policy readiness and no-revocation tests     |
+| Dashboard              | Compliance dashboard and read-only UI tests          |
+| Backup / restore       | Readiness endpoint and runbook                       |
+| Incident response      | Readiness endpoint and runbook                       |
+| Evidence               | Readiness endpoint and checklist                     |
+| Operational resilience | Safe summary service and regression tests            |
 
 ## Evidence Safety
 

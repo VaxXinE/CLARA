@@ -16,14 +16,14 @@ before any heavy runtime dashboard or scheduled aggregation work.
 
 ## Roadmap
 
-| PR | Status | Scope |
-|---|---|---|
-| P9-PR-01 | complete | Analytics & Reporting Scope + KPI Policy |
-| P9-PR-02 | complete | Analytics Read Model + Metric Foundation |
-| P9-PR-03 | complete | Core Operational Metrics Pack |
-| P9-PR-04 | complete | CRM Workflow Metrics + KPI Dashboard Cards |
-| P9-PR-05 | complete | Reporting Filters + Analytics Audit Privacy Hardening |
-| P9-PR-06 | in progress | Final P9 Audit / Runbook |
+| PR       | Status      | Scope                                                 |
+| -------- | ----------- | ----------------------------------------------------- |
+| P9-PR-01 | complete    | Analytics & Reporting Scope + KPI Policy              |
+| P9-PR-02 | complete    | Analytics Read Model + Metric Foundation              |
+| P9-PR-03 | complete    | Core Operational Metrics Pack                         |
+| P9-PR-04 | complete    | CRM Workflow Metrics + KPI Dashboard Cards            |
+| P9-PR-05 | complete    | Reporting Filters + Analytics Audit Privacy Hardening |
+| P9-PR-06 | in progress | Final P9 Audit / Runbook                              |
 
 ## Phase Guardrails
 

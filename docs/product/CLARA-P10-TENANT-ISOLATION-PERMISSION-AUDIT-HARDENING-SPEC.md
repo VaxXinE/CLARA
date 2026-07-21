@@ -16,8 +16,8 @@ customer-facing workflow feature.
 
 ## Runtime Endpoints
 
-| Endpoint | Behavior |
-|---|---|
+| Endpoint                                            | Behavior                                            |
+| --------------------------------------------------- | --------------------------------------------------- |
 | `GET /api/v1/enterprise/tenant-isolation/readiness` | Authenticated read-only tenant isolation readiness. |
 | `GET /api/v1/enterprise/permission-audit/readiness` | Authenticated read-only permission audit readiness. |
 

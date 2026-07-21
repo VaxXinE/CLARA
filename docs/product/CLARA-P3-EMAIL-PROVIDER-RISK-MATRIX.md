@@ -28,12 +28,12 @@ High
 
 ## Risk Matrix
 
-| Path | Inbound Support | Outbound Support | Security Risk | Operational Complexity | Vendor Coupling | Fit For CLARA Inbox MVP+ | Notes |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Gmail API | Strong | Strong | Medium | Medium | Medium | High | Best first path for Google Workspace users and thread-aware workflow |
-| IMAP + SMTP | Strong | Strong | High | High | Low-Medium | Medium | Portable but harder to secure and operate well |
-| SMTP-only | None | Strong | Medium | Low-Medium | Low | Low | Outbound-only, not enough for inbox workflow |
-| Transactional Provider API | Weak or None | Strong | Medium | Medium | High | Medium-Low | Better as later outbound-focused enhancement |
+| Path                       | Inbound Support | Outbound Support | Security Risk | Operational Complexity | Vendor Coupling | Fit For CLARA Inbox MVP+ | Notes                                                                |
+| -------------------------- | --------------- | ---------------- | ------------- | ---------------------- | --------------- | ------------------------ | -------------------------------------------------------------------- |
+| Gmail API                  | Strong          | Strong           | Medium        | Medium                 | Medium          | High                     | Best first path for Google Workspace users and thread-aware workflow |
+| IMAP + SMTP                | Strong          | Strong           | High          | High                   | Low-Medium      | Medium                   | Portable but harder to secure and operate well                       |
+| SMTP-only                  | None            | Strong           | Medium        | Low-Medium             | Low             | Low                      | Outbound-only, not enough for inbox workflow                         |
+| Transactional Provider API | Weak or None    | Strong           | Medium        | Medium                 | High            | Medium-Low               | Better as later outbound-focused enhancement                         |
 
 ## Security Risk Notes
 

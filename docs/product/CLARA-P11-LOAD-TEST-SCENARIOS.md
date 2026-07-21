@@ -13,15 +13,15 @@ during normal validation.
 
 ## Safe Scenario Catalog
 
-| Scenario | Profile | Target |
-|---|---|---|
-| Synthetic auth/readiness route smoke | smoke | local or staging-safe only |
-| API read-only endpoint smoke | smoke | local or staging-safe only |
-| Dashboard build/render smoke | smoke | local build output |
-| Extension build/typecheck smoke | smoke | local build output |
-| Queue/retry/idempotency conceptual profile | baseline | policy-only |
-| Usage metering conceptual profile | baseline | policy-only |
-| Billing readiness conceptual profile | baseline | policy-only |
+| Scenario                                   | Profile  | Target                     |
+| ------------------------------------------ | -------- | -------------------------- |
+| Synthetic auth/readiness route smoke       | smoke    | local or staging-safe only |
+| API read-only endpoint smoke               | smoke    | local or staging-safe only |
+| Dashboard build/render smoke               | smoke    | local build output         |
+| Extension build/typecheck smoke            | smoke    | local build output         |
+| Queue/retry/idempotency conceptual profile | baseline | policy-only                |
+| Usage metering conceptual profile          | baseline | policy-only                |
+| Billing readiness conceptual profile       | baseline | policy-only                |
 
 ## Rules
 

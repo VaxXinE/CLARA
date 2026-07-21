@@ -16,14 +16,14 @@ readiness only, not certification.
 
 ## Roadmap
 
-| PR | Status | Scope |
-|---|---|---|
-| P10-PR-01 | complete | Enterprise Hardening + Compliance Scope Policy |
-| P10-PR-02 | complete | Tenant Isolation + Permission Audit Hardening |
-| P10-PR-03 | complete | Audit Retention + Data Classification + Redaction Hardening |
-| P10-PR-04 | complete | Admin Security Controls + Session Policy + Compliance Dashboard |
-| P10-PR-05 | complete | Backup / Restore + Incident Response + Evidence Readiness |
-| P10-PR-06 | in progress | Final P10 Audit / Runbook |
+| PR        | Status      | Scope                                                           |
+| --------- | ----------- | --------------------------------------------------------------- |
+| P10-PR-01 | complete    | Enterprise Hardening + Compliance Scope Policy                  |
+| P10-PR-02 | complete    | Tenant Isolation + Permission Audit Hardening                   |
+| P10-PR-03 | complete    | Audit Retention + Data Classification + Redaction Hardening     |
+| P10-PR-04 | complete    | Admin Security Controls + Session Policy + Compliance Dashboard |
+| P10-PR-05 | complete    | Backup / Restore + Incident Response + Evidence Readiness       |
+| P10-PR-06 | in progress | Final P10 Audit / Runbook                                       |
 
 ## Guardrails
 

@@ -91,13 +91,13 @@ drilldown data.
 
 ## Troubleshooting
 
-| Symptom | Check |
-|---|---|
-| 401 from analytics endpoint | Verify provider session and auth middleware. |
-| 403 on operator filter | Verify role; operator filters are role-gated. |
-| 400 on filter | Verify allowed `timeWindow`, `channel`, `category`, and filter keys. |
-| Empty KPI cards | Verify seeded/demo data and workspace scope. |
-| Dashboard panel missing | Verify API base URL, auth mode, and dashboard build. |
+| Symptom                     | Check                                                                |
+| --------------------------- | -------------------------------------------------------------------- |
+| 401 from analytics endpoint | Verify provider session and auth middleware.                         |
+| 403 on operator filter      | Verify role; operator filters are role-gated.                        |
+| 400 on filter               | Verify allowed `timeWindow`, `channel`, `category`, and filter keys. |
+| Empty KPI cards             | Verify seeded/demo data and workspace scope.                         |
+| Dashboard panel missing     | Verify API base URL, auth mode, and dashboard build.                 |
 
 ## Audit / Privacy Incident Checklist
 

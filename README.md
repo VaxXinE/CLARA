@@ -17,9 +17,9 @@ It contains the documentation, architecture, standards, templates, governance, i
 # Repository Status
 
 ```text
-Status: MVP slice runnable locally
-Current focus: P10 Enterprise Hardening / Compliance
-Next focus: P11 Scale / Reliability / Billing
+Status: P1-P11 complete; local product slice runnable
+Current focus: documentation refresh before P12
+Next focus: P12 Beta / GA Release Readiness
 ```
 
 Current MVP implementation:
@@ -76,12 +76,18 @@ P11-PR-03 adds Rate Limit, Quota, and Usage Metering readiness with a workspace-
 P11-PR-04 adds Observability, SLO Dashboard, Alert Readiness, Error Budget, and safe telemetry summary coverage with a workspace-scoped read-only endpoint and dashboard visibility. It is readiness not SLA launch: no alert execution, no notification send, no vendor provider integration, no raw telemetry, no raw logs, no raw traces, no raw metric events, no raw customer messages, no raw provider payload, no raw webhook payload, no access token, no refresh token, no cookies, no payment provider integration, no charging customers, and no subscription mutation.
 P11-PR-05 adds Billing Readiness, Plan Entitlement, Plan Catalog, Subscription Lifecycle, Payment Provider Boundary, and safe billing metadata summary coverage with a workspace-scoped read-only endpoint and dashboard visibility. It is readiness not billing launch: no payment provider integration, no charging customers, no invoice creation, no checkout session, no subscription mutation, no plan mutation, no entitlement mutation, no quota enforcement, no raw usage events, no raw customer messages, no raw provider payload, no raw webhook payload, no access token, no refresh token, no cookies, no CRM mutation, no outbound send, and no real AI provider.
 P11-PR-06 adds Performance / Load Test / Capacity readiness with safe benchmark scenarios, capacity planning, and a workspace-scoped read-only endpoint plus dashboard visibility. It is readiness not execution: no heavy load test in normal validation, no production target by default, no external provider call, no payment provider integration, no charging customers, no invoice creation, no subscription mutation, no raw telemetry, no raw logs, no raw traces, no raw metric events, no raw customer messages, no raw provider payload, no raw webhook payload, no access token, no refresh token, no cookies, no CRM mutation, no outbound send, and no real AI provider.
-P11-PR-07 closes Final P11 Scale / Reliability / Billing with audit, production runbook, reliability checklist, billing-readiness checklist, performance/capacity checklist, security regression checklist, operator/admin QA checklist, P12 Beta / GA Release Readiness handoff notes, and final validator coverage. It is readiness not billing launch: Backend AuthContext remains authoritative, frontend role guard is UX-only, client workspaceId is never authority, all output is workspace-scoped and aggregate-first, no payment provider integration, no charging customers, no invoice creation, no subscription mutation, no quota enforcement, no heavy load test in normal validation, no production target by default, no raw telemetry, no raw logs, no raw traces, no raw metric events, no raw usage events, no raw payment data, no raw customer messages, no raw provider payload, no raw webhook payload, no access token, no refresh token, no cookies, no CRM mutation, no outbound send, and no real AI provider.
+P11 complete after P11-PR-07 closes Final P11 Scale / Reliability / Billing with audit, production runbook, reliability checklist, billing-readiness checklist, performance/capacity checklist, security regression checklist, operator/admin QA checklist, P12 Beta / GA Release Readiness handoff notes, and final validator coverage. It is readiness not billing launch: Backend AuthContext remains authoritative, frontend role guard is UX-only, client workspaceId is never authority, all output is workspace-scoped and aggregate-first, no payment provider integration, no charging customers, no invoice creation, no subscription mutation, no quota enforcement, no heavy load test in normal validation, no production target by default, no raw telemetry, no raw logs, no raw traces, no raw metric events, no raw usage events, no raw payment data, no raw customer messages, no raw provider payload, no raw webhook payload, no access token, no refresh token, no cookies, no CRM mutation, no outbound send, and no real AI provider. P12 is release readiness, not feature expansion, and CLARA is not GA-ready yet.
 ```
 
 Start here for local usage:
 
 ```text
+docs/product/CLARA-DOCUMENTATION-INDEX.md
+docs/product/CLARA-FINAL-ROADMAP.md
+docs/product/CLARA-VALIDATION-BASELINE.md
+docs/product/CLARA-SECURITY-BOUNDARY-SUMMARY.md
+docs/product/CLARA-P12-HANDOFF-FROM-P11.md
+docs/product/CLARA-P12-IMPLEMENTATION-ROADMAP.md
 services/api/README.md
 apps/dashboard/README.md
 docs/product/CLARA-P2-DEPLOYMENT-CONFIG-RUNBOOK.md

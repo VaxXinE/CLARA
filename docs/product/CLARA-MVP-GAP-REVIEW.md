@@ -714,7 +714,7 @@ customer messages, no raw provider payload, no raw webhook payload, no raw audit
 metadata, no access token, no refresh token, no cookies, and no real AI
 provider.
 
-P10-PR-06 is in progress with Final P10 Enterprise Hardening / Compliance
+P10-PR-06 is complete with Final P10 Enterprise Hardening / Compliance
 audit, production runbook, security checklist, compliance readiness evidence
 summary, operator/admin QA checklist, regression acceptance checklist, validator
 coverage, and P11 Scale / Reliability / Billing handoff. It is audit/runbook/
@@ -783,7 +783,7 @@ messages, no raw provider payload, no raw webhook payload, no access token, no
 refresh token, no cookies, no CRM mutation, no outbound send, and no real AI
 provider. Output remains aggregate-first and workspace-scoped.
 
-P11-PR-07 is in progress with Final P11 Scale / Reliability / Billing audit,
+P11-PR-07 is complete with Final P11 Scale / Reliability / Billing audit,
 production runbook, reliability checklist, billing-readiness checklist,
 performance and capacity checklist, security regression checklist,
 operator/admin QA checklist, P12 Beta / GA Release Readiness handoff notes, and
@@ -797,6 +797,10 @@ raw traces, no raw metric events, no raw usage events, no raw payment data, no
 raw customer messages, no raw provider payload, no raw webhook payload, no
 access token, no refresh token, no cookies, no CRM mutation, no outbound send,
 and no real AI provider.
+
+P11 complete. P12 Beta / GA Release Readiness is the next phase. P12 is release
+readiness, not feature expansion; CLARA is not GA-ready yet, and there is no
+production deployment in this docs refresh.
 
 This phase does not claim SOC 2, ISO 27001, GDPR, HIPAA, or PCI certification.
 It also does not add SSO, MFA, billing, report export, data deletion jobs,
