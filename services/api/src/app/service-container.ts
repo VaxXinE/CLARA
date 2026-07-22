@@ -31,6 +31,7 @@ import {
   FixtureUserRoleManagementRepository,
 } from "../auth/user-role-management-repository";
 import { UserRoleManagementService } from "../auth/user-role-management-service";
+import { InternalCrmDashboardAnalyticsService } from "../analytics/internal-crm-dashboard-analytics-service";
 import { ChannelAccountService } from "../channels/channel-account-service";
 import { DrizzleChannelAccountRepository } from "../channels/channel-account-db-repository";
 import { FixtureChannelAccountRepository } from "../channels/channel-account-repository";
@@ -106,6 +107,7 @@ export type AppServices = {
   whatsappReply?: WhatsappReplySendService;
   extensionSnapshots?: ExtensionSnapshotPersistenceService;
   userRoleManagement?: UserRoleManagementService;
+  internalCrmDashboardAnalytics?: InternalCrmDashboardAnalyticsService;
 };
 
 export type AuthServices = {
@@ -142,7 +144,8 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
       new DrizzleWhatsappOutboundDeliveryRepository(db),
       new SimulatedWhatsappOutboundSendClient(),
     );
-    const auditLogs = new AuditLogService(new DrizzleAuditLogRepository(db));
+    const auditLogRepository = new DrizzleAuditLogRepository(db);
+    const auditLogs = new AuditLogService(auditLogRepository);
     const crmActivityAudits = new CustomerCrmActivityAuditService(auditLogs);
     const aiDraftRepository = new DrizzleAiDraftRepository(db);
     const aiDraftReviews = new AiDraftReviewService(
@@ -268,6 +271,12 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
           auditLogs,
         ),
         userRoleManagement: new UserRoleManagementService(userRoleRepository),
+        internalCrmDashboardAnalytics: new InternalCrmDashboardAnalyticsService(
+          customerRepository,
+          conversationRepository,
+          customerFollowUpTaskRepository,
+          auditLogRepository,
+        ),
       },
       auth: {
         workspaceMemberships: new WorkspaceMembershipService(
@@ -310,9 +319,8 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
     new FixtureWhatsappOutboundDeliveryRepository(fixtureStore),
     new SimulatedWhatsappOutboundSendClient(),
   );
-  const auditLogs = new AuditLogService(
-    new FixtureAuditLogRepository(fixtureStore),
-  );
+  const auditLogRepository = new FixtureAuditLogRepository(fixtureStore);
+  const auditLogs = new AuditLogService(auditLogRepository);
   const crmActivityAudits = new CustomerCrmActivityAuditService(auditLogs);
   const aiDraftRepository = new FixtureAiDraftRepository(fixtureStore);
   const aiDraftReviews = new AiDraftReviewService(
@@ -438,6 +446,12 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         auditLogs,
       ),
       userRoleManagement: new UserRoleManagementService(userRoleRepository),
+      internalCrmDashboardAnalytics: new InternalCrmDashboardAnalyticsService(
+        customerRepository,
+        conversationRepository,
+        customerFollowUpTaskRepository,
+        auditLogRepository,
+      ),
     },
     auth: {
       workspaceMemberships: new WorkspaceMembershipService(

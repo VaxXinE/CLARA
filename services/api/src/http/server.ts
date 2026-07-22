@@ -54,6 +54,7 @@ import { registerAnalyticsChannelPerformanceRoutes } from "./routes/analytics-ch
 import { registerAnalyticsOverviewRoutes } from "./routes/analytics-overview";
 import { registerAnalyticsCrmWorkflowRoutes } from "./routes/analytics-crm-workflow";
 import { registerAnalyticsKpiDashboardRoutes } from "./routes/analytics-kpi-dashboard";
+import { registerAnalyticsInternalCrmDashboardRoutes } from "./routes/analytics-internal-crm-dashboard";
 import { PermissionAuditReadinessService } from "../enterprise/permission-audit-service";
 import { TenantIsolationReadinessService } from "../enterprise/tenant-isolation-readiness-service";
 import { AuditRetentionReadinessService } from "../enterprise/audit-retention-readiness-service";
@@ -515,6 +516,13 @@ export async function createServer(
       app,
       authProvider,
       kpiDashboardCards,
+    );
+  }
+  if (services.internalCrmDashboardAnalytics) {
+    await registerAnalyticsInternalCrmDashboardRoutes(
+      app,
+      authProvider,
+      services.internalCrmDashboardAnalytics,
     );
   }
   if (services.channelRegistry && services.channelAccounts) {

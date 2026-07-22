@@ -21,8 +21,11 @@ P12-PR-05 Final GA Audit / Runbook is complete.
 
 P12 release-readiness is complete. P13 is current. P13 focuses internal CRM
 usage. P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is complete.
-P13-PR-04 is complete. P13-PR-05 is current. Internal CRM usage is the focus.
-billing/payment is deferred. Billing/payment remains deferred. CLARA is not
+P13-PR-04 is complete. P13-PR-05 is complete. P13-PR-06 is current.
+internal CRM usage is the focus. billing/payment is deferred. analytics are
+safe aggregated workspace-scoped metrics. this PR does not add
+billing/payment/provider/AI/outbound behavior. this PR does not add heavy
+analytics jobs or exports. Billing/payment remains deferred. CLARA is not
 production deployed yet. CLARA is not public GA launched yet. Customer CRUD is
 internal workspace-scoped. Notes/timeline are workspace-scoped internal CRM
 features. lifecycle/owner assignment are workspace-scoped internal CRM
@@ -67,8 +70,8 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 - P13-PR-02 Customer Notes + Activity Timeline. Complete.
 - P13-PR-03 Lifecycle Status + Owner Assignment. Complete.
 - P13-PR-04 Follow-up Task Workflow. Complete.
-- P13-PR-05 Conversation-to-Customer Linking. Current.
-- P13-PR-06 Internal Dashboard Analytics Wiring. Planned.
+- P13-PR-05 Conversation-to-Customer Linking. Complete.
+- P13-PR-06 Internal Dashboard Analytics Wiring. Current.
 - P13-PR-07 Internal CRM End-to-End QA + Runbook. Planned.
 
 ## Non-Launch Guardrails

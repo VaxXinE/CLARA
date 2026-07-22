@@ -5,6 +5,7 @@ import { CrmCustomerWorkspace } from "./CrmCustomerWorkspace";
 import { CustomerSidebar } from "./CustomerSidebar";
 import { ChannelHealthPanel } from "./ChannelHealthPanel";
 import { GmailSchedulerStatusPanel } from "./GmailSchedulerStatusPanel";
+import { InternalCrmDashboardAnalyticsPanel } from "./InternalCrmDashboardAnalyticsPanel";
 import { AuditRetentionReadinessPanel } from "./AuditRetentionReadinessPanel";
 import { DataClassificationReadinessPanel } from "./DataClassificationReadinessPanel";
 import { EnterpriseComplianceReadinessPanel } from "./EnterpriseComplianceReadinessPanel";
@@ -17,6 +18,9 @@ import { InboxPanel } from "./InboxPanel";
 
 type ConversationWorkspaceProps = {
   scheduler: ComponentProps<typeof GmailSchedulerStatusPanel>;
+  internalCrmDashboard?: ComponentProps<
+    typeof InternalCrmDashboardAnalyticsPanel
+  >;
   tenantIsolation?: ComponentProps<typeof TenantIsolationReadinessPanel>;
   permissionAudit?: ComponentProps<typeof PermissionAuditReadinessPanel>;
   auditRetention?: ComponentProps<typeof AuditRetentionReadinessPanel>;
@@ -49,6 +53,11 @@ export function ConversationWorkspace(props: ConversationWorkspaceProps) {
     >
       <div className="workspace-status-strip">
         <GmailSchedulerStatusPanel {...props.scheduler} />
+        <InternalCrmDashboardAnalyticsPanel
+          analytics={props.internalCrmDashboard?.analytics ?? null}
+          loading={props.internalCrmDashboard?.loading ?? false}
+          error={props.internalCrmDashboard?.error ?? null}
+        />
         <TenantIsolationReadinessPanel
           readiness={props.tenantIsolation?.readiness ?? null}
           loading={props.tenantIsolation?.loading ?? false}

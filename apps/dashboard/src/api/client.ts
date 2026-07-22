@@ -45,6 +45,7 @@ import type {
   GmailOutboundDeliveryStatusResponse,
   GmailSchedulerStatusResponse,
   IncidentResponseReadinessResponse,
+  InternalCrmDashboardAnalyticsResponse,
   KpiDashboardResponse,
   MeResponse,
   ObservabilitySloAlertReadinessResponse,
@@ -609,6 +610,12 @@ export class ApiClient {
   async getKpiDashboard(): Promise<KpiDashboardResponse> {
     return this.request<KpiDashboardResponse>(
       "/api/v1/analytics/kpi-dashboard",
+    );
+  }
+
+  async getInternalCrmDashboardAnalytics(): Promise<InternalCrmDashboardAnalyticsResponse> {
+    return this.request<InternalCrmDashboardAnalyticsResponse>(
+      "/api/v1/analytics/internal-crm-dashboard",
     );
   }
 

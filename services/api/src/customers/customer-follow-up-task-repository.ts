@@ -37,6 +37,7 @@ export type CustomerFollowUpTaskCreateInput = {
 };
 
 export interface CustomerFollowUpTaskRepository {
+  listScoped(scope: WorkspaceScope): Promise<CustomerFollowUpTaskRecord[]>;
   listForCustomer(
     scope: WorkspaceScope,
     customerId: string,
@@ -97,6 +98,30 @@ export class FixtureCustomerFollowUpTaskRepository implements CustomerFollowUpTa
   constructor(
     private readonly store: FixtureAppStore = createFixtureAppStore(),
   ) {}
+
+  async listScoped(
+    scope: WorkspaceScope,
+  ): Promise<CustomerFollowUpTaskRecord[]> {
+    return this.store.customerFollowUpTasks
+      .filter(
+        (task) =>
+          task.organizationId === scope.organizationId &&
+          task.workspaceId === scope.workspaceId,
+      )
+      .sort((left, right) => {
+        return (
+          requireDate(
+            right.createdAt,
+            "customerFollowUpTask.createdAt",
+          ).getTime() -
+          requireDate(
+            left.createdAt,
+            "customerFollowUpTask.createdAt",
+          ).getTime()
+        );
+      })
+      .map(toRecord);
+  }
 
   async listForCustomer(
     scope: WorkspaceScope,

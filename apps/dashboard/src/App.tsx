@@ -37,6 +37,7 @@ import type {
   GmailOutboundDeliveryStatus,
   GmailSchedulerStatus,
   IncidentResponseReadinessResponse,
+  InternalCrmDashboardAnalyticsResponse,
   MeResponse,
   PermissionAuditReadinessResponse,
   RedactionHardeningReadinessResponse,
@@ -198,6 +199,8 @@ function WorkspaceAppShell() {
   >([]);
   const [gmailSchedulerStatus, setGmailSchedulerStatus] =
     useState<GmailSchedulerStatus | null>(null);
+  const [internalCrmDashboardAnalytics, setInternalCrmDashboardAnalytics] =
+    useState<InternalCrmDashboardAnalyticsResponse | null>(null);
   const [channelHealthItems, setChannelHealthItems] = useState<
     ChannelHealthItem[]
   >([]);
@@ -301,6 +304,14 @@ function WorkspaceAppShell() {
   const [gmailSchedulerError, setGmailSchedulerError] = useState<string | null>(
     null,
   );
+  const [
+    internalCrmDashboardAnalyticsLoading,
+    setInternalCrmDashboardAnalyticsLoading,
+  ] = useState(false);
+  const [
+    internalCrmDashboardAnalyticsError,
+    setInternalCrmDashboardAnalyticsError,
+  ] = useState<string | null>(null);
   const [channelHealthLoading, setChannelHealthLoading] = useState(false);
   const [channelHealthError, setChannelHealthError] = useState<string | null>(
     null,
@@ -426,6 +437,8 @@ function WorkspaceAppShell() {
       setWorkspaceAccessRequired(null);
       setGmailSchedulerStatus(null);
       setGmailSchedulerError(null);
+      setInternalCrmDashboardAnalytics(null);
+      setInternalCrmDashboardAnalyticsError(null);
       setChannelHealthItems([]);
       setChannelHealthError(null);
       setGmailOutboundStatus(null);
@@ -456,6 +469,7 @@ function WorkspaceAppShell() {
       setWebchatOutboundStatus(null);
       setWebchatOutboundStatusError(null);
       setListLoading(false);
+      setInternalCrmDashboardAnalyticsLoading(false);
       return;
     }
 
@@ -472,6 +486,7 @@ function WorkspaceAppShell() {
       setListError(null);
       setListLoading(true);
       setCustomerListLoading(true);
+      setInternalCrmDashboardAnalyticsLoading(true);
       setCustomerListError(null);
       setCustomerMutationMessage(null);
       setCustomerMutationError(null);
@@ -502,6 +517,8 @@ function WorkspaceAppShell() {
       setFollowUpError(null);
       setSummaryError(null);
       setNoteSuggestionError(null);
+      setInternalCrmDashboardAnalytics(null);
+      setInternalCrmDashboardAnalyticsError(null);
 
       try {
         const meResponse = await client.getMe();
@@ -512,7 +529,11 @@ function WorkspaceAppShell() {
 
         setMe(meResponse);
 
-        const [listResponse, customerListResponse] = await Promise.all([
+        const [
+          listResponse,
+          customerListResponse,
+          internalCrmDashboardResponse,
+        ] = await Promise.all([
           client.listConversations({
             limit: 20,
             status: statusFilter || undefined,
@@ -521,6 +542,7 @@ function WorkspaceAppShell() {
           client.listCustomers({
             search: deferredSearch || undefined,
           }),
+          client.getInternalCrmDashboardAnalytics(),
         ]);
 
         if (cancelled) {
@@ -529,6 +551,7 @@ function WorkspaceAppShell() {
 
         setConversations(listResponse.data);
         setCustomerList(customerListResponse.data);
+        setInternalCrmDashboardAnalytics(internalCrmDashboardResponse);
         setConversationPermissions(listResponse.permissions);
 
         startTransition(() => {
@@ -554,6 +577,8 @@ function WorkspaceAppShell() {
           setCustomerActivityTimeline([]);
           setCustomerList([]);
           setCustomerListError(null);
+          setInternalCrmDashboardAnalytics(null);
+          setInternalCrmDashboardAnalyticsError(null);
           setCustomerMutationMessage(null);
           setCustomerMutationError(null);
           setCustomerIntelligence(null);
@@ -578,10 +603,12 @@ function WorkspaceAppShell() {
         setShellError(message);
         setListError(message);
         setCustomerListError(message);
+        setInternalCrmDashboardAnalyticsError(message);
       } finally {
         if (!cancelled) {
           setListLoading(false);
           setCustomerListLoading(false);
+          setInternalCrmDashboardAnalyticsLoading(false);
         }
       }
     }
@@ -2116,6 +2143,11 @@ function WorkspaceAppShell() {
           status: gmailSchedulerStatus,
           loading: gmailSchedulerLoading,
           error: gmailSchedulerError,
+        }}
+        internalCrmDashboard={{
+          analytics: internalCrmDashboardAnalytics,
+          loading: internalCrmDashboardAnalyticsLoading,
+          error: internalCrmDashboardAnalyticsError,
         }}
         tenantIsolation={{
           readiness: tenantIsolationReadiness,
