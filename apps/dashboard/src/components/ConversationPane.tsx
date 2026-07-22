@@ -1,5 +1,6 @@
 import type {
   ConversationDetail,
+  CustomerProfileResponse,
   AiConversationSummaryResponse,
   AiCustomerNoteSuggestionResponse,
   AiDraftReview,
@@ -64,6 +65,13 @@ type ConversationPaneProps = {
   webchatOutboundStatus: WebchatOutboundDeliveryStatus | null;
   webchatOutboundStatusLoading: boolean;
   webchatOutboundStatusError: string | null;
+  customers?: CustomerProfileResponse["customer"][];
+  customerLinkingDisabled?: boolean;
+  customerLinkingMessage?: string | null;
+  customerLinkingError?: string | null;
+  onLinkCustomer?: (customerId: string) => void | Promise<void>;
+  onUnlinkCustomer?: () => void | Promise<void>;
+  onOpenLinkedCustomer?: () => void;
 };
 
 function formatMessageTime(value: string): string {
@@ -128,7 +136,9 @@ export function ConversationPane(props: ConversationPaneProps) {
               provider={props.conversation.provider}
             />
           </p>
-          <h2>{props.conversation.customer.display_name}</h2>
+          <h2>
+            {props.conversation.customer?.display_name ?? "Unlinked customer"}
+          </h2>
         </div>
         <div className="thread-header-meta">
           <span className="badge">{props.conversation.status}</span>
@@ -139,6 +149,71 @@ export function ConversationPane(props: ConversationPaneProps) {
           ) : null}
         </div>
       </header>
+
+      <section className="state-card" aria-label="Conversation customer link">
+        <strong>Customer link</strong>
+        {props.conversation.customer ? (
+          <>
+            <p>
+              Linked to {props.conversation.customer.display_name} ·{" "}
+              {props.conversation.customer.source}
+            </p>
+            <div className="button-row">
+              <button
+                type="button"
+                className="secondary-button"
+                onClick={props.onOpenLinkedCustomer}
+              >
+                Open customer
+              </button>
+              <button
+                type="button"
+                className="secondary-button"
+                disabled={
+                  props.customerLinkingDisabled || !props.onUnlinkCustomer
+                }
+                onClick={() => void props.onUnlinkCustomer?.()}
+              >
+                Unlink
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <p>Select an existing customer to link this conversation.</p>
+            <select
+              className="text-input"
+              aria-label="Link existing customer"
+              disabled={
+                props.customerLinkingDisabled ||
+                !props.onLinkCustomer ||
+                (props.customers ?? []).length === 0
+              }
+              defaultValue=""
+              onChange={(event) => {
+                const customerId = event.target.value;
+                if (customerId) void props.onLinkCustomer?.(customerId);
+              }}
+            >
+              <option value="">Choose customer</option>
+              {(props.customers ?? []).map((customer) => (
+                <option key={customer.id} value={customer.id}>
+                  {customer.display_name}
+                </option>
+              ))}
+            </select>
+          </>
+        )}
+        {props.customerLinkingDisabled ? (
+          <p className="subtle-copy">Viewer sessions cannot change links.</p>
+        ) : null}
+        {props.customerLinkingMessage ? (
+          <p className="success-text">{props.customerLinkingMessage}</p>
+        ) : null}
+        {props.customerLinkingError ? (
+          <p className="error-text">{props.customerLinkingError}</p>
+        ) : null}
+      </section>
 
       <div className="message-thread">
         {props.conversation.messages.map((message) => (

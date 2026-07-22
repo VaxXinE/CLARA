@@ -29,11 +29,11 @@ type ConversationListRow = {
   lastMessageAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
-  customerId: string;
-  customerDisplayName: string;
+  customerId: string | null;
+  customerDisplayName: string | null;
   customerContactIdentifier: string | null;
-  customerSource: string;
-  customerStatus: string;
+  customerSource: string | null;
+  customerStatus: string | null;
   assignedUserId: string | null;
   assignedUserDisplayName: string | null;
 };
@@ -66,13 +66,19 @@ function toConversationListItemRecord(
     lastMessageAt: row.lastMessageAt ?? null,
     createdAt: row.createdAt,
     updatedAt: row.updatedAt,
-    customer: {
-      id: row.customerId,
-      displayName: row.customerDisplayName,
-      contactIdentifier: row.customerContactIdentifier,
-      source: row.customerSource,
-      status: row.customerStatus,
-    },
+    customer:
+      row.customerId &&
+      row.customerDisplayName &&
+      row.customerSource &&
+      row.customerStatus
+        ? {
+            id: row.customerId,
+            displayName: row.customerDisplayName,
+            contactIdentifier: row.customerContactIdentifier,
+            source: row.customerSource,
+            status: row.customerStatus,
+          }
+        : null,
     assignedUser: row.assignedUserId
       ? {
           id: row.assignedUserId,
@@ -108,13 +114,19 @@ function toConversationDetailRecord(
     lastMessageAt: row.lastMessageAt ?? null,
     createdAt: row.createdAt,
     updatedAt: row.updatedAt,
-    customer: {
-      id: row.customerId,
-      displayName: row.customerDisplayName,
-      contactIdentifier: row.customerContactIdentifier,
-      source: row.customerSource,
-      status: row.customerStatus,
-    },
+    customer:
+      row.customerId &&
+      row.customerDisplayName &&
+      row.customerSource &&
+      row.customerStatus
+        ? {
+            id: row.customerId,
+            displayName: row.customerDisplayName,
+            contactIdentifier: row.customerContactIdentifier,
+            source: row.customerSource,
+            status: row.customerStatus,
+          }
+        : null,
     assignedUser: row.assignedUserId
       ? {
           id: row.assignedUserId,
@@ -150,8 +162,6 @@ export class DrizzleConversationRepository implements ConversationRepository {
     const conditions: SQL[] = [
       eq(conversations.organizationId, scope.organizationId),
       eq(conversations.workspaceId, scope.workspaceId),
-      eq(customers.organizationId, scope.organizationId),
-      eq(customers.workspaceId, scope.workspaceId),
     ];
 
     if (filters.status) {
@@ -201,7 +211,14 @@ export class DrizzleConversationRepository implements ConversationRepository {
         assignedUserDisplayName: users.displayName,
       })
       .from(conversations)
-      .innerJoin(customers, eq(conversations.customerId, customers.id))
+      .leftJoin(
+        customers,
+        and(
+          eq(conversations.customerId, customers.id),
+          eq(customers.organizationId, scope.organizationId),
+          eq(customers.workspaceId, scope.workspaceId),
+        ),
+      )
       .leftJoin(
         users,
         and(
@@ -341,7 +358,14 @@ export class DrizzleConversationRepository implements ConversationRepository {
         assignedUserDisplayName: users.displayName,
       })
       .from(conversations)
-      .innerJoin(customers, eq(conversations.customerId, customers.id))
+      .leftJoin(
+        customers,
+        and(
+          eq(conversations.customerId, customers.id),
+          eq(customers.organizationId, scope.organizationId),
+          eq(customers.workspaceId, scope.workspaceId),
+        ),
+      )
       .leftJoin(
         users,
         and(
@@ -354,8 +378,6 @@ export class DrizzleConversationRepository implements ConversationRepository {
           eq(conversations.id, conversationId),
           eq(conversations.organizationId, scope.organizationId),
           eq(conversations.workspaceId, scope.workspaceId),
-          eq(customers.organizationId, scope.organizationId),
-          eq(customers.workspaceId, scope.workspaceId),
         ),
       )
       .limit(1);
@@ -388,5 +410,62 @@ export class DrizzleConversationRepository implements ConversationRepository {
       .orderBy(asc(messages.sentAt), asc(messages.id));
 
     return toConversationDetailRecord(row, messageRows);
+  }
+
+  async linkCustomerScoped(
+    scope: WorkspaceScope,
+    conversationId: string,
+    customerId: string,
+  ): Promise<ConversationDetailRecord | null> {
+    const existingCustomer = await this.db
+      .select({ id: customers.id })
+      .from(customers)
+      .where(
+        and(
+          eq(customers.id, customerId),
+          eq(customers.organizationId, scope.organizationId),
+          eq(customers.workspaceId, scope.workspaceId),
+        ),
+      )
+      .limit(1);
+
+    if (!existingCustomer[0]) return null;
+
+    const updated = await this.db
+      .update(conversations)
+      .set({ customerId, updatedAt: new Date() })
+      .where(
+        and(
+          eq(conversations.id, conversationId),
+          eq(conversations.organizationId, scope.organizationId),
+          eq(conversations.workspaceId, scope.workspaceId),
+        ),
+      )
+      .returning({ id: conversations.id });
+
+    if (!updated[0]) return null;
+
+    return this.findByIdScoped(scope, conversationId);
+  }
+
+  async unlinkCustomerScoped(
+    scope: WorkspaceScope,
+    conversationId: string,
+  ): Promise<ConversationDetailRecord | null> {
+    const updated = await this.db
+      .update(conversations)
+      .set({ customerId: null, updatedAt: new Date() })
+      .where(
+        and(
+          eq(conversations.id, conversationId),
+          eq(conversations.organizationId, scope.organizationId),
+          eq(conversations.workspaceId, scope.workspaceId),
+        ),
+      )
+      .returning({ id: conversations.id });
+
+    if (!updated[0]) return null;
+
+    return this.findByIdScoped(scope, conversationId);
   }
 }

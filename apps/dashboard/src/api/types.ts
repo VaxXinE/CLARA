@@ -49,7 +49,7 @@ export type ConversationSummary = {
     display_name: string;
     source: string;
     status: string;
-  };
+  } | null;
   assigned_user: {
     id: string;
     display_name: string;
@@ -78,7 +78,7 @@ export type ConversationDetail = {
     display_name: string;
     source: string;
     status: string;
-  };
+  } | null;
   assigned_user: {
     id: string;
     display_name: string;
@@ -97,6 +97,18 @@ export type ConversationDetail = {
 
 export type ConversationDetailResponse = {
   conversation: ConversationDetail;
+  permissions: ApiPermissionHints;
+};
+
+export type ConversationCustomerLinkResponse = ConversationDetailResponse & {
+  feedback: {
+    status: "linked" | "unlinked";
+    message: string;
+  };
+};
+
+export type CustomerConversationListResponse = {
+  data: ConversationSummary[];
   permissions: ApiPermissionHints;
 };
 

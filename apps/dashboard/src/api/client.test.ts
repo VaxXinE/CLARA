@@ -208,6 +208,49 @@ describe("ApiClient auth headers", () => {
     ]);
   });
 
+  it("uses conversation customer linking endpoints without client workspace authority", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        conversation: {
+          id: "conv_demo",
+          source: "email",
+          status: "open",
+          last_message_at: null,
+          created_at: "2026-01-01T00:00:00.000Z",
+          updated_at: "2026-01-01T00:00:00.000Z",
+          customer: null,
+          assigned_user: null,
+          messages: [],
+        },
+        data: [],
+        permissions: {},
+        feedback: { status: "unlinked", message: "ok" },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({ baseUrl: "http://127.0.0.1:3000" });
+
+    await client.linkConversationCustomer("conv_demo", "cust_demo");
+    await client.unlinkConversationCustomer("conv_demo");
+    await client.listCustomerConversations("cust_demo");
+
+    const calls = fetchMock.mock.calls as unknown as Array<
+      [string, RequestInit]
+    >;
+
+    expect(calls.map(([url]) => url)).toEqual([
+      "http://127.0.0.1:3000/api/v1/conversations/conv_demo/customer",
+      "http://127.0.0.1:3000/api/v1/conversations/conv_demo/customer",
+      "http://127.0.0.1:3000/api/v1/customers/cust_demo/conversations",
+    ]);
+    expect(calls[0]?.[1].body).toBe(
+      JSON.stringify({ customerId: "cust_demo" }),
+    );
+    expect(JSON.stringify(calls)).not.toContain("organization_id");
+    expect(JSON.stringify(calls)).not.toContain("workspace_id");
+    expect(JSON.stringify(calls)).not.toContain("access_token");
+  });
+
   it("loads observability SLO alert readiness safely", async () => {
     const fetchMock = vi.fn(async () =>
       jsonResponse({

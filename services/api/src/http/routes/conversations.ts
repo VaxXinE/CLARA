@@ -20,6 +20,19 @@ const conversationIdSchema = z
   .max(128)
   .regex(safeIdPattern, "Invalid conversation ID.");
 
+const customerIdSchema = z
+  .string()
+  .trim()
+  .min(1)
+  .max(128)
+  .regex(safeIdPattern, "Invalid customer ID.");
+
+const conversationCustomerLinkSchema = z
+  .object({
+    customerId: customerIdSchema,
+  })
+  .strict();
+
 const conversationListQuerySchema = z.object({
   status: z.enum(conversationStatuses).optional(),
   assigned_to: z
@@ -52,6 +65,21 @@ function parseConversationId(conversationId: string, path: string): string {
       {
         path,
         message: parsed.error.issues[0]?.message ?? "Invalid conversation ID.",
+      },
+    ]);
+  }
+
+  return parsed.data;
+}
+
+function parseCustomerId(customerId: string, path: string): string {
+  const parsed = customerIdSchema.safeParse(customerId);
+
+  if (!parsed.success) {
+    throw new ValidationError("Invalid request.", [
+      {
+        path,
+        message: parsed.error.issues[0]?.message ?? "Invalid customer ID.",
       },
     ]);
   }
@@ -126,6 +154,74 @@ export async function registerConversationRoutes(
       return service.getConversationDetail({
         auth,
         conversationId,
+      });
+    },
+  );
+
+  app.put(
+    "/api/v1/conversations/:conversation_id/customer",
+    {
+      preHandler: requireAuth(authProvider),
+    },
+    async (request) => {
+      const auth = getAuthContext(request);
+      const params = request.params as { conversation_id?: string };
+      const conversationId = parseConversationId(
+        params.conversation_id ?? "",
+        "params.conversation_id",
+      );
+      const parsed = conversationCustomerLinkSchema.safeParse(request.body);
+
+      if (!parsed.success) {
+        throw toValidationError(parsed.error);
+      }
+
+      return service.linkConversationToCustomer({
+        auth,
+        conversationId,
+        customerId: parsed.data.customerId,
+        correlationId: request.id,
+      });
+    },
+  );
+
+  app.delete(
+    "/api/v1/conversations/:conversation_id/customer",
+    {
+      preHandler: requireAuth(authProvider),
+    },
+    async (request) => {
+      const auth = getAuthContext(request);
+      const params = request.params as { conversation_id?: string };
+      const conversationId = parseConversationId(
+        params.conversation_id ?? "",
+        "params.conversation_id",
+      );
+
+      return service.unlinkConversationCustomer({
+        auth,
+        conversationId,
+        correlationId: request.id,
+      });
+    },
+  );
+
+  app.get(
+    "/api/v1/customers/:customer_id/conversations",
+    {
+      preHandler: requireAuth(authProvider),
+    },
+    async (request) => {
+      const auth = getAuthContext(request);
+      const params = request.params as { customer_id?: string };
+      const customerId = parseCustomerId(
+        params.customer_id ?? "",
+        "params.customer_id",
+      );
+
+      return service.listCustomerConversations({
+        auth,
+        customerId,
       });
     },
   );

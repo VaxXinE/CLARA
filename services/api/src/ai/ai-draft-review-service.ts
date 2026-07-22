@@ -2,7 +2,7 @@ import { assertPermission } from "../auth/permissions";
 import type { AuditLogService } from "../audit/audit-log-service";
 import type { ConversationRepository } from "../conversations/conversation-repository";
 import type { AiDraftRepository } from "../ai-drafts/ai-draft-repository";
-import { NotFoundError } from "../errors/app-error";
+import { NotFoundError, ValidationError } from "../errors/app-error";
 import { getWorkspaceScopeFromAuth } from "../workspace/workspace-scope";
 import {
   AI_DRAFT_REVIEW_POLICY_VERSION,
@@ -52,6 +52,15 @@ export class AiDraftReviewService {
 
     if (!conversation) {
       throw new NotFoundError("Conversation not found.");
+    }
+
+    if (!conversation.customer) {
+      throw new ValidationError("Invalid request.", [
+        {
+          path: "conversation.customer",
+          message: "Conversation must be linked to a customer.",
+        },
+      ]);
     }
 
     const draftText = sanitizeAiDraftReviewText(input.draftText);
@@ -116,6 +125,16 @@ export class AiDraftReviewService {
 
     const { draft, conversation } = await this.loadScopedReview(input);
     assertDraftCanBeEdited(draft.status);
+    const customerId = conversation.customer?.id;
+
+    if (!customerId) {
+      throw new ValidationError("Invalid request.", [
+        {
+          path: "conversation.customer",
+          message: "Conversation must be linked to a customer.",
+        },
+      ]);
+    }
 
     const editedText = sanitizeAiDraftReviewText(input.draftText);
     const updated = await this.drafts.updateDraftReview({
@@ -132,7 +151,7 @@ export class AiDraftReviewService {
       auth: input.auth,
       correlationId: input.correlationId,
       conversationId: conversation.id,
-      customerId: conversation.customer.id,
+      customerId,
       draftId: draft.id,
     });
 
@@ -154,6 +173,16 @@ export class AiDraftReviewService {
 
     const { draft, conversation } = await this.loadScopedReview(input);
     assertDraftCanBeApproved(draft.status);
+    const customerId = conversation.customer?.id;
+
+    if (!customerId) {
+      throw new ValidationError("Invalid request.", [
+        {
+          path: "conversation.customer",
+          message: "Conversation must be linked to a customer.",
+        },
+      ]);
+    }
 
     const updated = await this.drafts.updateDraftReview({
       scope: getWorkspaceScopeFromAuth(input.auth),
@@ -169,7 +198,7 @@ export class AiDraftReviewService {
       auth: input.auth,
       correlationId: input.correlationId,
       conversationId: conversation.id,
-      customerId: conversation.customer.id,
+      customerId,
       draftId: draft.id,
     });
 
@@ -188,6 +217,16 @@ export class AiDraftReviewService {
     assertPermission(input.auth.role, "ai_draft:create");
 
     const { draft, conversation } = await this.loadScopedReview(input);
+    const customerId = conversation.customer?.id;
+
+    if (!customerId) {
+      throw new ValidationError("Invalid request.", [
+        {
+          path: "conversation.customer",
+          message: "Conversation must be linked to a customer.",
+        },
+      ]);
+    }
 
     const updated = await this.drafts.updateDraftReview({
       scope: getWorkspaceScopeFromAuth(input.auth),
@@ -203,7 +242,7 @@ export class AiDraftReviewService {
       auth: input.auth,
       correlationId: input.correlationId,
       conversationId: conversation.id,
-      customerId: conversation.customer.id,
+      customerId,
       draftId: draft.id,
     });
 
@@ -239,6 +278,15 @@ export class AiDraftReviewService {
 
     if (!conversation) {
       throw new NotFoundError("Conversation not found.");
+    }
+
+    if (!conversation.customer) {
+      throw new ValidationError("Invalid request.", [
+        {
+          path: "conversation.customer",
+          message: "Conversation must be linked to a customer.",
+        },
+      ]);
     }
 
     return { draft, conversation };

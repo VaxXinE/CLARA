@@ -164,6 +164,14 @@ const customerFollowUpTasksMigrationSql = readFileSync(
   customerFollowUpTasksMigrationPath,
   "utf8",
 );
+const conversationCustomerLinkingMigrationPath = path.resolve(
+  __dirname,
+  "../drizzle/0023_p13_conversation_customer_linking.sql",
+);
+const conversationCustomerLinkingMigrationSql = readFileSync(
+  conversationCustomerLinkingMigrationPath,
+  "utf8",
+);
 
 function migrationForTable(tableName: string): string {
   if (tableName === "audit_logs") return auditLogMigrationSql;
@@ -379,6 +387,21 @@ describe("initial database migration", () => {
     );
     expect(customerNotesMigrationSql).toContain("'customer.note.created'");
     expect(customerNotesMigrationSql).toContain("'customer'");
+  });
+
+  it("adds P13 conversation-to-customer linking support", () => {
+    expect(conversationCustomerLinkingMigrationSql).toContain(
+      "alter table conversations",
+    );
+    expect(conversationCustomerLinkingMigrationSql).toContain(
+      "alter column customer_id drop not null",
+    );
+    expect(conversationCustomerLinkingMigrationSql).toContain(
+      "'conversation.customer.linked'",
+    );
+    expect(conversationCustomerLinkingMigrationSql).toContain(
+      "'conversation.customer.unlinked'",
+    );
   });
 
   it("adds generic channel account schema", () => {
