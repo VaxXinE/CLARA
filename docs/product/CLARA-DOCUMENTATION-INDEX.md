@@ -19,7 +19,7 @@ P12-PR-04 Beta Feedback / Support / Known Issues Workflow is complete.
 P12-PR-05 Final GA Audit / Runbook is complete.
 
 P12 release-readiness is complete. P13 is current. P13 focuses internal CRM
-usage. P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is current.
+usage. P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is complete.
 Internal CRM usage is the focus. billing/payment is deferred. Billing/payment
 remains deferred. CLARA is not production deployed yet. CLARA is not public GA
 launched yet. Customer CRUD is internal workspace-scoped. Notes/timeline are
@@ -53,6 +53,7 @@ find . -name '*.md' \
 | `docs/product/CLARA-P13-CUSTOMER-CRUD-ACTIVATION.md` | P13 customer CRUD activation contract. |
 | `docs/product/CLARA-P13-CUSTOMER-NOTES-ACTIVITY-TIMELINE.md` | P13 customer notes and safe activity timeline contract. |
 | `docs/product/CLARA-P13-CUSTOMER-LIFECYCLE-OWNER-ASSIGNMENT.md` | P13 customer lifecycle status and owner assignment contract. |
+| `docs/product/CLARA-P13-FOLLOW-UP-TASK-WORKFLOW.md` | P13 follow-up task workflow contract. |
 | `docs/product/CLARA-P13-BILLING-DEFERRED-POLICY.md` | P13 billing/payment deferred policy. |
 | `docs/product/CLARA-MVP-GAP-REVIEW.md`        | Product gap and phase progress review.                            |
 | `docs/product/CLARA-PHASE-CLOSURE-SUMMARY.md` | P1-P11 closure summary.                                           |

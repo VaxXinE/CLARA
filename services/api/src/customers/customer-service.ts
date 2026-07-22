@@ -17,6 +17,12 @@ import type {
   CustomerNoteRepository,
 } from "./customer-note-repository";
 import type { UserRoleManagementRepository } from "../auth/user-role-management-repository";
+import {
+  customerFollowUpTaskStatuses,
+  type CustomerFollowUpTaskRecord,
+  type CustomerFollowUpTaskRepository,
+  type CustomerFollowUpTaskStatus,
+} from "./customer-follow-up-task-repository";
 
 export type CustomerProfileDto = {
   id: string;
@@ -44,6 +50,34 @@ export type CustomerListResult = {
 export type CustomerMutationResult = CustomerProfileResult & {
   feedback: {
     status: "created" | "updated" | "status_updated" | "owner_assigned";
+    message: string;
+  };
+};
+
+export type CustomerFollowUpTaskDto = {
+  id: string;
+  customer_id: string;
+  title: string;
+  body: string | null;
+  status: CustomerFollowUpTaskStatus;
+  due_at: string | null;
+  assignee_user_id: string | null;
+  created_by_user_id: string;
+  completed_at: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type CustomerFollowUpTaskListResult = {
+  data: CustomerFollowUpTaskDto[];
+  permissions: PermissionHints;
+};
+
+export type CustomerFollowUpTaskMutationResult = {
+  task: CustomerFollowUpTaskDto;
+  permissions: PermissionHints;
+  feedback: {
+    status: "created" | "updated";
     message: string;
   };
 };
@@ -79,7 +113,11 @@ export type CustomerActivityTimelineEventDto = {
     | "customer.note.created"
     | "customer.status.updated"
     | "customer.owner.assigned"
-    | "customer.owner.reassigned";
+    | "customer.owner.reassigned"
+    | "customer.follow_up_task.created"
+    | "customer.follow_up_task.updated"
+    | "customer.follow_up_task.completed"
+    | "customer.follow_up_task.cancelled";
   title: string;
   summary: string;
   customer_id: string;
@@ -125,6 +163,17 @@ export type CustomerNoteInput = {
   body: string;
 };
 
+export type CustomerFollowUpTaskCreateInput = {
+  title: string;
+  body?: string | null | undefined;
+  dueAt?: string | null | undefined;
+  assigneeUserId?: string | null | undefined;
+};
+
+export type CustomerFollowUpTaskUpdateInput = {
+  status: CustomerFollowUpTaskStatus;
+};
+
 function toCustomerProfileDto(
   record: CustomerProfileRecord,
 ): CustomerProfileDto {
@@ -153,6 +202,24 @@ function toCustomerNoteDto(record: CustomerNoteRecord): CustomerNoteDto {
   };
 }
 
+function toCustomerFollowUpTaskDto(
+  record: CustomerFollowUpTaskRecord,
+): CustomerFollowUpTaskDto {
+  return {
+    id: record.id,
+    customer_id: record.customerId,
+    title: record.title,
+    body: record.body,
+    status: record.status,
+    due_at: record.dueAt?.toISOString() ?? null,
+    assignee_user_id: record.assigneeUserId,
+    created_by_user_id: record.createdByUserId,
+    completed_at: record.completedAt?.toISOString() ?? null,
+    created_at: record.createdAt.toISOString(),
+    updated_at: record.updatedAt.toISOString(),
+  };
+}
+
 function normalizeNullableText(value: string | null | undefined) {
   if (value === undefined) return undefined;
   if (value === null) return null;
@@ -170,6 +237,47 @@ function normalizeDisplayName(value: string | undefined) {
   }
 
   return trimmed;
+}
+
+function normalizeTaskBody(value: string | null | undefined): string | null {
+  if (value === undefined || value === null) return null;
+  const body = value.trim();
+  if (body.length === 0) return null;
+  if (body.length > 2000) {
+    throw new ValidationError("Invalid follow-up task input.", [
+      { path: "body.body", message: "Task body is too long." },
+    ]);
+  }
+  return body;
+}
+
+function normalizeTaskDueAt(value: string | null | undefined): Date | null {
+  if (value === undefined || value === null || value.trim().length === 0) {
+    return null;
+  }
+
+  const dateOnly = /^\d{4}-\d{2}-\d{2}$/.test(value.trim());
+  const dueAt = new Date(dateOnly ? `${value.trim()}T00:00:00.000Z` : value);
+
+  if (Number.isNaN(dueAt.getTime())) {
+    throw new ValidationError("Invalid follow-up task input.", [
+      { path: "body.dueAt", message: "Due date must be a valid date." },
+    ]);
+  }
+
+  if (dueAt.getUTCFullYear() < 2000 || dueAt.getUTCFullYear() > 2100) {
+    throw new ValidationError("Invalid follow-up task input.", [
+      { path: "body.dueAt", message: "Due date is outside the safe range." },
+    ]);
+  }
+
+  return dueAt;
+}
+
+function taskAuditAction(status: CustomerFollowUpTaskStatus) {
+  if (status === "completed") return "customer.follow_up_task.completed";
+  if (status === "cancelled") return "customer.follow_up_task.cancelled";
+  return "customer.follow_up_task.updated";
 }
 
 function normalizeCustomerInput(
@@ -233,6 +341,7 @@ export class CustomerQueryService {
     private readonly auditLogs?: AuditLogService,
     private readonly notes?: CustomerNoteRepository,
     private readonly members?: UserRoleManagementRepository,
+    private readonly followUpTasks?: CustomerFollowUpTaskRepository,
   ) {}
 
   async listCustomers(input: {
@@ -586,6 +695,181 @@ export class CustomerQueryService {
     };
   }
 
+  async listCustomerFollowUpTasks(input: {
+    auth: AuthContext;
+    customerId: string;
+  }): Promise<CustomerFollowUpTaskListResult> {
+    assertPermission(input.auth.role, "customer:read");
+
+    if (!this.followUpTasks) {
+      throw new ValidationError("Follow-up tasks are not configured.");
+    }
+
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+    const customer = await this.repository.findByIdScoped(
+      scope,
+      input.customerId,
+    );
+
+    if (!customer) throw new NotFoundError("Customer not found.");
+
+    return {
+      data: (
+        await this.followUpTasks.listForCustomer(scope, input.customerId)
+      ).map(toCustomerFollowUpTaskDto),
+      permissions: buildPermissionHints(input.auth.role),
+    };
+  }
+
+  async createCustomerFollowUpTask(input: {
+    auth: AuthContext;
+    customerId: string;
+    payload: CustomerFollowUpTaskCreateInput;
+    correlationId: string;
+  }): Promise<CustomerFollowUpTaskMutationResult> {
+    assertPermission(input.auth.role, "customer:update");
+
+    if (!this.followUpTasks || !this.members) {
+      throw new ValidationError("Follow-up tasks are not configured.");
+    }
+
+    const title = input.payload.title.trim();
+
+    if (title.length === 0) {
+      throw new ValidationError("Invalid follow-up task input.", [
+        { path: "body.title", message: "Task title is required." },
+      ]);
+    }
+
+    if (title.length > 160) {
+      throw new ValidationError("Invalid follow-up task input.", [
+        { path: "body.title", message: "Task title is too long." },
+      ]);
+    }
+
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+    const customer = await this.repository.findByIdScoped(
+      scope,
+      input.customerId,
+    );
+
+    if (!customer) throw new NotFoundError("Customer not found.");
+
+    const assigneeUserId =
+      normalizeNullableText(input.payload.assigneeUserId) ?? null;
+
+    if (assigneeUserId) {
+      const member = (await this.members.listWorkspaceMembers(scope)).find(
+        (candidate) =>
+          candidate.userId === assigneeUserId && candidate.status === "active",
+      );
+
+      if (!member) {
+        throw new ValidationError("Invalid follow-up task input.", [
+          {
+            path: "body.assigneeUserId",
+            message: "Task assignee must be an active workspace member.",
+          },
+        ]);
+      }
+    }
+
+    const task = await this.followUpTasks.createForCustomer(scope, {
+      customerId: input.customerId,
+      title,
+      body: normalizeTaskBody(input.payload.body),
+      dueAt: normalizeTaskDueAt(input.payload.dueAt),
+      assigneeUserId,
+      createdByUserId: input.auth.userId,
+    });
+
+    await this.auditLogs?.recordCustomerFollowUpTaskChanged({
+      auth: input.auth,
+      correlationId: input.correlationId,
+      action: "customer.follow_up_task.created",
+      customerId: input.customerId,
+      taskId: task.id,
+      status: task.status,
+      assigneeUserId: task.assigneeUserId,
+      dueAt: task.dueAt,
+    });
+
+    return {
+      task: toCustomerFollowUpTaskDto(task),
+      permissions: buildPermissionHints(input.auth.role),
+      feedback: {
+        status: "created",
+        message: "Follow-up task created.",
+      },
+    };
+  }
+
+  async updateCustomerFollowUpTask(input: {
+    auth: AuthContext;
+    customerId: string;
+    taskId: string;
+    payload: CustomerFollowUpTaskUpdateInput;
+    correlationId: string;
+  }): Promise<CustomerFollowUpTaskMutationResult> {
+    assertPermission(input.auth.role, "customer:update");
+
+    if (!this.followUpTasks) {
+      throw new ValidationError("Follow-up tasks are not configured.");
+    }
+
+    if (!customerFollowUpTaskStatuses.includes(input.payload.status)) {
+      throw new ValidationError("Invalid follow-up task input.", [
+        { path: "body.status", message: "Unsupported follow-up task status." },
+      ]);
+    }
+
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+    const customer = await this.repository.findByIdScoped(
+      scope,
+      input.customerId,
+    );
+
+    if (!customer) throw new NotFoundError("Customer not found.");
+
+    const previous = await this.followUpTasks.findByIdScoped(
+      scope,
+      input.taskId,
+    );
+
+    if (!previous || previous.customerId !== input.customerId) {
+      throw new NotFoundError("Follow-up task not found.");
+    }
+
+    const completedAt =
+      input.payload.status === "completed" ? new Date() : null;
+    const task = await this.followUpTasks.updateScoped(scope, input.taskId, {
+      status: input.payload.status,
+      completedAt,
+    });
+
+    if (!task) throw new NotFoundError("Follow-up task not found.");
+
+    await this.auditLogs?.recordCustomerFollowUpTaskChanged({
+      auth: input.auth,
+      correlationId: input.correlationId,
+      action: taskAuditAction(task.status),
+      customerId: input.customerId,
+      taskId: task.id,
+      status: task.status,
+      assigneeUserId: task.assigneeUserId,
+      dueAt: task.dueAt,
+    });
+
+    return {
+      task: toCustomerFollowUpTaskDto(task),
+      permissions: buildPermissionHints(input.auth.role),
+      feedback: {
+        status: "updated",
+        message: "Follow-up task updated.",
+      },
+    };
+  }
+
   async listCustomerActivityTimeline(input: {
     auth: AuthContext;
     customerId: string;
@@ -602,6 +886,10 @@ export class CustomerQueryService {
     }
 
     const notes = await this.notes?.listForCustomer(scope, input.customerId);
+    const tasks = await this.followUpTasks?.listForCustomer(
+      scope,
+      input.customerId,
+    );
     const events: CustomerActivityTimelineEventDto[] = [
       {
         id: `${customer.id}:created`,
@@ -657,6 +945,30 @@ export class CustomerQueryService {
         customer_id: note.customerId,
         actor_user_id: note.authorUserId,
         occurred_at: note.createdAt.toISOString(),
+      });
+    }
+
+    for (const task of tasks ?? []) {
+      const type =
+        task.status === "completed"
+          ? "customer.follow_up_task.completed"
+          : task.status === "cancelled"
+            ? "customer.follow_up_task.cancelled"
+            : "customer.follow_up_task.created";
+
+      events.push({
+        id: `${task.id}:${task.status}`,
+        type,
+        title:
+          task.status === "completed"
+            ? "Follow-up task completed"
+            : task.status === "cancelled"
+              ? "Follow-up task cancelled"
+              : "Follow-up task created",
+        summary: `Follow-up task: ${task.title}.`,
+        customer_id: task.customerId,
+        actor_user_id: task.assigneeUserId ?? task.createdByUserId,
+        occurred_at: task.updatedAt.toISOString(),
       });
     }
 

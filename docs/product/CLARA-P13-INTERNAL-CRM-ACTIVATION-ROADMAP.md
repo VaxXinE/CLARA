@@ -11,7 +11,7 @@ classification: "product-roadmap"
 ## Status
 
 P12 release-readiness is complete. P13 is current. P13 focuses internal CRM usage.
-P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is current. Internal CRM
+P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is complete. Internal CRM
 usage is the focus. CLARA is not production deployed yet. CLARA is not public GA
 launched yet. billing/payment is deferred. Billing/payment remains deferred.
 
@@ -26,8 +26,8 @@ workflow state with backend authorization as the source of truth.
 | --- | --- | --- |
 | P13-PR-01 | Customer CRUD Activation | complete |
 | P13-PR-02 | Customer Notes + Activity Timeline | complete |
-| P13-PR-03 | Lifecycle Status + Owner Assignment | current |
-| P13-PR-04 | Follow-up Task Workflow | planned |
+| P13-PR-03 | Lifecycle Status + Owner Assignment | complete |
+| P13-PR-04 | Follow-up Task Workflow | current |
 | P13-PR-05 | Conversation-to-Customer Linking | planned |
 | P13-PR-06 | Internal Dashboard Analytics Wiring | planned |
 | P13-PR-07 | Internal CRM End-to-End QA + Runbook | planned |
@@ -44,6 +44,10 @@ expose raw provider/audit/secrets.
 lifecycle/owner assignment are workspace-scoped internal CRM features. owner
 assignment requires valid workspace membership. Timeline/audit must not expose
 raw provider/audit/secrets.
+
+follow-up tasks are workspace-scoped internal CRM features. task assignee
+requires valid workspace membership. this PR does not auto-send external
+notifications. Timeline/audit must not expose raw provider/audit/secrets.
 
 P13 does not activate billing, payment, subscriptions, invoices, checkout,
 production deployment, autonomous AI, external support tool integrations, or

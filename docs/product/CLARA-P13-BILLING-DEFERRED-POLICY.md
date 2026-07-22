@@ -9,7 +9,7 @@ classification: "policy"
 # CLARA P13 Billing Deferred Policy
 
 P12 release-readiness is complete. P13 is current. P13 focuses internal CRM
-usage. P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is current.
+usage. P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is complete.
 Internal CRM usage is the focus. billing/payment is deferred. Billing/payment
 remains deferred. CLARA is not production deployed yet. CLARA is not public GA
 launched yet.

@@ -61,6 +61,8 @@ import { FixtureCustomerRepository } from "../customers/customer-repository";
 import { DrizzleCustomerRepository } from "../customers/customer-db-repository";
 import { FixtureCustomerNoteRepository } from "../customers/customer-note-repository";
 import { DrizzleCustomerNoteRepository } from "../customers/customer-note-db-repository";
+import { FixtureCustomerFollowUpTaskRepository } from "../customers/customer-follow-up-task-repository";
+import { DrizzleCustomerFollowUpTaskRepository } from "../customers/customer-follow-up-task-db-repository";
 import { CustomerQueryService } from "../customers/customer-service";
 import { CustomerActionProposalService } from "../customers/customer-action-proposal-service";
 import { CustomerFollowUpProposalService } from "../customers/customer-follow-up-proposal-service";
@@ -126,6 +128,8 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
     const conversationRepository = new DrizzleConversationRepository(db);
     const customerRepository = new DrizzleCustomerRepository(db);
     const customerNoteRepository = new DrizzleCustomerNoteRepository(db);
+    const customerFollowUpTaskRepository =
+      new DrizzleCustomerFollowUpTaskRepository(db);
     const userRoleRepository = new DrizzleUserRoleManagementRepository(db);
     const channelAccountRepository = new DrizzleChannelAccountRepository(db);
     const webchatReply = new WebchatReplySendService(
@@ -155,6 +159,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
           auditLogs,
           customerNoteRepository,
           userRoleRepository,
+          customerFollowUpTaskRepository,
         ),
         customerActionProposals: new CustomerActionProposalService(
           customerRepository,
@@ -286,6 +291,8 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
   const customerNoteRepository = new FixtureCustomerNoteRepository(
     fixtureStore,
   );
+  const customerFollowUpTaskRepository =
+    new FixtureCustomerFollowUpTaskRepository(fixtureStore);
   const userRoleRepository = new FixtureUserRoleManagementRepository();
   const channelAccountRepository = new FixtureChannelAccountRepository(
     fixtureStore,
@@ -319,6 +326,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         auditLogs,
         customerNoteRepository,
         userRoleRepository,
+        customerFollowUpTaskRepository,
       ),
       customerActionProposals: new CustomerActionProposalService(
         customerRepository,

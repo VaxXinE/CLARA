@@ -173,6 +173,34 @@ export type CustomerNoteMutationResponse = {
   };
 };
 
+export type CustomerFollowUpTask = {
+  id: string;
+  customer_id: string;
+  title: string;
+  body: string | null;
+  status: "open" | "in_progress" | "completed" | "cancelled";
+  due_at: string | null;
+  assignee_user_id: string | null;
+  created_by_user_id: string;
+  completed_at: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type CustomerFollowUpTaskListResponse = {
+  data: CustomerFollowUpTask[];
+  permissions: ApiPermissionHints;
+};
+
+export type CustomerFollowUpTaskMutationResponse = {
+  task: CustomerFollowUpTask;
+  permissions: ApiPermissionHints;
+  feedback: {
+    status: "created" | "updated";
+    message: string;
+  };
+};
+
 export type CustomerActivityTimelineEvent = {
   id: string;
   type:
@@ -181,7 +209,11 @@ export type CustomerActivityTimelineEvent = {
     | "customer.note.created"
     | "customer.status.updated"
     | "customer.owner.assigned"
-    | "customer.owner.reassigned";
+    | "customer.owner.reassigned"
+    | "customer.follow_up_task.created"
+    | "customer.follow_up_task.updated"
+    | "customer.follow_up_task.completed"
+    | "customer.follow_up_task.cancelled";
   title: string;
   summary: string;
   customer_id: string;

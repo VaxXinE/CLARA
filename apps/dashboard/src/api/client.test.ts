@@ -163,6 +163,51 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("refresh_token");
   });
 
+  it("uses customer follow-up task endpoints", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        data: [],
+        permissions: {},
+        task: {
+          id: "task_demo",
+          customer_id: "cust_demo_budi",
+          title: "Call customer",
+          body: null,
+          status: "open",
+          due_at: null,
+          assignee_user_id: null,
+          created_by_user_id: "usr_demo_agent",
+          completed_at: null,
+          created_at: "2026-01-01T00:00:00.000Z",
+          updated_at: "2026-01-01T00:00:00.000Z",
+        },
+        feedback: { status: "created", message: "ok" },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({ baseUrl: "http://127.0.0.1:3000" });
+
+    await client.listCustomerFollowUpTasks("cust_demo_budi");
+    await client.createCustomerFollowUpTask("cust_demo_budi", {
+      title: "Call customer",
+    });
+    await client.updateCustomerFollowUpTaskStatus(
+      "cust_demo_budi",
+      "task_demo",
+      "completed",
+    );
+
+    const urls = (fetchMock.mock.calls as unknown as Array<[string]>).map(
+      ([url]) => url,
+    );
+
+    expect(urls).toEqual([
+      "http://127.0.0.1:3000/api/v1/customers/cust_demo_budi/tasks",
+      "http://127.0.0.1:3000/api/v1/customers/cust_demo_budi/tasks",
+      "http://127.0.0.1:3000/api/v1/customers/cust_demo_budi/tasks/task_demo",
+    ]);
+  });
+
   it("loads observability SLO alert readiness safely", async () => {
     const fetchMock = vi.fn(async () =>
       jsonResponse({

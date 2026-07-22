@@ -71,6 +71,34 @@ const ownerAssignmentMutationSchema = z
   })
   .strict();
 
+const taskIdSchema = z
+  .string()
+  .trim()
+  .min(1)
+  .max(128)
+  .regex(safeIdPattern, "Invalid task ID.");
+
+const followUpTaskCreateSchema = z
+  .object({
+    title: z.string().trim().min(1).max(160),
+    body: z.string().trim().max(2000).nullable().optional(),
+    dueAt: z.string().trim().max(40).nullable().optional(),
+    assigneeUserId: z
+      .string()
+      .trim()
+      .max(128)
+      .regex(safeIdPattern)
+      .nullable()
+      .optional(),
+  })
+  .strict();
+
+const followUpTaskUpdateSchema = z
+  .object({
+    status: z.enum(["open", "in_progress", "completed", "cancelled"]),
+  })
+  .strict();
+
 const customerListQuerySchema = z
   .object({
     search: z.string().trim().max(120).optional(),
@@ -96,6 +124,21 @@ function parseCustomerId(customerId: string, path: string): string {
       {
         path,
         message: parsed.error.issues[0]?.message ?? "Invalid customer ID.",
+      },
+    ]);
+  }
+
+  return parsed.data;
+}
+
+function parseTaskId(taskId: string, path: string): string {
+  const parsed = taskIdSchema.safeParse(taskId);
+
+  if (!parsed.success) {
+    throw new ValidationError("Invalid request.", [
+      {
+        path,
+        message: parsed.error.issues[0]?.message ?? "Invalid task ID.",
       },
     ]);
   }
@@ -241,6 +284,84 @@ export async function registerCustomerRoutes(
       return service.assignCustomerOwner({
         auth: getAuthContext(request),
         customerId,
+        payload: parsed.data,
+        correlationId: request.id,
+      });
+    },
+  );
+
+  app.get(
+    "/api/v1/customers/:customer_id/tasks",
+    {
+      preHandler: requireAuth(authProvider),
+    },
+    async (request) => {
+      const params = request.params as { customer_id?: string };
+      const customerId = parseCustomerId(
+        params.customer_id ?? "",
+        "params.customer_id",
+      );
+
+      return service.listCustomerFollowUpTasks({
+        auth: getAuthContext(request),
+        customerId,
+      });
+    },
+  );
+
+  app.post(
+    "/api/v1/customers/:customer_id/tasks",
+    {
+      preHandler: requireAuth(authProvider),
+    },
+    async (request, reply) => {
+      const params = request.params as { customer_id?: string };
+      const customerId = parseCustomerId(
+        params.customer_id ?? "",
+        "params.customer_id",
+      );
+      const parsed = followUpTaskCreateSchema.safeParse(request.body);
+
+      if (!parsed.success) {
+        throw new ValidationError("Invalid request.", parsed.error.issues);
+      }
+
+      const result = await service.createCustomerFollowUpTask({
+        auth: getAuthContext(request),
+        customerId,
+        payload: parsed.data,
+        correlationId: request.id,
+      });
+
+      return reply.code(201).send(result);
+    },
+  );
+
+  app.patch(
+    "/api/v1/customers/:customer_id/tasks/:task_id",
+    {
+      preHandler: requireAuth(authProvider),
+    },
+    async (request) => {
+      const params = request.params as {
+        customer_id?: string;
+        task_id?: string;
+      };
+      const customerId = parseCustomerId(
+        params.customer_id ?? "",
+        "params.customer_id",
+      );
+      const taskId = parseTaskId(params.task_id ?? "", "params.task_id");
+      const parsed = followUpTaskUpdateSchema.safeParse(request.body);
+
+      if (!parsed.success) {
+        throw new ValidationError("Invalid request.", parsed.error.issues);
+      }
+
+      return service.updateCustomerFollowUpTask({
+        auth: getAuthContext(request),
+        customerId,
+        taskId,
         payload: parsed.data,
         correlationId: request.id,
       });

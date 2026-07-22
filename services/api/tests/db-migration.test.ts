@@ -156,10 +156,20 @@ const customerLifecycleOwnerMigrationSql = readFileSync(
   customerLifecycleOwnerMigrationPath,
   "utf8",
 );
+const customerFollowUpTasksMigrationPath = path.resolve(
+  __dirname,
+  "../drizzle/0022_p13_follow_up_tasks.sql",
+);
+const customerFollowUpTasksMigrationSql = readFileSync(
+  customerFollowUpTasksMigrationPath,
+  "utf8",
+);
 
 function migrationForTable(tableName: string): string {
   if (tableName === "audit_logs") return auditLogMigrationSql;
   if (tableName === "customer_notes") return customerNotesMigrationSql;
+  if (tableName === "customer_follow_up_tasks")
+    return customerFollowUpTasksMigrationSql;
   if (tableName === "email_inbound_records") return emailInboundMigrationSql;
   if (tableName === "email_outbound_deliveries")
     return emailOutboundMigrationSql;
@@ -197,6 +207,7 @@ describe("initial database migration", () => {
       "workspace_memberships",
       "customers",
       "customer_notes",
+      "customer_follow_up_tasks",
       "conversations",
       "messages",
       "reply_drafts",
@@ -227,6 +238,7 @@ describe("initial database migration", () => {
     for (const tableName of [
       "customers",
       "customer_notes",
+      "customer_follow_up_tasks",
       "conversations",
       "messages",
       "reply_drafts",
@@ -556,6 +568,27 @@ describe("initial database migration", () => {
     );
     expect(customerLifecycleOwnerMigrationSql).toContain(
       "'customer.owner.reassigned'",
+    );
+  });
+
+  it("adds P13 workspace-scoped follow-up tasks and safe audit actions", () => {
+    expect(customerFollowUpTasksMigrationSql).toContain(
+      "create table if not exists customer_follow_up_tasks",
+    );
+    expect(customerFollowUpTasksMigrationSql).toContain(
+      "customer_id text not null references customers(id)",
+    );
+    expect(customerFollowUpTasksMigrationSql).toContain(
+      "assignee_user_id text references users(id)",
+    );
+    expect(customerFollowUpTasksMigrationSql).toContain(
+      "status in ('open', 'in_progress', 'completed', 'cancelled')",
+    );
+    expect(customerFollowUpTasksMigrationSql).toContain(
+      "idx_customer_follow_up_tasks_scope_customer_created",
+    );
+    expect(customerFollowUpTasksMigrationSql).toContain(
+      "'customer.follow_up_task.created'",
     );
   });
 });
