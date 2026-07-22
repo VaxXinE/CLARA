@@ -10,7 +10,11 @@ classification: "documentation-index"
 
 ## Status
 
-P11 complete. P12 Beta / GA Release Readiness is next.
+P1-P11 complete. DOCS-REFRESH-BEFORE-P12, UI-POLISH-BEFORE-P12, and
+PRE-P12-INTERACTION-ACTIVATION complete. P12 Beta / GA Release Readiness is
+current, and P12-PR-01 Beta / GA Scope + Release Criteria is current work.
+
+CLARA is not GA yet. CLARA is not production deployed yet.
 
 Markdown inventory for this refresh was generated with:
 
@@ -84,6 +88,14 @@ find . -name '*.md' \
 | `docs/product/CLARA-RELEASE-READINESS-OVERVIEW.md` | P12 release readiness overview.      |
 | `docs/product/CLARA-P12-IMPLEMENTATION-ROADMAP.md` | P12 compact roadmap.                 |
 | `docs/product/CLARA-P12-HANDOFF-FROM-P11.md`       | Handoff from validated P11 baseline. |
+| `docs/product/CLARA-P12-BETA-GA-SCOPE-RELEASE-CRITERIA.md` | Official Beta and GA scope gates. |
+| `docs/product/CLARA-P12-BETA-ELIGIBILITY-CHECKLIST.md` | Beta eligibility checklist. |
+| `docs/product/CLARA-P12-GA-RELEASE-CRITERIA.md` | GA release criteria. |
+| `docs/product/CLARA-P12-RELEASE-CANDIDATE-READINESS-POLICY.md` | Release candidate readiness policy. |
+| `docs/product/CLARA-P12-GO-NO-GO-CHECKLIST.md` | Go/no-go checklist. |
+| `docs/product/CLARA-P12-LAUNCH-RISK-REGISTER.md` | Beta accepted risks and GA blockers. |
+| `docs/product/CLARA-P12-KNOWN-LIMITATIONS.md` | P12 known limitations. |
+| `docs/product/CLARA-P12-SUPPORT-FEEDBACK-READINESS-BOUNDARY.md` | Support and feedback boundary. |
 
 ## Historical Docs
 
