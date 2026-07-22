@@ -11,9 +11,10 @@ P1-P11 complete; P12 Beta / GA Release Readiness current
 ## Scope
 
 The extension boundary is current through P11. P12-PR-01 is complete. P12-PR-02
-is current work. P12 extension work is release readiness only: no background crawling, no
-billing/reliability/internal access, no production deployment in this PR, and
-CLARA is not GA-ready yet.
+is complete. P12-PR-03 is current work. P12 extension work is release readiness
+only: no background crawling, no billing/reliability/internal access, no
+production deployment in this PR, no automatic rollback, and CLARA is not
+GA-ready yet.
 
 This package contains a small TypeScript implementation for:
 

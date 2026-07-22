@@ -800,8 +800,9 @@ and no real AI provider.
 
 P11 complete. DOCS-REFRESH-BEFORE-P12, UI-POLISH-BEFORE-P12, and
 PRE-P12-INTERACTION-ACTIVATION are complete. P12 Beta / GA Release Readiness is
-current. P12-PR-01 Beta / GA Scope + Release Criteria is complete, and
-P12-PR-02 Release Candidate Validation + Smoke Test Matrix is current work.
+current. P12-PR-01 Beta / GA Scope + Release Criteria is complete,
+P12-PR-02 Release Candidate Validation + Smoke Test Matrix is complete, and
+P12-PR-03 Production Deployment Checklist + Rollback Drill is current work.
 P12 is release readiness, not feature expansion; CLARA is not GA-ready yet, and
 CLARA is not production deployed yet. Release Candidate is a validation gate,
 not a launch. Beta and GA are different gates: Beta is limited, monitored,
@@ -823,3 +824,8 @@ providers, call real AI providers, execute autonomous AI, send real outbound
 messages, execute queue jobs, run alerts, run backup/restore, run production
 load tests, export evidence, mutate roles/sessions/billing/enterprise controls,
 or weaken auth/workspace security.
+
+P12-PR-03 adds production deployment readiness and rollback drill checklists.
+The deployment checklist is a readiness gate, not deployment execution.
+Rollback drill is not automatic production rollback. No real
+provider/payment/AI/outbound activation happens in this PR.
