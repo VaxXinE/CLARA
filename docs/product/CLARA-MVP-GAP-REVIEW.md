@@ -803,7 +803,8 @@ PRE-P12-INTERACTION-ACTIVATION are complete. P12 Beta / GA Release Readiness is
 current. P12-PR-01 Beta / GA Scope + Release Criteria is complete,
 P12-PR-02 Release Candidate Validation + Smoke Test Matrix is complete, and
 P12-PR-03 Production Deployment Checklist + Rollback Drill is complete.
-P12-PR-04 Beta Feedback / Support / Known Issues Workflow is current work.
+P12-PR-04 Beta Feedback / Support / Known Issues Workflow is complete.
+P12-PR-05 Final GA Audit / Runbook is current work.
 P12 is release readiness, not feature expansion; CLARA is not GA-ready yet, and
 CLARA is not production deployed yet. Release Candidate is a validation gate,
 not a launch. Beta and GA are different gates: Beta is limited, monitored,
@@ -834,3 +835,11 @@ P12-PR-04 adds a controlled and privacy-safe beta feedback, support triage, and
 known issues workflow. Known issues must be reviewed before GA.
 Feedback/support must not collect raw sensitive data. No external support tool
 integration, auto-send, or external ticket creation happens in this PR.
+
+P12-PR-05 adds the final GA audit, release readiness summary, GA checklist,
+security boundary review, operational readiness review, known limitations
+review, go/no-go decision record, operator/admin runbooks, support handoff,
+rollback/incident handoff, evidence checklist, and post-P12 handoff. P12
+completion means release readiness complete. P12 completion does not mean
+production deployed. P12 completion does not mean public GA launch happened.
+Production deployment requires separate explicit approval and execution.

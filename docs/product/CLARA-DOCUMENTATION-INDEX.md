@@ -15,7 +15,8 @@ PRE-P12-INTERACTION-ACTIVATION complete. P12 Beta / GA Release Readiness is
 current. P12-PR-01 Beta / GA Scope + Release Criteria is complete,
 P12-PR-02 Release Candidate Validation + Smoke Test Matrix is complete, and
 P12-PR-03 Production Deployment Checklist + Rollback Drill is complete.
-P12-PR-04 Beta Feedback / Support / Known Issues Workflow is current work.
+P12-PR-04 Beta Feedback / Support / Known Issues Workflow is complete.
+P12-PR-05 Final GA Audit / Runbook is current work.
 
 CLARA is not GA yet. CLARA is not production deployed yet.
 
@@ -128,6 +129,19 @@ find . -name '*.md' \
 | `docs/product/CLARA-P12-SUPPORT-EVIDENCE-CHECKLIST.md` | Support evidence checklist. |
 | `docs/product/CLARA-P12-RELEASE-NOTES-BETA-CHANGELOG-POLICY.md` | Release notes and beta changelog policy. |
 | `docs/product/CLARA-P12-GA-BLOCKER-REVIEW-CHECKLIST.md` | GA blocker review checklist. |
+| `docs/product/CLARA-P12-FINAL-GA-AUDIT-RUNBOOK.md` | Final P12 GA audit runbook. |
+| `docs/product/CLARA-P12-FINAL-RELEASE-READINESS-SUMMARY.md` | Final release readiness summary. |
+| `docs/product/CLARA-P12-FINAL-GA-READINESS-CHECKLIST.md` | Final GA readiness checklist. |
+| `docs/product/CLARA-P12-FINAL-SECURITY-BOUNDARY-REVIEW.md` | Final security boundary review. |
+| `docs/product/CLARA-P12-FINAL-OPERATIONAL-READINESS-REVIEW.md` | Final operational readiness review. |
+| `docs/product/CLARA-P12-FINAL-KNOWN-LIMITATIONS-REVIEW.md` | Final known limitations review. |
+| `docs/product/CLARA-P12-FINAL-GO-NO-GO-DECISION-RECORD.md` | Final go/no-go decision record. |
+| `docs/product/CLARA-P12-FINAL-OPERATOR-RUNBOOK.md` | Final release operator runbook. |
+| `docs/product/CLARA-P12-FINAL-ADMIN-RUNBOOK.md` | Final admin runbook. |
+| `docs/product/CLARA-P12-FINAL-SUPPORT-HANDOFF.md` | Final support handoff. |
+| `docs/product/CLARA-P12-FINAL-ROLLBACK-INCIDENT-HANDOFF.md` | Final rollback and incident handoff. |
+| `docs/product/CLARA-P12-FINAL-EVIDENCE-CHECKLIST.md` | Final evidence checklist. |
+| `docs/product/CLARA-P12-POST-P12-HANDOFF.md` | Post-P12 handoff and remaining approval gates. |
 
 ## Historical Docs
 

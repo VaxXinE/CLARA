@@ -19,7 +19,7 @@ It contains the documentation, architecture, standards, templates, governance, i
 ```text
 Status: P1-P11 complete; local product slice runnable
 Current focus: P12 Beta / GA Release Readiness
-Current PR: P12-PR-04 Beta Feedback / Support / Known Issues Workflow
+Current PR: P12-PR-05 Final GA Audit / Runbook
 Launch status: not GA yet; not production deployed yet
 ```
 
@@ -102,6 +102,9 @@ docs/product/CLARA-P12-DEPLOYMENT-CUTOVER-GO-NO-GO-POLICY.md
 docs/product/CLARA-P12-BETA-FEEDBACK-WORKFLOW.md
 docs/product/CLARA-P12-SUPPORT-TRIAGE-RUNBOOK.md
 docs/product/CLARA-P12-KNOWN-ISSUES-WORKFLOW.md
+docs/product/CLARA-P12-FINAL-GA-AUDIT-RUNBOOK.md
+docs/product/CLARA-P12-FINAL-GA-READINESS-CHECKLIST.md
+docs/product/CLARA-P12-POST-P12-HANDOFF.md
 services/api/README.md
 apps/dashboard/README.md
 docs/product/CLARA-P2-DEPLOYMENT-CONFIG-RUNBOOK.md
