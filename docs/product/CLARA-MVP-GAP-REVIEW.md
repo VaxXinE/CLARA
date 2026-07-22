@@ -50,7 +50,7 @@ Current status:
 
 ```text
 Locally runnable MVP slice with API service, dashboard UI, mock auth, workspace scope, seeded demo data, conversation/customer/activity read APIs, mock AI draft generation, and simulated reply send.
-P12 release-readiness is complete. P13 is current. P13 focuses internal CRM usage. P13-PR-01 is complete. P13-PR-02 is current. Internal CRM usage is the focus. billing/payment is deferred. Billing/payment remains deferred. CLARA is not production deployed yet. CLARA is not public GA launched yet. Customer CRUD is internal workspace-scoped. Notes/timeline are workspace-scoped internal CRM features. Backend AuthContext is the authority. Timeline must not expose raw provider/audit/secrets.
+P12 release-readiness is complete. P13 is current. P13 focuses internal CRM usage. P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is current. Internal CRM usage is the focus. internal CRM usage is the focus. billing/payment is deferred. Billing/payment remains deferred. CLARA is not production deployed yet. CLARA is not public GA launched yet. Customer CRUD is internal workspace-scoped. Notes/timeline are workspace-scoped internal CRM features. lifecycle/owner assignment are workspace-scoped internal CRM features. owner assignment requires valid workspace membership. Backend AuthContext is the authority. Timeline/audit must not expose raw provider/audit/secrets.
 ```
 
 Practical conclusion:
@@ -74,6 +74,7 @@ conversation reads now have a DB-backed repository foundation while preserving f
 customer reads now have a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
 P13 customer CRUD activation now adds workspace-scoped customer list/create/update APIs and dashboard customer create/edit workflow for internal CRM usage
 P13 customer notes and activity timeline now add workspace-scoped note create/list APIs, safe timeline read API, and dashboard note/timeline workflow for internal CRM usage
+P13 customer lifecycle and owner assignment now add workspace-scoped lifecycle status updates, active-member owner assignment, safe audit/timeline events, and dashboard controls for internal CRM usage
 activity reads now have a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
 AI draft persistence now has a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
 reply persistence now has a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior

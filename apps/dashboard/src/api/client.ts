@@ -242,6 +242,32 @@ export class ApiClient {
     );
   }
 
+  async updateCustomerLifecycleStatus(
+    customerId: string,
+    payload: { status: NonNullable<CustomerMutationPayload["status"]> },
+  ): Promise<CustomerMutationResponse> {
+    return this.request<CustomerMutationResponse>(
+      `/api/v1/customers/${encodeURIComponent(customerId)}/lifecycle-status`,
+      {
+        method: "PATCH",
+        body: JSON.stringify(payload),
+      },
+    );
+  }
+
+  async assignCustomerOwner(
+    customerId: string,
+    payload: { ownerUserId: string },
+  ): Promise<CustomerMutationResponse> {
+    return this.request<CustomerMutationResponse>(
+      `/api/v1/customers/${encodeURIComponent(customerId)}/owner-assignment`,
+      {
+        method: "PATCH",
+        body: JSON.stringify(payload),
+      },
+    );
+  }
+
   async listCustomerActivityTimeline(
     customerId: string,
   ): Promise<CustomerActivityTimelineResponse> {

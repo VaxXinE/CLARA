@@ -33,6 +33,9 @@ export const customerSources = [
 export const customerStatuses = [
   "new",
   "active",
+  "follow_up",
+  "at_risk",
+  "resolved",
   "archived",
   "blocked",
 ] as const;
@@ -88,6 +91,9 @@ export const auditLogActions = [
   "customer.created",
   "customer.updated",
   "customer.note.created",
+  "customer.status.updated",
+  "customer.owner.assigned",
+  "customer.owner.reassigned",
   "extension.snapshot.accepted",
   "extension.snapshot.duplicate",
   "extension.snapshot.rejected",
@@ -345,6 +351,7 @@ export const customers = pgTable(
     contactIdentifier: text("contact_identifier"),
     source: text("source").notNull(),
     status: text("status").notNull(),
+    ownerUserId: text("owner_user_id").references(() => users.id),
     notesSummary: text("notes_summary"),
     lastInteractionAt: timestamp("last_interaction_at", { withTimezone: true }),
     createdAt: timestamp("created_at", { withTimezone: true })
@@ -362,6 +369,10 @@ export const customers = pgTable(
     textOneOf("source", customerSources),
     textOneOf("status", customerStatuses),
     index("idx_customers_workspace_status").on(table.workspaceId, table.status),
+    index("idx_customers_workspace_owner").on(
+      table.workspaceId,
+      table.ownerUserId,
+    ),
     index("idx_customers_workspace_contact_identifier").on(
       table.workspaceId,
       table.contactIdentifier,

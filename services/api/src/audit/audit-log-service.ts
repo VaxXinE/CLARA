@@ -179,6 +179,62 @@ export class AuditLogService {
     });
   }
 
+  async recordCustomerStatusUpdated(
+    input: AuditContextInput & {
+      customerId: string;
+      previousStatus: string;
+      nextStatus: string;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: "customer.status.updated",
+      resourceType: "customer",
+      resourceId: input.customerId,
+      outcome: "success",
+      metadata: compactMetadata({
+        customer_id: input.customerId,
+        previous_status: input.previousStatus,
+        next_status: input.nextStatus,
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
+  async recordCustomerOwnerChanged(
+    input: AuditContextInput & {
+      customerId: string;
+      previousOwnerUserId: string | null;
+      nextOwnerUserId: string;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: input.previousOwnerUserId
+        ? "customer.owner.reassigned"
+        : "customer.owner.assigned",
+      resourceType: "customer",
+      resourceId: input.customerId,
+      outcome: "success",
+      metadata: compactMetadata({
+        customer_id: input.customerId,
+        previous_owner_user_id: input.previousOwnerUserId,
+        next_owner_user_id: input.nextOwnerUserId,
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
   async recordAiSuggestionRequested(
     input: AuditContextInput & {
       conversationId: string;

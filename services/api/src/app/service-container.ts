@@ -126,6 +126,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
     const conversationRepository = new DrizzleConversationRepository(db);
     const customerRepository = new DrizzleCustomerRepository(db);
     const customerNoteRepository = new DrizzleCustomerNoteRepository(db);
+    const userRoleRepository = new DrizzleUserRoleManagementRepository(db);
     const channelAccountRepository = new DrizzleChannelAccountRepository(db);
     const webchatReply = new WebchatReplySendService(
       channelAccountRepository,
@@ -153,6 +154,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
           customerRepository,
           auditLogs,
           customerNoteRepository,
+          userRoleRepository,
         ),
         customerActionProposals: new CustomerActionProposalService(
           customerRepository,
@@ -257,9 +259,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
           new DrizzleExtensionSnapshotRepository(db),
           auditLogs,
         ),
-        userRoleManagement: new UserRoleManagementService(
-          new DrizzleUserRoleManagementRepository(db),
-        ),
+        userRoleManagement: new UserRoleManagementService(userRoleRepository),
       },
       auth: {
         workspaceMemberships: new WorkspaceMembershipService(
@@ -286,6 +286,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
   const customerNoteRepository = new FixtureCustomerNoteRepository(
     fixtureStore,
   );
+  const userRoleRepository = new FixtureUserRoleManagementRepository();
   const channelAccountRepository = new FixtureChannelAccountRepository(
     fixtureStore,
   );
@@ -317,6 +318,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         customerRepository,
         auditLogs,
         customerNoteRepository,
+        userRoleRepository,
       ),
       customerActionProposals: new CustomerActionProposalService(
         customerRepository,
@@ -421,9 +423,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         new FixtureExtensionSnapshotRepository(),
         auditLogs,
       ),
-      userRoleManagement: new UserRoleManagementService(
-        new FixtureUserRoleManagementRepository(),
-      ),
+      userRoleManagement: new UserRoleManagementService(userRoleRepository),
     },
     auth: {
       workspaceMemberships: new WorkspaceMembershipService(

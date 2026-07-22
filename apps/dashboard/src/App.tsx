@@ -1278,6 +1278,76 @@ function WorkspaceAppShell() {
     }
   }
 
+  async function handleUpdateCustomerLifecycleStatus(
+    customerId: string,
+    status: NonNullable<CustomerMutationPayload["status"]>,
+  ) {
+    const client = buildClient({
+      authMode: auth.config.mode,
+      role: selectedRole,
+      accessToken: auth.session?.accessToken ?? null,
+    });
+
+    setCustomerSaving(true);
+    setCustomerMutationMessage(null);
+    setCustomerMutationError(null);
+
+    try {
+      const response = await client.updateCustomerLifecycleStatus(customerId, {
+        status,
+      });
+      setCustomer(response.customer);
+      setCustomerList((current) =>
+        current.map((item) =>
+          item.id === response.customer.id ? response.customer : item,
+        ),
+      );
+      await refreshCustomerNotesAndTimeline(response.customer.id);
+      setCustomerMutationMessage(response.feedback.message);
+    } catch (error) {
+      setCustomerMutationError(
+        toSafeMessage(error, "Customer lifecycle status could not be updated."),
+      );
+    } finally {
+      setCustomerSaving(false);
+    }
+  }
+
+  async function handleAssignCustomerOwner(
+    customerId: string,
+    ownerUserId: string,
+  ) {
+    const client = buildClient({
+      authMode: auth.config.mode,
+      role: selectedRole,
+      accessToken: auth.session?.accessToken ?? null,
+    });
+
+    setCustomerSaving(true);
+    setCustomerMutationMessage(null);
+    setCustomerMutationError(null);
+
+    try {
+      const response = await client.assignCustomerOwner(customerId, {
+        ownerUserId,
+      });
+      setCustomer(response.customer);
+      setCustomerList((current) =>
+        current.map((item) =>
+          item.id === response.customer.id ? response.customer : item,
+        ),
+      );
+      await refreshCustomerNotesAndTimeline(response.customer.id);
+      setCustomerMutationMessage(response.feedback.message);
+    } catch (error) {
+      setCustomerMutationError(
+        toSafeMessage(error, "Customer owner could not be assigned."),
+      );
+    } finally {
+      setCustomerSaving(false);
+    }
+  }
+
   async function handleCreateCustomerNote(customerId: string, body: string) {
     const client = buildClient({
       authMode: auth.config.mode,
@@ -1975,7 +2045,10 @@ function WorkspaceAppShell() {
             onSelectCustomer: handleSelectCustomerFromList,
             onCreateCustomer: handleCreateCustomer,
             onUpdateCustomer: handleUpdateCustomer,
+            onUpdateCustomerStatus: handleUpdateCustomerLifecycleStatus,
+            onAssignCustomerOwner: handleAssignCustomerOwner,
             onCreateCustomerNote: handleCreateCustomerNote,
+            workspaceMembers,
           },
         }}
         automationGuardrails={{
