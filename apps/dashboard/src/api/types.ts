@@ -142,6 +142,44 @@ export type CustomerMutationResponse = CustomerProfileResponse & {
   };
 };
 
+export type CustomerNote = {
+  id: string;
+  customer_id: string;
+  author_user_id: string;
+  body: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type CustomerNoteListResponse = {
+  data: CustomerNote[];
+  permissions: ApiPermissionHints;
+};
+
+export type CustomerNoteMutationResponse = {
+  note: CustomerNote;
+  permissions: ApiPermissionHints;
+  feedback: {
+    status: "created";
+    message: string;
+  };
+};
+
+export type CustomerActivityTimelineEvent = {
+  id: string;
+  type: "customer.created" | "customer.updated" | "customer.note.created";
+  title: string;
+  summary: string;
+  customer_id: string;
+  actor_user_id: string | null;
+  occurred_at: string;
+};
+
+export type CustomerActivityTimelineResponse = {
+  data: CustomerActivityTimelineEvent[];
+  permissions: ApiPermissionHints;
+};
+
 export type CustomerProfileIntelligenceResponse = {
   customerId: string;
   workspaceId: string;

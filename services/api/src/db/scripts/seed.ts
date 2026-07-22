@@ -7,6 +7,7 @@ import {
   aiDraftEvents,
   channelAccounts,
   conversations,
+  customerNotes,
   customers,
   emailInboundRecords,
   emailOutboundDeliveries,
@@ -44,6 +45,10 @@ async function run(): Promise<void> {
       await tx
         .insert(customers)
         .values(demoSeedData.customers)
+        .onConflictDoNothing();
+      await tx
+        .insert(customerNotes)
+        .values(demoSeedData.customerNotes)
         .onConflictDoNothing();
       await tx
         .insert(conversations)

@@ -4,6 +4,7 @@ import {
   aiDraftStatuses,
   auditLogActions,
   auditLogOutcomes,
+  auditLogResourceTypes,
   channelAccountStatuses,
   channelHealthStatuses,
   channelProviders,
@@ -39,6 +40,7 @@ describe("database schema", () => {
       "users",
       "workspaceMemberships",
       "customers",
+      "customerNotes",
       "conversations",
       "messages",
       "replyDrafts",
@@ -64,6 +66,7 @@ describe("database schema", () => {
   it("keeps organization and workspace scope on all tenant-owned tables", () => {
     for (const tableName of [
       "customers",
+      "customerNotes",
       "conversations",
       "messages",
       "replyDrafts",
@@ -115,11 +118,23 @@ describe("database schema", () => {
       "gmail.reply_send.requested",
       "gmail.reply_send.succeeded",
       "gmail.reply_send.failed",
+      "customer.created",
+      "customer.updated",
+      "customer.note.created",
       "extension.snapshot.accepted",
       "extension.snapshot.duplicate",
       "extension.snapshot.rejected",
     ]);
     expect(auditLogOutcomes).toEqual(["success", "failure"]);
+    expect(auditLogResourceTypes).toEqual([
+      "workspace",
+      "conversation",
+      "reply_draft",
+      "message",
+      "customer",
+      "gmail_scheduler",
+      "extension_snapshot",
+    ]);
     expect(outboundDeliveryChannels).toEqual(["email"]);
     expect(outboundDeliveryStatuses).toEqual(["simulated", "sent", "failed"]);
     expect(webchatOutboundDeliveryStatuses).toEqual([

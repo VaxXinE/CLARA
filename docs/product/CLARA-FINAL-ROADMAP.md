@@ -20,9 +20,14 @@ P12-PR-04 Beta Feedback / Support / Known Issues Workflow is complete.
 P12-PR-05 Final GA Audit / Runbook is complete.
 
 P12 release-readiness is complete. P13 is current. P13 focuses internal CRM
-usage. billing/payment is deferred. CLARA is not production deployed yet.
-CLARA is not public GA launched yet. Customer CRUD is internal
-workspace-scoped. Backend AuthContext is the authority.
+usage. P13-PR-01 is complete. P13-PR-02 is current. Internal CRM usage is the
+focus. billing/payment is deferred. Billing/payment remains deferred. CLARA is
+not production deployed yet. CLARA is not public GA launched yet. Customer CRUD
+is internal workspace-scoped. Notes/timeline are workspace-scoped internal CRM
+features. Backend AuthContext is the authority. Timeline must not expose raw
+provider/audit/secrets.
+
+CLARA is not production deployed yet. CLARA is not public GA launched yet.
 
 ## Phase Status
 
@@ -53,8 +58,8 @@ workspace-scoped. Backend AuthContext is the authority.
 
 ## P13 Compact Roadmap
 
-- P13-PR-01 Customer CRUD Activation. Current.
-- P13-PR-02 Customer Notes + Activity Timeline. Planned.
+- P13-PR-01 Customer CRUD Activation. Complete.
+- P13-PR-02 Customer Notes + Activity Timeline. Current.
 - P13-PR-03 Lifecycle Status + Owner Assignment. Planned.
 - P13-PR-04 Follow-up Task Workflow. Planned.
 - P13-PR-05 Conversation-to-Customer Linking. Planned.

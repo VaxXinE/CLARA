@@ -1,17 +1,25 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import type {
+  CustomerActivityTimelineEvent,
   CustomerMutationPayload,
+  CustomerNote,
   CustomerProfileResponse,
 } from "../api/types";
+
+const NOTE_MAX_LENGTH = 2000;
 
 type CustomerWorkspacePanelProps = {
   customer: CustomerProfileResponse["customer"] | null;
   customers: CustomerProfileResponse["customer"][];
+  notes?: CustomerNote[];
+  timeline?: CustomerActivityTimelineEvent[];
   loading: boolean;
   error: string | null;
   successMessage: string | null;
   mutationError: string | null;
+  noteError?: string | null;
   isSaving: boolean;
+  isSavingNote?: boolean;
   readOnly: boolean;
   onSelectCustomer: (customer: CustomerProfileResponse["customer"]) => void;
   onCreateCustomer: (payload: CustomerMutationPayload) => Promise<void>;
@@ -19,6 +27,7 @@ type CustomerWorkspacePanelProps = {
     customerId: string,
     payload: CustomerMutationPayload,
   ) => Promise<void>;
+  onCreateCustomerNote?: (customerId: string, body: string) => Promise<void>;
 };
 
 function summarizeSource(customer: CustomerProfileResponse["customer"] | null) {
@@ -59,7 +68,9 @@ export function CustomerWorkspacePanel(props: CustomerWorkspacePanelProps) {
   const [editStatus, setEditStatus] =
     useState<CustomerMutationPayload["status"]>("new");
   const [editNotes, setEditNotes] = useState("");
+  const [noteBody, setNoteBody] = useState("");
   const [formError, setFormError] = useState<string | null>(null);
+  const [noteFormError, setNoteFormError] = useState<string | null>(null);
 
   useEffect(() => {
     setEditDisplayName(props.customer?.display_name ?? "");
@@ -137,6 +148,31 @@ export function CustomerWorkspacePanel(props: CustomerWorkspacePanelProps) {
         notesSummary: editNotes,
       }),
     );
+  }
+
+  async function handleCreateNote(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setNoteFormError(null);
+
+    if (!props.customer) {
+      setNoteFormError("Select a customer before adding a note.");
+      return;
+    }
+
+    const body = noteBody.trim();
+
+    if (body.length === 0) {
+      setNoteFormError("Note body is required.");
+      return;
+    }
+
+    if (body.length > NOTE_MAX_LENGTH) {
+      setNoteFormError("Note body is too long.");
+      return;
+    }
+
+    await props.onCreateCustomerNote?.(props.customer.id, body);
+    setNoteBody("");
   }
 
   return (
@@ -351,6 +387,76 @@ export function CustomerWorkspacePanel(props: CustomerWorkspacePanelProps) {
         <strong>Selected customer</strong>
         <p>{props.customer?.display_name ?? "No customer selected"}</p>
         <p>{summarizeSource(props.customer)}</p>
+      </div>
+
+      <div className="customer-crud-grid">
+        <section className="state-card">
+          <strong>Customer notes</strong>
+          {!props.customer ? (
+            <p>Select a customer before adding internal notes.</p>
+          ) : null}
+
+          <form onSubmit={handleCreateNote}>
+            <label className="field-label" htmlFor="customer-note-body">
+              Internal note
+            </label>
+            <textarea
+              id="customer-note-body"
+              className="text-input"
+              value={noteBody}
+              disabled={
+                !props.customer || props.readOnly || props.isSavingNote === true
+              }
+              maxLength={NOTE_MAX_LENGTH}
+              onChange={(event) => setNoteBody(event.target.value)}
+              placeholder="Add a workspace-scoped internal CRM note"
+            />
+            <button
+              type="submit"
+              className="primary-button"
+              disabled={
+                !props.customer || props.readOnly || props.isSavingNote === true
+              }
+            >
+              {props.isSavingNote ? "Saving note..." : "Add note"}
+            </button>
+          </form>
+
+          {noteFormError ? <p className="error-text">{noteFormError}</p> : null}
+          {props.noteError ? (
+            <p className="error-text">{props.noteError}</p>
+          ) : null}
+          {(props.notes ?? []).length === 0 ? (
+            <p>No internal notes yet.</p>
+          ) : null}
+          <ol className="timeline-list">
+            {(props.notes ?? []).map((note) => (
+              <li key={note.id}>
+                <strong>{new Date(note.created_at).toLocaleString()}</strong>
+                <p>{note.body}</p>
+                <small>Author: {note.author_user_id}</small>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section className="state-card">
+          <strong>Customer activity timeline</strong>
+          {(props.timeline ?? []).length === 0 ? (
+            <p>No customer activity yet.</p>
+          ) : null}
+          <ol className="timeline-list">
+            {(props.timeline ?? []).map((event) => (
+              <li key={event.id}>
+                <strong>{event.title}</strong>
+                <p>{event.summary}</p>
+                <small>
+                  {event.type} · {new Date(event.occurred_at).toLocaleString()}
+                </small>
+              </li>
+            ))}
+          </ol>
+        </section>
       </div>
     </section>
   );

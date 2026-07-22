@@ -6,6 +6,7 @@ import {
   channelAccounts,
   conversations,
   customers,
+  customerNotes,
   emailInboundRecords,
   emailOutboundDeliveries,
   messages,
@@ -25,6 +26,7 @@ type WorkspaceInsert = InferInsertModel<typeof workspaces>;
 type UserInsert = InferInsertModel<typeof users>;
 type WorkspaceMembershipInsert = InferInsertModel<typeof workspaceMemberships>;
 type CustomerInsert = InferInsertModel<typeof customers>;
+type CustomerNoteInsert = InferInsertModel<typeof customerNotes>;
 type ConversationInsert = InferInsertModel<typeof conversations>;
 type MessageInsert = InferInsertModel<typeof messages>;
 type ReplyDraftInsert = InferInsertModel<typeof replyDrafts>;
@@ -246,6 +248,19 @@ export const demoCustomers: CustomerInsert[] = [
     lastInteractionAt: at("2026-07-07T08:45:00.000Z"),
     createdAt: now,
     updatedAt: now,
+  },
+];
+
+export const demoCustomerNotes: CustomerNoteInsert[] = [
+  {
+    id: "note_demo_budi_intro",
+    organizationId: "org_demo",
+    workspaceId: "wks_demo_sales",
+    customerId: "cust_demo_budi",
+    authorUserId: "usr_demo_agent",
+    body: "Follow up on product availability before end of day.",
+    createdAt: at("2026-07-07T10:05:00.000Z"),
+    updatedAt: at("2026-07-07T10:05:00.000Z"),
   },
 ];
 
@@ -536,6 +551,7 @@ export const demoSeedData = {
   users: demoUsers,
   workspaceMemberships: demoWorkspaceMemberships,
   customers: demoCustomers,
+  customerNotes: demoCustomerNotes,
   conversations: demoConversations,
   messages: demoMessages,
   replyDrafts: demoReplyDrafts,

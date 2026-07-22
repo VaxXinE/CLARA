@@ -50,7 +50,7 @@ Current status:
 
 ```text
 Locally runnable MVP slice with API service, dashboard UI, mock auth, workspace scope, seeded demo data, conversation/customer/activity read APIs, mock AI draft generation, and simulated reply send.
-P12 release-readiness is complete. P13 is current. P13 focuses internal CRM usage. billing/payment is deferred. CLARA is not production deployed yet. CLARA is not public GA launched yet. Customer CRUD is internal workspace-scoped. Backend AuthContext is the authority.
+P12 release-readiness is complete. P13 is current. P13 focuses internal CRM usage. P13-PR-01 is complete. P13-PR-02 is current. Internal CRM usage is the focus. billing/payment is deferred. Billing/payment remains deferred. CLARA is not production deployed yet. CLARA is not public GA launched yet. Customer CRUD is internal workspace-scoped. Notes/timeline are workspace-scoped internal CRM features. Backend AuthContext is the authority. Timeline must not expose raw provider/audit/secrets.
 ```
 
 Practical conclusion:
@@ -73,6 +73,7 @@ local PostgreSQL runtime is now documented and runnable through infra/local/dock
 conversation reads now have a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
 customer reads now have a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
 P13 customer CRUD activation now adds workspace-scoped customer list/create/update APIs and dashboard customer create/edit workflow for internal CRM usage
+P13 customer notes and activity timeline now add workspace-scoped note create/list APIs, safe timeline read API, and dashboard note/timeline workflow for internal CRM usage
 activity reads now have a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
 AI draft persistence now has a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
 reply persistence now has a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior

@@ -12,9 +12,12 @@ This service currently provides the CLARA API through P13: auth/workspace scope,
 conversation/customer/activity, channel foundations, Gmail/email boundaries,
 CRM readiness, analytics readiness, enterprise hardening readiness, and
 scale/reliability/billing readiness. P12 release-readiness is complete. P13 is
-current. P13 focuses internal CRM usage. billing/payment is deferred. CLARA is
-not production deployed yet. CLARA is not public GA launched yet. Customer CRUD
-is internal workspace-scoped. Backend AuthContext is the authority.
+current. P13 focuses internal CRM usage. P13-PR-01 is complete. P13-PR-02 is
+current. Internal CRM usage is the focus. billing/payment is deferred.
+Billing/payment remains deferred. CLARA is not production deployed yet. CLARA is
+not public GA launched yet. Customer CRUD is internal workspace-scoped.
+Notes/timeline are workspace-scoped internal CRM features. Backend AuthContext
+is the authority. Timeline must not expose raw provider/audit/secrets.
 
 Use this together with `apps/dashboard` for the full local MVP flow.
 
@@ -54,9 +57,12 @@ GET /api/v1/customers lists workspace-scoped customers
 GET /api/v1/customers/:customer_id reads safe customer detail
 POST /api/v1/customers creates safe internal CRM customer records
 PATCH /api/v1/customers/:customer_id updates safe customer fields
+GET /api/v1/customers/:customer_id/notes lists workspace-scoped notes
+POST /api/v1/customers/:customer_id/notes adds a workspace-scoped internal note
+GET /api/v1/customers/:customer_id/activity lists safe customer timeline events
 owner/agent may create and update; viewer remains read-only
 unknown fields and client-supplied workspace authority are rejected
-customer create/update audit events store safe allowlisted metadata only
+customer create/update/note audit events store safe allowlisted metadata only
 ```
 
 Current auth baseline:

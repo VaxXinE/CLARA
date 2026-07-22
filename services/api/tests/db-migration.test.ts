@@ -140,9 +140,18 @@ const ownerBootstrapAuditMigrationSql = readFileSync(
   ownerBootstrapAuditMigrationPath,
   "utf8",
 );
+const customerNotesMigrationPath = path.resolve(
+  __dirname,
+  "../drizzle/0020_p13_customer_notes.sql",
+);
+const customerNotesMigrationSql = readFileSync(
+  customerNotesMigrationPath,
+  "utf8",
+);
 
 function migrationForTable(tableName: string): string {
   if (tableName === "audit_logs") return auditLogMigrationSql;
+  if (tableName === "customer_notes") return customerNotesMigrationSql;
   if (tableName === "email_inbound_records") return emailInboundMigrationSql;
   if (tableName === "email_outbound_deliveries")
     return emailOutboundMigrationSql;
@@ -179,6 +188,7 @@ describe("initial database migration", () => {
       "users",
       "workspace_memberships",
       "customers",
+      "customer_notes",
       "conversations",
       "messages",
       "reply_drafts",
@@ -208,6 +218,7 @@ describe("initial database migration", () => {
   it("keeps organization_id and workspace_id on all workspace-owned tables", () => {
     for (const tableName of [
       "customers",
+      "customer_notes",
       "conversations",
       "messages",
       "reply_drafts",
@@ -328,6 +339,26 @@ describe("initial database migration", () => {
       "'workspace.owner_bootstrap'",
     );
     expect(ownerBootstrapAuditMigrationSql).toContain("'workspace'");
+  });
+
+  it("adds P13 workspace-scoped customer notes and safe audit action", () => {
+    expect(customerNotesMigrationSql).toContain(
+      "create table if not exists customer_notes",
+    );
+    expect(customerNotesMigrationSql).toContain(
+      "customer_id text not null references customers(id)",
+    );
+    expect(customerNotesMigrationSql).toContain(
+      "author_user_id text not null references users(id)",
+    );
+    expect(customerNotesMigrationSql).toContain(
+      "constraint customer_notes_body_length",
+    );
+    expect(customerNotesMigrationSql).toContain(
+      "idx_customer_notes_scope_customer_created",
+    );
+    expect(customerNotesMigrationSql).toContain("'customer.note.created'");
+    expect(customerNotesMigrationSql).toContain("'customer'");
   });
 
   it("adds generic channel account schema", () => {

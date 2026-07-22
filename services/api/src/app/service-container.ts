@@ -59,6 +59,8 @@ import { DrizzleConversationRepository } from "../conversations/conversation-db-
 import { ConversationQueryService } from "../conversations/conversation-service";
 import { FixtureCustomerRepository } from "../customers/customer-repository";
 import { DrizzleCustomerRepository } from "../customers/customer-db-repository";
+import { FixtureCustomerNoteRepository } from "../customers/customer-note-repository";
+import { DrizzleCustomerNoteRepository } from "../customers/customer-note-db-repository";
 import { CustomerQueryService } from "../customers/customer-service";
 import { CustomerActionProposalService } from "../customers/customer-action-proposal-service";
 import { CustomerFollowUpProposalService } from "../customers/customer-follow-up-proposal-service";
@@ -123,6 +125,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
     const { db, pool } = createDatabase(env);
     const conversationRepository = new DrizzleConversationRepository(db);
     const customerRepository = new DrizzleCustomerRepository(db);
+    const customerNoteRepository = new DrizzleCustomerNoteRepository(db);
     const channelAccountRepository = new DrizzleChannelAccountRepository(db);
     const webchatReply = new WebchatReplySendService(
       channelAccountRepository,
@@ -146,7 +149,11 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
     return {
       services: {
         conversations: new ConversationQueryService(conversationRepository),
-        customers: new CustomerQueryService(customerRepository, auditLogs),
+        customers: new CustomerQueryService(
+          customerRepository,
+          auditLogs,
+          customerNoteRepository,
+        ),
         customerActionProposals: new CustomerActionProposalService(
           customerRepository,
           undefined,
@@ -276,6 +283,9 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
     fixtureStore,
   );
   const customerRepository = new FixtureCustomerRepository(fixtureStore);
+  const customerNoteRepository = new FixtureCustomerNoteRepository(
+    fixtureStore,
+  );
   const channelAccountRepository = new FixtureChannelAccountRepository(
     fixtureStore,
   );
@@ -303,7 +313,11 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
   return {
     services: {
       conversations: new ConversationQueryService(conversationRepository),
-      customers: new CustomerQueryService(customerRepository, auditLogs),
+      customers: new CustomerQueryService(
+        customerRepository,
+        auditLogs,
+        customerNoteRepository,
+      ),
       customerActionProposals: new CustomerActionProposalService(
         customerRepository,
         undefined,

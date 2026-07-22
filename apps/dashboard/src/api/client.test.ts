@@ -686,6 +686,102 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("Authorization");
   });
 
+  it("loads customer notes and activity timeline safely", async () => {
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+
+      if (url.endsWith("/notes")) {
+        return jsonResponse({
+          data: [
+            {
+              id: "note_1",
+              customer_id: "cust_demo_budi",
+              author_user_id: "usr_demo_agent",
+              body: "Safe internal note.",
+              created_at: "2026-07-22T00:00:00.000Z",
+              updated_at: "2026-07-22T00:00:00.000Z",
+            },
+          ],
+          permissions: {},
+        });
+      }
+
+      return jsonResponse({
+        data: [
+          {
+            id: "event_1",
+            type: "customer.note.created",
+            title: "Internal note added",
+            summary: "A workspace operator added an internal customer note.",
+            customer_id: "cust_demo_budi",
+            actor_user_id: "usr_demo_agent",
+            occurred_at: "2026-07-22T00:00:00.000Z",
+          },
+        ],
+        permissions: {},
+      });
+    });
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({ baseUrl: "http://127.0.0.1:3000" });
+
+    const notes = await client.listCustomerNotes("cust_demo_budi");
+    const timeline =
+      await client.listCustomerActivityTimeline("cust_demo_budi");
+
+    expect(fetchMock).toHaveBeenNthCalledWith(
+      1,
+      "http://127.0.0.1:3000/api/v1/customers/cust_demo_budi/notes",
+      expect.any(Object),
+    );
+    expect(fetchMock).toHaveBeenNthCalledWith(
+      2,
+      "http://127.0.0.1:3000/api/v1/customers/cust_demo_budi/activity",
+      expect.any(Object),
+    );
+    expect(notes.data[0]?.body).toBe("Safe internal note.");
+    expect(timeline.data[0]?.type).toBe("customer.note.created");
+    expect(JSON.stringify(timeline)).not.toContain("access_token");
+    expect(JSON.stringify(timeline)).not.toContain("raw_provider");
+  });
+
+  it("creates customer notes through the typed API client", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse(
+        {
+          note: {
+            id: "note_2",
+            customer_id: "cust_demo_budi",
+            author_user_id: "usr_demo_agent",
+            body: "Safe internal note.",
+            created_at: "2026-07-22T00:00:00.000Z",
+            updated_at: "2026-07-22T00:00:00.000Z",
+          },
+          permissions: {},
+          feedback: {
+            status: "created",
+            message: "Customer note added.",
+          },
+        },
+        201,
+      ),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({ baseUrl: "http://127.0.0.1:3000" });
+
+    const response = await client.createCustomerNote("cust_demo_budi", {
+      body: "Safe internal note.",
+    });
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/customers/cust_demo_budi/notes",
+      expect.objectContaining({
+        method: "POST",
+        body: JSON.stringify({ body: "Safe internal note." }),
+      }),
+    );
+    expect(response.feedback.status).toBe("created");
+  });
+
   it("loads customer lifecycle/status readiness safely", async () => {
     const fetchMock = vi.fn(async () =>
       jsonResponse({

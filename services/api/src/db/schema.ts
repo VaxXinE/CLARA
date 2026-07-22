@@ -85,6 +85,9 @@ export const auditLogActions = [
   "gmail.reply_send.requested",
   "gmail.reply_send.succeeded",
   "gmail.reply_send.failed",
+  "customer.created",
+  "customer.updated",
+  "customer.note.created",
   "extension.snapshot.accepted",
   "extension.snapshot.duplicate",
   "extension.snapshot.rejected",
@@ -95,6 +98,7 @@ export const auditLogResourceTypes = [
   "conversation",
   "reply_draft",
   "message",
+  "customer",
   "gmail_scheduler",
   "extension_snapshot",
 ] as const;
@@ -369,6 +373,54 @@ export const customers = pgTable(
     index("idx_customers_organization_workspace").on(
       table.organizationId,
       table.workspaceId,
+    ),
+  ],
+);
+
+export const customerNotes = pgTable(
+  "customer_notes",
+  {
+    id: text("id").primaryKey(),
+    organizationId: text("organization_id")
+      .notNull()
+      .references(() => organizations.id),
+    workspaceId: text("workspace_id")
+      .notNull()
+      .references(() => workspaces.id),
+    customerId: text("customer_id")
+      .notNull()
+      .references(() => customers.id),
+    authorUserId: text("author_user_id")
+      .notNull()
+      .references(() => users.id),
+    body: text("body").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    check(
+      "customer_notes_body_not_empty",
+      sql`char_length(trim(${table.body})) > 0`,
+    ),
+    check(
+      "customer_notes_body_length",
+      sql`char_length(${table.body}) <= 2000`,
+    ),
+    index("idx_customer_notes_scope_customer_created").on(
+      table.organizationId,
+      table.workspaceId,
+      table.customerId,
+      table.createdAt,
+    ),
+    index("idx_customer_notes_scope_author_created").on(
+      table.organizationId,
+      table.workspaceId,
+      table.authorUserId,
+      table.createdAt,
     ),
   ],
 );
@@ -1622,6 +1674,7 @@ export const dbSchema = {
   users,
   workspaceMemberships,
   customers,
+  customerNotes,
   conversations,
   messages,
   replyDrafts,
@@ -1648,6 +1701,7 @@ export type Workspace = typeof workspaces.$inferSelect;
 export type User = typeof users.$inferSelect;
 export type WorkspaceMembership = typeof workspaceMemberships.$inferSelect;
 export type Customer = typeof customers.$inferSelect;
+export type CustomerNote = typeof customerNotes.$inferSelect;
 export type Conversation = typeof conversations.$inferSelect;
 export type Message = typeof messages.$inferSelect;
 export type ReplyDraft = typeof replyDrafts.$inferSelect;

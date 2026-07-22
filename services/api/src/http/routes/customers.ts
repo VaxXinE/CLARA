@@ -35,6 +35,12 @@ const customerMutationSchema = z
   })
   .strict();
 
+const customerNoteMutationSchema = z
+  .object({
+    body: z.string().trim().min(1).max(2000),
+  })
+  .strict();
+
 const customerListQuerySchema = z
   .object({
     search: z.string().trim().max(120).optional(),
@@ -97,6 +103,72 @@ export async function registerCustomerRoutes(
 
       return service.getCustomerProfile({
         auth,
+        customerId,
+      });
+    },
+  );
+
+  app.get(
+    "/api/v1/customers/:customer_id/notes",
+    {
+      preHandler: requireAuth(authProvider),
+    },
+    async (request) => {
+      const params = request.params as { customer_id?: string };
+      const customerId = parseCustomerId(
+        params.customer_id ?? "",
+        "params.customer_id",
+      );
+
+      return service.listCustomerNotes({
+        auth: getAuthContext(request),
+        customerId,
+      });
+    },
+  );
+
+  app.post(
+    "/api/v1/customers/:customer_id/notes",
+    {
+      preHandler: requireAuth(authProvider),
+    },
+    async (request, reply) => {
+      const params = request.params as { customer_id?: string };
+      const customerId = parseCustomerId(
+        params.customer_id ?? "",
+        "params.customer_id",
+      );
+      const parsed = customerNoteMutationSchema.safeParse(request.body);
+
+      if (!parsed.success) {
+        throw new ValidationError("Invalid request.", parsed.error.issues);
+      }
+
+      const result = await service.createCustomerNote({
+        auth: getAuthContext(request),
+        customerId,
+        payload: parsed.data,
+        correlationId: request.id,
+      });
+
+      return reply.code(201).send(result);
+    },
+  );
+
+  app.get(
+    "/api/v1/customers/:customer_id/activity",
+    {
+      preHandler: requireAuth(authProvider),
+    },
+    async (request) => {
+      const params = request.params as { customer_id?: string };
+      const customerId = parseCustomerId(
+        params.customer_id ?? "",
+        "params.customer_id",
+      );
+
+      return service.listCustomerActivityTimeline({
+        auth: getAuthContext(request),
         customerId,
       });
     },
