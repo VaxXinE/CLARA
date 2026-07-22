@@ -1744,4 +1744,83 @@ describe("ApiClient auth headers", () => {
     );
     expect(response.safety.outboundSent).toBe(false);
   });
+
+  it("supports P13 customer list, create, and update requests safely", async () => {
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+
+      if (url.includes("/api/v1/customers?search=budi")) {
+        return jsonResponse({
+          data: [
+            {
+              id: "cust_demo_budi",
+              display_name: "Budi",
+              contact_identifier: "budi@example.test",
+              source: "email",
+              status: "active",
+              notes_summary: "Safe note.",
+              last_interaction_at: null,
+              created_at: "2026-07-22T00:00:00.000Z",
+              updated_at: "2026-07-22T00:00:00.000Z",
+            },
+          ],
+          permissions: {
+            can_view_conversation: true,
+            can_view_customer_profile: true,
+            can_view_activity: true,
+            can_generate_ai_draft: true,
+            can_send_reply: true,
+          },
+        });
+      }
+
+      return jsonResponse({
+        customer: {
+          id: "cust_demo_budi",
+          display_name: "Budi",
+          contact_identifier: "budi@example.test",
+          source: "email",
+          status: "active",
+          notes_summary: "Safe note.",
+          last_interaction_at: null,
+          created_at: "2026-07-22T00:00:00.000Z",
+          updated_at: "2026-07-22T00:00:00.000Z",
+        },
+        permissions: {
+          can_view_conversation: true,
+          can_view_customer_profile: true,
+          can_view_activity: true,
+          can_generate_ai_draft: true,
+          can_send_reply: true,
+        },
+        feedback: {
+          status: "updated",
+          message: "Customer updated.",
+        },
+      });
+    });
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({ baseUrl: "http://127.0.0.1:3000" });
+
+    await client.listCustomers({ search: "budi" });
+    await client.createCustomer({ displayName: "Budi" });
+    await client.updateCustomer("cust_demo_budi", { status: "active" });
+
+    expect(fetchMock).toHaveBeenNthCalledWith(
+      1,
+      "http://127.0.0.1:3000/api/v1/customers?search=budi",
+      expect.objectContaining({ headers: expect.any(Object) }),
+    );
+    expect(fetchMock).toHaveBeenNthCalledWith(
+      2,
+      "http://127.0.0.1:3000/api/v1/customers",
+      expect.objectContaining({ method: "POST" }),
+    );
+    expect(fetchMock).toHaveBeenNthCalledWith(
+      3,
+      "http://127.0.0.1:3000/api/v1/customers/cust_demo_budi",
+      expect.objectContaining({ method: "PATCH" }),
+    );
+    expect(JSON.stringify(fetchMock.mock.calls)).not.toContain("client_secret");
+  });
 });

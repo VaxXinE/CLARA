@@ -50,6 +50,7 @@ Current status:
 
 ```text
 Locally runnable MVP slice with API service, dashboard UI, mock auth, workspace scope, seeded demo data, conversation/customer/activity read APIs, mock AI draft generation, and simulated reply send.
+P12 release-readiness is complete. P13 is current. P13 focuses internal CRM usage. billing/payment is deferred. CLARA is not production deployed yet. CLARA is not public GA launched yet. Customer CRUD is internal workspace-scoped. Backend AuthContext is the authority.
 ```
 
 Practical conclusion:
@@ -71,6 +72,7 @@ dashboard starts locally and passes typecheck, test, build, and production depen
 local PostgreSQL runtime is now documented and runnable through infra/local/docker-compose.yml
 conversation reads now have a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
 customer reads now have a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
+P13 customer CRUD activation now adds workspace-scoped customer list/create/update APIs and dashboard customer create/edit workflow for internal CRM usage
 activity reads now have a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
 AI draft persistence now has a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior
 reply persistence now has a DB-backed repository foundation while preserving fixture-safe local/demo/test behavior

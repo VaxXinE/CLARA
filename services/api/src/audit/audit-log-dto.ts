@@ -43,6 +43,8 @@ export type AuditLogAction =
   | "gmail.reply_send.requested"
   | "gmail.reply_send.succeeded"
   | "gmail.reply_send.failed"
+  | "customer.created"
+  | "customer.updated"
   | "p8_customer_profile_intelligence_viewed"
   | "p8_customer_timeline_intelligence_viewed"
   | "p8_customer_action_proposal_reviewed"

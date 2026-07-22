@@ -7,6 +7,8 @@ export type Role = (typeof roles)[number];
 export const permissions = [
   "conversation:read",
   "customer:read",
+  "customer:create",
+  "customer:update",
   "activity:read",
   "channel:read",
   "ai_draft:create",

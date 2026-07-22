@@ -115,6 +115,33 @@ export type CustomerProfileResponse = {
   permissions: ApiPermissionHints;
 };
 
+export type CustomerListResponse = {
+  data: CustomerProfileResponse["customer"][];
+  permissions: ApiPermissionHints;
+};
+
+export type CustomerMutationPayload = {
+  displayName?: string;
+  contactIdentifier?: string | null;
+  source?:
+    | "demo"
+    | "whatsapp_demo"
+    | "whatsapp"
+    | "web_chat_demo"
+    | "email"
+    | "webchat"
+    | "extension_bridge";
+  status?: "new" | "active" | "archived" | "blocked";
+  notesSummary?: string | null;
+};
+
+export type CustomerMutationResponse = CustomerProfileResponse & {
+  feedback: {
+    status: "created" | "updated";
+    message: string;
+  };
+};
+
 export type CustomerProfileIntelligenceResponse = {
   customerId: string;
   workspaceId: string;

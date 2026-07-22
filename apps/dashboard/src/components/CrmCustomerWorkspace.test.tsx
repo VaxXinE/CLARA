@@ -75,8 +75,8 @@ describe("CrmCustomerWorkspace", () => {
       }),
     ).toBeInTheDocument();
     expect(screen.getByText("Lead workspace preview")).toBeInTheDocument();
-    expect(screen.getByText("Customer workspace preview")).toBeInTheDocument();
-    expect(screen.getAllByText("planned route")).toHaveLength(2);
+    expect(screen.getByText("Customer workspace")).toBeInTheDocument();
+    expect(screen.getAllByText("planned route")).toHaveLength(1);
   });
 
   it("renders placeholders safely without fetching or mutation", () => {
@@ -108,7 +108,12 @@ describe("CrmCustomerWorkspace", () => {
 
     expect(screen.getByText("No active lead")).toBeInTheDocument();
     expect(screen.getByText("No customer selected")).toBeInTheDocument();
-    expect(screen.queryByRole("button")).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Viewer cannot create" }),
+    ).toBeDisabled();
+    expect(
+      screen.getByRole("button", { name: "Viewer cannot edit" }),
+    ).toBeDisabled();
   });
 
   it("does not use unsafe rendering or token display patterns", () => {
