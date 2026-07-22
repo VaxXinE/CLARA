@@ -12,9 +12,10 @@ classification: "documentation-index"
 
 P1-P11 complete. DOCS-REFRESH-BEFORE-P12, UI-POLISH-BEFORE-P12, and
 PRE-P12-INTERACTION-ACTIVATION complete. P12 Beta / GA Release Readiness is
-current. P12-PR-01 Beta / GA Scope + Release Criteria is complete, and
-P12-PR-02 Release Candidate Validation + Smoke Test Matrix is complete.
-P12-PR-03 Production Deployment Checklist + Rollback Drill is current work.
+current. P12-PR-01 Beta / GA Scope + Release Criteria is complete,
+P12-PR-02 Release Candidate Validation + Smoke Test Matrix is complete, and
+P12-PR-03 Production Deployment Checklist + Rollback Drill is complete.
+P12-PR-04 Beta Feedback / Support / Known Issues Workflow is current work.
 
 CLARA is not GA yet. CLARA is not production deployed yet.
 
@@ -116,6 +117,17 @@ find . -name '*.md' \
 | `docs/product/CLARA-P12-DEPLOYMENT-CUTOVER-GO-NO-GO-POLICY.md` | Deployment cutover go/no-go policy. |
 | `docs/product/CLARA-P12-POST-DEPLOYMENT-SMOKE-CHECKLIST.md` | Post-deployment smoke checklist. |
 | `docs/product/CLARA-P12-ROLLBACK-EVIDENCE-CHECKLIST.md` | Rollback evidence checklist. |
+| `docs/product/CLARA-P12-BETA-FEEDBACK-WORKFLOW.md` | Beta feedback workflow. |
+| `docs/product/CLARA-P12-BETA-FEEDBACK-PRIVACY-BOUNDARY.md` | Beta feedback privacy boundary. |
+| `docs/product/CLARA-P12-SUPPORT-TRIAGE-RUNBOOK.md` | Support triage runbook. |
+| `docs/product/CLARA-P12-BETA-SUPPORT-SLA-POLICY.md` | Beta support SLA policy. |
+| `docs/product/CLARA-P12-KNOWN-ISSUES-WORKFLOW.md` | Known issues workflow. |
+| `docs/product/CLARA-P12-BLOCKER-ISSUE-CLASSIFICATION.md` | Blocker issue classification. |
+| `docs/product/CLARA-P12-BETA-INCIDENT-ESCALATION-POLICY.md` | Beta incident escalation policy. |
+| `docs/product/CLARA-P12-USER-FEEDBACK-INTAKE-TEMPLATE.md` | User feedback intake template. |
+| `docs/product/CLARA-P12-SUPPORT-EVIDENCE-CHECKLIST.md` | Support evidence checklist. |
+| `docs/product/CLARA-P12-RELEASE-NOTES-BETA-CHANGELOG-POLICY.md` | Release notes and beta changelog policy. |
+| `docs/product/CLARA-P12-GA-BLOCKER-REVIEW-CHECKLIST.md` | GA blocker review checklist. |
 
 ## Historical Docs
 
