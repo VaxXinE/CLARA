@@ -19,7 +19,7 @@ It contains the documentation, architecture, standards, templates, governance, i
 ```text
 Status: P1-P11 complete; local product slice runnable
 Current focus: P12 Beta / GA Release Readiness
-Current PR: P12-PR-01 Beta / GA Scope + Release Criteria
+Current PR: P12-PR-02 Release Candidate Validation + Smoke Test Matrix
 Launch status: not GA yet; not production deployed yet
 ```
 
@@ -93,6 +93,9 @@ docs/product/CLARA-P12-BETA-GA-SCOPE-RELEASE-CRITERIA.md
 docs/product/CLARA-P12-BETA-ELIGIBILITY-CHECKLIST.md
 docs/product/CLARA-P12-GA-RELEASE-CRITERIA.md
 docs/product/CLARA-P12-GO-NO-GO-CHECKLIST.md
+docs/product/CLARA-P12-RELEASE-CANDIDATE-VALIDATION-MATRIX.md
+docs/product/CLARA-P12-SMOKE-TEST-MATRIX.md
+docs/product/CLARA-P12-RC-VALIDATION-RUNBOOK.md
 services/api/README.md
 apps/dashboard/README.md
 docs/product/CLARA-P2-DEPLOYMENT-CONFIG-RUNBOOK.md

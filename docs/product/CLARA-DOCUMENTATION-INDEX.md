@@ -12,7 +12,8 @@ classification: "documentation-index"
 
 P1-P11 complete. DOCS-REFRESH-BEFORE-P12, UI-POLISH-BEFORE-P12, and
 PRE-P12-INTERACTION-ACTIVATION complete. P12 Beta / GA Release Readiness is
-current, and P12-PR-01 Beta / GA Scope + Release Criteria is current work.
+current. P12-PR-01 Beta / GA Scope + Release Criteria is complete, and
+P12-PR-02 Release Candidate Validation + Smoke Test Matrix is current work.
 
 CLARA is not GA yet. CLARA is not production deployed yet.
 
@@ -96,6 +97,15 @@ find . -name '*.md' \
 | `docs/product/CLARA-P12-LAUNCH-RISK-REGISTER.md` | Beta accepted risks and GA blockers. |
 | `docs/product/CLARA-P12-KNOWN-LIMITATIONS.md` | P12 known limitations. |
 | `docs/product/CLARA-P12-SUPPORT-FEEDBACK-READINESS-BOUNDARY.md` | Support and feedback boundary. |
+| `docs/product/CLARA-P12-RELEASE-CANDIDATE-VALIDATION-MATRIX.md` | Release Candidate validation matrix. |
+| `docs/product/CLARA-P12-SMOKE-TEST-MATRIX.md` | API, Dashboard, Extension, Auth, Workspace, Local Demo, Beta, Security, and Operational smoke matrix. |
+| `docs/product/CLARA-P12-RC-VALIDATION-RUNBOOK.md` | Release Candidate validation runbook. |
+| `docs/product/CLARA-P12-RC-EVIDENCE-CHECKLIST.md` | Release Candidate evidence checklist. |
+| `docs/product/CLARA-P12-RC-PASS-FAIL-POLICY.md` | Release Candidate pass/fail policy. |
+| `docs/product/CLARA-P12-LOCAL-DEMO-SMOKE-FLOW.md` | Local demo smoke flow. |
+| `docs/product/CLARA-P12-BETA-SMOKE-FLOW.md` | Beta smoke flow. |
+| `docs/product/CLARA-P12-SECURITY-SMOKE-CHECKLIST.md` | Security smoke checklist. |
+| `docs/product/CLARA-P12-OPERATIONAL-SMOKE-CHECKLIST.md` | Operational smoke checklist. |
 
 ## Historical Docs
 

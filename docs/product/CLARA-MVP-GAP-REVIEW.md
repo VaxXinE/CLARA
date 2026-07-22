@@ -800,11 +800,13 @@ and no real AI provider.
 
 P11 complete. DOCS-REFRESH-BEFORE-P12, UI-POLISH-BEFORE-P12, and
 PRE-P12-INTERACTION-ACTIVATION are complete. P12 Beta / GA Release Readiness is
-current, and P12-PR-01 Beta / GA Scope + Release Criteria is current work. P12
-is release readiness, not feature expansion; CLARA is not GA-ready yet, and
-CLARA is not production deployed yet. Beta and GA are different gates: Beta is
-limited, monitored, controlled, and known-limitations-aware; GA requires the
-full P12 final audit/runbook and go/no-go approval.
+current. P12-PR-01 Beta / GA Scope + Release Criteria is complete, and
+P12-PR-02 Release Candidate Validation + Smoke Test Matrix is current work.
+P12 is release readiness, not feature expansion; CLARA is not GA-ready yet, and
+CLARA is not production deployed yet. Release Candidate is a validation gate,
+not a launch. Beta and GA are different gates: Beta is limited, monitored,
+controlled, and known-limitations-aware; GA requires the full P12 final
+audit/runbook and go/no-go approval.
 
 This phase does not claim SOC 2, ISO 27001, GDPR, HIPAA, or PCI certification.
 It also does not add SSO, MFA, billing, report export, data deletion jobs,

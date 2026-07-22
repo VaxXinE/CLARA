@@ -18,9 +18,10 @@ Use this together with `apps/dashboard` for the full local MVP flow.
 For a production-like local PostgreSQL runtime, use `infra/local/docker-compose.yml`.
 
 P12 Beta / GA Release Readiness is current. P12-PR-01 Beta / GA Scope +
-Release Criteria is current work. P12 is release readiness, not feature
-expansion, not billing launch, and not GA-ready yet. CLARA is not production
-deployed yet.
+Release Criteria is complete. P12-PR-02 Release Candidate Validation + Smoke
+Test Matrix is current work. P12 is release readiness, not feature expansion,
+not billing launch, and not GA-ready yet. CLARA is not production deployed yet.
+Release Candidate is a validation gate, not a launch.
 
 Core security boundaries: Backend AuthContext is the source of truth,
 workspace-scoped access is mandatory, frontend role guard is UX-only, client
