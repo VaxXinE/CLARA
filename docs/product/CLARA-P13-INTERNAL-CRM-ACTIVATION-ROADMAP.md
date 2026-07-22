@@ -11,8 +11,9 @@ classification: "product-roadmap"
 ## Status
 
 P12 release-readiness is complete. P13 is current. P13 focuses internal CRM usage.
+P13-PR-01 is complete. P13-PR-02 is current. Internal CRM usage is the focus.
 CLARA is not production deployed yet. CLARA is not public GA launched yet.
-billing/payment is deferred.
+billing/payment is deferred. Billing/payment remains deferred.
 
 P13 moves CLARA from release-readiness into practical internal CRM usage. The
 goal is not public SaaS monetization. The goal is that an internal workspace
@@ -23,8 +24,8 @@ workflow state with backend authorization as the source of truth.
 
 | PR | Scope | Status |
 | --- | --- | --- |
-| P13-PR-01 | Customer CRUD Activation | current |
-| P13-PR-02 | Customer Notes + Activity Timeline | planned |
+| P13-PR-01 | Customer CRUD Activation | complete |
+| P13-PR-02 | Customer Notes + Activity Timeline | current |
 | P13-PR-03 | Lifecycle Status + Owner Assignment | planned |
 | P13-PR-04 | Follow-up Task Workflow | planned |
 | P13-PR-05 | Conversation-to-Customer Linking | planned |
@@ -36,6 +37,9 @@ workflow state with backend authorization as the source of truth.
 Customer CRUD is internal workspace-scoped. Backend AuthContext is the
 authority. Frontend role checks are UX-only. Client-supplied organization or
 workspace identifiers must not become authorization truth.
+
+Notes/timeline are workspace-scoped internal CRM features. Timeline must not
+expose raw provider/audit/secrets.
 
 P13 does not activate billing, payment, subscriptions, invoices, checkout,
 production deployment, autonomous AI, external support tool integrations, or

@@ -6,6 +6,7 @@ import {
   channelAccounts,
   conversations,
   customers,
+  customerNotes,
   emailInboundRecords,
   emailOutboundDeliveries,
   messages,
@@ -22,6 +23,7 @@ import {
   demoChannelAccounts,
   demoConversations,
   demoCustomers,
+  demoCustomerNotes,
   demoEmailInboundRecords,
   demoEmailOutboundDeliveries,
   demoMessages,
@@ -34,6 +36,7 @@ import {
 
 type ConversationInsert = InferInsertModel<typeof conversations>;
 type CustomerInsert = InferInsertModel<typeof customers>;
+type CustomerNoteInsert = InferInsertModel<typeof customerNotes>;
 type MessageInsert = InferInsertModel<typeof messages>;
 type ReplyDraftInsert = InferInsertModel<typeof replyDrafts>;
 type AiDraftEventInsert = InferInsertModel<typeof aiDraftEvents>;
@@ -59,6 +62,7 @@ type WhatsappOutboundDeliveryInsert = InferInsertModel<
 
 export type FixtureAppStore = {
   customers: CustomerInsert[];
+  customerNotes: CustomerNoteInsert[];
   conversations: ConversationInsert[];
   messages: MessageInsert[];
   replyDrafts: ReplyDraftInsert[];
@@ -81,6 +85,7 @@ function cloneRows<T>(rows: T[]): T[] {
 export function createFixtureAppStore(): FixtureAppStore {
   return {
     customers: cloneRows(demoCustomers),
+    customerNotes: cloneRows(demoCustomerNotes),
     conversations: cloneRows(demoConversations),
     messages: cloneRows(demoMessages),
     replyDrafts: cloneRows(demoReplyDrafts),

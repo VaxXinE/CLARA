@@ -20,6 +20,9 @@ import type {
   ConversationDetailResponse,
   ConversationListResponse,
   CoreOperationalMetricsResponse,
+  CustomerActivityTimelineResponse,
+  CustomerNoteListResponse,
+  CustomerNoteMutationResponse,
   CrmWorkflowMetricsResponse,
   CustomerProfileIntelligenceResponse,
   CustomerLifecycleStatusReadinessResponse,
@@ -215,6 +218,35 @@ export class ApiClient {
         method: "PATCH",
         body: JSON.stringify(payload),
       },
+    );
+  }
+
+  async listCustomerNotes(
+    customerId: string,
+  ): Promise<CustomerNoteListResponse> {
+    return this.request<CustomerNoteListResponse>(
+      `/api/v1/customers/${encodeURIComponent(customerId)}/notes`,
+    );
+  }
+
+  async createCustomerNote(
+    customerId: string,
+    payload: { body: string },
+  ): Promise<CustomerNoteMutationResponse> {
+    return this.request<CustomerNoteMutationResponse>(
+      `/api/v1/customers/${encodeURIComponent(customerId)}/notes`,
+      {
+        method: "POST",
+        body: JSON.stringify(payload),
+      },
+    );
+  }
+
+  async listCustomerActivityTimeline(
+    customerId: string,
+  ): Promise<CustomerActivityTimelineResponse> {
+    return this.request<CustomerActivityTimelineResponse>(
+      `/api/v1/customers/${encodeURIComponent(customerId)}/activity`,
     );
   }
 

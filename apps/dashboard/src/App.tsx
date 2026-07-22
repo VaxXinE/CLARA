@@ -16,10 +16,14 @@ import type {
   ComplianceDashboardResponse,
   ConversationDetailResponse,
   ConversationListResponse,
+  CustomerActivityTimelineResponse,
   CustomerProfileIntelligenceResponse,
   CustomerLifecycleStatusReadinessResponse,
   CustomerListResponse,
   CustomerMutationPayload,
+  CustomerNote,
+  CustomerNoteListResponse,
+  CustomerActivityTimelineEvent,
   CustomerOwnerAssignmentReadinessResponse,
   CustomerProfileResponse,
   CustomerTimelineIntelligenceResponse,
@@ -147,6 +151,10 @@ function WorkspaceAppShell() {
   const [customer, setCustomer] = useState<
     CustomerProfileResponse["customer"] | null
   >(null);
+  const [customerNotes, setCustomerNotes] = useState<CustomerNote[]>([]);
+  const [customerActivityTimeline, setCustomerActivityTimeline] = useState<
+    CustomerActivityTimelineEvent[]
+  >([]);
   const [customerList, setCustomerList] = useState<
     CustomerListResponse["data"]
   >([]);
@@ -161,6 +169,10 @@ function WorkspaceAppShell() {
     string | null
   >(null);
   const [customerSaving, setCustomerSaving] = useState(false);
+  const [customerNoteSaving, setCustomerNoteSaving] = useState(false);
+  const [customerNoteError, setCustomerNoteError] = useState<string | null>(
+    null,
+  );
   const [customerIntelligence, setCustomerIntelligence] =
     useState<CustomerProfileIntelligenceResponse | null>(null);
   const [customerTimelineIntelligence, setCustomerTimelineIntelligence] =
@@ -388,12 +400,16 @@ function WorkspaceAppShell() {
       setSelectedConversationId(null);
       setConversationDetail(null);
       setCustomer(null);
+      setCustomerNotes([]);
+      setCustomerActivityTimeline([]);
       setCustomerList([]);
       setCustomerListLoading(false);
       setCustomerListError(null);
       setCustomerMutationMessage(null);
       setCustomerMutationError(null);
       setCustomerSaving(false);
+      setCustomerNoteSaving(false);
+      setCustomerNoteError(null);
       setCustomerIntelligence(null);
       setCustomerTimelineIntelligence(null);
       setCustomerOwnerAssignmentReadiness(null);
@@ -525,6 +541,8 @@ function WorkspaceAppShell() {
           setSelectedConversationId(null);
           setConversationDetail(null);
           setCustomer(null);
+          setCustomerNotes([]);
+          setCustomerActivityTimeline([]);
           setCustomerList([]);
           setCustomerListError(null);
           setCustomerMutationMessage(null);
@@ -981,12 +999,16 @@ function WorkspaceAppShell() {
         const customerId = detailResponse.conversation.customer.id;
         const [
           customerResponse,
+          customerNotesResponse,
+          customerActivityTimelineResponse,
           customerIntelligenceResponse,
           customerTimelineIntelligenceResponse,
           customerOwnerAssignmentReadinessResponse,
           customerLifecycleStatusReadinessResponse,
         ] = await Promise.all([
           client.getCustomer(customerId),
+          client.listCustomerNotes(customerId),
+          client.listCustomerActivityTimeline(customerId),
           client.getCustomerProfileIntelligence(customerId),
           client.getCustomerTimelineIntelligence(customerId),
           client.getCustomerOwnerAssignmentReadiness(customerId),
@@ -998,6 +1020,8 @@ function WorkspaceAppShell() {
         }
 
         setCustomer(customerResponse.customer);
+        setCustomerNotes(customerNotesResponse.data);
+        setCustomerActivityTimeline(customerActivityTimelineResponse.data);
         setCustomerIntelligence(customerIntelligenceResponse);
         setCustomerTimelineIntelligence(customerTimelineIntelligenceResponse);
         setCustomerOwnerAssignmentReadiness(
@@ -1115,12 +1139,16 @@ function WorkspaceAppShell() {
     const customerId = detailResponse.conversation.customer.id;
     const [
       customerResponse,
+      customerNotesResponse,
+      customerActivityTimelineResponse,
       customerIntelligenceResponse,
       customerTimelineIntelligenceResponse,
       customerOwnerAssignmentReadinessResponse,
       customerLifecycleStatusReadinessResponse,
     ] = await Promise.all([
       client.getCustomer(customerId),
+      client.listCustomerNotes(customerId),
+      client.listCustomerActivityTimeline(customerId),
       client.getCustomerProfileIntelligence(customerId),
       client.getCustomerTimelineIntelligence(customerId),
       client.getCustomerOwnerAssignmentReadiness(customerId),
@@ -1132,6 +1160,8 @@ function WorkspaceAppShell() {
     setConversationDetail(detailResponse.conversation);
     setActivityItems(activityResponse.data.items);
     setCustomer(customerResponse.customer);
+    setCustomerNotes(customerNotesResponse.data);
+    setCustomerActivityTimeline(customerActivityTimelineResponse.data);
     setCustomerIntelligence(customerIntelligenceResponse);
     setCustomerTimelineIntelligence(customerTimelineIntelligenceResponse);
     setCustomerOwnerAssignmentReadiness(
@@ -1142,13 +1172,40 @@ function WorkspaceAppShell() {
     );
   }
 
+  async function refreshCustomerNotesAndTimeline(customerId: string) {
+    const client = buildClient({
+      authMode: auth.config.mode,
+      role: selectedRole,
+      accessToken: auth.session?.accessToken ?? null,
+    });
+    const [notesResponse, timelineResponse]: [
+      CustomerNoteListResponse,
+      CustomerActivityTimelineResponse,
+    ] = await Promise.all([
+      client.listCustomerNotes(customerId),
+      client.listCustomerActivityTimeline(customerId),
+    ]);
+
+    setCustomerNotes(notesResponse.data);
+    setCustomerActivityTimeline(timelineResponse.data);
+  }
+
   function handleSelectCustomerFromList(
     selectedCustomer: CustomerProfileResponse["customer"],
   ) {
     setCustomer(selectedCustomer);
+    setCustomerNotes([]);
+    setCustomerActivityTimeline([]);
     setCustomerError(null);
     setCustomerMutationMessage(null);
     setCustomerMutationError(null);
+    setCustomerNoteError(null);
+
+    void refreshCustomerNotesAndTimeline(selectedCustomer.id).catch((error) => {
+      setCustomerNoteError(
+        toSafeMessage(error, "Customer notes could not be loaded."),
+      );
+    });
   }
 
   async function handleCreateCustomer(payload: CustomerMutationPayload) {
@@ -1165,6 +1222,18 @@ function WorkspaceAppShell() {
     try {
       const response = await client.createCustomer(payload);
       setCustomer(response.customer);
+      setCustomerNotes([]);
+      setCustomerActivityTimeline([
+        {
+          id: `${response.customer.id}:created`,
+          type: "customer.created",
+          title: "Customer created",
+          summary: "Customer profile was created.",
+          customer_id: response.customer.id,
+          actor_user_id: null,
+          occurred_at: response.customer.created_at,
+        },
+      ]);
       setCustomerList((current) => [response.customer, ...current]);
       setCustomerMutationMessage(response.feedback.message);
     } catch (error) {
@@ -1198,6 +1267,7 @@ function WorkspaceAppShell() {
           item.id === response.customer.id ? response.customer : item,
         ),
       );
+      await refreshCustomerNotesAndTimeline(response.customer.id);
       setCustomerMutationMessage(response.feedback.message);
     } catch (error) {
       setCustomerMutationError(
@@ -1205,6 +1275,30 @@ function WorkspaceAppShell() {
       );
     } finally {
       setCustomerSaving(false);
+    }
+  }
+
+  async function handleCreateCustomerNote(customerId: string, body: string) {
+    const client = buildClient({
+      authMode: auth.config.mode,
+      role: selectedRole,
+      accessToken: auth.session?.accessToken ?? null,
+    });
+
+    setCustomerNoteSaving(true);
+    setCustomerNoteError(null);
+    setCustomerMutationMessage(null);
+
+    try {
+      const response = await client.createCustomerNote(customerId, { body });
+      await refreshCustomerNotesAndTimeline(customerId);
+      setCustomerMutationMessage(response.feedback.message);
+    } catch (error) {
+      setCustomerNoteError(
+        toSafeMessage(error, "Customer note was not saved."),
+      );
+    } finally {
+      setCustomerNoteSaving(false);
     }
   }
 
@@ -1874,9 +1968,14 @@ function WorkspaceAppShell() {
             successMessage: customerMutationMessage,
             mutationError: customerMutationError,
             isSaving: customerSaving,
+            notes: customerNotes,
+            timeline: customerActivityTimeline,
+            noteError: customerNoteError,
+            isSavingNote: customerNoteSaving,
             onSelectCustomer: handleSelectCustomerFromList,
             onCreateCustomer: handleCreateCustomer,
             onUpdateCustomer: handleUpdateCustomer,
+            onCreateCustomerNote: handleCreateCustomerNote,
           },
         }}
         automationGuardrails={{
