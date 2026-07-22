@@ -13,7 +13,8 @@ classification: "documentation-index"
 P1-P11 complete. DOCS-REFRESH-BEFORE-P12, UI-POLISH-BEFORE-P12, and
 PRE-P12-INTERACTION-ACTIVATION complete. P12 Beta / GA Release Readiness is
 current. P12-PR-01 Beta / GA Scope + Release Criteria is complete, and
-P12-PR-02 Release Candidate Validation + Smoke Test Matrix is current work.
+P12-PR-02 Release Candidate Validation + Smoke Test Matrix is complete.
+P12-PR-03 Production Deployment Checklist + Rollback Drill is current work.
 
 CLARA is not GA yet. CLARA is not production deployed yet.
 
@@ -106,6 +107,15 @@ find . -name '*.md' \
 | `docs/product/CLARA-P12-BETA-SMOKE-FLOW.md` | Beta smoke flow. |
 | `docs/product/CLARA-P12-SECURITY-SMOKE-CHECKLIST.md` | Security smoke checklist. |
 | `docs/product/CLARA-P12-OPERATIONAL-SMOKE-CHECKLIST.md` | Operational smoke checklist. |
+| `docs/product/CLARA-P12-PRODUCTION-DEPLOYMENT-CHECKLIST.md` | Production deployment readiness checklist. |
+| `docs/product/CLARA-P12-ROLLBACK-DRILL-RUNBOOK.md` | Rollback drill runbook. |
+| `docs/product/CLARA-P12-PRODUCTION-CONFIG-READINESS-CHECKLIST.md` | Production config readiness checklist. |
+| `docs/product/CLARA-P12-SECRETS-ENV-READINESS-CHECKLIST.md` | Secrets/env readiness checklist. |
+| `docs/product/CLARA-P12-DATABASE-MIGRATION-ROLLBACK-CHECKLIST.md` | Database migration and rollback checklist. |
+| `docs/product/CLARA-P12-DNS-TLS-CORS-READINESS-CHECKLIST.md` | DNS, TLS, and CORS readiness checklist. |
+| `docs/product/CLARA-P12-DEPLOYMENT-CUTOVER-GO-NO-GO-POLICY.md` | Deployment cutover go/no-go policy. |
+| `docs/product/CLARA-P12-POST-DEPLOYMENT-SMOKE-CHECKLIST.md` | Post-deployment smoke checklist. |
+| `docs/product/CLARA-P12-ROLLBACK-EVIDENCE-CHECKLIST.md` | Rollback evidence checklist. |
 
 ## Historical Docs
 

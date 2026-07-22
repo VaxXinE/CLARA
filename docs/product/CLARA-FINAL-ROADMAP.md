@@ -13,7 +13,8 @@ classification: "roadmap"
 P1 through P11 are complete. DOCS-REFRESH-BEFORE-P12, UI-POLISH-BEFORE-P12,
 and PRE-P12-INTERACTION-ACTIVATION are complete. P12 Beta / GA Release
 Readiness is current. P12-PR-01 Beta / GA Scope + Release Criteria is complete,
-and P12-PR-02 Release Candidate Validation + Smoke Test Matrix is current work.
+P12-PR-02 Release Candidate Validation + Smoke Test Matrix is complete, and
+P12-PR-03 Production Deployment Checklist + Rollback Drill is current work.
 
 P12 Beta / GA Release Readiness is current.
 
@@ -40,17 +41,20 @@ CLARA is not GA yet. CLARA is not production deployed yet.
 ## P12 Compact Roadmap
 
 - P12-PR-01 Beta / GA Scope + Release Criteria. Complete.
-- P12-PR-02 Release Candidate Validation + Smoke Test Matrix. Current.
-- P12-PR-03 Production Deployment Checklist + Rollback Drill.
+- P12-PR-02 Release Candidate Validation + Smoke Test Matrix. Complete.
+- P12-PR-03 Production Deployment Checklist + Rollback Drill. Current.
 - P12-PR-04 Beta Feedback / Support / Known Issues Workflow.
 - P12-PR-05 Final GA Audit / Runbook.
 
 ## Non-Launch Guardrails
 
 P12 is release readiness, not feature expansion. Beta and GA are different
-gates. Release Candidate is a validation gate, not a launch. CLARA is not
-GA-ready yet. Billing remains readiness-only until explicitly launched.
-Production provider, payment, outbound, and AI actions must remain guarded.
+gates. Release Candidate is a validation gate, not a launch. The deployment
+checklist is a readiness gate, not deployment execution. Rollback drill is not
+automatic production rollback. CLARA is not GA-ready yet. CLARA is not
+production deployed yet. Billing remains readiness-only until explicitly
+launched. Production provider, payment, outbound, and AI actions must remain
+guarded.
 
 Security boundaries remain: AuthContext is authoritative, frontend role guard
 is UX-only, client workspaceId is never authority, access is workspace-scoped,
