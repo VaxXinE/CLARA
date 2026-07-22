@@ -19,19 +19,23 @@ It contains the documentation, architecture, standards, templates, governance, i
 ```text
 Status: P1-P12 complete; local product slice runnable
 Current focus: P13 Internal CRM Product Activation
-Current PR: P13-PR-06 Internal Dashboard Analytics Wiring
+Current PR: P13-PR-07 Internal CRM End-to-End QA + Runbook
 Launch status: not public GA launched yet; not production deployed yet
 ```
 
 P12 release-readiness is complete. P13 is current. P13 focuses internal CRM
 usage. P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is complete.
 P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is complete.
-P13-PR-04 is complete. P13-PR-05 is complete. P13-PR-06 is current.
+P13-PR-04 is complete. P13-PR-05 is complete. P13-PR-06 is complete.
+P13-PR-07 is current. P13 internal CRM activation is complete only after this
+PR validates. CLARA is usable for internal CRM workflow after P13.
 internal CRM usage is the focus. billing/payment is deferred. analytics are
 safe aggregated workspace-scoped metrics. this PR does not add
 billing/payment/provider/AI/outbound behavior. this PR does not add heavy
-analytics jobs or exports. Billing/payment remains deferred. CLARA is not
-production deployed yet. CLARA is not public GA launched yet. Customer CRUD is
+analytics jobs or exports. no real provider/payment/AI/outbound behavior is
+activated. no real external provider credentials are required. Billing/payment
+remains deferred. Public SaaS launch is deferred. CLARA is not production
+deployed yet. CLARA is not public GA launched yet. Customer CRUD is
 internal workspace-scoped. Notes/timeline are workspace-scoped internal CRM
 features. lifecycle/owner assignment are workspace-scoped internal CRM features.
 owner assignment requires valid workspace membership. Follow-up tasks are
@@ -110,6 +114,8 @@ docs/product/CLARA-P13-CUSTOMER-CRUD-ACTIVATION.md
 docs/product/CLARA-P13-CUSTOMER-NOTES-ACTIVITY-TIMELINE.md
 docs/product/CLARA-P13-CUSTOMER-LIFECYCLE-OWNER-ASSIGNMENT.md
 docs/product/CLARA-P13-BILLING-DEFERRED-POLICY.md
+docs/product/CLARA-P13-INTERNAL-CRM-E2E-QA-RUNBOOK.md
+docs/product/CLARA-P13-INTERNAL-CRM-HANDOFF-SUMMARY.md
 docs/product/CLARA-VALIDATION-BASELINE.md
 docs/product/CLARA-SECURITY-BOUNDARY-SUMMARY.md
 docs/product/CLARA-P12-HANDOFF-FROM-P11.md
