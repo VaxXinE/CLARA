@@ -107,6 +107,7 @@ export type CustomerProfileResponse = {
     contact_identifier: string | null;
     source: string;
     status: string;
+    owner_user_id?: string | null;
     notes_summary: string | null;
     last_interaction_at: string | null;
     created_at: string;
@@ -131,13 +132,20 @@ export type CustomerMutationPayload = {
     | "email"
     | "webchat"
     | "extension_bridge";
-  status?: "new" | "active" | "archived" | "blocked";
+  status?:
+    | "new"
+    | "active"
+    | "follow_up"
+    | "at_risk"
+    | "resolved"
+    | "archived"
+    | "blocked";
   notesSummary?: string | null;
 };
 
 export type CustomerMutationResponse = CustomerProfileResponse & {
   feedback: {
-    status: "created" | "updated";
+    status: "created" | "updated" | "status_updated" | "owner_assigned";
     message: string;
   };
 };
@@ -167,7 +175,13 @@ export type CustomerNoteMutationResponse = {
 
 export type CustomerActivityTimelineEvent = {
   id: string;
-  type: "customer.created" | "customer.updated" | "customer.note.created";
+  type:
+    | "customer.created"
+    | "customer.updated"
+    | "customer.note.created"
+    | "customer.status.updated"
+    | "customer.owner.assigned"
+    | "customer.owner.reassigned";
   title: string;
   summary: string;
   customer_id: string;

@@ -16,6 +16,7 @@ import type {
   CustomerNoteRecord,
   CustomerNoteRepository,
 } from "./customer-note-repository";
+import type { UserRoleManagementRepository } from "../auth/user-role-management-repository";
 
 export type CustomerProfileDto = {
   id: string;
@@ -23,6 +24,7 @@ export type CustomerProfileDto = {
   contact_identifier: string | null;
   source: string;
   status: string;
+  owner_user_id: string | null;
   notes_summary: string | null;
   last_interaction_at: string | null;
   created_at: string;
@@ -41,7 +43,7 @@ export type CustomerListResult = {
 
 export type CustomerMutationResult = CustomerProfileResult & {
   feedback: {
-    status: "created" | "updated";
+    status: "created" | "updated" | "status_updated" | "owner_assigned";
     message: string;
   };
 };
@@ -71,7 +73,13 @@ export type CustomerNoteMutationResult = {
 
 export type CustomerActivityTimelineEventDto = {
   id: string;
-  type: "customer.created" | "customer.updated" | "customer.note.created";
+  type:
+    | "customer.created"
+    | "customer.updated"
+    | "customer.note.created"
+    | "customer.status.updated"
+    | "customer.owner.assigned"
+    | "customer.owner.reassigned";
   title: string;
   summary: string;
   customer_id: string;
@@ -94,7 +102,16 @@ const customerSources = [
   "extension_bridge",
 ] as const;
 
-const customerStatuses = ["new", "active", "archived", "blocked"] as const;
+const customerStatuses = [
+  "new",
+  "active",
+  "follow_up",
+  "at_risk",
+  "resolved",
+  "archived",
+  "blocked",
+] as const;
+const lifecycleStatuses = customerStatuses;
 
 export type CustomerMutationInput = {
   displayName?: string | undefined;
@@ -117,6 +134,7 @@ function toCustomerProfileDto(
     contact_identifier: record.contactIdentifier,
     source: record.source,
     status: record.status,
+    owner_user_id: record.ownerUserId,
     notes_summary: record.notesSummary,
     last_interaction_at: record.lastInteractionAt?.toISOString() ?? null,
     created_at: record.createdAt.toISOString(),
@@ -214,6 +232,7 @@ export class CustomerQueryService {
     private readonly repository: CustomerRepository,
     private readonly auditLogs?: AuditLogService,
     private readonly notes?: CustomerNoteRepository,
+    private readonly members?: UserRoleManagementRepository,
   ) {}
 
   async listCustomers(input: {
@@ -285,6 +304,7 @@ export class CustomerQueryService {
         contactIdentifier: normalized.contactIdentifier ?? null,
         source: normalized.source ?? "demo",
         status: normalized.status ?? "new",
+        ownerUserId: null,
         notesSummary: normalized.notesSummary ?? null,
       },
     );
@@ -304,6 +324,132 @@ export class CustomerQueryService {
       feedback: {
         status: "created",
         message: "Customer created.",
+      },
+    };
+  }
+
+  async updateCustomerLifecycleStatus(input: {
+    auth: AuthContext;
+    customerId: string;
+    payload: { status: string };
+    correlationId: string;
+  }): Promise<CustomerMutationResult> {
+    assertPermission(input.auth.role, "customer:update");
+
+    if (
+      !lifecycleStatuses.includes(
+        input.payload.status as (typeof lifecycleStatuses)[number],
+      )
+    ) {
+      throw new ValidationError("Invalid customer lifecycle input.", [
+        { path: "body.status", message: "Unsupported customer status." },
+      ]);
+    }
+
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+    const previous = await this.repository.findByIdScoped(
+      scope,
+      input.customerId,
+    );
+
+    if (!previous) {
+      throw new NotFoundError("Customer not found.");
+    }
+
+    const record = await this.repository.updateScoped(scope, input.customerId, {
+      status: input.payload.status,
+    });
+
+    if (!record) {
+      throw new NotFoundError("Customer not found.");
+    }
+
+    await this.auditLogs?.recordCustomerStatusUpdated({
+      auth: input.auth,
+      correlationId: input.correlationId,
+      customerId: record.id,
+      previousStatus: previous.status,
+      nextStatus: record.status,
+    });
+
+    return {
+      customer: toCustomerProfileDto(record),
+      permissions: buildPermissionHints(input.auth.role),
+      feedback: {
+        status: "status_updated",
+        message: "Customer lifecycle status updated.",
+      },
+    };
+  }
+
+  async assignCustomerOwner(input: {
+    auth: AuthContext;
+    customerId: string;
+    payload: { ownerUserId: string };
+    correlationId: string;
+  }): Promise<CustomerMutationResult> {
+    assertPermission(input.auth.role, "customer:update");
+
+    if (!this.members) {
+      throw new ValidationError("Workspace member lookup is not configured.");
+    }
+
+    const ownerUserId = input.payload.ownerUserId.trim();
+
+    if (ownerUserId.length === 0) {
+      throw new ValidationError("Invalid customer owner input.", [
+        { path: "body.ownerUserId", message: "Owner user id is required." },
+      ]);
+    }
+
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+    const previous = await this.repository.findByIdScoped(
+      scope,
+      input.customerId,
+    );
+
+    if (!previous) {
+      throw new NotFoundError("Customer not found.");
+    }
+
+    const member = (await this.members.listWorkspaceMembers(scope)).find(
+      (candidate) =>
+        candidate.userId === ownerUserId && candidate.status === "active",
+    );
+
+    if (!member) {
+      throw new ValidationError("Invalid customer owner input.", [
+        {
+          path: "body.ownerUserId",
+          message: "Owner must be an active workspace member.",
+        },
+      ]);
+    }
+
+    const record = await this.repository.updateScoped(scope, input.customerId, {
+      ownerUserId,
+    });
+
+    if (!record) {
+      throw new NotFoundError("Customer not found.");
+    }
+
+    await this.auditLogs?.recordCustomerOwnerChanged({
+      auth: input.auth,
+      correlationId: input.correlationId,
+      customerId: record.id,
+      previousOwnerUserId: previous.ownerUserId,
+      nextOwnerUserId: record.ownerUserId ?? ownerUserId,
+    });
+
+    return {
+      customer: toCustomerProfileDto(record),
+      permissions: buildPermissionHints(input.auth.role),
+      feedback: {
+        status: "owner_assigned",
+        message: previous.ownerUserId
+          ? "Customer owner reassigned."
+          : "Customer owner assigned.",
       },
     };
   }
@@ -478,6 +624,28 @@ export class CustomerQueryService {
         actor_user_id: null,
         occurred_at: customer.updatedAt.toISOString(),
       });
+
+      events.push({
+        id: `${customer.id}:status:${customer.updatedAt.toISOString()}`,
+        type: "customer.status.updated",
+        title: "Lifecycle status updated",
+        summary: `Customer lifecycle status is ${customer.status}.`,
+        customer_id: customer.id,
+        actor_user_id: null,
+        occurred_at: customer.updatedAt.toISOString(),
+      });
+
+      if (customer.ownerUserId) {
+        events.push({
+          id: `${customer.id}:owner:${customer.updatedAt.toISOString()}`,
+          type: "customer.owner.assigned",
+          title: "Customer owner assigned",
+          summary: "Customer owner assignment was updated.",
+          customer_id: customer.id,
+          actor_user_id: customer.ownerUserId,
+          occurred_at: customer.updatedAt.toISOString(),
+        });
+      }
     }
 
     for (const note of notes ?? []) {

@@ -4,15 +4,29 @@ import type {
   CustomerMutationPayload,
   CustomerNote,
   CustomerProfileResponse,
+  WorkspaceMember,
 } from "../api/types";
 
 const NOTE_MAX_LENGTH = 2000;
+const lifecycleStatuses = [
+  { value: "new", label: "New" },
+  { value: "active", label: "Active" },
+  { value: "follow_up", label: "Follow up" },
+  { value: "at_risk", label: "At risk" },
+  { value: "resolved", label: "Resolved" },
+  { value: "archived", label: "Archived" },
+  { value: "blocked", label: "Blocked" },
+] as const satisfies ReadonlyArray<{
+  value: NonNullable<CustomerMutationPayload["status"]>;
+  label: string;
+}>;
 
 type CustomerWorkspacePanelProps = {
   customer: CustomerProfileResponse["customer"] | null;
   customers: CustomerProfileResponse["customer"][];
   notes?: CustomerNote[];
   timeline?: CustomerActivityTimelineEvent[];
+  workspaceMembers?: WorkspaceMember[];
   loading: boolean;
   error: string | null;
   successMessage: string | null;
@@ -26,6 +40,14 @@ type CustomerWorkspacePanelProps = {
   onUpdateCustomer: (
     customerId: string,
     payload: CustomerMutationPayload,
+  ) => Promise<void>;
+  onUpdateCustomerStatus?: (
+    customerId: string,
+    status: NonNullable<CustomerMutationPayload["status"]>,
+  ) => Promise<void>;
+  onAssignCustomerOwner?: (
+    customerId: string,
+    ownerUserId: string,
   ) => Promise<void>;
   onCreateCustomerNote?: (customerId: string, body: string) => Promise<void>;
 };
@@ -68,6 +90,9 @@ export function CustomerWorkspacePanel(props: CustomerWorkspacePanelProps) {
   const [editStatus, setEditStatus] =
     useState<CustomerMutationPayload["status"]>("new");
   const [editNotes, setEditNotes] = useState("");
+  const [lifecycleStatus, setLifecycleStatus] =
+    useState<NonNullable<CustomerMutationPayload["status"]>>("new");
+  const [ownerUserId, setOwnerUserId] = useState("");
   const [noteBody, setNoteBody] = useState("");
   const [formError, setFormError] = useState<string | null>(null);
   const [noteFormError, setNoteFormError] = useState<string | null>(null);
@@ -79,7 +104,21 @@ export function CustomerWorkspacePanel(props: CustomerWorkspacePanelProps) {
       (props.customer?.status as CustomerMutationPayload["status"]) ?? "new",
     );
     setEditNotes(props.customer?.notes_summary ?? "");
+    setLifecycleStatus(
+      (props.customer?.status as NonNullable<
+        CustomerMutationPayload["status"]
+      >) ?? "new",
+    );
+    setOwnerUserId(props.customer?.owner_user_id ?? "");
   }, [props.customer]);
+
+  const activeWorkspaceMembers = useMemo(
+    () =>
+      (props.workspaceMembers ?? []).filter(
+        (member) => member.status === "active",
+      ),
+    [props.workspaceMembers],
+  );
 
   const filteredCustomers = useMemo(() => {
     const query = search.trim().toLowerCase();
@@ -148,6 +187,37 @@ export function CustomerWorkspacePanel(props: CustomerWorkspacePanelProps) {
         notesSummary: editNotes,
       }),
     );
+  }
+
+  async function handleLifecycleStatusUpdate(
+    event: FormEvent<HTMLFormElement>,
+  ) {
+    event.preventDefault();
+    setFormError(null);
+
+    if (!props.customer) {
+      setFormError("Select a customer before updating lifecycle status.");
+      return;
+    }
+
+    await props.onUpdateCustomerStatus?.(props.customer.id, lifecycleStatus);
+  }
+
+  async function handleOwnerAssignment(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setFormError(null);
+
+    if (!props.customer) {
+      setFormError("Select a customer before assigning an owner.");
+      return;
+    }
+
+    if (ownerUserId.length === 0) {
+      setFormError("Choose an active workspace member before assigning owner.");
+      return;
+    }
+
+    await props.onAssignCustomerOwner?.(props.customer.id, ownerUserId);
   }
 
   async function handleCreateNote(event: FormEvent<HTMLFormElement>) {
@@ -270,10 +340,11 @@ export function CustomerWorkspacePanel(props: CustomerWorkspacePanelProps) {
               )
             }
           >
-            <option value="new">New</option>
-            <option value="active">Active</option>
-            <option value="archived">Archived</option>
-            <option value="blocked">Blocked</option>
+            {lifecycleStatuses.map((status) => (
+              <option key={status.value} value={status.value}>
+                {status.label}
+              </option>
+            ))}
           </select>
 
           <label className="field-label" htmlFor="create-customer-notes">
@@ -338,10 +409,11 @@ export function CustomerWorkspacePanel(props: CustomerWorkspacePanelProps) {
               )
             }
           >
-            <option value="new">New</option>
-            <option value="active">Active</option>
-            <option value="archived">Archived</option>
-            <option value="blocked">Blocked</option>
+            {lifecycleStatuses.map((status) => (
+              <option key={status.value} value={status.value}>
+                {status.label}
+              </option>
+            ))}
           </select>
 
           <label className="field-label" htmlFor="edit-customer-notes">
@@ -387,6 +459,95 @@ export function CustomerWorkspacePanel(props: CustomerWorkspacePanelProps) {
         <strong>Selected customer</strong>
         <p>{props.customer?.display_name ?? "No customer selected"}</p>
         <p>{summarizeSource(props.customer)}</p>
+        <p>Status: {props.customer?.status ?? "unknown"}</p>
+        <p>Owner user: {props.customer?.owner_user_id ?? "Unassigned"}</p>
+      </div>
+
+      <div className="customer-crud-grid">
+        <form className="state-card" onSubmit={handleLifecycleStatusUpdate}>
+          <strong>Lifecycle status</strong>
+          <p>Workspace-scoped internal CRM status update.</p>
+          <label className="field-label" htmlFor="customer-lifecycle-status">
+            Status
+          </label>
+          <select
+            id="customer-lifecycle-status"
+            className="text-input"
+            value={lifecycleStatus}
+            disabled={!props.customer || props.readOnly || props.isSaving}
+            onChange={(event) =>
+              setLifecycleStatus(
+                event.target.value as NonNullable<
+                  CustomerMutationPayload["status"]
+                >,
+              )
+            }
+          >
+            {lifecycleStatuses.map((status) => (
+              <option key={status.value} value={status.value}>
+                {status.label}
+              </option>
+            ))}
+          </select>
+          <button
+            type="submit"
+            className="primary-button"
+            disabled={
+              !props.customer ||
+              props.readOnly ||
+              props.isSaving ||
+              !props.onUpdateCustomerStatus
+            }
+          >
+            {props.readOnly ? "Viewer cannot update" : "Update status"}
+          </button>
+        </form>
+
+        <form className="state-card" onSubmit={handleOwnerAssignment}>
+          <strong>Owner assignment</strong>
+          <p>Owner assignment requires valid workspace membership.</p>
+          <label className="field-label" htmlFor="customer-owner-user">
+            Active member
+          </label>
+          <select
+            id="customer-owner-user"
+            className="text-input"
+            value={ownerUserId}
+            disabled={
+              !props.customer ||
+              props.readOnly ||
+              props.isSaving ||
+              activeWorkspaceMembers.length === 0
+            }
+            onChange={(event) => setOwnerUserId(event.target.value)}
+          >
+            <option value="">Choose active member</option>
+            {activeWorkspaceMembers.map((member) => (
+              <option key={member.user_id} value={member.user_id}>
+                {member.email} · {member.role}
+              </option>
+            ))}
+          </select>
+          {activeWorkspaceMembers.length === 0 ? (
+            <p>
+              Member list unavailable. Owner assignment requires valid workspace
+              membership.
+            </p>
+          ) : null}
+          <button
+            type="submit"
+            className="primary-button"
+            disabled={
+              !props.customer ||
+              props.readOnly ||
+              props.isSaving ||
+              !props.onAssignCustomerOwner ||
+              ownerUserId.length === 0
+            }
+          >
+            {props.readOnly ? "Viewer cannot assign" : "Assign owner"}
+          </button>
+        </form>
       </div>
 
       <div className="customer-crud-grid">

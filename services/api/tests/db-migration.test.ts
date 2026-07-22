@@ -148,6 +148,14 @@ const customerNotesMigrationSql = readFileSync(
   customerNotesMigrationPath,
   "utf8",
 );
+const customerLifecycleOwnerMigrationPath = path.resolve(
+  __dirname,
+  "../drizzle/0021_p13_customer_lifecycle_owner.sql",
+);
+const customerLifecycleOwnerMigrationSql = readFileSync(
+  customerLifecycleOwnerMigrationPath,
+  "utf8",
+);
 
 function migrationForTable(tableName: string): string {
   if (tableName === "audit_logs") return auditLogMigrationSql;
@@ -527,6 +535,27 @@ describe("initial database migration", () => {
     );
     expect(gmailInboundSyncStateMigrationSql).toContain(
       "create index if not exists idx_gmail_inbound_sync_states_scope_status",
+    );
+  });
+
+  it("adds P13 lifecycle status and owner assignment support", () => {
+    expect(customerLifecycleOwnerMigrationSql).toContain(
+      "ADD COLUMN IF NOT EXISTS owner_user_id text REFERENCES users(id)",
+    );
+    expect(customerLifecycleOwnerMigrationSql).toContain("'follow_up'");
+    expect(customerLifecycleOwnerMigrationSql).toContain("'at_risk'");
+    expect(customerLifecycleOwnerMigrationSql).toContain("'resolved'");
+    expect(customerLifecycleOwnerMigrationSql).toContain(
+      "idx_customers_workspace_owner",
+    );
+    expect(customerLifecycleOwnerMigrationSql).toContain(
+      "'customer.status.updated'",
+    );
+    expect(customerLifecycleOwnerMigrationSql).toContain(
+      "'customer.owner.assigned'",
+    );
+    expect(customerLifecycleOwnerMigrationSql).toContain(
+      "'customer.owner.reassigned'",
     );
   });
 });

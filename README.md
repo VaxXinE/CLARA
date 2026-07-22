@@ -19,17 +19,19 @@ It contains the documentation, architecture, standards, templates, governance, i
 ```text
 Status: P1-P12 complete; local product slice runnable
 Current focus: P13 Internal CRM Product Activation
-Current PR: P13-PR-02 Customer Notes + Activity Timeline
+Current PR: P13-PR-03 Lifecycle Status + Owner Assignment
 Launch status: not public GA launched yet; not production deployed yet
 ```
 
 P12 release-readiness is complete. P13 is current. P13 focuses internal CRM
-usage. P13-PR-01 is complete. P13-PR-02 is current. Internal CRM usage is the
-focus. billing/payment is deferred. Billing/payment remains deferred. CLARA is
-not production deployed yet. CLARA is not public GA launched yet. Customer CRUD
-is internal workspace-scoped. Notes/timeline are workspace-scoped internal CRM
-features. Backend AuthContext is the authority. Timeline must not expose raw
-provider/audit/secrets.
+usage. P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is current.
+Internal CRM usage is the focus. internal CRM usage is the focus.
+billing/payment is deferred. Billing/payment remains deferred. CLARA is not
+production deployed yet. CLARA is not public GA launched yet. Customer CRUD is
+internal workspace-scoped. Notes/timeline are workspace-scoped internal CRM
+features. lifecycle/owner assignment are workspace-scoped internal CRM features.
+owner assignment requires valid workspace membership. Backend AuthContext is
+the authority. Timeline/audit must not expose raw provider/audit/secrets.
 
 Current MVP implementation:
 
@@ -96,6 +98,7 @@ docs/product/CLARA-FINAL-ROADMAP.md
 docs/product/CLARA-P13-INTERNAL-CRM-ACTIVATION-ROADMAP.md
 docs/product/CLARA-P13-CUSTOMER-CRUD-ACTIVATION.md
 docs/product/CLARA-P13-CUSTOMER-NOTES-ACTIVITY-TIMELINE.md
+docs/product/CLARA-P13-CUSTOMER-LIFECYCLE-OWNER-ASSIGNMENT.md
 docs/product/CLARA-P13-BILLING-DEFERRED-POLICY.md
 docs/product/CLARA-VALIDATION-BASELINE.md
 docs/product/CLARA-SECURITY-BOUNDARY-SUMMARY.md

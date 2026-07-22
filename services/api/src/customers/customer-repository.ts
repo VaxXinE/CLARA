@@ -9,6 +9,7 @@ export type CustomerProfileRecord = {
   contactIdentifier: string | null;
   source: string;
   status: string;
+  ownerUserId: string | null;
   notesSummary: string | null;
   lastInteractionAt: Date | null;
   createdAt: Date;
@@ -20,6 +21,7 @@ export type CustomerWriteInput = {
   contactIdentifier: string | null;
   source: string;
   status: string;
+  ownerUserId: string | null;
   notesSummary: string | null;
 };
 
@@ -68,6 +70,7 @@ export class FixtureCustomerRepository implements CustomerRepository {
         contactIdentifier: row.contactIdentifier ?? null,
         source: row.source,
         status: row.status,
+        ownerUserId: row.ownerUserId ?? null,
         notesSummary: row.notesSummary ?? null,
         lastInteractionAt: row.lastInteractionAt ?? null,
         createdAt: requireDate(row.createdAt, "customer.createdAt"),
@@ -97,6 +100,7 @@ export class FixtureCustomerRepository implements CustomerRepository {
       contactIdentifier: row.contactIdentifier ?? null,
       source: row.source,
       status: row.status,
+      ownerUserId: row.ownerUserId ?? null,
       notesSummary: row.notesSummary ?? null,
       lastInteractionAt: row.lastInteractionAt ?? null,
       createdAt: requireDate(row.createdAt, "customer.createdAt"),
@@ -117,6 +121,7 @@ export class FixtureCustomerRepository implements CustomerRepository {
       contactIdentifier: input.contactIdentifier,
       source: input.source,
       status: input.status,
+      ownerUserId: input.ownerUserId,
       notesSummary: input.notesSummary,
       lastInteractionAt: null,
       createdAt: now,
@@ -131,6 +136,7 @@ export class FixtureCustomerRepository implements CustomerRepository {
       contactIdentifier: row.contactIdentifier,
       source: row.source,
       status: row.status,
+      ownerUserId: row.ownerUserId,
       notesSummary: row.notesSummary,
       lastInteractionAt: row.lastInteractionAt,
       createdAt: row.createdAt,
@@ -160,6 +166,7 @@ export class FixtureCustomerRepository implements CustomerRepository {
     }
     if (input.source !== undefined) row.source = input.source;
     if (input.status !== undefined) row.status = input.status;
+    if (input.ownerUserId !== undefined) row.ownerUserId = input.ownerUserId;
     if (input.notesSummary !== undefined) row.notesSummary = input.notesSummary;
     row.updatedAt = new Date();
 

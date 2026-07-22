@@ -13,11 +13,14 @@ conversation/customer/activity, channel foundations, Gmail/email boundaries,
 CRM readiness, analytics readiness, enterprise hardening readiness, and
 scale/reliability/billing readiness. P12 release-readiness is complete. P13 is
 current. P13 focuses internal CRM usage. P13-PR-01 is complete. P13-PR-02 is
-current. Internal CRM usage is the focus. billing/payment is deferred.
+complete. P13-PR-03 is current. Internal CRM usage is the focus.
+billing/payment is deferred.
 Billing/payment remains deferred. CLARA is not production deployed yet. CLARA is
 not public GA launched yet. Customer CRUD is internal workspace-scoped.
-Notes/timeline are workspace-scoped internal CRM features. Backend AuthContext
-is the authority. Timeline must not expose raw provider/audit/secrets.
+Notes/timeline are workspace-scoped internal CRM features. lifecycle/owner
+assignment are workspace-scoped internal CRM features. owner assignment requires
+valid workspace membership. Backend AuthContext is the authority. Timeline/audit
+must not expose raw provider/audit/secrets.
 
 Use this together with `apps/dashboard` for the full local MVP flow.
 
@@ -60,9 +63,14 @@ PATCH /api/v1/customers/:customer_id updates safe customer fields
 GET /api/v1/customers/:customer_id/notes lists workspace-scoped notes
 POST /api/v1/customers/:customer_id/notes adds a workspace-scoped internal note
 GET /api/v1/customers/:customer_id/activity lists safe customer timeline events
+PATCH /api/v1/customers/:customer_id/lifecycle-status updates workspace-scoped lifecycle status
+PATCH /api/v1/customers/:customer_id/owner-assignment assigns an active workspace member owner
 owner/agent may create and update; viewer remains read-only
 unknown fields and client-supplied workspace authority are rejected
 customer create/update/note audit events store safe allowlisted metadata only
+lifecycle/owner assignment are workspace-scoped internal CRM features
+owner assignment requires valid workspace membership
+Timeline/audit must not expose raw provider/audit/secrets
 ```
 
 Current auth baseline:

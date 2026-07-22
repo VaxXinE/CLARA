@@ -10,15 +10,17 @@ P1-P12 complete; P13 Internal CRM Product Activation current
 
 ## Features
 
-The dashboard is current through P13 for internal CRM customer CRUD activation
-and customer notes/timeline activation. P12 release-readiness is complete. P13
-is current. P13 focuses internal CRM usage. P13-PR-01 is complete. P13-PR-02 is
-current. Internal CRM usage is the focus. billing/payment is deferred.
+The dashboard is current through P13 for internal CRM customer CRUD activation,
+customer notes/timeline activation, and lifecycle/owner assignment. P12
+release-readiness is complete. P13 is current. P13 focuses internal CRM usage.
+P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is current. Internal CRM
+usage is the focus. billing/payment is deferred.
 Billing/payment remains deferred. CLARA is not production deployed yet. CLARA is
 not public GA launched yet. Customer CRUD is internal workspace-scoped.
-Notes/timeline are workspace-scoped internal CRM features. Backend AuthContext
-is the authority. Timeline must not expose raw provider/audit/secrets. P12 is release
-readiness, not feature expansion. P12-PR-01 is complete. P12-PR-02 is complete.
+Notes/timeline are workspace-scoped internal CRM features. lifecycle/owner
+assignment are workspace-scoped internal CRM features. owner assignment requires
+valid workspace membership. Backend AuthContext is the authority. Timeline/audit
+must not expose raw provider/audit/secrets. P12 is release readiness, not feature expansion. P12-PR-01 is complete. P12-PR-02 is complete.
 P12-PR-03 is complete. P12-PR-04 is complete. P12-PR-05 is complete. Release Candidate is a validation gate, not a launch.
 The deployment checklist is a readiness gate, not deployment execution.
 Rollback drill is not automatic production rollback.
@@ -43,6 +45,7 @@ conversation source badge for email/Gmail/channel labels
 customer profile sidebar
 internal customer list/create/edit workspace panel
 internal customer notes composer and safe customer activity timeline
+internal customer lifecycle status selector and active-member owner assignment selector
 activity timeline
 read-only Gmail scheduler status visibility
 read-only channel/provider health visibility for Gmail, Webchat, WhatsApp, Instagram, and TikTok

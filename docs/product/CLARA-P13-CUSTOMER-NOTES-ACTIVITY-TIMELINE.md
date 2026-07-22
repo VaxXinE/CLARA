@@ -8,9 +8,9 @@ classification: "product-spec"
 
 # CLARA P13 Customer Notes + Activity Timeline
 
-P13-PR-01 is complete. P13-PR-02 is current. Internal CRM usage is the focus.
-billing/payment is deferred. CLARA is not production deployed yet. CLARA is not
-public GA launched yet.
+P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is current. Internal CRM
+usage is the focus. billing/payment is deferred. CLARA is not production
+deployed yet. CLARA is not public GA launched yet.
 
 For validation and operating clarity: internal CRM usage is the focus.
 

@@ -30,7 +30,17 @@ const customerMutationSchema = z
         "extension_bridge",
       ])
       .optional(),
-    status: z.enum(["new", "active", "archived", "blocked"]).optional(),
+    status: z
+      .enum([
+        "new",
+        "active",
+        "follow_up",
+        "at_risk",
+        "resolved",
+        "archived",
+        "blocked",
+      ])
+      .optional(),
     notesSummary: z.string().trim().max(500).nullable().optional(),
   })
   .strict();
@@ -41,10 +51,40 @@ const customerNoteMutationSchema = z
   })
   .strict();
 
+const lifecycleStatusMutationSchema = z
+  .object({
+    status: z.enum([
+      "new",
+      "active",
+      "follow_up",
+      "at_risk",
+      "resolved",
+      "archived",
+      "blocked",
+    ]),
+  })
+  .strict();
+
+const ownerAssignmentMutationSchema = z
+  .object({
+    ownerUserId: z.string().trim().min(1).max(128).regex(safeIdPattern),
+  })
+  .strict();
+
 const customerListQuerySchema = z
   .object({
     search: z.string().trim().max(120).optional(),
-    status: z.enum(["new", "active", "archived", "blocked"]).optional(),
+    status: z
+      .enum([
+        "new",
+        "active",
+        "follow_up",
+        "at_risk",
+        "resolved",
+        "archived",
+        "blocked",
+      ])
+      .optional(),
   })
   .strict();
 
@@ -152,6 +192,58 @@ export async function registerCustomerRoutes(
       });
 
       return reply.code(201).send(result);
+    },
+  );
+
+  app.patch(
+    "/api/v1/customers/:customer_id/lifecycle-status",
+    {
+      preHandler: requireAuth(authProvider),
+    },
+    async (request) => {
+      const params = request.params as { customer_id?: string };
+      const customerId = parseCustomerId(
+        params.customer_id ?? "",
+        "params.customer_id",
+      );
+      const parsed = lifecycleStatusMutationSchema.safeParse(request.body);
+
+      if (!parsed.success) {
+        throw new ValidationError("Invalid request.", parsed.error.issues);
+      }
+
+      return service.updateCustomerLifecycleStatus({
+        auth: getAuthContext(request),
+        customerId,
+        payload: parsed.data,
+        correlationId: request.id,
+      });
+    },
+  );
+
+  app.patch(
+    "/api/v1/customers/:customer_id/owner-assignment",
+    {
+      preHandler: requireAuth(authProvider),
+    },
+    async (request) => {
+      const params = request.params as { customer_id?: string };
+      const customerId = parseCustomerId(
+        params.customer_id ?? "",
+        "params.customer_id",
+      );
+      const parsed = ownerAssignmentMutationSchema.safeParse(request.body);
+
+      if (!parsed.success) {
+        throw new ValidationError("Invalid request.", parsed.error.issues);
+      }
+
+      return service.assignCustomerOwner({
+        auth: getAuthContext(request),
+        customerId,
+        payload: parsed.data,
+        correlationId: request.id,
+      });
     },
   );
 

@@ -1,6 +1,6 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { CustomerProfileResponse } from "../api/types";
+import type { CustomerProfileResponse, WorkspaceMember } from "../api/types";
 import { CustomerWorkspacePanel } from "./CustomerWorkspacePanel";
 
 const customer: CustomerProfileResponse["customer"] = {
@@ -11,6 +11,16 @@ const customer: CustomerProfileResponse["customer"] = {
   status: "active",
   notes_summary: "Prefers concise updates.",
   last_interaction_at: "2026-01-01T00:00:00.000Z",
+  created_at: "2026-01-01T00:00:00.000Z",
+  updated_at: "2026-01-01T00:00:00.000Z",
+};
+
+const activeMember: WorkspaceMember = {
+  user_id: "usr_demo_agent",
+  display_name: "Demo Agent",
+  email: "agent@example.test",
+  role: "agent",
+  status: "active",
   created_at: "2026-01-01T00:00:00.000Z",
   updated_at: "2026-01-01T00:00:00.000Z",
 };
@@ -34,6 +44,7 @@ describe("CustomerWorkspacePanel", () => {
         onSelectCustomer={vi.fn()}
         onCreateCustomer={vi.fn()}
         onUpdateCustomer={vi.fn()}
+        workspaceMembers={[activeMember]}
       />,
     );
 
@@ -48,6 +59,56 @@ describe("CustomerWorkspacePanel", () => {
     expect(
       screen.getByRole("button", { name: /Save customer/i }),
     ).toBeEnabled();
+  });
+
+  it("submits lifecycle status and owner assignment actions", async () => {
+    const onUpdateCustomerStatus = vi.fn().mockResolvedValue(undefined);
+    const onAssignCustomerOwner = vi.fn().mockResolvedValue(undefined);
+
+    render(
+      <CustomerWorkspacePanel
+        customer={customer}
+        customers={[customer]}
+        loading={false}
+        error={null}
+        successMessage={null}
+        mutationError={null}
+        isSaving={false}
+        readOnly={false}
+        onSelectCustomer={vi.fn()}
+        onCreateCustomer={vi.fn()}
+        onUpdateCustomer={vi.fn()}
+        onUpdateCustomerStatus={onUpdateCustomerStatus}
+        onAssignCustomerOwner={onAssignCustomerOwner}
+        workspaceMembers={[activeMember]}
+      />,
+    );
+
+    fireEvent.change(
+      screen.getByLabelText("Status", {
+        selector: "#customer-lifecycle-status",
+      }),
+      {
+        target: { value: "follow_up" },
+      },
+    );
+    fireEvent.click(screen.getByRole("button", { name: /Update status/i }));
+
+    fireEvent.change(screen.getByLabelText("Active member"), {
+      target: { value: "usr_demo_agent" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: /Assign owner/i }));
+
+    expect(onUpdateCustomerStatus).toHaveBeenCalledWith(
+      "cust_001",
+      "follow_up",
+    );
+    expect(onAssignCustomerOwner).toHaveBeenCalledWith(
+      "cust_001",
+      "usr_demo_agent",
+    );
+    expect(document.body.textContent).not.toContain("access_token");
+    expect(document.body.textContent).not.toContain("raw Gmail payload");
   });
 
   it("validates create form before submitting", () => {
@@ -88,6 +149,9 @@ describe("CustomerWorkspacePanel", () => {
         onSelectCustomer={vi.fn()}
         onCreateCustomer={vi.fn()}
         onUpdateCustomer={vi.fn()}
+        onUpdateCustomerStatus={vi.fn()}
+        onAssignCustomerOwner={vi.fn()}
+        workspaceMembers={[activeMember]}
       />,
     );
 
@@ -97,6 +161,12 @@ describe("CustomerWorkspacePanel", () => {
     ).toBeDisabled();
     expect(
       screen.getByRole("button", { name: /Viewer cannot edit/i }),
+    ).toBeDisabled();
+    expect(
+      screen.getByRole("button", { name: /Viewer cannot update/i }),
+    ).toBeDisabled();
+    expect(
+      screen.getByRole("button", { name: /Viewer cannot assign/i }),
     ).toBeDisabled();
   });
 });

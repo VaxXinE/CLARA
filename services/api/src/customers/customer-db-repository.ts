@@ -23,6 +23,7 @@ function toCustomerProfileRecord(row: {
   contactIdentifier: string | null;
   source: string;
   status: string;
+  ownerUserId: string | null;
   notesSummary: string | null;
   lastInteractionAt: Date | null;
   createdAt: Date;
@@ -34,6 +35,7 @@ function toCustomerProfileRecord(row: {
     contactIdentifier: row.contactIdentifier ?? null,
     source: row.source,
     status: row.status,
+    ownerUserId: row.ownerUserId ?? null,
     notesSummary: row.notesSummary ?? null,
     lastInteractionAt: row.lastInteractionAt ?? null,
     createdAt: requireDate(row.createdAt, "customer.createdAt"),
@@ -89,6 +91,7 @@ export class DrizzleCustomerRepository implements CustomerRepository {
         contactIdentifier: input.contactIdentifier,
         source: input.source,
         status: input.status,
+        ownerUserId: input.ownerUserId,
         notesSummary: input.notesSummary,
         lastInteractionAt: null,
         createdAt: now,
