@@ -5,14 +5,15 @@ CLARA Dashboard conversation workspace built with Vite, React, and TypeScript.
 ## Status
 
 ```text
-P1-P11 complete; P12 Beta / GA Release Readiness next
+P1-P11 complete; P12 Beta / GA Release Readiness current
 ```
 
 ## Features
 
 The dashboard is current through P11 and remains read-only for readiness,
-analytics, compliance, billing, scale, and release-prep surfaces. P12 is release
-readiness, not feature expansion, and CLARA is not GA-ready yet.
+analytics, compliance, billing, scale, and release-prep surfaces. P12 is
+release readiness, not feature expansion. P12-PR-01 is current work. CLARA is
+not GA-ready yet and is not production deployed yet.
 
 Security policy: role guard is UX-only, backend auth is the source of truth,
 client workspaceId is never authority, no `dangerouslySetInnerHTML`, no raw

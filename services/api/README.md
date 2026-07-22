@@ -5,7 +5,7 @@ CLARA API service.
 ## Status
 
 ```text
-P1-P11 complete; P12 Beta / GA Release Readiness next
+P1-P11 complete; P12 Beta / GA Release Readiness current
 ```
 
 This service currently provides the CLARA API through P11: auth/workspace scope,
@@ -17,8 +17,10 @@ Use this together with `apps/dashboard` for the full local MVP flow.
 
 For a production-like local PostgreSQL runtime, use `infra/local/docker-compose.yml`.
 
-P12 Beta / GA Release Readiness is next. P12 is release readiness, not feature
-expansion, not billing launch, and not GA-ready yet.
+P12 Beta / GA Release Readiness is current. P12-PR-01 Beta / GA Scope +
+Release Criteria is current work. P12 is release readiness, not feature
+expansion, not billing launch, and not GA-ready yet. CLARA is not production
+deployed yet.
 
 Core security boundaries: Backend AuthContext is the source of truth,
 workspace-scoped access is mandatory, frontend role guard is UX-only, client

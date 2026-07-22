@@ -798,9 +798,13 @@ raw customer messages, no raw provider payload, no raw webhook payload, no
 access token, no refresh token, no cookies, no CRM mutation, no outbound send,
 and no real AI provider.
 
-P11 complete. P12 Beta / GA Release Readiness is the next phase. P12 is release
-readiness, not feature expansion; CLARA is not GA-ready yet, and there is no
-production deployment in this docs refresh.
+P11 complete. DOCS-REFRESH-BEFORE-P12, UI-POLISH-BEFORE-P12, and
+PRE-P12-INTERACTION-ACTIVATION are complete. P12 Beta / GA Release Readiness is
+current, and P12-PR-01 Beta / GA Scope + Release Criteria is current work. P12
+is release readiness, not feature expansion; CLARA is not GA-ready yet, and
+CLARA is not production deployed yet. Beta and GA are different gates: Beta is
+limited, monitored, controlled, and known-limitations-aware; GA requires the
+full P12 final audit/runbook and go/no-go approval.
 
 This phase does not claim SOC 2, ISO 27001, GDPR, HIPAA, or PCI certification.
 It also does not add SSO, MFA, billing, report export, data deletion jobs,
@@ -808,3 +812,12 @@ backup automation, provider integration, CRM mutation, task creation, outbound
 send, customer-level drilldown, raw customer messages, raw provider payload,
 raw webhook payload, raw audit metadata, access token, refresh token, cookies,
 auth headers, or real AI provider calls.
+
+P12-PR-01 defines Beta allowed scope, Beta blocked scope, Beta entry criteria,
+GA criteria, accepted Beta risks, GA blocker risks, readiness-only features,
+demo/simulated/review-only features, release candidate checks, and go/no-go
+policy. It does not deploy production, launch billing, activate real payment
+providers, call real AI providers, execute autonomous AI, send real outbound
+messages, execute queue jobs, run alerts, run backup/restore, run production
+load tests, export evidence, mutate roles/sessions/billing/enterprise controls,
+or weaken auth/workspace security.
