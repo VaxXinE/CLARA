@@ -14,7 +14,8 @@ P1 through P11 are complete. DOCS-REFRESH-BEFORE-P12, UI-POLISH-BEFORE-P12,
 and PRE-P12-INTERACTION-ACTIVATION are complete. P12 Beta / GA Release
 Readiness is current. P12-PR-01 Beta / GA Scope + Release Criteria is complete,
 P12-PR-02 Release Candidate Validation + Smoke Test Matrix is complete, and
-P12-PR-03 Production Deployment Checklist + Rollback Drill is current work.
+P12-PR-03 Production Deployment Checklist + Rollback Drill is complete.
+P12-PR-04 Beta Feedback / Support / Known Issues Workflow is current work.
 
 P12 Beta / GA Release Readiness is current.
 
@@ -42,8 +43,8 @@ CLARA is not GA yet. CLARA is not production deployed yet.
 
 - P12-PR-01 Beta / GA Scope + Release Criteria. Complete.
 - P12-PR-02 Release Candidate Validation + Smoke Test Matrix. Complete.
-- P12-PR-03 Production Deployment Checklist + Rollback Drill. Current.
-- P12-PR-04 Beta Feedback / Support / Known Issues Workflow.
+- P12-PR-03 Production Deployment Checklist + Rollback Drill. Complete.
+- P12-PR-04 Beta Feedback / Support / Known Issues Workflow. Current.
 - P12-PR-05 Final GA Audit / Runbook.
 
 ## Non-Launch Guardrails
@@ -55,6 +56,8 @@ automatic production rollback. CLARA is not GA-ready yet. CLARA is not
 production deployed yet. Billing remains readiness-only until explicitly
 launched. Production provider, payment, outbound, and AI actions must remain
 guarded.
+Beta feedback workflow is controlled and privacy-safe. Known issues must be
+reviewed before GA. Feedback/support must not collect raw sensitive data.
 
 Security boundaries remain: AuthContext is authoritative, frontend role guard
 is UX-only, client workspaceId is never authority, access is workspace-scoped,
