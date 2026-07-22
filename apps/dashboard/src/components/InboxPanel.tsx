@@ -93,7 +93,9 @@ export function InboxPanel(props: InboxPanelProps) {
               onClick={() => props.onSelectConversation(conversation.id)}
             >
               <div className="conversation-row-top">
-                <strong>{conversation.customer.display_name}</strong>
+                <strong>
+                  {conversation.customer?.display_name ?? "Unlinked customer"}
+                </strong>
                 <span className="badge">{conversation.status}</span>
               </div>
               <p className="conversation-meta">

@@ -17,6 +17,7 @@ import type {
   ConversationDetailResponse,
   ConversationListResponse,
   CustomerActivityTimelineResponse,
+  CustomerConversationListResponse,
   CustomerFollowUpTask,
   CustomerFollowUpTaskListResponse,
   CustomerProfileIntelligenceResponse,
@@ -160,6 +161,8 @@ function WorkspaceAppShell() {
   const [customerActivityTimeline, setCustomerActivityTimeline] = useState<
     CustomerActivityTimelineEvent[]
   >([]);
+  const [customerLinkedConversations, setCustomerLinkedConversations] =
+    useState<CustomerConversationListResponse["data"]>([]);
   const [customerList, setCustomerList] = useState<
     CustomerListResponse["data"]
   >([]);
@@ -1002,12 +1005,27 @@ function WorkspaceAppShell() {
         setConversationPermissions(detailResponse.permissions);
         setActivityItems(activityResponse.data.items);
 
-        const customerId = detailResponse.conversation.customer.id;
+        const customerId = detailResponse.conversation.customer?.id;
+
+        if (!customerId) {
+          setCustomer(null);
+          setCustomerNotes([]);
+          setCustomerTasks([]);
+          setCustomerActivityTimeline([]);
+          setCustomerLinkedConversations([]);
+          setCustomerIntelligence(null);
+          setCustomerTimelineIntelligence(null);
+          setCustomerOwnerAssignmentReadiness(null);
+          setCustomerLifecycleStatusReadiness(null);
+          return;
+        }
+
         const [
           customerResponse,
           customerNotesResponse,
           customerTasksResponse,
           customerActivityTimelineResponse,
+          customerLinkedConversationsResponse,
           customerIntelligenceResponse,
           customerTimelineIntelligenceResponse,
           customerOwnerAssignmentReadinessResponse,
@@ -1017,6 +1035,7 @@ function WorkspaceAppShell() {
           client.listCustomerNotes(customerId),
           client.listCustomerFollowUpTasks(customerId),
           client.listCustomerActivityTimeline(customerId),
+          client.listCustomerConversations(customerId),
           client.getCustomerProfileIntelligence(customerId),
           client.getCustomerTimelineIntelligence(customerId),
           client.getCustomerOwnerAssignmentReadiness(customerId),
@@ -1031,6 +1050,9 @@ function WorkspaceAppShell() {
         setCustomerNotes(customerNotesResponse.data);
         setCustomerTasks(customerTasksResponse.data);
         setCustomerActivityTimeline(customerActivityTimelineResponse.data);
+        setCustomerLinkedConversations(
+          customerLinkedConversationsResponse.data,
+        );
         setCustomerIntelligence(customerIntelligenceResponse);
         setCustomerTimelineIntelligence(customerTimelineIntelligenceResponse);
         setCustomerOwnerAssignmentReadiness(
@@ -1083,10 +1105,10 @@ function WorkspaceAppShell() {
 
   const canGenerateDraft =
     conversationPermissions?.can_generate_ai_draft === true &&
-    Boolean(conversationDetail);
+    Boolean(conversationDetail?.customer);
   const canSendReply =
     conversationPermissions?.can_send_reply === true &&
-    Boolean(conversationDetail);
+    Boolean(conversationDetail?.customer);
   const sendDisabledReason =
     composerValue.trim().length === 0
       ? "Type a draft before sending. Provider sends remain simulated in local demo."
@@ -1145,12 +1167,31 @@ function WorkspaceAppShell() {
       client.getConversation(conversationId),
       client.getActivity(conversationId),
     ]);
-    const customerId = detailResponse.conversation.customer.id;
+    const customerId = detailResponse.conversation.customer?.id;
+
+    if (!customerId) {
+      setConversations(listResponse.data);
+      setConversationPermissions(detailResponse.permissions);
+      setConversationDetail(detailResponse.conversation);
+      setActivityItems(activityResponse.data.items);
+      setCustomer(null);
+      setCustomerNotes([]);
+      setCustomerTasks([]);
+      setCustomerActivityTimeline([]);
+      setCustomerLinkedConversations([]);
+      setCustomerIntelligence(null);
+      setCustomerTimelineIntelligence(null);
+      setCustomerOwnerAssignmentReadiness(null);
+      setCustomerLifecycleStatusReadiness(null);
+      return;
+    }
+
     const [
       customerResponse,
       customerNotesResponse,
       customerTasksResponse,
       customerActivityTimelineResponse,
+      customerLinkedConversationsResponse,
       customerIntelligenceResponse,
       customerTimelineIntelligenceResponse,
       customerOwnerAssignmentReadinessResponse,
@@ -1160,6 +1201,7 @@ function WorkspaceAppShell() {
       client.listCustomerNotes(customerId),
       client.listCustomerFollowUpTasks(customerId),
       client.listCustomerActivityTimeline(customerId),
+      client.listCustomerConversations(customerId),
       client.getCustomerProfileIntelligence(customerId),
       client.getCustomerTimelineIntelligence(customerId),
       client.getCustomerOwnerAssignmentReadiness(customerId),
@@ -1174,6 +1216,7 @@ function WorkspaceAppShell() {
     setCustomerNotes(customerNotesResponse.data);
     setCustomerTasks(customerTasksResponse.data);
     setCustomerActivityTimeline(customerActivityTimelineResponse.data);
+    setCustomerLinkedConversations(customerLinkedConversationsResponse.data);
     setCustomerIntelligence(customerIntelligenceResponse);
     setCustomerTimelineIntelligence(customerTimelineIntelligenceResponse);
     setCustomerOwnerAssignmentReadiness(
@@ -1190,19 +1233,27 @@ function WorkspaceAppShell() {
       role: selectedRole,
       accessToken: auth.session?.accessToken ?? null,
     });
-    const [notesResponse, tasksResponse, timelineResponse]: [
+    const [
+      notesResponse,
+      tasksResponse,
+      timelineResponse,
+      linkedConversationsResponse,
+    ]: [
       CustomerNoteListResponse,
       CustomerFollowUpTaskListResponse,
       CustomerActivityTimelineResponse,
+      CustomerConversationListResponse,
     ] = await Promise.all([
       client.listCustomerNotes(customerId),
       client.listCustomerFollowUpTasks(customerId),
       client.listCustomerActivityTimeline(customerId),
+      client.listCustomerConversations(customerId),
     ]);
 
     setCustomerNotes(notesResponse.data);
     setCustomerTasks(tasksResponse.data);
     setCustomerActivityTimeline(timelineResponse.data);
+    setCustomerLinkedConversations(linkedConversationsResponse.data);
   }
 
   function handleSelectCustomerFromList(
@@ -1212,6 +1263,7 @@ function WorkspaceAppShell() {
     setCustomerNotes([]);
     setCustomerTasks([]);
     setCustomerActivityTimeline([]);
+    setCustomerLinkedConversations([]);
     setCustomerError(null);
     setCustomerMutationMessage(null);
     setCustomerMutationError(null);
@@ -1221,6 +1273,82 @@ function WorkspaceAppShell() {
       setCustomerNoteError(
         toSafeMessage(error, "Customer notes could not be loaded."),
       );
+    });
+  }
+
+  async function handleLinkConversationCustomer(customerId: string) {
+    if (!conversationDetail) return;
+
+    const client = buildClient({
+      authMode: auth.config.mode,
+      role: selectedRole,
+      accessToken: auth.session?.accessToken ?? null,
+    });
+
+    setCustomerMutationMessage(null);
+    setCustomerMutationError(null);
+
+    try {
+      const response = await client.linkConversationCustomer(
+        conversationDetail.id,
+        customerId,
+      );
+      setConversationDetail(response.conversation);
+      setCustomerMutationMessage(response.feedback.message);
+      await refreshConversationWorkspace(response.conversation.id);
+    } catch (error) {
+      setCustomerMutationError(
+        toSafeMessage(error, "Conversation customer link failed."),
+      );
+    }
+  }
+
+  async function handleUnlinkConversationCustomer() {
+    if (!conversationDetail) return;
+
+    const client = buildClient({
+      authMode: auth.config.mode,
+      role: selectedRole,
+      accessToken: auth.session?.accessToken ?? null,
+    });
+
+    setCustomerMutationMessage(null);
+    setCustomerMutationError(null);
+
+    try {
+      const response = await client.unlinkConversationCustomer(
+        conversationDetail.id,
+      );
+      setConversationDetail(response.conversation);
+      setCustomer(null);
+      setCustomerNotes([]);
+      setCustomerTasks([]);
+      setCustomerActivityTimeline([]);
+      setCustomerLinkedConversations([]);
+      setCustomerMutationMessage(response.feedback.message);
+      await refreshConversationWorkspace(response.conversation.id);
+    } catch (error) {
+      setCustomerMutationError(
+        toSafeMessage(error, "Conversation customer unlink failed."),
+      );
+    }
+  }
+
+  function handleOpenLinkedCustomer() {
+    if (!conversationDetail?.customer) return;
+
+    const linkedCustomer = customerList.find(
+      (item) => item.id === conversationDetail.customer?.id,
+    );
+
+    if (linkedCustomer) {
+      handleSelectCustomerFromList(linkedCustomer);
+    }
+  }
+
+  function handleOpenCustomerConversation(conversationId: string) {
+    startTransition(() => {
+      setSelectedConversationId(conversationId);
     });
   }
 
@@ -1512,6 +1640,11 @@ function WorkspaceAppShell() {
     setSuggestionError(null);
 
     try {
+      if (!conversationDetail.customer) {
+        setSuggestionError("Link a customer before requesting AI suggestions.");
+        return;
+      }
+
       const response = await client.createAiReplySuggestion({
         conversationId: selectedConversationId,
         customerId: conversationDetail.customer.id,
@@ -1558,6 +1691,11 @@ function WorkspaceAppShell() {
     setFollowUpError(null);
 
     try {
+      if (!conversationDetail.customer) {
+        setFollowUpError("Link a customer before requesting AI follow-up.");
+        return;
+      }
+
       const response = await client.createAiFollowUpRecommendation({
         conversationId: selectedConversationId,
         customerId: conversationDetail.customer.id,
@@ -1589,6 +1727,11 @@ function WorkspaceAppShell() {
     setSummaryError(null);
 
     try {
+      if (!conversationDetail.customer) {
+        setSummaryError("Link a customer before requesting AI summary.");
+        return;
+      }
+
       const response = await client.createAiConversationSummary({
         conversationId: selectedConversationId,
         customerId: conversationDetail.customer.id,
@@ -1618,6 +1761,13 @@ function WorkspaceAppShell() {
     setNoteSuggestionError(null);
 
     try {
+      if (!conversationDetail.customer) {
+        setNoteSuggestionError(
+          "Link a customer before requesting AI note suggestions.",
+        );
+        return;
+      }
+
       const response = await client.createAiCustomerNoteSuggestion({
         conversationId: selectedConversationId,
         customerId: conversationDetail.customer.id,
@@ -1731,6 +1881,13 @@ function WorkspaceAppShell() {
     setAiAutomationGuardrailError(null);
 
     try {
+      if (!conversationDetail.customer) {
+        setAiAutomationGuardrailError(
+          "Link a customer before checking automation guardrails.",
+        );
+        return;
+      }
+
       const response = await client.evaluateAiAutomationGuardrail({
         requestedAction: "suggest_reply",
         sourceFeature: "future_automation",
@@ -2081,6 +2238,13 @@ function WorkspaceAppShell() {
           isGeneratingSuggestion,
           suggestionError,
           onGenerateSuggestion: handleGenerateSuggestion,
+          customers: customerList,
+          customerLinkingDisabled: me?.user.role === "viewer",
+          customerLinkingMessage: customerMutationMessage,
+          customerLinkingError: customerMutationError,
+          onLinkCustomer: handleLinkConversationCustomer,
+          onUnlinkCustomer: handleUnlinkConversationCustomer,
+          onOpenLinkedCustomer: handleOpenLinkedCustomer,
           gmailOutboundStatus,
           gmailOutboundStatusLoading,
           gmailOutboundStatusError,
@@ -2125,6 +2289,7 @@ function WorkspaceAppShell() {
             notes: customerNotes,
             tasks: customerTasks,
             timeline: customerActivityTimeline,
+            linkedConversations: customerLinkedConversations,
             noteError: customerNoteError,
             isSavingNote: customerNoteSaving,
             onSelectCustomer: handleSelectCustomerFromList,
@@ -2136,6 +2301,7 @@ function WorkspaceAppShell() {
             onCreateCustomerFollowUpTask: handleCreateCustomerFollowUpTask,
             onUpdateCustomerFollowUpTaskStatus:
               handleUpdateCustomerFollowUpTaskStatus,
+            onOpenConversation: handleOpenCustomerConversation,
             workspaceMembers,
           },
         }}

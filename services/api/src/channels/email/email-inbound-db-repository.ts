@@ -108,7 +108,7 @@ async function findScopedConversation(
   db: Database,
   input: PersistInboundEmailInput,
   conversationId: string,
-): Promise<{ customerId: string } | null> {
+): Promise<{ customerId: string | null } | null> {
   const rows = await db
     .select({
       customerId: conversations.customerId,

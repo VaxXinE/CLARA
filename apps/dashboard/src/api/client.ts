@@ -18,7 +18,9 @@ import type {
   ChannelHealthResponse,
   ComplianceDashboardResponse,
   ConversationDetailResponse,
+  ConversationCustomerLinkResponse,
   ConversationListResponse,
+  CustomerConversationListResponse,
   CoreOperationalMetricsResponse,
   CustomerActivityTimelineResponse,
   CustomerFollowUpTaskListResponse,
@@ -188,9 +190,41 @@ export class ApiClient {
     );
   }
 
+  async linkConversationCustomer(
+    conversationId: string,
+    customerId: string,
+  ): Promise<ConversationCustomerLinkResponse> {
+    return this.request<ConversationCustomerLinkResponse>(
+      `/api/v1/conversations/${encodeURIComponent(conversationId)}/customer`,
+      {
+        method: "PUT",
+        body: JSON.stringify({ customerId }),
+      },
+    );
+  }
+
+  async unlinkConversationCustomer(
+    conversationId: string,
+  ): Promise<ConversationCustomerLinkResponse> {
+    return this.request<ConversationCustomerLinkResponse>(
+      `/api/v1/conversations/${encodeURIComponent(conversationId)}/customer`,
+      {
+        method: "DELETE",
+      },
+    );
+  }
+
   async getCustomer(customerId: string): Promise<CustomerProfileResponse> {
     return this.request<CustomerProfileResponse>(
       `/api/v1/customers/${encodeURIComponent(customerId)}`,
+    );
+  }
+
+  async listCustomerConversations(
+    customerId: string,
+  ): Promise<CustomerConversationListResponse> {
+    return this.request<CustomerConversationListResponse>(
+      `/api/v1/customers/${encodeURIComponent(customerId)}/conversations`,
     );
   }
 

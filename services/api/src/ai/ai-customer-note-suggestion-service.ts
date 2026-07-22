@@ -57,7 +57,11 @@ export class AiCustomerNoteSuggestionService {
       input.conversationId,
     );
 
-    if (!conversation || input.customerId !== conversation.customer.id) {
+    if (
+      !conversation ||
+      !conversation.customer ||
+      input.customerId !== conversation.customer.id
+    ) {
       throw new NotFoundError();
     }
 

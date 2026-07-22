@@ -51,7 +51,7 @@ export function toAiDraftReviewDto(input: {
     draftId: input.draft.id,
     suggestionId: input.suggestionId ?? null,
     conversationId: input.draft.conversationId,
-    customerId: input.conversation.customer.id ?? null,
+    customerId: input.conversation.customer?.id ?? null,
     workspaceId: input.draft.workspaceId,
     channel: input.conversation.source,
     status,

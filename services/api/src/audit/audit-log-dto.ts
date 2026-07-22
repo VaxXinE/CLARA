@@ -49,6 +49,8 @@ export type AuditLogAction =
   | "customer.status.updated"
   | "customer.owner.assigned"
   | "customer.owner.reassigned"
+  | "conversation.customer.linked"
+  | "conversation.customer.unlinked"
   | "customer.follow_up_task.created"
   | "customer.follow_up_task.updated"
   | "customer.follow_up_task.completed"

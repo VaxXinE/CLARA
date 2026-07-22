@@ -100,6 +100,8 @@ export const auditLogActions = [
   "customer.status.updated",
   "customer.owner.assigned",
   "customer.owner.reassigned",
+  "conversation.customer.linked",
+  "conversation.customer.unlinked",
   "customer.follow_up_task.created",
   "customer.follow_up_task.updated",
   "customer.follow_up_task.completed",
@@ -514,9 +516,7 @@ export const conversations = pgTable(
     workspaceId: text("workspace_id")
       .notNull()
       .references(() => workspaces.id),
-    customerId: text("customer_id")
-      .notNull()
-      .references(() => customers.id),
+    customerId: text("customer_id").references(() => customers.id),
     source: text("source").notNull(),
     status: text("status").notNull(),
     assignedUserId: text("assigned_user_id").references(() => users.id),

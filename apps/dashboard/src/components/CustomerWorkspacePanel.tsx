@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import type {
   CustomerActivityTimelineEvent,
+  ConversationSummary,
   CustomerFollowUpTask,
   CustomerMutationPayload,
   CustomerNote,
@@ -38,6 +39,7 @@ type CustomerWorkspacePanelProps = {
   notes?: CustomerNote[];
   tasks?: CustomerFollowUpTask[];
   timeline?: CustomerActivityTimelineEvent[];
+  linkedConversations?: ConversationSummary[];
   workspaceMembers?: WorkspaceMember[];
   loading: boolean;
   error: string | null;
@@ -76,6 +78,7 @@ type CustomerWorkspacePanelProps = {
     taskId: string,
     status: CustomerFollowUpTask["status"],
   ) => Promise<void>;
+  onOpenConversation?: (conversationId: string) => void;
 };
 
 function summarizeSource(customer: CustomerProfileResponse["customer"] | null) {
@@ -539,6 +542,37 @@ export function CustomerWorkspacePanel(props: CustomerWorkspacePanelProps) {
         <p>Status: {props.customer?.status ?? "unknown"}</p>
         <p>Owner user: {props.customer?.owner_user_id ?? "Unassigned"}</p>
       </div>
+
+      <section className="state-card">
+        <strong>Linked conversations</strong>
+        {!props.customer ? (
+          <p>Select a customer to inspect linked conversations.</p>
+        ) : null}
+        {(props.linkedConversations ?? []).length === 0 && props.customer ? (
+          <p>No linked conversations yet.</p>
+        ) : null}
+        <ol className="timeline-list">
+          {(props.linkedConversations ?? []).map((conversation) => (
+            <li key={conversation.id}>
+              <strong>{conversation.status}</strong>
+              <p>{conversation.snippet ?? "No message snippet available."}</p>
+              <small>
+                {conversation.source} ·{" "}
+                {conversation.last_message_at
+                  ? new Date(conversation.last_message_at).toLocaleString()
+                  : "no recent message"}
+              </small>
+              <button
+                type="button"
+                className="secondary-button"
+                onClick={() => props.onOpenConversation?.(conversation.id)}
+              >
+                Open conversation
+              </button>
+            </li>
+          ))}
+        </ol>
+      </section>
 
       <div className="customer-crud-grid">
         <form className="state-card" onSubmit={handleLifecycleStatusUpdate}>

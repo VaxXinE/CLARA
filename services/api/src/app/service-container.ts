@@ -153,7 +153,10 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
 
     return {
       services: {
-        conversations: new ConversationQueryService(conversationRepository),
+        conversations: new ConversationQueryService(
+          conversationRepository,
+          auditLogs,
+        ),
         customers: new CustomerQueryService(
           customerRepository,
           auditLogs,
@@ -320,7 +323,10 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
 
   return {
     services: {
-      conversations: new ConversationQueryService(conversationRepository),
+      conversations: new ConversationQueryService(
+        conversationRepository,
+        auditLogs,
+      ),
       customers: new CustomerQueryService(
         customerRepository,
         auditLogs,

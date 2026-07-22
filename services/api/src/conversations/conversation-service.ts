@@ -6,6 +6,7 @@ import {
 import type { AuthContext } from "../auth/auth-context";
 import { NotFoundError, ValidationError } from "../errors/app-error";
 import { getWorkspaceScopeFromAuth } from "../workspace/workspace-scope";
+import type { AuditLogService } from "../audit/audit-log-service";
 import type {
   ConversationCursor,
   ConversationDetailRecord,
@@ -33,7 +34,7 @@ export type ConversationSummaryDto = {
     display_name: string;
     source: string;
     status: string;
-  };
+  } | null;
   assigned_user: {
     id: string;
     display_name: string;
@@ -52,7 +53,7 @@ export type ConversationDetailDto = {
     display_name: string;
     source: string;
     status: string;
-  };
+  } | null;
   assigned_user: {
     id: string;
     display_name: string;
@@ -81,6 +82,18 @@ export type ConversationListResult = {
 export type ConversationDetailResult = {
   conversation: ConversationDetailDto;
   permissions: PermissionHints;
+};
+
+export type CustomerConversationListResult = {
+  data: ConversationSummaryDto[];
+  permissions: PermissionHints;
+};
+
+export type ConversationCustomerLinkResult = ConversationDetailResult & {
+  feedback: {
+    status: "linked" | "unlinked";
+    message: string;
+  };
 };
 
 function encodeCursor(cursor: ConversationCursor): string {
@@ -132,12 +145,14 @@ function toConversationSummaryDto(
     last_message_at: record.lastMessageAt?.toISOString() ?? null,
     created_at: record.createdAt.toISOString(),
     updated_at: record.updatedAt.toISOString(),
-    customer: {
-      id: record.customer.id,
-      display_name: record.customer.displayName,
-      source: record.customer.source,
-      status: record.customer.status,
-    },
+    customer: record.customer
+      ? {
+          id: record.customer.id,
+          display_name: record.customer.displayName,
+          source: record.customer.source,
+          status: record.customer.status,
+        }
+      : null,
     assigned_user: record.assignedUser
       ? {
           id: record.assignedUser.id,
@@ -170,12 +185,14 @@ function toConversationDetailDto(
     last_message_at: record.lastMessageAt?.toISOString() ?? null,
     created_at: record.createdAt.toISOString(),
     updated_at: record.updatedAt.toISOString(),
-    customer: {
-      id: record.customer.id,
-      display_name: record.customer.displayName,
-      source: record.customer.source,
-      status: record.customer.status,
-    },
+    customer: record.customer
+      ? {
+          id: record.customer.id,
+          display_name: record.customer.displayName,
+          source: record.customer.source,
+          status: record.customer.status,
+        }
+      : null,
     assigned_user: record.assignedUser
       ? {
           id: record.assignedUser.id,
@@ -187,7 +204,10 @@ function toConversationDetailDto(
 }
 
 export class ConversationQueryService {
-  constructor(private readonly repository: ConversationRepository) {}
+  constructor(
+    private readonly repository: ConversationRepository,
+    private readonly auditLogs?: AuditLogService,
+  ) {}
 
   async listConversations(
     input: ConversationListRequest,
@@ -227,6 +247,118 @@ export class ConversationQueryService {
     return {
       conversation: toConversationDetailDto(record),
       permissions: buildPermissionHints(input.auth.role),
+    };
+  }
+
+  async listCustomerConversations(input: {
+    auth: AuthContext;
+    customerId: string;
+  }): Promise<CustomerConversationListResult> {
+    assertPermission(input.auth.role, "conversation:read");
+    assertPermission(input.auth.role, "customer:read");
+
+    const records = await this.repository.listByCustomerScoped!(
+      getWorkspaceScopeFromAuth(input.auth),
+      input.customerId,
+    );
+
+    return {
+      data: records.map(toConversationSummaryDto),
+      permissions: buildPermissionHints(input.auth.role),
+    };
+  }
+
+  async linkConversationToCustomer(input: {
+    auth: AuthContext;
+    conversationId: string;
+    customerId: string;
+    correlationId: string;
+  }): Promise<ConversationCustomerLinkResult> {
+    assertPermission(input.auth.role, "conversation:read");
+    assertPermission(input.auth.role, "customer:update");
+
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+    const previous = await this.repository.findByIdScoped(
+      scope,
+      input.conversationId,
+    );
+
+    if (!previous) {
+      throw new NotFoundError("Conversation not found.");
+    }
+
+    const record = await this.repository.linkCustomerScoped!(
+      scope,
+      input.conversationId,
+      input.customerId,
+    );
+
+    if (!record) {
+      throw new NotFoundError("Conversation or customer not found.");
+    }
+
+    await this.auditLogs?.recordConversationCustomerLinkChanged({
+      auth: input.auth,
+      correlationId: input.correlationId,
+      action: "conversation.customer.linked",
+      conversationId: input.conversationId,
+      customerId: input.customerId,
+      previousCustomerId: previous.customer?.id ?? null,
+    });
+
+    return {
+      conversation: toConversationDetailDto(record),
+      permissions: buildPermissionHints(input.auth.role),
+      feedback: {
+        status: "linked",
+        message: "Conversation linked to customer.",
+      },
+    };
+  }
+
+  async unlinkConversationCustomer(input: {
+    auth: AuthContext;
+    conversationId: string;
+    correlationId: string;
+  }): Promise<ConversationCustomerLinkResult> {
+    assertPermission(input.auth.role, "conversation:read");
+    assertPermission(input.auth.role, "customer:update");
+
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+    const previous = await this.repository.findByIdScoped(
+      scope,
+      input.conversationId,
+    );
+
+    if (!previous) {
+      throw new NotFoundError("Conversation not found.");
+    }
+
+    const record = await this.repository.unlinkCustomerScoped!(
+      scope,
+      input.conversationId,
+    );
+
+    if (!record) {
+      throw new NotFoundError("Conversation not found.");
+    }
+
+    await this.auditLogs?.recordConversationCustomerLinkChanged({
+      auth: input.auth,
+      correlationId: input.correlationId,
+      action: "conversation.customer.unlinked",
+      conversationId: input.conversationId,
+      customerId: null,
+      previousCustomerId: previous.customer?.id ?? null,
+    });
+
+    return {
+      conversation: toConversationDetailDto(record),
+      permissions: buildPermissionHints(input.auth.role),
+      feedback: {
+        status: "unlinked",
+        message: "Conversation unlinked from customer.",
+      },
     };
   }
 }

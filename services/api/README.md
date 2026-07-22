@@ -14,13 +14,16 @@ CRM readiness, analytics readiness, enterprise hardening readiness, and
 scale/reliability/billing readiness. P12 release-readiness is complete. P13 is
 current. P13 focuses internal CRM usage. P13-PR-01 is complete. P13-PR-02 is
 complete. P13-PR-03 is complete. Internal CRM usage is the focus.
-billing/payment is deferred.
+P13-PR-04 is complete. P13-PR-05 is current. billing/payment is deferred.
 Billing/payment remains deferred. CLARA is not production deployed yet. CLARA is
 not public GA launched yet. Customer CRUD is internal workspace-scoped.
 Notes/timeline are workspace-scoped internal CRM features. lifecycle/owner
 assignment are workspace-scoped internal CRM features. owner assignment requires
 valid workspace membership. Backend AuthContext is the authority. Timeline/audit
-must not expose raw provider/audit/secrets.
+must not expose raw provider/audit/secrets. Conversation-to-customer linking is
+workspace-scoped. Linking is explicit user-approved internal CRM action. This PR
+does not auto-create or auto-merge customers. This PR does not activate real
+provider/payment/AI/outbound behavior.
 
 Use this together with `apps/dashboard` for the full local MVP flow.
 
@@ -65,6 +68,9 @@ POST /api/v1/customers/:customer_id/notes adds a workspace-scoped internal note
 GET /api/v1/customers/:customer_id/activity lists safe customer timeline events
 PATCH /api/v1/customers/:customer_id/lifecycle-status updates workspace-scoped lifecycle status
 PATCH /api/v1/customers/:customer_id/owner-assignment assigns an active workspace member owner
+PUT /api/v1/conversations/:conversation_id/customer links an existing conversation to an existing customer
+DELETE /api/v1/conversations/:conversation_id/customer unlinks a conversation customer
+GET /api/v1/customers/:customer_id/conversations lists safe linked conversation summaries
 owner/agent may create and update; viewer remains read-only
 unknown fields and client-supplied workspace authority are rejected
 customer create/update/note audit events store safe allowlisted metadata only

@@ -63,6 +63,10 @@ export class AiReplySuggestionService {
       throw new NotFoundError();
     }
 
+    if (!conversation.customer) {
+      throw new NotFoundError();
+    }
+
     if (input.customerId && input.customerId !== conversation.customer.id) {
       throw new NotFoundError();
     }

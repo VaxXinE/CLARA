@@ -2,7 +2,7 @@ import type { AuthContext } from "../auth/auth-context";
 import { assertPermission } from "../auth/permissions";
 import { AuditLogService } from "../audit/audit-log-service";
 import type { ConversationRepository } from "../conversations/conversation-repository";
-import { AppError, NotFoundError } from "../errors/app-error";
+import { AppError, NotFoundError, ValidationError } from "../errors/app-error";
 import { getWorkspaceScopeFromAuth } from "../workspace/workspace-scope";
 import { toAiDraftResponseDto, type AiDraftResponseDto } from "./ai-draft-dto";
 import type { AiDraftRepository } from "./ai-draft-repository";
@@ -54,6 +54,15 @@ export class AiDraftService {
 
     if (!conversation) {
       throw new NotFoundError("Conversation not found.");
+    }
+
+    if (!conversation.customer) {
+      throw new ValidationError("Invalid request.", [
+        {
+          path: "conversation.customer",
+          message: "Conversation must be linked to a customer.",
+        },
+      ]);
     }
 
     try {

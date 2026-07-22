@@ -10,9 +10,9 @@ classification: "policy"
 
 P12 release-readiness is complete. P13 is current. P13 focuses internal CRM
 usage. P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is complete.
-Internal CRM usage is the focus. billing/payment is deferred. Billing/payment
-remains deferred. CLARA is not production deployed yet. CLARA is not public GA
-launched yet.
+P13-PR-04 is complete. P13-PR-05 is current. Internal CRM usage is the focus.
+billing/payment is deferred. Billing/payment remains deferred. CLARA is not
+production deployed yet. CLARA is not public GA launched yet.
 
 CLARA is not production deployed yet. CLARA is not public GA launched yet.
 
@@ -24,6 +24,9 @@ Notes/timeline are workspace-scoped internal CRM features. lifecycle/owner
 assignment are workspace-scoped internal CRM features. owner assignment requires
 valid workspace membership. Backend AuthContext is the authority for all
 workspace access. Timeline/audit must not expose raw provider/audit/secrets.
+Conversation-to-customer linking is workspace-scoped and explicit. This PR does
+not auto-create or auto-merge customers and does not activate real
+provider/payment/AI/outbound behavior.
 
 Deferred until a future explicitly approved phase:
 

@@ -37,7 +37,7 @@ export type ConversationListItemRecord = {
   lastMessageAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
-  customer: ConversationCustomerSummaryRecord;
+  customer: ConversationCustomerSummaryRecord | null;
   assignedUser: AssignedUserSummaryRecord;
 };
 
@@ -59,7 +59,7 @@ export type ConversationDetailRecord = {
   lastMessageAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
-  customer: ConversationCustomerSummaryRecord;
+  customer: ConversationCustomerSummaryRecord | null;
   assignedUser: AssignedUserSummaryRecord;
   messages: ConversationMessageRecord[];
 };
@@ -78,6 +78,19 @@ export interface ConversationRepository {
     scope: WorkspaceScope,
     conversationId: string,
   ): Promise<ConversationDetailRecord | null>;
+  linkCustomerScoped?(
+    scope: WorkspaceScope,
+    conversationId: string,
+    customerId: string,
+  ): Promise<ConversationDetailRecord | null>;
+  unlinkCustomerScoped?(
+    scope: WorkspaceScope,
+    conversationId: string,
+  ): Promise<ConversationDetailRecord | null>;
+  listByCustomerScoped?(
+    scope: WorkspaceScope,
+    customerId: string,
+  ): Promise<ConversationListItemRecord[]>;
 }
 
 function requireDate(value: Date | undefined, field: string): Date {
@@ -207,7 +220,9 @@ export class FixtureConversationRepository implements ConversationRepository {
         }
 
         const searchValue = filters.search.toLowerCase();
-        const customer = customersById.get(conversation.customerId);
+        const customer = conversation.customerId
+          ? customersById.get(conversation.customerId)
+          : null;
 
         return Boolean(
           customer &&
@@ -218,11 +233,9 @@ export class FixtureConversationRepository implements ConversationRepository {
         );
       })
       .map((conversation) => {
-        const customer = customersById.get(conversation.customerId);
-
-        if (!customer) {
-          return null;
-        }
+        const customer = conversation.customerId
+          ? customersById.get(conversation.customerId)
+          : null;
 
         return {
           id: conversation.id,
@@ -238,13 +251,15 @@ export class FixtureConversationRepository implements ConversationRepository {
             conversation.updatedAt,
             "conversation.updatedAt",
           ),
-          customer: {
-            id: customer.id,
-            displayName: customer.displayName,
-            contactIdentifier: customer.contactIdentifier ?? null,
-            source: customer.source,
-            status: customer.status,
-          },
+          customer: customer
+            ? {
+                id: customer.id,
+                displayName: customer.displayName,
+                contactIdentifier: customer.contactIdentifier ?? null,
+                source: customer.source,
+                status: customer.status,
+              }
+            : null,
           assignedUser: conversation.assignedUserId
             ? {
                 id: conversation.assignedUserId,
@@ -281,7 +296,7 @@ export class FixtureConversationRepository implements ConversationRepository {
       limit: 500,
     });
 
-    return result.items.filter((item) => item.customer.id === customerId);
+    return result.items.filter((item) => item.customer?.id === customerId);
   }
 
   async findByIdScoped(
@@ -300,16 +315,14 @@ export class FixtureConversationRepository implements ConversationRepository {
       return null;
     }
 
-    const scopedCustomer = this.store.customers.find(
-      (item) =>
-        item.id === conversation.customerId &&
-        item.organizationId === scope.organizationId &&
-        item.workspaceId === scope.workspaceId,
-    );
-
-    if (!scopedCustomer) {
-      return null;
-    }
+    const scopedCustomer = conversation.customerId
+      ? this.store.customers.find(
+          (item) =>
+            item.id === conversation.customerId &&
+            item.organizationId === scope.organizationId &&
+            item.workspaceId === scope.workspaceId,
+        )
+      : null;
 
     const assignedUser = conversation.assignedUserId
       ? (demoUsers.find((user) => user.id === conversation.assignedUserId) ??
@@ -350,13 +363,15 @@ export class FixtureConversationRepository implements ConversationRepository {
       lastMessageAt: conversation.lastMessageAt ?? null,
       createdAt: requireDate(conversation.createdAt, "conversation.createdAt"),
       updatedAt: requireDate(conversation.updatedAt, "conversation.updatedAt"),
-      customer: {
-        id: scopedCustomer.id,
-        displayName: scopedCustomer.displayName,
-        contactIdentifier: scopedCustomer.contactIdentifier ?? null,
-        source: scopedCustomer.source,
-        status: scopedCustomer.status,
-      },
+      customer: scopedCustomer
+        ? {
+            id: scopedCustomer.id,
+            displayName: scopedCustomer.displayName,
+            contactIdentifier: scopedCustomer.contactIdentifier ?? null,
+            source: scopedCustomer.source,
+            status: scopedCustomer.status,
+          }
+        : null,
       assignedUser: assignedUser
         ? {
             id: assignedUser.id,
@@ -365,5 +380,50 @@ export class FixtureConversationRepository implements ConversationRepository {
         : null,
       messages: scopedMessages,
     };
+  }
+
+  async linkCustomerScoped(
+    scope: WorkspaceScope,
+    conversationId: string,
+    customerId: string,
+  ): Promise<ConversationDetailRecord | null> {
+    const conversation = this.store.conversations.find(
+      (item) =>
+        item.id === conversationId &&
+        item.organizationId === scope.organizationId &&
+        item.workspaceId === scope.workspaceId,
+    );
+    const customer = this.store.customers.find(
+      (item) =>
+        item.id === customerId &&
+        item.organizationId === scope.organizationId &&
+        item.workspaceId === scope.workspaceId,
+    );
+
+    if (!conversation || !customer) return null;
+
+    conversation.customerId = customerId;
+    conversation.updatedAt = new Date();
+
+    return this.findByIdScoped(scope, conversationId);
+  }
+
+  async unlinkCustomerScoped(
+    scope: WorkspaceScope,
+    conversationId: string,
+  ): Promise<ConversationDetailRecord | null> {
+    const conversation = this.store.conversations.find(
+      (item) =>
+        item.id === conversationId &&
+        item.organizationId === scope.organizationId &&
+        item.workspaceId === scope.workspaceId,
+    );
+
+    if (!conversation) return null;
+
+    conversation.customerId = null;
+    conversation.updatedAt = new Date();
+
+    return this.findByIdScoped(scope, conversationId);
   }
 }

@@ -38,8 +38,17 @@ export type WhatsappReplySendIntegration = {
 };
 
 function getCustomerEmail(conversation: {
-  customer: { contactIdentifier?: string | null };
+  customer: { contactIdentifier?: string | null } | null;
 }): string {
+  if (!conversation.customer) {
+    throw new ValidationError("Invalid request.", [
+      {
+        path: "conversation.customer",
+        message: "Conversation customer link is required.",
+      },
+    ]);
+  }
+
   const email = conversation.customer.contactIdentifier?.trim();
 
   if (!email) {
@@ -59,8 +68,17 @@ function isLegacyWebchatDemoSource(source: string): boolean {
 }
 
 function getWhatsappRecipient(conversation: {
-  customer: { contactIdentifier?: string | null };
+  customer: { contactIdentifier?: string | null } | null;
 }): string {
+  if (!conversation.customer) {
+    throw new ValidationError("Invalid request.", [
+      {
+        path: "conversation.customer",
+        message: "Conversation customer link is required.",
+      },
+    ]);
+  }
+
   const identifier = conversation.customer.contactIdentifier?.trim();
 
   if (!identifier) {
