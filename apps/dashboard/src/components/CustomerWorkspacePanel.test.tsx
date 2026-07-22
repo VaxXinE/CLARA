@@ -1,5 +1,5 @@
-import { cleanup, render, screen } from "@testing-library/react";
-import { afterEach, describe, expect, it } from "vitest";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import type { CustomerProfileResponse } from "../api/types";
 import { CustomerWorkspacePanel } from "./CustomerWorkspacePanel";
 
@@ -20,24 +20,83 @@ describe("CustomerWorkspacePanel", () => {
     cleanup();
   });
 
-  it("renders customer intelligence skeleton fields safely", () => {
-    render(<CustomerWorkspacePanel customer={customer} />);
+  it("renders internal customer CRUD controls safely", () => {
+    render(
+      <CustomerWorkspacePanel
+        customer={customer}
+        customers={[customer]}
+        loading={false}
+        error={null}
+        successMessage={null}
+        mutationError={null}
+        isSaving={false}
+        readOnly={false}
+        onSelectCustomer={vi.fn()}
+        onCreateCustomer={vi.fn()}
+        onUpdateCustomer={vi.fn()}
+      />,
+    );
 
-    expect(screen.getByText("Customer workspace preview")).toBeInTheDocument();
-    expect(screen.getByText("Budi")).toBeInTheDocument();
-    expect(screen.getByText("Active account")).toBeInTheDocument();
-    expect(screen.getByText("Warm")).toBeInTheDocument();
-    expect(screen.getByText("email · budi@example.test")).toBeInTheDocument();
-    expect(screen.getByText("Merge candidate placeholder")).toBeInTheDocument();
+    expect(screen.getByText("Customer workspace")).toBeInTheDocument();
+    expect(screen.getAllByText("Budi").length).toBeGreaterThanOrEqual(2);
+    expect(
+      screen.getAllByText("email · budi@example.test").length,
+    ).toBeGreaterThanOrEqual(2);
+    expect(
+      screen.getByRole("button", { name: /Create customer/i }),
+    ).toBeEnabled();
+    expect(
+      screen.getByRole("button", { name: /Save customer/i }),
+    ).toBeEnabled();
   });
 
-  it("handles missing customer data without unsafe mutation controls", () => {
-    render(<CustomerWorkspacePanel customer={null} />);
+  it("validates create form before submitting", () => {
+    const onCreateCustomer = vi.fn();
+    render(
+      <CustomerWorkspacePanel
+        customer={null}
+        customers={[]}
+        loading={false}
+        error={null}
+        successMessage={null}
+        mutationError={null}
+        isSaving={false}
+        readOnly={false}
+        onSelectCustomer={vi.fn()}
+        onCreateCustomer={onCreateCustomer}
+        onUpdateCustomer={vi.fn()}
+      />,
+    );
 
-    expect(screen.getByText("No customer selected")).toBeInTheDocument();
-    expect(screen.getByText("Uncategorized")).toBeInTheDocument();
-    expect(screen.getByText("Unknown")).toBeInTheDocument();
-    expect(screen.getByText("No channel context")).toBeInTheDocument();
-    expect(screen.queryByRole("button")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: /Create customer/i }));
+
+    expect(screen.getByText("Customer name is required.")).toBeInTheDocument();
+    expect(onCreateCustomer).not.toHaveBeenCalled();
+  });
+
+  it("renders read-only disabled reasons for viewer sessions", () => {
+    render(
+      <CustomerWorkspacePanel
+        customer={customer}
+        customers={[customer]}
+        loading={false}
+        error={null}
+        successMessage={null}
+        mutationError={null}
+        isSaving={false}
+        readOnly={true}
+        onSelectCustomer={vi.fn()}
+        onCreateCustomer={vi.fn()}
+        onUpdateCustomer={vi.fn()}
+      />,
+    );
+
+    expect(screen.getByText("Read-only session")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /Viewer cannot create/i }),
+    ).toBeDisabled();
+    expect(
+      screen.getByRole("button", { name: /Viewer cannot edit/i }),
+    ).toBeDisabled();
   });
 });

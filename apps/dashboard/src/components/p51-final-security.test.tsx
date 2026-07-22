@@ -62,7 +62,6 @@ describe("P5.1 final security guardrails", () => {
       "updateLead",
       "deleteLead",
       "mergeCustomer",
-      "updateCustomer",
       "deleteCustomer",
     ];
 

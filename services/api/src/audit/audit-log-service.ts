@@ -123,6 +123,35 @@ export class AuditLogService {
     });
   }
 
+  async recordCustomerMutation(
+    input: AuditContextInput & {
+      action: "customer.created" | "customer.updated";
+      customerId: string;
+      status: string;
+      changedFields: string[];
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: input.action,
+      resourceType: "customer",
+      resourceId: input.customerId,
+      outcome: "success",
+      metadata: compactMetadata({
+        customer_id: input.customerId,
+        customer_status: input.status,
+        changed_field_count: input.changedFields.length,
+        changed_fields: input.changedFields.sort().join(","),
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
   async recordAiSuggestionRequested(
     input: AuditContextInput & {
       conversationId: string;

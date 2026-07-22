@@ -88,7 +88,6 @@ const navigationDefinitions: NavigationDefinition[] = [
     group: "Workspace",
     label: "Customers",
     route: "#customers",
-    planned: true,
     roles: operationalRoles,
   },
   {

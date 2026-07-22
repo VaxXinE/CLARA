@@ -5,13 +5,16 @@ CLARA API service.
 ## Status
 
 ```text
-P1-P11 complete; P12 Beta / GA Release Readiness current
+P1-P12 complete; P13 Internal CRM Product Activation current
 ```
 
-This service currently provides the CLARA API through P11: auth/workspace scope,
+This service currently provides the CLARA API through P13: auth/workspace scope,
 conversation/customer/activity, channel foundations, Gmail/email boundaries,
 CRM readiness, analytics readiness, enterprise hardening readiness, and
-scale/reliability/billing readiness.
+scale/reliability/billing readiness. P12 release-readiness is complete. P13 is
+current. P13 focuses internal CRM usage. billing/payment is deferred. CLARA is
+not production deployed yet. CLARA is not public GA launched yet. Customer CRUD
+is internal workspace-scoped. Backend AuthContext is the authority.
 
 Use this together with `apps/dashboard` for the full local MVP flow.
 
@@ -43,6 +46,18 @@ payment/telemetry exposure, no token/cookie/auth header/API key/secret
 exposure, no unauthorized workspace access, no real AI provider call unless a
 future approved provider integration exists, and no billing/payment side
 effects.
+
+Current customer CRUD activation:
+
+```text
+GET /api/v1/customers lists workspace-scoped customers
+GET /api/v1/customers/:customer_id reads safe customer detail
+POST /api/v1/customers creates safe internal CRM customer records
+PATCH /api/v1/customers/:customer_id updates safe customer fields
+owner/agent may create and update; viewer remains read-only
+unknown fields and client-supplied workspace authority are rejected
+customer create/update audit events store safe allowlisted metadata only
+```
 
 Current auth baseline:
 

@@ -23,6 +23,9 @@ import type {
   CrmWorkflowMetricsResponse,
   CustomerProfileIntelligenceResponse,
   CustomerLifecycleStatusReadinessResponse,
+  CustomerListResponse,
+  CustomerMutationPayload,
+  CustomerMutationResponse,
   CustomerOwnerAssignmentReadinessResponse,
   CustomerProfileResponse,
   CustomerActionProposalResponse,
@@ -84,6 +87,11 @@ export type ConversationListFilters = {
   limit?: number;
 };
 
+export type CustomerListFilters = {
+  status?: string;
+  search?: string;
+};
+
 function joinUrl(baseUrl: string, path: string): string {
   return `${baseUrl.replace(/\/+$/, "")}${path}`;
 }
@@ -132,6 +140,17 @@ function toQueryString(filters: ConversationListFilters): string {
   return query ? `?${query}` : "";
 }
 
+function toCustomerQueryString(filters: CustomerListFilters): string {
+  const params = new URLSearchParams();
+
+  if (filters.status) params.set("status", filters.status);
+  if (filters.search) params.set("search", filters.search);
+
+  const query = params.toString();
+
+  return query ? `?${query}` : "";
+}
+
 export class ApiClient {
   private readonly baseUrl: string;
   private readonly demoAuthProfile?: DemoAuthProfile;
@@ -166,6 +185,36 @@ export class ApiClient {
   async getCustomer(customerId: string): Promise<CustomerProfileResponse> {
     return this.request<CustomerProfileResponse>(
       `/api/v1/customers/${encodeURIComponent(customerId)}`,
+    );
+  }
+
+  async listCustomers(
+    filters: CustomerListFilters = {},
+  ): Promise<CustomerListResponse> {
+    return this.request<CustomerListResponse>(
+      `/api/v1/customers${toCustomerQueryString(filters)}`,
+    );
+  }
+
+  async createCustomer(
+    payload: CustomerMutationPayload,
+  ): Promise<CustomerMutationResponse> {
+    return this.request<CustomerMutationResponse>("/api/v1/customers", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    });
+  }
+
+  async updateCustomer(
+    customerId: string,
+    payload: CustomerMutationPayload,
+  ): Promise<CustomerMutationResponse> {
+    return this.request<CustomerMutationResponse>(
+      `/api/v1/customers/${encodeURIComponent(customerId)}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify(payload),
+      },
     );
   }
 

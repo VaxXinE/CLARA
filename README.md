@@ -17,11 +17,16 @@ It contains the documentation, architecture, standards, templates, governance, i
 # Repository Status
 
 ```text
-Status: P1-P11 complete; local product slice runnable
-Current focus: P12 Beta / GA Release Readiness
-Current PR: P12-PR-05 Final GA Audit / Runbook
-Launch status: not GA yet; not production deployed yet
+Status: P1-P12 complete; local product slice runnable
+Current focus: P13 Internal CRM Product Activation
+Current PR: P13-PR-01 Customer CRUD Activation
+Launch status: not public GA launched yet; not production deployed yet
 ```
+
+P12 release-readiness is complete. P13 is current. P13 focuses internal CRM
+usage. billing/payment is deferred. CLARA is not production deployed yet.
+CLARA is not public GA launched yet. Customer CRUD is internal
+workspace-scoped. Backend AuthContext is the authority.
 
 Current MVP implementation:
 
@@ -85,6 +90,9 @@ Start here for local usage:
 ```text
 docs/product/CLARA-DOCUMENTATION-INDEX.md
 docs/product/CLARA-FINAL-ROADMAP.md
+docs/product/CLARA-P13-INTERNAL-CRM-ACTIVATION-ROADMAP.md
+docs/product/CLARA-P13-CUSTOMER-CRUD-ACTIVATION.md
+docs/product/CLARA-P13-BILLING-DEFERRED-POLICY.md
 docs/product/CLARA-VALIDATION-BASELINE.md
 docs/product/CLARA-SECURITY-BOUNDARY-SUMMARY.md
 docs/product/CLARA-P12-HANDOFF-FROM-P11.md

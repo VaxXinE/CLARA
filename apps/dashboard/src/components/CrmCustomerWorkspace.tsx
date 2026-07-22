@@ -1,3 +1,4 @@
+import type { ComponentProps } from "react";
 import type {
   ConversationDetail,
   CustomerActionProposalResponse,
@@ -27,6 +28,10 @@ type CrmCustomerWorkspaceProps = {
   customerTimelineIntelligence: CustomerTimelineIntelligenceResponse | null;
   customerTimelineIntelligenceLoading: boolean;
   customerTimelineIntelligenceError: string | null;
+  customerCrud?: Omit<
+    ComponentProps<typeof CustomerWorkspacePanel>,
+    "customer" | "readOnly"
+  >;
   customerActionProposal: CustomerActionProposalResponse | null;
   customerActionProposalLoading: boolean;
   customerActionProposalError: string | null;
@@ -43,6 +48,18 @@ type CrmCustomerWorkspaceProps = {
 };
 
 export function CrmCustomerWorkspace(props: CrmCustomerWorkspaceProps) {
+  const customerCrud = props.customerCrud ?? {
+    customers: props.customer ? [props.customer] : [],
+    loading: false,
+    error: null,
+    successMessage: null,
+    mutationError: null,
+    isSaving: false,
+    onSelectCustomer: () => {},
+    onCreateCustomer: async () => {},
+    onUpdateCustomer: async () => {},
+  };
+
   return (
     <section
       className="crm-customer-workspace"
@@ -52,7 +69,11 @@ export function CrmCustomerWorkspace(props: CrmCustomerWorkspaceProps) {
         conversation={props.conversation}
         readOnly={props.readOnly}
       />
-      <CustomerWorkspacePanel customer={props.customer} />
+      <CustomerWorkspacePanel
+        customer={props.customer}
+        readOnly={props.readOnly}
+        {...customerCrud}
+      />
       <CustomerProfileIntelligencePanel
         intelligence={props.customerIntelligence}
         loading={props.customerIntelligenceLoading}

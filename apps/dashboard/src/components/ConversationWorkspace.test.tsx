@@ -176,7 +176,7 @@ describe("ConversationWorkspace", () => {
     expect(screen.getByText("Inbound visibility")).toBeInTheDocument();
     expect(screen.getByText("Reply composer")).toBeInTheDocument();
     expect(screen.getByText("Lead workspace preview")).toBeInTheDocument();
-    expect(screen.getByText("Customer workspace preview")).toBeInTheDocument();
+    expect(screen.getByText("Customer workspace")).toBeInTheDocument();
     expect(screen.getByText("Follow-up workspace preview")).toBeInTheDocument();
     expect(screen.getByText("Insight workspace preview")).toBeInTheDocument();
     expect(screen.getByText("Access workspace preview")).toBeInTheDocument();

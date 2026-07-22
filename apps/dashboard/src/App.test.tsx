@@ -458,6 +458,16 @@ describe("App", () => {
         return jsonResponse(customerLifecycleStatusReadinessResponse);
       }
 
+      if (
+        url.endsWith("/api/v1/customers") ||
+        url.includes("/api/v1/customers?")
+      ) {
+        return jsonResponse({
+          data: [customerResponse.customer],
+          permissions: customerResponse.permissions,
+        });
+      }
+
       if (url.includes("/api/v1/customers/cust_demo_budi")) {
         return jsonResponse(customerResponse);
       }
@@ -574,6 +584,16 @@ describe("App", () => {
           )
         ) {
           return jsonResponse(customerLifecycleStatusReadinessResponse);
+        }
+
+        if (
+          url.endsWith("/api/v1/customers") ||
+          url.includes("/api/v1/customers?")
+        ) {
+          return jsonResponse({
+            data: [customerResponse.customer],
+            permissions: customerResponse.permissions,
+          });
         }
 
         if (url.includes("/api/v1/customers/cust_demo_budi")) {

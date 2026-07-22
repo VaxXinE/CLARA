@@ -18,6 +18,8 @@ import type {
   ConversationListResponse,
   CustomerProfileIntelligenceResponse,
   CustomerLifecycleStatusReadinessResponse,
+  CustomerListResponse,
+  CustomerMutationPayload,
   CustomerOwnerAssignmentReadinessResponse,
   CustomerProfileResponse,
   CustomerTimelineIntelligenceResponse,
@@ -145,6 +147,20 @@ function WorkspaceAppShell() {
   const [customer, setCustomer] = useState<
     CustomerProfileResponse["customer"] | null
   >(null);
+  const [customerList, setCustomerList] = useState<
+    CustomerListResponse["data"]
+  >([]);
+  const [customerListLoading, setCustomerListLoading] = useState(false);
+  const [customerListError, setCustomerListError] = useState<string | null>(
+    null,
+  );
+  const [customerMutationMessage, setCustomerMutationMessage] = useState<
+    string | null
+  >(null);
+  const [customerMutationError, setCustomerMutationError] = useState<
+    string | null
+  >(null);
+  const [customerSaving, setCustomerSaving] = useState(false);
   const [customerIntelligence, setCustomerIntelligence] =
     useState<CustomerProfileIntelligenceResponse | null>(null);
   const [customerTimelineIntelligence, setCustomerTimelineIntelligence] =
@@ -372,6 +388,12 @@ function WorkspaceAppShell() {
       setSelectedConversationId(null);
       setConversationDetail(null);
       setCustomer(null);
+      setCustomerList([]);
+      setCustomerListLoading(false);
+      setCustomerListError(null);
+      setCustomerMutationMessage(null);
+      setCustomerMutationError(null);
+      setCustomerSaving(false);
       setCustomerIntelligence(null);
       setCustomerTimelineIntelligence(null);
       setCustomerOwnerAssignmentReadiness(null);
@@ -424,9 +446,17 @@ function WorkspaceAppShell() {
       setWorkspaceAccessRequired(null);
       setListError(null);
       setListLoading(true);
+      setCustomerListLoading(true);
+      setCustomerListError(null);
+      setCustomerMutationMessage(null);
+      setCustomerMutationError(null);
       setSelectedConversationId(null);
       setConversationDetail(null);
       setCustomer(null);
+      setCustomerList([]);
+      setCustomerListError(null);
+      setCustomerMutationMessage(null);
+      setCustomerMutationError(null);
       setCustomerIntelligence(null);
       setCustomerTimelineIntelligence(null);
       setCustomerOwnerAssignmentReadiness(null);
@@ -457,17 +487,23 @@ function WorkspaceAppShell() {
 
         setMe(meResponse);
 
-        const listResponse = await client.listConversations({
-          limit: 20,
-          status: statusFilter || undefined,
-          search: deferredSearch || undefined,
-        });
+        const [listResponse, customerListResponse] = await Promise.all([
+          client.listConversations({
+            limit: 20,
+            status: statusFilter || undefined,
+            search: deferredSearch || undefined,
+          }),
+          client.listCustomers({
+            search: deferredSearch || undefined,
+          }),
+        ]);
 
         if (cancelled) {
           return;
         }
 
         setConversations(listResponse.data);
+        setCustomerList(customerListResponse.data);
         setConversationPermissions(listResponse.permissions);
 
         startTransition(() => {
@@ -489,6 +525,10 @@ function WorkspaceAppShell() {
           setSelectedConversationId(null);
           setConversationDetail(null);
           setCustomer(null);
+          setCustomerList([]);
+          setCustomerListError(null);
+          setCustomerMutationMessage(null);
+          setCustomerMutationError(null);
           setCustomerIntelligence(null);
           setCustomerTimelineIntelligence(null);
           setCustomerOwnerAssignmentReadiness(null);
@@ -510,9 +550,11 @@ function WorkspaceAppShell() {
         );
         setShellError(message);
         setListError(message);
+        setCustomerListError(message);
       } finally {
         if (!cancelled) {
           setListLoading(false);
+          setCustomerListLoading(false);
         }
       }
     }
@@ -1098,6 +1140,72 @@ function WorkspaceAppShell() {
     setCustomerLifecycleStatusReadiness(
       customerLifecycleStatusReadinessResponse,
     );
+  }
+
+  function handleSelectCustomerFromList(
+    selectedCustomer: CustomerProfileResponse["customer"],
+  ) {
+    setCustomer(selectedCustomer);
+    setCustomerError(null);
+    setCustomerMutationMessage(null);
+    setCustomerMutationError(null);
+  }
+
+  async function handleCreateCustomer(payload: CustomerMutationPayload) {
+    const client = buildClient({
+      authMode: auth.config.mode,
+      role: selectedRole,
+      accessToken: auth.session?.accessToken ?? null,
+    });
+
+    setCustomerSaving(true);
+    setCustomerMutationMessage(null);
+    setCustomerMutationError(null);
+
+    try {
+      const response = await client.createCustomer(payload);
+      setCustomer(response.customer);
+      setCustomerList((current) => [response.customer, ...current]);
+      setCustomerMutationMessage(response.feedback.message);
+    } catch (error) {
+      setCustomerMutationError(
+        toSafeMessage(error, "Customer could not be created."),
+      );
+    } finally {
+      setCustomerSaving(false);
+    }
+  }
+
+  async function handleUpdateCustomer(
+    customerId: string,
+    payload: CustomerMutationPayload,
+  ) {
+    const client = buildClient({
+      authMode: auth.config.mode,
+      role: selectedRole,
+      accessToken: auth.session?.accessToken ?? null,
+    });
+
+    setCustomerSaving(true);
+    setCustomerMutationMessage(null);
+    setCustomerMutationError(null);
+
+    try {
+      const response = await client.updateCustomer(customerId, payload);
+      setCustomer(response.customer);
+      setCustomerList((current) =>
+        current.map((item) =>
+          item.id === response.customer.id ? response.customer : item,
+        ),
+      );
+      setCustomerMutationMessage(response.feedback.message);
+    } catch (error) {
+      setCustomerMutationError(
+        toSafeMessage(error, "Customer could not be updated."),
+      );
+    } finally {
+      setCustomerSaving(false);
+    }
   }
 
   async function handleGenerateDraft() {
@@ -1759,6 +1867,17 @@ function WorkspaceAppShell() {
           customerLifecycleStatusReadiness,
           customerLifecycleStatusReadinessLoading,
           customerLifecycleStatusReadinessError,
+          customerCrud: {
+            customers: customerList,
+            loading: customerListLoading,
+            error: customerListError,
+            successMessage: customerMutationMessage,
+            mutationError: customerMutationError,
+            isSaving: customerSaving,
+            onSelectCustomer: handleSelectCustomerFromList,
+            onCreateCustomer: handleCreateCustomer,
+            onUpdateCustomer: handleUpdateCustomer,
+          },
         }}
         automationGuardrails={{
           decision: aiAutomationGuardrail,

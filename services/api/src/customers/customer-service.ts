@@ -4,11 +4,13 @@ import {
   type PermissionHints,
 } from "../auth/permission-hints";
 import type { AuthContext } from "../auth/auth-context";
-import { NotFoundError } from "../errors/app-error";
+import { NotFoundError, ValidationError } from "../errors/app-error";
 import { getWorkspaceScopeFromAuth } from "../workspace/workspace-scope";
+import type { AuditLogService } from "../audit/audit-log-service";
 import type {
   CustomerProfileRecord,
   CustomerRepository,
+  CustomerWriteInput,
 } from "./customer-repository";
 
 export type CustomerProfileDto = {
@@ -28,6 +30,38 @@ export type CustomerProfileResult = {
   permissions: PermissionHints;
 };
 
+export type CustomerListResult = {
+  data: CustomerProfileDto[];
+  permissions: PermissionHints;
+};
+
+export type CustomerMutationResult = CustomerProfileResult & {
+  feedback: {
+    status: "created" | "updated";
+    message: string;
+  };
+};
+
+const customerSources = [
+  "demo",
+  "whatsapp_demo",
+  "whatsapp",
+  "web_chat_demo",
+  "email",
+  "webchat",
+  "extension_bridge",
+] as const;
+
+const customerStatuses = ["new", "active", "archived", "blocked"] as const;
+
+export type CustomerMutationInput = {
+  displayName?: string | undefined;
+  contactIdentifier?: string | null | undefined;
+  source?: string | undefined;
+  status?: string | undefined;
+  notesSummary?: string | null | undefined;
+};
+
 function toCustomerProfileDto(
   record: CustomerProfileRecord,
 ): CustomerProfileDto {
@@ -44,8 +78,116 @@ function toCustomerProfileDto(
   };
 }
 
+function normalizeNullableText(value: string | null | undefined) {
+  if (value === undefined) return undefined;
+  if (value === null) return null;
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : null;
+}
+
+function normalizeDisplayName(value: string | undefined) {
+  const trimmed = value?.trim() ?? "";
+
+  if (trimmed.length === 0) {
+    throw new ValidationError("Invalid customer input.", [
+      { path: "body.displayName", message: "Display name is required." },
+    ]);
+  }
+
+  return trimmed;
+}
+
+function normalizeCustomerInput(
+  input: CustomerMutationInput,
+  options: { requireDisplayName: boolean },
+): Partial<CustomerWriteInput> {
+  const normalized: Partial<CustomerWriteInput> = {};
+
+  if (options.requireDisplayName || input.displayName !== undefined) {
+    normalized.displayName = normalizeDisplayName(input.displayName);
+  }
+
+  if (input.contactIdentifier !== undefined) {
+    const contactIdentifier = normalizeNullableText(input.contactIdentifier);
+
+    if (contactIdentifier !== undefined) {
+      normalized.contactIdentifier = contactIdentifier;
+    }
+  }
+
+  if (input.notesSummary !== undefined) {
+    const notesSummary = normalizeNullableText(input.notesSummary);
+
+    if (notesSummary !== undefined) {
+      normalized.notesSummary = notesSummary;
+    }
+  }
+
+  if (input.source !== undefined) {
+    if (
+      !customerSources.includes(
+        input.source as (typeof customerSources)[number],
+      )
+    ) {
+      throw new ValidationError("Invalid customer input.", [
+        { path: "body.source", message: "Unsupported customer source." },
+      ]);
+    }
+    normalized.source = input.source;
+  }
+
+  if (input.status !== undefined) {
+    if (
+      !customerStatuses.includes(
+        input.status as (typeof customerStatuses)[number],
+      )
+    ) {
+      throw new ValidationError("Invalid customer input.", [
+        { path: "body.status", message: "Unsupported customer status." },
+      ]);
+    }
+    normalized.status = input.status;
+  }
+
+  return normalized;
+}
+
 export class CustomerQueryService {
-  constructor(private readonly repository: CustomerRepository) {}
+  constructor(
+    private readonly repository: CustomerRepository,
+    private readonly auditLogs?: AuditLogService,
+  ) {}
+
+  async listCustomers(input: {
+    auth: AuthContext;
+    search?: string | undefined;
+    status?: string | undefined;
+  }): Promise<CustomerListResult> {
+    assertPermission(input.auth.role, "customer:read");
+
+    const search = input.search?.trim().toLowerCase();
+    const rows = await this.repository.listScoped(
+      getWorkspaceScopeFromAuth(input.auth),
+    );
+
+    const filtered = rows.filter((customer) => {
+      if (input.status && customer.status !== input.status) return false;
+      if (!search) return true;
+
+      return [
+        customer.displayName,
+        customer.contactIdentifier,
+        customer.source,
+        customer.status,
+        customer.notesSummary,
+      ].some((value) => value?.toLowerCase().includes(search));
+    });
+
+    return {
+      data: filtered.map(toCustomerProfileDto),
+      permissions: buildPermissionHints(input.auth.role),
+    };
+  }
 
   async getCustomerProfile(input: {
     auth: AuthContext;
@@ -65,6 +207,95 @@ export class CustomerQueryService {
     return {
       customer: toCustomerProfileDto(record),
       permissions: buildPermissionHints(input.auth.role),
+    };
+  }
+
+  async createCustomer(input: {
+    auth: AuthContext;
+    payload: CustomerMutationInput;
+    correlationId: string;
+  }): Promise<CustomerMutationResult> {
+    assertPermission(input.auth.role, "customer:create");
+    const normalized = normalizeCustomerInput(input.payload, {
+      requireDisplayName: true,
+    });
+
+    const record = await this.repository.createScoped(
+      getWorkspaceScopeFromAuth(input.auth),
+      {
+        displayName: normalized.displayName ?? "",
+        contactIdentifier: normalized.contactIdentifier ?? null,
+        source: normalized.source ?? "demo",
+        status: normalized.status ?? "new",
+        notesSummary: normalized.notesSummary ?? null,
+      },
+    );
+
+    await this.auditLogs?.recordCustomerMutation({
+      auth: input.auth,
+      correlationId: input.correlationId,
+      action: "customer.created",
+      customerId: record.id,
+      status: record.status,
+      changedFields: Object.keys(normalized),
+    });
+
+    return {
+      customer: toCustomerProfileDto(record),
+      permissions: buildPermissionHints(input.auth.role),
+      feedback: {
+        status: "created",
+        message: "Customer created.",
+      },
+    };
+  }
+
+  async updateCustomer(input: {
+    auth: AuthContext;
+    customerId: string;
+    payload: CustomerMutationInput;
+    correlationId: string;
+  }): Promise<CustomerMutationResult> {
+    assertPermission(input.auth.role, "customer:update");
+    const normalized = normalizeCustomerInput(input.payload, {
+      requireDisplayName: false,
+    });
+
+    if (Object.keys(normalized).length === 0) {
+      throw new ValidationError("Invalid customer input.", [
+        {
+          path: "body",
+          message: "At least one safe customer field is required.",
+        },
+      ]);
+    }
+
+    const record = await this.repository.updateScoped(
+      getWorkspaceScopeFromAuth(input.auth),
+      input.customerId,
+      normalized,
+    );
+
+    if (!record) {
+      throw new NotFoundError("Customer not found.");
+    }
+
+    await this.auditLogs?.recordCustomerMutation({
+      auth: input.auth,
+      correlationId: input.correlationId,
+      action: "customer.updated",
+      customerId: record.id,
+      status: record.status,
+      changedFields: Object.keys(normalized),
+    });
+
+    return {
+      customer: toCustomerProfileDto(record),
+      permissions: buildPermissionHints(input.auth.role),
+      feedback: {
+        status: "updated",
+        message: "Customer updated.",
+      },
     };
   }
 }

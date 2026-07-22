@@ -11,16 +11,18 @@ classification: "roadmap"
 ## Status
 
 P1 through P11 are complete. DOCS-REFRESH-BEFORE-P12, UI-POLISH-BEFORE-P12,
-and PRE-P12-INTERACTION-ACTIVATION are complete. P12 Beta / GA Release
-Readiness is current. P12-PR-01 Beta / GA Scope + Release Criteria is complete,
+and PRE-P12-INTERACTION-ACTIVATION are complete.
+P12 Beta / GA Release Readiness is current.
+P12-PR-01 Beta / GA Scope + Release Criteria is complete,
 P12-PR-02 Release Candidate Validation + Smoke Test Matrix is complete, and
 P12-PR-03 Production Deployment Checklist + Rollback Drill is complete.
 P12-PR-04 Beta Feedback / Support / Known Issues Workflow is complete.
-P12-PR-05 Final GA Audit / Runbook is current work.
+P12-PR-05 Final GA Audit / Runbook is complete.
 
-P12 Beta / GA Release Readiness is current.
-
-CLARA is not GA yet. CLARA is not production deployed yet.
+P12 release-readiness is complete. P13 is current. P13 focuses internal CRM
+usage. billing/payment is deferred. CLARA is not production deployed yet.
+CLARA is not public GA launched yet. Customer CRUD is internal
+workspace-scoped. Backend AuthContext is the authority.
 
 ## Phase Status
 
@@ -38,7 +40,8 @@ CLARA is not GA yet. CLARA is not production deployed yet.
 | P9    | Analytics / Reporting / KPI             | complete |
 | P10   | Enterprise Hardening / Compliance       | complete |
 | P11   | Scale / Reliability / Billing           | complete |
-| P12   | Beta / GA Release Readiness             | current  |
+| P12   | Beta / GA Release Readiness             | complete |
+| P13   | Internal CRM Product Activation         | current  |
 
 ## P12 Compact Roadmap
 
@@ -46,7 +49,17 @@ CLARA is not GA yet. CLARA is not production deployed yet.
 - P12-PR-02 Release Candidate Validation + Smoke Test Matrix. Complete.
 - P12-PR-03 Production Deployment Checklist + Rollback Drill. Complete.
 - P12-PR-04 Beta Feedback / Support / Known Issues Workflow. Complete.
-- P12-PR-05 Final GA Audit / Runbook. Current.
+- P12-PR-05 Final GA Audit / Runbook. Complete.
+
+## P13 Compact Roadmap
+
+- P13-PR-01 Customer CRUD Activation. Current.
+- P13-PR-02 Customer Notes + Activity Timeline. Planned.
+- P13-PR-03 Lifecycle Status + Owner Assignment. Planned.
+- P13-PR-04 Follow-up Task Workflow. Planned.
+- P13-PR-05 Conversation-to-Customer Linking. Planned.
+- P13-PR-06 Internal Dashboard Analytics Wiring. Planned.
+- P13-PR-07 Internal CRM End-to-End QA + Runbook. Planned.
 
 ## Non-Launch Guardrails
 

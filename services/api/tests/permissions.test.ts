@@ -11,6 +11,8 @@ describe("permissions", () => {
     expect(getPermissionsForRole("owner")).toEqual([
       "conversation:read",
       "customer:read",
+      "customer:create",
+      "customer:update",
       "activity:read",
       "channel:read",
       "ai_draft:create",
@@ -21,6 +23,8 @@ describe("permissions", () => {
 
   it("grants agent operational permissions including AI draft and reply send", () => {
     expect(hasPermission("agent", "conversation:read")).toBe(true);
+    expect(hasPermission("agent", "customer:create")).toBe(true);
+    expect(hasPermission("agent", "customer:update")).toBe(true);
     expect(hasPermission("agent", "ai_draft:create")).toBe(true);
     expect(hasPermission("agent", "reply:send")).toBe(true);
     expect(hasPermission("agent", "integration:gmail_connect")).toBe(true);
@@ -29,6 +33,8 @@ describe("permissions", () => {
   it("keeps viewer read-only", () => {
     expect(hasPermission("viewer", "conversation:read")).toBe(true);
     expect(hasPermission("viewer", "customer:read")).toBe(true);
+    expect(hasPermission("viewer", "customer:create")).toBe(false);
+    expect(hasPermission("viewer", "customer:update")).toBe(false);
     expect(hasPermission("viewer", "activity:read")).toBe(true);
     expect(hasPermission("viewer", "channel:read")).toBe(true);
     expect(hasPermission("viewer", "ai_draft:create")).toBe(false);

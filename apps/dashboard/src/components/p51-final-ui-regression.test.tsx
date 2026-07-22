@@ -214,13 +214,13 @@ describe("P5.1 final UI regression", () => {
     expect(screen.getByLabelText("Customer context")).toBeInTheDocument();
     expect(screen.getByText("Reply composer")).toBeInTheDocument();
     expect(screen.getByText("Lead workspace preview")).toBeInTheDocument();
-    expect(screen.getByText("Customer workspace preview")).toBeInTheDocument();
+    expect(screen.getByText("Customer workspace")).toBeInTheDocument();
     expect(screen.getByText("Follow-up workspace preview")).toBeInTheDocument();
     expect(screen.getByText("Insight workspace preview")).toBeInTheDocument();
     expect(screen.getByText("Access workspace preview")).toBeInTheDocument();
   });
 
-  it("keeps planned placeholder pages non-mutating", () => {
+  it("keeps planned placeholder pages non-mutating and customer CRUD read-only safe", () => {
     render(
       <CrmCustomerWorkspace
         conversation={conversation}
@@ -246,6 +246,16 @@ describe("P5.1 final UI regression", () => {
         readOnly
       />,
     );
+
+    expect(
+      screen.getByRole("button", { name: "Viewer cannot create" }),
+    ).toBeDisabled();
+    expect(
+      screen.getByRole("button", { name: "Viewer cannot edit" }),
+    ).toBeDisabled();
+
+    cleanup();
+
     render(<ActionInsightAdminWorkspace readOnly />);
 
     for (const button of screen.getAllByRole("button")) {

@@ -44,6 +44,8 @@ describe("GET /api/v1/me", () => {
       permissions: [
         "conversation:read",
         "customer:read",
+        "customer:create",
+        "customer:update",
         "activity:read",
         "channel:read",
         "ai_draft:create",

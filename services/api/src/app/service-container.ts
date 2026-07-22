@@ -146,7 +146,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
     return {
       services: {
         conversations: new ConversationQueryService(conversationRepository),
-        customers: new CustomerQueryService(customerRepository),
+        customers: new CustomerQueryService(customerRepository, auditLogs),
         customerActionProposals: new CustomerActionProposalService(
           customerRepository,
           undefined,
@@ -303,7 +303,7 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
   return {
     services: {
       conversations: new ConversationQueryService(conversationRepository),
-      customers: new CustomerQueryService(customerRepository),
+      customers: new CustomerQueryService(customerRepository, auditLogs),
       customerActionProposals: new CustomerActionProposalService(
         customerRepository,
         undefined,
