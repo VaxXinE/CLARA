@@ -14,7 +14,7 @@ P12 Beta / GA Release Readiness is current. P12-PR-01 Beta / GA Scope +
 Release Criteria is complete. P12-PR-02 Release Candidate Validation + Smoke
 Test Matrix is complete. P12-PR-03 Production Deployment Checklist + Rollback
 Drill is complete. P12-PR-04 Beta Feedback / Support / Known Issues Workflow
-is current work.
+is complete. P12-PR-05 Final GA Audit / Runbook is current work.
 
 P12 Beta / GA Release Readiness is current.
 
@@ -29,8 +29,8 @@ different gates: Beta is controlled validation; GA is public launch readiness.
 - P12-PR-01 Beta / GA Scope + Release Criteria. Complete.
 - P12-PR-02 Release Candidate Validation + Smoke Test Matrix. Complete.
 - P12-PR-03 Production Deployment Checklist + Rollback Drill. Complete.
-- P12-PR-04 Beta Feedback / Support / Known Issues Workflow. Current.
-- P12-PR-05 Final GA Audit / Runbook.
+- P12-PR-04 Beta Feedback / Support / Known Issues Workflow. Complete.
+- P12-PR-05 Final GA Audit / Runbook. Current.
 
 ## Boundaries
 
@@ -42,6 +42,12 @@ Beta feedback workflow is controlled and privacy-safe. Known issues must be
 reviewed before GA. Feedback/support must not collect raw sensitive data. No
 external support tool integration happens in this PR. No auto-send or external
 ticket creation happens in this PR.
+P12 completion means release readiness complete. P12 completion does not mean
+production deployed. P12 completion does not mean public GA launch happened.
+Production deployment requires separate explicit approval and execution.
+Provider/payment/AI/outbound activation remains restricted unless future
+approved work enables it. Readiness-only/review-only/simulated/demo-safe
+boundaries remain intact.
 Release Candidate is a validation gate, not a launch. Smoke tests must not
 activate billing, payment, provider, AI, or outbound side effects. Billing
 remains readiness-only with no payment provider integration, no charging

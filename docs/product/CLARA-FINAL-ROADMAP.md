@@ -15,7 +15,8 @@ and PRE-P12-INTERACTION-ACTIVATION are complete. P12 Beta / GA Release
 Readiness is current. P12-PR-01 Beta / GA Scope + Release Criteria is complete,
 P12-PR-02 Release Candidate Validation + Smoke Test Matrix is complete, and
 P12-PR-03 Production Deployment Checklist + Rollback Drill is complete.
-P12-PR-04 Beta Feedback / Support / Known Issues Workflow is current work.
+P12-PR-04 Beta Feedback / Support / Known Issues Workflow is complete.
+P12-PR-05 Final GA Audit / Runbook is current work.
 
 P12 Beta / GA Release Readiness is current.
 
@@ -44,8 +45,8 @@ CLARA is not GA yet. CLARA is not production deployed yet.
 - P12-PR-01 Beta / GA Scope + Release Criteria. Complete.
 - P12-PR-02 Release Candidate Validation + Smoke Test Matrix. Complete.
 - P12-PR-03 Production Deployment Checklist + Rollback Drill. Complete.
-- P12-PR-04 Beta Feedback / Support / Known Issues Workflow. Current.
-- P12-PR-05 Final GA Audit / Runbook.
+- P12-PR-04 Beta Feedback / Support / Known Issues Workflow. Complete.
+- P12-PR-05 Final GA Audit / Runbook. Current.
 
 ## Non-Launch Guardrails
 
@@ -66,3 +67,9 @@ payload, no raw webhook payload, no raw usage events, no raw payment data, no
 raw telemetry, no access token, no refresh token, no cookies, no payment
 provider integration, no charging customers, no invoice creation, no quota
 enforcement, and no real AI provider.
+P12 completion means release readiness complete. P12 completion does not mean
+production deployed. P12 completion does not mean public GA launch happened.
+Production deployment requires separate explicit approval and execution.
+Provider/payment/AI/outbound activation remains restricted unless future
+approved work enables it. Readiness-only/review-only/simulated/demo-safe
+boundaries remain intact.

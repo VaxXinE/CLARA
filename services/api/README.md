@@ -21,7 +21,7 @@ P12 Beta / GA Release Readiness is current. P12-PR-01 Beta / GA Scope +
 Release Criteria is complete. P12-PR-02 Release Candidate Validation + Smoke
 Test Matrix is complete. P12-PR-03 Production Deployment Checklist + Rollback
 Drill is complete. P12-PR-04 Beta Feedback / Support / Known Issues Workflow
-is current work. P12 is release readiness, not feature expansion, not
+is complete. P12-PR-05 Final GA Audit / Runbook is current work. P12 is release readiness, not feature expansion, not
 billing launch, and not GA-ready yet. CLARA is not production deployed yet.
 Release Candidate is a validation gate, not a launch. The deployment checklist
 is a readiness gate, not deployment execution. Rollback drill is not automatic
@@ -29,6 +29,12 @@ production rollback.
 Beta feedback workflow is controlled and privacy-safe. Feedback/support must
 not collect raw sensitive data. No external support tool integration happens in
 this PR, and no auto-send or external ticket creation happens in this PR.
+P12 completion means release readiness complete. P12 completion does not mean
+production deployed. P12 completion does not mean public GA launch happened.
+Production deployment requires separate explicit approval and execution.
+Provider/payment/AI/outbound activation remains restricted unless future
+approved work enables it. Readiness-only/review-only/simulated/demo-safe
+boundaries remain intact.
 
 Core security boundaries: Backend AuthContext is the source of truth,
 workspace-scoped access is mandatory, frontend role guard is UX-only, client
