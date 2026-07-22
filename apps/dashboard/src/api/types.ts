@@ -1510,6 +1510,60 @@ export type KpiDashboardResponse = {
   audit?: AnalyticsAuditEvent;
 };
 
+export type InternalCrmDashboardAnalyticsResponse = {
+  workspaceId: string;
+  generatedAt: string;
+  timeWindow: "7d" | "30d" | "90d";
+  customers: {
+    total: number;
+    new: number;
+    active: number;
+  };
+  lifecycle: {
+    summary: Array<{ status: string; count: number }>;
+  };
+  owners: {
+    summary: Array<{
+      ownerUserId: string | null;
+      totalCustomers: number;
+      activeCustomers: number;
+    }>;
+  };
+  conversations: {
+    total: number;
+    linkedToCustomer: number;
+    unlinked: number;
+  };
+  followUps: {
+    open: number;
+    overdue: number;
+    byAssignee: Array<{ assigneeUserId: string | null; openCount: number }>;
+  };
+  activity: {
+    recentCrmActivityCount: number;
+  };
+  workflow: {
+    reviewOnly: true;
+    mutationAllowed: false;
+    billingPaymentDeferred: true;
+  };
+  health: {
+    status: "healthy" | "attention";
+    reasonCodes: string[];
+  };
+  safety: {
+    aggregated: true;
+    workspaceScoped: true;
+    readOnly: true;
+    rawPayloadIncluded: false;
+    tokensIncluded: false;
+    billingPaymentIncluded: false;
+    providerAiOutboundIncluded: false;
+    heavyAnalyticsJobCreated: false;
+    exportCreated: false;
+  };
+};
+
 export type QueueJobReliabilityReadinessResponse = {
   workspaceId: string;
   generatedAt: string;

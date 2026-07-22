@@ -20,8 +20,11 @@ P12-PR-05 Final GA Audit / Runbook is complete.
 
 P12 release-readiness is complete. P13 is current. P13 focuses internal CRM
 usage. P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is complete.
-P13-PR-04 is complete. P13-PR-05 is current. Internal CRM usage is the focus.
-billing/payment is deferred. Billing/payment remains deferred. CLARA is not
+P13-PR-04 is complete. P13-PR-05 is complete. P13-PR-06 is current.
+internal CRM usage is the focus. billing/payment is deferred. analytics are
+safe aggregated workspace-scoped metrics. this PR does not add
+billing/payment/provider/AI/outbound behavior. this PR does not add heavy
+analytics jobs or exports. Billing/payment remains deferred. CLARA is not
 production deployed yet. CLARA is not public GA launched yet. Customer CRUD is
 internal workspace-scoped. Notes/timeline are workspace-scoped internal CRM
 features. lifecycle/owner assignment are workspace-scoped internal CRM
@@ -58,6 +61,7 @@ find . -name '*.md' \
 | `docs/product/CLARA-P13-CUSTOMER-LIFECYCLE-OWNER-ASSIGNMENT.md` | P13 customer lifecycle status and owner assignment contract. |
 | `docs/product/CLARA-P13-FOLLOW-UP-TASK-WORKFLOW.md` | P13 follow-up task workflow contract. |
 | `docs/product/CLARA-P13-CONVERSATION-CUSTOMER-LINKING.md` | P13 conversation-to-customer linking contract. |
+| `docs/product/CLARA-P13-INTERNAL-DASHBOARD-ANALYTICS-WIRING.md` | P13 internal dashboard analytics wiring contract. |
 | `docs/product/CLARA-P13-BILLING-DEFERRED-POLICY.md` | P13 billing/payment deferred policy. |
 | `docs/product/CLARA-MVP-GAP-REVIEW.md`        | Product gap and phase progress review.                            |
 | `docs/product/CLARA-PHASE-CLOSURE-SUMMARY.md` | P1-P11 closure summary.                                           |

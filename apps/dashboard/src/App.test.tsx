@@ -11,6 +11,7 @@ import type {
   CustomerOwnerAssignmentReadinessResponse,
   CustomerProfileResponse,
   CustomerTimelineIntelligenceResponse,
+  InternalCrmDashboardAnalyticsResponse,
   MeResponse,
 } from "./api/types";
 import type { DashboardAuthClient } from "./auth/supabase-auth-client";
@@ -324,6 +325,36 @@ const channelHealthResponse = {
   },
 };
 
+const internalCrmDashboardAnalyticsResponse: InternalCrmDashboardAnalyticsResponse =
+  {
+    workspaceId: "wks_demo_sales",
+    generatedAt: "2026-07-22T00:00:00.000Z",
+    timeWindow: "30d",
+    customers: { total: 1, new: 0, active: 1 },
+    lifecycle: { summary: [{ status: "active", count: 1 }] },
+    owners: { summary: [] },
+    conversations: { total: 1, linkedToCustomer: 1, unlinked: 0 },
+    followUps: { open: 0, overdue: 0, byAssignee: [] },
+    activity: { recentCrmActivityCount: 1 },
+    workflow: {
+      reviewOnly: true,
+      mutationAllowed: false,
+      billingPaymentDeferred: true,
+    },
+    health: { status: "healthy", reasonCodes: ["ok"] },
+    safety: {
+      aggregated: true,
+      workspaceScoped: true,
+      readOnly: true,
+      rawPayloadIncluded: false,
+      tokensIncluded: false,
+      billingPaymentIncluded: false,
+      providerAiOutboundIncluded: false,
+      heavyAnalyticsJobCreated: false,
+      exportCreated: false,
+    },
+  };
+
 function jsonResponse(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {
     status,
@@ -415,6 +446,10 @@ describe("App", () => {
 
       if (url.includes("/api/v1/channels/health")) {
         return jsonResponse(channelHealthResponse);
+      }
+
+      if (url.includes("/api/v1/analytics/internal-crm-dashboard")) {
+        return jsonResponse(internalCrmDashboardAnalyticsResponse);
       }
 
       if (url.includes("/api/v1/conversations/conv_demo_budi_stock/activity")) {
@@ -548,6 +583,10 @@ describe("App", () => {
 
         if (url.includes("/api/v1/channels/health")) {
           return jsonResponse(channelHealthResponse);
+        }
+
+        if (url.includes("/api/v1/analytics/internal-crm-dashboard")) {
+          return jsonResponse(internalCrmDashboardAnalyticsResponse);
         }
 
         if (

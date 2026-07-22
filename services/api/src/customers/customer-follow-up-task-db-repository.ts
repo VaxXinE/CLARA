@@ -32,6 +32,20 @@ function toRecord(row: {
 export class DrizzleCustomerFollowUpTaskRepository implements CustomerFollowUpTaskRepository {
   constructor(private readonly db: Database) {}
 
+  async listScoped(
+    scope: WorkspaceScope,
+  ): Promise<CustomerFollowUpTaskRecord[]> {
+    const rows = await this.db.query.customerFollowUpTasks.findMany({
+      where: and(
+        eq(customerFollowUpTasks.organizationId, scope.organizationId),
+        eq(customerFollowUpTasks.workspaceId, scope.workspaceId),
+      ),
+      orderBy: [desc(customerFollowUpTasks.createdAt)],
+    });
+
+    return rows.map(toRecord);
+  }
+
   async listForCustomer(
     scope: WorkspaceScope,
     customerId: string,

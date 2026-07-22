@@ -660,6 +660,53 @@ describe("ApiClient auth headers", () => {
     expect(JSON.stringify(response)).not.toContain("refresh_token");
   });
 
+  it("loads internal CRM dashboard analytics safely", async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({
+        workspaceId: "wks_demo_sales",
+        generatedAt: "2026-07-22T00:00:00.000Z",
+        timeWindow: "30d",
+        customers: { total: 4, new: 1, active: 2 },
+        lifecycle: { summary: [{ status: "active", count: 2 }] },
+        owners: { summary: [] },
+        conversations: { total: 3, linkedToCustomer: 2, unlinked: 1 },
+        followUps: { open: 1, overdue: 0, byAssignee: [] },
+        activity: { recentCrmActivityCount: 2 },
+        workflow: {
+          reviewOnly: true,
+          mutationAllowed: false,
+          billingPaymentDeferred: true,
+        },
+        health: {
+          status: "attention",
+          reasonCodes: ["unlinked_conversations"],
+        },
+        safety: {
+          aggregated: true,
+          workspaceScoped: true,
+          readOnly: true,
+          rawPayloadIncluded: false,
+          tokensIncluded: false,
+          billingPaymentIncluded: false,
+          providerAiOutboundIncluded: false,
+          heavyAnalyticsJobCreated: false,
+          exportCreated: false,
+        },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new ApiClient({ baseUrl: "http://127.0.0.1:3000" });
+
+    const response = await client.getInternalCrmDashboardAnalytics();
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://127.0.0.1:3000/api/v1/analytics/internal-crm-dashboard",
+      expect.any(Object),
+    );
+    expect(response.workspaceId).toBe("wks_demo_sales");
+    expect(JSON.stringify(response)).not.toContain("refresh_token");
+  });
+
   it("loads customer profile intelligence safely", async () => {
     const fetchMock = vi.fn(async () =>
       jsonResponse({
