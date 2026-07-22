@@ -12,8 +12,9 @@ P1-P11 complete; P12 Beta / GA Release Readiness current
 
 The dashboard is current through P11 and remains read-only for readiness,
 analytics, compliance, billing, scale, and release-prep surfaces. P12 is
-release readiness, not feature expansion. P12-PR-01 is current work. CLARA is
-not GA-ready yet and is not production deployed yet.
+release readiness, not feature expansion. P12-PR-01 is complete. P12-PR-02 is
+current work. CLARA is not GA-ready yet and is not production deployed yet.
+Release Candidate is a validation gate, not a launch.
 
 Security policy: role guard is UX-only, backend auth is the source of truth,
 client workspaceId is never authority, no `dangerouslySetInnerHTML`, no raw
