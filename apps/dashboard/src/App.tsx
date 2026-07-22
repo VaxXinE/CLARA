@@ -17,6 +17,8 @@ import type {
   ConversationDetailResponse,
   ConversationListResponse,
   CustomerActivityTimelineResponse,
+  CustomerFollowUpTask,
+  CustomerFollowUpTaskListResponse,
   CustomerProfileIntelligenceResponse,
   CustomerLifecycleStatusReadinessResponse,
   CustomerListResponse,
@@ -152,6 +154,9 @@ function WorkspaceAppShell() {
     CustomerProfileResponse["customer"] | null
   >(null);
   const [customerNotes, setCustomerNotes] = useState<CustomerNote[]>([]);
+  const [customerTasks, setCustomerTasks] = useState<CustomerFollowUpTask[]>(
+    [],
+  );
   const [customerActivityTimeline, setCustomerActivityTimeline] = useState<
     CustomerActivityTimelineEvent[]
   >([]);
@@ -401,6 +406,7 @@ function WorkspaceAppShell() {
       setConversationDetail(null);
       setCustomer(null);
       setCustomerNotes([]);
+      setCustomerTasks([]);
       setCustomerActivityTimeline([]);
       setCustomerList([]);
       setCustomerListLoading(false);
@@ -1000,6 +1006,7 @@ function WorkspaceAppShell() {
         const [
           customerResponse,
           customerNotesResponse,
+          customerTasksResponse,
           customerActivityTimelineResponse,
           customerIntelligenceResponse,
           customerTimelineIntelligenceResponse,
@@ -1008,6 +1015,7 @@ function WorkspaceAppShell() {
         ] = await Promise.all([
           client.getCustomer(customerId),
           client.listCustomerNotes(customerId),
+          client.listCustomerFollowUpTasks(customerId),
           client.listCustomerActivityTimeline(customerId),
           client.getCustomerProfileIntelligence(customerId),
           client.getCustomerTimelineIntelligence(customerId),
@@ -1021,6 +1029,7 @@ function WorkspaceAppShell() {
 
         setCustomer(customerResponse.customer);
         setCustomerNotes(customerNotesResponse.data);
+        setCustomerTasks(customerTasksResponse.data);
         setCustomerActivityTimeline(customerActivityTimelineResponse.data);
         setCustomerIntelligence(customerIntelligenceResponse);
         setCustomerTimelineIntelligence(customerTimelineIntelligenceResponse);
@@ -1140,6 +1149,7 @@ function WorkspaceAppShell() {
     const [
       customerResponse,
       customerNotesResponse,
+      customerTasksResponse,
       customerActivityTimelineResponse,
       customerIntelligenceResponse,
       customerTimelineIntelligenceResponse,
@@ -1148,6 +1158,7 @@ function WorkspaceAppShell() {
     ] = await Promise.all([
       client.getCustomer(customerId),
       client.listCustomerNotes(customerId),
+      client.listCustomerFollowUpTasks(customerId),
       client.listCustomerActivityTimeline(customerId),
       client.getCustomerProfileIntelligence(customerId),
       client.getCustomerTimelineIntelligence(customerId),
@@ -1161,6 +1172,7 @@ function WorkspaceAppShell() {
     setActivityItems(activityResponse.data.items);
     setCustomer(customerResponse.customer);
     setCustomerNotes(customerNotesResponse.data);
+    setCustomerTasks(customerTasksResponse.data);
     setCustomerActivityTimeline(customerActivityTimelineResponse.data);
     setCustomerIntelligence(customerIntelligenceResponse);
     setCustomerTimelineIntelligence(customerTimelineIntelligenceResponse);
@@ -1178,15 +1190,18 @@ function WorkspaceAppShell() {
       role: selectedRole,
       accessToken: auth.session?.accessToken ?? null,
     });
-    const [notesResponse, timelineResponse]: [
+    const [notesResponse, tasksResponse, timelineResponse]: [
       CustomerNoteListResponse,
+      CustomerFollowUpTaskListResponse,
       CustomerActivityTimelineResponse,
     ] = await Promise.all([
       client.listCustomerNotes(customerId),
+      client.listCustomerFollowUpTasks(customerId),
       client.listCustomerActivityTimeline(customerId),
     ]);
 
     setCustomerNotes(notesResponse.data);
+    setCustomerTasks(tasksResponse.data);
     setCustomerActivityTimeline(timelineResponse.data);
   }
 
@@ -1195,6 +1210,7 @@ function WorkspaceAppShell() {
   ) {
     setCustomer(selectedCustomer);
     setCustomerNotes([]);
+    setCustomerTasks([]);
     setCustomerActivityTimeline([]);
     setCustomerError(null);
     setCustomerMutationMessage(null);
@@ -1223,6 +1239,7 @@ function WorkspaceAppShell() {
       const response = await client.createCustomer(payload);
       setCustomer(response.customer);
       setCustomerNotes([]);
+      setCustomerTasks([]);
       setCustomerActivityTimeline([
         {
           id: `${response.customer.id}:created`,
@@ -1369,6 +1386,73 @@ function WorkspaceAppShell() {
       );
     } finally {
       setCustomerNoteSaving(false);
+    }
+  }
+
+  async function handleCreateCustomerFollowUpTask(
+    customerId: string,
+    payload: {
+      title: string;
+      body?: string | null;
+      dueAt?: string | null;
+      assigneeUserId?: string | null;
+    },
+  ) {
+    const client = buildClient({
+      authMode: auth.config.mode,
+      role: selectedRole,
+      accessToken: auth.session?.accessToken ?? null,
+    });
+
+    setCustomerSaving(true);
+    setCustomerMutationMessage(null);
+    setCustomerMutationError(null);
+
+    try {
+      const response = await client.createCustomerFollowUpTask(
+        customerId,
+        payload,
+      );
+      await refreshCustomerNotesAndTimeline(customerId);
+      setCustomerMutationMessage(response.feedback.message);
+    } catch (error) {
+      setCustomerMutationError(
+        toSafeMessage(error, "Follow-up task could not be created."),
+      );
+    } finally {
+      setCustomerSaving(false);
+    }
+  }
+
+  async function handleUpdateCustomerFollowUpTaskStatus(
+    customerId: string,
+    taskId: string,
+    status: CustomerFollowUpTask["status"],
+  ) {
+    const client = buildClient({
+      authMode: auth.config.mode,
+      role: selectedRole,
+      accessToken: auth.session?.accessToken ?? null,
+    });
+
+    setCustomerSaving(true);
+    setCustomerMutationMessage(null);
+    setCustomerMutationError(null);
+
+    try {
+      const response = await client.updateCustomerFollowUpTaskStatus(
+        customerId,
+        taskId,
+        status,
+      );
+      await refreshCustomerNotesAndTimeline(customerId);
+      setCustomerMutationMessage(response.feedback.message);
+    } catch (error) {
+      setCustomerMutationError(
+        toSafeMessage(error, "Follow-up task could not be updated."),
+      );
+    } finally {
+      setCustomerSaving(false);
     }
   }
 
@@ -2039,6 +2123,7 @@ function WorkspaceAppShell() {
             mutationError: customerMutationError,
             isSaving: customerSaving,
             notes: customerNotes,
+            tasks: customerTasks,
             timeline: customerActivityTimeline,
             noteError: customerNoteError,
             isSavingNote: customerNoteSaving,
@@ -2048,6 +2133,9 @@ function WorkspaceAppShell() {
             onUpdateCustomerStatus: handleUpdateCustomerLifecycleStatus,
             onAssignCustomerOwner: handleAssignCustomerOwner,
             onCreateCustomerNote: handleCreateCustomerNote,
+            onCreateCustomerFollowUpTask: handleCreateCustomerFollowUpTask,
+            onUpdateCustomerFollowUpTaskStatus:
+              handleUpdateCustomerFollowUpTaskStatus,
             workspaceMembers,
           },
         }}

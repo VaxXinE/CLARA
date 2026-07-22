@@ -10,6 +10,7 @@ import {
   channelProviders,
   channelTypes,
   conversationStatuses,
+  customerFollowUpTaskStatuses,
   dbSchema,
   extensionSnapshotChannels,
   extensionSnapshotStatuses,
@@ -41,6 +42,7 @@ describe("database schema", () => {
       "workspaceMemberships",
       "customers",
       "customerNotes",
+      "customerFollowUpTasks",
       "conversations",
       "messages",
       "replyDrafts",
@@ -67,6 +69,7 @@ describe("database schema", () => {
     for (const tableName of [
       "customers",
       "customerNotes",
+      "customerFollowUpTasks",
       "conversations",
       "messages",
       "replyDrafts",
@@ -124,9 +127,19 @@ describe("database schema", () => {
       "customer.status.updated",
       "customer.owner.assigned",
       "customer.owner.reassigned",
+      "customer.follow_up_task.created",
+      "customer.follow_up_task.updated",
+      "customer.follow_up_task.completed",
+      "customer.follow_up_task.cancelled",
       "extension.snapshot.accepted",
       "extension.snapshot.duplicate",
       "extension.snapshot.rejected",
+    ]);
+    expect(customerFollowUpTaskStatuses).toEqual([
+      "open",
+      "in_progress",
+      "completed",
+      "cancelled",
     ]);
     expect(auditLogOutcomes).toEqual(["success", "failure"]);
     expect(auditLogResourceTypes).toEqual([

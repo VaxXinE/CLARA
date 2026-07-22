@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import type {
   CustomerActivityTimelineEvent,
+  CustomerFollowUpTask,
   CustomerMutationPayload,
   CustomerNote,
   CustomerProfileResponse,
@@ -8,6 +9,16 @@ import type {
 } from "../api/types";
 
 const NOTE_MAX_LENGTH = 2000;
+const TASK_BODY_MAX_LENGTH = 2000;
+const taskStatuses = [
+  { value: "open", label: "Open" },
+  { value: "in_progress", label: "In progress" },
+  { value: "completed", label: "Completed" },
+  { value: "cancelled", label: "Cancelled" },
+] as const satisfies ReadonlyArray<{
+  value: CustomerFollowUpTask["status"];
+  label: string;
+}>;
 const lifecycleStatuses = [
   { value: "new", label: "New" },
   { value: "active", label: "Active" },
@@ -25,6 +36,7 @@ type CustomerWorkspacePanelProps = {
   customer: CustomerProfileResponse["customer"] | null;
   customers: CustomerProfileResponse["customer"][];
   notes?: CustomerNote[];
+  tasks?: CustomerFollowUpTask[];
   timeline?: CustomerActivityTimelineEvent[];
   workspaceMembers?: WorkspaceMember[];
   loading: boolean;
@@ -50,6 +62,20 @@ type CustomerWorkspacePanelProps = {
     ownerUserId: string,
   ) => Promise<void>;
   onCreateCustomerNote?: (customerId: string, body: string) => Promise<void>;
+  onCreateCustomerFollowUpTask?: (
+    customerId: string,
+    payload: {
+      title: string;
+      body?: string | null;
+      dueAt?: string | null;
+      assigneeUserId?: string | null;
+    },
+  ) => Promise<void>;
+  onUpdateCustomerFollowUpTaskStatus?: (
+    customerId: string,
+    taskId: string,
+    status: CustomerFollowUpTask["status"],
+  ) => Promise<void>;
 };
 
 function summarizeSource(customer: CustomerProfileResponse["customer"] | null) {
@@ -93,6 +119,10 @@ export function CustomerWorkspacePanel(props: CustomerWorkspacePanelProps) {
   const [lifecycleStatus, setLifecycleStatus] =
     useState<NonNullable<CustomerMutationPayload["status"]>>("new");
   const [ownerUserId, setOwnerUserId] = useState("");
+  const [taskTitle, setTaskTitle] = useState("");
+  const [taskBody, setTaskBody] = useState("");
+  const [taskDueDate, setTaskDueDate] = useState("");
+  const [taskAssigneeUserId, setTaskAssigneeUserId] = useState("");
   const [noteBody, setNoteBody] = useState("");
   const [formError, setFormError] = useState<string | null>(null);
   const [noteFormError, setNoteFormError] = useState<string | null>(null);
@@ -243,6 +273,53 @@ export function CustomerWorkspacePanel(props: CustomerWorkspacePanelProps) {
 
     await props.onCreateCustomerNote?.(props.customer.id, body);
     setNoteBody("");
+  }
+
+  async function handleCreateFollowUpTask(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setFormError(null);
+
+    if (!props.customer) {
+      setFormError("Select a customer before creating a follow-up task.");
+      return;
+    }
+
+    const title = taskTitle.trim();
+
+    if (title.length === 0) {
+      setFormError("Follow-up task title is required.");
+      return;
+    }
+
+    if (taskBody.trim().length > TASK_BODY_MAX_LENGTH) {
+      setFormError("Follow-up task body is too long.");
+      return;
+    }
+
+    await props.onCreateCustomerFollowUpTask?.(props.customer.id, {
+      title,
+      body: taskBody.trim() || null,
+      dueAt: taskDueDate || null,
+      assigneeUserId: taskAssigneeUserId || null,
+    });
+
+    setTaskTitle("");
+    setTaskBody("");
+    setTaskDueDate("");
+    setTaskAssigneeUserId("");
+  }
+
+  async function handleTaskStatusChange(
+    task: CustomerFollowUpTask,
+    status: CustomerFollowUpTask["status"],
+  ) {
+    if (!props.customer) return;
+
+    await props.onUpdateCustomerFollowUpTaskStatus?.(
+      props.customer.id,
+      task.id,
+      status,
+    );
   }
 
   return (
@@ -551,6 +628,130 @@ export function CustomerWorkspacePanel(props: CustomerWorkspacePanelProps) {
       </div>
 
       <div className="customer-crud-grid">
+        <section className="state-card">
+          <strong>Follow-up tasks</strong>
+          {!props.customer ? (
+            <p>Select a customer before creating follow-up tasks.</p>
+          ) : null}
+
+          <form onSubmit={handleCreateFollowUpTask}>
+            <label className="field-label" htmlFor="customer-task-title">
+              Task title
+            </label>
+            <input
+              id="customer-task-title"
+              className="text-input"
+              value={taskTitle}
+              disabled={!props.customer || props.readOnly || props.isSaving}
+              maxLength={160}
+              onChange={(event) => setTaskTitle(event.target.value)}
+              placeholder="Call customer tomorrow"
+            />
+
+            <label className="field-label" htmlFor="customer-task-body">
+              Details
+            </label>
+            <textarea
+              id="customer-task-body"
+              className="text-input"
+              value={taskBody}
+              disabled={!props.customer || props.readOnly || props.isSaving}
+              maxLength={TASK_BODY_MAX_LENGTH}
+              onChange={(event) => setTaskBody(event.target.value)}
+              placeholder="Safe internal context only"
+            />
+
+            <label className="field-label" htmlFor="customer-task-due-date">
+              Due date
+            </label>
+            <input
+              id="customer-task-due-date"
+              className="text-input"
+              type="date"
+              value={taskDueDate}
+              disabled={!props.customer || props.readOnly || props.isSaving}
+              onChange={(event) => setTaskDueDate(event.target.value)}
+            />
+
+            <label className="field-label" htmlFor="customer-task-assignee">
+              Assignee
+            </label>
+            <select
+              id="customer-task-assignee"
+              className="text-input"
+              value={taskAssigneeUserId}
+              disabled={
+                !props.customer ||
+                props.readOnly ||
+                props.isSaving ||
+                activeWorkspaceMembers.length === 0
+              }
+              onChange={(event) => setTaskAssigneeUserId(event.target.value)}
+            >
+              <option value="">Unassigned</option>
+              {activeWorkspaceMembers.map((member) => (
+                <option key={member.user_id} value={member.user_id}>
+                  {member.email} · {member.role}
+                </option>
+              ))}
+            </select>
+
+            <button
+              type="submit"
+              className="primary-button"
+              disabled={
+                !props.customer ||
+                props.readOnly ||
+                props.isSaving ||
+                !props.onCreateCustomerFollowUpTask
+              }
+            >
+              {props.readOnly ? "Viewer cannot add task" : "Create task"}
+            </button>
+          </form>
+
+          {(props.tasks ?? []).length === 0 ? (
+            <p>No follow-up tasks yet.</p>
+          ) : null}
+          <ol className="timeline-list">
+            {(props.tasks ?? []).map((task) => (
+              <li key={task.id}>
+                <strong>{task.title}</strong>
+                {task.body ? <p>{task.body}</p> : null}
+                <small>
+                  {task.status} · due{" "}
+                  {task.due_at
+                    ? new Date(task.due_at).toLocaleDateString()
+                    : "unscheduled"}{" "}
+                  · assignee {task.assignee_user_id ?? "unassigned"}
+                </small>
+                <select
+                  className="text-input"
+                  aria-label={`Update ${task.title} status`}
+                  value={task.status}
+                  disabled={
+                    props.readOnly ||
+                    props.isSaving ||
+                    !props.onUpdateCustomerFollowUpTaskStatus
+                  }
+                  onChange={(event) =>
+                    void handleTaskStatusChange(
+                      task,
+                      event.target.value as CustomerFollowUpTask["status"],
+                    )
+                  }
+                >
+                  {taskStatuses.map((status) => (
+                    <option key={status.value} value={status.value}>
+                      {status.label}
+                    </option>
+                  ))}
+                </select>
+              </li>
+            ))}
+          </ol>
+        </section>
+
         <section className="state-card">
           <strong>Customer notes</strong>
           {!props.customer ? (

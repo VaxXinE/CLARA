@@ -39,6 +39,12 @@ export const customerStatuses = [
   "archived",
   "blocked",
 ] as const;
+export const customerFollowUpTaskStatuses = [
+  "open",
+  "in_progress",
+  "completed",
+  "cancelled",
+] as const;
 export const conversationStatuses = ["open", "pending", "closed"] as const;
 export const messageDirections = ["inbound", "outbound", "internal"] as const;
 export const senderTypes = ["customer", "agent", "system"] as const;
@@ -94,6 +100,10 @@ export const auditLogActions = [
   "customer.status.updated",
   "customer.owner.assigned",
   "customer.owner.reassigned",
+  "customer.follow_up_task.created",
+  "customer.follow_up_task.updated",
+  "customer.follow_up_task.completed",
+  "customer.follow_up_task.cancelled",
   "extension.snapshot.accepted",
   "extension.snapshot.duplicate",
   "extension.snapshot.rejected",
@@ -432,6 +442,64 @@ export const customerNotes = pgTable(
       table.workspaceId,
       table.authorUserId,
       table.createdAt,
+    ),
+  ],
+);
+
+export const customerFollowUpTasks = pgTable(
+  "customer_follow_up_tasks",
+  {
+    id: text("id").primaryKey(),
+    organizationId: text("organization_id")
+      .notNull()
+      .references(() => organizations.id),
+    workspaceId: text("workspace_id")
+      .notNull()
+      .references(() => workspaces.id),
+    customerId: text("customer_id")
+      .notNull()
+      .references(() => customers.id),
+    title: text("title").notNull(),
+    body: text("body"),
+    status: text("status").notNull().default("open"),
+    dueAt: timestamp("due_at", { withTimezone: true }),
+    assigneeUserId: text("assignee_user_id").references(() => users.id),
+    createdByUserId: text("created_by_user_id")
+      .notNull()
+      .references(() => users.id),
+    completedAt: timestamp("completed_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    check(
+      "customer_follow_up_tasks_title_not_empty",
+      sql`char_length(trim(${table.title})) > 0`,
+    ),
+    check(
+      "customer_follow_up_tasks_title_length",
+      sql`char_length(${table.title}) <= 160`,
+    ),
+    check(
+      "customer_follow_up_tasks_body_length",
+      sql`${table.body} is null or char_length(${table.body}) <= 2000`,
+    ),
+    textOneOf("status", customerFollowUpTaskStatuses),
+    index("idx_customer_follow_up_tasks_scope_customer_created").on(
+      table.organizationId,
+      table.workspaceId,
+      table.customerId,
+      table.createdAt,
+    ),
+    index("idx_customer_follow_up_tasks_scope_assignee_due").on(
+      table.organizationId,
+      table.workspaceId,
+      table.assigneeUserId,
+      table.dueAt,
     ),
   ],
 );
@@ -1686,6 +1754,7 @@ export const dbSchema = {
   workspaceMemberships,
   customers,
   customerNotes,
+  customerFollowUpTasks,
   conversations,
   messages,
   replyDrafts,

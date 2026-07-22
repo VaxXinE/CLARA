@@ -235,6 +235,42 @@ export class AuditLogService {
     });
   }
 
+  async recordCustomerFollowUpTaskChanged(
+    input: AuditContextInput & {
+      action:
+        | "customer.follow_up_task.created"
+        | "customer.follow_up_task.updated"
+        | "customer.follow_up_task.completed"
+        | "customer.follow_up_task.cancelled";
+      customerId: string;
+      taskId: string;
+      status: string;
+      assigneeUserId: string | null;
+      dueAt: Date | null;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: input.action,
+      resourceType: "customer",
+      resourceId: input.customerId,
+      outcome: "success",
+      metadata: compactMetadata({
+        customer_id: input.customerId,
+        task_id: input.taskId,
+        status: input.status,
+        assignee_user_id: input.assigneeUserId,
+        due_at: input.dueAt?.toISOString() ?? null,
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
   async recordAiSuggestionRequested(
     input: AuditContextInput & {
       conversationId: string;

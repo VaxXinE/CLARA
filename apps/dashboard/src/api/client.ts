@@ -21,6 +21,9 @@ import type {
   ConversationListResponse,
   CoreOperationalMetricsResponse,
   CustomerActivityTimelineResponse,
+  CustomerFollowUpTaskListResponse,
+  CustomerFollowUpTaskMutationResponse,
+  CustomerFollowUpTask,
   CustomerNoteListResponse,
   CustomerNoteMutationResponse,
   CrmWorkflowMetricsResponse,
@@ -238,6 +241,48 @@ export class ApiClient {
       {
         method: "POST",
         body: JSON.stringify(payload),
+      },
+    );
+  }
+
+  async listCustomerFollowUpTasks(
+    customerId: string,
+  ): Promise<CustomerFollowUpTaskListResponse> {
+    return this.request<CustomerFollowUpTaskListResponse>(
+      `/api/v1/customers/${encodeURIComponent(customerId)}/tasks`,
+    );
+  }
+
+  async createCustomerFollowUpTask(
+    customerId: string,
+    payload: {
+      title: string;
+      body?: string | null;
+      dueAt?: string | null;
+      assigneeUserId?: string | null;
+    },
+  ): Promise<CustomerFollowUpTaskMutationResponse> {
+    return this.request<CustomerFollowUpTaskMutationResponse>(
+      `/api/v1/customers/${encodeURIComponent(customerId)}/tasks`,
+      {
+        method: "POST",
+        body: JSON.stringify(payload),
+      },
+    );
+  }
+
+  async updateCustomerFollowUpTaskStatus(
+    customerId: string,
+    taskId: string,
+    status: CustomerFollowUpTask["status"],
+  ): Promise<CustomerFollowUpTaskMutationResponse> {
+    return this.request<CustomerFollowUpTaskMutationResponse>(
+      `/api/v1/customers/${encodeURIComponent(
+        customerId,
+      )}/tasks/${encodeURIComponent(taskId)}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify({ status }),
       },
     );
   }
