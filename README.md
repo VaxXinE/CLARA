@@ -19,7 +19,7 @@ It contains the documentation, architecture, standards, templates, governance, i
 ```text
 Status: P1-P14 complete; local product slice runnable
 Current focus: P15 Controlled Internal Beta Execution
-Current PR: P15-PR-01 Controlled Internal Beta Execution Scope + Operating Rules
+Current PR: P15-PR-02 Internal Runtime Smoke Execution + Evidence Log
 Launch status: not public GA launched yet; not production deployed yet
 ```
 
@@ -27,8 +27,12 @@ P13 Internal CRM Product Activation is complete. P14 Internal Beta Rollout
 Preparation is complete. P14-PR-01 is complete. P14-PR-02 is
 complete. P14-PR-03 is complete. P14-PR-04 is complete. P14-PR-05 is complete.
 P14-PR-06 is complete. P15 Controlled Internal Beta Execution is current.
-P15-PR-01 is current. Controlled internal beta execution is internal-only.
-controlled internal beta is internal-only. Controlled internal beta is not
+P15-PR-01 is complete. P15-PR-02 is current. Controlled internal beta execution
+is internal-only. runtime smoke execution is internal-only. Runtime smoke
+execution is not public SaaS launch. runtime smoke execution is not public SaaS
+launch. Runtime smoke execution is not production deployment claim unless
+separately executed. runtime smoke execution is not production deployment claim
+unless separately executed. controlled internal beta is internal-only. Controlled internal beta is not
 public SaaS launch. controlled internal beta is not public SaaS launch.
 Controlled internal beta is not production deployment claim unless separately
 executed. controlled internal beta is not production deployment claim unless
@@ -110,6 +114,13 @@ docs/product/CLARA-DOCUMENTATION-INDEX.md
 docs/product/CLARA-FINAL-ROADMAP.md
 docs/product/CLARA-P15-CONTROLLED-INTERNAL-BETA-ROADMAP.md
 docs/product/CLARA-P15-CONTROLLED-INTERNAL-BETA-EXECUTION-SCOPE.md
+docs/product/CLARA-P15-INTERNAL-RUNTIME-SMOKE-EXECUTION-RUNBOOK.md
+docs/product/CLARA-P15-INTERNAL-RUNTIME-EVIDENCE-LOG-TEMPLATE.md
+docs/product/CLARA-P15-API-SMOKE-EXECUTION-CHECKLIST.md
+docs/product/CLARA-P15-DASHBOARD-SMOKE-EXECUTION-CHECKLIST.md
+docs/product/CLARA-P15-EXTENSION-SMOKE-EXECUTION-CHECKLIST.md
+docs/product/CLARA-P15-EVIDENCE-PRIVACY-BOUNDARY.md
+docs/product/CLARA-P15-EVIDENCE-RETENTION-HANDLING-POLICY.md
 docs/product/CLARA-P15-INTERNAL-BETA-OPERATING-RULES.md
 docs/product/CLARA-P15-INTERNAL-BETA-PARTICIPANT-RULES.md
 docs/product/CLARA-P15-INTERNAL-BETA-EVIDENCE-LOG-POLICY.md

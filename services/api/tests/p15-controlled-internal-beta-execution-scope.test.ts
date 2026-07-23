@@ -38,7 +38,8 @@ describe("P15 controlled internal beta execution scope", () => {
     expect(docs).toContain("P14-PR-05 is complete");
     expect(docs).toContain("P14-PR-06 is complete");
     expect(docs).toContain("P15 Controlled Internal Beta Execution is current");
-    expect(docs).toContain("P15-PR-01 is current");
+    expect(docs).toContain("P15-PR-01 is complete");
+    expect(docs).toContain("P15-PR-02 is current");
     expect(docs).toContain("controlled internal beta is internal-only");
   });
 });

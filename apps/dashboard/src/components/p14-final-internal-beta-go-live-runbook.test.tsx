@@ -6,7 +6,7 @@ describe("P14 final internal beta go-live runbook dashboard", () => {
     const readme = dashboardReadme.replace(/\s+/g, " ");
 
     expect(readme).toContain("P14-PR-06 is complete");
-    expect(readme).toContain("P15-PR-01 is current");
+    expect(readme).toContain("P15-PR-02 is current");
     expect(readme).toContain(
       "Internal beta go-live is controlled internal usage only",
     );
