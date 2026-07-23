@@ -19,18 +19,21 @@ It contains the documentation, architecture, standards, templates, governance, i
 ```text
 Status: P1-P13 complete; local product slice runnable
 Current focus: P14 Internal Beta Rollout Preparation
-Current PR: P14-PR-01 Internal Beta Rollout Scope + Environment Plan
+Current PR: P14-PR-02 Internal User Bootstrap + Role Setup
 Launch status: not public GA launched yet; not production deployed yet
 ```
 
 P13 Internal CRM Product Activation is complete. P14 is current and prepares
-CLARA for controlled internal team usage. internal use first is the rollout
-rule. billing deferred and public launch deferred remain explicit boundaries.
+CLARA for controlled internal team usage. P14-PR-01 is complete. P14-PR-02 is
+current. Internal user setup is for internal beta rollout.
+owner/admin/operator/viewer roles are defined. internal use first is the rollout
+rule. billing/payment is deferred and public SaaS launch is deferred.
 production deployment requires separate explicit action; this repository update
 does not deploy production automatically. Provider/AI/outbound activation
-remains controlled. internal user roles are defined, internal data policy exists,
-and security checklist exists for the internal beta gate. Backend AuthContext
-remains the authority and workspace isolation must not be weakened.
+remains controlled. Backend AuthContext and workspace membership remain source
+of truth. Client supplied workspaceId is not authoritative. internal user roles
+are defined, internal data policy exists, and security checklist exists for the
+internal beta gate.
 
 Current MVP implementation:
 
@@ -100,6 +103,10 @@ docs/product/CLARA-P14-INTERNAL-ENVIRONMENT-PLAN.md
 docs/product/CLARA-P14-INTERNAL-USER-ROLE-PLAN.md
 docs/product/CLARA-P14-INTERNAL-DATA-POLICY.md
 docs/product/CLARA-P14-INTERNAL-SECURITY-CHECKLIST.md
+docs/product/CLARA-P14-INTERNAL-USER-BOOTSTRAP-ROLE-SETUP.md
+docs/product/CLARA-P14-INTERNAL-ROLE-PERMISSION-MATRIX.md
+docs/product/CLARA-P14-INTERNAL-USER-ONBOARDING-CHECKLIST.md
+docs/product/CLARA-P14-INTERNAL-OWNER-ADMIN-RUNBOOK.md
 docs/product/CLARA-P13-INTERNAL-CRM-ACTIVATION-ROADMAP.md
 docs/product/CLARA-P13-CUSTOMER-CRUD-ACTIVATION.md
 docs/product/CLARA-P13-CUSTOMER-NOTES-ACTIVITY-TIMELINE.md
