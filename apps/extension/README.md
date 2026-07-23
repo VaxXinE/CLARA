@@ -11,8 +11,14 @@ P1-P13 complete; P14 Internal Beta Rollout Preparation current
 ## Scope
 
 The extension boundary is current through P14. P14-PR-01 is complete.
-P14-PR-02 is complete. P14-PR-03 is complete. P14-PR-04 is current. Internal
-access QA is for internal beta rollout. Owner/admin/operator/viewer access
+P14-PR-02 is complete. P14-PR-03 is complete. P14-PR-04 is complete.
+P14-PR-05 is current. Internal usage feedback loop is for internal beta
+rollout. Feedback triage is manual/local/repo-safe unless separately approved.
+Feedback must not include secrets/tokens/cookies/auth headers/raw provider
+payload/raw webhook payload/raw HTML/raw DOM/raw prompts/payment data. Feedback
+should minimize customer-sensitive data. Known issues workflow is internal beta
+only. no external support tool integration is activated. Internal access QA is
+complete for internal beta rollout. Owner/admin/operator/viewer access
 boundaries are reviewed. Viewer/read-only mutation blocking is required.
 Operator CRM access is scoped. Admin/owner elevated actions require workspace
 membership and proper role. AuthContext and workspace membership remain source

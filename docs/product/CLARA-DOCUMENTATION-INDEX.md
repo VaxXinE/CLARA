@@ -16,7 +16,13 @@ Internal CRM Product Activation are complete.
 
 P14 is current. P14 prepares CLARA for controlled internal team usage. P14-PR-01
 is complete. P14-PR-02 is complete. P14-PR-03 is complete. P14-PR-04 is
-current. Internal access QA is for internal beta rollout.
+complete. P14-PR-05 is current. Internal usage feedback loop is for internal
+beta rollout. Feedback triage is manual/local/repo-safe unless separately
+approved. Feedback must not include secrets/tokens/cookies/auth headers/raw
+provider payload/raw webhook payload/raw HTML/raw DOM/raw prompts/payment data.
+Feedback should minimize customer-sensitive data. Known issues workflow is
+internal beta only. no external support tool integration is activated. Internal
+access QA is complete for internal beta rollout.
 Owner/admin/operator/viewer access boundaries are reviewed. Viewer/read-only
 mutation blocking is required. Operator CRM access is scoped. Admin/owner
 elevated actions require workspace membership and proper role. Internal data
@@ -71,6 +77,13 @@ find . -name '*.md' \
 | `docs/product/CLARA-P14-INTERNAL-ROLE-ACCESS-REVIEW.md` | P14 role access review. |
 | `docs/product/CLARA-P14-WORKSPACE-ISOLATION-QA.md` | P14 workspace isolation QA. |
 | `docs/product/CLARA-P14-INTERNAL-DATA-IMPORT-SECURITY-REVIEW.md` | P14 internal data import security review. |
+| `docs/product/CLARA-P14-INTERNAL-USAGE-FEEDBACK-LOOP.md` | P14 internal usage feedback loop. |
+| `docs/product/CLARA-P14-INTERNAL-FEEDBACK-TRIAGE-RUNBOOK.md` | P14 internal feedback triage runbook. |
+| `docs/product/CLARA-P14-INTERNAL-FEEDBACK-SEVERITY-POLICY.md` | P14 internal feedback severity policy. |
+| `docs/product/CLARA-P14-INTERNAL-BUG-REPORT-TEMPLATE.md` | P14 internal bug report template. |
+| `docs/product/CLARA-P14-INTERNAL-USABILITY-FEEDBACK-TEMPLATE.md` | P14 internal usability feedback template. |
+| `docs/product/CLARA-P14-INTERNAL-FEEDBACK-PRIVACY-BOUNDARY.md` | P14 feedback privacy boundary. |
+| `docs/product/CLARA-P14-INTERNAL-KNOWN-ISSUES-WORKFLOW.md` | P14 internal known issues workflow. |
 | `docs/product/CLARA-P13-INTERNAL-CRM-ACTIVATION-ROADMAP.md` | Active P13 internal CRM roadmap. |
 | `docs/product/CLARA-P13-CUSTOMER-CRUD-ACTIVATION.md` | P13 customer CRUD activation contract. |
 | `docs/product/CLARA-P13-CUSTOMER-NOTES-ACTIVITY-TIMELINE.md` | P13 customer notes and safe activity timeline contract. |

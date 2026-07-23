@@ -24,7 +24,7 @@ describe("P14 internal access QA security review", () => {
     expect(docs).toContain("P14-PR-01 is complete");
     expect(docs).toContain("P14-PR-02 is complete");
     expect(docs).toContain("P14-PR-03 is complete");
-    expect(docs).toContain("P14-PR-04 is current");
+    expect(docs).toContain("P14-PR-04 is complete");
     expect(docs).toContain("Internal access QA is for internal beta rollout");
     expect(docs).toContain(
       "Owner/admin/operator/viewer access boundaries are reviewed",

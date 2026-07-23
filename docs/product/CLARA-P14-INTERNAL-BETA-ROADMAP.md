@@ -4,10 +4,16 @@
 
 P13 Internal CRM Product Activation is complete. P14 is current. P14 prepares
 CLARA for controlled internal team usage. P14-PR-01 is complete. P14-PR-02 is
-complete. P14-PR-03 is complete. P14-PR-04 is current. Internal access QA is
+complete. P14-PR-03 is complete. P14-PR-04 is complete. P14-PR-05 is current.
+Internal usage feedback loop is for internal beta rollout. Feedback triage is
+manual/local/repo-safe unless separately approved. Feedback must not include
+secrets/tokens/cookies/auth headers/raw provider payload/raw webhook payload/raw
+HTML/raw DOM/raw prompts/payment data. Feedback should minimize
+customer-sensitive data. Known issues workflow is internal beta only. no
+external support tool integration is activated. Internal access QA is complete
 for internal beta rollout. Owner/admin/operator/viewer access boundaries are
-reviewed. Viewer/read-only mutation blocking is required. Operator CRM access
-is scoped. Admin/owner elevated actions require workspace membership and proper
+reviewed. Viewer/read-only mutation blocking is required. Operator CRM access is
+scoped. Admin/owner elevated actions require workspace membership and proper
 role. Internal data import remains workspace-scoped and safe. internal use
 first, billing deferred, public launch deferred, and production deployment
 requires separate explicit action remain the core rollout constraints.
@@ -19,7 +25,8 @@ requires separate explicit action remain the core rollout constraints.
 | P14-PR-01 | Internal Beta Rollout Scope + Environment Plan | complete |
 | P14-PR-02 | Internal User Bootstrap + Role Setup | complete |
 | P14-PR-03 | Internal Data Seeding / Import Workflow | complete |
-| P14-PR-04 | Internal Access QA + Security Review | current |
+| P14-PR-04 | Internal Access QA + Security Review | complete |
+| P14-PR-05 | Internal Usage Feedback Loop | current |
 
 ## P14-PR-01 Deliverables
 
@@ -69,16 +76,31 @@ requires separate explicit action remain the core rollout constraints.
 - Secrets/tokens/cookies/raw provider payload/raw webhook payload/raw HTML/payment
   data must not be imported or exposed.
 
+## P14-PR-05 Deliverables
+
+- Internal usage feedback loop exists.
+- Internal bug report template exists.
+- Internal usability feedback template exists.
+- Feedback triage runbook exists.
+- Feedback severity/priority policy exists.
+- Known issues workflow is internal beta only.
+- Feedback privacy boundary exists.
+- Feedback must not include secrets/tokens/cookies/auth headers/raw provider payload/raw webhook payload/raw HTML/raw DOM/raw prompts/payment data.
+- Feedback should minimize customer-sensitive data.
+- no external support tool integration is activated.
+
 ## Non-Goals
 
-P14-PR-04 does not implement billing, payment SDKs, public launch, production
+P14-PR-05 does not implement billing, payment SDKs, public launch, production
 deployment automation, real provider activation, real AI activation, real
 outbound activation, secrets, credentials, invite mutation, role mutation,
-membership deletion, import endpoint, dashboard upload, background job, queue
-execution, heavy ETL, raw provider payload import, raw webhook payload import,
-raw HTML rendering, or auth/workspace isolation changes. Backend AuthContext and
-workspace membership remain source of truth. Client supplied workspaceId is not
-authoritative. Provider/AI/outbound activation remains controlled.
+membership deletion, feedback submission endpoint, external support tool
+integration, notification send, import endpoint, dashboard upload, background
+job, queue execution, heavy ETL, raw provider payload import, raw webhook payload
+import, raw HTML rendering, or auth/workspace isolation changes. Backend
+AuthContext and workspace membership remain source of truth. Client supplied
+workspaceId is not authoritative. Provider/AI/outbound activation remains
+controlled.
 
 ## Handoff Criteria
 
@@ -90,4 +112,4 @@ P14 can move beyond P14-PR-01 only after:
 - Environment plan confirms production deployment requires separate explicit
   action.
 - Provider/AI/outbound activation remains controlled.
-- Validation prints `CLARA P14-PR-04 VALIDATION PASSED`.
+- Validation prints `CLARA P14-PR-05 VALIDATION PASSED`.

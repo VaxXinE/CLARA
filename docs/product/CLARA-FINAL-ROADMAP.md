@@ -17,9 +17,15 @@ complete.
 
 P14 is current. P14 prepares CLARA for controlled internal team usage after the
 internal CRM workflow became usable in local/dev-safe mode. P14-PR-01 is
-complete. P14-PR-02 is complete. P14-PR-03 is complete. P14-PR-04 is current.
-Internal access QA is for internal beta rollout. Owner/admin/operator/viewer
-access boundaries are reviewed. Viewer/read-only mutation blocking is required.
+complete. P14-PR-02 is complete. P14-PR-03 is complete. P14-PR-04 is complete.
+P14-PR-05 is current. Internal usage feedback loop is for internal beta rollout.
+Feedback triage is manual/local/repo-safe unless separately approved. Feedback
+must not include secrets/tokens/cookies/auth headers/raw provider payload/raw
+webhook payload/raw HTML/raw DOM/raw prompts/payment data. Feedback should
+minimize customer-sensitive data. Known issues workflow is internal beta only.
+no external support tool integration is activated. Internal access QA is complete
+for internal beta rollout. Owner/admin/operator/viewer access boundaries are
+reviewed. Viewer/read-only mutation blocking is required.
 Operator CRM access is scoped. Admin/owner elevated actions require workspace
 membership and proper role. Internal data import remains workspace-scoped and
 safe. owner/admin/operator/viewer roles are defined. internal use first is the
@@ -77,7 +83,8 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 - P14-PR-01 Internal Beta Rollout Scope + Environment Plan. Complete.
 - P14-PR-02 Internal User Bootstrap + Role Setup. Complete.
 - P14-PR-03 Internal Data Seeding / Import Workflow. Complete.
-- P14-PR-04 Internal Access QA + Security Review. Current.
+- P14-PR-04 Internal Access QA + Security Review. Complete.
+- P14-PR-05 Internal Usage Feedback Loop. Current.
 
 ## Non-Launch Guardrails
 
