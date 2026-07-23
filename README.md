@@ -17,35 +17,20 @@ It contains the documentation, architecture, standards, templates, governance, i
 # Repository Status
 
 ```text
-Status: P1-P12 complete; local product slice runnable
-Current focus: P13 Internal CRM Product Activation
-Current PR: P13-PR-07 Internal CRM End-to-End QA + Runbook
+Status: P1-P13 complete; local product slice runnable
+Current focus: P14 Internal Beta Rollout Preparation
+Current PR: P14-PR-01 Internal Beta Rollout Scope + Environment Plan
 Launch status: not public GA launched yet; not production deployed yet
 ```
 
-P12 release-readiness is complete. P13 is current. P13 focuses internal CRM
-usage. P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is complete.
-P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is complete.
-P13-PR-04 is complete. P13-PR-05 is complete. P13-PR-06 is complete.
-P13-PR-07 is current. P13 internal CRM activation is complete only after this
-PR validates. CLARA is usable for internal CRM workflow after P13.
-internal CRM usage is the focus. billing/payment is deferred. analytics are
-safe aggregated workspace-scoped metrics. this PR does not add
-billing/payment/provider/AI/outbound behavior. this PR does not add heavy
-analytics jobs or exports. no real provider/payment/AI/outbound behavior is
-activated. no real external provider credentials are required. Billing/payment
-remains deferred. Public SaaS launch is deferred. CLARA is not production
-deployed yet. CLARA is not public GA launched yet. Customer CRUD is
-internal workspace-scoped. Notes/timeline are workspace-scoped internal CRM
-features. lifecycle/owner assignment are workspace-scoped internal CRM features.
-owner assignment requires valid workspace membership. Follow-up tasks are
-workspace-scoped internal CRM features. task assignee requires valid workspace
-membership. this PR does not auto-send external notifications. Backend
-AuthContext is the authority. Timeline/audit must not expose raw
-provider/audit/secrets/message bodies. Conversation-to-customer linking is
-workspace-scoped. Linking is explicit user-approved internal CRM action. This PR
-does not auto-create or auto-merge customers. This PR does not activate real
-provider/payment/AI/outbound behavior.
+P13 Internal CRM Product Activation is complete. P14 is current and prepares
+CLARA for controlled internal team usage. internal use first is the rollout
+rule. billing deferred and public launch deferred remain explicit boundaries.
+production deployment requires separate explicit action; this repository update
+does not deploy production automatically. Provider/AI/outbound activation
+remains controlled. internal user roles are defined, internal data policy exists,
+and security checklist exists for the internal beta gate. Backend AuthContext
+remains the authority and workspace isolation must not be weakened.
 
 Current MVP implementation:
 
@@ -109,6 +94,12 @@ Start here for local usage:
 ```text
 docs/product/CLARA-DOCUMENTATION-INDEX.md
 docs/product/CLARA-FINAL-ROADMAP.md
+docs/product/CLARA-P14-INTERNAL-BETA-ROADMAP.md
+docs/product/CLARA-P14-INTERNAL-BETA-ROLLOUT-SCOPE.md
+docs/product/CLARA-P14-INTERNAL-ENVIRONMENT-PLAN.md
+docs/product/CLARA-P14-INTERNAL-USER-ROLE-PLAN.md
+docs/product/CLARA-P14-INTERNAL-DATA-POLICY.md
+docs/product/CLARA-P14-INTERNAL-SECURITY-CHECKLIST.md
 docs/product/CLARA-P13-INTERNAL-CRM-ACTIVATION-ROADMAP.md
 docs/product/CLARA-P13-CUSTOMER-CRUD-ACTIVATION.md
 docs/product/CLARA-P13-CUSTOMER-NOTES-ACTIVITY-TIMELINE.md
