@@ -19,19 +19,25 @@ It contains the documentation, architecture, standards, templates, governance, i
 ```text
 Status: P1-P13 complete; local product slice runnable
 Current focus: P14 Internal Beta Rollout Preparation
-Current PR: P14-PR-05 Internal Usage Feedback Loop
+Current PR: P14-PR-06 Final Internal Beta Go-Live Runbook
 Launch status: not public GA launched yet; not production deployed yet
 ```
 
 P13 Internal CRM Product Activation is complete. P14 is current and prepares
 CLARA for controlled internal team usage. P14-PR-01 is complete. P14-PR-02 is
-complete. P14-PR-03 is complete. P14-PR-04 is complete. P14-PR-05 is current.
-Internal usage feedback loop is for internal beta rollout. Feedback triage is
-manual/local/repo-safe unless separately approved. Feedback must not include
-secrets/tokens/cookies/auth headers/raw provider payload/raw webhook payload/raw
-HTML/raw DOM/raw prompts/payment data. Feedback should minimize
-customer-sensitive data. Known issues workflow is internal beta only. No
-external support tool integration is activated. Internal access QA is complete
+complete. P14-PR-03 is complete. P14-PR-04 is complete. P14-PR-05 is complete.
+P14-PR-06 is current. P14 internal beta rollout preparation is complete only
+after this PR validates. Internal beta go-live is controlled internal usage
+only. Internal beta is not public SaaS launch. Internal beta is not production
+deployment claim unless separately executed. Internal beta is not a production
+deployment claim unless separately executed. Internal usage feedback loop is for
+internal beta rollout. Feedback triage is manual/local/repo-safe unless
+separately approved. Feedback must not include secrets/tokens/cookies/auth
+headers/raw provider payload/raw webhook payload/raw HTML/raw DOM/raw
+prompts/payment data. Feedback should minimize customer-sensitive data. Known
+limitations must be reviewed before broader rollout. Known issues workflow is
+internal beta only. No external support tool integration is activated. Internal
+access QA is complete
 for internal beta rollout. Owner/admin/operator/viewer access boundaries are
 reviewed. Viewer/read-only mutation blocking is required. Internal data
 seeding/import is for internal beta rollout. Only approved internal CRM data may
@@ -136,6 +142,15 @@ docs/product/CLARA-P14-INTERNAL-BUG-REPORT-TEMPLATE.md
 docs/product/CLARA-P14-INTERNAL-USABILITY-FEEDBACK-TEMPLATE.md
 docs/product/CLARA-P14-INTERNAL-FEEDBACK-PRIVACY-BOUNDARY.md
 docs/product/CLARA-P14-INTERNAL-KNOWN-ISSUES-WORKFLOW.md
+docs/product/CLARA-P14-FINAL-INTERNAL-BETA-GO-LIVE-RUNBOOK.md
+docs/product/CLARA-P14-INTERNAL-BETA-GO-NO-GO-CHECKLIST.md
+docs/product/CLARA-P14-INTERNAL-BETA-OPERATOR-HANDOFF.md
+docs/product/CLARA-P14-INTERNAL-BETA-ADMIN-HANDOFF.md
+docs/product/CLARA-P14-INTERNAL-BETA-SUPPORT-HANDOFF.md
+docs/product/CLARA-P14-INTERNAL-BETA-ROLLBACK-HANDOFF.md
+docs/product/CLARA-P14-INTERNAL-BETA-KNOWN-LIMITATIONS-REVIEW.md
+docs/product/CLARA-P14-INTERNAL-BETA-FINAL-SECURITY-REVIEW.md
+docs/product/CLARA-P14-INTERNAL-BETA-FINAL-HANDOFF-SUMMARY.md
 docs/product/CLARA-P13-INTERNAL-CRM-ACTIVATION-ROADMAP.md
 docs/product/CLARA-P13-CUSTOMER-CRUD-ACTIVATION.md
 docs/product/CLARA-P13-CUSTOMER-NOTES-ACTIVITY-TIMELINE.md

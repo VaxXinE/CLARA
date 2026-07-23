@@ -5,7 +5,8 @@ describe("P14 internal usage feedback loop dashboard", () => {
   it("documents feedback guidance as internal beta only", () => {
     const readme = dashboardReadme.replace(/\s+/g, " ");
 
-    expect(readme).toContain("P14-PR-05 is current");
+    expect(readme).toContain("P14-PR-05 is complete");
+    expect(readme).toContain("P14-PR-06 is current");
     expect(readme).toContain(
       "Internal usage feedback loop is for internal beta rollout",
     );

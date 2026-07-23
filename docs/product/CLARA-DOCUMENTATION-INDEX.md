@@ -16,12 +16,17 @@ Internal CRM Product Activation are complete.
 
 P14 is current. P14 prepares CLARA for controlled internal team usage. P14-PR-01
 is complete. P14-PR-02 is complete. P14-PR-03 is complete. P14-PR-04 is
-complete. P14-PR-05 is current. Internal usage feedback loop is for internal
-beta rollout. Feedback triage is manual/local/repo-safe unless separately
+complete. P14-PR-05 is complete. P14-PR-06 is current. P14 internal beta
+rollout preparation is complete only after this PR validates. Internal beta
+go-live is controlled internal usage only. Internal beta is not public SaaS
+launch. Internal beta is not production deployment claim unless separately
+executed. Internal usage feedback loop is for internal beta rollout. Feedback
+triage is manual/local/repo-safe unless separately
 approved. Feedback must not include secrets/tokens/cookies/auth headers/raw
 provider payload/raw webhook payload/raw HTML/raw DOM/raw prompts/payment data.
-Feedback should minimize customer-sensitive data. Known issues workflow is
-internal beta only. no external support tool integration is activated. Internal
+Feedback should minimize customer-sensitive data. Known limitations must be
+reviewed before broader rollout. Known issues workflow is internal beta only. no
+external support tool integration is activated. Internal
 access QA is complete for internal beta rollout.
 Owner/admin/operator/viewer access boundaries are reviewed. Viewer/read-only
 mutation blocking is required. Operator CRM access is scoped. Admin/owner
@@ -84,6 +89,15 @@ find . -name '*.md' \
 | `docs/product/CLARA-P14-INTERNAL-USABILITY-FEEDBACK-TEMPLATE.md` | P14 internal usability feedback template. |
 | `docs/product/CLARA-P14-INTERNAL-FEEDBACK-PRIVACY-BOUNDARY.md` | P14 feedback privacy boundary. |
 | `docs/product/CLARA-P14-INTERNAL-KNOWN-ISSUES-WORKFLOW.md` | P14 internal known issues workflow. |
+| `docs/product/CLARA-P14-FINAL-INTERNAL-BETA-GO-LIVE-RUNBOOK.md` | P14 final internal beta go-live runbook. |
+| `docs/product/CLARA-P14-INTERNAL-BETA-GO-NO-GO-CHECKLIST.md` | P14 internal beta go/no-go checklist. |
+| `docs/product/CLARA-P14-INTERNAL-BETA-OPERATOR-HANDOFF.md` | P14 internal beta operator handoff. |
+| `docs/product/CLARA-P14-INTERNAL-BETA-ADMIN-HANDOFF.md` | P14 internal beta admin handoff. |
+| `docs/product/CLARA-P14-INTERNAL-BETA-SUPPORT-HANDOFF.md` | P14 support/feedback handoff. |
+| `docs/product/CLARA-P14-INTERNAL-BETA-ROLLBACK-HANDOFF.md` | P14 rollback/manual recovery handoff. |
+| `docs/product/CLARA-P14-INTERNAL-BETA-KNOWN-LIMITATIONS-REVIEW.md` | P14 known limitations review. |
+| `docs/product/CLARA-P14-INTERNAL-BETA-FINAL-SECURITY-REVIEW.md` | P14 final security review. |
+| `docs/product/CLARA-P14-INTERNAL-BETA-FINAL-HANDOFF-SUMMARY.md` | P14 final handoff summary. |
 | `docs/product/CLARA-P13-INTERNAL-CRM-ACTIVATION-ROADMAP.md` | Active P13 internal CRM roadmap. |
 | `docs/product/CLARA-P13-CUSTOMER-CRUD-ACTIVATION.md` | P13 customer CRUD activation contract. |
 | `docs/product/CLARA-P13-CUSTOMER-NOTES-ACTIVITY-TIMELINE.md` | P13 customer notes and safe activity timeline contract. |

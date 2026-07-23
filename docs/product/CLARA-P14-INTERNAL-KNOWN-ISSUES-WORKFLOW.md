@@ -2,7 +2,8 @@
 
 ## Status
 
-P14-PR-05 is current. Known issues workflow is internal beta only.
+P14-PR-05 is complete. P14-PR-06 is current. Known issues workflow is internal
+beta only.
 
 ## Workflow
 

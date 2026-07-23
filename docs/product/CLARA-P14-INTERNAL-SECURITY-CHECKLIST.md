@@ -6,8 +6,12 @@ security checklist exists as the internal beta gate before CLARA is used by the
 internal team beyond local/dev-safe validation.
 
 P14-PR-01 is complete. P14-PR-02 is complete. P14-PR-03 is complete.
-P14-PR-04 is complete. P14-PR-05 is current. Internal usage feedback loop is
-for internal beta rollout. Internal access QA is complete for internal beta rollout.
+P14-PR-04 is complete. P14-PR-05 is complete. P14-PR-06 is current. P14
+internal beta rollout preparation is complete only after this PR validates.
+Internal beta go-live is controlled internal usage only. Internal beta is not
+public SaaS launch. Internal beta is not production deployment claim unless
+separately executed. Internal usage feedback loop is for internal beta rollout.
+Internal access QA is complete for internal beta rollout.
 Owner/admin/operator/viewer access boundaries are reviewed. Viewer/read-only
 mutation blocking is required. Operator CRM access is scoped. Admin/owner
 elevated actions require workspace membership and proper role. Internal data
@@ -60,6 +64,10 @@ defined.
 - [ ] Feedback should minimize customer-sensitive data.
 - [ ] Known issues workflow is internal beta only.
 - [ ] no external support tool integration is activated.
+- [ ] Final internal beta go/no-go checklist is reviewed.
+- [ ] Operator/admin/support/rollback handoffs are reviewed.
+- [ ] Known limitations must be reviewed before broader rollout.
+- [ ] Secrets/tokens/cookies/auth headers/raw provider payload/raw webhook payload/raw HTML/raw DOM/raw prompts/payment data must not be included in handoff, feedback, logs, docs, or runbooks.
 
 ## Go / No-Go Rule
 

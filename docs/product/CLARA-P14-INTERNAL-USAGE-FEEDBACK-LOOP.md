@@ -3,7 +3,7 @@
 ## Status
 
 P14-PR-01 is complete. P14-PR-02 is complete. P14-PR-03 is complete.
-P14-PR-04 is complete. P14-PR-05 is current.
+P14-PR-04 is complete. P14-PR-05 is complete. P14-PR-06 is current.
 
 Internal usage feedback loop is for internal beta rollout. Feedback triage is
 manual/local/repo-safe unless separately approved.

@@ -2,7 +2,8 @@
 
 ## Status
 
-P14-PR-05 is current for internal beta feedback triage.
+P14-PR-05 is complete. P14-PR-06 is current for final internal beta go-live
+readiness.
 
 ## Severity
 
