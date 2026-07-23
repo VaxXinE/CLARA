@@ -2,7 +2,8 @@
 
 ## Status
 
-P14-PR-05 is current. Internal usage feedback loop is for internal beta rollout.
+P14-PR-05 is complete. P14-PR-06 is current. Internal usage feedback loop is for
+internal beta rollout.
 
 ## Redaction Boundary
 

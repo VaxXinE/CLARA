@@ -33,7 +33,8 @@ describe("P14 internal usage feedback loop", () => {
     expect(docs).toContain("P14-PR-02 is complete");
     expect(docs).toContain("P14-PR-03 is complete");
     expect(docs).toContain("P14-PR-04 is complete");
-    expect(docs).toContain("P14-PR-05 is current");
+    expect(docs).toContain("P14-PR-05 is complete");
+    expect(docs).toContain("P14-PR-06 is current");
     expect(docs).toContain(
       "Internal usage feedback loop is for internal beta rollout",
     );
