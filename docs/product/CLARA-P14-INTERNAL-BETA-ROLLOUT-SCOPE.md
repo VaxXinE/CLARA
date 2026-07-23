@@ -42,6 +42,9 @@ Internal beta means a controlled CLARA workspace used by trusted internal team
 members to validate CRM workflow readiness. It is not public beta, not GA, not
 customer billing, and not production deployment by itself.
 
+For this rollout gate, internal user roles are defined before broader team
+access is opened.
+
 The first internal beta should validate:
 
 - Workspace-scoped CRM navigation.

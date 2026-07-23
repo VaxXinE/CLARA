@@ -5,9 +5,13 @@
 security checklist exists as the internal beta gate before CLARA is used by the
 internal team beyond local/dev-safe validation.
 
-P14-PR-01 is complete. P14-PR-02 is complete. P14-PR-03 is current. Internal
-data seeding/import is for internal beta rollout. Only approved internal CRM
-data may be imported. owner/admin/operator/viewer roles are defined.
+P14-PR-01 is complete. P14-PR-02 is complete. P14-PR-03 is complete.
+P14-PR-04 is current. Internal access QA is for internal beta rollout.
+Owner/admin/operator/viewer access boundaries are reviewed. Viewer/read-only
+mutation blocking is required. Operator CRM access is scoped. Admin/owner
+elevated actions require workspace membership and proper role. Internal data
+import remains workspace-scoped and safe. owner/admin/operator/viewer roles are
+defined.
 
 ## Required Checks
 
@@ -19,6 +23,10 @@ data may be imported. owner/admin/operator/viewer roles are defined.
 - [ ] Internal user roles are defined and mapped to owner, admin, agent, and
   viewer responsibilities.
 - [ ] Owner/admin/operator/viewer roles are defined for internal user setup.
+- [ ] Owner/admin/operator/viewer access boundaries are reviewed.
+- [ ] Viewer/read-only mutation blocking is required.
+- [ ] Operator CRM access is scoped.
+- [ ] Admin/owner elevated actions require workspace membership and proper role.
 - [ ] Backend AuthContext and workspace membership remain source of truth.
 - [ ] Client supplied workspaceId is not authoritative.
 - [ ] Internal data policy exists and is accepted by operators.
@@ -28,7 +36,7 @@ data may be imported. owner/admin/operator/viewer roles are defined.
 - [ ] AuthContext and workspace membership remain source of truth for import.
 - [ ] Client supplied workspaceId is not authoritative.
 - [ ] Secrets/tokens/cookies/raw provider payload/raw webhook payload/raw
-  HTML/payment data must not be imported.
+  HTML/payment data must not be imported or exposed.
 - [ ] Raw provider payloads, raw webhook payloads, raw DOM, raw HTML, raw AI
   prompts, and payment data are rejected from internal import files.
 - [ ] Viewer/read-only users cannot import.

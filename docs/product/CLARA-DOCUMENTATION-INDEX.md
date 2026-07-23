@@ -15,17 +15,21 @@ PRE-P12-INTERACTION-ACTIVATION, P12 Beta / GA Release Readiness, and P13
 Internal CRM Product Activation are complete.
 
 P14 is current. P14 prepares CLARA for controlled internal team usage. P14-PR-01
-is complete. P14-PR-02 is complete. P14-PR-03 is current. Internal data
-seeding/import is for internal beta rollout. Only approved internal CRM data may
-be imported. owner/admin/operator/viewer roles are defined. internal use first
-is the rollout rule. billing/payment is deferred and public SaaS launch is
-deferred. production deployment requires separate explicit action.
-Provider/AI/outbound activation remains controlled. Backend AuthContext and
-workspace membership remain source of truth. Client supplied workspaceId is not
-authoritative. Secrets/tokens/cookies/raw provider payload/raw webhook payload/
-raw HTML/payment data must not be imported. internal user roles are defined,
-internal data policy exists, and security checklist exists before internal beta
-rollout continues.
+is complete. P14-PR-02 is complete. P14-PR-03 is complete. P14-PR-04 is
+current. Internal access QA is for internal beta rollout.
+Owner/admin/operator/viewer access boundaries are reviewed. Viewer/read-only
+mutation blocking is required. Operator CRM access is scoped. Admin/owner
+elevated actions require workspace membership and proper role. Internal data
+import remains workspace-scoped and safe. owner/admin/operator/viewer roles are
+defined. internal use first is the rollout rule. billing/payment is deferred and
+public SaaS launch is deferred. production deployment requires separate
+explicit action. Provider/AI/outbound activation remains controlled. Backend
+AuthContext and workspace membership remain source of truth. Client supplied
+workspaceId is not authoritative. Client-supplied workspaceId is not
+authoritative. Secrets/tokens/cookies/raw provider payload/raw webhook
+payload/raw HTML/payment data must not be imported or exposed. internal user
+roles are defined, internal data policy exists, and security checklist exists
+before internal beta rollout continues.
 
 Markdown inventory for this refresh was generated with:
 
@@ -62,6 +66,11 @@ find . -name '*.md' \
 | `docs/product/CLARA-P14-INTERNAL-DATA-IMPORT-FORMAT.md` | P14 internal customer import format. |
 | `docs/product/CLARA-P14-INTERNAL-DATA-VALIDATION-POLICY.md` | P14 internal data import validation policy. |
 | `docs/product/CLARA-P14-INTERNAL-DATA-ROLLBACK-CLEANUP-RUNBOOK.md` | P14 internal data rollback and cleanup runbook. |
+| `docs/product/CLARA-P14-INTERNAL-ACCESS-QA-CHECKLIST.md` | P14 internal access QA checklist. |
+| `docs/product/CLARA-P14-INTERNAL-SECURITY-REVIEW.md` | P14 internal security review. |
+| `docs/product/CLARA-P14-INTERNAL-ROLE-ACCESS-REVIEW.md` | P14 role access review. |
+| `docs/product/CLARA-P14-WORKSPACE-ISOLATION-QA.md` | P14 workspace isolation QA. |
+| `docs/product/CLARA-P14-INTERNAL-DATA-IMPORT-SECURITY-REVIEW.md` | P14 internal data import security review. |
 | `docs/product/CLARA-P13-INTERNAL-CRM-ACTIVATION-ROADMAP.md` | Active P13 internal CRM roadmap. |
 | `docs/product/CLARA-P13-CUSTOMER-CRUD-ACTIVATION.md` | P13 customer CRUD activation contract. |
 | `docs/product/CLARA-P13-CUSTOMER-NOTES-ACTIVITY-TIMELINE.md` | P13 customer notes and safe activity timeline contract. |

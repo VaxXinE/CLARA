@@ -5,10 +5,23 @@ CLARA browser extension auto-sync engine for operator-visible active conversatio
 ## Status
 
 ```text
-P1-P12 complete; P13 Internal CRM Product Activation current
+P1-P13 complete; P14 Internal Beta Rollout Preparation current
 ```
 
 ## Scope
+
+The extension boundary is current through P14. P14-PR-01 is complete.
+P14-PR-02 is complete. P14-PR-03 is complete. P14-PR-04 is current. Internal
+access QA is for internal beta rollout. Owner/admin/operator/viewer access
+boundaries are reviewed. Viewer/read-only mutation blocking is required.
+Operator CRM access is scoped. Admin/owner elevated actions require workspace
+membership and proper role. AuthContext and workspace membership remain source
+of truth. Client-supplied workspaceId is not authoritative. Internal data import
+remains workspace-scoped and safe. Secrets/tokens/cookies/raw provider
+payload/raw webhook payload/raw HTML/payment data must not be imported or
+exposed. billing/payment is deferred. public SaaS launch is deferred.
+production deployment requires separate explicit action. Provider/AI/outbound
+activation remains controlled.
 
 The extension boundary is current through P11. P12-PR-01 is complete. P12-PR-02
 is complete. P12-PR-03 is complete. P12-PR-04 is complete. P12-PR-05 is current work. P12 extension work is release readiness

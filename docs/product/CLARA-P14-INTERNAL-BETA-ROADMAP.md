@@ -4,8 +4,11 @@
 
 P13 Internal CRM Product Activation is complete. P14 is current. P14 prepares
 CLARA for controlled internal team usage. P14-PR-01 is complete. P14-PR-02 is
-complete. P14-PR-03 is current. Internal data seeding/import is for internal
-beta rollout. Only approved internal CRM data may be imported. internal use
+complete. P14-PR-03 is complete. P14-PR-04 is current. Internal access QA is
+for internal beta rollout. Owner/admin/operator/viewer access boundaries are
+reviewed. Viewer/read-only mutation blocking is required. Operator CRM access
+is scoped. Admin/owner elevated actions require workspace membership and proper
+role. Internal data import remains workspace-scoped and safe. internal use
 first, billing deferred, public launch deferred, and production deployment
 requires separate explicit action remain the core rollout constraints.
 
@@ -15,7 +18,8 @@ requires separate explicit action remain the core rollout constraints.
 | --- | --- | --- |
 | P14-PR-01 | Internal Beta Rollout Scope + Environment Plan | complete |
 | P14-PR-02 | Internal User Bootstrap + Role Setup | complete |
-| P14-PR-03 | Internal Data Seeding / Import Workflow | current |
+| P14-PR-03 | Internal Data Seeding / Import Workflow | complete |
+| P14-PR-04 | Internal Access QA + Security Review | current |
 
 ## P14-PR-01 Deliverables
 
@@ -52,9 +56,22 @@ requires separate explicit action remain the core rollout constraints.
 - Secrets/tokens/cookies/raw provider payload/raw webhook payload/raw HTML/payment
   data must not be imported.
 
+## P14-PR-04 Deliverables
+
+- Internal access QA checklist exists.
+- Internal security review exists.
+- Owner/admin/operator/viewer access boundaries are reviewed.
+- Viewer/read-only mutation blocking is required.
+- Operator CRM access is scoped.
+- Admin/owner elevated actions require workspace membership and proper role.
+- Workspace isolation QA exists.
+- Internal data import security review exists.
+- Secrets/tokens/cookies/raw provider payload/raw webhook payload/raw HTML/payment
+  data must not be imported or exposed.
+
 ## Non-Goals
 
-P14-PR-03 does not implement billing, payment SDKs, public launch, production
+P14-PR-04 does not implement billing, payment SDKs, public launch, production
 deployment automation, real provider activation, real AI activation, real
 outbound activation, secrets, credentials, invite mutation, role mutation,
 membership deletion, import endpoint, dashboard upload, background job, queue
@@ -73,4 +90,4 @@ P14 can move beyond P14-PR-01 only after:
 - Environment plan confirms production deployment requires separate explicit
   action.
 - Provider/AI/outbound activation remains controlled.
-- Validation prints `CLARA P14-PR-03 VALIDATION PASSED`.
+- Validation prints `CLARA P14-PR-04 VALIDATION PASSED`.
