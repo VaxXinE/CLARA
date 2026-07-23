@@ -5,6 +5,10 @@
 internal data policy exists to define what data may be used during the internal
 beta rollout and what data remains prohibited.
 
+P14-PR-01 is complete. P14-PR-02 is complete. P14-PR-03 is current. Internal
+data seeding/import is for internal beta rollout. Only approved internal CRM
+data may be imported.
+
 ## Allowed Data For Internal Beta
 
 - Demo CRM customers and conversations.
@@ -22,10 +26,16 @@ beta rollout and what data remains prohibited.
 - Raw AI prompts containing sensitive customer content.
 - Raw customer message exports unless separately approved.
 - Production customer data before an explicit production data approval.
+- Client supplied workspaceId as import authority.
 
 ## Handling Rules
 
 - Internal use first; do not invite public users in P14.
+- Import is workspace-scoped.
+- AuthContext and workspace membership remain source of truth.
+- Client-supplied workspaceId is not authoritative.
+- Secrets/tokens/cookies/raw provider payload/raw webhook payload/raw
+  HTML/payment data must not be imported.
 - Billing deferred; do not collect payment data.
 - Public launch deferred; do not publish public onboarding docs as an active
   launch.
