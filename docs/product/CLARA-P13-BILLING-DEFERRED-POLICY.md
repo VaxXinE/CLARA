@@ -10,12 +10,16 @@ classification: "policy"
 
 P12 release-readiness is complete. P13 is current. P13 focuses internal CRM
 usage. P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is complete.
-P13-PR-04 is complete. P13-PR-05 is complete. P13-PR-06 is current.
+P13-PR-04 is complete. P13-PR-05 is complete. P13-PR-06 is complete.
+P13-PR-07 is current. P13 internal CRM activation is complete only after this
+PR validates. CLARA is usable for internal CRM workflow after P13.
 internal CRM usage is the focus. billing/payment is deferred. analytics are
 safe aggregated workspace-scoped metrics. this PR does not add
 billing/payment/provider/AI/outbound behavior. this PR does not add heavy
-analytics jobs or exports. Billing/payment remains deferred. CLARA is not
-production deployed yet. CLARA is not public GA launched yet.
+analytics jobs or exports. no real provider/payment/AI/outbound behavior is
+activated. no real external provider credentials are required. Billing/payment
+remains deferred. Public SaaS launch is deferred. CLARA is not production
+deployed yet. CLARA is not public GA launched yet.
 
 CLARA is not production deployed yet. CLARA is not public GA launched yet.
 

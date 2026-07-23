@@ -12,12 +12,16 @@ classification: "product-roadmap"
 
 P12 release-readiness is complete. P13 is current. P13 focuses internal CRM usage.
 P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is complete.
-P13-PR-04 is complete. P13-PR-05 is complete. P13-PR-06 is current.
+P13-PR-04 is complete. P13-PR-05 is complete. P13-PR-06 is complete.
+P13-PR-07 is current. P13 internal CRM activation is complete only after this
+PR validates. CLARA is usable for internal CRM workflow after P13.
 internal CRM usage is the focus. billing/payment is deferred. analytics are
 safe aggregated workspace-scoped metrics. this PR does not add
 billing/payment/provider/AI/outbound behavior. this PR does not add heavy
-analytics jobs or exports. CLARA is not production deployed yet. CLARA is not
-public GA launched yet. Billing/payment remains deferred.
+analytics jobs or exports. no real provider/payment/AI/outbound behavior is
+activated. no real external provider credentials are required. CLARA is not
+production deployed yet. CLARA is not public GA launched yet. Billing/payment
+remains deferred. Public SaaS launch is deferred.
 
 P13 moves CLARA from release-readiness into practical internal CRM usage. The
 goal is not public SaaS monetization. The goal is that an internal workspace
@@ -33,8 +37,8 @@ workflow state with backend authorization as the source of truth.
 | P13-PR-03 | Lifecycle Status + Owner Assignment | complete |
 | P13-PR-04 | Follow-up Task Workflow | complete |
 | P13-PR-05 | Conversation-to-Customer Linking | complete |
-| P13-PR-06 | Internal Dashboard Analytics Wiring | current |
-| P13-PR-07 | Internal CRM End-to-End QA + Runbook | planned |
+| P13-PR-06 | Internal Dashboard Analytics Wiring | complete |
+| P13-PR-07 | Internal CRM End-to-End QA + Runbook | current |
 
 ## Guardrails
 

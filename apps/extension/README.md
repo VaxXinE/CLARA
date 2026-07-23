@@ -5,7 +5,7 @@ CLARA browser extension auto-sync engine for operator-visible active conversatio
 ## Status
 
 ```text
-P1-P11 complete; P12 Beta / GA Release Readiness current
+P1-P12 complete; P13 Internal CRM Product Activation current
 ```
 
 ## Scope
@@ -19,6 +19,15 @@ P12-PR-04 does not add support tool integration, external ticket creation, or
 notification sending to the extension.
 P12 completion means release readiness complete. P12 completion does not mean
 production deployed. P12 completion does not mean public GA launch happened.
+P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is complete.
+P13-PR-04 is complete. P13-PR-05 is complete. P13-PR-06 is complete.
+P13-PR-07 is current. P13 internal CRM activation is complete only after this
+PR validates. internal CRM usage is the focus. CLARA is usable for internal CRM
+workflow after P13. billing/payment is deferred. Public SaaS launch is deferred.
+CLARA is not production deployed yet. CLARA is not public GA launched yet. no
+real provider/payment/AI/outbound behavior is activated. no real external
+provider credentials are required. The extension boundary remains non-mutating
+for CRM state except existing safe snapshot bridge behavior.
 
 This package contains a small TypeScript implementation for:
 

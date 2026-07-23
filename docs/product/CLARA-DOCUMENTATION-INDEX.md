@@ -20,12 +20,16 @@ P12-PR-05 Final GA Audit / Runbook is complete.
 
 P12 release-readiness is complete. P13 is current. P13 focuses internal CRM
 usage. P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is complete.
-P13-PR-04 is complete. P13-PR-05 is complete. P13-PR-06 is current.
+P13-PR-04 is complete. P13-PR-05 is complete. P13-PR-06 is complete.
+P13-PR-07 is current. P13 internal CRM activation is complete only after this
+PR validates. CLARA is usable for internal CRM workflow after P13.
 internal CRM usage is the focus. billing/payment is deferred. analytics are
 safe aggregated workspace-scoped metrics. this PR does not add
 billing/payment/provider/AI/outbound behavior. this PR does not add heavy
-analytics jobs or exports. Billing/payment remains deferred. CLARA is not
-production deployed yet. CLARA is not public GA launched yet. Customer CRUD is
+analytics jobs or exports. no real provider/payment/AI/outbound behavior is
+activated. no real external provider credentials are required. Billing/payment
+remains deferred. Public SaaS launch is deferred. CLARA is not production
+deployed yet. CLARA is not public GA launched yet. Customer CRUD is
 internal workspace-scoped. Notes/timeline are workspace-scoped internal CRM
 features. lifecycle/owner assignment are workspace-scoped internal CRM
 features. owner assignment requires valid workspace membership.
@@ -62,6 +66,8 @@ find . -name '*.md' \
 | `docs/product/CLARA-P13-FOLLOW-UP-TASK-WORKFLOW.md` | P13 follow-up task workflow contract. |
 | `docs/product/CLARA-P13-CONVERSATION-CUSTOMER-LINKING.md` | P13 conversation-to-customer linking contract. |
 | `docs/product/CLARA-P13-INTERNAL-DASHBOARD-ANALYTICS-WIRING.md` | P13 internal dashboard analytics wiring contract. |
+| `docs/product/CLARA-P13-INTERNAL-CRM-E2E-QA-RUNBOOK.md` | Final P13 internal CRM E2E QA runbook. |
+| `docs/product/CLARA-P13-INTERNAL-CRM-HANDOFF-SUMMARY.md` | Final P13 internal CRM handoff summary. |
 | `docs/product/CLARA-P13-BILLING-DEFERRED-POLICY.md` | P13 billing/payment deferred policy. |
 | `docs/product/CLARA-MVP-GAP-REVIEW.md`        | Product gap and phase progress review.                            |
 | `docs/product/CLARA-PHASE-CLOSURE-SUMMARY.md` | P1-P11 closure summary.                                           |
