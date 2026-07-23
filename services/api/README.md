@@ -5,27 +5,21 @@ CLARA API service.
 ## Status
 
 ```text
-P1-P12 complete; P13 Internal CRM Product Activation current
+P1-P13 complete; P14 Internal Beta Rollout Preparation current
 ```
 
-This service currently provides the CLARA API through P13: auth/workspace scope,
-conversation/customer/activity, channel foundations, Gmail/email boundaries,
-CRM readiness, analytics readiness, enterprise hardening readiness, and
-scale/reliability/billing readiness. P12 release-readiness is complete. P13 is
-current. P13 focuses internal CRM usage. P13-PR-01 is complete. P13-PR-02 is
-complete. P13-PR-03 is complete. Internal CRM usage is the focus.
-P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is complete.
-P13-PR-04 is complete. P13-PR-05 is complete. P13-PR-06 is complete.
-P13-PR-07 is current. P13 internal CRM activation is complete only after this
-PR validates. CLARA is usable for internal CRM workflow after P13.
-internal CRM usage is the focus. billing/payment is deferred. analytics are
-safe aggregated workspace-scoped metrics. this PR does not add
-billing/payment/provider/AI/outbound behavior. this PR does not add heavy
-analytics jobs or exports. no real provider/payment/AI/outbound behavior is
-activated. no real external provider credentials are required. Billing/payment
-remains deferred. Public SaaS launch is deferred. CLARA is not production
-deployed yet. CLARA is not public GA launched yet. Customer CRUD is
-internal workspace-scoped.
+This service currently provides the CLARA API through P14: auth/workspace
+scope, conversation/customer/activity, channel foundations, Gmail/email
+boundaries, CRM readiness, analytics readiness, enterprise hardening readiness,
+scale/reliability/billing readiness, and internal beta user setup readiness.
+P13 Internal CRM Product Activation is complete. P14-PR-01 is complete.
+P14-PR-02 is current. Internal user setup is for internal beta rollout.
+owner/admin/operator/viewer roles are defined. Backend AuthContext and workspace
+membership remain source of truth. Client supplied workspaceId is not
+authoritative. billing/payment is deferred. public SaaS launch is deferred.
+production deployment requires separate explicit action. Provider/AI/outbound
+activation remains controlled. CLARA is not production deployed yet. CLARA is
+not public GA launched yet. Customer CRUD is internal workspace-scoped.
 Notes/timeline are workspace-scoped internal CRM features. lifecycle/owner
 assignment are workspace-scoped internal CRM features. owner assignment requires
 valid workspace membership. Backend AuthContext is the authority. Timeline/audit
