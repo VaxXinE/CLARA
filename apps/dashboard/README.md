@@ -16,8 +16,11 @@ lifecycle/owner assignment. P13 Internal CRM Product Activation is complete.
 P14 Internal Beta Rollout Preparation is complete. P14-PR-01 is complete.
 P14-PR-02 is complete. P14-PR-03 is complete. P14-PR-04 is complete.
 P14-PR-05 is complete. P14-PR-06 is complete. P15 Controlled Internal Beta
-Execution is current. P15-PR-01 is complete. P15-PR-02 is current. controlled internal beta is
-internal-only. runtime smoke execution is internal-only. runtime smoke execution is not public SaaS launch.
+Execution is current. P15-PR-01 is complete. P15-PR-02 is complete.
+P15-PR-03 is current. controlled internal beta is internal-only. user acceptance
+session is internal-only. UAT issue capture is manual/local/repo-safe unless
+separately approved. UAT is not public SaaS launch. UAT is not production
+deployment claim unless separately executed. runtime smoke execution is internal-only. runtime smoke execution is not public SaaS launch.
 runtime smoke execution is not production deployment claim unless separately executed.
 controlled internal beta is not public SaaS launch. controlled
 internal beta is not production deployment claim unless separately executed.
@@ -44,6 +47,8 @@ Known issues workflow is internal beta only.
 Secrets/tokens/cookies/auth headers/raw provider payload/raw webhook payload/raw HTML/raw DOM/raw prompts/payment data must not be included in handoff, feedback, logs, docs, or runbooks.
 Evidence must not include secrets/tokens/cookies/auth headers/raw provider payload/raw webhook payload/raw HTML/raw DOM/raw prompts/payment data.
 Evidence should minimize customer-sensitive data.
+Evidence and issue reports must not include secrets/tokens/cookies/auth headers/raw provider payload/raw webhook payload/raw HTML/raw DOM/raw prompts/payment data.
+Evidence and issue reports should minimize customer-sensitive data.
 billing/payment is deferred. public SaaS launch is deferred. production
 deployment requires separate explicit action. Provider/AI/outbound activation
 remains controlled. CLARA is not production deployed yet. CLARA is not public GA

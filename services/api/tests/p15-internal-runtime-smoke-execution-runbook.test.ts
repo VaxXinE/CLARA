@@ -15,7 +15,8 @@ describe("P15 internal runtime smoke execution runbook", () => {
     );
 
     expect(doc).toContain("P15-PR-01 is complete");
-    expect(doc).toContain("P15-PR-02 is current");
+    expect(doc).toContain("P15-PR-02 is complete");
+    expect(doc).toContain("P15-PR-03 is current");
     expect(doc).toContain("runtime smoke execution is internal-only");
     expect(doc).toContain("runtime smoke execution is not public SaaS launch");
     expect(doc).toContain(

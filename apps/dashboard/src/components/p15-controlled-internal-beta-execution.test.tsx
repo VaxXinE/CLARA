@@ -9,7 +9,8 @@ describe("P15 controlled internal beta execution dashboard", () => {
       "P15 Controlled Internal Beta Execution is current",
     );
     expect(readme).toContain("P15-PR-01 is complete");
-    expect(readme).toContain("P15-PR-02 is current");
+    expect(readme).toContain("P15-PR-02 is complete");
+    expect(readme).toContain("P15-PR-03 is current");
     expect(readme).toContain("controlled internal beta is internal-only");
     expect(readme).toContain(
       "controlled internal beta is not public SaaS launch",
