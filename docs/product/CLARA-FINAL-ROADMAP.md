@@ -18,7 +18,11 @@ complete. P14-PR-02 is complete. P14-PR-03 is complete. P14-PR-04 is complete.
 P14-PR-05 is complete. P14-PR-06 is complete.
 
 P15 Controlled Internal Beta Execution is current. P15-PR-01 is complete.
-P15-PR-02 is current. Runtime smoke execution is internal-only. runtime smoke
+P15-PR-02 is complete. P15-PR-03 is current. User acceptance session is
+internal-only. user acceptance session is internal-only. UAT issue capture is
+manual/local/repo-safe unless separately approved. UAT is not public SaaS
+launch. UAT is not production deployment claim unless separately executed.
+Runtime smoke execution is internal-only. runtime smoke
 execution is internal-only. Runtime smoke execution is not public SaaS launch.
 runtime smoke execution is not public SaaS launch. Runtime smoke execution is
 not production deployment claim unless separately executed. runtime smoke
@@ -94,7 +98,8 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 ## P15 Compact Roadmap
 
 - P15-PR-01 Controlled Internal Beta Execution Scope + Operating Rules. Complete.
-- P15-PR-02 Internal Runtime Smoke Execution + Evidence Log. Current.
+- P15-PR-02 Internal Runtime Smoke Execution + Evidence Log. Complete.
+- P15-PR-03 Internal User Acceptance Session + Issue Capture. Current.
 
 ## Non-Launch Guardrails
 

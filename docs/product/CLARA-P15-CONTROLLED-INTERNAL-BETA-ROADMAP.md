@@ -5,7 +5,12 @@
 P14 Internal Beta Rollout Preparation is complete. P14-PR-01 is complete.
 P14-PR-02 is complete. P14-PR-03 is complete. P14-PR-04 is complete.
 P14-PR-05 is complete. P14-PR-06 is complete. P15 Controlled Internal Beta
-Execution is current. P15-PR-01 is complete. P15-PR-02 is current.
+Execution is current. P15-PR-01 is complete. P15-PR-02 is complete.
+P15-PR-03 is current.
+
+user acceptance session is internal-only. UAT issue capture is
+manual/local/repo-safe unless separately approved. UAT is not public SaaS
+launch. UAT is not production deployment claim unless separately executed.
 
 runtime smoke execution is internal-only. runtime smoke execution is not public
 SaaS launch. runtime smoke execution is not production deployment claim unless
@@ -28,7 +33,8 @@ broader rollout.
 | PR        | Scope                                                      | Status   |
 | --------- | ---------------------------------------------------------- | -------- |
 | P15-PR-01 | Controlled Internal Beta Execution Scope + Operating Rules | complete |
-| P15-PR-02 | Internal Runtime Smoke Execution + Evidence Log            | current  |
+| P15-PR-02 | Internal Runtime Smoke Execution + Evidence Log            | complete |
+| P15-PR-03 | Internal User Acceptance Session + Issue Capture           | current  |
 
 ## P15-PR-01 Deliverables
 
@@ -49,3 +55,11 @@ broader rollout.
 - Evidence privacy boundary exists.
 - Evidence retention/manual handling policy exists.
 - Smoke evidence remains local/internal and sanitized.
+
+## P15-PR-03 Deliverables
+
+- Internal UAT session plan exists.
+- Operator, admin, and viewer UAT scripts exist.
+- Acceptance criteria and issue capture templates exist.
+- Severity/priority rules and UAT evidence safety rules exist.
+- UAT issue capture remains manual/local/repo-safe.

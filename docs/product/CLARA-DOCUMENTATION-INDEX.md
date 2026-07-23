@@ -18,7 +18,11 @@ P14-PR-03 is complete. P14-PR-04 is complete. P14-PR-05 is complete.
 P14-PR-06 is complete.
 
 P15 Controlled Internal Beta Execution is current. P15-PR-01 is complete.
-P15-PR-02 is current. Runtime smoke execution is internal-only. runtime smoke
+P15-PR-02 is complete. P15-PR-03 is current. User acceptance session is
+internal-only. user acceptance session is internal-only. UAT issue capture is
+manual/local/repo-safe unless separately approved. UAT is not public SaaS
+launch. UAT is not production deployment claim unless separately executed.
+Runtime smoke execution is internal-only. runtime smoke
 execution is internal-only. Runtime smoke execution is not public SaaS launch.
 runtime smoke execution is not public SaaS launch. Runtime smoke execution is
 not production deployment claim unless separately executed. runtime smoke
@@ -71,6 +75,15 @@ find . -name '*.md' \
 | `docs/product/CLARA-P15-EXTENSION-SMOKE-EXECUTION-CHECKLIST.md`      | P15 Extension smoke execution checklist.                          |
 | `docs/product/CLARA-P15-EVIDENCE-PRIVACY-BOUNDARY.md`                | P15 evidence privacy boundary.                                    |
 | `docs/product/CLARA-P15-EVIDENCE-RETENTION-HANDLING-POLICY.md`       | P15 evidence retention/manual handling policy.                    |
+| `docs/product/CLARA-P15-INTERNAL-UAT-SESSION-PLAN.md`                | P15 internal UAT session plan.                                    |
+| `docs/product/CLARA-P15-INTERNAL-UAT-OPERATOR-SCRIPT.md`             | P15 operator UAT script.                                          |
+| `docs/product/CLARA-P15-INTERNAL-UAT-ADMIN-SCRIPT.md`                | P15 admin UAT script.                                             |
+| `docs/product/CLARA-P15-INTERNAL-UAT-VIEWER-SCRIPT.md`               | P15 viewer/read-only UAT script.                                  |
+| `docs/product/CLARA-P15-INTERNAL-UAT-ACCEPTANCE-CRITERIA.md`         | P15 UAT acceptance criteria.                                      |
+| `docs/product/CLARA-P15-INTERNAL-UAT-ISSUE-CAPTURE-TEMPLATE.md`      | P15 UAT issue capture template.                                   |
+| `docs/product/CLARA-P15-INTERNAL-UAT-USABILITY-FEEDBACK-TEMPLATE.md` | P15 UAT usability feedback template.                              |
+| `docs/product/CLARA-P15-INTERNAL-UAT-SEVERITY-PRIORITY-RULES.md`     | P15 UAT severity/priority rules.                                  |
+| `docs/product/CLARA-P15-INTERNAL-UAT-EVIDENCE-SAFETY-RULES.md`       | P15 UAT evidence safety rules.                                    |
 | `docs/product/CLARA-P15-INTERNAL-BETA-OPERATING-RULES.md`            | P15 internal beta operating rules.                                |
 | `docs/product/CLARA-P15-INTERNAL-BETA-PARTICIPANT-RULES.md`          | P15 internal beta participant rules.                              |
 | `docs/product/CLARA-P15-INTERNAL-BETA-EVIDENCE-LOG-POLICY.md`        | P15 evidence log policy.                                          |
