@@ -10,33 +10,16 @@ classification: "documentation-index"
 
 ## Status
 
-P1-P11 complete. DOCS-REFRESH-BEFORE-P12, UI-POLISH-BEFORE-P12, and
-PRE-P12-INTERACTION-ACTIVATION complete. P12 Beta / GA Release Readiness is
-current. P12-PR-01 Beta / GA Scope + Release Criteria is complete,
-P12-PR-02 Release Candidate Validation + Smoke Test Matrix is complete, and
-P12-PR-03 Production Deployment Checklist + Rollback Drill is complete.
-P12-PR-04 Beta Feedback / Support / Known Issues Workflow is complete.
-P12-PR-05 Final GA Audit / Runbook is complete.
+P1-P13 complete. DOCS-REFRESH-BEFORE-P12, UI-POLISH-BEFORE-P12,
+PRE-P12-INTERACTION-ACTIVATION, P12 Beta / GA Release Readiness, and P13
+Internal CRM Product Activation are complete.
 
-P12 release-readiness is complete. P13 is current. P13 focuses internal CRM
-usage. P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is complete.
-P13-PR-04 is complete. P13-PR-05 is complete. P13-PR-06 is complete.
-P13-PR-07 is current. P13 internal CRM activation is complete only after this
-PR validates. CLARA is usable for internal CRM workflow after P13.
-internal CRM usage is the focus. billing/payment is deferred. analytics are
-safe aggregated workspace-scoped metrics. this PR does not add
-billing/payment/provider/AI/outbound behavior. this PR does not add heavy
-analytics jobs or exports. no real provider/payment/AI/outbound behavior is
-activated. no real external provider credentials are required. Billing/payment
-remains deferred. Public SaaS launch is deferred. CLARA is not production
-deployed yet. CLARA is not public GA launched yet. Customer CRUD is
-internal workspace-scoped. Notes/timeline are workspace-scoped internal CRM
-features. lifecycle/owner assignment are workspace-scoped internal CRM
-features. owner assignment requires valid workspace membership.
-Conversation-to-customer linking is workspace-scoped. Linking is explicit
-user-approved internal CRM action. This PR does not auto-create or auto-merge
-customers. Backend AuthContext is the authority. Timeline/audit must not expose
-raw provider/audit/secrets/message bodies.
+P14 is current. P14 prepares CLARA for controlled internal team usage. internal
+use first is the rollout rule. billing deferred and public launch deferred
+remain explicit boundaries. production deployment requires separate explicit
+action. Provider/AI/outbound activation remains controlled. internal user roles
+are defined, internal data policy exists, and security checklist exists before
+internal beta rollout continues.
 
 Markdown inventory for this refresh was generated with:
 
@@ -58,7 +41,13 @@ find . -name '*.md' \
 | Document                                      | Purpose                                                           |
 | --------------------------------------------- | ----------------------------------------------------------------- |
 | `README.md`                                   | Root orientation, local commands, phase status, and active links. |
-| `docs/product/CLARA-FINAL-ROADMAP.md`         | Active P1-P12 roadmap source.                                     |
+| `docs/product/CLARA-FINAL-ROADMAP.md`         | Active P1-P14 roadmap source.                                     |
+| `docs/product/CLARA-P14-INTERNAL-BETA-ROADMAP.md` | Active P14 internal beta roadmap. |
+| `docs/product/CLARA-P14-INTERNAL-BETA-ROLLOUT-SCOPE.md` | P14 internal beta rollout scope. |
+| `docs/product/CLARA-P14-INTERNAL-ENVIRONMENT-PLAN.md` | P14 internal environment plan. |
+| `docs/product/CLARA-P14-INTERNAL-USER-ROLE-PLAN.md` | P14 internal user role plan. |
+| `docs/product/CLARA-P14-INTERNAL-DATA-POLICY.md` | P14 internal data policy. |
+| `docs/product/CLARA-P14-INTERNAL-SECURITY-CHECKLIST.md` | P14 internal security checklist. |
 | `docs/product/CLARA-P13-INTERNAL-CRM-ACTIVATION-ROADMAP.md` | Active P13 internal CRM roadmap. |
 | `docs/product/CLARA-P13-CUSTOMER-CRUD-ACTIVATION.md` | P13 customer CRUD activation contract. |
 | `docs/product/CLARA-P13-CUSTOMER-NOTES-ACTIVITY-TIMELINE.md` | P13 customer notes and safe activity timeline contract. |

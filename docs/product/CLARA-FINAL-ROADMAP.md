@@ -10,34 +10,19 @@ classification: "roadmap"
 
 ## Status
 
-P1 through P11 are complete. DOCS-REFRESH-BEFORE-P12, UI-POLISH-BEFORE-P12,
-and PRE-P12-INTERACTION-ACTIVATION are complete.
-P12 Beta / GA Release Readiness is current.
-P12-PR-01 Beta / GA Scope + Release Criteria is complete,
-P12-PR-02 Release Candidate Validation + Smoke Test Matrix is complete, and
-P12-PR-03 Production Deployment Checklist + Rollback Drill is complete.
-P12-PR-04 Beta Feedback / Support / Known Issues Workflow is complete.
-P12-PR-05 Final GA Audit / Runbook is complete.
+P1 through P13 are complete. DOCS-REFRESH-BEFORE-P12,
+UI-POLISH-BEFORE-P12, PRE-P12-INTERACTION-ACTIVATION,
+P12 Beta / GA Release Readiness, and P13 Internal CRM Product Activation are
+complete.
 
-P12 release-readiness is complete. P13 is current. P13 focuses internal CRM
-usage. P13-PR-01 is complete. P13-PR-02 is complete. P13-PR-03 is complete.
-P13-PR-04 is complete. P13-PR-05 is complete. P13-PR-06 is complete.
-P13-PR-07 is current. P13 internal CRM activation is complete only after this
-PR validates. CLARA is usable for internal CRM workflow after P13.
-internal CRM usage is the focus. billing/payment is deferred. analytics are
-safe aggregated workspace-scoped metrics. this PR does not add
-billing/payment/provider/AI/outbound behavior. this PR does not add heavy
-analytics jobs or exports. no real provider/payment/AI/outbound behavior is
-activated. no real external provider credentials are required. Billing/payment
-remains deferred. Public SaaS launch is deferred. CLARA is not production
-deployed yet. CLARA is not public GA launched yet. Customer CRUD is
-internal workspace-scoped. Notes/timeline are workspace-scoped internal CRM
-features. lifecycle/owner assignment are workspace-scoped internal CRM
-features. owner assignment requires valid workspace membership.
-Conversation-to-customer linking is workspace-scoped. Linking is explicit
-user-approved internal CRM action. This PR does not auto-create or auto-merge
-customers. Backend AuthContext is the authority. Timeline/audit must not expose
-raw provider/audit/secrets/message bodies.
+P14 is current. P14 prepares CLARA for controlled internal team usage after the
+internal CRM workflow became usable in local/dev-safe mode. P14-PR-01 Internal
+Beta Rollout Scope + Environment Plan is current. internal use first is the
+rollout rule. billing deferred and public launch deferred remain explicit
+boundaries. production deployment requires separate explicit action and is not
+claimed by this documentation update. Provider/AI/outbound activation remains
+controlled. internal user roles are defined, internal data policy exists, and
+security checklist exists before broader internal team usage.
 
 CLARA is not production deployed yet. CLARA is not public GA launched yet.
 
@@ -58,7 +43,8 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 | P10   | Enterprise Hardening / Compliance       | complete |
 | P11   | Scale / Reliability / Billing           | complete |
 | P12   | Beta / GA Release Readiness             | complete |
-| P13   | Internal CRM Product Activation         | current  |
+| P13   | Internal CRM Product Activation         | complete |
+| P14   | Internal Beta Rollout Preparation       | current  |
 
 ## P12 Compact Roadmap
 
@@ -76,7 +62,11 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 - P13-PR-04 Follow-up Task Workflow. Complete.
 - P13-PR-05 Conversation-to-Customer Linking. Complete.
 - P13-PR-06 Internal Dashboard Analytics Wiring. Complete.
-- P13-PR-07 Internal CRM End-to-End QA + Runbook. Current.
+- P13-PR-07 Internal CRM End-to-End QA + Runbook. Complete.
+
+## P14 Compact Roadmap
+
+- P14-PR-01 Internal Beta Rollout Scope + Environment Plan. Current.
 
 ## Non-Launch Guardrails
 
@@ -102,4 +92,5 @@ production deployed. P12 completion does not mean public GA launch happened.
 Production deployment requires separate explicit approval and execution.
 Provider/payment/AI/outbound activation remains restricted unless future
 approved work enables it. Readiness-only/review-only/simulated/demo-safe
-boundaries remain intact.
+boundaries remain intact. P14 is internal beta preparation, not billing launch,
+not public launch, and not production deployment.
