@@ -5,38 +5,28 @@ CLARA API service.
 ## Status
 
 ```text
-P1-P13 complete; P14 Internal Beta Rollout Preparation current
+P1-P14 complete; P15 Controlled Internal Beta Execution current
 ```
 
-This service currently provides the CLARA API through P14: auth/workspace
+This service currently provides the CLARA API through P15: auth/workspace
 scope, conversation/customer/activity, channel foundations, Gmail/email
 boundaries, CRM readiness, analytics readiness, enterprise hardening readiness,
 scale/reliability/billing readiness, and internal beta user setup readiness.
-P13 Internal CRM Product Activation is complete. P14-PR-01 is complete.
+P13 Internal CRM Product Activation is complete. P14 Internal Beta Rollout
+Preparation is complete. P14-PR-01 is complete.
 P14-PR-02 is complete. P14-PR-03 is complete. P14-PR-04 is complete.
-P14-PR-05 is complete. P14-PR-06 is current. P14 internal beta rollout
-preparation is complete only after this PR validates. Internal beta go-live is
-controlled internal usage only. Internal beta is not public SaaS launch.
-Internal beta is not production deployment claim unless separately executed.
-Internal usage feedback loop is for internal beta
-rollout. Feedback triage is manual/local/repo-safe unless separately approved.
-Feedback must not include secrets/tokens/cookies/auth headers/raw provider
-payload/raw webhook payload/raw HTML/raw DOM/raw prompts/payment data. Feedback
-should minimize customer-sensitive data. Known limitations must be reviewed
-before broader rollout. Known issues workflow is internal beta
-only. no external support tool integration is activated. Internal access QA is
-complete for internal beta rollout. Owner/admin/operator/viewer access
-boundaries are reviewed. Viewer/read-only mutation blocking is required.
-Operator CRM access is scoped. Admin/owner elevated actions require workspace
-membership and proper role. Internal data import remains workspace-scoped and
-safe. Only approved internal CRM data may be imported. owner/admin/operator/
-viewer roles are defined. Backend AuthContext and workspace membership remain
-source of truth. Client supplied workspaceId is not authoritative.
-Client-supplied workspaceId is not authoritative. Secrets/tokens/cookies/raw
-provider payload/raw webhook payload/raw HTML/payment data must not be imported
-or exposed. billing/payment is deferred. public SaaS launch is deferred.
-production deployment requires separate explicit action. Provider/AI/outbound
-activation remains controlled. CLARA is not production deployed yet. CLARA is
+P14-PR-05 is complete. P14-PR-06 is complete. P15 Controlled Internal Beta
+Execution is current. P15-PR-01 is current. controlled internal beta is
+internal-only. controlled internal beta is not public SaaS launch. controlled
+internal beta is not production deployment claim unless separately executed.
+billing/payment is deferred. provider/AI/outbound activation remains controlled.
+feedback/support remains manual/local/repo-safe unless separately approved. no
+external support tool integration is activated. AuthContext and workspace
+membership remain source of truth. client-supplied workspaceId is not
+authoritative. secrets/tokens/cookies/auth headers/raw provider payload/raw
+webhook payload/raw HTML/raw DOM/raw prompts/payment data must not be included
+in evidence, feedback, logs, docs, or runbooks. Known limitations must be
+reviewed before broader rollout. CLARA is not production deployed yet. CLARA is
 not public GA launched yet. Customer CRUD is internal workspace-scoped.
 Notes/timeline are workspace-scoped internal CRM features. lifecycle/owner
 assignment are workspace-scoped internal CRM features. owner assignment requires

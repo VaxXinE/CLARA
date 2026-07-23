@@ -10,37 +10,31 @@ classification: "documentation-index"
 
 ## Status
 
-P1-P13 complete. DOCS-REFRESH-BEFORE-P12, UI-POLISH-BEFORE-P12,
+P1-P14 complete. DOCS-REFRESH-BEFORE-P12, UI-POLISH-BEFORE-P12,
 PRE-P12-INTERACTION-ACTIVATION, P12 Beta / GA Release Readiness, and P13
-Internal CRM Product Activation are complete.
+Internal CRM Product Activation are complete. P14 Internal Beta Rollout
+Preparation is complete. P14-PR-01 is complete. P14-PR-02 is complete.
+P14-PR-03 is complete. P14-PR-04 is complete. P14-PR-05 is complete.
+P14-PR-06 is complete.
 
-P14 is current. P14 prepares CLARA for controlled internal team usage. P14-PR-01
-is complete. P14-PR-02 is complete. P14-PR-03 is complete. P14-PR-04 is
-complete. P14-PR-05 is complete. P14-PR-06 is current. P14 internal beta
-rollout preparation is complete only after this PR validates. Internal beta
-go-live is controlled internal usage only. Internal beta is not public SaaS
-launch. Internal beta is not production deployment claim unless separately
-executed. Internal usage feedback loop is for internal beta rollout. Feedback
-triage is manual/local/repo-safe unless separately
-approved. Feedback must not include secrets/tokens/cookies/auth headers/raw
-provider payload/raw webhook payload/raw HTML/raw DOM/raw prompts/payment data.
-Feedback should minimize customer-sensitive data. Known limitations must be
-reviewed before broader rollout. Known issues workflow is internal beta only. no
-external support tool integration is activated. Internal
-access QA is complete for internal beta rollout.
-Owner/admin/operator/viewer access boundaries are reviewed. Viewer/read-only
-mutation blocking is required. Operator CRM access is scoped. Admin/owner
-elevated actions require workspace membership and proper role. Internal data
-import remains workspace-scoped and safe. owner/admin/operator/viewer roles are
-defined. internal use first is the rollout rule. billing/payment is deferred and
-public SaaS launch is deferred. production deployment requires separate
-explicit action. Provider/AI/outbound activation remains controlled. Backend
-AuthContext and workspace membership remain source of truth. Client supplied
-workspaceId is not authoritative. Client-supplied workspaceId is not
-authoritative. Secrets/tokens/cookies/raw provider payload/raw webhook
-payload/raw HTML/payment data must not be imported or exposed. internal user
-roles are defined, internal data policy exists, and security checklist exists
-before internal beta rollout continues.
+P15 Controlled Internal Beta Execution is current. P15-PR-01 is current.
+Controlled internal beta execution is internal-only. controlled internal beta is
+internal-only. Controlled internal beta is not public SaaS launch. controlled
+internal beta is not public SaaS launch. Controlled internal beta is not
+production deployment claim unless separately executed. controlled internal beta
+is not production deployment claim unless separately executed. billing/payment
+is deferred. provider/AI/outbound activation remains controlled.
+Feedback/support remains manual/local/repo-safe unless separately approved.
+feedback/support remains manual/local/repo-safe unless separately approved. No
+external support tool integration is activated. no external support tool
+integration is activated. AuthContext and workspace membership remain source of
+truth. client-supplied workspaceId is not authoritative.
+Secrets/tokens/cookies/auth headers/raw provider payload/raw webhook payload/raw
+HTML/raw DOM/raw prompts/payment data must not be included in evidence,
+feedback, logs, docs, or runbooks. secrets/tokens/cookies/auth headers/raw
+provider payload/raw webhook payload/raw HTML/raw DOM/raw prompts/payment data
+must not be included in evidence, feedback, logs, docs, or runbooks. Known
+limitations must be reviewed before broader rollout.
 
 Markdown inventory for this refresh was generated with:
 
@@ -62,7 +56,15 @@ find . -name '*.md' \
 | Document                                      | Purpose                                                           |
 | --------------------------------------------- | ----------------------------------------------------------------- |
 | `README.md`                                   | Root orientation, local commands, phase status, and active links. |
-| `docs/product/CLARA-FINAL-ROADMAP.md`         | Active P1-P14 roadmap source.                                     |
+| `docs/product/CLARA-FINAL-ROADMAP.md`         | Active P1-P15 roadmap source.                                     |
+| `docs/product/CLARA-P15-CONTROLLED-INTERNAL-BETA-ROADMAP.md` | Active P15 controlled internal beta roadmap. |
+| `docs/product/CLARA-P15-CONTROLLED-INTERNAL-BETA-EXECUTION-SCOPE.md` | P15 controlled internal beta execution scope. |
+| `docs/product/CLARA-P15-INTERNAL-BETA-OPERATING-RULES.md` | P15 internal beta operating rules. |
+| `docs/product/CLARA-P15-INTERNAL-BETA-PARTICIPANT-RULES.md` | P15 internal beta participant rules. |
+| `docs/product/CLARA-P15-INTERNAL-BETA-EVIDENCE-LOG-POLICY.md` | P15 evidence log policy. |
+| `docs/product/CLARA-P15-INTERNAL-BETA-ISSUE-CAPTURE-POLICY.md` | P15 issue capture policy. |
+| `docs/product/CLARA-P15-INTERNAL-BETA-ESCALATION-RULES.md` | P15 escalation rules. |
+| `docs/product/CLARA-P15-INTERNAL-BETA-OPERATING-CHECKLIST.md` | P15 daily/weekly operating checklist. |
 | `docs/product/CLARA-P14-INTERNAL-BETA-ROADMAP.md` | Active P14 internal beta roadmap. |
 | `docs/product/CLARA-P14-INTERNAL-BETA-ROLLOUT-SCOPE.md` | P14 internal beta rollout scope. |
 | `docs/product/CLARA-P14-INTERNAL-ENVIRONMENT-PLAN.md` | P14 internal environment plan. |

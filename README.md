@@ -17,42 +17,34 @@ It contains the documentation, architecture, standards, templates, governance, i
 # Repository Status
 
 ```text
-Status: P1-P13 complete; local product slice runnable
-Current focus: P14 Internal Beta Rollout Preparation
-Current PR: P14-PR-06 Final Internal Beta Go-Live Runbook
+Status: P1-P14 complete; local product slice runnable
+Current focus: P15 Controlled Internal Beta Execution
+Current PR: P15-PR-01 Controlled Internal Beta Execution Scope + Operating Rules
 Launch status: not public GA launched yet; not production deployed yet
 ```
 
-P13 Internal CRM Product Activation is complete. P14 is current and prepares
-CLARA for controlled internal team usage. P14-PR-01 is complete. P14-PR-02 is
+P13 Internal CRM Product Activation is complete. P14 Internal Beta Rollout
+Preparation is complete. P14-PR-01 is complete. P14-PR-02 is
 complete. P14-PR-03 is complete. P14-PR-04 is complete. P14-PR-05 is complete.
-P14-PR-06 is current. P14 internal beta rollout preparation is complete only
-after this PR validates. Internal beta go-live is controlled internal usage
-only. Internal beta is not public SaaS launch. Internal beta is not production
-deployment claim unless separately executed. Internal beta is not a production
-deployment claim unless separately executed. Internal usage feedback loop is for
-internal beta rollout. Feedback triage is manual/local/repo-safe unless
-separately approved. Feedback must not include secrets/tokens/cookies/auth
+P14-PR-06 is complete. P15 Controlled Internal Beta Execution is current.
+P15-PR-01 is current. Controlled internal beta execution is internal-only.
+controlled internal beta is internal-only. Controlled internal beta is not
+public SaaS launch. controlled internal beta is not public SaaS launch.
+Controlled internal beta is not production deployment claim unless separately
+executed. controlled internal beta is not production deployment claim unless
+separately executed. production deployment requires separate explicit action.
+billing/payment is deferred. provider/AI/outbound
+activation remains controlled. Feedback/support remains manual/local/repo-safe
+unless separately approved. feedback/support remains manual/local/repo-safe
+unless separately approved. No external support tool integration is activated.
+no external support tool integration is activated. AuthContext and workspace
+membership remain source of truth. client-supplied workspaceId is not
+authoritative. Secrets/tokens/cookies/auth headers/raw provider payload/raw
+webhook payload/raw HTML/raw DOM/raw prompts/payment data must not be included
+in evidence, feedback, logs, docs, or runbooks. secrets/tokens/cookies/auth
 headers/raw provider payload/raw webhook payload/raw HTML/raw DOM/raw
-prompts/payment data. Feedback should minimize customer-sensitive data. Known
-limitations must be reviewed before broader rollout. Known issues workflow is
-internal beta only. No external support tool integration is activated. Internal
-access QA is complete
-for internal beta rollout. Owner/admin/operator/viewer access boundaries are
-reviewed. Viewer/read-only mutation blocking is required. Internal data
-seeding/import is for internal beta rollout. Only approved internal CRM data may
-be imported.
-owner/admin/operator/viewer roles are defined. internal use first is the rollout
-rule. billing/payment is deferred and public SaaS launch is deferred.
-production deployment requires separate explicit action; this repository update
-does not deploy production automatically. Provider/AI/outbound activation
-remains controlled. Backend AuthContext and workspace membership remain source
-of truth. Client supplied workspaceId is not authoritative. Client-supplied
-workspaceId is not authoritative. Internal data import remains workspace-scoped
-and safe. Secrets/tokens/cookies/raw provider payload/raw webhook payload/raw
-HTML/payment data must not be imported or exposed. internal user roles are
-defined, internal data policy exists, and security checklist exists for the
-internal beta gate.
+prompts/payment data must not be included in evidence, feedback, logs, docs, or
+runbooks. Known limitations must be reviewed before broader rollout.
 
 Current MVP implementation:
 
@@ -116,6 +108,14 @@ Start here for local usage:
 ```text
 docs/product/CLARA-DOCUMENTATION-INDEX.md
 docs/product/CLARA-FINAL-ROADMAP.md
+docs/product/CLARA-P15-CONTROLLED-INTERNAL-BETA-ROADMAP.md
+docs/product/CLARA-P15-CONTROLLED-INTERNAL-BETA-EXECUTION-SCOPE.md
+docs/product/CLARA-P15-INTERNAL-BETA-OPERATING-RULES.md
+docs/product/CLARA-P15-INTERNAL-BETA-PARTICIPANT-RULES.md
+docs/product/CLARA-P15-INTERNAL-BETA-EVIDENCE-LOG-POLICY.md
+docs/product/CLARA-P15-INTERNAL-BETA-ISSUE-CAPTURE-POLICY.md
+docs/product/CLARA-P15-INTERNAL-BETA-ESCALATION-RULES.md
+docs/product/CLARA-P15-INTERNAL-BETA-OPERATING-CHECKLIST.md
 docs/product/CLARA-P14-INTERNAL-BETA-ROADMAP.md
 docs/product/CLARA-P14-INTERNAL-BETA-ROLLOUT-SCOPE.md
 docs/product/CLARA-P14-INTERNAL-ENVIRONMENT-PLAN.md

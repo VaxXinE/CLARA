@@ -10,38 +10,31 @@ classification: "roadmap"
 
 ## Status
 
-P1 through P13 are complete. DOCS-REFRESH-BEFORE-P12,
+P1 through P14 are complete. DOCS-REFRESH-BEFORE-P12,
 UI-POLISH-BEFORE-P12, PRE-P12-INTERACTION-ACTIVATION,
 P12 Beta / GA Release Readiness, and P13 Internal CRM Product Activation are
-complete.
-
-P14 is current. P14 prepares CLARA for controlled internal team usage after the
-internal CRM workflow became usable in local/dev-safe mode. P14-PR-01 is
+complete. P14 Internal Beta Rollout Preparation is complete. P14-PR-01 is
 complete. P14-PR-02 is complete. P14-PR-03 is complete. P14-PR-04 is complete.
-P14-PR-05 is complete. P14-PR-06 is current. P14 internal beta rollout
-preparation is complete only after this PR validates. Internal beta go-live is
-controlled internal usage only. Internal beta is not public SaaS launch.
-Internal beta is not production deployment claim unless separately executed.
-Internal usage feedback loop is for internal beta rollout.
-Feedback triage is manual/local/repo-safe unless separately approved. Feedback
-must not include secrets/tokens/cookies/auth headers/raw provider payload/raw
-webhook payload/raw HTML/raw DOM/raw prompts/payment data. Feedback should
-minimize customer-sensitive data. Known limitations must be reviewed before
-broader rollout. Known issues workflow is internal beta only.
-no external support tool integration is activated. Internal access QA is complete
-for internal beta rollout. Owner/admin/operator/viewer access boundaries are
-reviewed. Viewer/read-only mutation blocking is required.
-Operator CRM access is scoped. Admin/owner elevated actions require workspace
-membership and proper role. Internal data import remains workspace-scoped and
-safe. owner/admin/operator/viewer roles are defined. internal use first is the
-rollout rule. billing/payment is deferred and public SaaS launch is deferred.
-production deployment requires separate explicit action and is not claimed by
-this documentation update. Provider/AI/outbound activation remains controlled.
-Backend AuthContext and workspace membership remain source of truth. Client
-supplied workspaceId is not authoritative. Client-supplied workspaceId is not
-authoritative. Secrets/tokens/cookies/raw provider payload/raw webhook
-payload/raw HTML/payment data must not be imported or exposed. internal data
-policy exists and security checklist exists before broader internal team usage.
+P14-PR-05 is complete. P14-PR-06 is complete.
+
+P15 Controlled Internal Beta Execution is current. P15-PR-01 is current.
+Controlled internal beta execution is internal-only. controlled internal beta is
+internal-only. Controlled internal beta is not public SaaS launch. controlled
+internal beta is not public SaaS launch. Controlled internal beta is not
+production deployment claim unless separately executed. controlled internal beta
+is not production deployment claim unless separately executed. billing/payment
+is deferred. provider/AI/outbound activation remains controlled.
+Feedback/support remains manual/local/repo-safe unless separately approved.
+feedback/support remains manual/local/repo-safe unless separately approved. No
+external support tool integration is activated. no external support tool
+integration is activated. AuthContext and workspace membership remain source of
+truth. client-supplied workspaceId is not authoritative.
+Secrets/tokens/cookies/auth headers/raw provider payload/raw webhook payload/raw
+HTML/raw DOM/raw prompts/payment data must not be included in evidence,
+feedback, logs, docs, or runbooks. secrets/tokens/cookies/auth headers/raw
+provider payload/raw webhook payload/raw HTML/raw DOM/raw prompts/payment data
+must not be included in evidence, feedback, logs, docs, or runbooks. Known
+limitations must be reviewed before broader rollout.
 
 CLARA is not production deployed yet. CLARA is not public GA launched yet.
 
@@ -63,7 +56,8 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 | P11   | Scale / Reliability / Billing           | complete |
 | P12   | Beta / GA Release Readiness             | complete |
 | P13   | Internal CRM Product Activation         | complete |
-| P14   | Internal Beta Rollout Preparation       | current  |
+| P14   | Internal Beta Rollout Preparation       | complete |
+| P15   | Controlled Internal Beta Execution      | current  |
 
 ## P12 Compact Roadmap
 
@@ -90,7 +84,11 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 - P14-PR-03 Internal Data Seeding / Import Workflow. Complete.
 - P14-PR-04 Internal Access QA + Security Review. Complete.
 - P14-PR-05 Internal Usage Feedback Loop. Complete.
-- P14-PR-06 Final Internal Beta Go-Live Runbook. Current.
+- P14-PR-06 Final Internal Beta Go-Live Runbook. Complete.
+
+## P15 Compact Roadmap
+
+- P15-PR-01 Controlled Internal Beta Execution Scope + Operating Rules. Current.
 
 ## Non-Launch Guardrails
 

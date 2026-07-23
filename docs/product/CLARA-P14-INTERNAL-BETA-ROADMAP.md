@@ -2,11 +2,12 @@
 
 ## Status
 
-P13 Internal CRM Product Activation is complete. P14 is current. P14 prepares
+P13 Internal CRM Product Activation is complete. P14 Internal Beta Rollout
+Preparation is complete. P14 prepares
 CLARA for controlled internal team usage. P14-PR-01 is complete. P14-PR-02 is
 complete. P14-PR-03 is complete. P14-PR-04 is complete. P14-PR-05 is complete.
-P14-PR-06 is current. P14 internal beta rollout preparation is complete only
-after this PR validates. Internal beta go-live is controlled internal usage
+P14-PR-06 is complete. P15 Controlled Internal Beta Execution is current.
+P15-PR-01 is current. Internal beta go-live is controlled internal usage
 only. Internal beta is not public SaaS launch. Internal beta is not production
 deployment claim unless separately executed. Internal usage feedback loop is for
 internal beta rollout. Feedback triage is
@@ -32,7 +33,7 @@ requires separate explicit action remain the core rollout constraints.
 | P14-PR-03 | Internal Data Seeding / Import Workflow | complete |
 | P14-PR-04 | Internal Access QA + Security Review | complete |
 | P14-PR-05 | Internal Usage Feedback Loop | complete |
-| P14-PR-06 | Final Internal Beta Go-Live Runbook | current |
+| P14-PR-06 | Final Internal Beta Go-Live Runbook | complete |
 
 ## P14-PR-01 Deliverables
 
