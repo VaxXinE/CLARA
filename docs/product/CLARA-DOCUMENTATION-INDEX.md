@@ -15,14 +15,17 @@ PRE-P12-INTERACTION-ACTIVATION, P12 Beta / GA Release Readiness, and P13
 Internal CRM Product Activation are complete.
 
 P14 is current. P14 prepares CLARA for controlled internal team usage. P14-PR-01
-is complete. P14-PR-02 is current. Internal user setup is for internal beta
-rollout. owner/admin/operator/viewer roles are defined. internal use first is
-the rollout rule. billing/payment is deferred and public SaaS launch is
+is complete. P14-PR-02 is complete. P14-PR-03 is current. Internal data
+seeding/import is for internal beta rollout. Only approved internal CRM data may
+be imported. owner/admin/operator/viewer roles are defined. internal use first
+is the rollout rule. billing/payment is deferred and public SaaS launch is
 deferred. production deployment requires separate explicit action.
 Provider/AI/outbound activation remains controlled. Backend AuthContext and
 workspace membership remain source of truth. Client supplied workspaceId is not
-authoritative. internal user roles are defined, internal data policy exists, and
-security checklist exists before internal beta rollout continues.
+authoritative. Secrets/tokens/cookies/raw provider payload/raw webhook payload/
+raw HTML/payment data must not be imported. internal user roles are defined,
+internal data policy exists, and security checklist exists before internal beta
+rollout continues.
 
 Markdown inventory for this refresh was generated with:
 
@@ -55,6 +58,10 @@ find . -name '*.md' \
 | `docs/product/CLARA-P14-INTERNAL-ROLE-PERMISSION-MATRIX.md` | P14 internal role permission matrix. |
 | `docs/product/CLARA-P14-INTERNAL-USER-ONBOARDING-CHECKLIST.md` | P14 internal user onboarding checklist. |
 | `docs/product/CLARA-P14-INTERNAL-OWNER-ADMIN-RUNBOOK.md` | P14 internal owner/admin runbook. |
+| `docs/product/CLARA-P14-INTERNAL-DATA-SEEDING-IMPORT-WORKFLOW.md` | P14 internal data seeding/import workflow. |
+| `docs/product/CLARA-P14-INTERNAL-DATA-IMPORT-FORMAT.md` | P14 internal customer import format. |
+| `docs/product/CLARA-P14-INTERNAL-DATA-VALIDATION-POLICY.md` | P14 internal data import validation policy. |
+| `docs/product/CLARA-P14-INTERNAL-DATA-ROLLBACK-CLEANUP-RUNBOOK.md` | P14 internal data rollback and cleanup runbook. |
 | `docs/product/CLARA-P13-INTERNAL-CRM-ACTIVATION-ROADMAP.md` | Active P13 internal CRM roadmap. |
 | `docs/product/CLARA-P13-CUSTOMER-CRUD-ACTIVATION.md` | P13 customer CRUD activation contract. |
 | `docs/product/CLARA-P13-CUSTOMER-NOTES-ACTIVITY-TIMELINE.md` | P13 customer notes and safe activity timeline contract. |

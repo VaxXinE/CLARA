@@ -13,13 +13,16 @@ scope, conversation/customer/activity, channel foundations, Gmail/email
 boundaries, CRM readiness, analytics readiness, enterprise hardening readiness,
 scale/reliability/billing readiness, and internal beta user setup readiness.
 P13 Internal CRM Product Activation is complete. P14-PR-01 is complete.
-P14-PR-02 is current. Internal user setup is for internal beta rollout.
+P14-PR-02 is complete. P14-PR-03 is current. Internal data seeding/import is
+for internal beta rollout. Only approved internal CRM data may be imported.
 owner/admin/operator/viewer roles are defined. Backend AuthContext and workspace
 membership remain source of truth. Client supplied workspaceId is not
-authoritative. billing/payment is deferred. public SaaS launch is deferred.
-production deployment requires separate explicit action. Provider/AI/outbound
-activation remains controlled. CLARA is not production deployed yet. CLARA is
-not public GA launched yet. Customer CRUD is internal workspace-scoped.
+authoritative. Secrets/tokens/cookies/raw provider payload/raw webhook payload/
+raw HTML/payment data must not be imported. billing/payment is deferred. public
+SaaS launch is deferred. production deployment requires separate explicit
+action. Provider/AI/outbound activation remains controlled. CLARA is not
+production deployed yet. CLARA is not public GA launched yet. Customer CRUD is
+internal workspace-scoped.
 Notes/timeline are workspace-scoped internal CRM features. lifecycle/owner
 assignment are workspace-scoped internal CRM features. owner assignment requires
 valid workspace membership. Backend AuthContext is the authority. Timeline/audit

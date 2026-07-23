@@ -17,15 +17,17 @@ complete.
 
 P14 is current. P14 prepares CLARA for controlled internal team usage after the
 internal CRM workflow became usable in local/dev-safe mode. P14-PR-01 is
-complete. P14-PR-02 Internal User Bootstrap + Role Setup is current. Internal
-user setup is for internal beta rollout. owner/admin/operator/viewer roles are
-defined. internal use first is the rollout rule. billing/payment is deferred and
-public SaaS launch is deferred. production deployment requires separate
-explicit action and is not claimed by this documentation update.
-Provider/AI/outbound activation remains controlled. Backend AuthContext and
-workspace membership remain source of truth. Client supplied workspaceId is not
-authoritative. internal data policy exists and security checklist exists before
-broader internal team usage.
+complete. P14-PR-02 is complete. P14-PR-03 is current. Internal data
+seeding/import is for internal beta rollout. Only approved internal CRM data may
+be imported. owner/admin/operator/viewer roles are defined. internal use first
+is the rollout rule. billing/payment is deferred and public SaaS launch is
+deferred. production deployment requires separate explicit action and is not
+claimed by this documentation update. Provider/AI/outbound activation remains
+controlled. Backend AuthContext and workspace membership remain source of truth.
+Client supplied workspaceId is not authoritative. Secrets/tokens/cookies/raw
+provider payload/raw webhook payload/raw HTML/payment data must not be imported.
+internal data policy exists and security checklist exists before broader
+internal team usage.
 
 CLARA is not production deployed yet. CLARA is not public GA launched yet.
 
@@ -69,8 +71,9 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 
 ## P14 Compact Roadmap
 
-- P14-PR-01 Internal Beta Rollout Scope + Environment Plan. Current.
-- P14-PR-02 Internal User Bootstrap + Role Setup. Current.
+- P14-PR-01 Internal Beta Rollout Scope + Environment Plan. Complete.
+- P14-PR-02 Internal User Bootstrap + Role Setup. Complete.
+- P14-PR-03 Internal Data Seeding / Import Workflow. Current.
 
 ## Non-Launch Guardrails
 

@@ -5,8 +5,9 @@
 security checklist exists as the internal beta gate before CLARA is used by the
 internal team beyond local/dev-safe validation.
 
-P14-PR-01 is complete. P14-PR-02 is current. Internal user setup is for
-internal beta rollout. owner/admin/operator/viewer roles are defined.
+P14-PR-01 is complete. P14-PR-02 is complete. P14-PR-03 is current. Internal
+data seeding/import is for internal beta rollout. Only approved internal CRM
+data may be imported. owner/admin/operator/viewer roles are defined.
 
 ## Required Checks
 
@@ -21,6 +22,16 @@ internal beta rollout. owner/admin/operator/viewer roles are defined.
 - [ ] Backend AuthContext and workspace membership remain source of truth.
 - [ ] Client supplied workspaceId is not authoritative.
 - [ ] Internal data policy exists and is accepted by operators.
+- [ ] Internal data import validation policy exists and is accepted by
+  operators.
+- [ ] Import is workspace-scoped.
+- [ ] AuthContext and workspace membership remain source of truth for import.
+- [ ] Client supplied workspaceId is not authoritative.
+- [ ] Secrets/tokens/cookies/raw provider payload/raw webhook payload/raw
+  HTML/payment data must not be imported.
+- [ ] Raw provider payloads, raw webhook payloads, raw DOM, raw HTML, raw AI
+  prompts, and payment data are rejected from internal import files.
+- [ ] Viewer/read-only users cannot import.
 - [ ] No real `.env` file is committed.
 - [ ] No production secret, token, private key, payment credential, provider
   credential, or service role credential is committed.
