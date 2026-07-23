@@ -13,16 +13,20 @@ scope, conversation/customer/activity, channel foundations, Gmail/email
 boundaries, CRM readiness, analytics readiness, enterprise hardening readiness,
 scale/reliability/billing readiness, and internal beta user setup readiness.
 P13 Internal CRM Product Activation is complete. P14-PR-01 is complete.
-P14-PR-02 is complete. P14-PR-03 is current. Internal data seeding/import is
-for internal beta rollout. Only approved internal CRM data may be imported.
-owner/admin/operator/viewer roles are defined. Backend AuthContext and workspace
-membership remain source of truth. Client supplied workspaceId is not
-authoritative. Secrets/tokens/cookies/raw provider payload/raw webhook payload/
-raw HTML/payment data must not be imported. billing/payment is deferred. public
-SaaS launch is deferred. production deployment requires separate explicit
-action. Provider/AI/outbound activation remains controlled. CLARA is not
-production deployed yet. CLARA is not public GA launched yet. Customer CRUD is
-internal workspace-scoped.
+P14-PR-02 is complete. P14-PR-03 is complete. P14-PR-04 is current. Internal
+access QA is for internal beta rollout. Owner/admin/operator/viewer access
+boundaries are reviewed. Viewer/read-only mutation blocking is required.
+Operator CRM access is scoped. Admin/owner elevated actions require workspace
+membership and proper role. Internal data import remains workspace-scoped and
+safe. Only approved internal CRM data may be imported. owner/admin/operator/
+viewer roles are defined. Backend AuthContext and workspace membership remain
+source of truth. Client supplied workspaceId is not authoritative.
+Client-supplied workspaceId is not authoritative. Secrets/tokens/cookies/raw
+provider payload/raw webhook payload/raw HTML/payment data must not be imported
+or exposed. billing/payment is deferred. public SaaS launch is deferred.
+production deployment requires separate explicit action. Provider/AI/outbound
+activation remains controlled. CLARA is not production deployed yet. CLARA is
+not public GA launched yet. Customer CRUD is internal workspace-scoped.
 Notes/timeline are workspace-scoped internal CRM features. lifecycle/owner
 assignment are workspace-scoped internal CRM features. owner assignment requires
 valid workspace membership. Backend AuthContext is the authority. Timeline/audit

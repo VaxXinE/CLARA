@@ -19,23 +19,28 @@ It contains the documentation, architecture, standards, templates, governance, i
 ```text
 Status: P1-P13 complete; local product slice runnable
 Current focus: P14 Internal Beta Rollout Preparation
-Current PR: P14-PR-03 Internal Data Seeding / Import Workflow
+Current PR: P14-PR-04 Internal Access QA + Security Review
 Launch status: not public GA launched yet; not production deployed yet
 ```
 
 P13 Internal CRM Product Activation is complete. P14 is current and prepares
 CLARA for controlled internal team usage. P14-PR-01 is complete. P14-PR-02 is
-complete. P14-PR-03 is current. Internal data seeding/import is for internal
-beta rollout. Only approved internal CRM data may be imported.
+complete. P14-PR-03 is complete. P14-PR-04 is current. Internal access QA is
+for internal beta rollout. Owner/admin/operator/viewer access boundaries are
+reviewed. Viewer/read-only mutation blocking is required. Internal data
+seeding/import is for internal beta rollout. Only approved internal CRM data may
+be imported.
 owner/admin/operator/viewer roles are defined. internal use first is the rollout
 rule. billing/payment is deferred and public SaaS launch is deferred.
 production deployment requires separate explicit action; this repository update
 does not deploy production automatically. Provider/AI/outbound activation
 remains controlled. Backend AuthContext and workspace membership remain source
-of truth. Client supplied workspaceId is not authoritative. Secrets/tokens/
-cookies/auth headers/raw provider payloads/raw webhook payloads/raw HTML/payment
-data must not be imported. internal user roles are defined, internal data policy
-exists, and security checklist exists for the internal beta gate.
+of truth. Client supplied workspaceId is not authoritative. Client-supplied
+workspaceId is not authoritative. Internal data import remains workspace-scoped
+and safe. Secrets/tokens/cookies/raw provider payload/raw webhook payload/raw
+HTML/payment data must not be imported or exposed. internal user roles are
+defined, internal data policy exists, and security checklist exists for the
+internal beta gate.
 
 Current MVP implementation:
 
@@ -113,6 +118,11 @@ docs/product/CLARA-P14-INTERNAL-DATA-SEEDING-IMPORT-WORKFLOW.md
 docs/product/CLARA-P14-INTERNAL-DATA-IMPORT-FORMAT.md
 docs/product/CLARA-P14-INTERNAL-DATA-VALIDATION-POLICY.md
 docs/product/CLARA-P14-INTERNAL-DATA-ROLLBACK-CLEANUP-RUNBOOK.md
+docs/product/CLARA-P14-INTERNAL-ACCESS-QA-CHECKLIST.md
+docs/product/CLARA-P14-INTERNAL-SECURITY-REVIEW.md
+docs/product/CLARA-P14-INTERNAL-ROLE-ACCESS-REVIEW.md
+docs/product/CLARA-P14-WORKSPACE-ISOLATION-QA.md
+docs/product/CLARA-P14-INTERNAL-DATA-IMPORT-SECURITY-REVIEW.md
 docs/product/CLARA-P13-INTERNAL-CRM-ACTIVATION-ROADMAP.md
 docs/product/CLARA-P13-CUSTOMER-CRUD-ACTIVATION.md
 docs/product/CLARA-P13-CUSTOMER-NOTES-ACTIVITY-TIMELINE.md
