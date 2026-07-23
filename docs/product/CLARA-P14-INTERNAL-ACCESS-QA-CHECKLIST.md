@@ -3,7 +3,7 @@
 ## Status
 
 P14-PR-01 is complete. P14-PR-02 is complete. P14-PR-03 is complete.
-P14-PR-04 is current.
+P14-PR-04 is complete.
 
 Internal access QA is for internal beta rollout. Owner/admin/operator/viewer
 access boundaries are reviewed.

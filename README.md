@@ -19,13 +19,19 @@ It contains the documentation, architecture, standards, templates, governance, i
 ```text
 Status: P1-P13 complete; local product slice runnable
 Current focus: P14 Internal Beta Rollout Preparation
-Current PR: P14-PR-04 Internal Access QA + Security Review
+Current PR: P14-PR-05 Internal Usage Feedback Loop
 Launch status: not public GA launched yet; not production deployed yet
 ```
 
 P13 Internal CRM Product Activation is complete. P14 is current and prepares
 CLARA for controlled internal team usage. P14-PR-01 is complete. P14-PR-02 is
-complete. P14-PR-03 is complete. P14-PR-04 is current. Internal access QA is
+complete. P14-PR-03 is complete. P14-PR-04 is complete. P14-PR-05 is current.
+Internal usage feedback loop is for internal beta rollout. Feedback triage is
+manual/local/repo-safe unless separately approved. Feedback must not include
+secrets/tokens/cookies/auth headers/raw provider payload/raw webhook payload/raw
+HTML/raw DOM/raw prompts/payment data. Feedback should minimize
+customer-sensitive data. Known issues workflow is internal beta only. No
+external support tool integration is activated. Internal access QA is complete
 for internal beta rollout. Owner/admin/operator/viewer access boundaries are
 reviewed. Viewer/read-only mutation blocking is required. Internal data
 seeding/import is for internal beta rollout. Only approved internal CRM data may
@@ -123,6 +129,13 @@ docs/product/CLARA-P14-INTERNAL-SECURITY-REVIEW.md
 docs/product/CLARA-P14-INTERNAL-ROLE-ACCESS-REVIEW.md
 docs/product/CLARA-P14-WORKSPACE-ISOLATION-QA.md
 docs/product/CLARA-P14-INTERNAL-DATA-IMPORT-SECURITY-REVIEW.md
+docs/product/CLARA-P14-INTERNAL-USAGE-FEEDBACK-LOOP.md
+docs/product/CLARA-P14-INTERNAL-FEEDBACK-TRIAGE-RUNBOOK.md
+docs/product/CLARA-P14-INTERNAL-FEEDBACK-SEVERITY-POLICY.md
+docs/product/CLARA-P14-INTERNAL-BUG-REPORT-TEMPLATE.md
+docs/product/CLARA-P14-INTERNAL-USABILITY-FEEDBACK-TEMPLATE.md
+docs/product/CLARA-P14-INTERNAL-FEEDBACK-PRIVACY-BOUNDARY.md
+docs/product/CLARA-P14-INTERNAL-KNOWN-ISSUES-WORKFLOW.md
 docs/product/CLARA-P13-INTERNAL-CRM-ACTIVATION-ROADMAP.md
 docs/product/CLARA-P13-CUSTOMER-CRUD-ACTIVATION.md
 docs/product/CLARA-P13-CUSTOMER-NOTES-ACTIVITY-TIMELINE.md
