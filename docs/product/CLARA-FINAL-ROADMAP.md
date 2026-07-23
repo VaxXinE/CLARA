@@ -17,7 +17,12 @@ complete. P14 Internal Beta Rollout Preparation is complete. P14-PR-01 is
 complete. P14-PR-02 is complete. P14-PR-03 is complete. P14-PR-04 is complete.
 P14-PR-05 is complete. P14-PR-06 is complete.
 
-P15 Controlled Internal Beta Execution is current. P15-PR-01 is current.
+P15 Controlled Internal Beta Execution is current. P15-PR-01 is complete.
+P15-PR-02 is current. Runtime smoke execution is internal-only. runtime smoke
+execution is internal-only. Runtime smoke execution is not public SaaS launch.
+runtime smoke execution is not public SaaS launch. Runtime smoke execution is
+not production deployment claim unless separately executed. runtime smoke
+execution is not production deployment claim unless separately executed.
 Controlled internal beta execution is internal-only. controlled internal beta is
 internal-only. Controlled internal beta is not public SaaS launch. controlled
 internal beta is not public SaaS launch. Controlled internal beta is not
@@ -88,7 +93,8 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 
 ## P15 Compact Roadmap
 
-- P15-PR-01 Controlled Internal Beta Execution Scope + Operating Rules. Current.
+- P15-PR-01 Controlled Internal Beta Execution Scope + Operating Rules. Complete.
+- P15-PR-02 Internal Runtime Smoke Execution + Evidence Log. Current.
 
 ## Non-Launch Guardrails
 

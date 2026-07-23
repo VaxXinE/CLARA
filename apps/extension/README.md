@@ -14,7 +14,9 @@ The extension boundary is current through P15. P14 Internal Beta Rollout
 Preparation is complete. P14-PR-01 is complete. P14-PR-02 is complete.
 P14-PR-03 is complete. P14-PR-04 is complete. P14-PR-05 is complete.
 P14-PR-06 is complete. P15 Controlled Internal Beta Execution is current.
-P15-PR-01 is current. controlled internal beta is internal-only. controlled
+P15-PR-01 is complete. P15-PR-02 is current. controlled internal beta is internal-only.
+runtime smoke execution is internal-only. runtime smoke execution is not public SaaS launch.
+runtime smoke execution is not production deployment claim unless separately executed. controlled
 internal beta is not public SaaS launch. controlled internal beta is not
 production deployment claim unless separately executed. billing/payment is
 deferred. provider/AI/outbound activation remains controlled. feedback/support

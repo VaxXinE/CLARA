@@ -7,7 +7,7 @@ describe("P14 internal usage feedback loop dashboard", () => {
 
     expect(readme).toContain("P14-PR-05 is complete");
     expect(readme).toContain("P14-PR-06 is complete");
-    expect(readme).toContain("P15-PR-01 is current");
+    expect(readme).toContain("P15-PR-02 is current");
     expect(readme).toContain(
       "Internal usage feedback loop is for internal beta rollout",
     );
