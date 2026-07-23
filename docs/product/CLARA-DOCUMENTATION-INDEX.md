@@ -18,7 +18,17 @@ P14-PR-03 is complete. P14-PR-04 is complete. P14-PR-05 is complete.
 P14-PR-06 is complete.
 
 P15 Controlled Internal Beta Execution is current. P15-PR-01 is complete.
-P15-PR-02 is complete. P15-PR-03 is current. User acceptance session is
+P15-PR-02 is complete. P15-PR-03 is complete. P15-PR-04 is current. P15 closes
+only after this PR validates. P16 Extension-Assisted Channel Ingestion
+Hardening is next. P16 focuses on extension-assisted WA/IG/TikTok active chat
+capture. extension-assisted ingestion is internal/controlled and user-assisted.
+extension-assisted ingestion is not official WA/IG/TikTok API activation.
+extension-assisted ingestion is not public SaaS launch. extension-assisted
+ingestion is not production deployment claim unless separately executed.
+official provider APIs remain not activated. real AI provider calls remain not
+activated in this PR. evidence/issue reports/handoff/stabilization docs must not
+include secrets/tokens/cookies/auth headers/raw provider payload/raw webhook
+payload/raw HTML/raw DOM/raw prompts/payment data. User acceptance session is
 internal-only. user acceptance session is internal-only. UAT issue capture is
 manual/local/repo-safe unless separately approved. UAT is not public SaaS
 launch. UAT is not production deployment claim unless separately executed.
@@ -62,81 +72,90 @@ find . -name '*.md' \
 
 ## Roadmap / Product
 
-| Document                                                             | Purpose                                                           |
-| -------------------------------------------------------------------- | ----------------------------------------------------------------- |
-| `README.md`                                                          | Root orientation, local commands, phase status, and active links. |
-| `docs/product/CLARA-FINAL-ROADMAP.md`                                | Active P1-P15 roadmap source.                                     |
-| `docs/product/CLARA-P15-CONTROLLED-INTERNAL-BETA-ROADMAP.md`         | Active P15 controlled internal beta roadmap.                      |
-| `docs/product/CLARA-P15-CONTROLLED-INTERNAL-BETA-EXECUTION-SCOPE.md` | P15 controlled internal beta execution scope.                     |
-| `docs/product/CLARA-P15-INTERNAL-RUNTIME-SMOKE-EXECUTION-RUNBOOK.md` | P15 internal runtime smoke execution runbook.                     |
-| `docs/product/CLARA-P15-INTERNAL-RUNTIME-EVIDENCE-LOG-TEMPLATE.md`   | P15 internal runtime evidence log template.                       |
-| `docs/product/CLARA-P15-API-SMOKE-EXECUTION-CHECKLIST.md`            | P15 API smoke execution checklist.                                |
-| `docs/product/CLARA-P15-DASHBOARD-SMOKE-EXECUTION-CHECKLIST.md`      | P15 Dashboard smoke execution checklist.                          |
-| `docs/product/CLARA-P15-EXTENSION-SMOKE-EXECUTION-CHECKLIST.md`      | P15 Extension smoke execution checklist.                          |
-| `docs/product/CLARA-P15-EVIDENCE-PRIVACY-BOUNDARY.md`                | P15 evidence privacy boundary.                                    |
-| `docs/product/CLARA-P15-EVIDENCE-RETENTION-HANDLING-POLICY.md`       | P15 evidence retention/manual handling policy.                    |
-| `docs/product/CLARA-P15-INTERNAL-UAT-SESSION-PLAN.md`                | P15 internal UAT session plan.                                    |
-| `docs/product/CLARA-P15-INTERNAL-UAT-OPERATOR-SCRIPT.md`             | P15 operator UAT script.                                          |
-| `docs/product/CLARA-P15-INTERNAL-UAT-ADMIN-SCRIPT.md`                | P15 admin UAT script.                                             |
-| `docs/product/CLARA-P15-INTERNAL-UAT-VIEWER-SCRIPT.md`               | P15 viewer/read-only UAT script.                                  |
-| `docs/product/CLARA-P15-INTERNAL-UAT-ACCEPTANCE-CRITERIA.md`         | P15 UAT acceptance criteria.                                      |
-| `docs/product/CLARA-P15-INTERNAL-UAT-ISSUE-CAPTURE-TEMPLATE.md`      | P15 UAT issue capture template.                                   |
-| `docs/product/CLARA-P15-INTERNAL-UAT-USABILITY-FEEDBACK-TEMPLATE.md` | P15 UAT usability feedback template.                              |
-| `docs/product/CLARA-P15-INTERNAL-UAT-SEVERITY-PRIORITY-RULES.md`     | P15 UAT severity/priority rules.                                  |
-| `docs/product/CLARA-P15-INTERNAL-UAT-EVIDENCE-SAFETY-RULES.md`       | P15 UAT evidence safety rules.                                    |
-| `docs/product/CLARA-P15-INTERNAL-BETA-OPERATING-RULES.md`            | P15 internal beta operating rules.                                |
-| `docs/product/CLARA-P15-INTERNAL-BETA-PARTICIPANT-RULES.md`          | P15 internal beta participant rules.                              |
-| `docs/product/CLARA-P15-INTERNAL-BETA-EVIDENCE-LOG-POLICY.md`        | P15 evidence log policy.                                          |
-| `docs/product/CLARA-P15-INTERNAL-BETA-ISSUE-CAPTURE-POLICY.md`       | P15 issue capture policy.                                         |
-| `docs/product/CLARA-P15-INTERNAL-BETA-ESCALATION-RULES.md`           | P15 escalation rules.                                             |
-| `docs/product/CLARA-P15-INTERNAL-BETA-OPERATING-CHECKLIST.md`        | P15 daily/weekly operating checklist.                             |
-| `docs/product/CLARA-P14-INTERNAL-BETA-ROADMAP.md`                    | Active P14 internal beta roadmap.                                 |
-| `docs/product/CLARA-P14-INTERNAL-BETA-ROLLOUT-SCOPE.md`              | P14 internal beta rollout scope.                                  |
-| `docs/product/CLARA-P14-INTERNAL-ENVIRONMENT-PLAN.md`                | P14 internal environment plan.                                    |
-| `docs/product/CLARA-P14-INTERNAL-USER-ROLE-PLAN.md`                  | P14 internal user role plan.                                      |
-| `docs/product/CLARA-P14-INTERNAL-DATA-POLICY.md`                     | P14 internal data policy.                                         |
-| `docs/product/CLARA-P14-INTERNAL-SECURITY-CHECKLIST.md`              | P14 internal security checklist.                                  |
-| `docs/product/CLARA-P14-INTERNAL-USER-BOOTSTRAP-ROLE-SETUP.md`       | P14 internal user bootstrap and role setup.                       |
-| `docs/product/CLARA-P14-INTERNAL-ROLE-PERMISSION-MATRIX.md`          | P14 internal role permission matrix.                              |
-| `docs/product/CLARA-P14-INTERNAL-USER-ONBOARDING-CHECKLIST.md`       | P14 internal user onboarding checklist.                           |
-| `docs/product/CLARA-P14-INTERNAL-OWNER-ADMIN-RUNBOOK.md`             | P14 internal owner/admin runbook.                                 |
-| `docs/product/CLARA-P14-INTERNAL-DATA-SEEDING-IMPORT-WORKFLOW.md`    | P14 internal data seeding/import workflow.                        |
-| `docs/product/CLARA-P14-INTERNAL-DATA-IMPORT-FORMAT.md`              | P14 internal customer import format.                              |
-| `docs/product/CLARA-P14-INTERNAL-DATA-VALIDATION-POLICY.md`          | P14 internal data import validation policy.                       |
-| `docs/product/CLARA-P14-INTERNAL-DATA-ROLLBACK-CLEANUP-RUNBOOK.md`   | P14 internal data rollback and cleanup runbook.                   |
-| `docs/product/CLARA-P14-INTERNAL-ACCESS-QA-CHECKLIST.md`             | P14 internal access QA checklist.                                 |
-| `docs/product/CLARA-P14-INTERNAL-SECURITY-REVIEW.md`                 | P14 internal security review.                                     |
-| `docs/product/CLARA-P14-INTERNAL-ROLE-ACCESS-REVIEW.md`              | P14 role access review.                                           |
-| `docs/product/CLARA-P14-WORKSPACE-ISOLATION-QA.md`                   | P14 workspace isolation QA.                                       |
-| `docs/product/CLARA-P14-INTERNAL-DATA-IMPORT-SECURITY-REVIEW.md`     | P14 internal data import security review.                         |
-| `docs/product/CLARA-P14-INTERNAL-USAGE-FEEDBACK-LOOP.md`             | P14 internal usage feedback loop.                                 |
-| `docs/product/CLARA-P14-INTERNAL-FEEDBACK-TRIAGE-RUNBOOK.md`         | P14 internal feedback triage runbook.                             |
-| `docs/product/CLARA-P14-INTERNAL-FEEDBACK-SEVERITY-POLICY.md`        | P14 internal feedback severity policy.                            |
-| `docs/product/CLARA-P14-INTERNAL-BUG-REPORT-TEMPLATE.md`             | P14 internal bug report template.                                 |
-| `docs/product/CLARA-P14-INTERNAL-USABILITY-FEEDBACK-TEMPLATE.md`     | P14 internal usability feedback template.                         |
-| `docs/product/CLARA-P14-INTERNAL-FEEDBACK-PRIVACY-BOUNDARY.md`       | P14 feedback privacy boundary.                                    |
-| `docs/product/CLARA-P14-INTERNAL-KNOWN-ISSUES-WORKFLOW.md`           | P14 internal known issues workflow.                               |
-| `docs/product/CLARA-P14-FINAL-INTERNAL-BETA-GO-LIVE-RUNBOOK.md`      | P14 final internal beta go-live runbook.                          |
-| `docs/product/CLARA-P14-INTERNAL-BETA-GO-NO-GO-CHECKLIST.md`         | P14 internal beta go/no-go checklist.                             |
-| `docs/product/CLARA-P14-INTERNAL-BETA-OPERATOR-HANDOFF.md`           | P14 internal beta operator handoff.                               |
-| `docs/product/CLARA-P14-INTERNAL-BETA-ADMIN-HANDOFF.md`              | P14 internal beta admin handoff.                                  |
-| `docs/product/CLARA-P14-INTERNAL-BETA-SUPPORT-HANDOFF.md`            | P14 support/feedback handoff.                                     |
-| `docs/product/CLARA-P14-INTERNAL-BETA-ROLLBACK-HANDOFF.md`           | P14 rollback/manual recovery handoff.                             |
-| `docs/product/CLARA-P14-INTERNAL-BETA-KNOWN-LIMITATIONS-REVIEW.md`   | P14 known limitations review.                                     |
-| `docs/product/CLARA-P14-INTERNAL-BETA-FINAL-SECURITY-REVIEW.md`      | P14 final security review.                                        |
-| `docs/product/CLARA-P14-INTERNAL-BETA-FINAL-HANDOFF-SUMMARY.md`      | P14 final handoff summary.                                        |
-| `docs/product/CLARA-P13-INTERNAL-CRM-ACTIVATION-ROADMAP.md`          | Active P13 internal CRM roadmap.                                  |
-| `docs/product/CLARA-P13-CUSTOMER-CRUD-ACTIVATION.md`                 | P13 customer CRUD activation contract.                            |
-| `docs/product/CLARA-P13-CUSTOMER-NOTES-ACTIVITY-TIMELINE.md`         | P13 customer notes and safe activity timeline contract.           |
-| `docs/product/CLARA-P13-CUSTOMER-LIFECYCLE-OWNER-ASSIGNMENT.md`      | P13 customer lifecycle status and owner assignment contract.      |
-| `docs/product/CLARA-P13-FOLLOW-UP-TASK-WORKFLOW.md`                  | P13 follow-up task workflow contract.                             |
-| `docs/product/CLARA-P13-CONVERSATION-CUSTOMER-LINKING.md`            | P13 conversation-to-customer linking contract.                    |
-| `docs/product/CLARA-P13-INTERNAL-DASHBOARD-ANALYTICS-WIRING.md`      | P13 internal dashboard analytics wiring contract.                 |
-| `docs/product/CLARA-P13-INTERNAL-CRM-E2E-QA-RUNBOOK.md`              | Final P13 internal CRM E2E QA runbook.                            |
-| `docs/product/CLARA-P13-INTERNAL-CRM-HANDOFF-SUMMARY.md`             | Final P13 internal CRM handoff summary.                           |
-| `docs/product/CLARA-P13-BILLING-DEFERRED-POLICY.md`                  | P13 billing/payment deferred policy.                              |
-| `docs/product/CLARA-MVP-GAP-REVIEW.md`                               | Product gap and phase progress review.                            |
-| `docs/product/CLARA-PHASE-CLOSURE-SUMMARY.md`                        | P1-P11 closure summary.                                           |
+| Document                                                                  | Purpose                                                           |
+| ------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `README.md`                                                               | Root orientation, local commands, phase status, and active links. |
+| `docs/product/CLARA-FINAL-ROADMAP.md`                                     | Active P1-P15 roadmap source.                                     |
+| `docs/product/CLARA-P15-CONTROLLED-INTERNAL-BETA-ROADMAP.md`              | Active P15 controlled internal beta roadmap.                      |
+| `docs/product/CLARA-P15-CONTROLLED-INTERNAL-BETA-EXECUTION-SCOPE.md`      | P15 controlled internal beta execution scope.                     |
+| `docs/product/CLARA-P15-INTERNAL-RUNTIME-SMOKE-EXECUTION-RUNBOOK.md`      | P15 internal runtime smoke execution runbook.                     |
+| `docs/product/CLARA-P15-INTERNAL-RUNTIME-EVIDENCE-LOG-TEMPLATE.md`        | P15 internal runtime evidence log template.                       |
+| `docs/product/CLARA-P15-API-SMOKE-EXECUTION-CHECKLIST.md`                 | P15 API smoke execution checklist.                                |
+| `docs/product/CLARA-P15-DASHBOARD-SMOKE-EXECUTION-CHECKLIST.md`           | P15 Dashboard smoke execution checklist.                          |
+| `docs/product/CLARA-P15-EXTENSION-SMOKE-EXECUTION-CHECKLIST.md`           | P15 Extension smoke execution checklist.                          |
+| `docs/product/CLARA-P15-EVIDENCE-PRIVACY-BOUNDARY.md`                     | P15 evidence privacy boundary.                                    |
+| `docs/product/CLARA-P15-EVIDENCE-RETENTION-HANDLING-POLICY.md`            | P15 evidence retention/manual handling policy.                    |
+| `docs/product/CLARA-P15-INTERNAL-UAT-SESSION-PLAN.md`                     | P15 internal UAT session plan.                                    |
+| `docs/product/CLARA-P15-INTERNAL-UAT-OPERATOR-SCRIPT.md`                  | P15 operator UAT script.                                          |
+| `docs/product/CLARA-P15-INTERNAL-UAT-ADMIN-SCRIPT.md`                     | P15 admin UAT script.                                             |
+| `docs/product/CLARA-P15-INTERNAL-UAT-VIEWER-SCRIPT.md`                    | P15 viewer/read-only UAT script.                                  |
+| `docs/product/CLARA-P15-INTERNAL-UAT-ACCEPTANCE-CRITERIA.md`              | P15 UAT acceptance criteria.                                      |
+| `docs/product/CLARA-P15-INTERNAL-UAT-ISSUE-CAPTURE-TEMPLATE.md`           | P15 UAT issue capture template.                                   |
+| `docs/product/CLARA-P15-INTERNAL-UAT-USABILITY-FEEDBACK-TEMPLATE.md`      | P15 UAT usability feedback template.                              |
+| `docs/product/CLARA-P15-INTERNAL-UAT-SEVERITY-PRIORITY-RULES.md`          | P15 UAT severity/priority rules.                                  |
+| `docs/product/CLARA-P15-INTERNAL-UAT-EVIDENCE-SAFETY-RULES.md`            | P15 UAT evidence safety rules.                                    |
+| `docs/product/CLARA-P15-INTERNAL-BETA-BUGFIX-TRIAGE-POLICY.md`            | P15 bugfix triage policy.                                         |
+| `docs/product/CLARA-P15-INTERNAL-BETA-BUGFIX-TRIAGE-BATCH-1-CHECKLIST.md` | P15 bugfix triage batch 1 checklist.                              |
+| `docs/product/CLARA-P15-INTERNAL-BETA-STABILIZATION-REVIEW.md`            | P15 stabilization review.                                         |
+| `docs/product/CLARA-P15-INTERNAL-BETA-KNOWN-ISSUE-DISPOSITION.md`         | P15 known issue disposition.                                      |
+| `docs/product/CLARA-P15-INTERNAL-BETA-RISK-ACCEPTANCE-REGISTER.md`        | P15 risk acceptance register.                                     |
+| `docs/product/CLARA-P15-FINAL-INTERNAL-BETA-EXECUTION-HANDOFF.md`         | P15 final execution handoff.                                      |
+| `docs/product/CLARA-P15-CLOSURE-SUMMARY.md`                               | P15 closure summary.                                              |
+| `docs/product/CLARA-P16-EXTENSION-ASSISTED-INGESTION-TRANSITION-PLAN.md`  | P16 extension-assisted ingestion transition plan.                 |
+| `docs/product/CLARA-P16-P17-COMPRESSED-ROADMAP.md`                        | P16/P17 compressed roadmap.                                       |
+| `docs/product/CLARA-P15-INTERNAL-BETA-OPERATING-RULES.md`                 | P15 internal beta operating rules.                                |
+| `docs/product/CLARA-P15-INTERNAL-BETA-PARTICIPANT-RULES.md`               | P15 internal beta participant rules.                              |
+| `docs/product/CLARA-P15-INTERNAL-BETA-EVIDENCE-LOG-POLICY.md`             | P15 evidence log policy.                                          |
+| `docs/product/CLARA-P15-INTERNAL-BETA-ISSUE-CAPTURE-POLICY.md`            | P15 issue capture policy.                                         |
+| `docs/product/CLARA-P15-INTERNAL-BETA-ESCALATION-RULES.md`                | P15 escalation rules.                                             |
+| `docs/product/CLARA-P15-INTERNAL-BETA-OPERATING-CHECKLIST.md`             | P15 daily/weekly operating checklist.                             |
+| `docs/product/CLARA-P14-INTERNAL-BETA-ROADMAP.md`                         | Active P14 internal beta roadmap.                                 |
+| `docs/product/CLARA-P14-INTERNAL-BETA-ROLLOUT-SCOPE.md`                   | P14 internal beta rollout scope.                                  |
+| `docs/product/CLARA-P14-INTERNAL-ENVIRONMENT-PLAN.md`                     | P14 internal environment plan.                                    |
+| `docs/product/CLARA-P14-INTERNAL-USER-ROLE-PLAN.md`                       | P14 internal user role plan.                                      |
+| `docs/product/CLARA-P14-INTERNAL-DATA-POLICY.md`                          | P14 internal data policy.                                         |
+| `docs/product/CLARA-P14-INTERNAL-SECURITY-CHECKLIST.md`                   | P14 internal security checklist.                                  |
+| `docs/product/CLARA-P14-INTERNAL-USER-BOOTSTRAP-ROLE-SETUP.md`            | P14 internal user bootstrap and role setup.                       |
+| `docs/product/CLARA-P14-INTERNAL-ROLE-PERMISSION-MATRIX.md`               | P14 internal role permission matrix.                              |
+| `docs/product/CLARA-P14-INTERNAL-USER-ONBOARDING-CHECKLIST.md`            | P14 internal user onboarding checklist.                           |
+| `docs/product/CLARA-P14-INTERNAL-OWNER-ADMIN-RUNBOOK.md`                  | P14 internal owner/admin runbook.                                 |
+| `docs/product/CLARA-P14-INTERNAL-DATA-SEEDING-IMPORT-WORKFLOW.md`         | P14 internal data seeding/import workflow.                        |
+| `docs/product/CLARA-P14-INTERNAL-DATA-IMPORT-FORMAT.md`                   | P14 internal customer import format.                              |
+| `docs/product/CLARA-P14-INTERNAL-DATA-VALIDATION-POLICY.md`               | P14 internal data import validation policy.                       |
+| `docs/product/CLARA-P14-INTERNAL-DATA-ROLLBACK-CLEANUP-RUNBOOK.md`        | P14 internal data rollback and cleanup runbook.                   |
+| `docs/product/CLARA-P14-INTERNAL-ACCESS-QA-CHECKLIST.md`                  | P14 internal access QA checklist.                                 |
+| `docs/product/CLARA-P14-INTERNAL-SECURITY-REVIEW.md`                      | P14 internal security review.                                     |
+| `docs/product/CLARA-P14-INTERNAL-ROLE-ACCESS-REVIEW.md`                   | P14 role access review.                                           |
+| `docs/product/CLARA-P14-WORKSPACE-ISOLATION-QA.md`                        | P14 workspace isolation QA.                                       |
+| `docs/product/CLARA-P14-INTERNAL-DATA-IMPORT-SECURITY-REVIEW.md`          | P14 internal data import security review.                         |
+| `docs/product/CLARA-P14-INTERNAL-USAGE-FEEDBACK-LOOP.md`                  | P14 internal usage feedback loop.                                 |
+| `docs/product/CLARA-P14-INTERNAL-FEEDBACK-TRIAGE-RUNBOOK.md`              | P14 internal feedback triage runbook.                             |
+| `docs/product/CLARA-P14-INTERNAL-FEEDBACK-SEVERITY-POLICY.md`             | P14 internal feedback severity policy.                            |
+| `docs/product/CLARA-P14-INTERNAL-BUG-REPORT-TEMPLATE.md`                  | P14 internal bug report template.                                 |
+| `docs/product/CLARA-P14-INTERNAL-USABILITY-FEEDBACK-TEMPLATE.md`          | P14 internal usability feedback template.                         |
+| `docs/product/CLARA-P14-INTERNAL-FEEDBACK-PRIVACY-BOUNDARY.md`            | P14 feedback privacy boundary.                                    |
+| `docs/product/CLARA-P14-INTERNAL-KNOWN-ISSUES-WORKFLOW.md`                | P14 internal known issues workflow.                               |
+| `docs/product/CLARA-P14-FINAL-INTERNAL-BETA-GO-LIVE-RUNBOOK.md`           | P14 final internal beta go-live runbook.                          |
+| `docs/product/CLARA-P14-INTERNAL-BETA-GO-NO-GO-CHECKLIST.md`              | P14 internal beta go/no-go checklist.                             |
+| `docs/product/CLARA-P14-INTERNAL-BETA-OPERATOR-HANDOFF.md`                | P14 internal beta operator handoff.                               |
+| `docs/product/CLARA-P14-INTERNAL-BETA-ADMIN-HANDOFF.md`                   | P14 internal beta admin handoff.                                  |
+| `docs/product/CLARA-P14-INTERNAL-BETA-SUPPORT-HANDOFF.md`                 | P14 support/feedback handoff.                                     |
+| `docs/product/CLARA-P14-INTERNAL-BETA-ROLLBACK-HANDOFF.md`                | P14 rollback/manual recovery handoff.                             |
+| `docs/product/CLARA-P14-INTERNAL-BETA-KNOWN-LIMITATIONS-REVIEW.md`        | P14 known limitations review.                                     |
+| `docs/product/CLARA-P14-INTERNAL-BETA-FINAL-SECURITY-REVIEW.md`           | P14 final security review.                                        |
+| `docs/product/CLARA-P14-INTERNAL-BETA-FINAL-HANDOFF-SUMMARY.md`           | P14 final handoff summary.                                        |
+| `docs/product/CLARA-P13-INTERNAL-CRM-ACTIVATION-ROADMAP.md`               | Active P13 internal CRM roadmap.                                  |
+| `docs/product/CLARA-P13-CUSTOMER-CRUD-ACTIVATION.md`                      | P13 customer CRUD activation contract.                            |
+| `docs/product/CLARA-P13-CUSTOMER-NOTES-ACTIVITY-TIMELINE.md`              | P13 customer notes and safe activity timeline contract.           |
+| `docs/product/CLARA-P13-CUSTOMER-LIFECYCLE-OWNER-ASSIGNMENT.md`           | P13 customer lifecycle status and owner assignment contract.      |
+| `docs/product/CLARA-P13-FOLLOW-UP-TASK-WORKFLOW.md`                       | P13 follow-up task workflow contract.                             |
+| `docs/product/CLARA-P13-CONVERSATION-CUSTOMER-LINKING.md`                 | P13 conversation-to-customer linking contract.                    |
+| `docs/product/CLARA-P13-INTERNAL-DASHBOARD-ANALYTICS-WIRING.md`           | P13 internal dashboard analytics wiring contract.                 |
+| `docs/product/CLARA-P13-INTERNAL-CRM-E2E-QA-RUNBOOK.md`                   | Final P13 internal CRM E2E QA runbook.                            |
+| `docs/product/CLARA-P13-INTERNAL-CRM-HANDOFF-SUMMARY.md`                  | Final P13 internal CRM handoff summary.                           |
+| `docs/product/CLARA-P13-BILLING-DEFERRED-POLICY.md`                       | P13 billing/payment deferred policy.                              |
+| `docs/product/CLARA-MVP-GAP-REVIEW.md`                                    | Product gap and phase progress review.                            |
+| `docs/product/CLARA-PHASE-CLOSURE-SUMMARY.md`                             | P1-P11 closure summary.                                           |
 
 ## Architecture / Security
 

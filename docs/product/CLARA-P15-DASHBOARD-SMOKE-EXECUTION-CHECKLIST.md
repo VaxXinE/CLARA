@@ -4,7 +4,7 @@
 
 P14 Internal Beta Rollout Preparation is complete. P15 Controlled Internal Beta
 Execution is current. P15-PR-01 is complete. P15-PR-02 is complete.
-P15-PR-03 is current.
+P15-PR-03 is complete. P15-PR-04 is current.
 
 runtime smoke execution is internal-only. runtime smoke execution is not public
 SaaS launch. runtime smoke execution is not production deployment claim unless
