@@ -2,7 +2,7 @@
 
 P15 Controlled Internal Beta Execution is complete. P16 Extension-Assisted
 Channel Ingestion Hardening is current. P16-PR-01 is complete. P16-PR-02 is
-current.
+complete. P16-PR-03 is current.
 
 Active chat reading is internal/controlled/user-assisted. Readers only capture
 active chat opened by an authorized operator. Readers only capture visible

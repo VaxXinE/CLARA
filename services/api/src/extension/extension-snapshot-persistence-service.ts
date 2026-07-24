@@ -3,6 +3,7 @@ import type { AuthContext } from "../auth/auth-context";
 import { getWorkspaceScopeFromAuth } from "../workspace/workspace-scope";
 import type { ExtensionSnapshot } from "./extension-snapshot-types";
 import type { ExtensionSnapshotRepository } from "./extension-snapshot-repository";
+import { sanitizeExtensionSnapshot } from "./extension-snapshot-sanitization";
 
 export class ExtensionSnapshotPersistenceService {
   constructor(
@@ -18,10 +19,11 @@ export class ExtensionSnapshotPersistenceService {
     snapshot: ExtensionSnapshot;
     correlationId: string;
   }) {
+    const snapshot = sanitizeExtensionSnapshot(input.snapshot);
     const result = await this.repository.persistSnapshot({
       auth: input.auth,
       scope: getWorkspaceScopeFromAuth(input.auth),
-      snapshot: input.snapshot,
+      snapshot,
       correlationId: input.correlationId,
     });
 

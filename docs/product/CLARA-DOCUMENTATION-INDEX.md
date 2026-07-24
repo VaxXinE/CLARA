@@ -20,7 +20,7 @@ P14-PR-06 is complete.
 P15 Controlled Internal Beta Execution is complete. P15-PR-01 is complete.
 P15-PR-02 is complete. P15-PR-03 is complete. P15-PR-04 is complete. P16
 Extension-Assisted Channel Ingestion Hardening is current. P16-PR-01 is complete.
-P16-PR-02 is current.
+P16-PR-02 is complete. P16-PR-03 is current.
 extension-assisted ingestion is internal/controlled/user-assisted.
 extension-assisted ingestion captures only active chat opened by an authorized
 operator. extension-assisted ingestion requires operator awareness/consent.
@@ -32,6 +32,9 @@ AI provider calls remain not activated in this PR. provider/AI/outbound
 activation remains controlled. no outbound auto-send is activated. no external
 support tool integration is activated. AuthContext and workspace membership
 remain source of truth. client-supplied workspaceId is not authoritative.
+snapshot sanitization and redaction are required before storage and future AI
+analysis. snapshot attribution binds to authenticated operator and resolved
+workspace. cross-workspace spoofing must be rejected.
 evidence/logs/docs/runbooks must not include secrets/tokens/cookies/auth
 headers/raw provider payload/raw webhook payload/raw HTML/raw DOM/raw
 prompts/payment data. User acceptance session is
@@ -121,6 +124,14 @@ find . -name '*.md' \
 | `docs/product/CLARA-P16-EXTENSION-ASSISTED-SECURITY-CHECKLIST.md`         | P16 security checklist.                                           |
 | `docs/product/CLARA-P16-OFFICIAL-PROVIDER-API-NON-ACTIVATION-POLICY.md`   | P16 official provider API non-activation policy.                  |
 | `docs/product/CLARA-P16-EXTENSION-ASSISTED-INGESTION-ROADMAP.md`          | P16 extension-assisted ingestion roadmap.                         |
+| `docs/product/CLARA-P16-SNAPSHOT-SANITIZATION-PIPELINE.md`                | P16 snapshot sanitization pipeline.                               |
+| `docs/product/CLARA-P16-SNAPSHOT-REDACTION-PIPELINE.md`                   | P16 snapshot redaction pipeline.                                  |
+| `docs/product/CLARA-P16-WORKSPACE-ATTRIBUTION-POLICY.md`                  | P16 workspace attribution policy.                                 |
+| `docs/product/CLARA-P16-OPERATOR-ATTRIBUTION-POLICY.md`                   | P16 operator attribution policy.                                  |
+| `docs/product/CLARA-P16-CLIENT-WORKSPACE-ID-NON-AUTHORITY-POLICY.md`      | P16 client workspace id non-authority policy.                     |
+| `docs/product/CLARA-P16-CROSS-WORKSPACE-SPOOFING-REGRESSION-POLICY.md`    | P16 cross-workspace spoofing regression policy.                   |
+| `docs/product/CLARA-P16-SNAPSHOT-EVIDENCE-PRIVACY-POLICY.md`              | P16 snapshot evidence privacy policy.                             |
+| `docs/product/CLARA-P16-SANITIZATION-REDACTION-SECURITY-CHECKLIST.md`     | P16 sanitization and redaction security checklist.                |
 | `docs/product/CLARA-P15-INTERNAL-BETA-OPERATING-RULES.md`                 | P15 internal beta operating rules.                                |
 | `docs/product/CLARA-P15-INTERNAL-BETA-PARTICIPANT-RULES.md`               | P15 internal beta participant rules.                              |
 | `docs/product/CLARA-P15-INTERNAL-BETA-EVIDENCE-LOG-POLICY.md`             | P15 evidence log policy.                                          |

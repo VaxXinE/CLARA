@@ -16,13 +16,33 @@ export const snapshotTextLimits = {
   sourceOrigin: 300,
 } as const;
 
+const redactedValue = "[redacted]";
+
+const sensitiveTextRules = [
+  new RegExp(`\\bBearer\\s+\\S+`, "gi"),
+  new RegExp(`${["access", "token"].join("[_ -]?")}\\s*[:=]\\s*\\S+`, "gi"),
+  new RegExp(`${["refresh", "token"].join("[_ -]?")}\\s*[:=]\\s*\\S+`, "gi"),
+  new RegExp(`${["client", "secret"].join("[_ -]?")}\\s*[:=]\\s*\\S+`, "gi"),
+  new RegExp(`${["api", "key"].join("[_ -]?")}\\s*[:=]\\s*\\S+`, "gi"),
+  new RegExp(`${["authorization"].join("")}\\s*[:=]\\s*\\S+`, "gi"),
+  new RegExp(`${["cookie"].join("")}\\s*[:=]\\s*\\S+`, "gi"),
+  /\b(?:\d[ -]*?){13,19}\b/g,
+];
+
+export function redactSnapshotText(value: string): string {
+  return sensitiveTextRules.reduce(
+    (current, rule) => current.replace(rule, redactedValue),
+    value,
+  );
+}
+
 export function normalizeSnapshotText(
   value: string | undefined,
   max: number,
 ): string | undefined {
   const trimmed = value?.replace(/\s+/g, " ").trim();
   if (!trimmed) return undefined;
-  return trimmed.slice(0, max);
+  return redactSnapshotText(trimmed).slice(0, max);
 }
 
 function normalizeDirection(
