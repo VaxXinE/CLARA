@@ -21,8 +21,19 @@ P15 Controlled Internal Beta Execution is complete. P15-PR-01 is complete.
 P15-PR-02 is complete. P15-PR-03 is complete. P15-PR-04 is complete. P16
 Extension-Assisted Channel Ingestion Hardening is complete. P16-PR-01 is complete.
 P16-PR-02 is complete. P16-PR-03 is complete. P16-PR-04 is complete.
-P17 Real AI Analysis Activation is current. P17-PR-01 is current.
+P17 Real AI Analysis Activation is current. P17-PR-01 is complete.
+P17-PR-02 is current.
 P17-PR-01 prepares AI provider runtime configuration but does not yet execute extension snapshot AI analysis.
+P17-PR-02 builds AI-ready context but does not yet execute real AI provider calls.
+AI-ready context must come only from sanitized/redacted extension snapshots. PII
+redaction is required before future AI provider calls. Raw prompts must not be
+persisted. Raw customer messages must not be persisted as AI prompts. Raw AI
+provider payloads and responses must not be persisted. Customer text is
+untrusted input and must be separated from system/developer instructions.
+Prompt-injection boundaries are required. AI context size budgets are required.
+AI provider secrets are server-only. AI provider secrets must not be exposed to
+dashboard or extension. Extension must not call AI providers directly.
+P17-PR-03 is next: Real AI Analysis Output + Persistence + Dashboard Review UI.
 extension-assisted ingestion is internal/controlled/user-assisted.
 extension-assisted ingestion captures only active chat opened by an authorized
 operator. extension-assisted ingestion requires operator awareness/consent.
@@ -114,6 +125,12 @@ find . -name '*.md' \
 | `docs/product/CLARA-P15-CLOSURE-SUMMARY.md`                               | P15 closure summary.                                              |
 | `docs/product/CLARA-P16-EXTENSION-ASSISTED-INGESTION-TRANSITION-PLAN.md`  | P16 extension-assisted ingestion transition plan.                 |
 | `docs/product/CLARA-P16-P17-COMPRESSED-ROADMAP.md`                        | P16/P17 compressed roadmap.                                       |
+| `docs/product/CLARA-P17-EXTENSION-SNAPSHOT-AI-CONTEXT-BUILDER.md`         | P17 extension snapshot AI-ready context builder contract.         |
+| `docs/product/CLARA-P17-EXTENSION-SNAPSHOT-PII-REDACTION-PIPELINE.md`      | P17 extension snapshot PII redaction pipeline.                    |
+| `docs/product/CLARA-P17-AI-CONTEXT-BUDGET-POLICY.md`                      | P17 AI context budget policy.                                     |
+| `docs/product/CLARA-P17-PROMPT-INJECTION-BOUNDARY-POLICY.md`              | P17 prompt-injection boundary policy.                             |
+| `docs/product/CLARA-P17-AI-CONTEXT-AUDIT-PRIVACY-POLICY.md`               | P17 AI context audit privacy policy.                              |
+| `docs/product/CLARA-P17-AI-READY-CONTEXT-CONTRACT.md`                     | P17 AI-ready context contract.                                    |
 | `docs/product/CLARA-P16-EXTENSION-ASSISTED-CHANNEL-SCOPE.md`              | P16 extension-assisted channel scope.                             |
 | `docs/product/CLARA-P16-EXTENSION-ASSISTED-OPERATOR-CONSENT-POLICY.md`    | P16 operator consent policy.                                      |
 | `docs/product/CLARA-P16-EXTENSION-ASSISTED-ALLOWED-CAPTURE-POLICY.md`     | P16 allowed capture policy.                                       |
