@@ -22,9 +22,11 @@ P15-PR-02 is complete. P15-PR-03 is complete. P15-PR-04 is complete. P16
 Extension-Assisted Channel Ingestion Hardening is complete. P16-PR-01 is complete.
 P16-PR-02 is complete. P16-PR-03 is complete. P16-PR-04 is complete.
 P17 Real AI Analysis Activation is current. P17-PR-01 is complete.
-P17-PR-02 is current.
-P17-PR-01 prepares AI provider runtime configuration but does not yet execute extension snapshot AI analysis.
-P17-PR-02 builds AI-ready context but does not yet execute real AI provider calls.
+P17-PR-02 is complete.
+P17-PR-03 is current.
+P17-PR-01 prepares AI provider runtime configuration.
+P17-PR-02 builds AI-ready context but does not execute real AI provider calls.
+P17-PR-03 activates controlled backend real AI analysis for extension-assisted AI-ready context.
 AI-ready context must come only from sanitized/redacted extension snapshots. PII
 redaction is required before future AI provider calls. Raw prompts must not be
 persisted. Raw customer messages must not be persisted as AI prompts. Raw AI
@@ -33,7 +35,7 @@ untrusted input and must be separated from system/developer instructions.
 Prompt-injection boundaries are required. AI context size budgets are required.
 AI provider secrets are server-only. AI provider secrets must not be exposed to
 dashboard or extension. Extension must not call AI providers directly.
-P17-PR-03 is next: Real AI Analysis Output + Persistence + Dashboard Review UI.
+P17-PR-04 is next: Final Extension-Assisted AI Runtime QA + Security Runbook.
 extension-assisted ingestion is internal/controlled/user-assisted.
 extension-assisted ingestion captures only active chat opened by an authorized
 operator. extension-assisted ingestion requires operator awareness/consent.
@@ -131,6 +133,12 @@ find . -name '*.md' \
 | `docs/product/CLARA-P17-PROMPT-INJECTION-BOUNDARY-POLICY.md`              | P17 prompt-injection boundary policy.                             |
 | `docs/product/CLARA-P17-AI-CONTEXT-AUDIT-PRIVACY-POLICY.md`               | P17 AI context audit privacy policy.                              |
 | `docs/product/CLARA-P17-AI-READY-CONTEXT-CONTRACT.md`                     | P17 AI-ready context contract.                                    |
+| `docs/product/CLARA-P17-REAL-AI-ANALYSIS-OUTPUT-CONTRACT.md`              | P17 real AI analysis safe output contract.                        |
+| `docs/product/CLARA-P17-REAL-AI-ANALYSIS-RUNTIME-POLICY.md`               | P17 real AI analysis runtime guardrails.                          |
+| `docs/product/CLARA-P17-AI-ANALYSIS-PERSISTENCE-SAFETY.md`                | P17 AI analysis persistence safety.                               |
+| `docs/product/CLARA-P17-AI-ANALYSIS-DASHBOARD-REVIEW-UI.md`               | P17 AI analysis dashboard review UI.                              |
+| `docs/product/CLARA-P17-AI-ANALYSIS-AUDIT-PRIVACY-POLICY.md`              | P17 AI analysis audit privacy policy.                             |
+| `docs/product/CLARA-P17-AI-ANALYSIS-FAIL-CLOSED-RUNBOOK.md`               | P17 AI analysis fail-closed runbook.                              |
 | `docs/product/CLARA-P16-EXTENSION-ASSISTED-CHANNEL-SCOPE.md`              | P16 extension-assisted channel scope.                             |
 | `docs/product/CLARA-P16-EXTENSION-ASSISTED-OPERATOR-CONSENT-POLICY.md`    | P16 operator consent policy.                                      |
 | `docs/product/CLARA-P16-EXTENSION-ASSISTED-ALLOWED-CAPTURE-POLICY.md`     | P16 allowed capture policy.                                       |

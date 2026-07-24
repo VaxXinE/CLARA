@@ -26,6 +26,7 @@ describe("P7 final AI no-provider-call regression", () => {
   it("keeps P7 AI source free of real LLM network calls", () => {
     const aiSource = listFiles(join(root, "services/api/src/ai"))
       .filter((path) => path.endsWith(".ts"))
+      .filter((path) => !path.endsWith("real-ai-analysis-provider.ts"))
       .map((path) => readFileSync(path, "utf8"))
       .join("\n");
 

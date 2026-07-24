@@ -1155,6 +1155,75 @@ export class AuditLogService {
     });
   }
 
+  async recordExtensionSnapshotAiAnalysisRequested(
+    input: AuditContextInput & {
+      snapshotId: string;
+      snapshotHash: string;
+      channel: string;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action: "extension_snapshot_ai_analysis_requested",
+      resourceType: "extension_snapshot",
+      resourceId: input.snapshotId,
+      outcome: "success",
+      metadata: compactMetadata({
+        provider: "extension",
+        channel: input.channel,
+        snapshot_hash: input.snapshotHash,
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
+  async recordExtensionSnapshotAiAnalysisResult(
+    input: AuditContextInput & {
+      analysisId: string;
+      snapshotId: string;
+      snapshotHash: string;
+      channel: string;
+      status: string;
+      safeReasonCode: string;
+      provider: string;
+      model: string;
+    },
+  ): Promise<boolean> {
+    const scope = getWorkspaceScopeFromAuth(input.auth);
+    const action =
+      input.status === "generated"
+        ? "extension_snapshot_ai_analysis_generated"
+        : input.status === "failed"
+          ? "extension_snapshot_ai_analysis_failed"
+          : "extension_snapshot_ai_analysis_blocked";
+
+    return this.write({
+      organizationId: scope.organizationId,
+      workspaceId: scope.workspaceId,
+      actorUserId: input.auth.userId,
+      actorRole: input.auth.role,
+      action,
+      resourceType: "extension_snapshot_ai_analysis",
+      resourceId: input.analysisId,
+      outcome: input.status === "generated" ? "success" : "failure",
+      metadata: compactMetadata({
+        provider: input.provider,
+        model: input.model,
+        channel: input.channel,
+        snapshot_id: input.snapshotId,
+        snapshot_hash: input.snapshotHash,
+        status: input.status,
+        safe_reason_code: input.safeReasonCode,
+      }),
+      correlationId: input.correlationId,
+    });
+  }
+
   async recordExtensionSnapshotIntake(
     input: AuditContextInput & {
       snapshotId: string;

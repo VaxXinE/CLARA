@@ -7,8 +7,8 @@ const extensionRoute = readFileSync(
   "utf8",
 );
 
-describe("P17 AI no extension analysis execution yet", () => {
-  it("does not run AI analysis from extension snapshot ingestion", () => {
+describe("P17 extension ingestion does not auto-run analysis", () => {
+  it("keeps analysis behind the explicit backend analysis route", () => {
     expect(extensionRoute).not.toMatch(
       /runAiAnalysis|analyzeExtensionSnapshot/,
     );

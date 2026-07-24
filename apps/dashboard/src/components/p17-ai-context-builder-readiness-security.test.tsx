@@ -11,7 +11,8 @@ describe("P17 dashboard AI context builder readiness security", () => {
     expect(dashboardReadme).toMatch(
       /AI provider secrets must not be exposed to\s+dashboard or extension/,
     );
-    expect(dashboardReadme).toContain("P17-PR-02 is current");
+    expect(dashboardReadme).toContain("P17-PR-02 is complete");
+    expect(dashboardReadme).toContain("P17-PR-03 is current");
   });
 
   it("documents that AI-ready context is backend-built only", () => {
