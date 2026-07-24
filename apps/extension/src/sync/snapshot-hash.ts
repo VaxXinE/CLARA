@@ -1,16 +1,17 @@
 import type { ActiveConversationSnapshotDraft } from "../types/extension-snapshot";
+import { normalizeSnapshotText } from "./snapshot-normalization";
 
 function stableSnapshotString(
   snapshot: ActiveConversationSnapshotDraft,
 ): string {
   return JSON.stringify({
     channel: snapshot.channel,
-    chat_title: snapshot.chat_title,
-    chat_subtitle: snapshot.chat_subtitle ?? "",
+    chat_title: normalizeSnapshotText(snapshot.chat_title, 200) ?? "",
+    chat_subtitle: normalizeSnapshotText(snapshot.chat_subtitle, 200) ?? "",
     messages: snapshot.messages.map((message) => ({
-      id: message.id,
-      direction: message.direction,
-      text: message.text,
+      id: normalizeSnapshotText(message.id, 128) ?? "",
+      direction: message.direction === "outgoing" ? "outgoing" : "incoming",
+      text: normalizeSnapshotText(message.text, 4000) ?? "",
     })),
   });
 }
