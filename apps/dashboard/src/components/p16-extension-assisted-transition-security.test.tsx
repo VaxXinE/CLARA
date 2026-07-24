@@ -6,8 +6,9 @@ describe("P16 extension-assisted transition dashboard guidance", () => {
     const readme = dashboardReadme.replace(/\s+/g, " ");
 
     expect(readme).toContain(
-      "P16 Extension-Assisted Channel Ingestion Hardening is current",
+      "P16 Extension-Assisted Channel Ingestion Hardening is complete",
     );
+    expect(readme).toContain("P17 Real AI Analysis Activation is current");
     expect(readme).toContain(
       "extension-assisted ingestion is internal/controlled/user-assisted",
     );

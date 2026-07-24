@@ -19,9 +19,10 @@ P14-PR-06 is complete.
 
 P15 Controlled Internal Beta Execution is complete. P15-PR-01 is complete.
 P15-PR-02 is complete. P15-PR-03 is complete. P15-PR-04 is complete. P16
-Extension-Assisted Channel Ingestion Hardening is current. P16-PR-01 is complete.
-P16-PR-02 is complete. P16-PR-03 is complete. P16-PR-04 is current.
-P16 closes only after this PR validates.
+Extension-Assisted Channel Ingestion Hardening is complete. P16-PR-01 is complete.
+P16-PR-02 is complete. P16-PR-03 is complete. P16-PR-04 is complete.
+P17 Real AI Analysis Activation is current. P17-PR-01 is current.
+P17-PR-01 prepares AI provider runtime configuration but does not yet execute extension snapshot AI analysis.
 extension-assisted ingestion is internal/controlled/user-assisted.
 extension-assisted ingestion captures only active chat opened by an authorized
 operator. extension-assisted ingestion requires operator awareness/consent.

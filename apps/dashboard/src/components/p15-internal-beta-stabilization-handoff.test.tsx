@@ -8,8 +8,9 @@ describe("P15 stabilization handoff dashboard guidance", () => {
     expect(readme).toContain("P15-PR-03 is complete");
     expect(readme).toContain("P15-PR-04 is complete");
     expect(readme).toContain(
-      "P16 Extension-Assisted Channel Ingestion Hardening is current",
+      "P16 Extension-Assisted Channel Ingestion Hardening is complete",
     );
+    expect(readme).toContain("P17 Real AI Analysis Activation is current");
     expect(readme).toContain(
       "evidence/logs/docs/runbooks must not include secrets/tokens/cookies/auth headers/raw provider payload/raw webhook payload/raw HTML/raw DOM/raw prompts/payment data",
     );

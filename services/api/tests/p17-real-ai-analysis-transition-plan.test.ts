@@ -12,7 +12,8 @@ const doc = readFileSync(
 
 describe("P17 real AI analysis transition plan", () => {
   it("keeps real AI provider activation deferred from P16", () => {
-    expect(doc).toContain("P17 real AI analysis activation is next");
+    expect(doc).toContain("P17 Real AI Analysis Activation is current");
+    expect(doc).toContain("P17-PR-01 is current");
     expect(doc).toContain(
       "Real AI provider calls remain not activated in this PR",
     );
