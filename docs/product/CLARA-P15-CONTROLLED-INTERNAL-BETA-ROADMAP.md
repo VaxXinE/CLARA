@@ -5,11 +5,11 @@
 P14 Internal Beta Rollout Preparation is complete. P14-PR-01 is complete.
 P14-PR-02 is complete. P14-PR-03 is complete. P14-PR-04 is complete.
 P14-PR-05 is complete. P14-PR-06 is complete. P15 Controlled Internal Beta
-Execution is current. P15-PR-01 is complete. P15-PR-02 is complete.
-P15-PR-03 is complete. P15-PR-04 is current. P15 closes only after this PR
-validates. P16 Extension-Assisted Channel Ingestion Hardening is next. P16
+Execution is complete. P15-PR-01 is complete. P15-PR-02 is complete.
+P15-PR-03 is complete. P15-PR-04 is complete. P16 Extension-Assisted Channel
+Ingestion Hardening is current. P16-PR-01 is current. P16
 focuses on extension-assisted WA/IG/TikTok active chat capture.
-extension-assisted ingestion is internal/controlled and user-assisted.
+extension-assisted ingestion is internal/controlled/user-assisted.
 extension-assisted ingestion is not official WA/IG/TikTok API activation.
 extension-assisted ingestion is not public SaaS launch. extension-assisted
 ingestion is not production deployment claim unless separately executed.

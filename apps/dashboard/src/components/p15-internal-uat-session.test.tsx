@@ -6,7 +6,7 @@ describe("P15 internal UAT session dashboard", () => {
     const readme = dashboardReadme.replace(/\s+/g, " ");
 
     expect(readme).toContain("P15-PR-03 is complete");
-    expect(readme).toContain("P15-PR-04 is current");
+    expect(readme).toContain("P15-PR-04 is complete");
     expect(readme).toContain("user acceptance session is internal-only");
     expect(readme).toContain("UAT is not public SaaS launch");
     expect(readme).toContain(

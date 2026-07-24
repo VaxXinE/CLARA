@@ -1,10 +1,9 @@
-# CLARA P16 Extension-Assisted Ingestion Transition Plan
+# CLARA P16 Extension-Assisted Abuse Case Register
 
 ## Status
 
 P15 Controlled Internal Beta Execution is complete. P15-PR-04 is complete. P16
 Extension-Assisted Channel Ingestion Hardening is current. P16-PR-01 is current.
-P16 focuses on extension-assisted WA/IG/TikTok active chat capture.
 
 extension-assisted ingestion is internal/controlled/user-assisted.
 extension-assisted ingestion captures only active chat opened by an authorized
@@ -20,21 +19,20 @@ activated. no external support tool integration is activated. AuthContext and
 workspace membership remain source of truth. client-supplied workspaceId is not
 authoritative.
 
-allowed capture is limited to visible active-chat message text, safe display
-names/titles, channel identifier, direction, timestamps/timestamp labels,
-selected conversation metadata needed for dedup/linking, and snapshot hash.
 disallowed capture includes cookies/session tokens/auth headers/API
 keys/localStorage/sessionStorage secrets/raw DOM/raw HTML/full page dumps/hidden
 conversations/background inbox crawling/mass scraping/payment data/raw
 prompts/raw provider payloads/raw webhook payloads/unnecessary
-customer-sensitive data. evidence/logs/docs/runbooks must not include
-secrets/tokens/cookies/auth headers/raw provider payload/raw webhook payload/raw
-HTML/raw DOM/raw prompts/payment data.
+customer-sensitive data.
 
-## Transition Scope
+evidence/logs/docs/runbooks must not include secrets/tokens/cookies/auth
+headers/raw provider payload/raw webhook payload/raw HTML/raw DOM/raw
+prompts/payment data.
 
-- Harden consent, scope, and threat model for extension-assisted ingestion.
-- Harden WA/IG/TikTok active chat reader and snapshot normalization boundaries.
-- Keep channel capture user-assisted and internal/controlled.
-- Do not treat extension-assisted ingestion as an official provider API
-  replacement for public/commercial launch.
+## Abuse Cases
+
+- Operator tries to sync hidden or background conversations.
+- Extension attempts to scrape all inbox conversations.
+- Snapshot includes token, cookie, raw DOM, raw HTML, or full page dump.
+- Client tries to make workspaceId authoritative.
+

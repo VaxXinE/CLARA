@@ -5,7 +5,7 @@ CLARA browser extension auto-sync engine for operator-visible active conversatio
 ## Status
 
 ```text
-P1-P14 complete; P15 Controlled Internal Beta Execution current
+P1-P15 complete; P16 Extension-Assisted Channel Ingestion Hardening current
 ```
 
 ## Scope
@@ -13,19 +13,21 @@ P1-P14 complete; P15 Controlled Internal Beta Execution current
 The extension boundary is current through P15. P14 Internal Beta Rollout
 Preparation is complete. P14-PR-01 is complete. P14-PR-02 is complete.
 P14-PR-03 is complete. P14-PR-04 is complete. P14-PR-05 is complete.
-P14-PR-06 is complete. P15 Controlled Internal Beta Execution is current.
+P14-PR-06 is complete. P15 Controlled Internal Beta Execution is complete.
 P15-PR-01 is complete. P15-PR-02 is complete. P15-PR-03 is complete.
-P15-PR-04 is current. P15 closes only after this PR validates. P16
-Extension-Assisted Channel Ingestion Hardening is next. P16 focuses on
-extension-assisted WA/IG/TikTok active chat capture. extension-assisted
-ingestion is internal/controlled and user-assisted. extension-assisted ingestion
-is not official WA/IG/TikTok API activation. extension-assisted ingestion is not
-public SaaS launch. extension-assisted ingestion is not production deployment
-claim unless separately executed. official provider APIs remain not activated.
-real AI provider calls remain not activated in this PR.
-evidence/issue reports/handoff/stabilization docs must not include
-secrets/tokens/cookies/auth headers/raw provider payload/raw webhook payload/raw
-HTML/raw DOM/raw prompts/payment data. controlled internal beta is internal-only.
+P15-PR-04 is complete. P16 Extension-Assisted Channel Ingestion Hardening is
+current. P16-PR-01 is current. P16 focuses on extension-assisted WA/IG/TikTok
+active chat capture. extension-assisted ingestion is
+internal/controlled/user-assisted. extension-assisted ingestion captures only
+active chat opened by an authorized operator. extension-assisted ingestion
+requires operator awareness/consent. extension-assisted ingestion is not
+official WA/IG/TikTok API activation. official WA/IG/TikTok APIs remain not
+activated. extension-assisted ingestion is not public SaaS launch.
+extension-assisted ingestion is not production deployment claim unless
+separately executed. real AI provider calls remain not activated in this PR.
+evidence/logs/docs/runbooks must not include secrets/tokens/cookies/auth
+headers/raw provider payload/raw webhook payload/raw HTML/raw DOM/raw
+prompts/payment data. controlled internal beta is internal-only.
 user acceptance session is internal-only. UAT issue capture is manual/local/repo-safe unless separately approved.
 UAT is not public SaaS launch. UAT is not production deployment claim unless separately executed.
 runtime smoke execution is internal-only. runtime smoke execution is not public SaaS launch.

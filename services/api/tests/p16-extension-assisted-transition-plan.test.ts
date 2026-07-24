@@ -18,7 +18,7 @@ describe("P16 extension-assisted transition plan", () => {
       "P16 focuses on extension-assisted WA/IG/TikTok active chat capture",
     );
     expect(doc).toContain(
-      "extension-assisted ingestion is internal/controlled and user-assisted",
+      "extension-assisted ingestion is internal/controlled/user-assisted",
     );
     expect(doc).toContain(
       "not treat extension-assisted ingestion as an official provider API replacement",

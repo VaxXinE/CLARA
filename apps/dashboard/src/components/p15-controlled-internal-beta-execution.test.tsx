@@ -6,12 +6,12 @@ describe("P15 controlled internal beta execution dashboard", () => {
     const readme = dashboardReadme.replace(/\s+/g, " ");
 
     expect(readme).toContain(
-      "P15 Controlled Internal Beta Execution is current",
+      "P15 Controlled Internal Beta Execution is complete",
     );
     expect(readme).toContain("P15-PR-01 is complete");
     expect(readme).toContain("P15-PR-02 is complete");
     expect(readme).toContain("P15-PR-03 is complete");
-    expect(readme).toContain("P15-PR-04 is current");
+    expect(readme).toContain("P15-PR-04 is complete");
     expect(readme).toContain("controlled internal beta is internal-only");
     expect(readme).toContain(
       "controlled internal beta is not public SaaS launch",

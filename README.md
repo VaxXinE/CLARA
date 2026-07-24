@@ -18,27 +18,35 @@ It contains the documentation, architecture, standards, templates, governance, i
 
 ```text
 Status: P1-P14 complete; local product slice runnable
-Current focus: P15 Controlled Internal Beta Execution
-Current PR: P15-PR-04 Combined Internal Beta Stabilization + Final Handoff
+Current focus: P16 Extension-Assisted Channel Ingestion Hardening
+Current PR: P16-PR-01 Extension-Assisted Channel Scope + Consent + Threat Model
 Launch status: not public GA launched yet; not production deployed yet
 ```
 
 P13 Internal CRM Product Activation is complete. P14 Internal Beta Rollout
 Preparation is complete. P14-PR-01 is complete. P14-PR-02 is
 complete. P14-PR-03 is complete. P14-PR-04 is complete. P14-PR-05 is complete.
-P14-PR-06 is complete. P15 Controlled Internal Beta Execution is current.
+P14-PR-06 is complete. P15 Controlled Internal Beta Execution is complete.
 P15-PR-01 is complete. P15-PR-02 is complete. P15-PR-03 is complete.
-P15-PR-04 is current. P15 closes only after this PR validates. P16
-Extension-Assisted Channel Ingestion Hardening is next. P16 focuses on
-extension-assisted WA/IG/TikTok active chat capture. extension-assisted
-ingestion is internal/controlled and user-assisted. extension-assisted ingestion
-is not official WA/IG/TikTok API activation. extension-assisted ingestion is not
-public SaaS launch. extension-assisted ingestion is not production deployment
-claim unless separately executed. official provider APIs remain not activated.
-real AI provider calls remain not activated in this PR.
-evidence/issue reports/handoff/stabilization docs must not include
-secrets/tokens/cookies/auth headers/raw provider payload/raw webhook payload/raw
-HTML/raw DOM/raw prompts/payment data. Controlled
+P15-PR-04 is complete. P16 Extension-Assisted Channel Ingestion Hardening is
+current. P16-PR-01 is current. extension-assisted ingestion is
+internal/controlled/user-assisted. extension-assisted ingestion captures only
+active chat opened by an authorized operator. extension-assisted ingestion
+requires operator awareness/consent. extension-assisted ingestion is not
+official WA/IG/TikTok API activation. official WA/IG/TikTok APIs remain not
+activated. extension-assisted ingestion is not public SaaS launch.
+extension-assisted ingestion is not production deployment claim unless
+separately executed. allowed capture is limited to visible active-chat message
+text, safe display names/titles, channel identifier, direction,
+timestamps/timestamp labels, selected conversation metadata needed for
+dedup/linking, and snapshot hash. disallowed capture includes cookies/session
+tokens/auth headers/API keys/localStorage/sessionStorage secrets/raw DOM/raw
+HTML/full page dumps/hidden conversations/background inbox crawling/mass
+scraping/payment data/raw prompts/raw provider payloads/raw webhook
+payloads/unnecessary customer-sensitive data. billing/payment is deferred. real
+AI provider calls remain not activated in this PR. evidence/logs/docs/runbooks
+must not include secrets/tokens/cookies/auth headers/raw provider payload/raw
+webhook payload/raw HTML/raw DOM/raw prompts/payment data. Controlled
 internal beta execution is internal-only. user acceptance session is
 internal-only. UAT issue capture is manual/local/repo-safe unless separately
 approved. UAT is not public SaaS launch. UAT is not production deployment claim
@@ -153,6 +161,18 @@ docs/product/CLARA-P15-FINAL-INTERNAL-BETA-EXECUTION-HANDOFF.md
 docs/product/CLARA-P15-CLOSURE-SUMMARY.md
 docs/product/CLARA-P16-EXTENSION-ASSISTED-INGESTION-TRANSITION-PLAN.md
 docs/product/CLARA-P16-P17-COMPRESSED-ROADMAP.md
+docs/product/CLARA-P16-EXTENSION-ASSISTED-CHANNEL-SCOPE.md
+docs/product/CLARA-P16-EXTENSION-ASSISTED-OPERATOR-CONSENT-POLICY.md
+docs/product/CLARA-P16-EXTENSION-ASSISTED-ALLOWED-CAPTURE-POLICY.md
+docs/product/CLARA-P16-EXTENSION-ASSISTED-DISALLOWED-CAPTURE-POLICY.md
+docs/product/CLARA-P16-EXTENSION-PERMISSION-BOUNDARY.md
+docs/product/CLARA-P16-EXTENSION-ASSISTED-THREAT-MODEL.md
+docs/product/CLARA-P16-EXTENSION-ASSISTED-ABUSE-CASE-REGISTER.md
+docs/product/CLARA-P16-EXTENSION-ASSISTED-PRIVACY-DATA-MINIMIZATION-POLICY.md
+docs/product/CLARA-P16-EXTENSION-ASSISTED-AUDIT-EVIDENCE-POLICY.md
+docs/product/CLARA-P16-EXTENSION-ASSISTED-SECURITY-CHECKLIST.md
+docs/product/CLARA-P16-OFFICIAL-PROVIDER-API-NON-ACTIVATION-POLICY.md
+docs/product/CLARA-P16-EXTENSION-ASSISTED-INGESTION-ROADMAP.md
 docs/product/CLARA-P15-INTERNAL-BETA-OPERATING-RULES.md
 docs/product/CLARA-P15-INTERNAL-BETA-PARTICIPANT-RULES.md
 docs/product/CLARA-P15-INTERNAL-BETA-EVIDENCE-LOG-POLICY.md
