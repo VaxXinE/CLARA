@@ -20,7 +20,8 @@ P14-PR-06 is complete.
 P15 Controlled Internal Beta Execution is complete. P15-PR-01 is complete.
 P15-PR-02 is complete. P15-PR-03 is complete. P15-PR-04 is complete. P16
 Extension-Assisted Channel Ingestion Hardening is current. P16-PR-01 is complete.
-P16-PR-02 is complete. P16-PR-03 is current.
+P16-PR-02 is complete. P16-PR-03 is complete. P16-PR-04 is current.
+P16 closes only after this PR validates.
 extension-assisted ingestion is internal/controlled/user-assisted.
 extension-assisted ingestion captures only active chat opened by an authorized
 operator. extension-assisted ingestion requires operator awareness/consent.

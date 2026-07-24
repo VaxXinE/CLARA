@@ -53,6 +53,8 @@ export function countSnapshotDirections(snapshot: ExtensionSnapshot): {
 }
 
 type StoredSnapshot = PersistExtensionSnapshotResult & {
+  organizationId: string;
+  workspaceId: string;
   localMessageIds: Set<string>;
 };
 
@@ -65,6 +67,8 @@ export class FixtureExtensionSnapshotRepository implements ExtensionSnapshotRepo
     const fingerprint = createExtensionConversationFingerprint(input.snapshot);
     const existing = this.snapshots.find(
       (snapshot) =>
+        snapshot.organizationId === input.scope.organizationId &&
+        snapshot.workspaceId === input.scope.workspaceId &&
         snapshot.channel === input.snapshot.channel &&
         snapshot.snapshotHash === input.snapshot.snapshotHash &&
         snapshot.conversationFingerprint === fingerprint,
@@ -80,15 +84,25 @@ export class FixtureExtensionSnapshotRepository implements ExtensionSnapshotRepo
     }
 
     const counts = countSnapshotDirections(input.snapshot);
+    const scopedIdSuffix = createHash("sha256")
+      .update(
+        [input.scope.organizationId, input.scope.workspaceId, fingerprint].join(
+          ":",
+        ),
+      )
+      .digest("hex")
+      .slice(0, 16);
     const result: StoredSnapshot = {
+      organizationId: input.scope.organizationId,
+      workspaceId: input.scope.workspaceId,
       snapshotId: createExtensionSnapshotId(),
       status: "accepted",
       duplicate: false,
       channel: input.snapshot.channel,
       snapshotHash: input.snapshot.snapshotHash,
       conversationFingerprint: fingerprint,
-      conversationId: `conv_extension_${fingerprint.slice(0, 16)}`,
-      customerId: `cust_extension_${fingerprint.slice(0, 16)}`,
+      conversationId: `conv_extension_${scopedIdSuffix}`,
+      customerId: `cust_extension_${scopedIdSuffix}`,
       messageCount: input.snapshot.messages.length,
       persistedMessageCount: input.snapshot.messages.length,
       incomingCount: counts.incomingCount,
