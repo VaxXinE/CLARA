@@ -1,7 +1,8 @@
 # CLARA P17 Extension Snapshot AI Context Builder
 
 P16 Extension-Assisted Channel Ingestion Hardening is complete.
-P17 Real AI Analysis Activation is current.
+P17 Real AI Analysis Activation is complete for controlled internal use.
+P18 Controlled Internal Runtime Trial + Operational Readiness is current.
 P17-PR-01 is complete.
 P17-PR-02 is current.
 P17-PR-02 builds AI-ready context but does not yet execute real AI provider calls.

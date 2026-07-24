@@ -19,9 +19,9 @@ describe("P17 final runtime QA runbook", () => {
       .map((file) => readFileSync(join(process.cwd(), "../..", file), "utf8"))
       .join("\n");
 
-    expect(docs).toContain("P17-PR-04 is current/final validation gate");
+    expect(docs).toContain("P17-PR-04 is complete");
     expect(docs).toContain(
-      "P17 is considered complete only after P17-PR-04 validates and merges",
+      "P18 Controlled Internal Runtime Trial + Operational Readiness is current",
     );
     expect(docs).toContain("Real AI analysis is server-only");
     expect(docs).toContain("Billing/payment is deferred");

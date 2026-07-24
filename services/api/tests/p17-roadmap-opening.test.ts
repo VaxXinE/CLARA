@@ -12,15 +12,17 @@ const docs = [
   .join("\n");
 
 describe("P17 roadmap opening", () => {
-  it("marks P16 complete and P17-PR-01 current", () => {
+  it("marks P16 and P17 complete with P18 current", () => {
     expect(docs).toContain(
       "P16 Extension-Assisted Channel Ingestion Hardening is complete.",
     );
     expect(docs).toContain("P16-PR-04 is complete.");
-    expect(docs).toContain("P17 Real AI Analysis Activation is current.");
-    expect(docs).toContain("P17-PR-01 is current.");
     expect(docs).toContain(
-      "P17-PR-02 is next: Extension Snapshot AI Context Builder + PII Redaction.",
+      "P17 Real AI Analysis Activation is complete for controlled internal use.",
+    );
+    expect(docs).toContain("P17-PR-01 is complete.");
+    expect(docs).toContain(
+      "P18 Controlled Internal Runtime Trial + Operational Readiness is current.",
     );
   });
 });

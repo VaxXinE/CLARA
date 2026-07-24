@@ -1,6 +1,7 @@
 # CLARA P17 Final AI Security Checklist
 
-P17-PR-04 is current/final validation gate.
+P17-PR-04 is complete.
+P18 Controlled Internal Runtime Trial + Operational Readiness is current.
 
 Required security checks:
 - Raw prompts are not persisted.

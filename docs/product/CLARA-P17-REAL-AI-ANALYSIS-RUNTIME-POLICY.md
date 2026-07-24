@@ -1,6 +1,7 @@
 # CLARA P17 Real AI Analysis Runtime Policy
 
-P17-PR-03 is complete. P17-PR-04 is current/final validation gate.
+P17-PR-03 is complete. P17-PR-04 is complete.
+P18 Controlled Internal Runtime Trial + Operational Readiness is current.
 Controlled backend real AI analysis is active for extension-assisted AI-ready
 context.
 

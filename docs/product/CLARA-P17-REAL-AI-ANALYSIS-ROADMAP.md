@@ -2,12 +2,13 @@
 
 P16 Extension-Assisted Channel Ingestion Hardening is complete.
 P16-PR-04 is complete.
-P17 Real AI Analysis Activation is current.
+P17 Real AI Analysis Activation is complete for controlled internal use.
 P17-PR-01 is complete.
 P17-PR-02 is complete.
 P17-PR-03 is complete.
-P17-PR-04 is current/final validation gate.
-P17 is considered complete only after P17-PR-04 validates and merges.
+P17-PR-04 is complete.
+P18 Controlled Internal Runtime Trial + Operational Readiness is current.
+P18-PR-01 is current.
 
 P17-PR-01 prepares AI provider runtime configuration.
 P17-PR-02 builds AI-ready context but does not execute real AI provider calls.
@@ -18,7 +19,8 @@ P17-PR-03 activates controlled backend real AI analysis for extension-assisted A
 - P17-PR-01 AI Provider Runtime Config + Secret Boundary + Cost Guardrail.
 - P17-PR-02 Extension Snapshot AI Context Builder + PII Redaction (complete).
 - P17-PR-03 Real AI Analysis Output + Persistence + Dashboard Review UI (complete).
-- P17-PR-04 Final Extension-Assisted AI Runtime QA + Security Runbook (current/final validation gate).
+- P17-PR-04 Final Extension-Assisted AI Runtime QA + Security Runbook (complete).
+- P18-PR-01 Controlled Internal Runtime Trial Scope + Evidence Plan (current).
 
 ## Guardrails
 
@@ -58,3 +60,6 @@ CLARA is not public SaaS launch.
 CLARA is not production deployment claim unless separately executed.
 AuthContext and workspace membership remain source of truth.
 Client-supplied workspaceId is not authoritative.
+P18 validates controlled internal runtime behavior only.
+P18 is not public SaaS launch.
+P18 is not production deployment.
