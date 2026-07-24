@@ -21,14 +21,17 @@ P15 Controlled Internal Beta Execution is complete. P15-PR-01 is complete.
 P15-PR-02 is complete. P15-PR-03 is complete. P15-PR-04 is complete. P16
 Extension-Assisted Channel Ingestion Hardening is complete. P16-PR-01 is complete.
 P16-PR-02 is complete. P16-PR-03 is complete. P16-PR-04 is complete.
-P17 Real AI Analysis Activation is current. P17-PR-01 is complete.
+P17 Real AI Analysis Activation is complete for controlled internal use. P17-PR-01 is complete.
 P17-PR-02 is complete.
 P17-PR-03 is complete.
-P17-PR-04 is current/final validation gate.
-P17 is considered complete only after P17-PR-04 validates and merges.
+P17-PR-04 is complete.
 P17-PR-01 prepares AI provider runtime configuration.
 P17-PR-02 builds AI-ready context but does not execute real AI provider calls.
 P17-PR-03 activates controlled backend real AI analysis for extension-assisted AI-ready context.
+Post-P17 internal handoff confirms the completed pipeline: extension snapshot ->
+sanitization/redaction -> workspace/operator attribution -> backend
+ingestion/dedup -> AI-ready context -> controlled backend real AI analysis ->
+safe persistence -> dashboard review UI.
 AI-ready context must come only from sanitized/redacted extension snapshots. PII
 redaction is required before future AI provider calls. Raw prompts must not be
 persisted. Raw customer messages must not be persisted as AI prompts. Raw AI
@@ -43,8 +46,8 @@ operator. extension-assisted ingestion requires operator awareness/consent.
 extension-assisted ingestion is not official WA/IG/TikTok API activation.
 official WA/IG/TikTok APIs remain not activated. extension-assisted ingestion is
 not public SaaS launch. extension-assisted ingestion is not production
-deployment claim unless separately executed. billing/payment is deferred. real
-AI provider calls remain not activated in this PR. provider/AI/outbound
+deployment claim unless separately executed. billing/payment is deferred.
+provider/AI/outbound
 activation remains controlled. no outbound auto-send is activated. no external
 support tool integration is activated. AuthContext and workspace membership
 remain source of truth. client-supplied workspaceId is not authoritative.
