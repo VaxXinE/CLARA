@@ -23,7 +23,9 @@ Extension-Assisted Channel Ingestion Hardening is complete. P16-PR-01 is complet
 P16-PR-02 is complete. P16-PR-03 is complete. P16-PR-04 is complete.
 P17 Real AI Analysis Activation is current. P17-PR-01 is complete.
 P17-PR-02 is complete.
-P17-PR-03 is current.
+P17-PR-03 is complete.
+P17-PR-04 is current/final validation gate.
+P17 is considered complete only after P17-PR-04 validates and merges.
 P17-PR-01 prepares AI provider runtime configuration.
 P17-PR-02 builds AI-ready context but does not execute real AI provider calls.
 P17-PR-03 activates controlled backend real AI analysis for extension-assisted AI-ready context.
@@ -35,7 +37,6 @@ untrusted input and must be separated from system/developer instructions.
 Prompt-injection boundaries are required. AI context size budgets are required.
 AI provider secrets are server-only. AI provider secrets must not be exposed to
 dashboard or extension. Extension must not call AI providers directly.
-P17-PR-04 is next: Final Extension-Assisted AI Runtime QA + Security Runbook.
 extension-assisted ingestion is internal/controlled/user-assisted.
 extension-assisted ingestion captures only active chat opened by an authorized
 operator. extension-assisted ingestion requires operator awareness/consent.
@@ -311,6 +312,20 @@ find . -name '*.md' \
 | `docs/product/CLARA-P12-FINAL-ROLLBACK-INCIDENT-HANDOFF.md`       | Final rollback and incident handoff.                                                                  |
 | `docs/product/CLARA-P12-FINAL-EVIDENCE-CHECKLIST.md`              | Final evidence checklist.                                                                             |
 | `docs/product/CLARA-P12-POST-P12-HANDOFF.md`                      | Post-P12 handoff and remaining approval gates.                                                        |
+
+## P17 Final Extension-Assisted AI
+
+| Document                                                                 | Purpose                                            |
+| ------------------------------------------------------------------------ | -------------------------------------------------- |
+| `docs/product/CLARA-P17-FINAL-AI-RUNTIME-QA-CHECKLIST.md`                | Final P17 runtime QA checklist.                    |
+| `docs/product/CLARA-P17-FINAL-AI-SECURITY-CHECKLIST.md`                  | Final P17 AI security checklist.                   |
+| `docs/product/CLARA-P17-FINAL-AI-OPERATOR-RUNBOOK.md`                    | Operator runbook for controlled internal QA.       |
+| `docs/product/CLARA-P17-FINAL-AI-ADMIN-RUNBOOK.md`                       | Admin runbook for final P17 readiness.             |
+| `docs/product/CLARA-P17-FINAL-AI-EVIDENCE-TEMPLATE.md`                   | Privacy-safe evidence template.                    |
+| `docs/product/CLARA-P17-FINAL-AI-KNOWN-LIMITATIONS.md`                   | Final P17 known limitations.                       |
+| `docs/product/CLARA-P17-FINAL-AI-INCIDENT-ROLLBACK-GUIDANCE.md`          | Incident and rollback guidance.                    |
+| `docs/product/CLARA-P17-FINAL-EXTENSION-ASSISTED-AI-SMOKE-RUNBOOK.md`    | Local/dev-safe extension-assisted AI smoke flow.   |
+| `docs/product/CLARA-P17-CLOSURE-SUMMARY.md`                              | P17 closure summary and next-phase boundary.       |
 
 ## Historical Docs
 

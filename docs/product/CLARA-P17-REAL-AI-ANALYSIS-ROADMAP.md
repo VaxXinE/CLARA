@@ -5,8 +5,9 @@ P16-PR-04 is complete.
 P17 Real AI Analysis Activation is current.
 P17-PR-01 is complete.
 P17-PR-02 is complete.
-P17-PR-03 is current.
-P17-PR-04 is next.
+P17-PR-03 is complete.
+P17-PR-04 is current/final validation gate.
+P17 is considered complete only after P17-PR-04 validates and merges.
 
 P17-PR-01 prepares AI provider runtime configuration.
 P17-PR-02 builds AI-ready context but does not execute real AI provider calls.
@@ -16,8 +17,8 @@ P17-PR-03 activates controlled backend real AI analysis for extension-assisted A
 
 - P17-PR-01 AI Provider Runtime Config + Secret Boundary + Cost Guardrail.
 - P17-PR-02 Extension Snapshot AI Context Builder + PII Redaction (complete).
-- P17-PR-03 Real AI Analysis Output + Persistence + Dashboard Review UI (current).
-- P17-PR-04 Final Extension-Assisted AI Runtime QA + Security Runbook (next).
+- P17-PR-03 Real AI Analysis Output + Persistence + Dashboard Review UI (complete).
+- P17-PR-04 Final Extension-Assisted AI Runtime QA + Security Runbook (current/final validation gate).
 
 ## Guardrails
 

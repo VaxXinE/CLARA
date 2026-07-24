@@ -23,7 +23,9 @@ Extension-Assisted Channel Ingestion Hardening is complete. P16-PR-01 is complet
 P16-PR-02 is complete. P16-PR-03 is complete. P16-PR-04 is complete.
 P17 Real AI Analysis Activation is current. P17-PR-01 is complete.
 P17-PR-02 is complete.
-P17-PR-03 is current.
+P17-PR-03 is complete.
+P17-PR-04 is current/final validation gate.
+P17 is considered complete only after P17-PR-04 validates and merges.
 P17-PR-01 prepares AI provider runtime configuration.
 P17-PR-02 builds AI-ready context but does not execute real AI provider calls.
 P17-PR-03 activates controlled backend real AI analysis for extension-assisted AI-ready context.
@@ -35,7 +37,6 @@ untrusted input and must be separated from system/developer instructions.
 Prompt-injection boundaries are required. AI context size budgets are required.
 AI provider secrets are server-only. AI provider secrets must not be exposed to
 dashboard or extension. Extension must not call AI providers directly.
-P17-PR-04 is next: Final Extension-Assisted AI Runtime QA + Security Runbook.
 extension-assisted ingestion is internal/controlled/user-assisted.
 extension-assisted ingestion captures only active chat opened by an authorized
 operator. extension-assisted ingestion requires operator awareness/consent.
@@ -143,8 +144,7 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 - P16-PR-01 Extension-Assisted Channel Scope + Consent + Threat Model. Complete.
 - P16-PR-02 WA/IG/TikTok Active Chat Reader + Snapshot Normalization Hardening. Complete.
 - P16-PR-03 Snapshot Sanitization + Redaction + Workspace Attribution. Complete.
-- P16-PR-04 Backend Ingestion Dedup + Conversation Linking + Runtime QA. Current.
-- P16-PR-04 Backend Ingestion Dedup + Conversation Linking + Runtime QA.
+- P16-PR-04 Backend Ingestion Dedup + Conversation Linking + Runtime QA. Complete.
 
 ## P16/P17 Compressed Roadmap
 
@@ -152,11 +152,10 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 - P16-PR-02 WA/IG/TikTok Active Chat Reader + Snapshot Normalization Hardening.
 - P16-PR-03 Snapshot Sanitization + Redaction + Workspace Attribution.
 - P16-PR-04 Backend Ingestion Dedup + Conversation Linking + Runtime QA.
-- P16-PR-04 Backend Ingestion Dedup + Conversation Linking + Runtime QA.
 - P17-PR-01 AI Provider Runtime Config + Secret Boundary + Cost Guardrail. Complete.
 - P17-PR-02 Extension Snapshot AI Context Builder + PII Redaction. Complete.
-- P17-PR-03 Real AI Analysis Output + Persistence + Dashboard Review UI. Current.
-- P17-PR-04 Final Extension-Assisted AI Runtime QA + Security Runbook.
+- P17-PR-03 Real AI Analysis Output + Persistence + Dashboard Review UI. Complete.
+- P17-PR-04 Final Extension-Assisted AI Runtime QA + Security Runbook. Current/final validation gate.
 
 ## Non-Launch Guardrails
 
