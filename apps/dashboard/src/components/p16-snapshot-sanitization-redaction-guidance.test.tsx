@@ -6,7 +6,7 @@ describe("P16 snapshot sanitization redaction dashboard guidance", () => {
     const readme = rootReadme.replace(/\s+/g, " ");
 
     expect(readme).toContain("P16-PR-03 is complete");
-    expect(readme).toContain("P16-PR-04 is current");
+    expect(readme).toContain("P16-PR-04 is complete");
     expect(readme).toContain(
       "Snapshot sanitization and redaction are required before storage and future AI analysis.",
     );

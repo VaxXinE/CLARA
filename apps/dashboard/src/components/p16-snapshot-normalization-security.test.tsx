@@ -6,7 +6,7 @@ describe("P16 snapshot normalization dashboard security guidance", () => {
     const readme = rootReadme.replace(/\s+/g, " ");
 
     expect(readme).toContain("P16-PR-03 is complete");
-    expect(readme).toContain("P16-PR-04 is current");
+    expect(readme).toContain("P16-PR-04 is complete");
     expect(readme).toContain(
       "disallowed capture includes cookies/session tokens/auth headers/API keys/localStorage/sessionStorage secrets/raw DOM/raw HTML/full page dumps",
     );

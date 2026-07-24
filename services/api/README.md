@@ -5,7 +5,7 @@ CLARA API service.
 ## Status
 
 ```text
-P1-P15 complete; P16 Extension-Assisted Channel Ingestion Hardening current
+P1-P16 complete; P17 Real AI Analysis Activation current
 ```
 
 This service currently provides the CLARA API through P15: auth/workspace
@@ -18,8 +18,9 @@ P14-PR-02 is complete. P14-PR-03 is complete. P14-PR-04 is complete.
 P14-PR-05 is complete. P14-PR-06 is complete. P15 Controlled Internal Beta
 Execution is complete. P15-PR-01 is complete. P15-PR-02 is complete.
 P15-PR-03 is complete. P15-PR-04 is complete. P16 Extension-Assisted Channel
-Ingestion Hardening is current. P16-PR-01 is complete. P16-PR-02 is complete.
-P16-PR-03 is complete. P16-PR-04 is current. P16 closes only after this PR validates. Backend ingestion accepts only sanitized/redacted extension snapshots. Deduplication and idempotency are required. Conversation linking is workspace-scoped. Customer linking is readiness-only unless existing safe patterns support it. P16 focuses on
+Ingestion Hardening is complete. P16-PR-01 is complete. P16-PR-02 is complete.
+P16-PR-03 is complete. P16-PR-04 is complete. P17 Real AI Analysis Activation is current.
+P17-PR-01 is current. P17-PR-01 prepares AI provider runtime configuration but does not yet execute extension snapshot AI analysis. AI provider secrets are server-only. AI provider secrets must not be exposed to dashboard or extension. AI provider secrets must not be logged, persisted, audited, or returned in API responses. AI provider config fails closed by default. AI provider mode defaults to disabled. AI model allowlist is required. AI cost guardrails are required. AI rate limit and abuse guardrails are required. AI timeout policy is required. AI audit redaction is required. P17-PR-02 is next: Extension Snapshot AI Context Builder + PII Redaction. Backend ingestion accepts only sanitized/redacted extension snapshots. Deduplication and idempotency are required. Conversation linking is workspace-scoped. Customer linking is readiness-only unless existing safe patterns support it. P16 focuses on
 extension-assisted WA/IG/TikTok active chat capture. extension-assisted
 ingestion is internal/controlled/user-assisted. extension-assisted ingestion
 captures only active chat opened by an authorized operator. extension-assisted

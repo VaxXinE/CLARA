@@ -15,7 +15,7 @@ describe("P16 final extension-assisted ingestion boundary", () => {
     const serialized = JSON.stringify(snapshot);
 
     expect(serialized).not.toContain("auto_send");
-    expect(serialized).not.toContain("official_api\":true");
+    expect(serialized).not.toContain('official_api":true');
     expect(serialized).not.toContain("ai_provider");
     expect(serialized).not.toContain("checkout");
   });
