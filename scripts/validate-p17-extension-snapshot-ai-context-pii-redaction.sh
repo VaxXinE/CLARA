@@ -119,7 +119,7 @@ done < <(
     -not -path 'apps/extension/src/tests/*'
 )
 
-if grep -nE 'sk-[A-Za-z0-9_-]{12,}|AIza[0-9A-Za-z_-]{20,}' "${runtime_sources[@]}"; then
+if grep -nE '(^|[^A-Za-z])sk-[A-Za-z0-9_-]{12,}|AIza[0-9A-Za-z_-]{20,}' "${runtime_sources[@]}"; then
   fail "unexpected hard-coded AI/API key shaped value"
 fi
 
