@@ -16,7 +16,7 @@ P14-PR-03 is complete. P14-PR-04 is complete. P14-PR-05 is complete.
 P14-PR-06 is complete. P15 Controlled Internal Beta Execution is complete.
 P15-PR-01 is complete. P15-PR-02 is complete. P15-PR-03 is complete.
 P15-PR-04 is complete. P16 Extension-Assisted Channel Ingestion Hardening is
-current. P16-PR-01 is current. P16 focuses on extension-assisted WA/IG/TikTok
+current. P16-PR-01 is complete. P16-PR-02 is current. P16 focuses on extension-assisted WA/IG/TikTok
 active chat capture. extension-assisted ingestion is
 internal/controlled/user-assisted. extension-assisted ingestion captures only
 active chat opened by an authorized operator. extension-assisted ingestion
@@ -61,6 +61,17 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet. no
 real provider/payment/AI/outbound behavior is activated. no real external
 provider credentials are required. The extension boundary remains non-mutating
 for CRM state except existing safe snapshot bridge behavior.
+
+P16-PR-02 hardens WA/IG/TikTok active chat readers and snapshot
+normalization. Active chat reading is internal/controlled/user-assisted.
+Readers only capture active chat opened by an authorized operator. Readers only
+capture visible active-chat message text and safe visible metadata needed for
+analysis/dedup/linking. Readers do not capture cookies/session tokens/auth
+headers/API keys/localStorage/sessionStorage secrets. Readers do not capture raw
+DOM/raw HTML/full page dumps. Readers do not capture hidden
+conversations/background inboxes/mass scraped conversations. Readers do not
+auto-send replies. Snapshot normalization strips unsafe fields. Snapshot
+hashing is deterministic and privacy-safe.
 
 This package contains a small TypeScript implementation for:
 

@@ -3,7 +3,8 @@
 ## Status
 
 P15 Controlled Internal Beta Execution is complete. P15-PR-04 is complete. P16
-Extension-Assisted Channel Ingestion Hardening is current. P16-PR-01 is current.
+Extension-Assisted Channel Ingestion Hardening is current. P16-PR-01 is complete.
+P16-PR-02 is current.
 
 extension-assisted ingestion is internal/controlled/user-assisted.
 extension-assisted ingestion captures only active chat opened by an authorized
@@ -33,7 +34,7 @@ HTML/raw DOM/raw prompts/payment data.
 ## Roadmap
 
 - P16-PR-01 Extension-Assisted Channel Scope + Consent + Threat Model.
-- P16-PR-02 WA/IG/TikTok Active Chat Reader + Snapshot Normalization Hardening.
+- P16-PR-02 WA/IG/TikTok Active Chat Reader + Snapshot Normalization Hardening (current).
 - P16-PR-03 Snapshot Sanitization + Redaction + Workspace Attribution.
 - P16-PR-04 Backend Ingestion Dedup + Conversation Linking + Runtime QA.
 - P17-PR-01 AI Provider Runtime Config + Secret Boundary + Cost Guardrail.

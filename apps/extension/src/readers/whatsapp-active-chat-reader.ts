@@ -2,10 +2,10 @@ import type {
   ActiveConversationSnapshotDraft,
   ExtensionSnapshotMessage,
 } from "../types/extension-snapshot";
+import { normalizeSnapshotText } from "../sync/snapshot-normalization";
 
 function textFrom(root: ParentNode, selector: string): string | undefined {
-  const value = root.querySelector(selector)?.textContent?.trim();
-  return value && value.length > 0 ? value : undefined;
+  return normalizeSnapshotText(root.querySelector(selector)?.textContent, 200);
 }
 
 export class WhatsappActiveChatReader {
@@ -20,7 +20,7 @@ export class WhatsappActiveChatReader {
       ...this.doc.querySelectorAll("[data-clara-message]"),
     ]
       .map((element, index): ExtensionSnapshotMessage | null => {
-        const text = element.textContent?.trim();
+        const text = normalizeSnapshotText(element.textContent, 4000);
         const direction =
           element.getAttribute("data-clara-direction") === "outgoing"
             ? "outgoing"
@@ -30,14 +30,24 @@ export class WhatsappActiveChatReader {
 
         return {
           id:
-            element.getAttribute("data-clara-message-id") ?? `visible-${index}`,
+            normalizeSnapshotText(
+              element.getAttribute("data-clara-message-id") ?? undefined,
+              128,
+            ) ?? `visible-${index}`,
           direction,
-          author: element.getAttribute("data-clara-author") ?? undefined,
+          author: normalizeSnapshotText(
+            element.getAttribute("data-clara-author") ?? undefined,
+            120,
+          ),
           text,
-          timestamp_label:
+          timestamp_label: normalizeSnapshotText(
             element.getAttribute("data-clara-timestamp") ?? undefined,
-          reply_context_text:
+            120,
+          ),
+          reply_context_text: normalizeSnapshotText(
             element.getAttribute("data-clara-reply-context") ?? undefined,
+            500,
+          ),
         };
       })
       .filter((message): message is ExtensionSnapshotMessage =>

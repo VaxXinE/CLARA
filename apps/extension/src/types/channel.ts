@@ -4,4 +4,7 @@ export type ExtensionChannel = (typeof extensionChannels)[number];
 
 export type DetectedChannel =
   | { supported: true; channel: ExtensionChannel }
-  | { supported: false; reasonCode: "unsupported_host" };
+  | {
+      supported: false;
+      reasonCode: "unsupported_host" | "unsupported_context";
+    };
