@@ -1,7 +1,8 @@
 # CLARA P18 Runtime Trial Participant Rules
 
 P18 Controlled Internal Runtime Trial + Operational Readiness is current.
-P18-PR-01 is current.
+P18-PR-01 is complete.
+P18-PR-02 is current.
 
 Participants:
 - Operators may capture only visible active-chat context they are authorized to

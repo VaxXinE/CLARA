@@ -10,6 +10,7 @@ operator_user_id:
 operator_role:
 organization_id:
 workspace_id:
+checklist_item:
 pipeline_checked:
   extension_snapshot:
   sanitization_redaction:
@@ -22,9 +23,14 @@ pipeline_checked:
 result:
 safe_reason_code:
 safe_counts:
+known_issue_id:
+severity:
+blocker:
 stop_criteria_triggered:
 manual_rollback_used:
 known_limitations_reviewed:
+evidence_redacted:
+retention_disposal_checked:
 notes_safe_summary_only:
 ```
 

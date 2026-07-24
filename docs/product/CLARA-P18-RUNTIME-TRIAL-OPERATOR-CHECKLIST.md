@@ -2,7 +2,8 @@
 
 Before trial:
 - Confirm P18 Controlled Internal Runtime Trial + Operational Readiness is current.
-- Confirm P18-PR-01 is current.
+- Confirm P18-PR-01 is complete.
+- Confirm P18-PR-02 is current.
 - Confirm workspace access is assigned through AuthContext and workspace membership.
 - Confirm client-supplied workspaceId is not authoritative.
 - Confirm extension-assisted ingestion remains internal/controlled/user-assisted.

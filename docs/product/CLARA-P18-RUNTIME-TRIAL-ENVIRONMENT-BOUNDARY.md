@@ -2,7 +2,8 @@
 
 P17 Real AI Analysis Activation is complete for controlled internal use.
 P18 Controlled Internal Runtime Trial + Operational Readiness is current.
-P18-PR-01 is current.
+P18-PR-01 is complete.
+P18-PR-02 is current.
 
 Allowed environments:
 - Local/dev-safe environment.
