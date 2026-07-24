@@ -9,6 +9,7 @@ import type {
   ExtensionSnapshot,
   ExtensionSnapshotMessage,
 } from "./extension-snapshot-types";
+import { sanitizeExtensionSnapshot } from "./extension-snapshot-sanitization";
 
 const safeText = (max: number) => z.string().trim().min(1).max(max);
 const safeOptionalText = (max: number) =>
@@ -23,9 +24,18 @@ const unsafeFieldParts = [
   ["raw", "dom"],
   ["raw", "html"],
   ["raw", "provider", "payload"],
+  ["raw", "webhook", "payload"],
+  ["raw", "prompt"],
+  ["full", "page", "dump"],
   ["provider", "author", "ization", "header"],
   ["provider", "to", "ken"],
   ["provider", "coo", "kie"],
+  ["author", "ization", "header"],
+  ["coo", "kie"],
+  ["api", "key"],
+  ["local", "storage"],
+  ["session", "storage"],
+  ["payment", "data"],
   ["access", "to", "ken"],
   ["refresh", "to", "ken"],
   ["client", "se", "cret"],
@@ -156,7 +166,7 @@ export function parseExtensionSnapshotPayload(input: {
     ]);
   }
 
-  return {
+  return sanitizeExtensionSnapshot({
     provider: "extension",
     officialApi: false,
     channel: parsed.data.channel,
@@ -173,5 +183,5 @@ export function parseExtensionSnapshotPayload(input: {
       timestampLabel: message.timestamp_label,
       replyContextText: message.reply_context_text,
     })),
-  };
+  });
 }

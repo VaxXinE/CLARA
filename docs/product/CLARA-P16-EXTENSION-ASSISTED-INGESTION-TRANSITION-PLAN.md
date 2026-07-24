@@ -3,7 +3,7 @@
 ## Status
 
 P15 Controlled Internal Beta Execution is complete. P15-PR-04 is complete. P16
-Extension-Assisted Channel Ingestion Hardening is current. P16-PR-01 is complete. P16-PR-02 is current.
+Extension-Assisted Channel Ingestion Hardening is current. P16-PR-01 is complete. P16-PR-02 is complete. P16-PR-03 is current.
 P16 focuses on extension-assisted WA/IG/TikTok active chat capture.
 
 extension-assisted ingestion is internal/controlled/user-assisted.

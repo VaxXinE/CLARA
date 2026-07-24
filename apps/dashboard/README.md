@@ -18,7 +18,7 @@ P14-PR-02 is complete. P14-PR-03 is complete. P14-PR-04 is complete.
 P14-PR-05 is complete. P14-PR-06 is complete. P15 Controlled Internal Beta
 Execution is complete. P15-PR-01 is complete. P15-PR-02 is complete.
 P15-PR-03 is complete. P15-PR-04 is complete. P16 Extension-Assisted Channel
-Ingestion Hardening is current. P16-PR-01 is complete. P16-PR-02 is current. P16 focuses on
+Ingestion Hardening is current. P16-PR-01 is complete. P16-PR-02 is complete. P16-PR-03 is current. P16 focuses on
 extension-assisted WA/IG/TikTok active chat capture. extension-assisted
 ingestion is internal/controlled/user-assisted. extension-assisted ingestion
 captures only active chat opened by an authorized operator. extension-assisted
@@ -41,7 +41,11 @@ billing/payment is deferred. provider/AI/outbound activation remains controlled.
 feedback/support remains manual/local/repo-safe unless separately approved. no
 external support tool integration is activated. AuthContext and workspace
 membership remain source of truth. client-supplied workspaceId is not
-authoritative. secrets/tokens/cookies/auth headers/raw provider payload/raw
+authoritative. Snapshot sanitization and redaction are required before storage
+and future AI analysis. Client-supplied workspaceId is not authoritative.
+AuthContext and workspace membership remain source of truth. Snapshot
+attribution binds to authenticated operator and resolved workspace.
+Cross-workspace spoofing must be rejected. secrets/tokens/cookies/auth headers/raw provider payload/raw
 webhook payload/raw HTML/raw DOM/raw prompts/payment data must not be included
 in evidence, feedback, logs, docs, or runbooks. Known limitations must be
 reviewed before broader rollout.

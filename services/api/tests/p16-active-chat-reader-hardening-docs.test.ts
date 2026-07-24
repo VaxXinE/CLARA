@@ -22,7 +22,7 @@ describe("P16 active chat reader hardening docs", () => {
       .replace(/\s+/g, " ");
 
     expect(bundle).toContain("P16-PR-01 is complete");
-    expect(bundle).toContain("P16-PR-02 is current");
+    expect(bundle).toContain("P16-PR-03 is current");
     expect(bundle).toContain(
       "Active chat reading is internal/controlled/user-assisted",
     );

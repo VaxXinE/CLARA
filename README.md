@@ -19,7 +19,7 @@ It contains the documentation, architecture, standards, templates, governance, i
 ```text
 Status: P1-P14 complete; local product slice runnable
 Current focus: P16 Extension-Assisted Channel Ingestion Hardening
-Current PR: P16-PR-02 WA/IG/TikTok Active Chat Reader + Snapshot Normalization Hardening
+Current PR: P16-PR-03 Snapshot Sanitization + Redaction + Workspace Attribution
 Launch status: not public GA launched yet; not production deployed yet
 ```
 
@@ -29,7 +29,7 @@ complete. P14-PR-03 is complete. P14-PR-04 is complete. P14-PR-05 is complete.
 P14-PR-06 is complete. P15 Controlled Internal Beta Execution is complete.
 P15-PR-01 is complete. P15-PR-02 is complete. P15-PR-03 is complete.
 P15-PR-04 is complete. P16 Extension-Assisted Channel Ingestion Hardening is
-current. P16-PR-01 is complete. P16-PR-02 is current. extension-assisted ingestion is
+current. P16-PR-01 is complete. P16-PR-02 is complete. P16-PR-03 is current. extension-assisted ingestion is
 internal/controlled/user-assisted. extension-assisted ingestion captures only
 active chat opened by an authorized operator. extension-assisted ingestion
 requires operator awareness/consent. extension-assisted ingestion is not
@@ -65,7 +65,21 @@ unless separately approved. feedback/support remains manual/local/repo-safe
 unless separately approved. No external support tool integration is activated.
 no external support tool integration is activated. AuthContext and workspace
 membership remain source of truth. client-supplied workspaceId is not
-authoritative. Secrets/tokens/cookies/auth headers/raw provider payload/raw
+authoritative. Snapshot sanitization and redaction are required before storage
+and future AI analysis. Client-supplied workspaceId is not authoritative.
+AuthContext and workspace membership remain source of truth. Snapshot
+attribution binds to authenticated operator and resolved workspace.
+Cross-workspace spoofing must be rejected. Snapshots must not include
+secrets/tokens/cookies/auth headers/API keys/localStorage/sessionStorage
+secrets/raw DOM/raw HTML/full page dumps/raw prompts/raw provider payloads/raw
+webhook payloads/payment data. Snapshot evidence must minimize
+customer-sensitive data. Extension-assisted ingestion is not official
+WA/IG/TikTok API activation. Official WA/IG/TikTok APIs remain not activated.
+Extension-assisted ingestion is not public SaaS launch. Extension-assisted
+ingestion is not production deployment claim unless separately executed.
+Billing/payment remains deferred. Real AI provider calls remain not activated in
+this PR. Provider/AI/outbound activation remains controlled. No outbound
+auto-send is activated. Secrets/tokens/cookies/auth headers/raw provider payload/raw
 webhook payload/raw HTML/raw DOM/raw prompts/payment data must not be included
 in evidence, feedback, logs, docs, or runbooks. secrets/tokens/cookies/auth
 headers/raw provider payload/raw webhook payload/raw HTML/raw DOM/raw
