@@ -1,6 +1,7 @@
 # CLARA P18 Runtime Trial Known Issue Capture Template
 
-P18-PR-02 is current.
+P18-PR-02 is complete.
+P18-PR-03 is current.
 
 ```text
 Issue ID:

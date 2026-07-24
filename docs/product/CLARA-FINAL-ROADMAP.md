@@ -30,7 +30,8 @@ P17-PR-02 builds AI-ready context but does not execute real AI provider calls.
 P17-PR-03 activates controlled backend real AI analysis for extension-assisted AI-ready context.
 P18 Controlled Internal Runtime Trial + Operational Readiness is current.
 P18-PR-01 is complete.
-P18-PR-02 is current.
+P18-PR-02 is complete.
+P18-PR-03 is current.
 P18 validates controlled internal runtime behavior only.
 P18 is not public SaaS launch.
 P18 is not production deployment.
@@ -176,17 +177,21 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 ## P18 Compact Roadmap
 
 - P18-PR-01 Controlled Internal Runtime Trial Scope + Evidence Plan. Complete.
-- P18-PR-02 Controlled Runtime Trial Smoke Checklist + Evidence Capture. Current.
+- P18-PR-02 Controlled Runtime Trial Smoke Checklist + Evidence Capture. Complete.
+- P18-PR-03 Controlled Runtime Trial Execution + Evidence Log. Current.
+- P18-PR-04 Final Controlled Runtime Trial Review + Operational Handoff. Next.
 
 Runtime evidence must not include secrets/tokens/cookies/auth headers/raw
 provider payload/raw webhook payload/raw HTML/raw DOM/raw prompts/raw customer
 messages as prompts/payment data. Stop criteria are required before broader
 rollout. Manual rollback guidance is required before broader rollout. Known
 limitations must be reviewed before broader rollout.
-P18 runtime smoke checklist, pass/fail criteria, evidence capture, known issue
-capture, blocker severity rules, evidence redaction, retention/disposal, stop
-criteria, and rollback references exist for the controlled internal runtime
-trial.
+P18 runtime smoke checklist, pass/fail criteria, evidence capture, execution
+log, evidence log, run summary, issue disposition, signoff records, evidence
+privacy review, stop/rollback decision record, known issue capture, blocker
+severity rules, evidence redaction, retention/disposal, stop criteria, and
+rollback references exist for the controlled internal runtime trial. P18-PR-04
+is next for final controlled runtime trial review and operational handoff.
 
 ## Non-Launch Guardrails
 

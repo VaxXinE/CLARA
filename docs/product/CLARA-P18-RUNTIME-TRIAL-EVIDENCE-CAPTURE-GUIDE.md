@@ -1,6 +1,7 @@
 # CLARA P18 Runtime Trial Evidence Capture Guide
 
-P18-PR-02 is current.
+P18-PR-02 is complete.
+P18-PR-03 is current.
 Evidence capture proves controlled internal runtime behavior only.
 
 ## Safe Evidence To Capture

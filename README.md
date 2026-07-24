@@ -19,7 +19,7 @@ It contains the documentation, architecture, standards, templates, governance, i
 ```text
 Status: P1-P17 complete for controlled internal use; local product slice runnable
 Current focus: P18 Controlled Internal Runtime Trial + Operational Readiness
-Current PR: P18-PR-02 Controlled Runtime Trial Smoke Checklist + Evidence Capture
+Current PR: P18-PR-03 Controlled Runtime Trial Execution + Evidence Log
 Launch status: not public GA launched yet; not production deployed yet
 ```
 
@@ -37,13 +37,16 @@ confirms the completed pipeline: extension snapshot -> sanitization/redaction
 -> workspace/operator attribution -> backend ingestion/dedup -> AI-ready
 context -> controlled backend real AI analysis -> safe persistence -> dashboard
 review UI. P18 Controlled Internal Runtime Trial + Operational Readiness is
-current. P18-PR-01 is complete. P18-PR-02 is current. P18 validates controlled internal runtime
+current. P18-PR-01 is complete. P18-PR-02 is complete. P18-PR-03 is current. P18 validates controlled internal runtime
 behavior only. P18 is not public SaaS launch. P18 is not production deployment.
 P18 does not activate billing/payment. P18 does not activate official
 WA/IG/TikTok APIs. P18 does not enable outbound auto-send. P18 runtime smoke checklist, evidence capture,
+execution log, evidence log, run summary, issue disposition, operator/admin
+signoff records, evidence privacy review, stop/rollback decision record,
 pass/fail criteria, issue capture, blocker severity rules, evidence redaction,
 retention/disposal, stop criteria, and rollback references are required before
-broader rollout. P17-PR-01 prepares AI provider runtime configuration. P17-PR-02
+broader rollout. P18-PR-04 is next for final controlled runtime trial review and
+operational handoff. P17-PR-01 prepares AI provider runtime configuration. P17-PR-02
 builds AI-ready context but does not execute real AI provider calls. P17-PR-03
 activates controlled backend real AI analysis for extension-assisted AI-ready
 context. Real AI analysis is server-only. Real AI analysis uses only

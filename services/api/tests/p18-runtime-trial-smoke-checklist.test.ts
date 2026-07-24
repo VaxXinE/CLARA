@@ -11,7 +11,8 @@ const text = readFileSync(
 describe("P18 runtime trial smoke checklist", () => {
   it("covers the controlled extension-assisted AI analysis pipeline", () => {
     expect(text).toContain("P18-PR-01 is complete");
-    expect(text).toContain("P18-PR-02 is current");
+    expect(text).toContain("P18-PR-02 is complete");
+    expect(text).toContain("P18-PR-03 is current");
     expect(text).toMatch(/auth\/session readiness/i);
     expect(text).toContain("Workspace membership boundary");
     expect(text).toContain("Extension active-chat capture boundary");

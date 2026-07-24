@@ -40,7 +40,8 @@ describe("P18 controlled internal runtime trial scope", () => {
       "P18 Controlled Internal Runtime Trial + Operational Readiness is current",
     );
     expect(text).toContain("P18-PR-01 is complete");
-    expect(text).toContain("P18-PR-02 is current");
+    expect(text).toContain("P18-PR-02 is complete");
+    expect(text).toContain("P18-PR-03 is current");
     expect(text).toContain(
       "P18 validates controlled internal runtime behavior only",
     );

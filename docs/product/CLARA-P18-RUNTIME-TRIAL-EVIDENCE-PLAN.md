@@ -2,7 +2,8 @@
 
 P18 Controlled Internal Runtime Trial + Operational Readiness is current.
 P18-PR-01 is complete.
-P18-PR-02 is current.
+P18-PR-02 is complete.
+P18-PR-03 is current.
 
 Evidence to capture:
 - Trial date, operator, role, workspace, and environment.
