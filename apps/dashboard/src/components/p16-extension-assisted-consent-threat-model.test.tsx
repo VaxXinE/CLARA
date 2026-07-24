@@ -1,18 +1,16 @@
 import { describe, expect, it } from "vitest";
 import dashboardReadme from "../../README.md?raw";
 
-describe("P15 stabilization handoff dashboard guidance", () => {
-  it("documents final handoff safely without mutation or raw payload rendering", () => {
+describe("P16 extension-assisted consent and threat model dashboard guidance", () => {
+  it("documents consent and redaction without raw rendering", () => {
     const readme = dashboardReadme.replace(/\s+/g, " ");
 
-    expect(readme).toContain("P15-PR-03 is complete");
-    expect(readme).toContain("P15-PR-04 is complete");
     expect(readme).toContain(
-      "P16 Extension-Assisted Channel Ingestion Hardening is current",
+      "extension-assisted ingestion requires operator awareness/consent",
     );
     expect(readme).toContain(
       "evidence/logs/docs/runbooks must not include secrets/tokens/cookies/auth headers/raw provider payload/raw webhook payload/raw HTML/raw DOM/raw prompts/payment data",
     );
-    expect(readme).toContain("no `dangerouslySetInnerHTML`");
+    expect(readme).toContain("Security policy");
   });
 });

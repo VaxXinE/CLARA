@@ -17,18 +17,23 @@ Preparation is complete. P14-PR-01 is complete. P14-PR-02 is complete.
 P14-PR-03 is complete. P14-PR-04 is complete. P14-PR-05 is complete.
 P14-PR-06 is complete.
 
-P15 Controlled Internal Beta Execution is current. P15-PR-01 is complete.
-P15-PR-02 is complete. P15-PR-03 is complete. P15-PR-04 is current. P15 closes
-only after this PR validates. P16 Extension-Assisted Channel Ingestion
-Hardening is next. P16 focuses on extension-assisted WA/IG/TikTok active chat
-capture. extension-assisted ingestion is internal/controlled and user-assisted.
+P15 Controlled Internal Beta Execution is complete. P15-PR-01 is complete.
+P15-PR-02 is complete. P15-PR-03 is complete. P15-PR-04 is complete. P16
+Extension-Assisted Channel Ingestion Hardening is current. P16-PR-01 is current.
+extension-assisted ingestion is internal/controlled/user-assisted.
+extension-assisted ingestion captures only active chat opened by an authorized
+operator. extension-assisted ingestion requires operator awareness/consent.
 extension-assisted ingestion is not official WA/IG/TikTok API activation.
-extension-assisted ingestion is not public SaaS launch. extension-assisted
-ingestion is not production deployment claim unless separately executed.
-official provider APIs remain not activated. real AI provider calls remain not
-activated in this PR. evidence/issue reports/handoff/stabilization docs must not
-include secrets/tokens/cookies/auth headers/raw provider payload/raw webhook
-payload/raw HTML/raw DOM/raw prompts/payment data. User acceptance session is
+official WA/IG/TikTok APIs remain not activated. extension-assisted ingestion is
+not public SaaS launch. extension-assisted ingestion is not production
+deployment claim unless separately executed. billing/payment is deferred. real
+AI provider calls remain not activated in this PR. provider/AI/outbound
+activation remains controlled. no outbound auto-send is activated. no external
+support tool integration is activated. AuthContext and workspace membership
+remain source of truth. client-supplied workspaceId is not authoritative.
+evidence/logs/docs/runbooks must not include secrets/tokens/cookies/auth
+headers/raw provider payload/raw webhook payload/raw HTML/raw DOM/raw
+prompts/payment data. User acceptance session is
 internal-only. user acceptance session is internal-only. UAT issue capture is
 manual/local/repo-safe unless separately approved. UAT is not public SaaS
 launch. UAT is not production deployment claim unless separately executed.
@@ -103,6 +108,18 @@ find . -name '*.md' \
 | `docs/product/CLARA-P15-CLOSURE-SUMMARY.md`                               | P15 closure summary.                                              |
 | `docs/product/CLARA-P16-EXTENSION-ASSISTED-INGESTION-TRANSITION-PLAN.md`  | P16 extension-assisted ingestion transition plan.                 |
 | `docs/product/CLARA-P16-P17-COMPRESSED-ROADMAP.md`                        | P16/P17 compressed roadmap.                                       |
+| `docs/product/CLARA-P16-EXTENSION-ASSISTED-CHANNEL-SCOPE.md`              | P16 extension-assisted channel scope.                             |
+| `docs/product/CLARA-P16-EXTENSION-ASSISTED-OPERATOR-CONSENT-POLICY.md`    | P16 operator consent policy.                                      |
+| `docs/product/CLARA-P16-EXTENSION-ASSISTED-ALLOWED-CAPTURE-POLICY.md`     | P16 allowed capture policy.                                       |
+| `docs/product/CLARA-P16-EXTENSION-ASSISTED-DISALLOWED-CAPTURE-POLICY.md`  | P16 disallowed capture policy.                                    |
+| `docs/product/CLARA-P16-EXTENSION-PERMISSION-BOUNDARY.md`                 | P16 extension permission boundary.                                |
+| `docs/product/CLARA-P16-EXTENSION-ASSISTED-THREAT-MODEL.md`               | P16 extension-assisted threat model.                              |
+| `docs/product/CLARA-P16-EXTENSION-ASSISTED-ABUSE-CASE-REGISTER.md`        | P16 abuse case register.                                          |
+| `docs/product/CLARA-P16-EXTENSION-ASSISTED-PRIVACY-DATA-MINIMIZATION-POLICY.md` | P16 privacy and data minimization policy.                 |
+| `docs/product/CLARA-P16-EXTENSION-ASSISTED-AUDIT-EVIDENCE-POLICY.md`      | P16 audit and evidence policy.                                    |
+| `docs/product/CLARA-P16-EXTENSION-ASSISTED-SECURITY-CHECKLIST.md`         | P16 security checklist.                                           |
+| `docs/product/CLARA-P16-OFFICIAL-PROVIDER-API-NON-ACTIVATION-POLICY.md`   | P16 official provider API non-activation policy.                  |
+| `docs/product/CLARA-P16-EXTENSION-ASSISTED-INGESTION-ROADMAP.md`          | P16 extension-assisted ingestion roadmap.                         |
 | `docs/product/CLARA-P15-INTERNAL-BETA-OPERATING-RULES.md`                 | P15 internal beta operating rules.                                |
 | `docs/product/CLARA-P15-INTERNAL-BETA-PARTICIPANT-RULES.md`               | P15 internal beta participant rules.                              |
 | `docs/product/CLARA-P15-INTERNAL-BETA-EVIDENCE-LOG-POLICY.md`             | P15 evidence log policy.                                          |
