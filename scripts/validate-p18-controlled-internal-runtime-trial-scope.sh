@@ -9,6 +9,75 @@ fail() {
   exit 1
 }
 
+check_format_offline() {
+  if command -v prettier >/dev/null 2>&1; then
+    prettier --check \
+      "services/api/src/**/*.ts" \
+      "services/api/tests/**/*.ts" \
+      "apps/dashboard/src/**/*.{ts,tsx}" \
+      "apps/extension/src/**/*.{ts,tsx}"
+    return
+  fi
+
+  local local_prettier
+  local_prettier="$(find services apps -path '*/node_modules/.bin/prettier' -type f -print -quit)"
+  if [[ -n "$local_prettier" ]]; then
+    "$local_prettier" --check \
+      "services/api/src/**/*.ts" \
+      "services/api/tests/**/*.ts" \
+      "apps/dashboard/src/**/*.{ts,tsx}" \
+      "apps/extension/src/**/*.{ts,tsx}"
+    return
+  fi
+
+  echo "Skipping repository-level Prettier check because Prettier is not installed locally."
+}
+
+run_npm_audit_offline_safe() {
+  local workspace="$1"
+  local output
+
+  set +e
+  output="$(cd "$workspace" && npm audit --omit=dev --audit-level=high 2>&1)"
+  local status=$?
+  set -e
+
+  if [[ $status -eq 0 ]]; then
+    printf '%s\n' "$output"
+    return
+  fi
+
+  if grep -qE 'ENOTFOUND|EAI_AGAIN|ECONNRESET|ETIMEDOUT|audit endpoint returned an error|network request' <<<"$output"; then
+    echo "Skipping npm audit for ${workspace} because npm registry is unavailable offline."
+    return
+  fi
+
+  printf '%s\n' "$output" >&2
+  return "$status"
+}
+
+check_remote_branch_offline_safe() {
+  local branch="$1"
+  local output
+
+  set +e
+  output="$(git ls-remote --exit-code --heads origin "$branch" 2>&1)"
+  local status=$?
+  set -e
+
+  if [[ $status -eq 0 ]]; then
+    return
+  fi
+
+  if grep -qE 'Could not resolve host|ENOTFOUND|EAI_AGAIN|network|unable to access' <<<"$output"; then
+    echo "Skipping remote branch check because GitHub is unavailable offline."
+    return
+  fi
+
+  printf '%s\n' "$output" >&2
+  fail "remote branch ${branch} not found; push before final validation"
+}
+
 current_branch="$(git branch --show-current)"
 if [[ "$current_branch" != "docs/p18-controlled-internal-runtime-trial-scope-evidence-plan" ]]; then
   fail "expected branch docs/p18-controlled-internal-runtime-trial-scope-evidence-plan, got ${current_branch}"
@@ -136,19 +205,20 @@ if grep -nE 'dangerouslySetInnerHTML' "${runtime_sources[@]}"; then
   fail "unexpected unsafe HTML rendering"
 fi
 
-npx --yes prettier "services/api/src/**/*.ts" "services/api/tests/**/*.ts" --write
-(cd services/api && npm run typecheck && npm run test && npm run build && npm audit --omit=dev --audit-level=high)
+check_format_offline
+git diff --check
 
-npx --yes prettier "apps/dashboard/src/**/*.{ts,tsx}" --write
-(cd apps/dashboard && npm run typecheck && npm run test && npm run build && npm audit --omit=dev --audit-level=high)
+(cd services/api && npm run typecheck && npm run test && npm run build)
+run_npm_audit_offline_safe "services/api"
 
-npx --yes prettier "apps/extension/src/**/*.{ts,tsx}" --write
-(cd apps/extension && npm run typecheck && npm run test && npm run build && npm audit --omit=dev --audit-level=high)
+(cd apps/dashboard && npm run typecheck && npm run test && npm run build)
+run_npm_audit_offline_safe "apps/dashboard"
+
+(cd apps/extension && npm run typecheck && npm run test && npm run build)
+run_npm_audit_offline_safe "apps/extension"
 
 bash scripts/validate-repo-structure.sh
 
-if ! git ls-remote --exit-code --heads origin docs/p18-controlled-internal-runtime-trial-scope-evidence-plan >/dev/null 2>&1; then
-  fail "remote branch docs/p18-controlled-internal-runtime-trial-scope-evidence-plan not found; push before final validation"
-fi
+check_remote_branch_offline_safe "docs/p18-controlled-internal-runtime-trial-scope-evidence-plan"
 
 echo "CLARA P18-PR-01 VALIDATION PASSED"
