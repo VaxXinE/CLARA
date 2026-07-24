@@ -165,7 +165,7 @@ if grep -nE 'dangerouslySetInnerHTML' "${runtime_sources[@]}"; then
   fail "unexpected unsafe HTML rendering"
 fi
 
-if grep -nE 'openai|anthropic|api\.openai\.com|api\.anthropic\.com|AI_PROVIDER_API_KEY' "${frontend_runtime_sources[@]}"; then
+if grep -nE 'api\.openai\.com|api\.anthropic\.com|AI_PROVIDER_API_KEY|VITE_AI_API_KEY|NEXT_PUBLIC_AI_API_KEY|PUBLIC_AI_API_KEY' "${frontend_runtime_sources[@]}"; then
   fail "unexpected frontend/extension AI provider call or secret boundary"
 fi
 
