@@ -161,14 +161,7 @@ if grep -nE 'stripe|createCheckoutSession|createInvoice|chargeCustomer|createSub
   fail "unexpected billing/payment activation"
 fi
 
-deployment_scan_sources=()
-while IFS= read -r file; do
-  deployment_scan_sources+=("$file")
-done < <(
-  git ls-files 'scripts/*.sh' 'services/**/*.ts' 'apps/**/*.ts' 'apps/**/*.tsx'
-)
-
-if grep -nE 'deployProduction|productionDeploy|rollbackProduction' "${deployment_scan_sources[@]}"; then
+if grep -nE 'deployProduction|productionDeploy|rollbackProduction' "${runtime_sources[@]}"; then
   fail "unexpected production deployment automation"
 fi
 
