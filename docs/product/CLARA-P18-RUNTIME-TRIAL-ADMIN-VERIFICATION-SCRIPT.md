@@ -1,10 +1,11 @@
 # CLARA P18 Runtime Trial Admin Verification Script
 
-P18-PR-02 is current.
+P18-PR-02 is complete.
+P18-PR-03 is current.
 
 ## Admin Checks
 
-1. Verify P18-PR-01 is complete and P18-PR-02 is current.
+1. Verify P18-PR-01 is complete, P18-PR-02 is complete, and P18-PR-03 is current.
 2. Verify participant access is limited to approved internal users.
 3. Verify AuthContext and workspace membership remain source of truth.
 4. Verify client-supplied workspaceId is not authoritative.

@@ -1,6 +1,7 @@
 # CLARA P18 Runtime Trial Evidence Retention And Disposal
 
-P18-PR-02 is current.
+P18-PR-02 is complete.
+P18-PR-03 is current.
 
 ## Retention
 

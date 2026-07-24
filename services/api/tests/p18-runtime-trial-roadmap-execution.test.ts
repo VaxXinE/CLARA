@@ -12,19 +12,17 @@ const text = [
   .map((file) => readFileSync(resolve(root, file), "utf8"))
   .join("\n");
 
-describe("P18 roadmap opening", () => {
-  it("marks P17 complete, P18 current, and P18-PR-02 current", () => {
-    expect(text).toContain(
-      "P17 Real AI Analysis Activation is complete for controlled internal use",
-    );
-    expect(text).toContain(
-      "P18 Controlled Internal Runtime Trial + Operational Readiness is current",
-    );
-    expect(text).toContain("P18-PR-01 is complete");
+describe("P18 runtime trial roadmap execution", () => {
+  it("marks PR03 current and PR04 next", () => {
     expect(text).toContain("P18-PR-02 is complete");
     expect(text).toContain("P18-PR-03 is current");
-    expect(text).toContain(
-      "P18-PR-02 Controlled Runtime Trial Smoke Checklist + Evidence Capture",
-    );
+    expect(text).toContain("P18-PR-04 is next");
+    expect(text).toContain("execution log");
+    expect(text).toContain("evidence log");
+    expect(text).toContain("run summary");
+    expect(text).toContain("issue disposition");
+    expect(text).toContain("signoff records");
+    expect(text).toContain("evidence privacy review");
+    expect(text).toContain("stop/rollback decision record");
   });
 });

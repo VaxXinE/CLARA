@@ -30,16 +30,20 @@ P17-PR-02 builds AI-ready context but does not execute real AI provider calls.
 P17-PR-03 activates controlled backend real AI analysis for extension-assisted AI-ready context.
 P18 Controlled Internal Runtime Trial + Operational Readiness is current.
 P18-PR-01 is complete.
-P18-PR-02 is current.
+P18-PR-02 is complete.
+P18-PR-03 is current.
 P18 validates controlled internal runtime behavior only.
 P18 is not public SaaS launch.
 P18 is not production deployment.
 P18 does not activate billing/payment.
 P18 does not activate official WA/IG/TikTok APIs.
 P18 does not enable outbound auto-send.
-P18 runtime smoke checklist, pass/fail criteria, evidence capture, issue
-capture, blocker severity rules, redaction, retention/disposal, stop criteria,
-and rollback references exist for controlled internal runtime validation.
+P18 runtime smoke checklist, pass/fail criteria, evidence capture, execution
+log, evidence log, run summary, issue disposition, signoff records, evidence
+privacy review, stop/rollback decision record, issue capture, blocker severity
+rules, redaction, retention/disposal, stop criteria, and rollback references
+exist for controlled internal runtime validation. P18-PR-04 is next for final
+controlled runtime trial review and operational handoff.
 AI analysis remains backend/server-side.
 AI provider secrets remain server-only.
 Extension must not call AI providers directly.
@@ -370,7 +374,16 @@ find . -name '*.md' \
 | `docs/product/CLARA-P18-RUNTIME-TRIAL-BLOCKER-SEVERITY-RULES.md`         | P18 blocker and severity rules.                    |
 | `docs/product/CLARA-P18-RUNTIME-TRIAL-EVIDENCE-REDACTION-RULES.md`       | P18 evidence redaction rules.                      |
 | `docs/product/CLARA-P18-RUNTIME-TRIAL-EVIDENCE-RETENTION-DISPOSAL.md`    | P18 evidence retention and disposal.               |
-| `docs/product/CLARA-P18-RUNTIME-TRIAL-ROADMAP.md`                        | P18 roadmap and P18-PR-02 status.                  |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-EXECUTION-LOG.md`                  | P18 controlled execution log.                      |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-EVIDENCE-LOG.md`                   | P18 privacy-safe evidence log.                     |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-RUN-SUMMARY.md`                    | P18 run summary template.                          |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-ISSUE-DISPOSITION.md`              | P18 issue disposition workflow.                    |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-OPERATOR-SIGNOFF.md`               | P18 operator signoff record.                       |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-ADMIN-SIGNOFF.md`                  | P18 admin signoff record.                          |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-EVIDENCE-INDEX.md`                 | P18 evidence index.                                |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-EVIDENCE-PRIVACY-REVIEW.md`        | P18 evidence privacy review.                       |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-STOP-ROLLBACK-DECISION.md`         | P18 stop and rollback decision record.             |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-ROADMAP.md`                        | P18 roadmap and P18-PR-03 status.                  |
 
 ## Historical Docs
 

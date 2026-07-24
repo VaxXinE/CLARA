@@ -13,9 +13,10 @@ const text = [
   .join("\n");
 
 describe("P18 runtime trial roadmap smoke evidence", () => {
-  it("marks P18-PR-01 complete and P18-PR-02 current", () => {
+  it("marks P18-PR-02 complete and P18-PR-03 current", () => {
     expect(text).toContain("P18-PR-01 is complete");
-    expect(text).toContain("P18-PR-02 is current");
+    expect(text).toContain("P18-PR-02 is complete");
+    expect(text).toContain("P18-PR-03 is current");
     expect(text).toContain("P18 validates controlled internal runtime behavior only");
     expect(text).toContain("smoke checklist");
     expect(text).toContain("pass/fail criteria");
@@ -25,5 +26,12 @@ describe("P18 runtime trial roadmap smoke evidence", () => {
     expect(text).toContain("retention/disposal");
     expect(text).toContain("stop criteria");
     expect(text).toContain("rollback references");
+    expect(text).toContain("execution log");
+    expect(text).toContain("evidence log");
+    expect(text).toContain("run summary");
+    expect(text).toContain("issue disposition");
+    expect(text).toContain("signoff records");
+    expect(text).toContain("evidence privacy review");
+    expect(text).toContain("stop/rollback decision record");
   });
 });
