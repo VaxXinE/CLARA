@@ -17,9 +17,9 @@ It contains the documentation, architecture, standards, templates, governance, i
 # Repository Status
 
 ```text
-Status: P1-P16 complete; local product slice runnable
-Current focus: P17 Real AI Analysis Activation
-Current PR: P17-PR-04 Final Extension-Assisted AI Runtime QA + Security Runbook
+Status: P1-P17 complete for controlled internal use; local product slice runnable
+Current focus: Post-P17 internal handoff
+Current PR: POST-P17-PR-01 Mark P17 Complete + Extension-Assisted AI Internal Handoff
 Launch status: not public GA launched yet; not production deployed yet
 ```
 
@@ -30,8 +30,29 @@ P14-PR-06 is complete. P15 Controlled Internal Beta Execution is complete.
 P15-PR-01 is complete. P15-PR-02 is complete. P15-PR-03 is complete.
 P15-PR-04 is complete. P16 Extension-Assisted Channel Ingestion Hardening is
 complete. P16-PR-01 is complete. P16-PR-02 is complete. P16-PR-03 is complete.
-P16-PR-04 is complete. P17 Real AI Analysis Activation is current.
-P17-PR-01 is complete. P17-PR-02 is complete. P17-PR-03 is complete. P17-PR-04 is current/final validation gate. P17 is considered complete only after P17-PR-04 validates and merges. P17-PR-01 prepares AI provider runtime configuration. P17-PR-02 builds AI-ready context but does not execute real AI provider calls. P17-PR-03 activates controlled backend real AI analysis for extension-assisted AI-ready context. Real AI analysis is server-only. Real AI analysis uses only sanitized/redacted AI-ready context. Real AI analysis fails closed when provider config is missing/invalid/disabled. Model allowlist, cost guardrail, rate limit guardrail, timeout policy, and prompt-injection boundary are enforced. AI analysis persistence stores only safe/redacted result. Dashboard review UI shows only safe AI analysis output. Raw prompts are not persisted. Raw customer messages are not persisted as AI prompts. Raw AI provider payloads and responses are not persisted. Customer text is untrusted input and must be separated from system/developer instructions. AI provider secrets are server-only. AI provider secrets must not be exposed to dashboard or extension. Extension must not call AI providers directly. Backend ingestion accepts only sanitized/redacted extension snapshots. Deduplication and idempotency are required. Conversation linking is workspace-scoped. Customer linking is readiness-only unless existing safe patterns support it. extension-assisted ingestion is
+P16-PR-04 is complete. P17 Real AI Analysis Activation is complete for
+controlled internal use. P17-PR-01 is complete. P17-PR-02 is complete.
+P17-PR-03 is complete. P17-PR-04 is complete. Post-P17 internal handoff
+confirms the completed pipeline: extension snapshot -> sanitization/redaction
+-> workspace/operator attribution -> backend ingestion/dedup -> AI-ready
+context -> controlled backend real AI analysis -> safe persistence -> dashboard
+review UI. P17-PR-01 prepares AI provider runtime configuration. P17-PR-02
+builds AI-ready context but does not execute real AI provider calls. P17-PR-03
+activates controlled backend real AI analysis for extension-assisted AI-ready
+context. Real AI analysis is server-only. Real AI analysis uses only
+sanitized/redacted AI-ready context. Real AI analysis fails closed when provider
+config is missing/invalid/disabled. Model allowlist, cost guardrail, rate limit
+guardrail, timeout policy, and prompt-injection boundary are enforced. AI
+analysis persistence stores only safe/redacted result. Dashboard review UI shows
+only safe AI analysis output. Raw prompts are not persisted. Raw customer
+messages are not persisted as AI prompts. Raw AI provider payloads and responses
+are not persisted. Customer text is untrusted input and must be separated from
+system/developer instructions. AI provider secrets are server-only. AI provider
+secrets must not be exposed to dashboard or extension. Extension must not call
+AI providers directly. Backend ingestion accepts only sanitized/redacted
+extension snapshots. Deduplication and idempotency are required. Conversation
+linking is workspace-scoped. Customer linking is readiness-only unless existing
+safe patterns support it. extension-assisted ingestion is
 internal/controlled/user-assisted. extension-assisted ingestion captures only
 active chat opened by an authorized operator. extension-assisted ingestion
 requires operator awareness/consent. extension-assisted ingestion is not
@@ -45,8 +66,8 @@ dedup/linking, and snapshot hash. disallowed capture includes cookies/session
 tokens/auth headers/API keys/localStorage/sessionStorage secrets/raw DOM/raw
 HTML/full page dumps/hidden conversations/background inbox crawling/mass
 scraping/payment data/raw prompts/raw provider payloads/raw webhook
-payloads/unnecessary customer-sensitive data. billing/payment is deferred. real
-AI provider calls remain not activated in this PR. evidence/logs/docs/runbooks
+payloads/unnecessary customer-sensitive data. billing/payment is deferred.
+provider/AI/outbound activation remains controlled. evidence/logs/docs/runbooks
 must not include secrets/tokens/cookies/auth headers/raw provider payload/raw
 webhook payload/raw HTML/raw DOM/raw prompts/payment data. Controlled
 internal beta execution is internal-only. user acceptance session is
