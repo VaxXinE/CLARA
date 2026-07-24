@@ -19,7 +19,7 @@ It contains the documentation, architecture, standards, templates, governance, i
 ```text
 Status: P1-P14 complete; local product slice runnable
 Current focus: P15 Controlled Internal Beta Execution
-Current PR: P15-PR-03 Internal User Acceptance Session + Issue Capture
+Current PR: P15-PR-04 Combined Internal Beta Stabilization + Final Handoff
 Launch status: not public GA launched yet; not production deployed yet
 ```
 
@@ -27,7 +27,18 @@ P13 Internal CRM Product Activation is complete. P14 Internal Beta Rollout
 Preparation is complete. P14-PR-01 is complete. P14-PR-02 is
 complete. P14-PR-03 is complete. P14-PR-04 is complete. P14-PR-05 is complete.
 P14-PR-06 is complete. P15 Controlled Internal Beta Execution is current.
-P15-PR-01 is complete. P15-PR-02 is complete. P15-PR-03 is current. Controlled
+P15-PR-01 is complete. P15-PR-02 is complete. P15-PR-03 is complete.
+P15-PR-04 is current. P15 closes only after this PR validates. P16
+Extension-Assisted Channel Ingestion Hardening is next. P16 focuses on
+extension-assisted WA/IG/TikTok active chat capture. extension-assisted
+ingestion is internal/controlled and user-assisted. extension-assisted ingestion
+is not official WA/IG/TikTok API activation. extension-assisted ingestion is not
+public SaaS launch. extension-assisted ingestion is not production deployment
+claim unless separately executed. official provider APIs remain not activated.
+real AI provider calls remain not activated in this PR.
+evidence/issue reports/handoff/stabilization docs must not include
+secrets/tokens/cookies/auth headers/raw provider payload/raw webhook payload/raw
+HTML/raw DOM/raw prompts/payment data. Controlled
 internal beta execution is internal-only. user acceptance session is
 internal-only. UAT issue capture is manual/local/repo-safe unless separately
 approved. UAT is not public SaaS launch. UAT is not production deployment claim
@@ -133,6 +144,15 @@ docs/product/CLARA-P15-INTERNAL-UAT-ISSUE-CAPTURE-TEMPLATE.md
 docs/product/CLARA-P15-INTERNAL-UAT-USABILITY-FEEDBACK-TEMPLATE.md
 docs/product/CLARA-P15-INTERNAL-UAT-SEVERITY-PRIORITY-RULES.md
 docs/product/CLARA-P15-INTERNAL-UAT-EVIDENCE-SAFETY-RULES.md
+docs/product/CLARA-P15-INTERNAL-BETA-BUGFIX-TRIAGE-POLICY.md
+docs/product/CLARA-P15-INTERNAL-BETA-BUGFIX-TRIAGE-BATCH-1-CHECKLIST.md
+docs/product/CLARA-P15-INTERNAL-BETA-STABILIZATION-REVIEW.md
+docs/product/CLARA-P15-INTERNAL-BETA-KNOWN-ISSUE-DISPOSITION.md
+docs/product/CLARA-P15-INTERNAL-BETA-RISK-ACCEPTANCE-REGISTER.md
+docs/product/CLARA-P15-FINAL-INTERNAL-BETA-EXECUTION-HANDOFF.md
+docs/product/CLARA-P15-CLOSURE-SUMMARY.md
+docs/product/CLARA-P16-EXTENSION-ASSISTED-INGESTION-TRANSITION-PLAN.md
+docs/product/CLARA-P16-P17-COMPRESSED-ROADMAP.md
 docs/product/CLARA-P15-INTERNAL-BETA-OPERATING-RULES.md
 docs/product/CLARA-P15-INTERNAL-BETA-PARTICIPANT-RULES.md
 docs/product/CLARA-P15-INTERNAL-BETA-EVIDENCE-LOG-POLICY.md

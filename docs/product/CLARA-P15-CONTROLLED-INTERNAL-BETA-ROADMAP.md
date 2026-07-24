@@ -6,7 +6,17 @@ P14 Internal Beta Rollout Preparation is complete. P14-PR-01 is complete.
 P14-PR-02 is complete. P14-PR-03 is complete. P14-PR-04 is complete.
 P14-PR-05 is complete. P14-PR-06 is complete. P15 Controlled Internal Beta
 Execution is current. P15-PR-01 is complete. P15-PR-02 is complete.
-P15-PR-03 is current.
+P15-PR-03 is complete. P15-PR-04 is current. P15 closes only after this PR
+validates. P16 Extension-Assisted Channel Ingestion Hardening is next. P16
+focuses on extension-assisted WA/IG/TikTok active chat capture.
+extension-assisted ingestion is internal/controlled and user-assisted.
+extension-assisted ingestion is not official WA/IG/TikTok API activation.
+extension-assisted ingestion is not public SaaS launch. extension-assisted
+ingestion is not production deployment claim unless separately executed.
+official provider APIs remain not activated. real AI provider calls remain not
+activated in this PR. evidence/issue reports/handoff/stabilization docs must not
+include secrets/tokens/cookies/auth headers/raw provider payload/raw webhook
+payload/raw HTML/raw DOM/raw prompts/payment data.
 
 user acceptance session is internal-only. UAT issue capture is
 manual/local/repo-safe unless separately approved. UAT is not public SaaS
@@ -34,7 +44,8 @@ broader rollout.
 | --------- | ---------------------------------------------------------- | -------- |
 | P15-PR-01 | Controlled Internal Beta Execution Scope + Operating Rules | complete |
 | P15-PR-02 | Internal Runtime Smoke Execution + Evidence Log            | complete |
-| P15-PR-03 | Internal User Acceptance Session + Issue Capture           | current  |
+| P15-PR-03 | Internal User Acceptance Session + Issue Capture           | complete |
+| P15-PR-04 | Combined Internal Beta Stabilization + Final Handoff       | current  |
 
 ## P15-PR-01 Deliverables
 
@@ -63,3 +74,12 @@ broader rollout.
 - Acceptance criteria and issue capture templates exist.
 - Severity/priority rules and UAT evidence safety rules exist.
 - UAT issue capture remains manual/local/repo-safe.
+
+## P15-PR-04 Deliverables
+
+- Internal beta bugfix triage policy and batch 1 checklist exist.
+- Stabilization review, known issue disposition, and risk acceptance register
+  exist.
+- Final internal beta execution handoff and closure summary exist.
+- P16 extension-assisted channel ingestion hardening is introduced as the next
+  controlled phase.

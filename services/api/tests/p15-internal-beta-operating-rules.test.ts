@@ -13,7 +13,8 @@ describe("P15 internal beta operating rules", () => {
 
     expect(doc).toContain("P15-PR-01 is complete");
     expect(doc).toContain("P15-PR-02 is complete");
-    expect(doc).toContain("P15-PR-03 is current");
+    expect(doc).toContain("P15-PR-03 is complete");
+    expect(doc).toContain("P15-PR-04 is current");
     expect(doc).toContain("Record each session");
     expect(doc).toContain("Stop and escalate");
     expect(doc).toContain("provider/AI/outbound activation remains controlled");

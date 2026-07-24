@@ -6,7 +6,8 @@ describe("P15 internal runtime smoke execution dashboard", () => {
     const readme = dashboardReadme.replace(/\s+/g, " ");
 
     expect(readme).toContain("P15-PR-02 is complete");
-    expect(readme).toContain("P15-PR-03 is current");
+    expect(readme).toContain("P15-PR-03 is complete");
+    expect(readme).toContain("P15-PR-04 is current");
     expect(readme).toContain("runtime smoke execution is internal-only");
     expect(readme).toContain(
       "runtime smoke execution is not public SaaS launch",
