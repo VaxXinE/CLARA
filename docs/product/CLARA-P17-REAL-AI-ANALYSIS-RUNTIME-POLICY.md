@@ -1,10 +1,10 @@
 # CLARA P17 Real AI Analysis Runtime Policy
 
-P17-PR-03 is current. Controlled backend real AI analysis is activated for
-extension-assisted AI-ready context.
-
-controlled backend real AI analysis is activated for extension-assisted AI-ready
+P17-PR-03 is complete. P17-PR-04 is current/final validation gate.
+Controlled backend real AI analysis is active for extension-assisted AI-ready
 context.
+
+controlled backend real AI analysis is active for extension-assisted AI-ready context.
 
 Runtime policy:
 

@@ -6,7 +6,8 @@ P15 Controlled Internal Beta Execution is complete. P15-PR-04 is complete. P16
 Extension-Assisted Channel Ingestion Hardening is complete. P16-PR-01 is complete.
 P16-PR-02 is complete. P16-PR-03 is complete. P16-PR-04 is complete.
 P17 Real AI Analysis Activation is current. P17-PR-01 is complete.
-P17-PR-02 is complete. P17-PR-03 is current.
+P17-PR-02 is complete. P17-PR-03 is complete. P17-PR-04 is current/final validation gate.
+P17 is considered complete only after P17-PR-04 validates and merges.
 
 extension-assisted ingestion is internal/controlled/user-assisted.
 extension-assisted ingestion captures only active chat opened by an authorized
@@ -50,5 +51,5 @@ HTML/raw DOM/raw prompts/payment data.
 - P16-PR-04 Backend Ingestion Dedup + Conversation Linking + Runtime QA (complete).
 - P17-PR-01 AI Provider Runtime Config + Secret Boundary + Cost Guardrail (complete).
 - P17-PR-02 Extension Snapshot AI Context Builder + PII Redaction (complete).
-- P17-PR-03 Real AI Analysis Output + Persistence + Dashboard Review UI (current).
-- P17-PR-04 Final Extension-Assisted AI Runtime QA + Security Runbook (next).
+- P17-PR-03 Real AI Analysis Output + Persistence + Dashboard Review UI (complete).
+- P17-PR-04 Final Extension-Assisted AI Runtime QA + Security Runbook (current/final validation gate).

@@ -18,9 +18,9 @@ P15-PR-01 is complete. P15-PR-02 is complete. P15-PR-03 is complete.
 P15-PR-04 is complete. P16 Extension-Assisted Channel Ingestion Hardening is
 complete. P16-PR-01 is complete. P16-PR-02 is complete. P16-PR-03 is complete.
 P16-PR-04 is complete. P17 Real AI Analysis Activation is current. P17-PR-01 is
-complete. P17-PR-02 is complete. P17-PR-03 is current. P17-PR-01 prepares AI provider runtime configuration.
+complete. P17-PR-02 is complete. P17-PR-03 is complete. P17-PR-04 is current/final validation gate. P17 is considered complete only after P17-PR-04 validates and merges. P17-PR-01 prepares AI provider runtime configuration.
 P17-PR-02 builds AI-ready context but does not execute real AI provider calls. P17-PR-03 activates controlled backend real AI analysis for extension-assisted AI-ready context. Real AI analysis is server-only. Real AI analysis uses only sanitized/redacted AI-ready context. Real AI analysis fails closed when provider config is missing/invalid/disabled. Model allowlist, cost guardrail, rate limit guardrail, timeout policy, and prompt-injection boundary are enforced. AI analysis persistence stores only safe/redacted result. Dashboard review UI shows only safe AI analysis output. Raw prompts are not persisted. Raw customer messages are not persisted as AI prompts. Raw AI provider payloads and responses are not persisted. AI provider secrets are server-only. AI
-provider secrets must not be exposed to dashboard or extension. Extension must not call AI providers directly. P17-PR-04 is next: Final Extension-Assisted AI Runtime QA + Security Runbook. P16 focuses on extension-assisted WA/IG/TikTok
+provider secrets must not be exposed to dashboard or extension. Extension must not call AI providers directly. P16 focuses on extension-assisted WA/IG/TikTok
 active chat capture. extension-assisted ingestion is
 internal/controlled/user-assisted. extension-assisted ingestion captures only
 active chat opened by an authorized operator. extension-assisted ingestion
@@ -28,7 +28,8 @@ requires operator awareness/consent. extension-assisted ingestion is not
 official WA/IG/TikTok API activation. official WA/IG/TikTok APIs remain not
 activated. extension-assisted ingestion is not public SaaS launch.
 extension-assisted ingestion is not production deployment claim unless
-separately executed. real AI provider calls remain not activated in this PR.
+separately executed. controlled backend real AI analysis is active for
+extension-assisted AI-ready context.
 evidence/logs/docs/runbooks must not include secrets/tokens/cookies/auth
 headers/raw provider payload/raw webhook payload/raw HTML/raw DOM/raw
 prompts/payment data. controlled internal beta is internal-only.

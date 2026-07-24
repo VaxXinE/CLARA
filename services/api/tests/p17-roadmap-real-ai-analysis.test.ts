@@ -15,10 +15,10 @@ const docs = [
   .join("\n");
 
 describe("P17 real AI analysis roadmap", () => {
-  it("marks P17-PR-02 complete, P17-PR-03 current, and P17-PR-04 next", () => {
+  it("marks P17-PR-02 and P17-PR-03 complete, and P17-PR-04 current", () => {
     expect(docs).toContain("P17-PR-02 is complete");
-    expect(docs).toContain("P17-PR-03 is current");
-    expect(docs).toContain("P17-PR-04 is next");
+    expect(docs).toContain("P17-PR-03 is complete");
+    expect(docs).toContain("P17-PR-04 is current/final validation gate");
     expect(docs).toContain(
       "P17-PR-03 activates controlled backend real AI analysis for extension-assisted AI-ready context",
     );
