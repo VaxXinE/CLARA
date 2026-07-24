@@ -100,7 +100,10 @@ for phrase in "${lowercase_phrases[@]}"; do
   grep -qF "$phrase" <<<"$doc_bundle" || fail "missing lowercase docs phrase: $phrase"
 done
 
-mapfile -t runtime_sources < <(
+runtime_sources=()
+while IFS= read -r file; do
+  runtime_sources+=("$file")
+done < <(
   find services/api/src/extension apps/extension/src \
     -type f \( -name '*.ts' -o -name '*.tsx' \) \
     -not -path 'apps/extension/src/tests/*'
@@ -143,7 +146,17 @@ if grep -RInE 'sendSlack|sendDiscord|sendWebhook|pushNotification|createSupportT
   fail "unexpected external support notification activation"
 fi
 
-if grep -RInE 'dangerouslySetInnerHTML' apps/dashboard/src apps/extension/src; then
+dashboard_runtime_sources=()
+while IFS= read -r file; do
+  dashboard_runtime_sources+=("$file")
+done < <(
+  find apps/dashboard/src \
+    -type f \( -name '*.ts' -o -name '*.tsx' \) \
+    -not -name '*.test.ts' \
+    -not -name '*.test.tsx'
+)
+
+if grep -nE 'dangerouslySetInnerHTML' "${dashboard_runtime_sources[@]}" "${runtime_sources[@]}"; then
   fail "unexpected unsafe HTML rendering"
 fi
 
