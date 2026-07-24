@@ -6,7 +6,7 @@ describe("P16 extension-assisted scope dashboard guidance", () => {
     const readme = dashboardReadme.replace(/\s+/g, " ");
 
     expect(readme).toContain(
-      "P16-PR-01 is complete. P16-PR-02 is complete. P16-PR-03 is current",
+      "P16-PR-01 is complete. P16-PR-02 is complete. P16-PR-03 is complete. P16-PR-04 is current",
     );
     expect(readme).toContain(
       "extension-assisted ingestion captures only active chat opened by an authorized operator",

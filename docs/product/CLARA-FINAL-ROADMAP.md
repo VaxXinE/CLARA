@@ -20,7 +20,8 @@ P14-PR-05 is complete. P14-PR-06 is complete.
 P15 Controlled Internal Beta Execution is complete. P15-PR-01 is complete.
 P15-PR-02 is complete. P15-PR-03 is complete. P15-PR-04 is complete. P16
 Extension-Assisted Channel Ingestion Hardening is current. P16-PR-01 is complete.
-P16-PR-02 is complete. P16-PR-03 is current.
+P16-PR-02 is complete. P16-PR-03 is complete. P16-PR-04 is current.
+P16 closes only after this PR validates.
 extension-assisted ingestion is internal/controlled/user-assisted.
 extension-assisted ingestion captures only active chat opened by an authorized
 operator. extension-assisted ingestion requires operator awareness/consent.
@@ -126,7 +127,8 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 
 - P16-PR-01 Extension-Assisted Channel Scope + Consent + Threat Model. Complete.
 - P16-PR-02 WA/IG/TikTok Active Chat Reader + Snapshot Normalization Hardening. Complete.
-- P16-PR-03 Snapshot Sanitization + Redaction + Workspace Attribution. Current.
+- P16-PR-03 Snapshot Sanitization + Redaction + Workspace Attribution. Complete.
+- P16-PR-04 Backend Ingestion Dedup + Conversation Linking + Runtime QA. Current.
 - P16-PR-04 Backend Ingestion Dedup + Conversation Linking + Runtime QA.
 
 ## P16/P17 Compressed Roadmap
@@ -134,6 +136,7 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 - P16-PR-01 Extension-Assisted Channel Scope + Consent + Threat Model.
 - P16-PR-02 WA/IG/TikTok Active Chat Reader + Snapshot Normalization Hardening.
 - P16-PR-03 Snapshot Sanitization + Redaction + Workspace Attribution.
+- P16-PR-04 Backend Ingestion Dedup + Conversation Linking + Runtime QA.
 - P16-PR-04 Backend Ingestion Dedup + Conversation Linking + Runtime QA.
 - P17-PR-01 AI Provider Runtime Config + Secret Boundary + Cost Guardrail.
 - P17-PR-02 Extension Snapshot AI Context Builder + PII Redaction.
