@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
 describe("P17 roadmap context builder", () => {
-  it("marks P17-PR-01 through P17-PR-03 complete and P17-PR-04 current", () => {
+  it("marks P17-PR-01 through P17-PR-04 complete", () => {
     const roadmap = readFileSync(
       join(
         process.cwd(),
@@ -15,6 +15,6 @@ describe("P17 roadmap context builder", () => {
     expect(roadmap).toContain("P17-PR-01 is complete");
     expect(roadmap).toContain("P17-PR-02 is complete");
     expect(roadmap).toContain("P17-PR-03 is complete");
-    expect(roadmap).toContain("P17-PR-04 is current/final validation gate");
+    expect(roadmap).toContain("P17-PR-04 is complete");
   });
 });

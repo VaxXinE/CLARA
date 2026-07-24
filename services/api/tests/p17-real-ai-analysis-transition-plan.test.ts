@@ -11,11 +11,12 @@ const doc = readFileSync(
 );
 
 describe("P17 real AI analysis transition plan", () => {
-  it("keeps real AI provider activation deferred from P16", () => {
-    expect(doc).toContain("P17 Real AI Analysis Activation is current");
-    expect(doc).toContain("P17-PR-01 is current");
+  it("marks P17 complete and keeps provider/AI/outbound activation controlled", () => {
     expect(doc).toContain(
-      "Real AI provider calls remain not activated in this PR",
+      "P17 Real AI Analysis Activation is complete for controlled internal use",
+    );
+    expect(doc).toContain(
+      "P18 Controlled Internal Runtime Trial + Operational Readiness is current",
     );
     expect(doc).toContain("Provider/AI/outbound activation remains controlled");
   });

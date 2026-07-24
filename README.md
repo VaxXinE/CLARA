@@ -18,8 +18,8 @@ It contains the documentation, architecture, standards, templates, governance, i
 
 ```text
 Status: P1-P17 complete for controlled internal use; local product slice runnable
-Current focus: Post-P17 internal handoff
-Current PR: POST-P17-PR-01 Mark P17 Complete + Extension-Assisted AI Internal Handoff
+Current focus: P18 Controlled Internal Runtime Trial + Operational Readiness
+Current PR: P18-PR-01 Controlled Internal Runtime Trial Scope + Evidence Plan
 Launch status: not public GA launched yet; not production deployed yet
 ```
 
@@ -36,7 +36,11 @@ P17-PR-03 is complete. P17-PR-04 is complete. Post-P17 internal handoff
 confirms the completed pipeline: extension snapshot -> sanitization/redaction
 -> workspace/operator attribution -> backend ingestion/dedup -> AI-ready
 context -> controlled backend real AI analysis -> safe persistence -> dashboard
-review UI. P17-PR-01 prepares AI provider runtime configuration. P17-PR-02
+review UI. P18 Controlled Internal Runtime Trial + Operational Readiness is
+current. P18-PR-01 is current. P18 validates controlled internal runtime
+behavior only. P18 is not public SaaS launch. P18 is not production deployment.
+P18 does not activate billing/payment. P18 does not activate official
+WA/IG/TikTok APIs. P18 does not enable outbound auto-send. P17-PR-01 prepares AI provider runtime configuration. P17-PR-02
 builds AI-ready context but does not execute real AI provider calls. P17-PR-03
 activates controlled backend real AI analysis for extension-assisted AI-ready
 context. Real AI analysis is server-only. Real AI analysis uses only
@@ -69,7 +73,10 @@ scraping/payment data/raw prompts/raw provider payloads/raw webhook
 payloads/unnecessary customer-sensitive data. billing/payment is deferred.
 provider/AI/outbound activation remains controlled. evidence/logs/docs/runbooks
 must not include secrets/tokens/cookies/auth headers/raw provider payload/raw
-webhook payload/raw HTML/raw DOM/raw prompts/payment data. Controlled
+webhook payload/raw HTML/raw DOM/raw prompts/raw customer messages as
+prompts/payment data. Stop criteria are required before broader rollout.
+Manual rollback guidance is required before broader rollout. Known limitations
+must be reviewed before broader rollout. Controlled
 internal beta execution is internal-only. user acceptance session is
 internal-only. UAT issue capture is manual/local/repo-safe unless separately
 approved. UAT is not public SaaS launch. UAT is not production deployment claim

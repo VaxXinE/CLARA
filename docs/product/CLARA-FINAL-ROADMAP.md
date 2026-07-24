@@ -28,6 +28,17 @@ P17-PR-04 is complete.
 P17-PR-01 prepares AI provider runtime configuration.
 P17-PR-02 builds AI-ready context but does not execute real AI provider calls.
 P17-PR-03 activates controlled backend real AI analysis for extension-assisted AI-ready context.
+P18 Controlled Internal Runtime Trial + Operational Readiness is current.
+P18-PR-01 is current.
+P18 validates controlled internal runtime behavior only.
+P18 is not public SaaS launch.
+P18 is not production deployment.
+P18 does not activate billing/payment.
+P18 does not activate official WA/IG/TikTok APIs.
+P18 does not enable outbound auto-send.
+AI analysis remains backend/server-side.
+AI provider secrets remain server-only.
+Extension must not call AI providers directly.
 Post-P17 internal handoff confirms the completed pipeline: extension snapshot ->
 sanitization/redaction -> workspace/operator attribution -> backend
 ingestion/dedup -> AI-ready context -> controlled backend real AI analysis ->
@@ -107,6 +118,7 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 | P15   | Controlled Internal Beta Execution      | complete |
 | P16   | Extension-Assisted Channel Ingestion Hardening | complete |
 | P17   | Real AI Analysis Activation             | complete |
+| P18   | Controlled Internal Runtime Trial + Operational Readiness | current |
 
 ## P12 Compact Roadmap
 
@@ -159,6 +171,17 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 - P17-PR-02 Extension Snapshot AI Context Builder + PII Redaction. Complete.
 - P17-PR-03 Real AI Analysis Output + Persistence + Dashboard Review UI. Complete.
 - P17-PR-04 Final Extension-Assisted AI Runtime QA + Security Runbook. Complete.
+
+## P18 Compact Roadmap
+
+- P18-PR-01 Controlled Internal Runtime Trial Scope + Evidence Plan. Current.
+- P18-PR-02 Controlled Runtime Trial Smoke Checklist + Evidence Capture. Next.
+
+Runtime evidence must not include secrets/tokens/cookies/auth headers/raw
+provider payload/raw webhook payload/raw HTML/raw DOM/raw prompts/raw customer
+messages as prompts/payment data. Stop criteria are required before broader
+rollout. Manual rollback guidance is required before broader rollout. Known
+limitations must be reviewed before broader rollout.
 
 ## Non-Launch Guardrails
 

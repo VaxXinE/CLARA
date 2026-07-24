@@ -28,6 +28,17 @@ P17-PR-04 is complete.
 P17-PR-01 prepares AI provider runtime configuration.
 P17-PR-02 builds AI-ready context but does not execute real AI provider calls.
 P17-PR-03 activates controlled backend real AI analysis for extension-assisted AI-ready context.
+P18 Controlled Internal Runtime Trial + Operational Readiness is current.
+P18-PR-01 is current.
+P18 validates controlled internal runtime behavior only.
+P18 is not public SaaS launch.
+P18 is not production deployment.
+P18 does not activate billing/payment.
+P18 does not activate official WA/IG/TikTok APIs.
+P18 does not enable outbound auto-send.
+AI analysis remains backend/server-side.
+AI provider secrets remain server-only.
+Extension must not call AI providers directly.
 Post-P17 internal handoff confirms the completed pipeline: extension snapshot ->
 sanitization/redaction -> workspace/operator attribution -> backend
 ingestion/dedup -> AI-ready context -> controlled backend real AI analysis ->
@@ -329,6 +340,24 @@ find . -name '*.md' \
 | `docs/product/CLARA-P17-FINAL-AI-INCIDENT-ROLLBACK-GUIDANCE.md`          | Incident and rollback guidance.                    |
 | `docs/product/CLARA-P17-FINAL-EXTENSION-ASSISTED-AI-SMOKE-RUNBOOK.md`    | Local/dev-safe extension-assisted AI smoke flow.   |
 | `docs/product/CLARA-P17-CLOSURE-SUMMARY.md`                              | P17 closure summary and next-phase boundary.       |
+
+## P18 Controlled Internal Runtime Trial
+
+| Document                                                                 | Purpose                                            |
+| ------------------------------------------------------------------------ | -------------------------------------------------- |
+| `docs/product/CLARA-P18-CONTROLLED-INTERNAL-RUNTIME-TRIAL-SCOPE.md`      | P18 controlled runtime trial scope.                |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-PARTICIPANT-RULES.md`              | Participant rules for internal runtime trial.      |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-ENVIRONMENT-BOUNDARY.md`           | Environment boundary and non-launch guardrails.    |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-SUCCESS-METRICS.md`                | Trial success and failure metrics.                 |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-EVIDENCE-PLAN.md`                  | Privacy-safe evidence plan.                        |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-EVIDENCE-TEMPLATE.md`              | Runtime trial evidence template.                   |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-PRIVACY-POLICY.md`                 | Evidence privacy policy.                           |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-RISK-REGISTER.md`                  | Runtime trial risk register.                       |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-STOP-CRITERIA.md`                  | Required stop criteria.                            |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-MANUAL-ROLLBACK-GUIDANCE.md`       | Manual rollback guidance.                          |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-OPERATOR-CHECKLIST.md`             | Operator trial checklist.                          |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-ADMIN-CHECKLIST.md`                | Admin trial checklist.                             |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-ROADMAP.md`                        | P18 roadmap and P18-PR-02 handoff.                 |
 
 ## Historical Docs
 

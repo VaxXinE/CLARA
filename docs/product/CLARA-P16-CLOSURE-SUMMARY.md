@@ -6,8 +6,12 @@ P16-PR-01 is complete.
 P16-PR-02 is complete.
 P16-PR-03 is complete.
 P16-PR-04 is complete.
-P17 Real AI Analysis Activation is current.
-P17-PR-01 is current.
+P17 Real AI Analysis Activation is complete for controlled internal use.
+P18 Controlled Internal Runtime Trial + Operational Readiness is current.
+P17-PR-01 is complete.
+P17-PR-02 is complete.
+P17-PR-03 is complete.
+P17-PR-04 is complete.
 
 P16 closes the internal/user-assisted extension ingestion hardening track by
 requiring sanitized/redacted snapshot intake, workspace-scoped attribution,

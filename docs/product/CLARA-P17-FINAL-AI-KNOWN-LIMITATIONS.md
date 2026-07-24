@@ -1,6 +1,7 @@
 # CLARA P17 Final AI Known Limitations
 
-- P17 is considered complete only after P17-PR-04 validates and merges.
+- P17 Real AI Analysis Activation is complete for controlled internal use.
+- P18 Controlled Internal Runtime Trial + Operational Readiness is current.
 - CLARA is not public SaaS launch.
 - CLARA is not production deployment claim unless separately executed.
 - Billing/payment is deferred.
