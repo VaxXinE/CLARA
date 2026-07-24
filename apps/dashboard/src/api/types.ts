@@ -693,6 +693,36 @@ export type AiConversationSummaryResponse = {
   };
 };
 
+export type ExtensionSnapshotAiAnalysisResponse = {
+  data: {
+    analysis: {
+      analysisId: string;
+      snapshotId: string;
+      snapshotHash: string;
+      workspaceId: string;
+      channel: "whatsapp" | "instagram" | "tiktok";
+      status: "generated" | "blocked" | "failed";
+      safeReasonCode: string;
+      output: {
+        summary: string | null;
+        customerIntent: string | null;
+        sentiment: "positive" | "neutral" | "negative" | "unknown";
+        urgency: "low" | "medium" | "high" | "unknown";
+        suggestedNextAction: string | null;
+        riskFlags: string[];
+        confidence: number;
+        evidenceReferences: string[];
+      };
+      provider: string;
+      model: string;
+      policyVersion: string;
+      createdAt: string;
+      requiresHumanReview: true;
+      outboundAutoSendEnabled: false;
+    };
+  };
+};
+
 export type AiCustomerNoteSuggestionResponse = {
   data: {
     noteSuggestion: {

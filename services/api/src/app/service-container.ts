@@ -21,6 +21,11 @@ import { MockAiConversationSummaryProvider } from "../ai/mock-ai-conversation-su
 import { AiCustomerNoteSuggestionService } from "../ai/ai-customer-note-suggestion-service";
 import { MockAiCustomerNoteSuggestionProvider } from "../ai/mock-ai-customer-note-suggestion-provider";
 import { AiAutomationGuardrailService } from "../ai/ai-automation-guardrail-service";
+import { loadAiProviderRuntimeConfig } from "../ai/ai-provider-runtime-config";
+import { ExtensionSnapshotAiAnalysisService } from "../ai/extension-snapshot-ai-analysis-service";
+import { FixtureExtensionSnapshotAiAnalysisRepository } from "../ai/extension-snapshot-ai-analysis-repository";
+import { MockAiAnalysisProvider } from "../ai/mock-ai-analysis-provider";
+import { RealAiAnalysisProvider } from "../ai/real-ai-analysis-provider";
 import {
   DrizzleWorkspaceMembershipRepository,
   FixtureWorkspaceMembershipRepository,
@@ -97,6 +102,7 @@ export type AppServices = {
   aiConversationSummaries?: AiConversationSummaryService;
   aiCustomerNoteSuggestions?: AiCustomerNoteSuggestionService;
   aiAutomationGuardrails?: AiAutomationGuardrailService;
+  extensionSnapshotAiAnalysis?: ExtensionSnapshotAiAnalysisService;
   replies: ReplyService;
   channelRegistry?: ChannelRegistryService;
   channelAccounts?: ChannelAccountService;
@@ -122,6 +128,21 @@ export type AppServiceContainer = {
 
 function shouldUseDatabaseRepositories(env: Env): boolean {
   return Boolean(env.DATABASE_URL);
+}
+
+function createExtensionSnapshotAiAnalysisService(auditLogs: AuditLogService) {
+  const config = loadAiProviderRuntimeConfig();
+  const provider =
+    config.mode === "configured"
+      ? new RealAiAnalysisProvider(config)
+      : new MockAiAnalysisProvider();
+
+  return new ExtensionSnapshotAiAnalysisService(
+    config,
+    provider,
+    new FixtureExtensionSnapshotAiAnalysisRepository(),
+    auditLogs,
+  );
 }
 
 export function createAppServiceContainer(env: Env): AppServiceContainer {
@@ -233,6 +254,8 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
           auditLogs,
         ),
         aiAutomationGuardrails: new AiAutomationGuardrailService(auditLogs),
+        extensionSnapshotAiAnalysis:
+          createExtensionSnapshotAiAnalysisService(auditLogs),
         replies: new ReplyService(
           conversationRepository,
           new DrizzleReplyRepository(db),
@@ -408,6 +431,8 @@ export function createAppServiceContainer(env: Env): AppServiceContainer {
         auditLogs,
       ),
       aiAutomationGuardrails: new AiAutomationGuardrailService(auditLogs),
+      extensionSnapshotAiAnalysis:
+        createExtensionSnapshotAiAnalysisService(auditLogs),
       replies: new ReplyService(
         conversationRepository,
         new FixtureReplyRepository(fixtureStore),

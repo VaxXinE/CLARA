@@ -22,9 +22,11 @@ P15-PR-02 is complete. P15-PR-03 is complete. P15-PR-04 is complete. P16
 Extension-Assisted Channel Ingestion Hardening is complete. P16-PR-01 is complete.
 P16-PR-02 is complete. P16-PR-03 is complete. P16-PR-04 is complete.
 P17 Real AI Analysis Activation is current. P17-PR-01 is complete.
-P17-PR-02 is current.
-P17-PR-01 prepares AI provider runtime configuration but does not yet execute extension snapshot AI analysis.
-P17-PR-02 builds AI-ready context but does not yet execute real AI provider calls.
+P17-PR-02 is complete.
+P17-PR-03 is current.
+P17-PR-01 prepares AI provider runtime configuration.
+P17-PR-02 builds AI-ready context but does not execute real AI provider calls.
+P17-PR-03 activates controlled backend real AI analysis for extension-assisted AI-ready context.
 AI-ready context must come only from sanitized/redacted extension snapshots. PII
 redaction is required before future AI provider calls. Raw prompts must not be
 persisted. Raw customer messages must not be persisted as AI prompts. Raw AI
@@ -33,7 +35,7 @@ untrusted input and must be separated from system/developer instructions.
 Prompt-injection boundaries are required. AI context size budgets are required.
 AI provider secrets are server-only. AI provider secrets must not be exposed to
 dashboard or extension. Extension must not call AI providers directly.
-P17-PR-03 is next: Real AI Analysis Output + Persistence + Dashboard Review UI.
+P17-PR-04 is next: Final Extension-Assisted AI Runtime QA + Security Runbook.
 extension-assisted ingestion is internal/controlled/user-assisted.
 extension-assisted ingestion captures only active chat opened by an authorized
 operator. extension-assisted ingestion requires operator awareness/consent.
@@ -152,8 +154,8 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 - P16-PR-04 Backend Ingestion Dedup + Conversation Linking + Runtime QA.
 - P16-PR-04 Backend Ingestion Dedup + Conversation Linking + Runtime QA.
 - P17-PR-01 AI Provider Runtime Config + Secret Boundary + Cost Guardrail. Complete.
-- P17-PR-02 Extension Snapshot AI Context Builder + PII Redaction. Current.
-- P17-PR-03 Real AI Analysis Output + Persistence + Dashboard Review UI. Next.
+- P17-PR-02 Extension Snapshot AI Context Builder + PII Redaction. Complete.
+- P17-PR-03 Real AI Analysis Output + Persistence + Dashboard Review UI. Current.
 - P17-PR-04 Final Extension-Assisted AI Runtime QA + Security Runbook.
 
 ## Non-Launch Guardrails

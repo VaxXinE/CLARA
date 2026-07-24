@@ -20,10 +20,10 @@ Execution is complete. P15-PR-01 is complete. P15-PR-02 is complete.
 P15-PR-03 is complete. P15-PR-04 is complete. P16 Extension-Assisted Channel
 Ingestion Hardening is complete. P16-PR-01 is complete. P16-PR-02 is complete.
 P16-PR-03 is complete. P16-PR-04 is complete. P17 Real AI Analysis Activation
-is current. P17-PR-01 is complete. P17-PR-02 is current. P17-PR-01 prepares AI provider runtime
-configuration but does not yet execute extension snapshot AI analysis. P17-PR-02 builds AI-ready context but does not yet execute real AI provider calls. AI-ready context must come only from sanitized/redacted extension snapshots. PII redaction is required before future AI provider calls. Raw prompts must not be persisted. Raw customer messages must not be persisted as AI prompts. Raw AI provider payloads and responses must not be persisted. Customer text is untrusted input and must be separated from system/developer instructions. Prompt-injection boundaries are required. AI context size budgets are required. AI
+is current. P17-PR-01 is complete. P17-PR-02 is complete. P17-PR-03 is current. P17-PR-01 prepares AI provider runtime
+configuration. P17-PR-02 builds AI-ready context but does not execute real AI provider calls. P17-PR-03 activates controlled backend real AI analysis for extension-assisted AI-ready context. Real AI analysis is server-only. Real AI analysis uses only sanitized/redacted AI-ready context. Real AI analysis fails closed when provider config is missing/invalid/disabled. Model allowlist, cost guardrail, rate limit guardrail, timeout policy, and prompt-injection boundary are enforced. AI analysis persistence stores only safe/redacted result. Dashboard review UI shows only safe AI analysis output. Raw prompts are not persisted. Raw customer messages are not persisted as AI prompts. Raw AI provider payloads and responses are not persisted. AI
 provider secrets are server-only. AI provider secrets must not be exposed to
-dashboard or extension. Extension must not call AI providers directly. P17-PR-03 is next: Real AI Analysis Output + Persistence + Dashboard Review UI. Backend ingestion accepts only sanitized/redacted
+dashboard or extension. Extension must not call AI providers directly. P17-PR-04 is next: Final Extension-Assisted AI Runtime QA + Security Runbook. Backend ingestion accepts only sanitized/redacted
 extension snapshots. Deduplication and idempotency are required. Conversation
 linking is workspace-scoped. Customer linking is readiness-only unless existing
 safe patterns support it. P16 focuses on

@@ -20,7 +20,7 @@ describe("P16/P17 compressed roadmap opening", () => {
       "P17-PR-04 Final Extension-Assisted AI Runtime QA + Security Runbook",
     );
     expect(doc).toContain(
-      "P17-PR-01 prepares AI provider runtime configuration but does not yet execute extension snapshot AI analysis",
+      "P17-PR-03 activates controlled backend real AI analysis for extension-assisted AI-ready context",
     );
   });
 });

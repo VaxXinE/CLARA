@@ -38,6 +38,7 @@ import { registerAiFollowUpRecommendationRoutes } from "./routes/ai-follow-up-re
 import { registerAiConversationSummaryRoutes } from "./routes/ai-conversation-summaries";
 import { registerAiCustomerNoteSuggestionRoutes } from "./routes/ai-customer-note-suggestions";
 import { registerAiAutomationGuardrailRoutes } from "./routes/ai-automation-guardrails";
+import { registerExtensionSnapshotAiAnalysisRoutes } from "./routes/extension-snapshot-ai-analysis";
 import { registerReplyRoutes } from "./routes/replies";
 import { registerChannelRoutes } from "./routes/channels";
 import { AnalyticsReadModelService } from "../analytics/analytics-read-model-service";
@@ -383,6 +384,14 @@ export async function createServer(
       app,
       authProvider,
       services.aiAutomationGuardrails,
+      options.env,
+    );
+  }
+  if (services.extensionSnapshotAiAnalysis) {
+    await registerExtensionSnapshotAiAnalysisRoutes(
+      app,
+      authProvider,
+      services.extensionSnapshotAiAnalysis,
       options.env,
     );
   }

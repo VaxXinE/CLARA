@@ -4,18 +4,20 @@ P16 Extension-Assisted Channel Ingestion Hardening is complete.
 P16-PR-04 is complete.
 P17 Real AI Analysis Activation is current.
 P17-PR-01 is complete.
-P17-PR-02 is current.
+P17-PR-02 is complete.
+P17-PR-03 is current.
+P17-PR-04 is next.
 
-P17-PR-01 prepares AI provider runtime configuration but does not yet execute extension snapshot AI analysis.
-P17-PR-02 builds AI-ready context but does not yet execute real AI provider calls.
-P17-PR-03 is next: Real AI Analysis Output + Persistence + Dashboard Review UI.
+P17-PR-01 prepares AI provider runtime configuration.
+P17-PR-02 builds AI-ready context but does not execute real AI provider calls.
+P17-PR-03 activates controlled backend real AI analysis for extension-assisted AI-ready context.
 
 ## Roadmap
 
 - P17-PR-01 AI Provider Runtime Config + Secret Boundary + Cost Guardrail.
-- P17-PR-02 Extension Snapshot AI Context Builder + PII Redaction (current).
-- P17-PR-03 Real AI Analysis Output + Persistence + Dashboard Review UI (next).
-- P17-PR-04 Final Extension-Assisted AI Runtime QA + Security Runbook.
+- P17-PR-02 Extension Snapshot AI Context Builder + PII Redaction (complete).
+- P17-PR-03 Real AI Analysis Output + Persistence + Dashboard Review UI (current).
+- P17-PR-04 Final Extension-Assisted AI Runtime QA + Security Runbook (next).
 
 ## Guardrails
 
@@ -34,6 +36,12 @@ PII redaction is required before future AI provider calls.
 Customer text is untrusted input and must be separated from system/developer instructions.
 Prompt-injection boundaries are required.
 AI context size budgets are required.
+Real AI analysis is server-only.
+Real AI analysis uses only sanitized/redacted AI-ready context.
+Real AI analysis fails closed when provider config is missing/invalid/disabled.
+Model allowlist, cost guardrail, rate limit guardrail, timeout policy, and prompt-injection boundary are enforced.
+AI analysis persistence stores only safe/redacted result.
+Dashboard review UI shows only safe AI analysis output.
 
 Raw prompts, raw customer messages, raw provider payloads, raw provider
 responses, tokens, cookies, auth headers, raw DOM, raw HTML, raw webhook

@@ -42,6 +42,7 @@ import type {
   DataClassificationReadinessResponse,
   DemoAuthProfile,
   EvidenceReadinessResponse,
+  ExtensionSnapshotAiAnalysisResponse,
   GmailOutboundDeliveryStatusResponse,
   GmailSchedulerStatusResponse,
   IncidentResponseReadinessResponse,
@@ -725,6 +726,16 @@ export class ApiClient {
           operatorInstruction: payload.operatorInstruction,
         }),
       },
+    );
+  }
+
+  async getExtensionSnapshotAiAnalysis(
+    snapshotId: string,
+  ): Promise<ExtensionSnapshotAiAnalysisResponse> {
+    return this.request<ExtensionSnapshotAiAnalysisResponse>(
+      `/api/v1/extension-snapshots/${encodeURIComponent(
+        snapshotId,
+      )}/ai-analysis`,
     );
   }
 
