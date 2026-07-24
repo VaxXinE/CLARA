@@ -29,7 +29,8 @@ P17-PR-01 prepares AI provider runtime configuration.
 P17-PR-02 builds AI-ready context but does not execute real AI provider calls.
 P17-PR-03 activates controlled backend real AI analysis for extension-assisted AI-ready context.
 P18 Controlled Internal Runtime Trial + Operational Readiness is current.
-P18-PR-01 is current.
+P18-PR-01 is complete.
+P18-PR-02 is current.
 P18 validates controlled internal runtime behavior only.
 P18 is not public SaaS launch.
 P18 is not production deployment.
@@ -174,14 +175,18 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 
 ## P18 Compact Roadmap
 
-- P18-PR-01 Controlled Internal Runtime Trial Scope + Evidence Plan. Current.
-- P18-PR-02 Controlled Runtime Trial Smoke Checklist + Evidence Capture. Next.
+- P18-PR-01 Controlled Internal Runtime Trial Scope + Evidence Plan. Complete.
+- P18-PR-02 Controlled Runtime Trial Smoke Checklist + Evidence Capture. Current.
 
 Runtime evidence must not include secrets/tokens/cookies/auth headers/raw
 provider payload/raw webhook payload/raw HTML/raw DOM/raw prompts/raw customer
 messages as prompts/payment data. Stop criteria are required before broader
 rollout. Manual rollback guidance is required before broader rollout. Known
 limitations must be reviewed before broader rollout.
+P18 runtime smoke checklist, pass/fail criteria, evidence capture, known issue
+capture, blocker severity rules, evidence redaction, retention/disposal, stop
+criteria, and rollback references exist for the controlled internal runtime
+trial.
 
 ## Non-Launch Guardrails
 
@@ -201,11 +206,13 @@ and active docs must not include no raw customer messages, no raw provider
 payload, no raw webhook payload, no raw usage events, no raw payment data, no
 raw telemetry, no access token, no refresh token, no cookies, no payment
 provider integration, no charging customers, no invoice creation, no quota
-enforcement, and no real AI provider.
+enforcement, and no unapproved/public AI provider activation.
 P12 completion means release readiness complete. P12 completion does not mean
 production deployed. P12 completion does not mean public GA launch happened.
 Production deployment requires separate explicit approval and execution.
-Provider/payment/AI/outbound activation remains restricted unless future
-approved work enables it. Readiness-only/review-only/simulated/demo-safe
+Provider/payment/outbound activation remains restricted unless future approved
+work enables it. AI activation remains limited to approved controlled internal
+backend AI analysis; there is no unapproved/public AI provider activation.
+Readiness-only/review-only/simulated/demo-safe
 boundaries remain intact. P14 is internal beta preparation, not billing launch,
 not public launch, and not production deployment.

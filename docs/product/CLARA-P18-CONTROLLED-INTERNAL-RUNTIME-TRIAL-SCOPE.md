@@ -2,7 +2,8 @@
 
 P17 Real AI Analysis Activation is complete for controlled internal use.
 P18 Controlled Internal Runtime Trial + Operational Readiness is current.
-P18-PR-01 is current.
+P18-PR-01 is complete.
+P18-PR-02 is current.
 
 P18 validates controlled internal runtime behavior only. The trial exercises the
 completed pipeline: extension snapshot -> sanitization/redaction ->
@@ -33,4 +34,4 @@ Guardrails:
 - Manual rollback guidance is required before broader rollout.
 - Known limitations must be reviewed before broader rollout.
 
-Next PR: P18-PR-02 Controlled Runtime Trial Smoke Checklist + Evidence Capture.
+Current PR: P18-PR-02 Controlled Runtime Trial Smoke Checklist + Evidence Capture.

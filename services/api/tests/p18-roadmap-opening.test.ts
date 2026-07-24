@@ -13,14 +13,15 @@ const text = [
   .join("\n");
 
 describe("P18 roadmap opening", () => {
-  it("marks P17 complete, P18 current, and P18-PR-02 next", () => {
+  it("marks P17 complete, P18 current, and P18-PR-02 current", () => {
     expect(text).toContain(
       "P17 Real AI Analysis Activation is complete for controlled internal use",
     );
     expect(text).toContain(
       "P18 Controlled Internal Runtime Trial + Operational Readiness is current",
     );
-    expect(text).toContain("P18-PR-01 is current");
+    expect(text).toContain("P18-PR-01 is complete");
+    expect(text).toContain("P18-PR-02 is current");
     expect(text).toContain(
       "P18-PR-02 Controlled Runtime Trial Smoke Checklist + Evidence Capture",
     );

@@ -29,13 +29,17 @@ P17-PR-01 prepares AI provider runtime configuration.
 P17-PR-02 builds AI-ready context but does not execute real AI provider calls.
 P17-PR-03 activates controlled backend real AI analysis for extension-assisted AI-ready context.
 P18 Controlled Internal Runtime Trial + Operational Readiness is current.
-P18-PR-01 is current.
+P18-PR-01 is complete.
+P18-PR-02 is current.
 P18 validates controlled internal runtime behavior only.
 P18 is not public SaaS launch.
 P18 is not production deployment.
 P18 does not activate billing/payment.
 P18 does not activate official WA/IG/TikTok APIs.
 P18 does not enable outbound auto-send.
+P18 runtime smoke checklist, pass/fail criteria, evidence capture, issue
+capture, blocker severity rules, redaction, retention/disposal, stop criteria,
+and rollback references exist for controlled internal runtime validation.
 AI analysis remains backend/server-side.
 AI provider secrets remain server-only.
 Extension must not call AI providers directly.
@@ -357,7 +361,16 @@ find . -name '*.md' \
 | `docs/product/CLARA-P18-RUNTIME-TRIAL-MANUAL-ROLLBACK-GUIDANCE.md`       | Manual rollback guidance.                          |
 | `docs/product/CLARA-P18-RUNTIME-TRIAL-OPERATOR-CHECKLIST.md`             | Operator trial checklist.                          |
 | `docs/product/CLARA-P18-RUNTIME-TRIAL-ADMIN-CHECKLIST.md`                | Admin trial checklist.                             |
-| `docs/product/CLARA-P18-RUNTIME-TRIAL-ROADMAP.md`                        | P18 roadmap and P18-PR-02 handoff.                 |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-SMOKE-CHECKLIST.md`                | P18 runtime smoke checklist.                       |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-EVIDENCE-CAPTURE-GUIDE.md`         | P18 evidence capture guide.                        |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-PASS-FAIL-CRITERIA.md`             | P18 pass/fail criteria.                            |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-OPERATOR-SMOKE-SCRIPT.md`          | P18 operator smoke script.                         |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-ADMIN-VERIFICATION-SCRIPT.md`      | P18 admin verification script.                     |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-KNOWN-ISSUE-CAPTURE-TEMPLATE.md`   | P18 known issue capture template.                  |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-BLOCKER-SEVERITY-RULES.md`         | P18 blocker and severity rules.                    |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-EVIDENCE-REDACTION-RULES.md`       | P18 evidence redaction rules.                      |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-EVIDENCE-RETENTION-DISPOSAL.md`    | P18 evidence retention and disposal.               |
+| `docs/product/CLARA-P18-RUNTIME-TRIAL-ROADMAP.md`                        | P18 roadmap and P18-PR-02 status.                  |
 
 ## Historical Docs
 
