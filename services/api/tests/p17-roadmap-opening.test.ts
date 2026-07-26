@@ -22,7 +22,7 @@ describe("P17 roadmap opening", () => {
     );
     expect(docs).toContain("P17-PR-01 is complete.");
     expect(docs).toContain(
-      "P18 Controlled Internal Runtime Trial + Operational Readiness is current.",
+      "P18 Controlled Internal Runtime Trial + Operational Readiness is complete.",
     );
   });
 });

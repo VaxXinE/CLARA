@@ -18,12 +18,12 @@ describe("P18 roadmap opening", () => {
       "P17 Real AI Analysis Activation is complete for controlled internal use",
     );
     expect(text).toContain(
-      "P18 Controlled Internal Runtime Trial + Operational Readiness is current",
+      "P18 Controlled Internal Runtime Trial + Operational Readiness is complete",
     );
     expect(text).toContain("P18-PR-01 is complete");
     expect(text).toContain("P18-PR-02 is complete");
     expect(text).toContain("P18-PR-03 is complete");
-    expect(text).toContain("P18-PR-04 is current/final handoff gate");
+    expect(text).toContain("P18-PR-04 is complete");
     expect(text).toContain(
       "P18-PR-02 Controlled Runtime Trial Smoke Checklist + Evidence Capture",
     );

@@ -16,7 +16,7 @@ describe("P17 real AI analysis transition plan", () => {
       "P17 Real AI Analysis Activation is complete for controlled internal use",
     );
     expect(doc).toContain(
-      "P18 Controlled Internal Runtime Trial + Operational Readiness is current",
+      "P18 Controlled Internal Runtime Trial + Operational Readiness is complete",
     );
     expect(doc).toContain("Provider/AI/outbound activation remains controlled");
   });

@@ -15,8 +15,8 @@ const text = [
 describe("P18 final roadmap handoff", () => {
   it("marks PR04 as current final gate and documents handoff artifacts", () => {
     expect(text).toContain("P18-PR-03 is complete");
-    expect(text).toContain("P18-PR-04 is current/final handoff gate");
-    expect(text).toContain("P18 is considered complete only after P18-PR-04 validates and merges");
+    expect(text).toContain("P18-PR-04 is complete");
+    expect(text).toContain("P18 Controlled Internal Runtime Trial + Operational Readiness is complete");
     expect(text).toMatch(/final runtime trial review/i);
     expect(text).toMatch(/operational handoff/i);
     expect(text).toContain("decision record");

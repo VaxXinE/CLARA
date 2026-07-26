@@ -10,7 +10,7 @@ const text = readFileSync(
 
 describe("P18 final operational handoff", () => {
   it("links required final handoff records", () => {
-    expect(text).toContain("P18-PR-04 is current/final handoff gate");
+    expect(text).toContain("P18-PR-04 is complete");
     expect(text).toContain("Decision record is linked");
     expect(text).toContain("Known limitations review is linked");
     expect(text).toContain("Evidence privacy review is linked");

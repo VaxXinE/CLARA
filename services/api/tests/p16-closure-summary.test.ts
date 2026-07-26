@@ -15,7 +15,7 @@ describe("P16 closure summary", () => {
       "P17 Real AI Analysis Activation is complete for controlled internal use",
     );
     expect(doc).toContain(
-      "P18 Controlled Internal Runtime Trial + Operational Readiness is current",
+      "P18 Controlled Internal Runtime Trial + Operational Readiness is complete",
     );
     expect(doc).toContain("Official WA/IG/TikTok APIs remain not activated");
     expect(doc).toContain("No outbound auto-send is activated");

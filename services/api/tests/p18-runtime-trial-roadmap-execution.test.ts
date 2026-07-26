@@ -16,7 +16,7 @@ describe("P18 runtime trial roadmap execution", () => {
   it("marks PR03 current and PR04 next", () => {
     expect(text).toContain("P18-PR-02 is complete");
     expect(text).toContain("P18-PR-03 is complete");
-    expect(text).toContain("P18-PR-04 is current/final handoff gate");
+    expect(text).toContain("P18-PR-04 is complete");
     expect(text).toContain("execution log");
     expect(text).toContain("evidence log");
     expect(text).toContain("run summary");
