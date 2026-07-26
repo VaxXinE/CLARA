@@ -10,7 +10,8 @@ const text = readFileSync(
 
 describe("P18 runtime trial stop rollback decision", () => {
   it("keeps stop criteria and manual rollback visible without launch claims", () => {
-    expect(text).toContain("P18-PR-03 is current");
+    expect(text).toContain("P18-PR-03 is complete");
+    expect(text).toContain("P18-PR-04 is current/final handoff gate");
     expect(text).toContain("stop_trial");
     expect(text).toContain("rollback_runtime_change");
     expect(text).toContain("manual_rollback_reference");

@@ -31,7 +31,9 @@ P17-PR-03 activates controlled backend real AI analysis for extension-assisted A
 P18 Controlled Internal Runtime Trial + Operational Readiness is current.
 P18-PR-01 is complete.
 P18-PR-02 is complete.
-P18-PR-03 is current.
+P18-PR-03 is complete.
+P18-PR-04 is current/final handoff gate.
+P18 is considered complete only after P18-PR-04 validates and merges.
 P18 validates controlled internal runtime behavior only.
 P18 is not public SaaS launch.
 P18 is not production deployment.
@@ -178,8 +180,8 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 
 - P18-PR-01 Controlled Internal Runtime Trial Scope + Evidence Plan. Complete.
 - P18-PR-02 Controlled Runtime Trial Smoke Checklist + Evidence Capture. Complete.
-- P18-PR-03 Controlled Runtime Trial Execution + Evidence Log. Current.
-- P18-PR-04 Final Controlled Runtime Trial Review + Operational Handoff. Next.
+- P18-PR-03 Controlled Runtime Trial Execution + Evidence Log. Complete.
+- P18-PR-04 Final Controlled Runtime Trial Review + Operational Handoff. Current/final handoff gate.
 
 Runtime evidence must not include secrets/tokens/cookies/auth headers/raw
 provider payload/raw webhook payload/raw HTML/raw DOM/raw prompts/raw customer
@@ -190,8 +192,11 @@ P18 runtime smoke checklist, pass/fail criteria, evidence capture, execution
 log, evidence log, run summary, issue disposition, signoff records, evidence
 privacy review, stop/rollback decision record, known issue capture, blocker
 severity rules, evidence redaction, retention/disposal, stop criteria, and
-rollback references exist for the controlled internal runtime trial. P18-PR-04
-is next for final controlled runtime trial review and operational handoff.
+rollback references exist for the controlled internal runtime trial. Final
+runtime trial review, operational handoff, decision record, known limitations
+review, evidence privacy review, issue disposition summary, signoff summary,
+post-P18 recommendation, and follow-up backlog exist. The next phase requires
+separate explicit approval.
 
 ## Non-Launch Guardrails
 

@@ -11,7 +11,8 @@ const text = readFileSync(
 describe("P18 runtime trial issue disposition", () => {
   it("captures issues with severity and safe evidence references", () => {
     expect(text).toContain("P18-PR-02 is complete");
-    expect(text).toContain("P18-PR-03 is current");
+    expect(text).toContain("P18-PR-03 is complete");
+    expect(text).toContain("P18-PR-04 is current/final handoff gate");
     expect(text).toContain("known_issue_id");
     expect(text).toContain("severity");
     expect(text).toContain("blocker");

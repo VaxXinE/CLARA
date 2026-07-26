@@ -41,7 +41,8 @@ describe("P18 controlled internal runtime trial scope", () => {
     );
     expect(text).toContain("P18-PR-01 is complete");
     expect(text).toContain("P18-PR-02 is complete");
-    expect(text).toContain("P18-PR-03 is current");
+    expect(text).toContain("P18-PR-03 is complete");
+    expect(text).toContain("P18-PR-04 is current/final handoff gate");
     expect(text).toContain(
       "P18 validates controlled internal runtime behavior only",
     );

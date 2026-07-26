@@ -10,7 +10,8 @@ const text = readFileSync(
 
 describe("P18 runtime trial run summary", () => {
   it("summarizes counts without launch or billing claims", () => {
-    expect(text).toContain("P18-PR-03 is current");
+    expect(text).toContain("P18-PR-03 is complete");
+    expect(text).toContain("P18-PR-04 is current/final handoff gate");
     expect(text).toContain("passed_items");
     expect(text).toContain("failed_items");
     expect(text).toContain("blocked_items");
