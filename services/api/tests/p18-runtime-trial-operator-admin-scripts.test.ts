@@ -26,7 +26,8 @@ describe("P18 runtime trial operator and admin scripts", () => {
     expect(adminText).toContain("Admin Checks");
     expect(adminText).toContain("P18-PR-01 is complete");
     expect(adminText).toContain("P18-PR-02 is complete");
-    expect(adminText).toContain("P18-PR-03 is current");
+    expect(adminText).toContain("P18-PR-03 is complete");
+    expect(adminText).toContain("P18-PR-04 is current/final handoff gate");
     expect(adminText).toContain("AI provider secrets remain server-only");
     expect(`${operatorText}\n${adminText}`).toContain(
       "Runtime evidence must not include secrets/tokens/cookies/auth headers/raw provider payload/raw webhook payload/raw HTML/raw DOM/raw prompts/raw customer messages as prompts/payment data",

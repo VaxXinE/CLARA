@@ -2,7 +2,8 @@
 
 P18-PR-01 is complete.
 P18-PR-02 is complete.
-P18-PR-03 is current.
+P18-PR-03 is complete.
+P18-PR-04 is current/final handoff gate.
 P18 validates controlled internal runtime behavior only.
 
 ## Required Smoke Path

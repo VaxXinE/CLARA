@@ -1,7 +1,8 @@
 # CLARA P18 Runtime Trial Operator Smoke Script
 
 P18-PR-02 is complete.
-P18-PR-03 is current.
+P18-PR-03 is complete.
+P18-PR-04 is current/final handoff gate.
 
 ## Operator Steps
 

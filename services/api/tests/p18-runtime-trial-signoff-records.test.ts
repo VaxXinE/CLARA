@@ -16,7 +16,8 @@ describe("P18 runtime trial signoff records", () => {
   it("requires operator and admin signoff without unsafe evidence", () => {
     const text = `${operatorText}\n${adminText}`;
 
-    expect(text).toContain("P18-PR-03 is current");
+    expect(text).toContain("P18-PR-03 is complete");
+    expect(text).toContain("P18-PR-04 is current/final handoff gate");
     expect(operatorText).toContain("Operator Signoff Record");
     expect(adminText).toContain("Admin Signoff Record");
     expect(text).toContain("reviewed_evidence_log");

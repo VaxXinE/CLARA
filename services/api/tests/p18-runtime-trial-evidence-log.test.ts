@@ -11,7 +11,8 @@ const text = readFileSync(
 describe("P18 runtime trial evidence log", () => {
   it("requires placeholder-only redacted evidence", () => {
     expect(text).toContain("P18-PR-02 is complete");
-    expect(text).toContain("P18-PR-03 is current");
+    expect(text).toContain("P18-PR-03 is complete");
+    expect(text).toContain("P18-PR-04 is current/final handoff gate");
     expect(text).toContain("evidence_id");
     expect(text).toContain("safe_summary");
     expect(text).toContain("redaction_status");

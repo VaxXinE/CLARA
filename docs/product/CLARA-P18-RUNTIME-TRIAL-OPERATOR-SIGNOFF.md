@@ -2,7 +2,8 @@
 
 P18-PR-01 is complete.
 P18-PR-02 is complete.
-P18-PR-03 is current.
+P18-PR-03 is complete.
+P18-PR-04 is current/final handoff gate.
 P18 validates controlled internal runtime behavior only.
 
 ## Operator Signoff Record
@@ -23,4 +24,4 @@ P18 is not production deployment.
 Outbound auto-send remains disabled.
 Extension must not call AI providers directly.
 Runtime evidence/logs must not include secrets/tokens/cookies/auth headers/raw provider payload/raw webhook payload/raw HTML/raw DOM/raw prompts/raw customer messages as prompts/payment data.
-P18-PR-04 is next for final controlled runtime trial review and operational handoff.
+P18-PR-04 is current/final handoff gate.
