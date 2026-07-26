@@ -7,7 +7,7 @@ P17-PR-02 is complete.
 P17-PR-03 is complete.
 P17-PR-04 is complete.
 
-P18 Controlled Internal Runtime Trial + Operational Readiness is current.
+P18 Controlled Internal Runtime Trial + Operational Readiness is complete.
 controlled backend real AI analysis is active for extension-assisted AI-ready context.
 Real AI analysis is server-only.
 Real AI analysis uses only sanitized/redacted AI-ready context.

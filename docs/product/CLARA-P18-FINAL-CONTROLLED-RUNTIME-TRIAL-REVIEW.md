@@ -1,8 +1,8 @@
 # CLARA P18 Final Controlled Runtime Trial Review
 
 P18-PR-03 is complete.
-P18-PR-04 is current/final handoff gate.
-P18 is considered complete only after P18-PR-04 validates and merges.
+P18-PR-04 is complete.
+P18 completion is confirmed in the post-P18 handoff.
 P18 validates controlled internal runtime behavior only.
 
 ## Review Scope

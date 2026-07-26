@@ -1,10 +1,10 @@
 # CLARA P18 Runtime Trial Evidence Plan
 
-P18 Controlled Internal Runtime Trial + Operational Readiness is current.
+P18 Controlled Internal Runtime Trial + Operational Readiness is complete.
 P18-PR-01 is complete.
 P18-PR-02 is complete.
 P18-PR-03 is complete.
-P18-PR-04 is current/final handoff gate.
+P18-PR-04 is complete.
 
 Evidence to capture:
 - Trial date, operator, role, workspace, and environment.

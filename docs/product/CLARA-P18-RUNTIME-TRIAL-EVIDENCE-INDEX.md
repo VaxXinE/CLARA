@@ -3,7 +3,7 @@
 P18-PR-01 is complete.
 P18-PR-02 is complete.
 P18-PR-03 is complete.
-P18-PR-04 is current/final handoff gate.
+P18-PR-04 is complete.
 P18 validates controlled internal runtime behavior only.
 
 ## Index
@@ -16,4 +16,4 @@ Only redacted evidence ids and safe summaries belong here.
 Runtime evidence/logs must not include secrets/tokens/cookies/auth headers/raw provider payload/raw webhook payload/raw HTML/raw DOM/raw prompts/raw customer messages as prompts/payment data.
 Evidence must use placeholders/safe summaries only.
 Known limitations must be reviewed before broader rollout.
-P18-PR-04 is current/final handoff gate.
+P18-PR-04 is complete.

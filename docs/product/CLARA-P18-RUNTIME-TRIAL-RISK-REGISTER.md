@@ -1,6 +1,6 @@
 # CLARA P18 Runtime Trial Risk Register
 
-P18 Controlled Internal Runtime Trial + Operational Readiness is current.
+P18 Controlled Internal Runtime Trial + Operational Readiness is complete.
 
 | Risk | Control | Stop trigger |
 | --- | --- | --- |

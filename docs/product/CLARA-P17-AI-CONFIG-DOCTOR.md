@@ -2,7 +2,7 @@
 
 P17 Real AI Analysis Activation is complete for controlled internal use.
 P17-PR-01 is complete.
-P18 Controlled Internal Runtime Trial + Operational Readiness is current.
+P18 Controlled Internal Runtime Trial + Operational Readiness is complete.
 
 AI provider config doctor exists. It reports only safe readiness fields:
 

@@ -3,7 +3,7 @@
 P18-PR-01 is complete.
 P18-PR-02 is complete.
 P18-PR-03 is complete.
-P18-PR-04 is current/final handoff gate.
+P18-PR-04 is complete.
 P18 validates controlled internal runtime behavior only.
 
 ## Evidence Rows
@@ -25,4 +25,4 @@ Runtime evidence/logs must not include secrets/tokens/cookies/auth headers/raw p
 Evidence must use placeholders/safe summaries only.
 AuthContext and workspace membership remain source of truth.
 Client-supplied workspaceId is not authoritative.
-P18-PR-04 is current/final handoff gate.
+P18-PR-04 is complete.

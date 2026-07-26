@@ -4,7 +4,7 @@ P16 Extension-Assisted Channel Ingestion Hardening is complete.
 P16-PR-04 is complete.
 P17 Real AI Analysis Activation is complete for controlled internal use.
 P17-PR-01 is complete.
-P18 Controlled Internal Runtime Trial + Operational Readiness is current.
+P18 Controlled Internal Runtime Trial + Operational Readiness is complete.
 
 P17-PR-01 prepares AI provider runtime configuration but does not yet execute extension snapshot AI analysis.
 

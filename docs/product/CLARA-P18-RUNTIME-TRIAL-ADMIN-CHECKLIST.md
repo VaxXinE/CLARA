@@ -2,9 +2,9 @@
 
 Before trial:
 - Confirm P17 Real AI Analysis Activation is complete for controlled internal use.
-- Confirm P18 Controlled Internal Runtime Trial + Operational Readiness is current.
+- Confirm P18 Controlled Internal Runtime Trial + Operational Readiness is complete.
 - Confirm P18-PR-01 is complete.
-- Confirm P18-PR-02 is complete, P18-PR-03 is complete, and P18-PR-04 is current/final handoff gate.
+- Confirm P18-PR-02 is complete, P18-PR-03 is complete, and P18-PR-04 is complete.
 - Confirm AI provider secrets remain server-only.
 - Confirm extension must not call AI providers directly.
 - Confirm P18 is not public SaaS launch.
