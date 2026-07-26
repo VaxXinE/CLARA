@@ -12,7 +12,7 @@ describe("P18 runtime trial execution log", () => {
   it("keeps execution entries internal, safe, and scoped", () => {
     expect(text).toContain("P18-PR-02 is complete");
     expect(text).toContain("P18-PR-03 is complete");
-    expect(text).toContain("P18-PR-04 is current/final handoff gate");
+    expect(text).toContain("P18-PR-04 is complete");
     expect(text).toContain("execution_id");
     expect(text).toContain("checklist_item");
     expect(text).toContain("evidence_refs");

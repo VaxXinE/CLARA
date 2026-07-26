@@ -17,9 +17,9 @@ It contains the documentation, architecture, standards, templates, governance, i
 # Repository Status
 
 ```text
-Status: P1-P17 complete for controlled internal use; local product slice runnable
-Current focus: P18 Controlled Internal Runtime Trial + Operational Readiness
-Current PR: P18-PR-04 Final Controlled Runtime Trial Review + Operational Handoff
+Status: P1-P18 complete for controlled internal use; local product slice runnable
+Current focus: Post-P18 controlled runtime trial handoff complete; next phase requires separate explicit approval
+Current PR: none
 Launch status: not public GA launched yet; not production deployed yet
 ```
 
@@ -37,7 +37,7 @@ confirms the completed pipeline: extension snapshot -> sanitization/redaction
 -> workspace/operator attribution -> backend ingestion/dedup -> AI-ready
 context -> controlled backend real AI analysis -> safe persistence -> dashboard
 review UI. P18 Controlled Internal Runtime Trial + Operational Readiness is
-current. P18-PR-01 is complete. P18-PR-02 is complete. P18-PR-03 is complete. P18-PR-04 is current/final handoff gate. P18 is considered complete only after P18-PR-04 validates and merges. P18 validates controlled internal runtime
+complete. P18-PR-01 is complete. P18-PR-02 is complete. P18-PR-03 is complete. P18-PR-04 is complete. Post-P18 completion handoff confirms controlled runtime trial scope, participant rules, evidence plan, smoke checklist, pass/fail criteria, evidence capture guide, execution log, evidence log, issue disposition, final runtime trial review, operational handoff, and follow-up backlog are complete. P18 validates controlled internal runtime
 behavior only. P18 is not public SaaS launch. P18 is not production deployment.
 P18 does not activate billing/payment. P18 does not activate official
 WA/IG/TikTok APIs. P18 does not enable outbound auto-send. P18 runtime smoke checklist, evidence capture,
@@ -48,7 +48,7 @@ retention/disposal, stop criteria, and rollback references are required before
 broader rollout. Final runtime trial review, operational handoff, decision
 record, known limitations review, evidence privacy review, issue disposition
 summary, signoff summary, post-P18 recommendation, and follow-up backlog are
-required. The next phase requires separate explicit approval. P17-PR-01 prepares AI provider runtime configuration. P17-PR-02
+complete. The next phase requires separate explicit approval. P17-PR-01 prepares AI provider runtime configuration. P17-PR-02
 builds AI-ready context but does not execute real AI provider calls. P17-PR-03
 activates controlled backend real AI analysis for extension-assisted AI-ready
 context. Real AI analysis is server-only. Real AI analysis uses only

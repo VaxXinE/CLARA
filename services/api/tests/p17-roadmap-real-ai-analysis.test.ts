@@ -20,7 +20,7 @@ describe("P17 real AI analysis roadmap", () => {
     expect(docs).toContain("P17-PR-03 is complete");
     expect(docs).toContain("P17-PR-04 is complete");
     expect(docs).toContain(
-      "P18 Controlled Internal Runtime Trial + Operational Readiness is current",
+      "P18 Controlled Internal Runtime Trial + Operational Readiness is complete",
     );
     expect(docs).toContain(
       "P17-PR-03 activates controlled backend real AI analysis for extension-assisted AI-ready context",

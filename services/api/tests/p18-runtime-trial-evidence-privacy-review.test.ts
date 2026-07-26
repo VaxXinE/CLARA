@@ -11,7 +11,7 @@ const text = readFileSync(
 describe("P18 runtime trial evidence privacy review", () => {
   it("blocks sensitive evidence and preserves AI/workspace boundaries", () => {
     expect(text).toContain("P18-PR-03 is complete");
-    expect(text).toContain("P18-PR-04 is current/final handoff gate");
+    expect(text).toContain("P18-PR-04 is complete");
     expect(text).toContain("Confirm no secrets/tokens/cookies/auth headers are present");
     expect(text).toContain("Confirm no raw provider payload/raw webhook payload is present");
     expect(text).toContain("Confirm no raw HTML/raw DOM is present");

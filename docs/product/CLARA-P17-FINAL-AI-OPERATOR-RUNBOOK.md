@@ -3,7 +3,7 @@
 Use this runbook only for internal controlled runtime QA.
 
 1. Confirm P17-PR-04 is complete.
-2. Confirm P18 Controlled Internal Runtime Trial + Operational Readiness is current.
+2. Confirm P18 Controlled Internal Runtime Trial + Operational Readiness is complete.
 2. Confirm real AI analysis is server-only.
 3. Capture only an active visible chat through extension-assisted ingestion.
 4. Verify the backend stores sanitized/redacted snapshot data.

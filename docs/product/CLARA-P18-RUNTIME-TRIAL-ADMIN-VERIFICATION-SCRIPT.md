@@ -2,11 +2,11 @@
 
 P18-PR-02 is complete.
 P18-PR-03 is complete.
-P18-PR-04 is current/final handoff gate.
+P18-PR-04 is complete.
 
 ## Admin Checks
 
-1. Verify P18-PR-01 is complete, P18-PR-02 is complete, P18-PR-03 is complete, and P18-PR-04 is current/final handoff gate.
+1. Verify P18-PR-01 is complete, P18-PR-02 is complete, P18-PR-03 is complete, and P18-PR-04 is complete.
 2. Verify participant access is limited to approved internal users.
 3. Verify AuthContext and workspace membership remain source of truth.
 4. Verify client-supplied workspaceId is not authoritative.

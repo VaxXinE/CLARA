@@ -3,7 +3,7 @@
 P18-PR-01 is complete.
 P18-PR-02 is complete.
 P18-PR-03 is complete.
-P18-PR-04 is current/final handoff gate.
+P18-PR-04 is complete.
 P18 validates controlled internal runtime behavior only.
 
 ## Decision Record
@@ -27,4 +27,4 @@ Billing/payment remains deferred.
 Official WA/IG/TikTok APIs remain not activated.
 Outbound auto-send remains disabled.
 Runtime evidence/logs must not include secrets/tokens/cookies/auth headers/raw provider payload/raw webhook payload/raw HTML/raw DOM/raw prompts/raw customer messages as prompts/payment data.
-P18-PR-04 is current/final handoff gate.
+P18-PR-04 is complete.

@@ -21,7 +21,7 @@ describe("P17 final runtime QA runbook", () => {
 
     expect(docs).toContain("P17-PR-04 is complete");
     expect(docs).toContain(
-      "P18 Controlled Internal Runtime Trial + Operational Readiness is current",
+      "P18 Controlled Internal Runtime Trial + Operational Readiness is complete",
     );
     expect(docs).toContain("Real AI analysis is server-only");
     expect(docs).toContain("Billing/payment is deferred");

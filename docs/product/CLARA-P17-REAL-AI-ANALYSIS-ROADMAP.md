@@ -7,7 +7,7 @@ P17-PR-01 is complete.
 P17-PR-02 is complete.
 P17-PR-03 is complete.
 P17-PR-04 is complete.
-P18 Controlled Internal Runtime Trial + Operational Readiness is current.
+P18 Controlled Internal Runtime Trial + Operational Readiness is complete.
 P18-PR-01 is current.
 
 P17-PR-01 prepares AI provider runtime configuration.
