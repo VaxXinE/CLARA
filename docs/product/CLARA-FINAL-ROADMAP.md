@@ -35,8 +35,9 @@ P18-PR-03 is complete.
 P18-PR-04 is complete.
 P19 Real Internal CRM Runtime Activation is current. P19-PR-01 is complete.
 P19-PR-02 Real Workspace/User/Role Bootstrap + Internal Team Access is complete.
-P19-PR-03 Real CRM Data Entry + Customer Workflow Runtime is current.
-P19-PR-04 Internal CRM Deployment Runtime + Environment Hardening is next.
+P19-PR-03 Real CRM Data Entry + Customer Workflow Runtime is complete.
+P19-PR-04 Internal CRM Deployment Runtime + Environment Hardening is current.
+P19-PR-05 Internal CRM Operator Onboarding + Production-like Usage Handoff is next.
 Internal team usage must use provider auth. Mock/demo mode is dev/test only.
 Demo role switcher is not used in provider mode. First owner bootstrap is
 required for real internal usage. Real workspace membership is required.
@@ -214,8 +215,9 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 
 - P19-PR-01 Real Internal CRM Runtime Activation + Mock/Demo Usage Removal Gate.
 - P19-PR-02 Real Workspace/User/Role Bootstrap + Internal Team Access. Complete.
-- P19-PR-03 Real CRM Data Entry + Customer Workflow Runtime. Current.
-- P19-PR-04 Internal CRM Deployment Runtime + Environment Hardening. Next.
+- P19-PR-03 Real CRM Data Entry + Customer Workflow Runtime. Complete.
+- P19-PR-04 Internal CRM Deployment Runtime + Environment Hardening. Current.
+- P19-PR-05 Internal CRM Operator Onboarding + Production-like Usage Handoff. Next.
 
 Runtime evidence must not include secrets/tokens/cookies/auth headers/raw
 provider payload/raw webhook payload/raw HTML/raw DOM/raw prompts/raw customer

@@ -35,8 +35,9 @@ P18-PR-03 is complete.
 P18-PR-04 is complete.
 P19 Real Internal CRM Runtime Activation is current. P19-PR-01 is complete.
 P19-PR-02 Real Workspace/User/Role Bootstrap + Internal Team Access is complete.
-P19-PR-03 Real CRM Data Entry + Customer Workflow Runtime is current.
-P19-PR-04 Internal CRM Deployment Runtime + Environment Hardening is next.
+P19-PR-03 Real CRM Data Entry + Customer Workflow Runtime is complete.
+P19-PR-04 Internal CRM Deployment Runtime + Environment Hardening is current.
+P19-PR-05 Internal CRM Operator Onboarding + Production-like Usage Handoff is next.
 Internal team usage must use provider auth. Mock/demo mode is dev/test only.
 Demo role switcher is not used in provider mode. First owner bootstrap is
 required for real internal usage. Real workspace membership is required.
@@ -171,6 +172,16 @@ find . -name '*.md' \
 | `docs/product/CLARA-P19-REAL-CRM-VIEWER-READONLY-POLICY.md`               | Viewer read-only policy for real CRM workflow.                      |
 | `docs/product/CLARA-P19-REAL-CRM-OPERATOR-QA-CHECKLIST.md`                | Operator QA checklist for P19 real CRM workflow.                    |
 | `docs/product/CLARA-P19-REAL-CRM-DATA-SAFETY-POLICY.md`                   | Real CRM data safety policy.                                        |
+| `docs/product/CLARA-P19-INTERNAL-CRM-DEPLOYMENT-RUNTIME.md`               | Internal CRM deployment runtime guide.                              |
+| `docs/product/CLARA-P19-INTERNAL-ENVIRONMENT-HARDENING.md`                | Internal environment hardening policy.                              |
+| `docs/product/CLARA-P19-INTERNAL-API-DEPLOYMENT-RUNBOOK.md`               | Internal API deployment runbook.                                    |
+| `docs/product/CLARA-P19-INTERNAL-DASHBOARD-DEPLOYMENT-RUNBOOK.md`         | Internal dashboard deployment runbook.                              |
+| `docs/product/CLARA-P19-INTERNAL-DATABASE-MIGRATION-BOOTSTRAP-RUNBOOK.md` | Database migration and first owner bootstrap runbook.               |
+| `docs/product/CLARA-P19-INTERNAL-CORS-ORIGIN-POLICY.md`                   | Explicit internal CORS origin policy.                               |
+| `docs/product/CLARA-P19-INTERNAL-DEPLOYMENT-SMOKE-CHECKLIST.md`           | Internal deployment smoke checklist.                                |
+| `docs/product/CLARA-P19-INTERNAL-RESTART-ROLLBACK-GUIDE.md`               | Safe restart and rollback guide.                                    |
+| `docs/product/CLARA-P19-INTERNAL-ENV-CONFIG-DOCTOR.md`                    | Internal env config doctor guide.                                   |
+| `docs/product/CLARA-P19-INTERNAL-DEPLOYMENT-SECURITY-CHECKLIST.md`        | Internal deployment security checklist.                             |
 | `docs/product/CLARA-P19-MOCK-DEMO-USAGE-REMOVAL-GATE.md`                  | Mock/demo dev-test-only runtime gate.                              |
 | `docs/product/CLARA-P19-PROVIDER-AUTH-INTERNAL-RUNTIME.md`                | Provider auth internal runtime configuration.                      |
 | `docs/product/CLARA-P19-FIRST-OWNER-WORKSPACE-BOOTSTRAP-RUNBOOK.md`       | First owner/workspace bootstrap runbook.                           |

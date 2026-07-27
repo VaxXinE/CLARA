@@ -52,15 +52,19 @@ export function runApiRuntimeConfigDoctor(
   const authMode = clean(env.AUTH_MODE) ?? "mock";
   const authProvider = clean(env.AUTH_PROVIDER);
   const mockAuthEnabled = clean(env.MOCK_AUTH_ENABLED);
+  const internalCrmRuntimeEnabled =
+    clean(env.INTERNAL_CRM_RUNTIME_ENABLED) === "true";
   const isProduction = nodeEnv === "production";
   const checks: RuntimeConfigDoctorCheck[] = [];
 
   checks.push(
     check(
       "api.auth_mode",
-      isProduction && authMode !== "provider" ? "fail" : "pass",
-      isProduction
-        ? "Production API must use provider auth mode."
+      (isProduction || internalCrmRuntimeEnabled) && authMode !== "provider"
+        ? "fail"
+        : "pass",
+      isProduction || internalCrmRuntimeEnabled
+        ? "Production-like internal CRM runtime must use provider auth mode."
         : "Non-production API may use local mock auth.",
     ),
   );
@@ -68,8 +72,10 @@ export function runApiRuntimeConfigDoctor(
   checks.push(
     check(
       "api.mock_auth",
-      isProduction && mockAuthEnabled === "true" ? "fail" : "pass",
-      "Production API must not enable mock auth.",
+      (isProduction || internalCrmRuntimeEnabled) && mockAuthEnabled === "true"
+        ? "fail"
+        : "pass",
+      "Production-like internal CRM runtime must not enable mock auth.",
     ),
   );
 
@@ -96,8 +102,10 @@ export function runApiRuntimeConfigDoctor(
   checks.push(
     check(
       "api.database_url",
-      isProduction && !clean(env.DATABASE_URL) ? "fail" : "pass",
-      "Production API requires DATABASE_URL.",
+      (isProduction || internalCrmRuntimeEnabled) && !clean(env.DATABASE_URL)
+        ? "fail"
+        : "pass",
+      "Production-like internal CRM runtime requires DATABASE_URL.",
     ),
   );
 
@@ -109,10 +117,11 @@ export function runApiRuntimeConfigDoctor(
   checks.push(
     check(
       "api.cors_origin",
-      isProduction && (corsOrigins.length === 0 || corsOrigins.includes("*"))
+      (isProduction || internalCrmRuntimeEnabled) &&
+        (corsOrigins.length === 0 || corsOrigins.includes("*"))
         ? "fail"
         : "pass",
-      "Production API requires explicit non-wildcard CORS origins.",
+      "Production-like internal CRM runtime requires explicit non-wildcard CORS origins.",
     ),
   );
 
