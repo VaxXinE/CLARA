@@ -1,7 +1,6 @@
 # CLARA P19 Internal Go-Live Handoff Record
 
-P19-PR-05 is current/final onboarding handoff gate.
-P19 completion requires P19-PR-05 validation and merge.
+P19-PR-05 is complete. P19 is complete.
 
 Record template:
 
@@ -23,4 +22,3 @@ Decision:
 This handoff is internal usage only. CLARA is not public GA launch and not
 public SaaS launch. Billing/payment remains deferred. Official WA/IG/TikTok APIs
 remain not activated. Outbound auto-send remains disabled.
-

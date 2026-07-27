@@ -8,7 +8,7 @@ classification: "runtime-bootstrap"
 
 # P19 Real Workspace User Role Bootstrap
 
-P19-PR-01 is complete. P19-PR-02 is current. P19-PR-03 is next and covers Real
+P19-PR-01 is complete. P19-PR-02 is complete. P19-PR-03 is complete and covers Real
 CRM Data Entry + Customer Workflow Runtime.
 
 P19-PR-02 makes real internal team usage depend on provider auth plus backend

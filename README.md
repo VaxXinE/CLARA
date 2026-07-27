@@ -17,16 +17,16 @@ It contains the documentation, architecture, standards, templates, governance, i
 # Repository Status
 
 ```text
-Status: P1-P18 complete for controlled internal use; P19 real internal CRM runtime activation current
-Current focus: internal CRM operator onboarding and production-like usage handoff
-Current PR: P19-PR-05 Internal CRM Operator Onboarding + Production-like Usage Handoff
+Status: P1-P19 complete for controlled internal use
+Current focus: post-P19 real internal CRM usage handoff
+Current PR: POST-P19-PR-01 Mark P19 Complete + Real Internal CRM Usage Handoff
 Launch status: not public GA launched yet; not production deployed yet
 ```
 
-P19 Real Internal CRM Runtime Activation is current. P19-PR-01 is complete.
+P19 Real Internal CRM Runtime Activation is complete. P19-PR-01 is complete.
 P19-PR-02 is complete. P19-PR-03 is complete. P19-PR-04 is complete.
-P19-PR-05 is current/final onboarding handoff gate. P19 completion requires
-P19-PR-05 validation and merge. Internal team usage must use provider auth. Mock/demo mode is dev/test
+P19-PR-05 is complete. P19 is complete. Post-P19 handoff summary exists.
+Any next phase requires separate explicit product approval. Internal team usage must use provider auth. Mock/demo mode is dev/test
 only. First owner bootstrap is required for real internal usage. Real workspace
 membership is required. Demo role switcher is not used in provider mode.
 Customer create/update is for real internal CRM usage. Customer notes/activity

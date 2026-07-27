@@ -1,7 +1,6 @@
 # CLARA P19 Internal CRM Operator Onboarding
 
-P19-PR-04 is complete. P19-PR-05 is current/final onboarding handoff gate.
-P19 completion requires P19-PR-05 validation and merge.
+P19-PR-04 is complete. P19-PR-05 is complete. P19 is complete.
 
 Operators use CLARA for daily internal CRM work only through provider auth.
 internal team usage must use provider auth.

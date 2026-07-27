@@ -33,12 +33,13 @@ P18-PR-01 is complete.
 P18-PR-02 is complete.
 P18-PR-03 is complete.
 P18-PR-04 is complete.
-P19 Real Internal CRM Runtime Activation is current. P19-PR-01 is complete.
+P19 Real Internal CRM Runtime Activation is complete. P19-PR-01 is complete.
 P19-PR-02 Real Workspace/User/Role Bootstrap + Internal Team Access is complete.
 P19-PR-03 Real CRM Data Entry + Customer Workflow Runtime is complete.
 P19-PR-04 Internal CRM Deployment Runtime + Environment Hardening is complete.
-P19-PR-05 Internal CRM Operator Onboarding + Production-like Usage Handoff is current/final onboarding handoff gate.
-P19 completion requires P19-PR-05 validation and merge.
+P19-PR-05 Internal CRM Operator Onboarding + Production-like Usage Handoff is complete.
+P19 is complete. Post-P19 handoff summary exists. Any next phase requires
+separate explicit product approval.
 Internal team usage must use provider auth. Mock/demo mode is dev/test only.
 Demo role switcher is not used in provider mode. First owner bootstrap is
 required for real internal usage. Real workspace membership is required.

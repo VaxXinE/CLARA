@@ -33,12 +33,20 @@ P18-PR-01 is complete.
 P18-PR-02 is complete.
 P18-PR-03 is complete.
 P18-PR-04 is complete.
-P19 Real Internal CRM Runtime Activation is current. P19-PR-01 is complete.
+P19 Real Internal CRM Runtime Activation is complete. P19-PR-01 is complete.
 P19-PR-02 Real Workspace/User/Role Bootstrap + Internal Team Access is complete.
 P19-PR-03 Real CRM Data Entry + Customer Workflow Runtime is complete.
 P19-PR-04 Internal CRM Deployment Runtime + Environment Hardening is complete.
-P19-PR-05 Internal CRM Operator Onboarding + Production-like Usage Handoff is current/final onboarding handoff gate.
-P19 completion requires P19-PR-05 validation and merge.
+P19-PR-05 Internal CRM Operator Onboarding + Production-like Usage Handoff is complete.
+P19 is complete. Post-P19 handoff summary exists. P19 completed real internal
+CRM runtime activation, provider auth internal runtime gate, mock/demo usage
+removal gate for operators, real workspace/user/role bootstrap, internal team
+access, real customer data entry workflow, customer create/update, customer
+notes/activity timeline, lifecycle/status workflow, owner assignment,
+conversation-to-customer linking, internal deployment runtime hardening,
+environment hardening, operator/admin/viewer onboarding, and production-like
+internal usage handoff. Any next phase requires separate explicit product
+approval.
 Internal team usage must use provider auth. Mock/demo mode is dev/test only.
 Demo role switcher is not used in provider mode. First owner bootstrap is
 required for real internal usage. Real workspace membership is required.
@@ -151,7 +159,7 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 | P16   | Extension-Assisted Channel Ingestion Hardening | complete |
 | P17   | Real AI Analysis Activation             | complete |
 | P18   | Controlled Internal Runtime Trial + Operational Readiness | complete |
-| P19   | Real Internal CRM Runtime Activation    | current  |
+| P19   | Real Internal CRM Runtime Activation    | complete |
 
 ## P12 Compact Roadmap
 
@@ -218,7 +226,7 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 - P19-PR-02 Real Workspace/User/Role Bootstrap + Internal Team Access. Complete.
 - P19-PR-03 Real CRM Data Entry + Customer Workflow Runtime. Complete.
 - P19-PR-04 Internal CRM Deployment Runtime + Environment Hardening. Complete.
-- P19-PR-05 Internal CRM Operator Onboarding + Production-like Usage Handoff. Current/final onboarding handoff gate.
+- P19-PR-05 Internal CRM Operator Onboarding + Production-like Usage Handoff. Complete.
 
 Runtime evidence must not include secrets/tokens/cookies/auth headers/raw
 provider payload/raw webhook payload/raw HTML/raw DOM/raw prompts/raw customer
