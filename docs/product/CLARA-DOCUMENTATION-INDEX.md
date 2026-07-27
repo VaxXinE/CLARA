@@ -33,14 +33,18 @@ P18-PR-01 is complete.
 P18-PR-02 is complete.
 P18-PR-03 is complete.
 P18-PR-04 is complete.
-P19 Real Internal CRM Runtime Activation is current. P19-PR-01 is current.
+P19 Real Internal CRM Runtime Activation is current. P19-PR-01 is complete.
+P19-PR-02 Real Workspace/User/Role Bootstrap + Internal Team Access is current.
+P19-PR-03 Real CRM Data Entry + Customer Workflow Runtime is next.
 Internal team usage must use provider auth. Mock/demo mode is dev/test only.
-Demo role switcher is not used in provider mode. Backend
-AuthContext/workspace membership is source of truth. client-supplied workspaceId
-is not authoritative. Viewer is read-only. Owner/agent CRM mutation policy
-remains enforced. CLARA is not public GA launch. Billing/payment remains
-deferred. Official WA/IG/TikTok APIs remain not activated. Outbound auto-send
-remains disabled.
+Demo role switcher is not used in provider mode. First owner bootstrap is
+required for real internal usage. Real workspace membership is required.
+Backend AuthContext/workspace membership is source of truth.
+client-supplied workspaceId is not authoritative. Missing/inactive membership
+fails closed. Viewer is read-only. Owner/agent CRM mutation policy remains
+enforced. CLARA is not public GA launch. CLARA is not production deployment.
+Billing/payment remains deferred. Official WA/IG/TikTok APIs remain not
+activated. Outbound auto-send remains disabled.
 Post-P18 completion handoff confirms controlled runtime trial scope,
 participant rules, evidence plan, smoke checklist, pass/fail criteria, evidence
 capture guide, execution log, evidence log, issue disposition, final runtime
@@ -147,6 +151,13 @@ find . -name '*.md' \
 | `docs/product/CLARA-FINAL-ROADMAP.md`                                     | Active P1-P15 roadmap source.                                     |
 | `docs/product/CLARA-P19-ROADMAP.md`                                       | P19 real internal CRM runtime roadmap.                            |
 | `docs/product/CLARA-P19-REAL-INTERNAL-CRM-RUNTIME-ACTIVATION.md`          | Provider-authenticated internal CRM runtime activation.            |
+| `docs/product/CLARA-P19-REAL-WORKSPACE-USER-ROLE-BOOTSTRAP.md`            | Real workspace/user/role bootstrap contract.                       |
+| `docs/product/CLARA-P19-FIRST-OWNER-BOOTSTRAP-RUNBOOK.md`                 | First owner bootstrap runbook for real internal usage.             |
+| `docs/product/CLARA-P19-INTERNAL-TEAM-ACCESS-RUNBOOK.md`                  | Internal team access and onboarding runbook.                       |
+| `docs/product/CLARA-P19-WORKSPACE-MEMBERSHIP-RUNTIME-POLICY.md`           | Workspace membership runtime policy.                               |
+| `docs/product/CLARA-P19-ROLE-ACCESS-MATRIX.md`                            | Owner/agent/viewer access matrix.                                  |
+| `docs/product/CLARA-P19-MISSING-MEMBERSHIP-TROUBLESHOOTING.md`            | Missing/inactive membership troubleshooting.                       |
+| `docs/product/CLARA-P19-INTERNAL-TEAM-ONBOARDING-CHECKLIST.md`            | Internal team onboarding checklist.                                |
 | `docs/product/CLARA-P19-MOCK-DEMO-USAGE-REMOVAL-GATE.md`                  | Mock/demo dev-test-only runtime gate.                              |
 | `docs/product/CLARA-P19-PROVIDER-AUTH-INTERNAL-RUNTIME.md`                | Provider auth internal runtime configuration.                      |
 | `docs/product/CLARA-P19-FIRST-OWNER-WORKSPACE-BOOTSTRAP-RUNBOOK.md`       | First owner/workspace bootstrap runbook.                           |
