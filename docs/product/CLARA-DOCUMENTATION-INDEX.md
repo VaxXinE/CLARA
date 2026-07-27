@@ -36,8 +36,9 @@ P18-PR-04 is complete.
 P19 Real Internal CRM Runtime Activation is current. P19-PR-01 is complete.
 P19-PR-02 Real Workspace/User/Role Bootstrap + Internal Team Access is complete.
 P19-PR-03 Real CRM Data Entry + Customer Workflow Runtime is complete.
-P19-PR-04 Internal CRM Deployment Runtime + Environment Hardening is current.
-P19-PR-05 Internal CRM Operator Onboarding + Production-like Usage Handoff is next.
+P19-PR-04 Internal CRM Deployment Runtime + Environment Hardening is complete.
+P19-PR-05 Internal CRM Operator Onboarding + Production-like Usage Handoff is current/final onboarding handoff gate.
+P19 completion requires P19-PR-05 validation and merge.
 Internal team usage must use provider auth. Mock/demo mode is dev/test only.
 Demo role switcher is not used in provider mode. First owner bootstrap is
 required for real internal usage. Real workspace membership is required.
@@ -182,6 +183,18 @@ find . -name '*.md' \
 | `docs/product/CLARA-P19-INTERNAL-RESTART-ROLLBACK-GUIDE.md`               | Safe restart and rollback guide.                                    |
 | `docs/product/CLARA-P19-INTERNAL-ENV-CONFIG-DOCTOR.md`                    | Internal env config doctor guide.                                   |
 | `docs/product/CLARA-P19-INTERNAL-DEPLOYMENT-SECURITY-CHECKLIST.md`        | Internal deployment security checklist.                             |
+| `docs/product/CLARA-P19-INTERNAL-CRM-OPERATOR-ONBOARDING.md`              | Internal CRM operator onboarding guide.                             |
+| `docs/product/CLARA-P19-INTERNAL-CRM-ADMIN-OWNER-ONBOARDING.md`           | Internal CRM admin/owner onboarding guide.                          |
+| `docs/product/CLARA-P19-INTERNAL-CRM-VIEWER-READONLY-ONBOARDING.md`       | Viewer read-only onboarding guide.                                  |
+| `docs/product/CLARA-P19-DAILY-CRM-WORKFLOW-RUNBOOK.md`                    | Daily CRM workflow runbook.                                         |
+| `docs/product/CLARA-P19-CUSTOMER-WORKFLOW-OPERATOR-GUIDE.md`              | Customer workflow operator guide.                                   |
+| `docs/product/CLARA-P19-CONVERSATION-LINKING-OPERATOR-GUIDE.md`           | Conversation linking operator guide.                                |
+| `docs/product/CLARA-P19-INTERNAL-USAGE-SMOKE-CHECKLIST.md`                | Internal usage smoke checklist.                                     |
+| `docs/product/CLARA-P19-INTERNAL-ISSUE-REPORTING-ESCALATION.md`           | Internal issue reporting and escalation workflow.                   |
+| `docs/product/CLARA-P19-OPERATOR-SECURITY-DO-DONT.md`                     | Operator security do/don't guide.                                   |
+| `docs/product/CLARA-P19-INTERNAL-GO-LIVE-HANDOFF-RECORD.md`               | Internal go-live handoff record template.                           |
+| `docs/product/CLARA-P19-FIRST-WEEK-ADOPTION-CHECKLIST.md`                 | First-week adoption checklist.                                      |
+| `docs/product/CLARA-P19-INTERNAL-KNOWN-LIMITATIONS-SUPPORT-BOUNDARY.md`   | Known limitations and support boundary.                             |
 | `docs/product/CLARA-P19-MOCK-DEMO-USAGE-REMOVAL-GATE.md`                  | Mock/demo dev-test-only runtime gate.                              |
 | `docs/product/CLARA-P19-PROVIDER-AUTH-INTERNAL-RUNTIME.md`                | Provider auth internal runtime configuration.                      |
 | `docs/product/CLARA-P19-FIRST-OWNER-WORKSPACE-BOOTSTRAP-RUNBOOK.md`       | First owner/workspace bootstrap runbook.                           |

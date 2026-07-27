@@ -80,9 +80,9 @@ Acceptance:
 
 ## P19-PR-04
 
-Internal CRM Deployment Runtime + Environment Hardening is current.
+Internal CRM Deployment Runtime + Environment Hardening is complete.
 
-P19-PR-04 is current.
+P19-PR-04 is complete.
 
 Acceptance:
 
@@ -107,8 +107,31 @@ Acceptance:
 
 ## P19-PR-05
 
-Internal CRM Operator Onboarding + Production-like Usage Handoff is next.
+Internal CRM Operator Onboarding + Production-like Usage Handoff is current/final onboarding handoff gate.
 
-P19-PR-05 is next.
+P19-PR-05 is current/final onboarding handoff gate.
+
+P19 completion requires P19-PR-05 validation and merge.
+
+Acceptance:
+
+- Internal team usage must use provider auth.
+- Mock/demo mode is dev/test only.
+- Real workspace membership is required.
+- Backend AuthContext/workspace membership is source of truth.
+- client-supplied workspaceId is not authoritative.
+- Missing/inactive membership fails closed.
+- Viewer is read-only.
+- Owner/agent CRM mutation policy remains enforced.
+- Customer create/update/notes/activity/lifecycle/owner/conversation-linking are real workspace-scoped CRM workflows.
+- Internal deployment usage smoke checklist exists.
+- Issue reporting and escalation workflow exists.
+- Operator security do/don't guide exists.
+- No raw secrets/tokens/auth headers/raw provider payloads/raw prompts/raw DOM/raw HTML/payment data in docs.
+- CLARA is not public GA launch.
+- CLARA is not public SaaS launch.
+- Billing/payment remains deferred.
+- Official WA/IG/TikTok APIs remain not activated.
+- Outbound auto-send remains disabled.
 
 Next phase requires separate explicit approval.

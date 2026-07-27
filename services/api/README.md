@@ -11,8 +11,8 @@ P1-P18 complete; P19 Real Internal CRM Runtime Activation current
 P19-PR-01 is complete. P19-PR-02 Real Workspace/User/Role Bootstrap + Internal
 Team Access is complete. P19-PR-03 Real CRM Data Entry + Customer Workflow
 Runtime is complete. P19-PR-04 Internal CRM Deployment Runtime + Environment
-Hardening is current. P19-PR-05 Internal CRM Operator Onboarding +
-Production-like Usage Handoff is next.
+Hardening is complete. P19-PR-05 is current/final onboarding handoff gate.
+P19 completion requires P19-PR-05 validation and merge.
 
 P19 adds an explicit internal CRM runtime guard:
 `INTERNAL_CRM_RUNTIME_ENABLED=true` requires `AUTH_MODE=provider`,
@@ -28,7 +28,11 @@ are role-aware CRM workflows. Conversation-to-customer linking is explicit and
 workspace-scoped.
 CORS/internal origin must be explicit and not wildcard. Env examples must not
 contain real secrets. Health/ready smoke checks exist. Database
-migrate/bootstrap runbook exists. Restart/rollback guidance exists. CLARA is
+migrate/bootstrap runbook exists. Restart/rollback guidance exists.
+Internal deployment usage smoke checklist exists. Issue reporting and
+escalation workflow exists. Operator security do/don't guide exists. No raw
+secrets/tokens/auth headers/raw provider payloads/raw prompts/raw DOM/raw
+HTML/payment data in docs. CLARA is
 not public GA launch. CLARA is not public SaaS launch. Billing/payment remains
 deferred. Official WA/IG/TikTok APIs remain not activated. Outbound auto-send
 remains disabled.
