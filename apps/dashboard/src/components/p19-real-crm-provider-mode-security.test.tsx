@@ -57,7 +57,10 @@ describe("P19 real CRM provider mode security", () => {
     expect(await screen.findByText("Workspace access required")).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Owner" })).not.toBeInTheDocument();
 
-    const [, init] = fetchMock.mock.calls[0] as [RequestInfo | URL, RequestInit];
+    const [, init] = fetchMock.mock.calls[0] as unknown as [
+      RequestInfo | URL,
+      RequestInit,
+    ];
     const headers = init.headers as Record<string, string>;
     expect(headers.authorization).toBe("Bearer pat");
     expect(headers["x-mock-role"]).toBeUndefined();

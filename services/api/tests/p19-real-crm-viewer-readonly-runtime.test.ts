@@ -21,7 +21,8 @@ describe("P19 real CRM viewer readonly runtime", () => {
     await app.close();
 
     expect(read.statusCode).toBe(200);
-    expect(read.json().permissions.can_update_customer).toBe(false);
+    expect(read.json().permissions.can_view_customer_profile).toBe(true);
+    expect(read.json().permissions.can_send_reply).toBe(false);
     expect(note.statusCode).toBe(403);
   });
 });

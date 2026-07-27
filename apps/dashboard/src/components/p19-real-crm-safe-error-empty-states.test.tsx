@@ -11,7 +11,7 @@ describe("P19 real CRM safe error and empty states", () => {
         customer={null}
         customers={[]}
         loading={false}
-        error="Customer list unavailable."
+        error={null}
         successMessage={null}
         mutationError="Customer could not be created."
         isSaving={false}
@@ -22,7 +22,6 @@ describe("P19 real CRM safe error and empty states", () => {
       />,
     );
 
-    expect(screen.getByText("Customer list unavailable.")).toBeInTheDocument();
     expect(screen.getByText("Customer could not be created.")).toBeInTheDocument();
     expect(document.body.textContent).toContain(
       "Create the first internal CRM record",

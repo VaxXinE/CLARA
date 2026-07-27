@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
 const roadmap = readFileSync(
-  join(process.cwd(), "../docs/product/CLARA-P19-ROADMAP.md"),
+  join(process.cwd(), "../../docs/product/CLARA-P19-ROADMAP.md"),
   "utf8",
 );
 
