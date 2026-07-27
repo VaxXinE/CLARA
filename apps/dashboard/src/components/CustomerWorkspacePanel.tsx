@@ -32,6 +32,15 @@ const lifecycleStatuses = [
   value: NonNullable<CustomerMutationPayload["status"]>;
   label: string;
 }>;
+const customerSources = [
+  { value: "extension_bridge", label: "Extension bridge" },
+  { value: "email", label: "Email" },
+  { value: "webchat", label: "Webchat" },
+  { value: "whatsapp", label: "WhatsApp" },
+] as const satisfies ReadonlyArray<{
+  value: NonNullable<CustomerMutationPayload["source"]>;
+  label: string;
+}>;
 
 type CustomerWorkspacePanelProps = {
   customer: CustomerProfileResponse["customer"] | null;
@@ -113,11 +122,15 @@ export function CustomerWorkspacePanel(props: CustomerWorkspacePanelProps) {
   const [createContact, setCreateContact] = useState("");
   const [createStatus, setCreateStatus] =
     useState<CustomerMutationPayload["status"]>("new");
+  const [createSource, setCreateSource] =
+    useState<CustomerMutationPayload["source"]>("extension_bridge");
   const [createNotes, setCreateNotes] = useState("");
   const [editDisplayName, setEditDisplayName] = useState("");
   const [editContact, setEditContact] = useState("");
   const [editStatus, setEditStatus] =
     useState<CustomerMutationPayload["status"]>("new");
+  const [editSource, setEditSource] =
+    useState<CustomerMutationPayload["source"]>("extension_bridge");
   const [editNotes, setEditNotes] = useState("");
   const [lifecycleStatus, setLifecycleStatus] =
     useState<NonNullable<CustomerMutationPayload["status"]>>("new");
@@ -135,6 +148,10 @@ export function CustomerWorkspacePanel(props: CustomerWorkspacePanelProps) {
     setEditContact(props.customer?.contact_identifier ?? "");
     setEditStatus(
       (props.customer?.status as CustomerMutationPayload["status"]) ?? "new",
+    );
+    setEditSource(
+      (props.customer?.source as CustomerMutationPayload["source"]) ??
+        "extension_bridge",
     );
     setEditNotes(props.customer?.notes_summary ?? "");
     setLifecycleStatus(
@@ -184,7 +201,7 @@ export function CustomerWorkspacePanel(props: CustomerWorkspacePanelProps) {
       customerPayloadFromForm({
         displayName: createDisplayName,
         contactIdentifier: createContact,
-        source: "demo",
+        source: createSource,
         status: createStatus,
         notesSummary: createNotes,
       }),
@@ -193,6 +210,7 @@ export function CustomerWorkspacePanel(props: CustomerWorkspacePanelProps) {
     setCreateDisplayName("");
     setCreateContact("");
     setCreateStatus("new");
+    setCreateSource("extension_bridge");
     setCreateNotes("");
   }
 
@@ -215,7 +233,7 @@ export function CustomerWorkspacePanel(props: CustomerWorkspacePanelProps) {
       customerPayloadFromForm({
         displayName: editDisplayName,
         contactIdentifier: editContact,
-        source: props.customer.source as CustomerMutationPayload["source"],
+        source: editSource,
         status: editStatus,
         notesSummary: editNotes,
       }),
@@ -427,6 +445,27 @@ export function CustomerWorkspacePanel(props: CustomerWorkspacePanelProps) {
             ))}
           </select>
 
+          <label className="field-label" htmlFor="create-customer-source">
+            Source
+          </label>
+          <select
+            id="create-customer-source"
+            className="text-input"
+            value={createSource}
+            disabled={props.readOnly || props.isSaving}
+            onChange={(event) =>
+              setCreateSource(
+                event.target.value as CustomerMutationPayload["source"],
+              )
+            }
+          >
+            {customerSources.map((source) => (
+              <option key={source.value} value={source.value}>
+                {source.label}
+              </option>
+            ))}
+          </select>
+
           <label className="field-label" htmlFor="create-customer-notes">
             Notes preview
           </label>
@@ -492,6 +531,27 @@ export function CustomerWorkspacePanel(props: CustomerWorkspacePanelProps) {
             {lifecycleStatuses.map((status) => (
               <option key={status.value} value={status.value}>
                 {status.label}
+              </option>
+            ))}
+          </select>
+
+          <label className="field-label" htmlFor="edit-customer-source">
+            Source
+          </label>
+          <select
+            id="edit-customer-source"
+            className="text-input"
+            value={editSource}
+            disabled={!props.customer || props.readOnly || props.isSaving}
+            onChange={(event) =>
+              setEditSource(
+                event.target.value as CustomerMutationPayload["source"],
+              )
+            }
+          >
+            {customerSources.map((source) => (
+              <option key={source.value} value={source.value}>
+                {source.label}
               </option>
             ))}
           </select>

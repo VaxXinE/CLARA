@@ -37,7 +37,7 @@ describe("P13 CustomerQueryService CRUD activation", () => {
     expect(created.customer).toMatchObject({
       display_name: "Clara Buyer",
       contact_identifier: "buyer@example.test",
-      source: "demo",
+      source: "extension_bridge",
       status: "new",
       notes_summary: "Safe summary only.",
     });

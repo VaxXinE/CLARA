@@ -9,8 +9,9 @@ P1-P18 complete; P19 Real Internal CRM Runtime Activation current
 ```
 
 P19-PR-01 is complete. P19-PR-02 Real Workspace/User/Role Bootstrap + Internal
-Team Access is current. P19-PR-03 Real CRM Data Entry + Customer Workflow
-Runtime is next. Local demo mode remains for development/tests, but
+Team Access is complete. P19-PR-03 Real CRM Data Entry + Customer Workflow
+Runtime is current. P19-PR-04 Internal CRM Deployment Runtime + Environment
+Hardening is next. Local demo mode remains for development/tests, but
 `VITE_AUTH_MODE=provider` is required for real internal CRM usage. Internal
 team usage must use provider auth. Mock/demo mode is dev/test only. First owner
 bootstrap is required for real internal usage. Real workspace membership is
@@ -19,6 +20,10 @@ does not send mock headers. Backend AuthContext/workspace membership is source
 of truth. client-supplied workspaceId is not authoritative. Missing/inactive
 membership fails closed. Viewer is read-only. Owner/agent CRM mutation policy
 remains enforced.
+Customer create/update is for real internal CRM usage. Customer notes/activity
+are real workspace-scoped CRM workflows. Lifecycle/status and owner assignment
+are role-aware CRM workflows. Conversation-to-customer linking is explicit and
+workspace-scoped.
 
 ## Features
 

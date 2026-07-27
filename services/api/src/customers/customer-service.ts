@@ -411,7 +411,7 @@ export class CustomerQueryService {
       {
         displayName: normalized.displayName ?? "",
         contactIdentifier: normalized.contactIdentifier ?? null,
-        source: normalized.source ?? "demo",
+        source: normalized.source ?? "extension_bridge",
         status: normalized.status ?? "new",
         ownerUserId: null,
         notesSummary: normalized.notesSummary ?? null,
