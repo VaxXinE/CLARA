@@ -194,6 +194,14 @@ function validateInternalCrmRuntimeEnv(env: Env): void {
       "Invalid environment configuration: INTERNAL_CRM_RUNTIME_ENABLED=true requires DATABASE_URL.",
     );
   }
+
+  const corsOrigins = parseCorsOrigins(env.CORS_ORIGIN);
+
+  if (corsOrigins.length === 0 || corsOrigins.includes("*")) {
+    throw new Error(
+      "Invalid environment configuration: INTERNAL_CRM_RUNTIME_ENABLED=true requires explicit non-wildcard CORS_ORIGIN.",
+    );
+  }
 }
 
 export function loadEnv(input: NodeJS.ProcessEnv = process.env): Env {

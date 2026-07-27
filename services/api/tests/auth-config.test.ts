@@ -123,7 +123,7 @@ describe("auth configuration", () => {
       SUPABASE_AUTH_ISSUER: "https://example.supabase.test/auth/v1",
       DATABASE_URL:
         "postgresql://clara_user:clara_password_dev_only@127.0.0.1:5432/clara_api_test",
-      CORS_ORIGIN: "",
+      CORS_ORIGIN: "https://dashboard.example.test",
     });
 
     expect(env.INTERNAL_CRM_RUNTIME_ENABLED).toBe(true);

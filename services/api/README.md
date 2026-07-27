@@ -10,13 +10,14 @@ P1-P18 complete; P19 Real Internal CRM Runtime Activation current
 
 P19-PR-01 is complete. P19-PR-02 Real Workspace/User/Role Bootstrap + Internal
 Team Access is complete. P19-PR-03 Real CRM Data Entry + Customer Workflow
-Runtime is current. P19-PR-04 Internal CRM Deployment Runtime + Environment
-Hardening is next.
+Runtime is complete. P19-PR-04 Internal CRM Deployment Runtime + Environment
+Hardening is current. P19-PR-05 Internal CRM Operator Onboarding +
+Production-like Usage Handoff is next.
 
 P19 adds an explicit internal CRM runtime guard:
 `INTERNAL_CRM_RUNTIME_ENABLED=true` requires `AUTH_MODE=provider`,
-`MOCK_AUTH_ENABLED=false`, and `DATABASE_URL`. Internal team usage must use
-provider auth. Mock/demo mode is dev/test only. Backend AuthContext/workspace
+`MOCK_AUTH_ENABLED=false`, `DATABASE_URL`, and explicit non-wildcard
+`CORS_ORIGIN`. Internal team usage must use provider auth. Mock/demo mode is dev/test only. Backend AuthContext/workspace
 membership is source of truth. client-supplied workspaceId is not authoritative.
 First owner bootstrap is required for real internal usage. Real workspace
 membership is required. Missing/inactive membership fails closed. Viewer is
@@ -25,6 +26,12 @@ Customer create/update is for real internal CRM usage. Customer notes/activity
 are real workspace-scoped CRM workflows. Lifecycle/status and owner assignment
 are role-aware CRM workflows. Conversation-to-customer linking is explicit and
 workspace-scoped.
+CORS/internal origin must be explicit and not wildcard. Env examples must not
+contain real secrets. Health/ready smoke checks exist. Database
+migrate/bootstrap runbook exists. Restart/rollback guidance exists. CLARA is
+not public GA launch. CLARA is not public SaaS launch. Billing/payment remains
+deferred. Official WA/IG/TikTok APIs remain not activated. Outbound auto-send
+remains disabled.
 
 This service currently provides the CLARA API through P15: auth/workspace
 scope, conversation/customer/activity, channel foundations, Gmail/email

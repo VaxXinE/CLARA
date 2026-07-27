@@ -96,9 +96,9 @@ export function runDashboardRuntimeConfigDoctor(
     check(
       "dashboard.api_base_url",
       authMode === "provider" && !clean(env.VITE_API_BASE_URL)
-        ? "warn"
+        ? "fail"
         : "pass",
-      "Provider dashboard mode should set an explicit API base URL.",
+      "Provider dashboard mode requires an explicit API base URL for internal runtime.",
     ),
   );
 
