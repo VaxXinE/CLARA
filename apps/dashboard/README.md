@@ -5,14 +5,15 @@ CLARA Dashboard conversation workspace built with Vite, React, and TypeScript.
 ## Status
 
 ```text
-P1-P18 complete; P19 Real Internal CRM Runtime Activation current
+P1-P19 complete for controlled internal use
 ```
 
 P19-PR-01 is complete. P19-PR-02 Real Workspace/User/Role Bootstrap + Internal
 Team Access is complete. P19-PR-03 Real CRM Data Entry + Customer Workflow
 Runtime is complete. P19-PR-04 Internal CRM Deployment Runtime + Environment
-Hardening is complete. P19-PR-05 is current/final onboarding handoff gate.
-P19 completion requires P19-PR-05 validation and merge. Local demo mode remains for development/tests, but
+Hardening is complete. P19-PR-05 is complete. P19 is complete.
+Post-P19 handoff summary exists. Any next phase requires separate explicit product approval.
+Local demo mode remains for development/tests, but
 `VITE_AUTH_MODE=provider` is required for real internal CRM usage. Internal
 team usage must use provider auth. Mock/demo mode is dev/test only. First owner
 bootstrap is required for real internal usage. Real workspace membership is
