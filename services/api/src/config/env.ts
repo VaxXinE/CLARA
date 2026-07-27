@@ -39,6 +39,11 @@ const envSchema = z.object({
     z.enum(["disabled", "simulated"]).optional(),
   ),
 
+  INTERNAL_CRM_RUNTIME_ENABLED: z.preprocess(
+    blankToUndefined,
+    z.enum(["true", "false"]).optional(),
+  ),
+
   WHATSAPP_WEBHOOK_VERIFY_TOKEN: z.string().trim().optional(),
 
   WHATSAPP_WEBHOOK_APP_SECRET: z.string().trim().optional(),
@@ -88,6 +93,7 @@ export type Env = Omit<
   | "MOCK_AUTH_ENABLED"
   | "RATE_LIMIT_ENABLED"
   | "EMAIL_CHANNEL_MODE"
+  | "INTERNAL_CRM_RUNTIME_ENABLED"
   | "DATABASE_URL"
   | "WHATSAPP_WEBHOOK_VERIFY_TOKEN"
   | "WHATSAPP_WEBHOOK_APP_SECRET"
@@ -101,6 +107,7 @@ export type Env = Omit<
   WHATSAPP_WEBHOOK_VERIFY_TOKEN?: string;
   WHATSAPP_WEBHOOK_APP_SECRET?: string;
   EMAIL_CHANNEL_MODE: "disabled" | "simulated";
+  INTERNAL_CRM_RUNTIME_ENABLED: boolean;
   MOCK_AUTH_ENABLED: boolean;
   RATE_LIMIT_ENABLED: boolean;
   SUPABASE_AUTH_JWKS_URL?: string;
@@ -165,6 +172,30 @@ function validateProductionEnv(env: Env): void {
   }
 }
 
+function validateInternalCrmRuntimeEnv(env: Env): void {
+  if (!env.INTERNAL_CRM_RUNTIME_ENABLED) {
+    return;
+  }
+
+  if (env.AUTH_MODE !== "provider") {
+    throw new Error(
+      "Invalid environment configuration: INTERNAL_CRM_RUNTIME_ENABLED=true requires AUTH_MODE=provider.",
+    );
+  }
+
+  if (env.MOCK_AUTH_ENABLED) {
+    throw new Error(
+      "Invalid environment configuration: INTERNAL_CRM_RUNTIME_ENABLED=true requires MOCK_AUTH_ENABLED=false.",
+    );
+  }
+
+  if (!env.DATABASE_URL) {
+    throw new Error(
+      "Invalid environment configuration: INTERNAL_CRM_RUNTIME_ENABLED=true requires DATABASE_URL.",
+    );
+  }
+}
+
 export function loadEnv(input: NodeJS.ProcessEnv = process.env): Env {
   const parsed = envSchema.safeParse(input);
 
@@ -196,6 +227,8 @@ export function loadEnv(input: NodeJS.ProcessEnv = process.env): Env {
     REPLY_SEND_RATE_LIMIT_MAX: parsed.data.REPLY_SEND_RATE_LIMIT_MAX,
     REQUEST_BODY_LIMIT_BYTES: parsed.data.REQUEST_BODY_LIMIT_BYTES,
     EMAIL_CHANNEL_MODE: parsed.data.EMAIL_CHANNEL_MODE ?? "disabled",
+    INTERNAL_CRM_RUNTIME_ENABLED:
+      parsed.data.INTERNAL_CRM_RUNTIME_ENABLED === "true",
     AUTH_MODE: parsed.data.AUTH_MODE ?? "mock",
     MOCK_AUTH_ENABLED:
       parsed.data.MOCK_AUTH_ENABLED === undefined
@@ -281,6 +314,8 @@ export function loadEnv(input: NodeJS.ProcessEnv = process.env): Env {
       );
     }
   }
+
+  validateInternalCrmRuntimeEnv(env);
 
   return env;
 }

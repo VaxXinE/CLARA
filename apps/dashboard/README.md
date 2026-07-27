@@ -5,8 +5,16 @@ CLARA Dashboard conversation workspace built with Vite, React, and TypeScript.
 ## Status
 
 ```text
-P1-P16 complete; P17 Real AI Analysis Activation current
+P1-P18 complete; P19 Real Internal CRM Runtime Activation current
 ```
+
+P19-PR-01 keeps local demo mode for development/tests but requires
+`VITE_AUTH_MODE=provider` for real internal CRM usage. Internal team usage must
+use provider auth. Mock/demo mode is dev/test only. Demo role switcher is not
+used in provider mode, and provider mode does not send mock headers. Backend
+AuthContext/workspace membership is source of truth. client-supplied workspaceId
+is not authoritative. Viewer is read-only. Owner/agent CRM mutation policy
+remains enforced.
 
 ## Features
 

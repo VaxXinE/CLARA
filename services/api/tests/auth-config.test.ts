@@ -69,6 +69,68 @@ describe("auth configuration", () => {
     expect(env.REQUEST_BODY_LIMIT_BYTES).toBe(4096);
   });
 
+  it("requires provider auth for internal CRM runtime", () => {
+    expect(() =>
+      loadEnv({
+        NODE_ENV: "test",
+        APP_NAME: "clara-api-test",
+        HOST: "127.0.0.1",
+        PORT: "3000",
+        LOG_LEVEL: "silent",
+        INTERNAL_CRM_RUNTIME_ENABLED: "true",
+        AUTH_MODE: "mock",
+        MOCK_AUTH_ENABLED: "true",
+        DATABASE_URL:
+          "postgresql://clara_user:clara_password_dev_only@127.0.0.1:5432/clara_api_test",
+        CORS_ORIGIN: "",
+      }),
+    ).toThrow(
+      "INTERNAL_CRM_RUNTIME_ENABLED=true requires AUTH_MODE=provider",
+    );
+  });
+
+  it("requires a database for internal CRM runtime", () => {
+    expect(() =>
+      loadEnv({
+        NODE_ENV: "test",
+        APP_NAME: "clara-api-test",
+        HOST: "127.0.0.1",
+        PORT: "3000",
+        LOG_LEVEL: "silent",
+        INTERNAL_CRM_RUNTIME_ENABLED: "true",
+        AUTH_MODE: "provider",
+        AUTH_PROVIDER: "supabase",
+        MOCK_AUTH_ENABLED: "false",
+        SUPABASE_AUTH_JWKS_URL: "https://example.supabase.test/auth/v1/jwks",
+        SUPABASE_AUTH_ISSUER: "https://example.supabase.test/auth/v1",
+        CORS_ORIGIN: "",
+      }),
+    ).toThrow("INTERNAL_CRM_RUNTIME_ENABLED=true requires DATABASE_URL");
+  });
+
+  it("accepts internal CRM runtime with provider auth and database config", () => {
+    const env = loadEnv({
+      NODE_ENV: "test",
+      APP_NAME: "clara-api-test",
+      HOST: "127.0.0.1",
+      PORT: "3000",
+      LOG_LEVEL: "silent",
+      INTERNAL_CRM_RUNTIME_ENABLED: "true",
+      AUTH_MODE: "provider",
+      AUTH_PROVIDER: "supabase",
+      MOCK_AUTH_ENABLED: "false",
+      SUPABASE_AUTH_JWKS_URL: "https://example.supabase.test/auth/v1/jwks",
+      SUPABASE_AUTH_ISSUER: "https://example.supabase.test/auth/v1",
+      DATABASE_URL:
+        "postgresql://clara_user:clara_password_dev_only@127.0.0.1:5432/clara_api_test",
+      CORS_ORIGIN: "",
+    });
+
+    expect(env.INTERNAL_CRM_RUNTIME_ENABLED).toBe(true);
+    expect(env.AUTH_MODE).toBe("provider");
+    expect(env.MOCK_AUTH_ENABLED).toBe(false);
+  });
+
   it("rejects mock mode when mock auth is explicitly disabled", () => {
     expect(() =>
       loadEnv({

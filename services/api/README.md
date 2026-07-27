@@ -5,8 +5,15 @@ CLARA API service.
 ## Status
 
 ```text
-P1-P16 complete; P17 Real AI Analysis Activation current
+P1-P18 complete; P19 Real Internal CRM Runtime Activation current
 ```
+
+P19-PR-01 adds an explicit internal CRM runtime guard:
+`INTERNAL_CRM_RUNTIME_ENABLED=true` requires `AUTH_MODE=provider`,
+`MOCK_AUTH_ENABLED=false`, and `DATABASE_URL`. Internal team usage must use
+provider auth. Mock/demo mode is dev/test only. Backend AuthContext/workspace
+membership is source of truth. client-supplied workspaceId is not authoritative.
+Viewer is read-only. Owner/agent CRM mutation policy remains enforced.
 
 This service currently provides the CLARA API through P15: auth/workspace
 scope, conversation/customer/activity, channel foundations, Gmail/email
