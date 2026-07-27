@@ -18,15 +18,15 @@ It contains the documentation, architecture, standards, templates, governance, i
 
 ```text
 Status: P1-P18 complete for controlled internal use; P19 real internal CRM runtime activation current
-Current focus: internal CRM deployment runtime and environment hardening
-Current PR: P19-PR-04 Internal CRM Deployment Runtime + Environment Hardening
+Current focus: internal CRM operator onboarding and production-like usage handoff
+Current PR: P19-PR-05 Internal CRM Operator Onboarding + Production-like Usage Handoff
 Launch status: not public GA launched yet; not production deployed yet
 ```
 
 P19 Real Internal CRM Runtime Activation is current. P19-PR-01 is complete.
-P19-PR-02 is complete. P19-PR-03 is complete. P19-PR-04 is current.
-P19-PR-05 is next: Internal CRM Operator Onboarding + Production-like Usage
-Handoff. Internal team usage must use provider auth. Mock/demo mode is dev/test
+P19-PR-02 is complete. P19-PR-03 is complete. P19-PR-04 is complete.
+P19-PR-05 is current/final onboarding handoff gate. P19 completion requires
+P19-PR-05 validation and merge. Internal team usage must use provider auth. Mock/demo mode is dev/test
 only. First owner bootstrap is required for real internal usage. Real workspace
 membership is required. Demo role switcher is not used in provider mode.
 Customer create/update is for real internal CRM usage. Customer notes/activity
@@ -41,6 +41,11 @@ provider mode must not show demo role switcher. Dashboard provider mode must not
 send mock headers. CORS/internal origin must be explicit and not wildcard. Env
 examples must not contain real secrets. Health/ready smoke checks exist.
 Database migrate/bootstrap runbook exists. Restart/rollback guidance exists.
+Internal deployment usage smoke checklist exists. Issue reporting and
+escalation workflow exists. Operator security do/don't guide exists.
+Customer create/update/notes/activity/lifecycle/owner/conversation-linking are
+real workspace-scoped CRM workflows. No raw secrets/tokens/auth headers/raw
+provider payloads/raw prompts/raw DOM/raw HTML/payment data in docs.
 CLARA is not public GA launch. CLARA is not public SaaS launch. CLARA is not production deployment.
 Billing/payment remains deferred. Official WA/IG/TikTok APIs remain not
 activated. Outbound auto-send remains disabled.
