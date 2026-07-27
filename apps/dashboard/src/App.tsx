@@ -2138,6 +2138,13 @@ function WorkspaceAppShell() {
         </div>
       ) : null}
 
+      {me?.user.role === "viewer" && !conversationDetail ? (
+        <div className="global-alert" role="status">
+          <strong>View-only access</strong>
+          <p>Viewer role can inspect workspace data but cannot mutate CRM records.</p>
+        </div>
+      ) : null}
+
       <ConversationWorkspace
         scheduler={{
           status: gmailSchedulerStatus,
