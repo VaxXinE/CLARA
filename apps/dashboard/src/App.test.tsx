@@ -570,6 +570,10 @@ describe("App", () => {
         const headers = (init?.headers ?? {}) as Record<string, string>;
 
         expect(headers.authorization).toBe("Bearer provider-session-token");
+        expect(headers["x-mock-user-id"]).toBeUndefined();
+        expect(headers["x-mock-organization-id"]).toBeUndefined();
+        expect(headers["x-mock-workspace-id"]).toBeUndefined();
+        expect(headers["x-mock-role"]).toBeUndefined();
 
         if (url.includes("/api/v1/me")) {
           return jsonResponse(
@@ -668,6 +672,8 @@ describe("App", () => {
     expect(
       await screen.findByText(/Workspace: wks_demo_sales/),
     ).toBeInTheDocument();
+    expect(screen.queryByLabelText("Demo role switcher")).not.toBeInTheDocument();
+    expect(screen.getByText("Provider auth")).toBeInTheDocument();
     expect(screen.getByText(/usr_demo_agent/)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Log Out" })).toBeInTheDocument();
     expect(screen.getByText("Gmail scheduler")).toBeInTheDocument();

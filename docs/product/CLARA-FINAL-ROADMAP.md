@@ -33,6 +33,14 @@ P18-PR-01 is complete.
 P18-PR-02 is complete.
 P18-PR-03 is complete.
 P18-PR-04 is complete.
+P19 Real Internal CRM Runtime Activation is current. P19-PR-01 is current.
+Internal team usage must use provider auth. Mock/demo mode is dev/test only.
+Demo role switcher is not used in provider mode. Backend
+AuthContext/workspace membership is source of truth. client-supplied workspaceId
+is not authoritative. Viewer is read-only. Owner/agent CRM mutation policy
+remains enforced. CLARA is not public GA launch. Billing/payment remains
+deferred. Official WA/IG/TikTok APIs remain not activated. Outbound auto-send
+remains disabled.
 Post-P18 completion handoff confirms controlled runtime trial scope,
 participant rules, evidence plan, smoke checklist, pass/fail criteria, evidence
 capture guide, execution log, evidence log, issue disposition, final runtime
@@ -132,6 +140,7 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 | P16   | Extension-Assisted Channel Ingestion Hardening | complete |
 | P17   | Real AI Analysis Activation             | complete |
 | P18   | Controlled Internal Runtime Trial + Operational Readiness | complete |
+| P19   | Real Internal CRM Runtime Activation    | current  |
 
 ## P12 Compact Roadmap
 
@@ -191,6 +200,11 @@ CLARA is not production deployed yet. CLARA is not public GA launched yet.
 - P18-PR-02 Controlled Runtime Trial Smoke Checklist + Evidence Capture. Complete.
 - P18-PR-03 Controlled Runtime Trial Execution + Evidence Log. Complete.
 - P18-PR-04 Final Controlled Runtime Trial Review + Operational Handoff. Complete.
+
+## P19 Compact Roadmap
+
+- P19-PR-01 Real Internal CRM Runtime Activation + Mock/Demo Usage Removal Gate.
+  Current.
 
 Runtime evidence must not include secrets/tokens/cookies/auth headers/raw
 provider payload/raw webhook payload/raw HTML/raw DOM/raw prompts/raw customer

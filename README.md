@@ -17,11 +17,21 @@ It contains the documentation, architecture, standards, templates, governance, i
 # Repository Status
 
 ```text
-Status: P1-P18 complete for controlled internal use; local product slice runnable
-Current focus: Post-P18 controlled runtime trial handoff complete; next phase requires separate explicit approval
-Current PR: none
+Status: P1-P18 complete for controlled internal use; P19 real internal CRM runtime activation current
+Current focus: provider-authenticated internal CRM usage with mock/demo gated to dev/test
+Current PR: P19-PR-01 Real Internal CRM Runtime Activation + Mock/Demo Usage Removal Gate
 Launch status: not public GA launched yet; not production deployed yet
 ```
+
+P19 Real Internal CRM Runtime Activation is current. P19-PR-01 requires real
+internal CRM usage to use provider auth, real workspace membership, and backend
+role resolution. Internal team usage must use provider auth. Mock/demo mode is
+dev/test only. Demo role switcher is not used in provider mode. Backend
+AuthContext/workspace membership is source of truth. client-supplied workspaceId
+is not authoritative. Viewer is read-only. Owner/agent CRM mutation policy
+remains enforced. CLARA is not public GA launch. Billing/payment remains
+deferred. Official WA/IG/TikTok APIs remain not activated. Outbound auto-send
+remains disabled.
 
 P13 Internal CRM Product Activation is complete. P14 Internal Beta Rollout
 Preparation is complete. P14-PR-01 is complete. P14-PR-02 is

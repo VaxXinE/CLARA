@@ -41,27 +41,29 @@ for path in "${required_paths[@]}"; do
   fi
 done
 
-if find . -path "./.git" -prune -o -name ".env" -print | grep -q .; then
+tracked_files="$(git ls-files)"
+
+if grep -qE '(^|/)\.env$' <<<"$tracked_files"; then
   echo "Security check failed: .env file found. Do not commit .env files."
   missing=1
 fi
 
-if find . -path "./.git" -prune -o -name ".env.local" -print | grep -q .; then
+if grep -qE '(^|/)\.env\.local$' <<<"$tracked_files"; then
   echo "Security check failed: .env.local file found. Do not commit local env files."
   missing=1
 fi
 
-if find . -path "./.git" -prune -o -name ".env.production" -print | grep -q .; then
+if grep -qE '(^|/)\.env\.production$' <<<"$tracked_files"; then
   echo "Security check failed: .env.production file found. Do not commit production env files."
   missing=1
 fi
 
-if find . -path "./.git" -prune -o -name ".DS_Store" -print | grep -q .; then
+if grep -qE '(^|/)\.DS_Store$' <<<"$tracked_files"; then
   echo "Repository hygiene check failed: .DS_Store file found."
   missing=1
 fi
 
-if find . -path "./.git" -prune -o \( -name "*.pem" -o -name "*.key" -o -name "id_rsa" -o -name "id_ed25519" \) -print | grep -q .; then
+if grep -qE '\.pem$|\.key$|(^|/)id_rsa$|(^|/)id_ed25519$' <<<"$tracked_files"; then
   echo "Security check failed: possible private key file found."
   missing=1
 fi
