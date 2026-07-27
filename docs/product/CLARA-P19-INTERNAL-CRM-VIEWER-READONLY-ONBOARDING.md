@@ -1,6 +1,6 @@
 # CLARA P19 Internal CRM Viewer Read-Only Onboarding
 
-P19-PR-05 is current/final onboarding handoff gate.
+P19-PR-05 is complete. P19 is complete.
 
 Viewer is read-only. Viewers may inspect allowed workspace-scoped CRM data but
 must not create/update customers, add notes, change lifecycle/status, assign

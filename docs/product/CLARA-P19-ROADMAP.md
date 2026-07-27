@@ -8,7 +8,7 @@ classification: "roadmap"
 
 # P19 Roadmap
 
-P19 activates the real internal CRM runtime gate after P18 controlled runtime
+P19 completed the real internal CRM runtime gate after P18 controlled runtime
 trial completion.
 
 ## P19-PR-01
@@ -107,11 +107,20 @@ Acceptance:
 
 ## P19-PR-05
 
-Internal CRM Operator Onboarding + Production-like Usage Handoff is current/final onboarding handoff gate.
+Internal CRM Operator Onboarding + Production-like Usage Handoff is complete.
 
-P19-PR-05 is current/final onboarding handoff gate.
+P19-PR-05 is complete.
 
-P19 completion requires P19-PR-05 validation and merge.
+P19 is complete.
+
+Post-P19 handoff summary exists. P19 completed real internal CRM runtime
+activation, provider auth internal runtime gate, mock/demo usage removal gate
+for operators, real workspace/user/role bootstrap, internal team access, real
+customer data entry workflow, customer create/update, customer notes/activity
+timeline, lifecycle/status workflow, owner assignment, conversation-to-customer
+linking, internal deployment runtime hardening, environment hardening,
+operator/admin/viewer onboarding, and production-like internal usage handoff.
+Any next phase requires separate explicit product approval.
 
 Acceptance:
 

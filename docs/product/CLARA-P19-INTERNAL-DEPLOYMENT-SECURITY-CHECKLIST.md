@@ -1,7 +1,7 @@
 # CLARA P19 Internal Deployment Security Checklist
 
 - P19-PR-03 is complete.
-- P19-PR-04 is current.
+- P19-PR-04 is complete.
 - P19-PR-05 is next.
 - Internal team usage must use provider auth.
 - Mock/demo mode is dev/test only.
@@ -21,4 +21,3 @@
 - Billing/payment remains deferred.
 - Official WA/IG/TikTok APIs remain not activated.
 - Outbound auto-send remains disabled.
-

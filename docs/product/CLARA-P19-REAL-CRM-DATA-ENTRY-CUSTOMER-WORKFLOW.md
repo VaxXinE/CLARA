@@ -7,7 +7,7 @@ classification: "internal-runbook"
 
 # P19 Real CRM Data Entry Customer Workflow
 
-P19-PR-02 is complete. P19-PR-03 is current. P19-PR-04 is next:
+P19-PR-02 is complete. P19-PR-03 is complete. P19-PR-04 is complete:
 Internal CRM Deployment Runtime + Environment Hardening.
 
 Internal team usage must use provider auth. Mock/demo mode is dev/test only.

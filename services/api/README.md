@@ -5,14 +5,14 @@ CLARA API service.
 ## Status
 
 ```text
-P1-P18 complete; P19 Real Internal CRM Runtime Activation current
+P1-P19 complete for controlled internal use
 ```
 
 P19-PR-01 is complete. P19-PR-02 Real Workspace/User/Role Bootstrap + Internal
 Team Access is complete. P19-PR-03 Real CRM Data Entry + Customer Workflow
 Runtime is complete. P19-PR-04 Internal CRM Deployment Runtime + Environment
-Hardening is complete. P19-PR-05 is current/final onboarding handoff gate.
-P19 completion requires P19-PR-05 validation and merge.
+Hardening is complete. P19-PR-05 is complete. P19 is complete.
+Post-P19 handoff summary exists. Any next phase requires separate explicit product approval.
 
 P19 adds an explicit internal CRM runtime guard:
 `INTERNAL_CRM_RUNTIME_ENABLED=true` requires `AUTH_MODE=provider`,

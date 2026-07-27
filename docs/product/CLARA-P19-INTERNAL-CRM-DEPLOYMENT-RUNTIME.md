@@ -1,6 +1,6 @@
 # CLARA P19 Internal CRM Deployment Runtime
 
-P19-PR-03 is complete. P19-PR-04 is current. P19-PR-05 is next:
+P19-PR-03 is complete. P19-PR-04 is complete. P19-PR-05 is complete:
 Internal CRM Operator Onboarding + Production-like Usage Handoff.
 
 This runtime path lets the internal team use CLARA from an internal URL. It is
@@ -22,4 +22,3 @@ Runtime checks:
 - Dashboard provider mode must not send mock headers.
 - CORS/internal origin must be explicit and not wildcard.
 - Env examples must not contain real secrets.
-

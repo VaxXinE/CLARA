@@ -12,7 +12,7 @@ describe("P19 real CRM roadmap", () => {
     expect(roadmap).toContain("P19-PR-02 is complete");
     expect(roadmap).toContain("P19-PR-03 is complete");
     expect(roadmap).toContain("P19-PR-04 is complete");
-    expect(roadmap).toContain("P19-PR-05 is current/final onboarding handoff gate");
+    expect(roadmap).toContain("P19-PR-05 is complete");
     expect(roadmap).toContain(
       "Internal CRM Deployment Runtime + Environment Hardening",
     );

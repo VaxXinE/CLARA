@@ -8,7 +8,7 @@ classification: "runbook"
 
 # P19 First Owner Bootstrap Runbook
 
-P19-PR-01 is complete. P19-PR-02 is current. P19-PR-03 is next.
+P19-PR-01 is complete. P19-PR-02 is complete. P19-PR-03 is complete.
 
 Use this runbook before an internal team uses CLARA as a real CRM.
 

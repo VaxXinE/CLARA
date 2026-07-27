@@ -9,7 +9,7 @@ classification: "checklist"
 # P19 Internal Team Onboarding Checklist
 
 - [ ] P19-PR-01 is complete.
-- [ ] P19-PR-02 is current.
+- [ ] P19-PR-02 is complete.
 - [ ] P19-PR-03 is next.
 - [ ] First owner bootstrap is complete.
 - [ ] Internal team usage uses provider auth.

@@ -1,7 +1,6 @@
 # CLARA P19 Internal CRM Admin Owner Onboarding
 
-P19-PR-04 is complete. P19-PR-05 is current/final onboarding handoff gate.
-P19 completion requires P19-PR-05 validation and merge.
+P19-PR-04 is complete. P19-PR-05 is complete. P19 is complete.
 
 Owner/admin setup:
 
@@ -17,4 +16,3 @@ only. Internal team usage must use provider auth.
 
 Do not add billing/payment, official WA/IG/TikTok APIs, public SaaS launch,
 public GA launch, or outbound auto-send during onboarding.
-

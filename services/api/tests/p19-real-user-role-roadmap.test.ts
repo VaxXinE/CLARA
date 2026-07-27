@@ -18,8 +18,8 @@ describe("P19 real user role roadmap", () => {
     const text = docs.join("\n").replace(/\s+/g, " ");
 
     expect(text).toContain("P19-PR-01 is complete");
-    expect(text).toContain("P19-PR-02 is current");
-    expect(text).toContain("P19-PR-03 is next");
+    expect(text).toContain("P19-PR-02 is complete");
+    expect(text).toContain("P19-PR-03 is complete");
     expect(text).toContain("Internal team usage must use provider auth");
     expect(text).toContain("Mock/demo mode is dev/test only");
     expect(text).toContain("First owner bootstrap is required for real internal usage");
